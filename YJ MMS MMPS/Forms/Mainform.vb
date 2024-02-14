@@ -27,13 +27,13 @@ Public Class Mainform
     Private Sub UpdatePG_Run()
 
         Dim pgClose As Boolean = False
-        If UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")) < 0 Then
+        If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) < 0 Then
             Try
-                Shell(Application.StartupPath & "\UpdateChecker.exe", AppWinStyle.Hide)
+                Shell(Application.StartupPath & "\Update Checker.exe", AppWinStyle.Hide)
             Catch ex As Exception
                 If MsgBox("업데이트 확인 프로그램을 실행 할 수 없습니다." & vbCrLf &
                           "무시 후 계속 진행하시겠습니까?" & vbCrLf &
-                          "( " & Application.StartupPath & "\UpdateChecker.exe" & " )",
+                          "( " & Application.StartupPath & "\Update Checker.exe" & " )",
                             MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_msgbox_string) = MsgBoxResult.No Then
                     pgClose = True
                 End If
@@ -81,12 +81,12 @@ Public Class Mainform
 
         '아래 목록은 YJ 프로그램이 실행된 상태인지 확인 후 하나라도 켜져 있다면 업데이트체커 프로그램을 끄지 않도록 한다.
         '현재 내자신(프로그램)을 제외하고 실행되었는지 확인 후 없다면 업데이트체커 프로그램을 종료시킨다.
-        Dim mmpsProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS MMPS")
-        Dim mmsProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS MMMS")
-        Dim labelProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS Label Printer")
+        Dim process_RepairSystem() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Repair System")
+        Dim process_YJ_MMS() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS")
 
         If ucProcess.Length > 0 Then
-            If mmsProcess.Length = 0 And labelProcess.Length = 0 Then
+            If process_RepairSystem.Length = 0 And
+                process_YJ_MMS.Length = 0 Then
                 ucProcess(0).Kill()
             End If
         End If

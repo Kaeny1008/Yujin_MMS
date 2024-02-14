@@ -51,29 +51,29 @@
 
         If cb_RunProgram.Text = "Repair System" Then
             '마지막 Login된 ID를 기록
-            registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "User ID", USER_ID.Text)
-            registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "Site", cb_RunProgram.Text)
+            registryEdit.WriteRegKey("Software\Yujin\Login", "User ID", USER_ID.Text)
+            registryEdit.WriteRegKey("Software\Yujin\Login", "Site", cb_RunProgram.Text)
 
             If CB_PASS_SAVE.Checked Then
-                registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "Pass Save", "Yes")
-                registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "Pass", USER_PASS.Text)
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass Save", "Yes")
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass", USER_PASS.Text)
             Else
-                registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "Pass Save", "No")
-                registryEdit.WriteRegKey("Software\Yujin\Repair System\Login", "Pass", String.Empty)
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass Save", "No")
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass", String.Empty)
             End If
 
             run_file += "\Repair System.exe"
         ElseIf cb_RunProgram.Text = "오삽방지 시스템" Then
             '마지막 Login된 ID를 기록
-            registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "User ID", USER_ID.Text)
-            registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "Site", cb_RunProgram.Text)
+            registryEdit.WriteRegKey("Software\Yujin\Login", "User ID", USER_ID.Text)
+            registryEdit.WriteRegKey("Software\Yujin\Login", "Site", cb_RunProgram.Text)
 
             If CB_PASS_SAVE.Checked Then
-                registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "Pass Save", "Yes")
-                registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "Pass", USER_PASS.Text)
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass Save", "Yes")
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass", USER_PASS.Text)
             Else
-                registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "Pass Save", "No")
-                registryEdit.WriteRegKey("Software\Yujin\MMPS\Login", "Pass", String.Empty)
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass Save", "No")
+                registryEdit.WriteRegKey("Software\Yujin\Login", "Pass", String.Empty)
             End If
 
             run_file += "\YJ MMS MMPS.exe"
@@ -89,25 +89,25 @@
     Private Sub MMSLogin_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         '마지막 Login된 ID를 불러와서 USER_ID에 기록
-        cb_RunProgram.Text = registryEdit.ReadRegKey("Software\Yujin", "Site", "Repair System")
+        cb_RunProgram.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "Site", "Repair System")
 
         If cb_RunProgram.Text = "Repair System" Then
-            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "User ID", "ADMIN")
+            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "ADMIN")
 
             If Not USER_ID.Text = "" Then USER_PASS.Focus()
 
-            If registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "Pass Save", "No") = "Yes" Then
+            If registryEdit.ReadRegKey("Software\Yujin\Login", "Pass Save", "No") = "Yes" Then
                 CB_PASS_SAVE.Checked = True
-                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "Pass", String.Empty)
+                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "Pass", String.Empty)
             End If
         ElseIf cb_RunProgram.Text = "오삽방지 시스템" Then
-            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "User ID", "ADMIN")
+            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "ADMIN")
 
             If Not USER_ID.Text = "" Then USER_PASS.Focus()
 
-            If registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "Pass Save", "No") = "Yes" Then
+            If registryEdit.ReadRegKey("Software\Yujin\Login", "Pass Save", "No") = "Yes" Then
                 CB_PASS_SAVE.Checked = True
-                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "Pass", String.Empty)
+                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "Pass", String.Empty)
             End If
         End If
 
@@ -120,25 +120,25 @@
 
         If cb_RunProgram.Text = "Repair System" Then
 
-            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "User ID", "ADMIN")
+            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "ADMIN")
 
             If Not USER_ID.Text = "" Then USER_PASS.Focus()
 
-            If registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "Pass Save", "No") = "Yes" Then
+            If registryEdit.ReadRegKey("Software\Yujin\Login", "Pass Save", "No") = "Yes" Then
                 CB_PASS_SAVE.Checked = True
-                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Repair System\Login", "Pass", String.Empty)
+                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "Pass", String.Empty)
             Else
                 USER_PASS.Text = String.Empty
             End If
         ElseIf cb_RunProgram.Text = "오삽방지 시스템" Then
 
-            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "User ID", "ADMIN")
+            USER_ID.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "ADMIN")
 
             If Not USER_ID.Text = "" Then USER_PASS.Focus()
 
-            If registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "Pass Save", "No") = "Yes" Then
+            If registryEdit.ReadRegKey("Software\Yujin\Login", "Pass Save", "No") = "Yes" Then
                 CB_PASS_SAVE.Checked = True
-                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\MMPS\Login", "Pass", String.Empty)
+                USER_PASS.Text = registryEdit.ReadRegKey("Software\Yujin\Login", "Pass", String.Empty)
             Else
                 USER_PASS.Text = String.Empty
             End If

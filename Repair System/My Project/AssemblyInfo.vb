@@ -10,9 +10,9 @@ Imports System.Runtime.InteropServices
 
 <Assembly: AssemblyTitle("Repair System")>
 <Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("Yujin Electronis")>
+<Assembly: AssemblyCompany("Yujin Electronics")>
 <Assembly: AssemblyProduct("Repair System")>
-<Assembly: AssemblyCopyright("Copyright © Yujin Electronis")>
+<Assembly: AssemblyCopyright("Copyright © Yujin Electronics")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

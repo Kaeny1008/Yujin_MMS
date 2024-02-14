@@ -13,7 +13,7 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,7 +47,17 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="RegistryEdit">
+      <HintPath>..\Add DLL\RegistryEdit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -73,13 +83,45 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="Forms\frm_LoadingImage.Designer.vb">
+      <DependentUpon>frm_LoadingImage.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_LoadingImage.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="Forms\frm_Main.Designer.vb">
+      <DependentUpon>frm_Main.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Main.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frm_Sub.Designer.vb">
+      <DependentUpon>frm_Sub.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Sub.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
+      <DependentUpon>frm_Code_Manager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_Code_Manager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_PG_Upload.Designer.vb">
+      <DependentUpon>frm_PG_Upload.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_PG_Upload.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_SQL_Conn.Designer.vb">
+      <DependentUpon>frm_SQL_Conn.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_SQL_Conn.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Module\md_ETC.vb" />
+    <Compile Include="Module\md_FTP.vb" />
+    <Compile Include="Module\md_MySQL_Connection.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -97,9 +139,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\frm_LoadingImage.resx">
+      <DependentUpon>frm_LoadingImage.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Main.resx">
+      <DependentUpon>frm_Main.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Sub.resx">
+      <DependentUpon>frm_Sub.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
+      <DependentUpon>frm_Code_Manager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setting Form\frm_PG_Upload.resx">
+      <DependentUpon>frm_PG_Upload.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setting Form\frm_SQL_Conn.resx">
+      <DependentUpon>frm_SQL_Conn.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -108,6 +166,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -118,6 +177,249 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Activity Monitor_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-to-database_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-to-database_241.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_double.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Autoship_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Autoship_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barcode-2d.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bytecode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Close_Box_Red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceData.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\document_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Document-Open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EXCEL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\excel2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_beige.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_orange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_yellow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Globe-Download_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HearCount1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\HearCount2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\index.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Map Out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mounter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\New.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\None Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open-Folder-Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\order-history_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\order-history_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phone_settings_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\picture_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\picture_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-blue1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-blue-16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PMIC Reg FAIL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PMIC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-Info_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Process-Warning_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\product-sales-report_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RCD Count.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RCD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove-from-database_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_add2_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_delete2_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Setting_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SRB CRB Test Fail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Star-Full_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TEST_FOLDER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vmware.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\web-management.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sitemap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yujin_logo.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search_121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus-blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

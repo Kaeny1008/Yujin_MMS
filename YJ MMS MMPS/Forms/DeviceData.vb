@@ -66,7 +66,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_name from tb_mmps_customer_list"
+        Dim strSQL As String = "select customer_name from tb_customer_list"
         strSQL += " order by customer_name"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -89,7 +89,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_mmps_customer_list"
+        Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_name = '" & Cb_customerName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -191,13 +191,13 @@ Public Class DeviceData
 
             Dim write_date As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-            strSQL = "insert into tb_mmps_customer_list(customer_code, customer_name, write_date, write_id) values"
+            strSQL = "insert into tb_customer_list(customer_code, customer_name, write_date, write_id) values"
             strSQL += "('" & Tb_customerCode.Text & "'"
             strSQL += ",'" & Cb_customerName.Text & "'"
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
-            strSQL += "insert into tb_mmps_sub_code(write_date, sub_code, sub_code_name, main_code, sub_code_note) values"
+            strSQL += "insert into tb_code_sub(write_date, sub_code, sub_code_name, main_code, sub_code_note) values"
             strSQL += "('" & write_date & "'"
             strSQL += ",'" & Tb_customerCode.Text & "'"
             strSQL += ",'" & Cb_customerName.Text & "'"
@@ -229,7 +229,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_mmps_customer_list order by customer_code desc limit 1"
+        Dim strSQL As String = "select customer_code from tb_customer_list order by customer_code desc limit 1"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -324,7 +324,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_mmps_customer_list"
+        Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -394,7 +394,7 @@ Public Class DeviceData
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
-            strSQL += "insert into tb_mmps_last_code(write_date, last_code, last_code_name, sub_code, main_code, last_code_note) values"
+            strSQL += "insert into tb_code_last(write_date, last_code, last_code_name, sub_code, main_code, last_code_note) values"
             strSQL += "('" & write_date & "'"
             strSQL += ",'" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_modelName.Text & "'"
@@ -1201,7 +1201,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code from tb_mmps_sub_code"
+        Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & Cb_FactoryName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -1229,7 +1229,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code_name from tb_mmps_sub_code"
+        Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC0002' order by sub_code_name"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -1259,7 +1259,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select last_code_name from tb_mmps_last_code"
+        Dim strSQL As String = "select last_code_name from tb_code_last"
         strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)

@@ -34,13 +34,13 @@ Public Class frm_Main
     Private Sub UpdatePG_Run()
 
         Dim pgClose As Boolean = False
-        If UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")) < 0 Then
+        If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) < 0 Then
             Try
-                Shell(Application.StartupPath & "\UpdateChecker.exe", AppWinStyle.Hide)
+                Shell(Application.StartupPath & "\Update Checker.exe", AppWinStyle.Hide)
             Catch ex As Exception
                 If MsgBox("업데이트 확인 프로그램을 실행 할 수 없습니다." & vbCrLf &
                           "무시 후 계속 진행하시겠습니까?" & vbCrLf &
-                          "( " & Application.StartupPath & "\UpdateChecker.exe" & " )",
+                          "( " & Application.StartupPath & "\Update Checker.exe" & " )",
                             MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Update Checker") = MsgBoxResult.No Then
                     pgClose = True
                 End If
