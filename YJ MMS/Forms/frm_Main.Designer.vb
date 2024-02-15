@@ -39,19 +39,12 @@ Partial Class frm_Main
         Me.btn_PrinterSetting = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_PGUpdate = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btn_PartsManager = New System.Windows.Forms.ToolStripDropDownButton()
-        Me.btn_Material_In_Add = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_Module_In_Add = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btn_Lot_Residence_Time = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_Lot_Total_Information = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btn_Material_Lot_Information = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_Material_Total_Information = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.btn_OMS_WIP_Data = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_BasicInformation = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.btn_CustomerMNG = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_ModelMNG = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.btn_CustomerResistration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_ModelResistration = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -106,7 +99,7 @@ Partial Class frm_Main
         '
         Me.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnHome, Me.btnSetting, Me.ToolStripSeparator1, Me.btn_PartsManager})
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnHome, Me.btnSetting, Me.ToolStripSeparator1, Me.btn_BasicInformation})
         Me.ToolStrip.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip.Name = "ToolStrip"
         Me.ToolStrip.Size = New System.Drawing.Size(1123, 31)
@@ -174,87 +167,44 @@ Partial Class frm_Main
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
         '
-        'btn_PartsManager
+        'btn_BasicInformation
         '
-        Me.btn_PartsManager.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.btn_PartsManager.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Material_In_Add, Me.btn_Module_In_Add, Me.ToolStripSeparator5, Me.btn_Lot_Residence_Time, Me.btn_Lot_Total_Information, Me.ToolStripSeparator7, Me.btn_Material_Lot_Information, Me.ToolStripMenuItem1, Me.btn_Material_Total_Information, Me.ToolStripSeparator2, Me.btn_OMS_WIP_Data})
-        Me.btn_PartsManager.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.btn_PartsManager.Image = CType(resources.GetObject("btn_PartsManager.Image"), System.Drawing.Image)
-        Me.btn_PartsManager.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btn_PartsManager.Name = "btn_PartsManager"
-        Me.btn_PartsManager.Size = New System.Drawing.Size(99, 28)
-        Me.btn_PartsManager.Text = "입고 / 재공"
+        Me.btn_BasicInformation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.btn_BasicInformation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_CustomerMNG, Me.btn_ModelMNG})
+        Me.btn_BasicInformation.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.btn_BasicInformation.Image = CType(resources.GetObject("btn_BasicInformation.Image"), System.Drawing.Image)
+        Me.btn_BasicInformation.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btn_BasicInformation.Name = "btn_BasicInformation"
+        Me.btn_BasicInformation.Size = New System.Drawing.Size(117, 28)
+        Me.btn_BasicInformation.Text = "기초정보 관리"
         '
-        'btn_Material_In_Add
+        'btn_CustomerMNG
         '
-        Me.btn_Material_In_Add.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Material_In_Add.Name = "btn_Material_In_Add"
-        Me.btn_Material_In_Add.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Material_In_Add.Text = "자재 입고 등록"
+        Me.btn_CustomerMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_CustomerResistration})
+        Me.btn_CustomerMNG.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.btn_CustomerMNG.Name = "btn_CustomerMNG"
+        Me.btn_CustomerMNG.Size = New System.Drawing.Size(180, 22)
+        Me.btn_CustomerMNG.Text = "고객사 관리"
         '
-        'btn_Module_In_Add
+        'btn_ModelMNG
         '
-        Me.btn_Module_In_Add.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Module_In_Add.Name = "btn_Module_In_Add"
-        Me.btn_Module_In_Add.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Module_In_Add.Text = "Module / Comp 입고 등록"
+        Me.btn_ModelMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_ModelResistration})
+        Me.btn_ModelMNG.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.btn_ModelMNG.Name = "btn_ModelMNG"
+        Me.btn_ModelMNG.Size = New System.Drawing.Size(180, 22)
+        Me.btn_ModelMNG.Text = "모델 관리"
         '
-        'ToolStripSeparator5
+        'btn_CustomerResistration
         '
-        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
-        Me.ToolStripSeparator5.Size = New System.Drawing.Size(216, 6)
+        Me.btn_CustomerResistration.Name = "btn_CustomerResistration"
+        Me.btn_CustomerResistration.Size = New System.Drawing.Size(180, 22)
+        Me.btn_CustomerResistration.Text = "고객사 등록"
         '
-        'btn_Lot_Residence_Time
+        'btn_ModelResistration
         '
-        Me.btn_Lot_Residence_Time.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Lot_Residence_Time.Name = "btn_Lot_Residence_Time"
-        Me.btn_Lot_Residence_Time.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Lot_Residence_Time.Text = "Lot 정체일(현장출고 후)"
-        '
-        'btn_Lot_Total_Information
-        '
-        Me.btn_Lot_Total_Information.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Lot_Total_Information.Name = "btn_Lot_Total_Information"
-        Me.btn_Lot_Total_Information.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Lot_Total_Information.Text = "Module Lot 정보보기"
-        '
-        'ToolStripSeparator7
-        '
-        Me.ToolStripSeparator7.Name = "ToolStripSeparator7"
-        Me.ToolStripSeparator7.Size = New System.Drawing.Size(216, 6)
-        '
-        'btn_Material_Lot_Information
-        '
-        Me.btn_Material_Lot_Information.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Material_Lot_Information.Name = "btn_Material_Lot_Information"
-        Me.btn_Material_Lot_Information.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Material_Lot_Information.Text = "자재 Lot별 정보보기"
-        '
-        'ToolStripMenuItem1
-        '
-        Me.ToolStripMenuItem1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(219, 22)
-        Me.ToolStripMenuItem1.Text = "자재 Part No.별 정보보기"
-        '
-        'btn_Material_Total_Information
-        '
-        Me.btn_Material_Total_Information.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_Material_Total_Information.Name = "btn_Material_Total_Information"
-        Me.btn_Material_Total_Information.Size = New System.Drawing.Size(219, 22)
-        Me.btn_Material_Total_Information.Text = "자재 종합정보"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(216, 6)
-        '
-        'btn_OMS_WIP_Data
-        '
-        Me.btn_OMS_WIP_Data.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.btn_OMS_WIP_Data.Name = "btn_OMS_WIP_Data"
-        Me.btn_OMS_WIP_Data.Size = New System.Drawing.Size(219, 22)
-        Me.btn_OMS_WIP_Data.Text = "OMS 재공데이터 생성"
+        Me.btn_ModelResistration.Name = "btn_ModelResistration"
+        Me.btn_ModelResistration.Size = New System.Drawing.Size(180, 22)
+        Me.btn_ModelResistration.Text = "모델 등록"
         '
         'frm_Main
         '
@@ -284,17 +234,7 @@ Partial Class frm_Main
     Friend WithEvents ToolStrip As ToolStrip
     Friend WithEvents btnHome As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents btn_PartsManager As ToolStripDropDownButton
-    Friend WithEvents btn_Module_In_Add As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents btn_OMS_WIP_Data As ToolStripMenuItem
-    Friend WithEvents btn_Material_In_Add As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
-    Friend WithEvents btn_Lot_Total_Information As ToolStripMenuItem
-    Friend WithEvents btn_Material_Lot_Information As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator7 As ToolStripSeparator
-    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
-    Friend WithEvents btn_Material_Total_Information As ToolStripMenuItem
+    Friend WithEvents btn_BasicInformation As ToolStripDropDownButton
     Friend WithEvents btnSetting As ToolStripDropDownButton
     Friend WithEvents btn_SQLConn As ToolStripMenuItem
     Friend WithEvents btn_CodeManager As ToolStripMenuItem
@@ -303,5 +243,8 @@ Partial Class frm_Main
     Friend WithEvents btn_PGUpdate As ToolStripMenuItem
     Friend WithEvents pgbMain As ToolStripProgressBar
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents btn_Lot_Residence_Time As ToolStripMenuItem
+    Friend WithEvents btn_CustomerMNG As ToolStripMenuItem
+    Friend WithEvents btn_ModelMNG As ToolStripMenuItem
+    Friend WithEvents btn_CustomerResistration As ToolStripMenuItem
+    Friend WithEvents btn_ModelResistration As ToolStripMenuItem
 End Class

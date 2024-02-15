@@ -108,4 +108,20 @@ Public Class frm_Main
         frm_PG_Upload.Focus()
 
     End Sub
+
+    Private Sub btn_CustomerResistration_Click(sender As Object, e As EventArgs) Handles btn_CustomerResistration.Click
+
+        frm_CustomerResistration.MdiParent = Me
+        If Not frm_CustomerResistration.Visible Then frm_CustomerResistration.Show()
+        frm_CustomerResistration.Focus()
+
+    End Sub
+
+    Private Sub btn_ModelResistration_Click(sender As Object, e As EventArgs) Handles btn_ModelResistration.Click
+
+        frm_ModelResistration.MdiParent = Me
+        If Not frm_ModelResistration.Visible Then frm_ModelResistration.Show()
+        frm_ModelResistration.Focus()
+
+    End Sub
 End Class
