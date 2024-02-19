@@ -41,10 +41,11 @@ Partial Class frm_Main
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.btn_BasicInformation = New System.Windows.Forms.ToolStripDropDownButton()
         Me.btn_CustomerMNG = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_ModelMNG = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.btn_CustomerResistration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_ModelMNG = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_ModelResistration = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.btn_ModelDocument = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -186,25 +187,31 @@ Partial Class frm_Main
         Me.btn_CustomerMNG.Size = New System.Drawing.Size(180, 22)
         Me.btn_CustomerMNG.Text = "고객사 관리"
         '
+        'btn_CustomerResistration
+        '
+        Me.btn_CustomerResistration.Name = "btn_CustomerResistration"
+        Me.btn_CustomerResistration.Size = New System.Drawing.Size(138, 22)
+        Me.btn_CustomerResistration.Text = "고객사 등록"
+        '
         'btn_ModelMNG
         '
-        Me.btn_ModelMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_ModelResistration})
+        Me.btn_ModelMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_ModelResistration, Me.btn_ModelDocument})
         Me.btn_ModelMNG.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.btn_ModelMNG.Name = "btn_ModelMNG"
         Me.btn_ModelMNG.Size = New System.Drawing.Size(180, 22)
         Me.btn_ModelMNG.Text = "모델 관리"
-        '
-        'btn_CustomerResistration
-        '
-        Me.btn_CustomerResistration.Name = "btn_CustomerResistration"
-        Me.btn_CustomerResistration.Size = New System.Drawing.Size(180, 22)
-        Me.btn_CustomerResistration.Text = "고객사 등록"
         '
         'btn_ModelResistration
         '
         Me.btn_ModelResistration.Name = "btn_ModelResistration"
         Me.btn_ModelResistration.Size = New System.Drawing.Size(180, 22)
         Me.btn_ModelResistration.Text = "모델 등록"
+        '
+        'btn_ModelDocument
+        '
+        Me.btn_ModelDocument.Name = "btn_ModelDocument"
+        Me.btn_ModelDocument.Size = New System.Drawing.Size(180, 22)
+        Me.btn_ModelDocument.Text = "모델별 자료"
         '
         'frm_Main
         '
@@ -247,4 +254,5 @@ Partial Class frm_Main
     Friend WithEvents btn_ModelMNG As ToolStripMenuItem
     Friend WithEvents btn_CustomerResistration As ToolStripMenuItem
     Friend WithEvents btn_ModelResistration As ToolStripMenuItem
+    Friend WithEvents btn_ModelDocument As ToolStripMenuItem
 End Class

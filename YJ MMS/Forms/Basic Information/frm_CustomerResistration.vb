@@ -14,9 +14,13 @@ Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 Public Class frm_CustomerResistration
+
     Private Sub frm_CustomerResistration_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
+
+        Timer1.Interval = 1000
+        Timer1.Enabled = False
 
     End Sub
 
@@ -34,9 +38,9 @@ Public Class frm_CustomerResistration
             .Rows.Fixed = 1
             .Rows.Count = 1
             grid_CustomerList(0, 0) = "No"
-            grid_CustomerList(0, 1) = "고객코드"
-            grid_CustomerList(0, 2) = "고객사명"
-            grid_CustomerList(0, 3) = "모델구분(구분자 ;)"
+            grid_CustomerList(0, 1) = "고객코드(*)"
+            grid_CustomerList(0, 2) = "고객사명(*)"
+            grid_CustomerList(0, 3) = "모델구분"
             grid_CustomerList(0, 4) = "등록 모델 수"
             grid_CustomerList(0, 5) = "비고"
             .AutoClipboard = True
@@ -44,6 +48,7 @@ Public Class frm_CustomerResistration
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
+            .Cols.Frozen = 2
             .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
@@ -71,27 +76,34 @@ Public Class frm_CustomerResistration
 
     Private Sub grid_CustomerList_RowColChange(sender As Object, e As EventArgs) Handles grid_CustomerList.RowColChange
 
+        If grid_CustomerList.Row < 0 Then Exit Sub
+
         Select Case grid_CustomerList.Col
             Case 1, 4
                 grid_CustomerList.AllowEditing = False
             Case Else
-                grid_CustomerList.AllowEditing = True
+                If IsNothing(grid_CustomerList(grid_CustomerList.Row, 0)) Then Exit Sub
+                If grid_CustomerList(grid_CustomerList.Row, 0).ToString.Equals("D") Then
+                    grid_CustomerList.AllowEditing = False
+                Else
+                    grid_CustomerList.AllowEditing = True
+                End If
         End Select
 
-        If grid_CustomerList.Row < 1 Then Exit Sub
+    End Sub
 
-        Select Case grid_CustomerList(grid_CustomerList.Row, 0)
-            Case "D"
-                grid_CustomerList.AllowEditing = False
-            Case Else
-                grid_CustomerList.AllowEditing = True
-        End Select
+    Dim before_data As String
+    Private Sub grid_CustomerList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles grid_CustomerList.BeforeEdit
+
+        before_data = grid_CustomerList(e.Row, e.Col)
 
     End Sub
 
     Private Sub grid_CustomerList_AfterEdit(sender As Object, e As RowColEventArgs) Handles grid_CustomerList.AfterEdit
 
         If grid_CustomerList(e.Row, 0).Equals("D") Then Exit Sub
+
+        If before_data = grid_CustomerList(e.Row, e.Col) Then Exit Sub
 
         grid_CustomerList.Redraw = False
 
@@ -101,9 +113,10 @@ Public Class frm_CustomerResistration
 
         Dim cs As CellStyle = grid_CustomerList.Styles.Add("red")
         cs.BackColor = Color.Yellow
+        cs.ForeColor = Color.Red
 
         grid_CustomerList.SetCellStyle(e.Row, e.Col, cs)
-        grid_CustomerList.Rows(e.Row).StyleNew.ForeColor = Color.Red
+
         grid_CustomerList.AutoSizeCols()
 
         grid_CustomerList.Redraw = True
@@ -159,7 +172,7 @@ Public Class frm_CustomerResistration
 
         For i = 1 To grid_CustomerList.Rows.Count - 1
             If grid_CustomerList(i, 2) = String.Empty Then
-                MsgBox("고객사명이 이력되지 않은 항목이 있습니다.",
+                MsgBox("고객사명이 입력되지 않은 항목이 있습니다.",
                        vbInformation,
                        msg_form)
                 Exit Sub
@@ -186,7 +199,7 @@ Public Class frm_CustomerResistration
 
             For i = 1 To grid_CustomerList.Rows.Count - 1
                 If grid_CustomerList(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_customer_list(customer_code, customer_name, model_gubun"
+                    strSQL += "insert into tb_customer_list(customer_code, customer_name, model_series"
                     strSQL += ", customer_note, write_date, write_id) values("
                     strSQL += "'" & grid_CustomerList(i, 1) & "'"
                     strSQL += ", '" & grid_CustomerList(i, 2) & "'"
@@ -197,10 +210,10 @@ Public Class frm_CustomerResistration
                 ElseIf grid_CustomerList(i, 0).ToString = "M" Then
                     strSQL += "update tb_customer_list set"
                     strSQL += " customer_name = '" & grid_CustomerList(i, 2) & "'"
-                    strSQL += ", model_gubun = '" & grid_CustomerList(i, 3) & "'"
+                    strSQL += ", model_series = '" & grid_CustomerList(i, 3) & "'"
                     strSQL += ", customer_note = '" & grid_CustomerList(i, 5) & "'"
-                    strSQL += ", write_date = '" & writeDate & "'"
-                    strSQL += ", write_id = '" & loginID & "'"
+                    strSQL += ", modify_date = '" & writeDate & "'"
+                    strSQL += ", modify_id = '" & loginID & "'"
                     strSQL += " where customer_code = '" & grid_CustomerList(i, 1) & "';"
                 ElseIf grid_CustomerList(i, 0).ToString = "D" Then
                     strSQL += "delete from tb_customer_list"
@@ -217,7 +230,18 @@ Public Class frm_CustomerResistration
             End If
         Catch ex As MySqlException
             sqlTran.Rollback()
-            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+            thread_LoadingFormEnd()
+            Thread.Sleep(100)
+            If ex.Number = 1062 Then
+                MsgBox("중복된 고객사명이 있습니다.",
+                       MsgBoxStyle.Critical,
+                       msg_form)
+            Else
+                MsgBox(ex.Message & vbCrLf &
+                       "Error No. : " & ex.Number,
+                       MsgBoxStyle.Critical,
+                       msg_form)
+            End If
             Exit Sub
         End Try
 
@@ -240,8 +264,10 @@ Public Class frm_CustomerResistration
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code, customer_name, model_gubun, customer_note"
+        Dim strSQL As String = "select customer_code, customer_name, model_series, customer_note"
         strSQL += " from tb_customer_list"
+        strSQL += " where customer_code like concat('%', '" & tb_SearchText.Text & "', '%')"
+        strSQL += " or customer_name like concat('%', '" & tb_SearchText.Text & "', '%')"
         strSQL += " order by customer_name"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -251,7 +277,7 @@ Public Class frm_CustomerResistration
             Dim insert_String As String = grid_CustomerList.Rows.Count & vbTab &
                                           sqlDR("customer_code") & vbTab &
                                           sqlDR("customer_name") & vbTab &
-                                          sqlDR("model_gubun") & vbTab &
+                                          sqlDR("model_series") & vbTab &
                                           vbTab &
                                           sqlDR("customer_note")
             grid_CustomerList.AddItem(insert_String)
@@ -303,6 +329,48 @@ Public Class frm_CustomerResistration
             MsgBox("삭제 대기중인 고객사 내용은 수정 할 수 없습니다.",
                    MsgBoxStyle.Information,
                    msg_form)
+        End If
+
+    End Sub
+
+    Private Sub grid_CustomerList_MouseMove(sender As Object, e As MouseEventArgs) Handles grid_CustomerList.MouseMove
+
+        If grid_CustomerList.MouseRow > -1 Then
+            Timer1.Enabled = False
+            Timer1.Enabled = True
+            Select Case grid_CustomerList.MouseCol
+                Case 1
+                    ToolTip1.SetToolTip(grid_CustomerList,
+                                        "고객사 코드는 자동으로 입력되며 수정할 수 없습니다.")
+                Case 3
+                    ToolTip1.SetToolTip(grid_CustomerList,
+                                        "구분자는 '|'로 구분" &
+                                        vbCrLf & vbCrLf &
+                                        "예) 모델구분1|모델구분2|모델구분3...")
+                Case 4
+                    ToolTip1.SetToolTip(grid_CustomerList,
+                                        "모델이 등록된 경우 총 등록 된 모델 수가 표시됩니다.")
+                Case Else
+                    ToolTip1.SetToolTip(grid_CustomerList, String.Empty)
+            End Select
+        Else
+            ToolTip1.SetToolTip(grid_CustomerList, String.Empty)
+        End If
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
+        toolTip1.SetToolTip(grid_CustomerList, String.Empty)
+        Timer1.Enabled = False
+
+    End Sub
+
+    Private Sub tb_SearchText_KeyDown(sender As Object, e As KeyEventArgs) Handles tb_SearchText.KeyDown
+
+        If Not tb_SearchText.Text = String.Empty And
+                e.KeyCode = 13 Then
+            btn_Search_Click(Nothing, Nothing)
         End If
 
     End Sub

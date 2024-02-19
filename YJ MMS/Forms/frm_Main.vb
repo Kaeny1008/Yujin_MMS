@@ -53,14 +53,10 @@ Public Class frm_Main
 
     Private Sub frm_Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        If MsgBox("정말 종료하시겠습니까?", vbYesNo + vbQuestion, msg_form) = vbYes Then '메세지박스 띄우기
-            End '종료
-        Else
-            e.Cancel = True
-        End If
+        If MsgBox("정말 종료하시겠습니까?", vbYesNo + vbQuestion, msg_form) = vbNo Then e.Cancel = True
 
-        If IO.Directory.Exists(Application.StartupPath & "\TEMP_FILE") Then
-            IO.Directory.Delete(Application.StartupPath & "\TEMP_FILE", True)
+        If IO.Directory.Exists(Application.StartupPath & "\Temp") Then
+            IO.Directory.Delete(Application.StartupPath & "\Temp", True)
         End If
 
         Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("UpdateChecker")
@@ -76,7 +72,8 @@ Public Class frm_Main
                 ucProcess(0).Kill()
             End If
         End If
-        'If MsgBox("프로그램을 종료 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_msgbox_string) = MsgBoxResult.Yes Then Application.Exit()
+
+        Me.Dispose()
 
     End Sub
 
@@ -122,6 +119,14 @@ Public Class frm_Main
         frm_ModelResistration.MdiParent = Me
         If Not frm_ModelResistration.Visible Then frm_ModelResistration.Show()
         frm_ModelResistration.Focus()
+
+    End Sub
+
+    Private Sub btn_ModelDocument_Click(sender As Object, e As EventArgs) Handles btn_ModelDocument.Click
+
+        frm_ModelDocument.MdiParent = Me
+        If Not frm_ModelDocument.Visible Then frm_ModelDocument.Show()
+        frm_ModelDocument.Focus()
 
     End Sub
 End Class

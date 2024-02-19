@@ -83,6 +83,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Basic Information\frm_ModelDocument.Designer.vb">
+      <DependentUpon>frm_ModelDocument.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\frm_ModelDocument.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Basic Information\frm_ModelResistration.Designer.vb">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
     </Compile>
@@ -131,6 +137,7 @@
     <Compile Include="Forms\Setting Form\frm_SQL_Conn.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Module\HostedControl.vb" />
     <Compile Include="Module\md_ETC.vb" />
     <Compile Include="Module\md_FTP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
@@ -151,6 +158,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Basic Information\frm_ModelDocument.resx">
+      <DependentUpon>frm_ModelDocument.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelResistration.resx">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
     </EmbeddedResource>
@@ -209,12 +219,6 @@
     <None Include="Resources\arrow_double.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\arrow_down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\arrow_up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Autoship_24.png" />
   </ItemGroup>
   <ItemGroup>
@@ -228,9 +232,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bytecode.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cancel.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\checkmark.png" />
@@ -438,6 +439,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus-blue2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cancel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

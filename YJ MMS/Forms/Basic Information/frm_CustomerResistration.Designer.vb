@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_CustomerResistration
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frm_CustomerResistration
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_CustomerResistration))
@@ -39,6 +39,8 @@ Partial Class frm_CustomerResistration
         Me.btn_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.COL_VIEW = New System.Windows.Forms.ToolStripSeparator()
         Me.btn_Save2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.ts_MainBar.SuspendLayout()
         CType(Me.grid_CustomerList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -152,24 +154,29 @@ Partial Class frm_CustomerResistration
         '
         Me.cms_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_RowDelete, Me.COL_VIEW, Me.btn_Save2})
         Me.cms_Menu.Name = "GRID_Menu"
-        Me.cms_Menu.Size = New System.Drawing.Size(159, 54)
+        Me.cms_Menu.Size = New System.Drawing.Size(181, 76)
         '
         'btn_RowDelete
         '
+        Me.btn_RowDelete.Image = Global.YJ_MMS.My.Resources.Resources.minus_blue
         Me.btn_RowDelete.Name = "btn_RowDelete"
-        Me.btn_RowDelete.Size = New System.Drawing.Size(158, 22)
+        Me.btn_RowDelete.Size = New System.Drawing.Size(180, 22)
         Me.btn_RowDelete.Text = "등록 삭제(취소)"
         '
         'COL_VIEW
         '
         Me.COL_VIEW.Name = "COL_VIEW"
-        Me.COL_VIEW.Size = New System.Drawing.Size(155, 6)
+        Me.COL_VIEW.Size = New System.Drawing.Size(177, 6)
         '
         'btn_Save2
         '
+        Me.btn_Save2.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.btn_Save2.Name = "btn_Save2"
-        Me.btn_Save2.Size = New System.Drawing.Size(158, 22)
+        Me.btn_Save2.Size = New System.Drawing.Size(180, 22)
         Me.btn_Save2.Text = "저장"
+        '
+        'Timer1
+        '
         '
         'frm_CustomerResistration
         '
@@ -207,4 +214,6 @@ Partial Class frm_CustomerResistration
     Friend WithEvents btn_RowDelete As ToolStripMenuItem
     Friend WithEvents COL_VIEW As ToolStripSeparator
     Friend WithEvents btn_Save2 As ToolStripMenuItem
+    Friend WithEvents Timer1 As Timer
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
