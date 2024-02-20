@@ -285,8 +285,6 @@ Public Class frm_PG_Upload
                     strSql += " where FILE_CODE = '" & grid_FileList(i, 1) & "';"
                 ElseIf grid_FileList(i, 0).ToString Like "D*" Then
                     strSql += "delete from tb_execute_file_update_manager where FILE_CODE = '" & grid_FileList(i, 1) & "';"
-                    ftpFileDelete(ftpUrl & "/Run_File",
-                                          grid_FileList(i, 3), grid_FileList(i, 2))
                 End If
                 If grid_FileList(i, 0).ToString Like "*,U" Then
                     Dim TEMP_FILE_Folder As String = Application.StartupPath & "\TEMP_FILE"

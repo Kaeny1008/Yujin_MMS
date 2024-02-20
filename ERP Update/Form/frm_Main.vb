@@ -74,7 +74,6 @@ Public Class frm_Main
             requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
             '프로그래스바의 최대를 알아본다.
-            'ProgressBar1.Maximum = requestFileSize.GetResponse.ContentLength
             Dim run_count As Integer = 0
             Dim total_count As Integer = requestFileSize.GetResponse.ContentLength
             ProgressBar1.Maximum = 100
@@ -84,7 +83,6 @@ Public Class frm_Main
             While bytesRead > 0
                 writeStream.Write(buffer, 0, bytesRead)
                 bytesRead = responseStream.Read(buffer, 0, Length)
-                'ProgressBar1.Value += bytesRead
                 run_count += bytesRead
                 ProgressBar1.Value = run_count / total_count * 100
                 Application.DoEvents()

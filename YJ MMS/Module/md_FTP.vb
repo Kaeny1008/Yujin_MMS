@@ -31,9 +31,9 @@ Module md_FTP
             WriteDirectory.UseBinary = False
             Dim listResponse As FtpWebResponse = WriteDirectory.GetResponse()
         Catch ex As UriFormatException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpFolderMake")
         Catch ex As WebException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpFolderMake")
         End Try
 
     End Sub
@@ -56,9 +56,9 @@ Module md_FTP
             DirectoryInfo = reader.ReadToEnd
             listRequest = Nothing
         Catch ex As UriFormatException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpFolderSearch")
         Catch ex As WebException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpFolderSearch")
         Finally
             If reader IsNot Nothing Then
                 reader.Close()
@@ -112,9 +112,9 @@ Module md_FTP
             list_File = reader.ReadToEnd
             listRequest = Nothing
         Catch ex As UriFormatException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpExistFolderSearch")
         Catch ex As WebException
-            MsgBox(ex.Message, MsgBoxStyle.Information, "Repair System - FTP")
+            MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpExistFolderSearch")
         Finally
             If reader IsNot Nothing Then
                 reader.Close()
@@ -128,7 +128,7 @@ Module md_FTP
     Public Sub ftpFileUpload(ByVal ftpURL As String, ByVal FileName As String)
 
         '**************************** 파일전송 시작 *****************************
-        'FileName = Application.StartupPath & "\BOM\" & FileName
+
         Dim fileInf As FileInfo = New FileInfo(FileName) '전송할 File을 설정
         Dim sftp As String = ftpURL & "/" & fileInf.Name '전송할 FTP 경로를 설정
         Dim upFTP As FtpWebRequest = FtpWebRequest.Create(New Uri(sftp))
@@ -148,23 +148,19 @@ Module md_FTP
 
         iLength = fs.Read(bBuffer, 0, 1024)
 
-        Dim i As Double
-        frm_Main.pgbMain.Visible = True
-        
-        'frm_Main.pgbMain.BringToFront()
-        frm_Main.pgbMain.Maximum = fileInf.Length
+        Dim run_count As Integer = 0
+        Dim total_count As Integer = fileInf.Length
+        frm_Main.pgbMain.Maximum = 100
         frm_Main.pgbMain.Value = 1
+        frm_Main.pgbMain.Visible = True
 
         While (iLength <> 0) '전송할 파일 크기만큼 1024씩 전송
             stm.Write(bBuffer, 0, iLength)
             iLength = fs.Read(bBuffer, 0, 1024)
-            i = i + iLength
+            run_count += iLength
+            frm_Main.pgbMain.Value = run_count / total_count * 100
+            'Console.WriteLine(run_count / total_count * 100 & " % Upload")
             Application.DoEvents()
-            frm_Main.pgbMain.Value += iLength
-            '산술 오버플로우 발생으로 double을 두번 사용하였다.
-            Dim calData As Double = frm_Main.pgbMain.Value / frm_Main.pgbMain.Maximum
-            Dim calData2 As Double = calData * 100
-            frm_Main.lb_Status.Text = Format(calData2, "0#") & " % 업로드 중...."
         End While
 
         frm_Main.pgbMain.Visible = False
@@ -176,22 +172,10 @@ Module md_FTP
 
     End Sub
 
-    Public Sub ftpFileDownload(ByVal ftpURL As String, ByVal filePath As String, ByVal fileName As String)
+    Public Function ftpFileDownload(ByVal ftpURL As String, ByVal filePath As String, ByVal fileName As String) As String
 
         '****************************  파일다운로드 관련부분 *********************************************************
-        downloading = True
         Dim localPath_download As String = filePath & "\" '다운로드 받을 경로
-
-        'Dim fileName As String = BOMFileName
-
-        '파일존재여부 확인
-        If My.Computer.FileSystem.FileExists(localPath_download & fileName) Then
-            Try
-                Kill(localPath_download & "\" & fileName)
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical, "Repair System - FTP")
-            End Try
-        End If
 
         'While fileName IsNot Nothing '무조건 다운로드할때 이걸써라.(항목수 상관없이)
         Dim requestFileDownload As FtpWebRequest = Nothing
@@ -215,34 +199,31 @@ Module md_FTP
             Dim bytesRead As Integer = responseStream.Read(buffer, 0, Length)
 
             '#####파일의 크기를 알아보기 위해...#####
-            'Dim requestFileSize As FtpWebRequest = Nothing
-            'requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
-            'requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
-            'requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
+            Dim requestFileSize As FtpWebRequest = Nothing
+            requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
+            requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
+            requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
             '프로그래스바의 최대를 알아본다.
-            frm_Main.pgbMain.Visible = True
-            
-            'frm_Main.pgbMain.BringToFront()
-            'ProgressbarEffect.PBar.Maximum = requestFileSize.GetResponse.ContentLength
-            frm_Main.pgbMain.Maximum = responseFileDownload.ContentLength
+            Dim run_count As Integer = 0
+            Dim total_count As Integer = requestFileSize.GetResponse.ContentLength
+            frm_Main.pgbMain.Maximum = 100
             frm_Main.pgbMain.Value = 1
-            'requestFileSize = Nothing
-            '########################################
+            frm_Main.pgbMain.Visible = True
+            requestFileSize = Nothing
 
             While bytesRead > 0
                 writeStream.Write(buffer, 0, bytesRead)
                 bytesRead = responseStream.Read(buffer, 0, Length)
+                run_count += bytesRead
+                frm_Main.pgbMain.Value = run_count / total_count * 100
+                'Console.WriteLine(run_count / total_count * 100 & " % Download")
                 Application.DoEvents()
-                '산술 오버플로우 발생으로 double을 두번 사용하였다.
-                Dim calData As Double = frm_Main.pgbMain.Value / frm_Main.pgbMain.Maximum
-                Dim calData2 As Double = calData * 100
-                frm_Main.lb_Status.Text = Format(calData2, "0#") & " % 다운로드 중...."
             End While
             writeStream.Close()
             frm_Main.pgbMain.Visible = False
 
         Catch exceptionObj As Exception
-            MsgBox(exceptionObj.Message.ToString(), MsgBoxStyle.Critical, "Repair System - FTP")
+            Return exceptionObj.Message
         Finally
             requestFileDownload = Nothing
             responseFileDownload = Nothing
@@ -252,10 +233,12 @@ Module md_FTP
         'End While
 
         '****************************  파일다운로드 관련부분 *********************************************************
-        downloading = False
-    End Sub
 
-    Public Sub ftpFileDelete(ByVal ftpURL As String, ByVal FolderName As String, ByVal FileName As String)
+        Return "Completed"
+
+    End Function
+
+    Public Sub ftpFileDelete(ByVal ftpURL As String, ByVal fileName As String)
 
         '####################### ftp에 있는 파일 삭제하기 기능###################
 
@@ -263,13 +246,13 @@ Module md_FTP
         Dim responseFileDelete As FtpWebResponse = Nothing
 
         Try
-            requestFileDelete = DirectCast(WebRequest.Create(ftpURL & "/" & FolderName & "/" & FileName), FtpWebRequest)
+            requestFileDelete = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
             requestFileDelete.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileDelete.Method = WebRequestMethods.Ftp.DeleteFile
             responseFileDelete = DirectCast(requestFileDelete.GetResponse(), FtpWebResponse)
             'Console.WriteLine("Delete status: {0}", responseFileDelete.StatusDescription)
         Catch exceptionObj As Exception
-            MsgBox(exceptionObj.Message.ToString(), MsgBoxStyle.Critical, "Repair System - FTP")
+            MsgBox(exceptionObj.Message.ToString(), MsgBoxStyle.Critical, msg_form & "_ftpFileDelete")
         Finally
             responseFileDelete = Nothing
             requestFileDelete = Nothing
@@ -277,9 +260,9 @@ Module md_FTP
         '####################### ftp에 있는 파일 삭제하기 기능###################
 
         '추가로 삭제된 폴더가 비어 있다면 폴더 삭제
-        Dim check_existFile As String = ftpExistFolderSearch(ftpURL & "/" & FolderName)
+        Dim check_existFile As String = ftpExistFolderSearch(ftpURL)
         If check_existFile = Nothing Then
-            ftpFolderDelete(ftpURL & "/" & FolderName)
+            ftpFolderDelete(ftpURL)
         End If
 
     End Sub
@@ -303,7 +286,7 @@ Module md_FTP
             responseFileDelete = DirectCast(requestFolderDelete.GetResponse(), FtpWebResponse)
             'Console.WriteLine("Delete status: {0}", responseFileDelete.StatusDescription)
         Catch exceptionObj As Exception
-            MsgBox(exceptionObj.Message.ToString(), MsgBoxStyle.Critical, "Repair System - FTP")
+            MsgBox(exceptionObj.Message.ToString(), MsgBoxStyle.Critical, msg_form & "_ftpFolderDelete")
         Finally
             responseFileDelete = Nothing
             requestFolderDelete = Nothing

@@ -117,18 +117,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_8664EAD2CCBC520AB5824397BF8EA41A"
-        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_8664EAD2CCBC520AB5824397BF8EA41A"
-        "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9562904418BC4559AD33EA667B273603"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -159,6 +147,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_B50B0ECF6DCC97F542FE3CBC1E14405D"
+        "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B50B0ECF6DCC97F542FE3CBC1E14405D"
+        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_BBF3B5985E7556EC378B0665A68D7AB4"
         "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
         "MsmSig" = "8:_UNDEFINED"
@@ -172,12 +172,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
-        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
         "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -191,6 +185,12 @@
         {
         "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
         "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
+        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -202,12 +202,6 @@
         "Entry"
         {
         "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
-        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
         "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -221,6 +215,12 @@
         {
         "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
         "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
+        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -238,13 +238,37 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0ACFE4A5195F6835A9E48C2489ACD0E8"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0ACFE4A5195F6835A9E48C2489ACD0E8"
+        "OwnerKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -263,6 +287,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_B3866B606B5FC7BEDFA3506DB38C28D6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B50B0ECF6DCC97F542FE3CBC1E14405D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -295,36 +325,6 @@
         "OwnerKey" = "8:_6D4342FB063F03F6AFFCF858BFB87768"
         "MsmSig" = "8:_UNDEFINED"
         }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8664EAD2CCBC520AB5824397BF8EA41A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
-        "MsmSig" = "8:_UNDEFINED"
-        }
     }
     "Configurations"
     {
@@ -333,11 +333,11 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Repair System Setup.msi"
+        "OutputFilename" = "8:Debug\\YJ MMS Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
-        "Compression" = "3:2"
+        "Compression" = "3:1"
         "SignOutput" = "11:FALSE"
         "CertificateFile" = "8:"
         "PrivateKeyFile" = "8:"
@@ -345,17 +345,17 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:FALSE"
+            "Enabled" = "11:TRUE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:2"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2(x86 및 x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Microsoft .NET Framework 4.6.1(x86 및 x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
                     }
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:SAP.CrystalReports14.NET.2.0"
                     {
@@ -700,37 +700,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8664EAD2CCBC520AB5824397BF8EA41A"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_8664EAD2CCBC520AB5824397BF8EA41A"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_E38237E5C318409E9FD45F61B4A7390F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A1D2D4E6EC0E764DB2BAAA5347891C27"
             {
             "AssemblyRegister" = "3:1"
@@ -827,6 +796,37 @@
                     }
                 }
             "SourcePath" = "8:CrystalDecisions.ReportAppServer.Prompting.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E38237E5C318409E9FD45F61B4A7390F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B50B0ECF6DCC97F542FE3CBC1E14405D"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_B50B0ECF6DCC97F542FE3CBC1E14405D"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E38237E5C318409E9FD45F61B4A7390F"
@@ -1078,7 +1078,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:YJ MMS"
         "ProductCode" = "8:{85AE3C8B-A8DC-456C-A276-DF3AD8ED6E97}"
-        "PackageCode" = "8:{38387E9D-7624-4856-A095-CB1F3FB79381}"
+        "PackageCode" = "8:{C4D631C1-305C-42D9-BA30-8A5015D3421B}"
         "UpgradeCode" = "8:{2898A3B5-BE73-4C88-B4EB-884AA7614840}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -1693,7 +1693,7 @@
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:4"
-                                    "Value" = "8:5"
+                                    "Value" = "8:00000005"
                                     }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_54BEC93085C848879E41C7ECA0ADAEAB"
                                     {
@@ -1717,7 +1717,7 @@
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:4"
-                                    "Value" = "8:10000"
+                                    "Value" = "8:00002710"
                                     }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_BF5FDF30DAF94DA087E66DF8F1A0F026"
                                     {
@@ -2383,7 +2383,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5D3F8E61B3A14FCE93E980F86DC919E7"
             {
-            "SourcePath" = "8:..\\ERP Update\\obj\\x86\\Debug\\ERP Update.exe"
+            "SourcePath" = "8:..\\ERP Update\\obj\\Debug\\ERP Update.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E38237E5C318409E9FD45F61B4A7390F"
@@ -2411,7 +2411,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9562904418BC4559AD33EA667B273603"
             {
-            "SourcePath" = "8:..\\UpdateChecker\\obj\\Debug\\UpdateChecker.exe"
+            "SourcePath" = "8:..\\UpdateChecker\\obj\\Debug\\Update Checker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E38237E5C318409E9FD45F61B4A7390F"

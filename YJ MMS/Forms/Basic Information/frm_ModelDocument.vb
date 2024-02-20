@@ -10,6 +10,7 @@
 
 '############################################################################################################
 
+Imports System.Threading
 Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
@@ -133,11 +134,44 @@ Public Class frm_ModelDocument
                 FileUpload_Ready(CInt(bt.Tag) + 1)
             Case 7 To 13
                 'Download
-                MsgBox("다운로드 기능 만들어야된다.")
+                FileDownload(CInt(bt.Tag) - 6)
             Case 14 To 20
                 'Delete
                 FileDelete_Ready(CInt(bt.Tag) - 13)
         End Select
+
+    End Sub
+
+    Private Sub FileDownload(ByVal d_row As Integer)
+
+        If Grid_Documents(d_row, 2) = String.Empty Then Exit Sub
+
+        Dim saveFile As New System.Windows.Forms.SaveFileDialog
+
+        With saveFile
+            .FileName = Grid_Documents(d_row, 2)
+            .Filter = "ALL Files (*.*)|*.*"
+            .AddExtension() = True
+        End With
+
+        If saveFile.ShowDialog() = System.Windows.Forms.DialogResult.Cancel Then
+            Exit Sub
+        End If
+
+        Dim strTemp() As String, strFolder As String
+        strTemp = Split(saveFile.FileName, "\")
+        Array.Resize(strTemp, strTemp.Length - 1)
+        strFolder = String.Join("\", strTemp)
+
+        Dim downloadResult As String = ftpFileDownload(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text,
+                                                       strFolder,
+                                                       Grid_Documents(d_row, 2))
+
+        If Not downloadResult.Equals("Completed") Then
+            MsgBox("Download 실패" & vbCrLf & downloadResult, MsgBoxStyle.Critical, msg_form)
+        Else
+            MsgBox("File Download.", MsgBoxStyle.Information, msg_form)
+        End If
 
     End Sub
 
@@ -333,7 +367,6 @@ Public Class frm_ModelDocument
 
         DBConnect()
 
-
         Dim strSQL As String = "call sp_model_document(0"
         strSQL += ",'" & customerCode & "'"
         strSQL += ",'" & modelCode & "'"
@@ -361,7 +394,6 @@ Public Class frm_ModelDocument
 
         DBConnect()
 
-
         Dim strSQL As String = "call sp_model_document(1"
         strSQL += ",'" & customerCode & "'"
         strSQL += ",'" & modelCode & "'"
@@ -378,9 +410,8 @@ Public Class frm_ModelDocument
 
         DBClose()
 
-        If CB_ManagementNo.Items.Count = 0 Then
-            BTN_NewManagementNo.Visible = True
-        End If
+        BTN_NewManagementNo.Visible = True
+        CB_ManagementNo.SelectedIndex = CB_ManagementNo.Items.Count - 1
 
     End Sub
 
@@ -417,21 +448,252 @@ Public Class frm_ModelDocument
 
         BTN_NewManagementNo.Visible = False
 
+        For i = 1 To 7
+            Grid_Documents(i, 1) = "등록필요"
+            Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+        Next
+
+        For i = 1 To 7
+            Grid_Documents(i, 2) = String.Empty
+            Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+        Next
+
     End Sub
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If TB_ModelCode.Text.Equals(String.Empty) Then Exit Sub
 
+        If MsgBox("저장 하시겠습니까?",
+                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
+                  msg_form) = MsgBoxResult.No Then Exit Sub
 
+        thread_LoadingFormStart("Saving...")
 
-        MsgBox("저장 완료.", MsgBoxStyle.Information, msg_form)
+        Dim dbWrite_Result As String = Process_DB_Write()
+        Dim result_Message As String = String.Empty
 
-        Control_Initiallize()
+        If dbWrite_Result.Equals("No Change") Then
+            MsgBox("변경 사항이 없습니다.",
+                   MsgBoxStyle.Critical,
+                   msg_form)
+            GoTo Last_Step
+        ElseIf dbWrite_Result.Equals("Completed") Then
+            GoTo FTP_Control
+        Else
+            MsgBox(dbWrite_Result,
+                   MsgBoxStyle.Critical,
+                   msg_form)
+            GoTo Last_Step
+        End If
+
+FTP_Control:
+        Process_FTP_UpDelete()
+
+Last_Step:
+        thread_LoadingFormEnd()
+        Thread.Sleep(100)
+
+        If dbWrite_Result.Equals("Completed") Then _
+            MsgBox("저장 완료.", MsgBoxStyle.Information, msg_form)
+
+        'Control_Initiallize()
 
     End Sub
 
-    Private Sub C1FlexGrid1_Click(sender As Object, e As EventArgs)
+    Private Function Process_DB_Write() As String
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+
+            For i = 1 To Grid_Documents.Rows.Count - 1
+                If Grid_Documents(i, 1).Equals("Upload 대기") Then
+                    '기존 등록된 내용이 있다면 지운다
+                    strSQL += "delete from tb_model_document_information"
+                    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                    strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+                    strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
+                    strSQL += " and file_type = '" & Grid_Documents(i, 0) & "';"
+
+                    '새로운 내용을 기록한다.
+                    strSQL += "insert into tb_model_document_information("
+                    strSQL += "management_no, customer_code, model_code"
+                    strSQL += ", file_type, file_name, write_date, write_id"
+                    strSQL += ") values("
+                    strSQL += "'" & CB_ManagementNo.Text & "'"
+                    strSQL += ",'" & TB_CustomerCode.Text & "'"
+                    strSQL += ",'" & TB_ModelCode.Text & "'"
+                    strSQL += ",'" & Grid_Documents(i, 0) & "'"
+                    strSQL += ",'" & Replace(Grid_Documents(i, 2), "'", "\'") & "'"
+                    strSQL += ",'" & writeDate & "'"
+                    strSQL += ",'" & loginID & "');"
+                ElseIf Grid_Documents(i, 1).Equals("Delete 대기") Then
+                    strSQL += "delete from tb_model_document_information"
+                    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                    strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+                    strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
+                    strSQL += " and file_type = '" & Grid_Documents(i, 0) & "';"
+                End If
+            Next
+
+            If strSQL = String.Empty Then
+                DBClose()
+                Return "No Change"
+            End If
+
+            sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+            sqlCmd.Transaction = sqlTran
+            sqlCmd.ExecuteNonQuery()
+
+            sqlTran.Commit()
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+            Return ex.Message
+        End Try
+
+        DBClose()
+
+        Return "Completed"
+
+    End Function
+
+    Private Sub Process_FTP_UpDelete()
+
+        For i = 1 To Grid_Documents.Rows.Count - 1
+            If Grid_Documents(i, 1).Equals("Upload 대기") Then
+                Dim tempFileFolder As String = Application.StartupPath & "\Temp"
+
+                'ROOT 폴더에서 고객사 폴더가 존재하는지 검색 후 존재하지 않으면 생성
+                Dim rootFolder As String = ftpUrl & "/Model_Documents/"
+                Dim ftpFolder As String = ftpFolderSearch(rootFolder) '고객사 폴더를 검색할 위치의 리스트를 저장
+
+                Dim DirectoryName() As String = Split(ftpFolder, vbCrLf)
+                Dim DirectoryExists As Boolean
+
+                For j = 0 To UBound(DirectoryName) - 1
+                    If TB_CustomerCode.Text = Trim(DirectoryName(j)) Then
+                        DirectoryExists = True
+                        Exit For
+                    Else
+                        DirectoryExists = False
+                    End If
+                Next
+
+                If DirectoryExists = False Then
+                    ftpFolderMake(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text)
+                End If
+
+                '고객사 폴더에서 모델 폴더가 존재하는지 검색 후 존재하지 않으면 생성
+                ftpFolder = ftpFolderSearch(rootFolder & TB_CustomerCode.Text & "/") '모델 폴더를 검색할 위치의 리스트를 저장
+                DirectoryName = Split(ftpFolder, vbCrLf)
+
+                For j = 0 To UBound(DirectoryName) - 1
+                    If TB_ModelCode.Text = Trim(DirectoryName(j)) Then
+                        DirectoryExists = True
+                        Exit For
+                    Else
+                        DirectoryExists = False
+                    End If
+                Next
+
+                If DirectoryExists = False Then
+                    ftpFolderMake(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text)
+                End If
+
+                '모델 폴더에서 관리번호 폴더가 존재하는지 검색 후 존재하지 않으면 생성
+                ftpFolder = ftpFolderSearch(rootFolder & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/") '관리번호 폴더를 검색할 위치의 리스트를 저장
+                DirectoryName = Split(ftpFolder, vbCrLf)
+
+                For j = 0 To UBound(DirectoryName) - 1
+                    If CB_ManagementNo.Text = Trim(DirectoryName(j)) Then
+                        DirectoryExists = True
+                        Exit For
+                    Else
+                        DirectoryExists = False
+                    End If
+                Next
+
+                If DirectoryExists = False Then
+                    ftpFolderMake(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text)
+                End If
+
+                '파일 업로드
+                ftpFileUpload(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text,
+                              tempFileFolder & "\" & Grid_Documents(i, 2))
+
+                '임시저장 파일 삭제
+                If My.Computer.FileSystem.FileExists(tempFileFolder & "\" & Grid_Documents(i, 2)) Then _
+                            My.Computer.FileSystem.DeleteFile(tempFileFolder & "\" & Grid_Documents(i, 2))
+                Grid_Documents(i, 1) = "등록됨"
+                Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+            ElseIf Grid_Documents(i, 1).Equals("Delete 대기") Then
+                '파일 삭제
+                ftpFileDelete(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text,
+                              Grid_Documents(i, 2))
+                Grid_Documents(i, 1) = "등록필요"
+                Grid_Documents(i, 2) = String.Empty
+                Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+            End If
+        Next
+
+    End Sub
+
+    Private Sub CB_ManagementNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_ManagementNo.SelectedIndexChanged
+
+        'thread_LoadingFormStart()
+
+        Grid_Documents.Redraw = False
+
+        For i = 1 To 7
+            Grid_Documents(i, 1) = "등록필요"
+            Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+        Next
+
+        For i = 1 To 7
+            Grid_Documents(i, 2) = String.Empty
+            Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+        Next
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(3"
+        strSQL += ",'" & TB_CustomerCode.Text & "'"
+        strSQL += ",'" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            For i = 1 To Grid_Documents.Rows.Count - 1
+                If sqlDR("file_type").Equals(Grid_Documents(i, 0)) Then
+                    Grid_Documents(i, 1) = "등록됨"
+                    Grid_Documents(i, 2) = sqlDR("file_name")
+                    Exit For
+                End If
+            Next
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_Documents.Redraw = True
+
+        'thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Grid_ModelList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_ModelList.MouseClick
 
     End Sub
 End Class

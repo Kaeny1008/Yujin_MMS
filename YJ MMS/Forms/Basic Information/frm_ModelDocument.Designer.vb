@@ -29,13 +29,13 @@ Partial Class frm_ModelDocument
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.Grid_Documents = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Grid_ModelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TB_SearchModel = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_SearchCustomer = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.Grid_Documents = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.BTN_NewManagementNo = New System.Windows.Forms.Button()
         Me.CB_ManagementNo = New System.Windows.Forms.ComboBox()
@@ -58,9 +58,9 @@ Partial Class frm_ModelDocument
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_ModelList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -127,18 +127,6 @@ Partial Class frm_ModelDocument
         Me.SplitContainer1.Size = New System.Drawing.Size(1364, 748)
         Me.SplitContainer1.SplitterDistance = 663
         Me.SplitContainer1.TabIndex = 2
-        '
-        'Grid_Documents
-        '
-        Me.Grid_Documents.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_Documents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_Documents.Location = New System.Drawing.Point(0, 234)
-        Me.Grid_Documents.Name = "Grid_Documents"
-        Me.Grid_Documents.Rows.Count = 2
-        Me.Grid_Documents.Rows.DefaultSize = 20
-        Me.Grid_Documents.Size = New System.Drawing.Size(697, 514)
-        Me.Grid_Documents.StyleInfo = resources.GetString("Grid_Documents.StyleInfo")
-        Me.Grid_Documents.TabIndex = 1
         '
         'Grid_ModelList
         '
@@ -217,6 +205,18 @@ Partial Class frm_ModelDocument
         Me.Label3.Text = "고객사명"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Grid_Documents
+        '
+        Me.Grid_Documents.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_Documents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_Documents.Location = New System.Drawing.Point(0, 234)
+        Me.Grid_Documents.Name = "Grid_Documents"
+        Me.Grid_Documents.Rows.Count = 2
+        Me.Grid_Documents.Rows.DefaultSize = 20
+        Me.Grid_Documents.Size = New System.Drawing.Size(697, 514)
+        Me.Grid_Documents.StyleInfo = resources.GetString("Grid_Documents.StyleInfo")
+        Me.Grid_Documents.TabIndex = 1
+        '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
@@ -233,7 +233,6 @@ Partial Class frm_ModelDocument
         '
         'BTN_NewManagementNo
         '
-        Me.BTN_NewManagementNo.Enabled = False
         Me.BTN_NewManagementNo.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
         Me.BTN_NewManagementNo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.BTN_NewManagementNo.Location = New System.Drawing.Point(319, 195)
@@ -453,10 +452,10 @@ Partial Class frm_ModelDocument
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Grid_ModelList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()

@@ -107,7 +107,7 @@ Module md_ETC
     Public Sub thread_LoadingFormEnd()
 
         formClose = True
-        'If frm_LoadingImage.Visible Then frm_LoadingImage.Dispose()
+        'frm_LoadingImage.Dispose()
         'Thread.Sleep(thread_SleepTime)
         'Console.WriteLine("(Loading Form) Aborting thread...")
         'th_LoadingWindow.Abort()
