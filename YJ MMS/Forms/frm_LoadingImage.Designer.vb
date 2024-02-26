@@ -71,6 +71,7 @@ Partial Class frm_LoadingImage
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "frm_LoadingImage"
+        Me.TopMost = True
         Me.TransparencyKey = System.Drawing.Color.White
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

@@ -41,7 +41,7 @@ Public Class frm_CustomerResistration
             grid_CustomerList(0, 1) = "고객코드(*)"
             grid_CustomerList(0, 2) = "고객사명(*)"
             grid_CustomerList(0, 3) = "모델구분"
-            grid_CustomerList(0, 4) = "등록 모델 수"
+            grid_CustomerList(0, 4) = "고객사 코드사용(자재)"
             grid_CustomerList(0, 5) = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -49,6 +49,7 @@ Public Class frm_CustomerResistration
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
             .Cols.Frozen = 2
+            .Cols(4).ComboList = "사용|미사용"
             .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
@@ -60,6 +61,8 @@ Public Class frm_CustomerResistration
 
     Private Sub btn_NewCustomer_Click(sender As Object, e As EventArgs) Handles btn_NewCustomer.Click
 
+        grid_CustomerList.Redraw = False
+
         Dim customerCode As String = newCustomerCode()
 
         grid_CustomerList.AddItem("N" & vbTab &
@@ -68,7 +71,6 @@ Public Class frm_CustomerResistration
         grid_CustomerList.Rows(grid_CustomerList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
         grid_CustomerList.Select(grid_CustomerList.Rows.Count - 1, 2)
 
-        grid_CustomerList.Redraw = False
         grid_CustomerList.AutoSizeCols()
         grid_CustomerList.Redraw = True
 
@@ -79,7 +81,7 @@ Public Class frm_CustomerResistration
         If grid_CustomerList.Row < 0 Then Exit Sub
 
         Select Case grid_CustomerList.Col
-            Case 1, 4
+            Case 1
                 grid_CustomerList.AllowEditing = False
             Case Else
                 If IsNothing(grid_CustomerList(grid_CustomerList.Row, 0)) Then Exit Sub
@@ -183,7 +185,7 @@ Public Class frm_CustomerResistration
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        thread_LoadingFormStart()
+        thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -200,17 +202,19 @@ Public Class frm_CustomerResistration
             For i = 1 To grid_CustomerList.Rows.Count - 1
                 If grid_CustomerList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_customer_list(customer_code, customer_name, model_series"
-                    strSQL += ", customer_note, write_date, write_id) values("
+                    strSQL += ", customer_note, use_part_code, write_date, write_id) values("
                     strSQL += "'" & grid_CustomerList(i, 1) & "'"
                     strSQL += ", '" & grid_CustomerList(i, 2) & "'"
                     strSQL += ", '" & grid_CustomerList(i, 3) & "'"
                     strSQL += ", '" & grid_CustomerList(i, 5) & "'"
+                    strSQL += ", '" & grid_CustomerList(i, 4) & "'"
                     strSQL += ", '" & writeDate & "'"
                     strSQL += ", '" & loginID & "');"
                 ElseIf grid_CustomerList(i, 0).ToString = "M" Then
                     strSQL += "update tb_customer_list set"
                     strSQL += " customer_name = '" & grid_CustomerList(i, 2) & "'"
                     strSQL += ", model_series = '" & grid_CustomerList(i, 3) & "'"
+                    strSQL += ", use_part_code = '" & grid_CustomerList(i, 4) & "'"
                     strSQL += ", customer_note = '" & grid_CustomerList(i, 5) & "'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
@@ -230,17 +234,22 @@ Public Class frm_CustomerResistration
             End If
         Catch ex As MySqlException
             sqlTran.Rollback()
+            DBClose()
             thread_LoadingFormEnd()
-            Thread.Sleep(100)
             If ex.Number = 1062 Then
-                MsgBox("중복된 고객사명이 있습니다.",
-                       MsgBoxStyle.Critical,
-                       msg_form)
+                MessageBox.Show("중복된 고객사명이 있습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.DefaultDesktopOnly)
             Else
-                MsgBox(ex.Message & vbCrLf &
-                       "Error No. : " & ex.Number,
-                       MsgBoxStyle.Critical,
-                       msg_form)
+                MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error,
+                                MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.DefaultDesktopOnly)
             End If
             Exit Sub
         End Try
@@ -248,8 +257,12 @@ Public Class frm_CustomerResistration
         DBClose()
 
         thread_LoadingFormEnd()
-        Thread.Sleep(100)
-        MsgBox("저장완료.", MsgBoxStyle.Information, msg_form)
+        MessageBox.Show("저장 완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly)
 
         btn_Search_Click(Nothing, Nothing)
 
@@ -264,7 +277,7 @@ Public Class frm_CustomerResistration
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code, customer_name, model_series, customer_note"
+        Dim strSQL As String = "select customer_code, customer_name, model_series, customer_note, use_part_code"
         strSQL += " from tb_customer_list"
         strSQL += " where customer_code like concat('%', '" & tb_SearchText.Text & "', '%')"
         strSQL += " or customer_name like concat('%', '" & tb_SearchText.Text & "', '%')"
@@ -278,7 +291,7 @@ Public Class frm_CustomerResistration
                                           sqlDR("customer_code") & vbTab &
                                           sqlDR("customer_name") & vbTab &
                                           sqlDR("model_series") & vbTab &
-                                          vbTab &
+                                          sqlDR("use_part_code") & vbTab &
                                           sqlDR("customer_note")
             grid_CustomerList.AddItem(insert_String)
         Loop

@@ -129,4 +129,12 @@ Public Class frm_Main
         frm_ModelDocument.Focus()
 
     End Sub
+
+    Private Sub BTN_CustomerPartCode_Click(sender As Object, e As EventArgs) Handles BTN_CustomerPartCode.Click
+
+        frm_CustomerPartCode.MdiParent = Me
+        If Not frm_CustomerPartCode.Visible Then frm_CustomerPartCode.Show()
+        frm_CustomerPartCode.Focus()
+
+    End Sub
 End Class

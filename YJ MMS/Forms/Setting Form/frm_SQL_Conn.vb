@@ -21,6 +21,12 @@
             DBClose()
         Else
             '접속 테스트 실패시 원래되로 돌린다.
+            MessageBox.Show(New Form With {.TopMost = True},
+                            "접속 실패.",
+                            "Server Connected",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1)
             serverIP = registryEdit.ReadRegKey("Software\Yujin", "Server.IP", "192.168.0.222")
             serverPORT = registryEdit.ReadRegKey("Software\Yujin", "Server.PORT", 10522)
             serverID = registryEdit.ReadRegKey("Software\Yujin", "Server.ID", "yujin_MySQL")
@@ -30,12 +36,18 @@
         End If
 
         '접속 테스트 결과 이상없으면 레지스트리에 저정한다.
-        MsgBox("접속성공", MsgBoxStyle.Information, "Server Connection")
         registryEdit.WriteRegKey("Software\Yujin", "Server.IP", tbIP.Text)
         registryEdit.WriteRegKey("Software\Yujin", "Server.PORT", CDbl(tbPort.Text))
         registryEdit.WriteRegKey("Software\Yujin", "Server.ID", tbID.Text)
         registryEdit.WriteRegKey("Software\Yujin", "Server.PSWD", tbPSWD.Text)
         registryEdit.WriteRegKey("Software\Yujin", "ConnectionTimeOut", CDbl(tbTimeOut.Text))
+
+        MessageBox.Show(New Form With {.TopMost = True},
+                        "접속 성공.",
+                        "Server Connected",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1)
 
     End Sub
 End Class

@@ -1078,7 +1078,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:YJ MMS"
         "ProductCode" = "8:{85AE3C8B-A8DC-456C-A276-DF3AD8ED6E97}"
-        "PackageCode" = "8:{C4D631C1-305C-42D9-BA30-8A5015D3421B}"
+        "PackageCode" = "8:{1721D603-4264-48A0-95DE-E112E5C2B0A3}"
         "UpgradeCode" = "8:{2898A3B5-BE73-4C88-B4EB-884AA7614840}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
@@ -1636,6 +1636,82 @@
                                             "ValueTypes" = "3:1"
                                             "Value" = "8:Dbwlswjswk1!"
                                             }
+                                        }
+                                    }
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_A8192EE61EC640A0954C5BA2E8283977"
+                                    {
+                                    "Name" = "8:MMS"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:FALSE"
+                                    "DeleteAtUninstall" = "11:FALSE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_7D132C94BE444E77B425929C478A3440"
+                                            {
+                                            "Name" = "8:Customer Part Code"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_125D7A385DA04874A3B11BA8F6770C26"
+                                                    {
+                                                    "Name" = "8:Start Row"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:7"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_1A3C8BE33B844FC1AA4FAAB9D758E6E8"
+                                                    {
+                                                    "Name" = "8:Part Type"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:4"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_688B56507BDA42E083A9B51EED454245"
+                                                    {
+                                                    "Name" = "8:Part Specification"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:3"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D1092980B1164A989E186F5CBB6142CD"
+                                                    {
+                                                    "Name" = "8:Part Category"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:7"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D25163093A5D41B0BE8D12FAA8FD1554"
+                                                    {
+                                                    "Name" = "8:Part Code"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:2"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D3DB503AF9F947E59F0C9CE5410D1C45"
+                                                    {
+                                                    "Name" = "8:Part Vendor"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:5"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        "Values"
+                                        {
                                         }
                                     }
                                     "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_B48E3052E8C549CBBEC71BF5E7CCBFDF"

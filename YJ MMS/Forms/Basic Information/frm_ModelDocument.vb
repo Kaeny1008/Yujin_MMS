@@ -474,16 +474,22 @@ Public Class frm_ModelDocument
         Dim result_Message As String = String.Empty
 
         If dbWrite_Result.Equals("No Change") Then
-            MsgBox("변경 사항이 없습니다.",
-                   MsgBoxStyle.Critical,
-                   msg_form)
+            MessageBox.Show("변경사항이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly)
             GoTo Last_Step
         ElseIf dbWrite_Result.Equals("Completed") Then
             GoTo FTP_Control
         Else
-            MsgBox(dbWrite_Result,
-                   MsgBoxStyle.Critical,
-                   msg_form)
+            MessageBox.Show(dbWrite_Result,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly)
             GoTo Last_Step
         End If
 
@@ -491,13 +497,17 @@ FTP_Control:
         Process_FTP_UpDelete()
 
 Last_Step:
+
         thread_LoadingFormEnd()
-        Thread.Sleep(100)
 
-        If dbWrite_Result.Equals("Completed") Then _
-            MsgBox("저장 완료.", MsgBoxStyle.Information, msg_form)
-
-        'Control_Initiallize()
+        If dbWrite_Result.Equals("Completed") Then
+            MessageBox.Show("저장 완료.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly)
+        End If
 
     End Sub
 
@@ -556,7 +566,7 @@ Last_Step:
             sqlTran.Commit()
         Catch ex As MySqlException
             sqlTran.Rollback()
-            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+            'MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
             Return ex.Message
         End Try
 

@@ -357,7 +357,7 @@ Public Class frm_ModelResistration
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        thread_LoadingFormStart()
+        thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -408,15 +408,28 @@ Public Class frm_ModelResistration
             End If
         Catch ex As MySqlException
             sqlTran.Rollback()
-            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+
+            DBClose()
+
+            thread_LoadingFormEnd()
+            MessageBox.Show(ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly)
             Exit Sub
         End Try
 
         DBClose()
 
         thread_LoadingFormEnd()
-        Thread.Sleep(100)
-        MsgBox("저장완료.", MsgBoxStyle.Information, msg_form)
+        MessageBox.Show("저장완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly)
 
         btn_Search_Click(Nothing, Nothing)
 
