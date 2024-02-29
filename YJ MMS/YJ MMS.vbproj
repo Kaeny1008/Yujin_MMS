@@ -125,6 +125,12 @@
     <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_ExcelModify.Designer.vb">
+      <DependentUpon>frm_ExcelModify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_ExcelModify.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.Designer.vb">
       <DependentUpon>frm_Popup_MultiPartsCode.vb</DependentUpon>
     </Compile>
@@ -205,6 +211,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelResistration.resx">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Popup\frm_ExcelModify.resx">
+      <DependentUpon>frm_ExcelModify.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.resx">
       <DependentUpon>frm_Popup_MultiPartsCode.vb</DependentUpon>

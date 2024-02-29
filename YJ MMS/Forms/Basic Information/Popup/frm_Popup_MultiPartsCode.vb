@@ -99,7 +99,7 @@ Public Class frm_Popup_MultiPartsCode
 
     Private Sub File_Open()
 
-        thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart("Excel Open...")
 
         Dim excelApp As Object
 
@@ -117,7 +117,7 @@ Public Class frm_Popup_MultiPartsCode
         excelApp.Quit()
         excelApp = Nothing
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
 
         'MessageBox.Show(New Form With {.TopMost = True},
         '                "해당 시트를 선택하여 주십시오.",
@@ -149,7 +149,7 @@ Public Class frm_Popup_MultiPartsCode
 
     Private Sub Load_TempData()
 
-        thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart("Excel Open...")
 
         Invoke(d_GridRedraw, False)
 
@@ -187,7 +187,7 @@ Public Class frm_Popup_MultiPartsCode
 
         Invoke(d_GridRedraw, True)
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
 
         runProcess.Abort()
 

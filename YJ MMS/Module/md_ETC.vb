@@ -1,5 +1,6 @@
 ﻿Imports System.Globalization
 Imports System.Threading
+Imports C1.Win.C1FlexGrid
 
 Module md_ETC
 
@@ -142,4 +143,104 @@ Module md_ETC
         th_FormClose = True
 
     End Sub
+
+    Public Sub GridRedraw(ByVal status As Boolean, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Boolean, Form, C1FlexGrid)(AddressOf GridRedraw), status, form1, grid)
+            Else
+                grid.Redraw = status
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridColsAutoSize(ByVal form1 As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Form, C1FlexGrid)(AddressOf GridColsAutoSize), form1, grid)
+            Else
+                ts.AutoSizeCols()
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridRowsAutoSize(ByVal startRow As Integer, ByVal endRow As Integer, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Integer, Integer, Form, C1FlexGrid)(AddressOf GridRowsAutoSize), startRow, endRow, form1, grid)
+            Else
+                ts.AutoSizeRows(startRow, 0, endRow, ts.Cols.Count - 1, 0, AutoSizeFlags.None)
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridWriteText(ByVal text As String, ByVal row As Integer, ByVal col As Integer, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Integer, Integer, Form, C1FlexGrid)(AddressOf GridWriteText), text, row, col, form1, grid)
+            Else
+                ts(row, col) = text
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridWriteText(ByVal text As String, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, C1FlexGrid)(AddressOf GridWriteText), text, form1, grid)
+            Else
+                ts.AddItem(text)
+            End If
+        End If
+
+    End Sub
+
+    Public Sub ComboBoxItemAdd(ByVal itemName As String, ByVal form1 As Form, ByVal cb As ComboBox)
+
+        Dim ctls() As Control = form1.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
+            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, ComboBox)(AddressOf ComboBoxItemAdd), itemName, form1, cb)
+            Else
+                ts.Items.Add(itemName)
+            End If
+        End If
+
+    End Sub
+
+    Public Function ComboBoxTextReading(ByVal form1 As Form, ByVal cb As ComboBox) As String
+
+        Dim ctls() As Control = form1.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
+            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
+            If ts.InvokeRequired Then
+                Return ts.Invoke(New Func(Of String)(Function() ComboBoxTextReading(form1, cb)))
+            Else
+                Return ts.Text
+            End If
+        Else
+            Return String.Empty
+        End If
+
+    End Function
 End Module

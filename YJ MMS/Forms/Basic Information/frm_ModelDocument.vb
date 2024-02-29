@@ -18,6 +18,7 @@ Public Class frm_ModelDocument
 
     Dim _al As ArrayList = New ArrayList()
     Friend BTN(21) As Button
+    Dim runProcess As Thread
 
     Private Sub frm_ModelDocument_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -123,6 +124,29 @@ Public Class frm_ModelDocument
             Next
         Next
 
+        With Grid_BOM
+            .AllowEditing = False
+            .AllowFiltering = True
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 3
+            .Cols.Fixed = 1
+            .Rows.Fixed = 1
+            .Rows.Count = 1
+            Grid_BOM(0, 0) = "No"
+            Grid_BOM(0, 1) = "Ref( Location )"
+            Grid_BOM(0, 2) = "Part No.( Part Code )"
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .AutoSizeCols()
+            .ShowCursor = True
+            .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
+            .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
+            .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+        End With
 
     End Sub
 
@@ -202,7 +226,120 @@ Public Class frm_ModelDocument
         '선택한 파일을 임시폴더에 저장
         My.Computer.FileSystem.CopyFile(openFile.FileName, tempFileFolder & "\" & openFile.FileName.Split("\")(UBound(openFile.FileName.Split("\"))), True)
 
+        '파일명을 그리드에 표시
         Grid_Documents(u_row, 2) = openFile.FileName.Split("\")(UBound(openFile.FileName.Split("\")))
+
+        Select Case u_row
+            Case 1
+                BOM_Modify()
+            Case 2
+                TabControl1.SelectedIndex = 2
+                MessageBox.Show(frm_Main,
+                                "해당 첨부자료(좌표데이터)는 자료가공이 필요합니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning)
+            Case Else
+                Exit Sub
+        End Select
+
+    End Sub
+
+    Public ref_col, part_col, spec_col As Integer
+    Public start_row As Integer
+    Public sheet_name As String
+
+    Private Sub BOM_Modify()
+
+        MessageBox.Show(frm_Main,
+                        "해당 첨부자료(BOM)는 자료가공이 필요합니다." & vbCrLf &
+                        "Ref 구분은 ','로만 되어있어야 합니다." & vbCrLf &
+                        "','구분이 아닐 경우 결과값이 상이할 수 있습니다.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning)
+
+        TabControl1.SelectedIndex = 1
+        Grid_BOM.Redraw = False
+        Grid_BOM.Rows.Count = 1
+        Grid_BOM.Redraw = True
+
+        frm_ExcelModify.TB_File_Path.Text = Grid_Documents(1, 2)
+
+        If frm_ExcelModify.ShowDialog() = DialogResult.OK Then
+            runProcess = New Thread(AddressOf Load_List)
+            runProcess.IsBackground = True
+            runProcess.SetApartmentState(ApartmentState.STA)
+            runProcess.Start()
+        End If
+
+    End Sub
+
+    Private Sub Load_List()
+
+        Dim selectFile As String = Application.StartupPath & "\Temp\"
+
+        Thread_LoadingFormStart("Excel Load...")
+
+        GridRedraw(False, Me, Grid_BOM)
+
+        Dim excelApp As Object
+
+        excelApp = CreateObject("Excel.Application")
+        excelApp.WorkBooks.Open(selectFile & Grid_Documents(1, 2))
+
+        excelApp.Visible = False
+
+        Try
+            With excelApp.ActiveWorkbook.Sheets(sheet_name)
+                For i = start_row To .UsedRange.Rows.Count
+                    Dim refString As String = Trim(.Cells(i, ref_col).Value)
+                    Dim partString As String = Trim(.Cells(i, part_col).Value)
+
+                    If InStr(refString, " ") > 0 Then
+                        refString = refString.Replace(" ", ",")
+                    End If
+
+                    '문자만 추출, '-'가 포함되었을경우 등등
+
+                    GridWriteText("N" & vbTab & refString & vbTab & partString,
+                                  Me,
+                                  Grid_BOM)
+
+                    Invoke(d_SetPGStatus,
+                           "데이터를 불러오고 있습니다.     " &
+                           Format(i - start_row + 1, "#,##0") & " / " &
+                           Format(.UsedRange.Rows.Count - start_row + 1, "#,##0") & " 행")
+                Next
+            End With
+        Catch ex As Exception
+            MessageBox.Show(frm_Main,
+                            ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+        Finally
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            excelApp = Nothing
+            Invoke(d_SetPGStatus, String.Empty)
+        End Try
+
+        GridColsAutoSize(Me, Grid_BOM)
+        GridRedraw(True, Me, Grid_BOM)
+        Thread_LoadingFormEnd()
+
+        runProcess.Abort()
+
+    End Sub
+
+    Private Delegate Sub Sub_SetPGStatus(ByVal statusText As String)
+    Private d_SetPGStatus = New Sub_SetPGStatus(AddressOf PG_Status)
+
+    Private Sub PG_Status(ByVal statusText As String)
+
+        frm_Main.lb_Status.Text = statusText
+        frm_Main.lb_Status.GetCurrentParent.Refresh()
 
     End Sub
 
@@ -230,7 +367,7 @@ Public Class frm_ModelDocument
 
         Dim strSQL As String = "call sp_model_document(2"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
-        strSQL += ",'" & TB_ModelCode.Text & "'"
+            strSQL += ",'" & TB_ModelCode.Text & "'"
         strSQL += ",'" & CB_ManagementNo.Text & "'"
         strSQL += ",'" & Grid_Documents(r_row, 0) & "'"
         strSQL += ")"

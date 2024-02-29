@@ -36,7 +36,13 @@ Partial Class frm_ModelDocument
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_SearchCustomer = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Grid_Documents = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Grid_BOM = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.BTN_NewManagementNo = New System.Windows.Forms.Button()
         Me.CB_ManagementNo = New System.Windows.Forms.ComboBox()
@@ -54,11 +60,6 @@ Partial Class frm_ModelDocument
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.C1DockingTab1 = New C1.Win.C1Command.C1DockingTab()
-        Me.c1DockingTabPage3 = New C1.Win.C1Command.C1DockingTabPage()
-        Me.C1DockingTabPage1 = New C1.Win.C1Command.C1DockingTabPage()
-        Me.C1DockingTabPage2 = New C1.Win.C1Command.C1DockingTabPage()
-        Me.C1DockingTabPage4 = New C1.Win.C1Command.C1DockingTabPage()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -66,12 +67,13 @@ Partial Class frm_ModelDocument
         Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_ModelList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.TabControl1.SuspendLayout()
+        Me.TabPage1.SuspendLayout()
         CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage2.SuspendLayout()
+        CType(Me.Grid_BOM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.C1DockingTab1.SuspendLayout()
-        Me.c1DockingTabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -131,7 +133,7 @@ Partial Class frm_ModelDocument
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.Beige
-        Me.SplitContainer1.Panel2.Controls.Add(Me.C1DockingTab1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.TabControl1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel3)
         Me.SplitContainer1.Size = New System.Drawing.Size(1364, 748)
         Me.SplitContainer1.SplitterDistance = 663
@@ -224,17 +226,82 @@ Partial Class frm_ModelDocument
         Me.Label3.Text = "고객사명"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'TabControl1
+        '
+        Me.TabControl1.Controls.Add(Me.TabPage1)
+        Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TabControl1.Location = New System.Drawing.Point(0, 234)
+        Me.TabControl1.Name = "TabControl1"
+        Me.TabControl1.SelectedIndex = 0
+        Me.TabControl1.Size = New System.Drawing.Size(697, 514)
+        Me.TabControl1.TabIndex = 1
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.Grid_Documents)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(689, 488)
+        Me.TabPage1.TabIndex = 0
+        Me.TabPage1.Text = "자료목록"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
         'Grid_Documents
         '
         Me.Grid_Documents.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_Documents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_Documents.Location = New System.Drawing.Point(0, 0)
+        Me.Grid_Documents.Location = New System.Drawing.Point(3, 3)
         Me.Grid_Documents.Name = "Grid_Documents"
         Me.Grid_Documents.Rows.Count = 2
         Me.Grid_Documents.Rows.DefaultSize = 20
-        Me.Grid_Documents.Size = New System.Drawing.Size(695, 484)
+        Me.Grid_Documents.Size = New System.Drawing.Size(683, 482)
         Me.Grid_Documents.StyleInfo = resources.GetString("Grid_Documents.StyleInfo")
         Me.Grid_Documents.TabIndex = 1
+        '
+        'TabPage2
+        '
+        Me.TabPage2.Controls.Add(Me.Grid_BOM)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(689, 488)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "BOM(PL)"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'Grid_BOM
+        '
+        Me.Grid_BOM.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_BOM.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_BOM.Location = New System.Drawing.Point(3, 3)
+        Me.Grid_BOM.Name = "Grid_BOM"
+        Me.Grid_BOM.Rows.Count = 2
+        Me.Grid_BOM.Rows.DefaultSize = 20
+        Me.Grid_BOM.Size = New System.Drawing.Size(683, 482)
+        Me.Grid_BOM.StyleInfo = resources.GetString("Grid_BOM.StyleInfo")
+        Me.Grid_BOM.TabIndex = 2
+        '
+        'TabPage3
+        '
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Size = New System.Drawing.Size(689, 488)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "좌표데이터"
+        Me.TabPage3.UseVisualStyleBackColor = True
+        '
+        'TabPage4
+        '
+        Me.TabPage4.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Size = New System.Drawing.Size(689, 488)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "BOM+좌표데이터"
+        Me.TabPage4.UseVisualStyleBackColor = True
         '
         'Panel3
         '
@@ -456,60 +523,6 @@ Partial Class frm_ModelDocument
         Me.Label8.Text = "모델별 자료 관리"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'C1DockingTab1
-        '
-        Me.C1DockingTab1.CanAutoHide = True
-        Me.C1DockingTab1.Controls.Add(Me.c1DockingTabPage3)
-        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
-        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
-        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage4)
-        Me.C1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.C1DockingTab1.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.C1DockingTab1.HotTrack = True
-        Me.C1DockingTab1.Location = New System.Drawing.Point(0, 234)
-        Me.C1DockingTab1.Name = "C1DockingTab1"
-        Me.C1DockingTab1.SelectedTabBold = True
-        Me.C1DockingTab1.Size = New System.Drawing.Size(697, 514)
-        Me.C1DockingTab1.TabIndex = 1
-        Me.C1DockingTab1.TabsSpacing = 15
-        Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2010
-        Me.C1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Office2010Blue
-        Me.C1DockingTab1.VisualStyleBase = C1.Win.C1Command.VisualStyle.Office2010Blue
-        '
-        'c1DockingTabPage3
-        '
-        Me.c1DockingTabPage3.Controls.Add(Me.Grid_Documents)
-        Me.c1DockingTabPage3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.c1DockingTabPage3.Location = New System.Drawing.Point(1, 29)
-        Me.c1DockingTabPage3.Name = "c1DockingTabPage3"
-        Me.c1DockingTabPage3.Size = New System.Drawing.Size(695, 484)
-        Me.c1DockingTabPage3.TabIndex = 1
-        Me.c1DockingTabPage3.Text = "자료목록"
-        '
-        'C1DockingTabPage1
-        '
-        Me.C1DockingTabPage1.Location = New System.Drawing.Point(1, 29)
-        Me.C1DockingTabPage1.Name = "C1DockingTabPage1"
-        Me.C1DockingTabPage1.Size = New System.Drawing.Size(695, 484)
-        Me.C1DockingTabPage1.TabIndex = 2
-        Me.C1DockingTabPage1.Text = "BOM(PL)"
-        '
-        'C1DockingTabPage2
-        '
-        Me.C1DockingTabPage2.Location = New System.Drawing.Point(1, 29)
-        Me.C1DockingTabPage2.Name = "C1DockingTabPage2"
-        Me.C1DockingTabPage2.Size = New System.Drawing.Size(695, 484)
-        Me.C1DockingTabPage2.TabIndex = 3
-        Me.C1DockingTabPage2.Text = "좌표데이터"
-        '
-        'C1DockingTabPage4
-        '
-        Me.C1DockingTabPage4.Location = New System.Drawing.Point(1, 29)
-        Me.C1DockingTabPage4.Name = "C1DockingTabPage4"
-        Me.C1DockingTabPage4.Size = New System.Drawing.Size(695, 484)
-        Me.C1DockingTabPage4.TabIndex = 4
-        Me.C1DockingTabPage4.Text = "BOM+좌표데이터"
-        '
         'frm_ModelDocument
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -528,13 +541,14 @@ Partial Class frm_ModelDocument
         CType(Me.Grid_ModelList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.TabControl1.ResumeLayout(False)
+        Me.TabPage1.ResumeLayout(False)
         CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage2.ResumeLayout(False)
+        CType(Me.Grid_BOM, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
-        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.C1DockingTab1.ResumeLayout(False)
-        Me.c1DockingTabPage3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -571,9 +585,10 @@ Partial Class frm_ModelDocument
     Friend WithEvents BTN_NewManagementNo As Button
     Friend WithEvents Grid_Documents As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label5 As Label
-    Friend WithEvents C1DockingTab1 As C1.Win.C1Command.C1DockingTab
-    Private WithEvents c1DockingTabPage3 As C1.Win.C1Command.C1DockingTabPage
-    Friend WithEvents C1DockingTabPage1 As C1.Win.C1Command.C1DockingTabPage
-    Friend WithEvents C1DockingTabPage2 As C1.Win.C1Command.C1DockingTabPage
-    Friend WithEvents C1DockingTabPage4 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents TabPage1 As TabPage
+    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents TabPage4 As TabPage
+    Friend WithEvents Grid_BOM As C1.Win.C1FlexGrid.C1FlexGrid
 End Class
