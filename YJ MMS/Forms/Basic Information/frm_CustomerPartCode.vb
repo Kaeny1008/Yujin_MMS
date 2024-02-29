@@ -287,11 +287,11 @@ Public Class frm_CustomerPartCode
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택 하여 주십시오.",
+            MessageBox.Show("고객사를 먼저 선택 하여 주십시오.",
                             msg_form,
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+                            MessageBoxIcon.Information,
+                            MessageBoxDefaultButton.Button1)
             Exit Sub
         End If
 
@@ -401,8 +401,7 @@ Public Class frm_CustomerPartCode
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
+                            MessageBoxDefaultButton.Button1)
             Exit Sub
         End Try
 
@@ -413,8 +412,9 @@ Public Class frm_CustomerPartCode
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+                        MessageBoxDefaultButton.Button1)
+
+
 
         BTN_Search_Click(Nothing, Nothing)
 

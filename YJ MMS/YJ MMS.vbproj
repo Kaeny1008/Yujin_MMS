@@ -66,6 +66,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.C1Command.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
       <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
@@ -76,7 +77,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -114,6 +117,12 @@
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Basic Information\frm_ModelResistration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.Designer.vb">
+      <DependentUpon>frm_ModelEssentialDocument.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.Designer.vb">
@@ -190,6 +199,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelDocument.resx">
       <DependentUpon>frm_ModelDocument.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\frm_ModelEssentialDocument.resx">
+      <DependentUpon>frm_ModelEssentialDocument.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelResistration.resx">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>

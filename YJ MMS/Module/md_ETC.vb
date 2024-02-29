@@ -59,61 +59,87 @@ Module md_ETC
     End Sub
 
     Dim th_LoadingWindow As Thread
-    Dim thread_SleepTime As Integer = 0
+    ReadOnly thread_SleepTime As Integer = 0
 
-    Public Sub thread_LoadingFormStart()
+    Public Sub Thread_LoadingFormStart()
 
-        formClose = False
-        th_LoadingWindow = New Thread(AddressOf load_LoadWindow)
+        th_FormClose = False
+        th_LoadingWindow = New Thread(AddressOf Load_LoadWindow)
         th_LoadingWindow.IsBackground = True
         th_LoadingWindow.SetApartmentState(ApartmentState.STA)
-        Console.WriteLine("(Loading Form) Staring thread...")
+        th_LoadingWindow.Name = "Normal Thread"
         th_LoadingWindow.Start()
 
     End Sub
 
-    Public Sub thread_LoadingFormStart(ByVal showText As String)
+    Public Sub Thread_LoadingFormStart(ByVal showText As String)
 
-        formClose = False
-        th_LoadingWindow = New Thread(AddressOf load_LoadWindow2)
+        th_FormClose = False
+        th_LoadingWindow = New Thread(AddressOf Load_LoadWindow2)
         th_LoadingWindow.IsBackground = True
         th_LoadingWindow.SetApartmentState(ApartmentState.STA)
-        Console.WriteLine("(Loading Form) Staring thread...")
+        th_LoadingWindow.Name = "ShowText Thread"
         th_LoadingWindow.Start(showText)
 
     End Sub
 
-    Private Sub load_LoadWindow()
+    Private Sub Load_LoadWindow()
 
         Try
-            frm_LoadingImage.ShowDialog()
+            Console.WriteLine("(Loading Form) '{0}' Staring thread...",
+                              Thread.CurrentThread.Name)
+            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
+                Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
+                                  Thread.CurrentThread.Name)
+                'th_LoadingWindow.Abort() '강제종료는 프로그램 종료시나 써야할듯.. abortexception이 생김
+                'Console.WriteLine("(Loading Form) '{0}' Waiting until thread stop...",
+                '                  Thread.CurrentThread.Name)
+                ' th_LoadingWindow.Join()
+                Console.WriteLine("(Loading Form) '{0}' Finished...",
+                                  Thread.CurrentThread.Name)
+
+            End If
         Catch ex As ThreadAbortException
-            Console.WriteLine("(Loading Form) ThreadAbortException : " & ex.Message)
+            Console.WriteLine("(Loading Form) '{0}' ThreadAbortException : " & ex.Message,
+                              Thread.CurrentThread.Name)
         Catch ex2 As Exception
-            Console.WriteLine("(Loading Form) Exception : " & ex2.Message)
+            Console.WriteLine("(Loading Form) '{0}' Exception : " & ex2.Message,
+                              Thread.CurrentThread.Name)
         End Try
 
     End Sub
 
-    Private Sub load_LoadWindow2(ByVal showText As String)
+    Private Sub Load_LoadWindow2(ByVal showText As String)
 
-        frm_LoadingImage.Label1.Text = showText
-        frm_LoadingImage.ShowDialog()
+        Try
+            Console.WriteLine("(Loading Form) '{0}' Staring thread...",
+                              Thread.CurrentThread.Name)
+            frm_LoadingImage.Label1.Text = showText
+            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
+                Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
+                                  Thread.CurrentThread.Name)
+                'th_LoadingWindow.Abort()
+                'Console.WriteLine("(Loading Form) '{0}' Waiting until thread stop...",
+                '                  Thread.CurrentThread.Name)
+                'th_LoadingWindow.Join()
+                Console.WriteLine("(Loading Form) '{0}' Finished...",
+                                  Thread.CurrentThread.Name)
+            End If
+        Catch ex As ThreadAbortException
+            Console.WriteLine("(Loading Form) '{0}' ThreadAbortException : " & ex.Message,
+                              Thread.CurrentThread.Name)
+        Catch ex2 As Exception
+            Console.WriteLine("(Loading Form) '{0}'Exception : " & ex2.Message,
+                              Thread.CurrentThread.Name)
+        End Try
 
     End Sub
 
-    Public formClose As Boolean = False
+    Public th_FormClose As Boolean = False
 
-    Public Sub thread_LoadingFormEnd()
+    Public Sub Thread_LoadingFormEnd()
 
-        formClose = True
-        'frm_LoadingImage.Dispose()
-        'Thread.Sleep(thread_SleepTime)
-        'Console.WriteLine("(Loading Form) Aborting thread...")
-        'th_LoadingWindow.Abort()
-        'Console.WriteLine("(Loading Form) Waiting until thread stop...")
-        'th_LoadingWindow.Join()
-        'Console.WriteLine("(Loading Form) Finished...")
+        th_FormClose = True
 
     End Sub
 End Module

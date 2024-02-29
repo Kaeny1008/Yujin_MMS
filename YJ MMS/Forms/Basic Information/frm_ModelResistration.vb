@@ -416,8 +416,7 @@ Public Class frm_ModelResistration
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
+                            MessageBoxDefaultButton.Button1)
             Exit Sub
         End Try
 
@@ -428,8 +427,7 @@ Public Class frm_ModelResistration
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+                        MessageBoxDefaultButton.Button1)
 
         btn_Search_Click(Nothing, Nothing)
 

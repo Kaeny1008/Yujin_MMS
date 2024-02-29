@@ -22,6 +22,7 @@ Public Class frm_ModelDocument
     Private Sub frm_ModelDocument_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
+        SplitContainer1.Panel2Collapsed = True
 
     End Sub
 
@@ -216,7 +217,7 @@ Public Class frm_ModelDocument
             My.Computer.FileSystem.DeleteFile(tempFileFolder & "\" & Grid_Documents(u_row, 2))
             Grid_Documents.Rows(u_row).StyleNew.ForeColor = Color.Black
             Reload_Document(u_row)
-            MsgBox("삭제한뒤 원래 데이터를 불러 오는지 확인이 필요함.")
+            'MsgBox("삭제한뒤 원래 데이터를 불러 오는지 확인이 필요함.")
         ElseIf Grid_Documents(u_row, 1) = "등록필요" Then
             Exit Sub
         End If
@@ -225,31 +226,13 @@ Public Class frm_ModelDocument
 
     Private Sub Reload_Document(ByVal r_row As Integer)
 
-        Dim findName As String = String.Empty
-
-        Select Case r_row
-            Case 1
-                findName = "bom"
-            Case 2
-                findName = "coordinate"
-            Case 3
-                findName = "pcb_metal_gerber"
-            Case 4
-                findName = "metal_mask_gerber"
-            Case 5
-                findName = "etc1"
-            Case 6
-                findName = "etc2"
-            Case 7
-                findName = "etc3"
-        End Select
-
         DBConnect()
 
         Dim strSQL As String = "call sp_model_document(2"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
         strSQL += ",'" & TB_ModelCode.Text & "'"
         strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ",'" & Grid_Documents(r_row, 0) & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -257,12 +240,8 @@ Public Class frm_ModelDocument
         Dim recordCount As Integer = 0
 
         Do While sqlDR.Read
-            If sqlDR(findName).Equals(String.Empty) Then
-                Grid_Documents(r_row, 1) = "등록필요"
-                Grid_Documents(r_row, 2) = String.Empty
-            Else
-                Grid_Documents(r_row, 2) = sqlDR(findName)
-            End If
+            Grid_Documents(r_row, 1) = "등록됨"
+            Grid_Documents(r_row, 2) = sqlDR("file_name")
             recordCount += 1
         Loop
         sqlDR.Close()
@@ -357,7 +336,9 @@ Public Class frm_ModelDocument
 
         BTN_Save.Enabled = True
 
-        thread_LoadingFormEnd()
+        SplitContainer1.Panel2Collapsed = False
+
+        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -370,6 +351,7 @@ Public Class frm_ModelDocument
         Dim strSQL As String = "call sp_model_document(0"
         strSQL += ",'" & customerCode & "'"
         strSQL += ",'" & modelCode & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
 
@@ -397,6 +379,7 @@ Public Class frm_ModelDocument
         Dim strSQL As String = "call sp_model_document(1"
         strSQL += ",'" & customerCode & "'"
         strSQL += ",'" & modelCode & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
 
@@ -437,6 +420,8 @@ Public Class frm_ModelDocument
             Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
         Next
 
+        SplitContainer1.Panel2Collapsed = True
+
     End Sub
 
     Private Sub BTN_NewManagementNo_Click(sender As Object, e As EventArgs) Handles BTN_NewManagementNo.Click
@@ -474,40 +459,37 @@ Public Class frm_ModelDocument
         Dim result_Message As String = String.Empty
 
         If dbWrite_Result.Equals("No Change") Then
-            MessageBox.Show("변경사항이 없습니다.",
+            Thread_LoadingFormEnd()
+            MessageBox.Show(frm_Main,
+                            "변경사항이 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
-            GoTo Last_Step
+                            MessageBoxDefaultButton.Button1)
+            Exit Sub
         ElseIf dbWrite_Result.Equals("Completed") Then
             GoTo FTP_Control
         Else
-            MessageBox.Show(dbWrite_Result,
+            Thread_LoadingFormEnd()
+            MessageBox.Show(frm_Main,
+                            dbWrite_Result,
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
-            GoTo Last_Step
+                            MessageBoxDefaultButton.Button1)
+            Exit Sub
         End If
 
 FTP_Control:
         Process_FTP_UpDelete()
 
-Last_Step:
-
-        thread_LoadingFormEnd()
-
-        If dbWrite_Result.Equals("Completed") Then
-            MessageBox.Show("저장 완료.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
-        End If
+        Thread_LoadingFormEnd()
+        MessageBox.Show(frm_Main,
+                        "저장 완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1)
 
     End Sub
 
@@ -566,6 +548,7 @@ Last_Step:
             sqlTran.Commit()
         Catch ex As MySqlException
             sqlTran.Rollback()
+            DBClose()
             'MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
             Return ex.Message
         End Try
@@ -679,6 +662,7 @@ Last_Step:
         strSQL += ",'" & TB_CustomerCode.Text & "'"
         strSQL += ",'" & TB_ModelCode.Text & "'"
         strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -700,10 +684,6 @@ Last_Step:
         Grid_Documents.Redraw = True
 
         'thread_LoadingFormEnd()
-
-    End Sub
-
-    Private Sub Grid_ModelList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_ModelList.MouseClick
 
     End Sub
 End Class

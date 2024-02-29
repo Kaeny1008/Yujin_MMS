@@ -31,6 +31,7 @@ Partial Class frm_ModelDocument
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_ModelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TB_SearchModel = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_SearchCustomer = New System.Windows.Forms.TextBox()
@@ -53,6 +54,11 @@ Partial Class frm_ModelDocument
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.C1DockingTab1 = New C1.Win.C1Command.C1DockingTab()
+        Me.c1DockingTabPage3 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.C1DockingTabPage1 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.C1DockingTabPage2 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.C1DockingTabPage4 = New C1.Win.C1Command.C1DockingTabPage()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -63,6 +69,9 @@ Partial Class frm_ModelDocument
         CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.C1DockingTab1.SuspendLayout()
+        Me.c1DockingTabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -122,7 +131,7 @@ Partial Class frm_ModelDocument
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.Beige
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_Documents)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.C1DockingTab1)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel3)
         Me.SplitContainer1.Size = New System.Drawing.Size(1364, 748)
         Me.SplitContainer1.SplitterDistance = 663
@@ -132,17 +141,18 @@ Partial Class frm_ModelDocument
         '
         Me.Grid_ModelList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_ModelList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_ModelList.Location = New System.Drawing.Point(0, 55)
+        Me.Grid_ModelList.Location = New System.Drawing.Point(0, 81)
         Me.Grid_ModelList.Name = "Grid_ModelList"
         Me.Grid_ModelList.Rows.Count = 2
         Me.Grid_ModelList.Rows.DefaultSize = 20
-        Me.Grid_ModelList.Size = New System.Drawing.Size(663, 693)
+        Me.Grid_ModelList.Size = New System.Drawing.Size(663, 667)
         Me.Grid_ModelList.StyleInfo = resources.GetString("Grid_ModelList.StyleInfo")
         Me.Grid_ModelList.TabIndex = 1
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.TB_SearchModel)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TB_SearchCustomer)
@@ -150,8 +160,17 @@ Partial Class frm_ModelDocument
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(663, 55)
+        Me.Panel1.Size = New System.Drawing.Size(663, 81)
         Me.Panel1.TabIndex = 0
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(12, 65)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(323, 12)
+        Me.Label5.TabIndex = 4
+        Me.Label5.Text = "해당 모델을 더블클릭(왼쪽) 하시면 자료를 볼 수 있습니다."
         '
         'TB_SearchModel
         '
@@ -209,11 +228,11 @@ Partial Class frm_ModelDocument
         '
         Me.Grid_Documents.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_Documents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_Documents.Location = New System.Drawing.Point(0, 234)
+        Me.Grid_Documents.Location = New System.Drawing.Point(0, 0)
         Me.Grid_Documents.Name = "Grid_Documents"
         Me.Grid_Documents.Rows.Count = 2
         Me.Grid_Documents.Rows.DefaultSize = 20
-        Me.Grid_Documents.Size = New System.Drawing.Size(697, 514)
+        Me.Grid_Documents.Size = New System.Drawing.Size(695, 484)
         Me.Grid_Documents.StyleInfo = resources.GetString("Grid_Documents.StyleInfo")
         Me.Grid_Documents.TabIndex = 1
         '
@@ -437,6 +456,60 @@ Partial Class frm_ModelDocument
         Me.Label8.Text = "모델별 자료 관리"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
+        'C1DockingTab1
+        '
+        Me.C1DockingTab1.CanAutoHide = True
+        Me.C1DockingTab1.Controls.Add(Me.c1DockingTabPage3)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage4)
+        Me.C1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.C1DockingTab1.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.C1DockingTab1.HotTrack = True
+        Me.C1DockingTab1.Location = New System.Drawing.Point(0, 234)
+        Me.C1DockingTab1.Name = "C1DockingTab1"
+        Me.C1DockingTab1.SelectedTabBold = True
+        Me.C1DockingTab1.Size = New System.Drawing.Size(697, 514)
+        Me.C1DockingTab1.TabIndex = 1
+        Me.C1DockingTab1.TabsSpacing = 15
+        Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2010
+        Me.C1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Office2010Blue
+        Me.C1DockingTab1.VisualStyleBase = C1.Win.C1Command.VisualStyle.Office2010Blue
+        '
+        'c1DockingTabPage3
+        '
+        Me.c1DockingTabPage3.Controls.Add(Me.Grid_Documents)
+        Me.c1DockingTabPage3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.c1DockingTabPage3.Location = New System.Drawing.Point(1, 29)
+        Me.c1DockingTabPage3.Name = "c1DockingTabPage3"
+        Me.c1DockingTabPage3.Size = New System.Drawing.Size(695, 484)
+        Me.c1DockingTabPage3.TabIndex = 1
+        Me.c1DockingTabPage3.Text = "자료목록"
+        '
+        'C1DockingTabPage1
+        '
+        Me.C1DockingTabPage1.Location = New System.Drawing.Point(1, 29)
+        Me.C1DockingTabPage1.Name = "C1DockingTabPage1"
+        Me.C1DockingTabPage1.Size = New System.Drawing.Size(695, 484)
+        Me.C1DockingTabPage1.TabIndex = 2
+        Me.C1DockingTabPage1.Text = "BOM(PL)"
+        '
+        'C1DockingTabPage2
+        '
+        Me.C1DockingTabPage2.Location = New System.Drawing.Point(1, 29)
+        Me.C1DockingTabPage2.Name = "C1DockingTabPage2"
+        Me.C1DockingTabPage2.Size = New System.Drawing.Size(695, 484)
+        Me.C1DockingTabPage2.TabIndex = 3
+        Me.C1DockingTabPage2.Text = "좌표데이터"
+        '
+        'C1DockingTabPage4
+        '
+        Me.C1DockingTabPage4.Location = New System.Drawing.Point(1, 29)
+        Me.C1DockingTabPage4.Name = "C1DockingTabPage4"
+        Me.C1DockingTabPage4.Size = New System.Drawing.Size(695, 484)
+        Me.C1DockingTabPage4.TabIndex = 4
+        Me.C1DockingTabPage4.Text = "BOM+좌표데이터"
+        '
         'frm_ModelDocument
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -445,7 +518,7 @@ Partial Class frm_ModelDocument
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
         Me.Name = "frm_ModelDocument"
-        Me.Text = "모델별 자료"
+        Me.Text = "모델별 자료 등록"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -459,6 +532,9 @@ Partial Class frm_ModelDocument
         Me.Panel3.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.C1DockingTab1.ResumeLayout(False)
+        Me.c1DockingTabPage3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -494,4 +570,10 @@ Partial Class frm_ModelDocument
     Friend WithEvents Label4 As Label
     Friend WithEvents BTN_NewManagementNo As Button
     Friend WithEvents Grid_Documents As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Label5 As Label
+    Friend WithEvents C1DockingTab1 As C1.Win.C1Command.C1DockingTab
+    Private WithEvents c1DockingTabPage3 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents C1DockingTabPage1 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents C1DockingTabPage2 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents C1DockingTabPage4 As C1.Win.C1Command.C1DockingTabPage
 End Class

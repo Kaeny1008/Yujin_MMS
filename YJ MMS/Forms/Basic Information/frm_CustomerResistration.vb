@@ -181,11 +181,16 @@ Public Class frm_CustomerResistration
             End If
         Next
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        'If MsgBox("저장 하시겠습니까?",
+        '          MsgBoxStyle.Question + MsgBoxStyle.YesNo,
+        '          msg_form) = MsgBoxResult.No Then Exit Sub
+        If MessageBox.Show("저장 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question,
+                           MessageBoxDefaultButton.Button1) = DialogResult.No Then Exit Sub
 
-        thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -241,28 +246,25 @@ Public Class frm_CustomerResistration
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.DefaultDesktopOnly)
+                                MessageBoxDefaultButton.Button1)
             Else
                 MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.DefaultDesktopOnly)
+                                MessageBoxDefaultButton.Button1)
             End If
             Exit Sub
         End Try
 
         DBClose()
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
         MessageBox.Show("저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+                        MessageBoxDefaultButton.Button1)
 
         btn_Search_Click(Nothing, Nothing)
 
@@ -270,7 +272,7 @@ Public Class frm_CustomerResistration
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart()
 
         grid_CustomerList.Redraw = False
         grid_CustomerList.Rows.Count = 1
@@ -302,7 +304,7 @@ Public Class frm_CustomerResistration
         grid_CustomerList.AutoSizeCols()
         grid_CustomerList.Redraw = True
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
 
     End Sub
 
