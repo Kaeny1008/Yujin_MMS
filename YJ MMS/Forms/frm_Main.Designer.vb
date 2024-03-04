@@ -45,8 +45,10 @@ Partial Class frm_Main
         Me.btn_ModelMNG = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_ModelResistration = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_ModelDocument = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_PartCodeManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_CustomerPartCode = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.BTN_CodeMapping = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -172,7 +174,7 @@ Partial Class frm_Main
         'btn_BasicInformation
         '
         Me.btn_BasicInformation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.btn_BasicInformation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_CustomerMNG, Me.btn_ModelMNG, Me.BTN_CustomerPartCode})
+        Me.btn_BasicInformation.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_CustomerMNG, Me.btn_ModelMNG, Me.BTN_PartCodeManager})
         Me.btn_BasicInformation.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
         Me.btn_BasicInformation.Image = CType(resources.GetObject("btn_BasicInformation.Image"), System.Drawing.Image)
         Me.btn_BasicInformation.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -185,7 +187,7 @@ Partial Class frm_Main
         Me.btn_CustomerMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_CustomerResistration})
         Me.btn_CustomerMNG.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.btn_CustomerMNG.Name = "btn_CustomerMNG"
-        Me.btn_CustomerMNG.Size = New System.Drawing.Size(152, 22)
+        Me.btn_CustomerMNG.Size = New System.Drawing.Size(180, 22)
         Me.btn_CustomerMNG.Text = "고객사 관리"
         '
         'btn_CustomerResistration
@@ -199,7 +201,7 @@ Partial Class frm_Main
         Me.btn_ModelMNG.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_ModelResistration, Me.btn_ModelDocument})
         Me.btn_ModelMNG.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.btn_ModelMNG.Name = "btn_ModelMNG"
-        Me.btn_ModelMNG.Size = New System.Drawing.Size(152, 22)
+        Me.btn_ModelMNG.Size = New System.Drawing.Size(180, 22)
         Me.btn_ModelMNG.Text = "모델 관리"
         '
         'btn_ModelResistration
@@ -214,12 +216,25 @@ Partial Class frm_Main
         Me.btn_ModelDocument.Size = New System.Drawing.Size(166, 22)
         Me.btn_ModelDocument.Text = "모델별 자료 등록"
         '
+        'BTN_PartCodeManager
+        '
+        Me.BTN_PartCodeManager.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CustomerPartCode, Me.BTN_CodeMapping})
+        Me.BTN_PartCodeManager.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.BTN_PartCodeManager.Name = "BTN_PartCodeManager"
+        Me.BTN_PartCodeManager.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_PartCodeManager.Text = "자재코드 관리"
+        '
         'BTN_CustomerPartCode
         '
-        Me.BTN_CustomerPartCode.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_CustomerPartCode.Name = "BTN_CustomerPartCode"
-        Me.BTN_CustomerPartCode.Size = New System.Drawing.Size(152, 22)
-        Me.BTN_CustomerPartCode.Text = "자재코드 관리"
+        Me.BTN_CustomerPartCode.Size = New System.Drawing.Size(190, 22)
+        Me.BTN_CustomerPartCode.Text = "고객사 자재코드 관리"
+        '
+        'BTN_CodeMapping
+        '
+        Me.BTN_CodeMapping.Name = "BTN_CodeMapping"
+        Me.BTN_CodeMapping.Size = New System.Drawing.Size(190, 22)
+        Me.BTN_CodeMapping.Text = "Code Mapping"
         '
         'frm_Main
         '
@@ -264,5 +279,7 @@ Partial Class frm_Main
     Friend WithEvents btn_CustomerResistration As ToolStripMenuItem
     Friend WithEvents btn_ModelResistration As ToolStripMenuItem
     Friend WithEvents btn_ModelDocument As ToolStripMenuItem
+    Friend WithEvents BTN_PartCodeManager As ToolStripMenuItem
     Friend WithEvents BTN_CustomerPartCode As ToolStripMenuItem
+    Friend WithEvents BTN_CodeMapping As ToolStripMenuItem
 End Class

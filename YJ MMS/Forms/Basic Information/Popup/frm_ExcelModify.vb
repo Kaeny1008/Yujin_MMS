@@ -15,8 +15,9 @@ Imports C1.Win.C1FlexGrid
 Public Class frm_ExcelModify
 
     Dim runProcess As Thread
-    Public ref_col, part_col As Integer
+    Public ref_col, part_col, x_col, y_col, a_col, tb_col As Integer
     Public start_row As Integer
+    Public callMode As String
 
     Private Sub frm_Popup_MultiPartsCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -99,17 +100,18 @@ Public Class frm_ExcelModify
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(New Form With {.TopMost = True},
-                        "해당 시트를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
-
-        'MessageBox.Show("해당 시트를 선택하여 주십시오.",
+        'MessageBox.Show(New Form With {.TopMost = True},
+        '                "해당 시트를 선택하여 주십시오.",
         '                msg_form,
         '                MessageBoxButtons.OK,
-        '                MessageBoxIcon.Information,
-        '                MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly)
+        '                MessageBoxIcon.Information)
+
+        MessageBox.Show("해당 시트를 선택하여 주십시오.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1,
+                        MessageBoxOptions.DefaultDesktopOnly)
         'MsgBox("해당 시트를 선택하여 주십시오.", MsgBoxStyle.Information, msg_form)
 
         runProcess.Abort()
@@ -145,7 +147,7 @@ Public Class frm_ExcelModify
             With excelApp.ActiveWorkbook.Sheets(sheetName)
                 For i = 1 To 20
                     For j = 1 To 10
-                        GridWriteText(.Cells(j, i).Value, j, i, Me, Grid_Excel)
+                        GridWriteText(.Cells(j, i).Value, j, i, Me, Grid_Excel, Color.Black)
                     Next
                 Next
             End With
@@ -174,22 +176,38 @@ Public Class frm_ExcelModify
 
     Private Sub BTN_Start_Click(sender As Object, e As EventArgs) Handles BTN_Start.Click
 
-        If ref_col = 0 Or part_col = 0 Or start_row = 0 Then
-            MessageBox.Show(Me,
+        If callMode = "BOM" Then
+            If ref_col = 0 Or part_col = 0 Or start_row = 0 Then
+                MessageBox.Show(Me,
                             "해당위치가 선택되지 않았습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
-            Exit Sub
+                Exit Sub
+            End If
+            frm_ModelDocument.ref_col = ref_col
+            frm_ModelDocument.part_col = part_col
+            frm_ModelDocument.start_row = start_row
+            frm_ModelDocument.sheet_name = CB_SheetName.Text
+        ElseIf callMode = "Coordinates" Then
+            If ref_col = 0 Or x_col = 0 Or y_col = 0 Or a_col = 0 Or tb_col = 0 Or start_row = 0 Then
+                MessageBox.Show(Me,
+                            "해당위치가 선택되지 않았습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+                Exit Sub
+            End If
+            frm_ModelDocument.ref_col = ref_col
+            frm_ModelDocument.x_col = x_col
+            frm_ModelDocument.y_col = y_col
+            frm_ModelDocument.a_col = a_col
+            frm_ModelDocument.tb_col = tb_col
+            frm_ModelDocument.start_row = start_row
+            frm_ModelDocument.sheet_name = CB_SheetName.Text
         End If
 
-        frm_ModelDocument.ref_col = ref_col
-        frm_ModelDocument.part_col = part_col
-        frm_ModelDocument.start_row = start_row
-        frm_ModelDocument.sheet_name = CB_SheetName.Text
-
         DialogResult = DialogResult.OK
-        Me.Hide()
 
     End Sub
 
@@ -202,7 +220,11 @@ Public Class frm_ExcelModify
 
         If selRow = 0 And selCol > 0 Then
             Grid_Excel.Select(selRow, selCol)
-            CMS_ColumnMenu.Show(Grid_Excel, New Point(e.X, e.Y))
+            If callMode = "BOM" Then
+                CMS_ColumnMenu1.Show(Grid_Excel, New Point(e.X, e.Y))
+            ElseIf callMode = "Coordinates" Then
+                CMS_ColumnMenu2.Show(Grid_Excel, New Point(e.X, e.Y))
+            End If
         ElseIf selRow > 0 And selCol = 0 Then
             Grid_Excel.Select(selRow, selCol)
             CMS_RowMenu.Show(Grid_Excel, New Point(e.X, e.Y))
@@ -222,7 +244,13 @@ Public Class frm_ExcelModify
 
     End Sub
 
-    Private Sub BTN_Ref_Click(sender As Object, e As EventArgs) Handles BTN_Ref.Click, BTN_PartNo.Click
+    Private Sub BTN_Ref_Click(sender As Object, e As EventArgs) Handles BTN_Ref1.Click,
+        BTN_PartNo.Click,
+        BTN_Ref2.Click,
+        BTN_X.Click,
+        BTN_Y.Click,
+        BTN_A.Click,
+        BTN_TB.Click
 
         Dim selName As String = sender.ToString
 
@@ -237,11 +265,36 @@ Public Class frm_ExcelModify
         Grid_Excel(0, Grid_Excel.Col) = selName
         Grid_Excel.AutoSizeCols()
 
-        If selName = BTN_Ref.Text Then
+        If selName = BTN_Ref1.Text Then
             ref_col = Grid_Excel.Col
         ElseIf selName = BTN_PartNo.Text Then
             part_col = Grid_Excel.Col
+        ElseIf selName = BTN_Ref2.Text Then
+            ref_col = Grid_Excel.Col
+        ElseIf selName = BTN_x.Text Then
+            x_col = Grid_Excel.Col
+        ElseIf selName = BTN_y.Text Then
+            y_col = Grid_Excel.Col
+        ElseIf selName = BTN_a.Text Then
+            a_col = Grid_Excel.Col
+        ElseIf selName = BTN_tb.Text Then
+            tb_col = Grid_Excel.Col
         End If
+
+    End Sub
+
+    Private Sub frm_ExcelModify_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+
+        If e.CloseReason = 3 Then
+            frm_ModelDocument.TabControl1.SelectedIndex = 0
+            If callMode = "BOM" Then
+                frm_ModelDocument.FileDelete_Ready(1)
+            ElseIf callMode = "Coordinates" Then
+                frm_ModelDocument.FileDelete_Ready(2)
+            End If
+        End If
+
+        Me.Dispose()
 
     End Sub
 End Class

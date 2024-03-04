@@ -10,6 +10,7 @@
 
 '############################################################################################################
 
+Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
@@ -20,8 +21,14 @@ Public Class frm_ModelDocument
     Friend BTN(21) As Button
     Dim runProcess As Thread
 
+    Public ref_col, part_col, spec_col, x_col, y_col, a_col, tb_col As Integer
+    Public start_row As Integer
+    Public sheet_name As String
+
     Private Sub frm_ModelDocument_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        Label11.Text = String.Empty
+        Label12.Text = String.Empty
         Grid_Setting()
         SplitContainer1.Panel2Collapsed = True
 
@@ -148,9 +155,72 @@ Public Class frm_ModelDocument
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
         End With
 
+        With Grid_Coordinates
+            .AllowEditing = False
+            .AllowFiltering = True
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 6
+            .Cols.Fixed = 1
+            .Rows.Fixed = 1
+            .Rows.Count = 1
+            Grid_Coordinates(0, 0) = "No"
+            Grid_Coordinates(0, 1) = "Ref( Location )"
+            Grid_Coordinates(0, 2) = "X"
+            Grid_Coordinates(0, 3) = "Y"
+            Grid_Coordinates(0, 4) = "A"
+            Grid_Coordinates(0, 5) = "Top / Bottom"
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .AutoSizeCols()
+            .ShowCursor = True
+            .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
+            .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
+            .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+        End With
+
+        With Grid_BOM_Total
+            .AllowEditing = False
+            .AllowFiltering = True
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 8
+            .Cols.Fixed = 1
+            .Rows.Fixed = 1
+            .Rows.Count = 1
+            Grid_BOM_Total(0, 0) = "No"
+            Grid_BOM_Total(0, 1) = "Ref( Location )"
+            Grid_BOM_Total(0, 2) = "Part No.( Part Code )"
+            Grid_BOM_Total(0, 3) = "X"
+            Grid_BOM_Total(0, 4) = "Y"
+            Grid_BOM_Total(0, 5) = "A"
+            Grid_BOM_Total(0, 6) = "Top / Bottom"
+            Grid_BOM_Total(0, 7) = "타입"
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .AutoSizeCols()
+            .ShowCursor = True
+            .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
+            .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
+            .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            '.SelectionMode = SelectionModeEnum.Row
+        End With
+
     End Sub
 
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+        If CB_ManagementNo.Text = String.Empty Then
+            MessageBox.Show(Me, "관리번호를 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
         Dim bt As Button = CType(sender, Button)
 
         Select Case CInt(bt.Tag)
@@ -233,21 +303,12 @@ Public Class frm_ModelDocument
             Case 1
                 BOM_Modify()
             Case 2
-                TabControl1.SelectedIndex = 2
-                MessageBox.Show(frm_Main,
-                                "해당 첨부자료(좌표데이터)는 자료가공이 필요합니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning)
+                Coordinate_Modify()
             Case Else
                 Exit Sub
         End Select
 
     End Sub
-
-    Public ref_col, part_col, spec_col As Integer
-    Public start_row As Integer
-    Public sheet_name As String
 
     Private Sub BOM_Modify()
 
@@ -264,10 +325,11 @@ Public Class frm_ModelDocument
         Grid_BOM.Rows.Count = 1
         Grid_BOM.Redraw = True
 
+        frm_ExcelModify.callMode = "BOM"
         frm_ExcelModify.TB_File_Path.Text = Grid_Documents(1, 2)
 
         If frm_ExcelModify.ShowDialog() = DialogResult.OK Then
-            runProcess = New Thread(AddressOf Load_List)
+            runProcess = New Thread(AddressOf Load_BOM_List)
             runProcess.IsBackground = True
             runProcess.SetApartmentState(ApartmentState.STA)
             runProcess.Start()
@@ -275,7 +337,7 @@ Public Class frm_ModelDocument
 
     End Sub
 
-    Private Sub Load_List()
+    Private Sub Load_BOM_List()
 
         Dim selectFile As String = Application.StartupPath & "\Temp\"
 
@@ -290,21 +352,62 @@ Public Class frm_ModelDocument
 
         excelApp.Visible = False
 
+        LabelTextUpdate(String.Empty, Me, Label11)
+
         Try
             With excelApp.ActiveWorkbook.Sheets(sheet_name)
                 For i = start_row To .UsedRange.Rows.Count
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim partString As String = Trim(.Cells(i, part_col).Value)
 
-                    If InStr(refString, " ") > 0 Then
+                    'If partString.Equals("1203020601") Then
+                    '    For j = 0 To refString.Length - 1
+                    '        Console.WriteLine(Asc(refString.Substring(j, 1)))
+                    '    Next
+                    'End If
+
+                    If Not refString.Equals(String.Empty) Then
+                        'Console.WriteLine(refString)
                         refString = refString.Replace(" ", ",")
+                        refString = refString.Replace(vbLf, String.Empty)
+                        refString = refString.Replace(vbCr, String.Empty)
+                        refString = refString.Replace(vbCrLf, String.Empty)
+
+                        Dim split_Ref() As String = refString.Split(",")
+                        Dim lcSplit() As String
+                        Dim lName As String = String.Empty
+                        Dim fNumber, fNumber2 As Integer
+
+                        If UBound(split_Ref) > 0 Then
+                            For j = 0 To UBound(split_Ref)
+                                If InStr(split_Ref(j), "~") > 0 Then
+                                    lcSplit = Split(split_Ref(j), "~")
+                                    lName = Microsoft.VisualBasic.Left(lcSplit(0), InStr(lcSplit(0), Regex.Replace(lcSplit(0), "\D", "")) - 1)
+                                    fNumber = CInt(Regex.Replace(lcSplit(0), "\D", "")) '처음 시작하는 숫자
+                                    fNumber2 = CInt(Regex.Replace(lcSplit(UBound(Split(split_Ref(j), "~"))), "\D", "")) '마지막 숫자
+                                    For jj = fNumber To fNumber2
+                                        GridWriteText(Grid_BOM.Rows.Count & vbTab & (lName & jj) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                    Next
+                                Else
+                                    GridWriteText(Grid_BOM.Rows.Count & vbTab & split_Ref(j) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                End If
+                            Next
+                        Else
+                            If InStr(split_Ref(0), "~") > 0 Then
+                                lcSplit = Split(split_Ref(0), "~")
+                                lName = Microsoft.VisualBasic.Left(lcSplit(0), InStr(lcSplit(0), Regex.Replace(lcSplit(0), "\D", "")) - 1)
+                                fNumber = CInt(Regex.Replace(lcSplit(0), "\D", "")) '처음 시작하는 숫자
+                                fNumber2 = CInt(Regex.Replace(lcSplit(UBound(Split(split_Ref(0), "~"))), "\D", "")) '마지막 숫자
+                                For jj = fNumber To fNumber2
+                                    GridWriteText(Grid_BOM.Rows.Count & vbTab & (lName & jj) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                Next
+                            Else
+                                GridWriteText(Grid_BOM.Rows.Count & vbTab & split_Ref(0) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                            End If
+                        End If
+                    Else
+                        GridWriteText(Grid_BOM.Rows.Count & vbTab & refString & vbTab & partString, Me, Grid_BOM, Color.Black)
                     End If
-
-                    '문자만 추출, '-'가 포함되었을경우 등등
-
-                    GridWriteText("N" & vbTab & refString & vbTab & partString,
-                                  Me,
-                                  Grid_BOM)
 
                     Invoke(d_SetPGStatus,
                            "데이터를 불러오고 있습니다.     " &
@@ -325,8 +428,99 @@ Public Class frm_ModelDocument
             Invoke(d_SetPGStatus, String.Empty)
         End Try
 
+        'FormDispose(frm_ExcelModify)
+        LabelTextUpdate("총 Point  : " & Format(Grid_BOM.Rows.Count - 1, "#,##0 EA"), Me, Label11)
+
         GridColsAutoSize(Me, Grid_BOM)
         GridRedraw(True, Me, Grid_BOM)
+        Thread_LoadingFormEnd()
+
+        runProcess.Abort()
+
+    End Sub
+
+    Private Sub Coordinate_Modify()
+
+        MessageBox.Show(frm_Main,
+                        "해당 첨부자료(좌표데이터)는 자료가공이 필요합니다.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning)
+
+        TabControl1.SelectedIndex = 2
+        Grid_Coordinates.Redraw = False
+        Grid_Coordinates.Rows.Count = 1
+        Grid_Coordinates.Redraw = True
+
+        frm_ExcelModify.callMode = "Coordinates"
+        frm_ExcelModify.TB_File_Path.Text = Grid_Documents(2, 2)
+
+        If frm_ExcelModify.ShowDialog() = DialogResult.OK Then
+            runProcess = New Thread(AddressOf Load_Coorinates_List)
+            runProcess.IsBackground = True
+            runProcess.SetApartmentState(ApartmentState.STA)
+            runProcess.Start()
+        End If
+
+    End Sub
+
+    Private Sub Load_Coorinates_List()
+
+        Dim selectFile As String = Application.StartupPath & "\Temp\"
+
+        Thread_LoadingFormStart("Excel Load...")
+
+        GridRedraw(False, Me, Grid_Coordinates)
+
+        Dim excelApp As Object
+
+        excelApp = CreateObject("Excel.Application")
+        excelApp.WorkBooks.Open(selectFile & Grid_Documents(2, 2))
+
+        excelApp.Visible = False
+
+        LabelTextUpdate(String.Empty, Me, Label12)
+
+        Try
+            With excelApp.ActiveWorkbook.Sheets(sheet_name)
+                For i = start_row To .UsedRange.Rows.Count
+                    Dim refString As String = Trim(.Cells(i, ref_col).Value)
+                    Dim xString As Double = Trim(.Cells(i, x_col).Value)
+                    Dim yString As Double = Trim(.Cells(i, y_col).Value)
+                    Dim aString As Double = Trim(.Cells(i, a_col).Value)
+                    Dim tbString As String = Trim(.Cells(i, tb_col).Value)
+
+                    GridWriteText(Grid_Coordinates.Rows.Count & vbTab &
+                                  refString & vbTab &
+                                  xString & vbTab &
+                                  yString & vbTab &
+                                  aString & vbTab &
+                                  tbString,
+                                  Me, Grid_Coordinates, Color.Black)
+                    Invoke(d_SetPGStatus,
+                           "데이터를 불러오고 있습니다.     " &
+                           Format(i - start_row + 1, "#,##0") & " / " &
+                           Format(.UsedRange.Rows.Count - start_row + 1, "#,##0") & " 행")
+                Next
+            End With
+        Catch ex As Exception
+            MessageBox.Show(frm_Main,
+                            ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+        Finally
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            excelApp = Nothing
+            Invoke(d_SetPGStatus, String.Empty)
+        End Try
+
+        'FormDispose(frm_ExcelModify)
+        LabelTextUpdate("총 Point  : " & Format(Grid_Coordinates.Rows.Count - 1, "#,##0 EA"), Me, Label12)
+
+        GridColsAutoSize(Me, Grid_Coordinates)
+        GridRedraw(True, Me, Grid_Coordinates)
         Thread_LoadingFormEnd()
 
         runProcess.Abort()
@@ -343,7 +537,7 @@ Public Class frm_ModelDocument
 
     End Sub
 
-    Private Sub FileDelete_Ready(ByVal u_row As Integer)
+    Public Sub FileDelete_Ready(ByVal u_row As Integer)
 
         Dim tempFileFolder As String = Application.StartupPath & "\Temp"
 
@@ -367,7 +561,7 @@ Public Class frm_ModelDocument
 
         Dim strSQL As String = "call sp_model_document(2"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
-            strSQL += ",'" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & TB_ModelCode.Text & "'"
         strSQL += ",'" & CB_ManagementNo.Text & "'"
         strSQL += ",'" & Grid_Documents(r_row, 0) & "'"
         strSQL += ")"
@@ -406,7 +600,7 @@ Public Class frm_ModelDocument
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart()
 
         Control_Initiallize()
 
@@ -445,7 +639,7 @@ Public Class frm_ModelDocument
         Grid_ModelList.AutoSizeCols()
         Grid_ModelList.Redraw = True
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -462,7 +656,7 @@ Public Class frm_ModelDocument
 
         If Grid_ModelList.MouseRow < 1 Then Exit Sub
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart()
 
         Control_Initiallize()
 
@@ -535,6 +729,90 @@ Public Class frm_ModelDocument
 
     End Sub
 
+    Private Sub BTN_Result_Click(sender As Object, e As EventArgs) Handles BTN_Result.Click
+
+        If Grid_BOM.Rows.Count = 1 Then
+            MessageBox.Show(frm_Main, "BOM을 먼저 불러 오십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If Grid_Coordinates.Rows.Count = 1 Then
+            MessageBox.Show(frm_Main, "좌표데이터를 먼저 불러 오십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Grid_BOM_Total.Redraw = False
+        Grid_BOM_Total.Rows.Count = 1
+
+        Dim findFault As Boolean = False
+        frm_Coordinate_Find_Fault.Show(frm_Main)
+
+        For i = 1 To Grid_BOM.Rows.Count - 1
+            Dim nowRef As String = Grid_BOM(i, 1)
+            Dim nowPart As String = Grid_BOM(i, 2)
+            Dim coodinatesRow As Integer = Grid_Coordinates.FindRow(nowRef, 1, 1, True)
+            Dim nowX As String = String.Empty
+            Dim nowY As String = String.Empty
+            Dim nowA As String = String.Empty
+            Dim nowTB As String = String.Empty
+
+            If coodinatesRow > 0 Then
+                nowX = Grid_Coordinates(coodinatesRow, 2)
+                nowY = Grid_Coordinates(coodinatesRow, 3)
+                nowA = Grid_Coordinates(coodinatesRow, 4)
+                nowTB = Grid_Coordinates(coodinatesRow, 5)
+            Else
+                findFault = True
+                GridWriteText(frm_Coordinate_Find_Fault.Grid_BOM.Rows.Count & vbTab &
+                              nowRef & vbTab &
+                              nowPart,
+                              frm_Coordinate_Find_Fault,
+                              frm_Coordinate_Find_Fault.Grid_BOM,
+                              Color.Blue)
+                'frm_Coordinate_Find_Fault.Grid_BOM.AddItem(frm_Coordinate_Find_Fault.Grid_BOM.Rows.Count & vbTab & nowRef & vbTab & nowPart)
+            End If
+
+            Grid_BOM_Total.AddItem(Grid_BOM_Total.Rows.Count & vbTab &
+                                   nowRef & vbTab &
+                                   nowPart & vbTab &
+                                   nowX & vbTab &
+                                   nowY & vbTab &
+                                   nowA & vbTab &
+                                   nowTB & vbTab)
+
+        Next
+
+        Grid_BOM_Total.AutoSizeCols()
+        Grid_BOM_Total.Redraw = True
+
+        '좌표를 찾지 못했다면..
+        If findFault = True Then
+            frm_Coordinate_Find_Fault.Grid_Coordinates.Redraw = False
+            For i = 1 To Grid_Coordinates.Rows.Count - 1
+                If Grid_BOM_Total.FindRow(Grid_Coordinates(i, 1), 1, 1, True) < 0 Then
+                    frm_Coordinate_Find_Fault.Grid_Coordinates.AddItem(frm_Coordinate_Find_Fault.Grid_Coordinates.Rows.Count & vbTab &
+                                                                       Grid_Coordinates(i, 1) & vbTab &
+                                                                       Grid_Coordinates(i, 2) & vbTab &
+                                                                       Grid_Coordinates(i, 3) & vbTab &
+                                                                       Grid_Coordinates(i, 4) & vbTab &
+                                                                       Grid_Coordinates(i, 5))
+                End If
+            Next
+            frm_Coordinate_Find_Fault.Grid_Coordinates.AutoSizeCols()
+            frm_Coordinate_Find_Fault.Grid_Coordinates.Redraw = True
+
+            MessageBox.Show(frm_Main,
+                            "좌표를 찾지 못한 Ref가 존재합니다." & vbCrLf & "확인하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            frm_Coordinate_Find_Fault.Focus()
+        Else
+            frm_Coordinate_Find_Fault.Close()
+        End If
+
+    End Sub
+
     Private Sub Control_Initiallize()
 
         TB_CustomerCode.Text = String.Empty
@@ -556,6 +834,12 @@ Public Class frm_ModelDocument
             Grid_Documents(i, 2) = String.Empty
             Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
         Next
+
+        Grid_BOM.Rows.Count = 1
+        Grid_Coordinates.Rows.Count = 1
+        Grid_BOM_Total.Rows.Count = 1
+
+        TabControl1.SelectedIndex = 0
 
         SplitContainer1.Panel2Collapsed = True
 
@@ -590,7 +874,7 @@ Public Class frm_ModelDocument
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart("Saving...")
 
         Dim dbWrite_Result As String = Process_DB_Write()
         Dim result_Message As String = String.Empty
@@ -621,6 +905,8 @@ FTP_Control:
         Process_FTP_UpDelete()
 
         Thread_LoadingFormEnd()
+
+        TabControl1.SelectedIndex = 0
         MessageBox.Show(frm_Main,
                         "저장 완료.",
                         msg_form,
@@ -673,6 +959,64 @@ FTP_Control:
                 End If
             Next
 
+            If Not Grid_Documents(1, 1) = "등록필요" Then
+                strSQL += "delete from tb_model_bom"
+                strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+                strSQL += " and management_no;"
+                For i = 1 To Grid_BOM.Rows.Count - 1
+                    strSQL += "insert into tb_model_bom("
+                    strSQL += "customer_code, model_code, management_no, ref, part_no) values("
+                    strSQL += "'" & TB_CustomerCode.Text & "'"
+                    strSQL += ",'" & TB_ModelCode.Text & "'"
+                    strSQL += ",'" & CB_ManagementNo.Text & "'"
+                    strSQL += ",'" & Grid_BOM(i, 1) & "'"
+                    strSQL += ",'" & Grid_BOM(i, 2) & "'"
+                    strSQL += ");"
+                Next
+            End If
+
+            If Not Grid_Documents(1, 2) = "등록필요" = True Then
+                strSQL += "delete from tb_model_coordinates"
+                strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+                strSQL += " and management_no;"
+                For i = 1 To Grid_Coordinates.Rows.Count - 1
+                    strSQL += "insert into tb_model_coordinates("
+                    strSQL += "customer_code, model_code, management_no, ref, x_mm, y_mm, angle, tb) values("
+                    strSQL += "'" & TB_CustomerCode.Text & "'"
+                    strSQL += ",'" & TB_ModelCode.Text & "'"
+                    strSQL += ",'" & CB_ManagementNo.Text & "'"
+                    strSQL += ",'" & Grid_Coordinates(i, 1) & "'"
+                    strSQL += ",'" & Grid_Coordinates(i, 2) & "'"
+                    strSQL += ",'" & Grid_Coordinates(i, 3) & "'"
+                    strSQL += ",'" & Grid_Coordinates(i, 4) & "'"
+                    strSQL += ",'" & Grid_Coordinates(i, 5) & "'"
+                    strSQL += ");"
+                Next
+            End If
+
+            'If Not Grid_Documents(1, 1) = "등록필요" And Not Grid_Documents(2, 1) = "등록필요" Then
+            '    strSQL += "delete from tb_model_ref_information"
+            '    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            '    strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+            '    strSQL += " and management_no;"
+            '    For i = 1 To Grid_BOM_Total.Rows.Count - 1
+            '        strSQL += "insert into tb_model_ref_information("
+            '        strSQL += "customer_code, model_code, management_no, ref, part_no, x_mm, y_mm, angle, tb) values("
+            '        strSQL += "'" & TB_CustomerCode.Text & "'"
+            '        strSQL += ",'" & TB_ModelCode.Text & "'"
+            '        strSQL += ",'" & CB_ManagementNo.Text & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 1) & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 2) & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 3) & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 4) & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 5) & "'"
+            '        strSQL += ",'" & Grid_BOM_Total(i, 6) & "'"
+            '        strSQL += ");"
+            '    Next
+            'End If
+
             If strSQL = String.Empty Then
                 DBClose()
                 Return "No Change"
@@ -707,7 +1051,7 @@ FTP_Control:
                 Dim ftpFolder As String = ftpFolderSearch(rootFolder) '고객사 폴더를 검색할 위치의 리스트를 저장
 
                 Dim DirectoryName() As String = Split(ftpFolder, vbCrLf)
-                Dim DirectoryExists As Boolean
+                Dim DirectoryExists As Boolean = False
 
                 For j = 0 To UBound(DirectoryName) - 1
                     If TB_CustomerCode.Text = Trim(DirectoryName(j)) Then
@@ -723,6 +1067,7 @@ FTP_Control:
                 End If
 
                 '고객사 폴더에서 모델 폴더가 존재하는지 검색 후 존재하지 않으면 생성
+                DirectoryExists = False
                 ftpFolder = ftpFolderSearch(rootFolder & TB_CustomerCode.Text & "/") '모델 폴더를 검색할 위치의 리스트를 저장
                 DirectoryName = Split(ftpFolder, vbCrLf)
 
@@ -740,6 +1085,7 @@ FTP_Control:
                 End If
 
                 '모델 폴더에서 관리번호 폴더가 존재하는지 검색 후 존재하지 않으면 생성
+                DirectoryExists = False
                 ftpFolder = ftpFolderSearch(rootFolder & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/") '관리번호 폴더를 검색할 위치의 리스트를 저장
                 DirectoryName = Split(ftpFolder, vbCrLf)
 
@@ -781,6 +1127,16 @@ FTP_Control:
 
         'thread_LoadingFormStart()
 
+        Load_Documents()
+        Load_BOM()
+        Load_Coodirnates()
+        Load_BOM_Total()
+        'thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_Documents()
+
         Grid_Documents.Redraw = False
 
         For i = 1 To 7
@@ -808,8 +1164,8 @@ FTP_Control:
         Do While sqlDR.Read
             For i = 1 To Grid_Documents.Rows.Count - 1
                 If sqlDR("file_type").Equals(Grid_Documents(i, 0)) Then
-                    Grid_Documents(i, 1) = "등록됨"
-                    Grid_Documents(i, 2) = sqlDR("file_name")
+                    GridWriteText("등록됨", i, 1, Me, Grid_Documents, Color.Black)
+                    GridWriteText(sqlDR("file_name"), i, 2, Me, Grid_Documents, Color.Black)
                     Exit For
                 End If
             Next
@@ -820,7 +1176,116 @@ FTP_Control:
 
         Grid_Documents.Redraw = True
 
-        'thread_LoadingFormEnd()
+    End Sub
+
+
+    Private Sub Load_BOM()
+
+        Grid_BOM.Redraw = False
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(4"
+        strSQL += ",'" & TB_CustomerCode.Text & "'"
+        strSQL += ",'" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                          sqlDR("ref") & vbTab &
+                          sqlDR("part_no"),
+                          Me,
+                          Grid_BOM,
+                          Color.Black)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_BOM.AutoSizeCols()
+
+        Grid_BOM.Redraw = True
+
+    End Sub
+
+    Private Sub Load_Coodirnates()
+
+        Grid_Coordinates.Redraw = False
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(5"
+        strSQL += ",'" & TB_CustomerCode.Text & "'"
+        strSQL += ",'" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            GridWriteText(Grid_Coordinates.Rows.Count & vbTab &
+                          sqlDR("ref") & vbTab &
+                          sqlDR("x_mm") & vbTab &
+                          sqlDR("y_mm") & vbTab &
+                          sqlDR("angle") & vbTab &
+                          sqlDR("tb"),
+                          Me,
+                          Grid_Coordinates,
+                          Color.Black)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_Coordinates.AutoSizeCols()
+
+        Grid_Coordinates.Redraw = True
+
+    End Sub
+
+    Private Sub Load_BOM_Total()
+
+        Grid_BOM_Total.Redraw = False
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(6"
+        strSQL += ",'" & TB_CustomerCode.Text & "'"
+        strSQL += ",'" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            GridWriteText(Grid_BOM_Total.Rows.Count & vbTab &
+                          sqlDR("ref") & vbTab &
+                          sqlDR("part_no") & vbTab &
+                          sqlDR("x_mm") & vbTab &
+                          sqlDR("y_mm") & vbTab &
+                          sqlDR("angle") & vbTab &
+                          sqlDR("tb") & vbTab &
+                          sqlDR("part_type"),
+                          Me,
+                          Grid_BOM_Total,
+                          Color.Black)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_BOM_Total.AutoSizeCols()
+
+        Grid_BOM_Total.Redraw = True
 
     End Sub
 End Class

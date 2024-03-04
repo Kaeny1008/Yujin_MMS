@@ -53,7 +53,11 @@ Public Class frm_Main
 
     Private Sub frm_Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        If MsgBox("정말 종료하시겠습니까?", vbYesNo + vbQuestion, msg_form) = vbNo Then e.Cancel = True
+        If MsgBox("정말 종료하시겠습니까?",
+                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
+                  msg_form) = MsgBoxResult.No Then
+            e.Cancel = True
+        End If
 
         If IO.Directory.Exists(Application.StartupPath & "\Temp") Then
             IO.Directory.Delete(Application.StartupPath & "\Temp", True)
@@ -135,6 +139,14 @@ Public Class frm_Main
         frm_CustomerPartCode.MdiParent = Me
         If Not frm_CustomerPartCode.Visible Then frm_CustomerPartCode.Show()
         frm_CustomerPartCode.Focus()
+
+    End Sub
+
+    Private Sub BTN_CodeMapping_Click(sender As Object, e As EventArgs) Handles BTN_CodeMapping.Click
+
+        frm_CodeMapping.MdiParent = Me
+        If Not frm_CodeMapping.Visible Then frm_CodeMapping.Show()
+        frm_CodeMapping.Focus()
 
     End Sub
 End Class

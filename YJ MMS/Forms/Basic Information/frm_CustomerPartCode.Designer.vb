@@ -258,7 +258,7 @@ Partial Class frm_CustomerPartCode
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ts_MainBar)
         Me.Name = "frm_CustomerPartCode"
-        Me.Text = "자재코드 관리"
+        Me.Text = "고객사 자재코드 관리"
         Me.ts_MainBar.ResumeLayout(False)
         Me.ts_MainBar.PerformLayout()
         Me.Panel1.ResumeLayout(False)

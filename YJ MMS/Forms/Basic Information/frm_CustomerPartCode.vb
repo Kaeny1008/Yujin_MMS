@@ -54,7 +54,7 @@ Public Class frm_CustomerPartCode
             .ExtendLastCol = True
             .Cols(6).ComboList = "유상|무상|도급"
             .Cols(7).ComboList = "..."
-            .Cols(1).Visible = True
+            .Cols(1).Visible = False
             .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)

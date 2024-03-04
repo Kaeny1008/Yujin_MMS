@@ -41,8 +41,13 @@ Partial Class frm_ModelDocument
         Me.Grid_Documents = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Grid_BOM = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Grid_Coordinates = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.Grid_BOM_Total = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.BTN_Result = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.BTN_NewManagementNo = New System.Windows.Forms.Button()
         Me.CB_ManagementNo = New System.Windows.Forms.ComboBox()
@@ -72,6 +77,10 @@ Partial Class frm_ModelDocument
         CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage2.SuspendLayout()
         CType(Me.Grid_BOM, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage3.SuspendLayout()
+        CType(Me.Grid_Coordinates, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout()
+        CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
@@ -265,6 +274,7 @@ Partial Class frm_ModelDocument
         'TabPage2
         '
         Me.TabPage2.Controls.Add(Me.Grid_BOM)
+        Me.TabPage2.Controls.Add(Me.Label11)
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
@@ -277,16 +287,28 @@ Partial Class frm_ModelDocument
         '
         Me.Grid_BOM.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_BOM.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_BOM.Location = New System.Drawing.Point(3, 3)
+        Me.Grid_BOM.Location = New System.Drawing.Point(3, 15)
         Me.Grid_BOM.Name = "Grid_BOM"
         Me.Grid_BOM.Rows.Count = 2
         Me.Grid_BOM.Rows.DefaultSize = 20
-        Me.Grid_BOM.Size = New System.Drawing.Size(683, 482)
+        Me.Grid_BOM.Size = New System.Drawing.Size(683, 470)
         Me.Grid_BOM.StyleInfo = resources.GetString("Grid_BOM.StyleInfo")
         Me.Grid_BOM.TabIndex = 2
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label11.Location = New System.Drawing.Point(3, 3)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(48, 12)
+        Me.Label11.TabIndex = 3
+        Me.Label11.Text = "Label11"
+        '
         'TabPage3
         '
+        Me.TabPage3.Controls.Add(Me.Grid_Coordinates)
+        Me.TabPage3.Controls.Add(Me.Label12)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
         Me.TabPage3.Size = New System.Drawing.Size(689, 488)
@@ -294,14 +316,60 @@ Partial Class frm_ModelDocument
         Me.TabPage3.Text = "좌표데이터"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'Grid_Coordinates
+        '
+        Me.Grid_Coordinates.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_Coordinates.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_Coordinates.Location = New System.Drawing.Point(0, 12)
+        Me.Grid_Coordinates.Name = "Grid_Coordinates"
+        Me.Grid_Coordinates.Rows.Count = 2
+        Me.Grid_Coordinates.Rows.DefaultSize = 20
+        Me.Grid_Coordinates.Size = New System.Drawing.Size(689, 476)
+        Me.Grid_Coordinates.StyleInfo = resources.GetString("Grid_Coordinates.StyleInfo")
+        Me.Grid_Coordinates.TabIndex = 3
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Label12.Location = New System.Drawing.Point(0, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(48, 12)
+        Me.Label12.TabIndex = 4
+        Me.Label12.Text = "Label12"
+        '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.Grid_BOM_Total)
+        Me.TabPage4.Controls.Add(Me.BTN_Result)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Size = New System.Drawing.Size(689, 488)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "BOM+좌표데이터"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'Grid_BOM_Total
+        '
+        Me.Grid_BOM_Total.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_BOM_Total.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_BOM_Total.Location = New System.Drawing.Point(0, 50)
+        Me.Grid_BOM_Total.Name = "Grid_BOM_Total"
+        Me.Grid_BOM_Total.Rows.Count = 2
+        Me.Grid_BOM_Total.Rows.DefaultSize = 20
+        Me.Grid_BOM_Total.Size = New System.Drawing.Size(689, 438)
+        Me.Grid_BOM_Total.StyleInfo = resources.GetString("Grid_BOM_Total.StyleInfo")
+        Me.Grid_BOM_Total.TabIndex = 3
+        '
+        'BTN_Result
+        '
+        Me.BTN_Result.Dock = System.Windows.Forms.DockStyle.Top
+        Me.BTN_Result.Location = New System.Drawing.Point(0, 0)
+        Me.BTN_Result.Name = "BTN_Result"
+        Me.BTN_Result.Size = New System.Drawing.Size(689, 50)
+        Me.BTN_Result.TabIndex = 4
+        Me.BTN_Result.Text = "BOM+좌표데이터 합치기"
+        Me.BTN_Result.UseVisualStyleBackColor = True
         '
         'Panel3
         '
@@ -545,7 +613,13 @@ Partial Class frm_ModelDocument
         Me.TabPage1.ResumeLayout(False)
         CType(Me.Grid_Documents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage2.ResumeLayout(False)
+        Me.TabPage2.PerformLayout()
         CType(Me.Grid_BOM, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
+        CType(Me.Grid_Coordinates, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
@@ -591,4 +665,9 @@ Partial Class frm_ModelDocument
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents TabPage4 As TabPage
     Friend WithEvents Grid_BOM As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Grid_Coordinates As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Grid_BOM_Total As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Label12 As Label
+    Friend WithEvents BTN_Result As Button
 End Class

@@ -30,14 +30,21 @@ Partial Class frm_ExcelModify
         Me.Label6 = New System.Windows.Forms.Label()
         Me.CB_SheetName = New System.Windows.Forms.ComboBox()
         Me.BTN_Start = New System.Windows.Forms.Button()
-        Me.CMS_ColumnMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_Ref = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CMS_ColumnMenu1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_Ref1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_PartNo = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowSelect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CMS_ColumnMenu2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_Ref2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_X = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Y = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_A = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_TB = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.CMS_ColumnMenu.SuspendLayout()
+        Me.CMS_ColumnMenu1.SuspendLayout()
         Me.CMS_RowMenu.SuspendLayout()
+        Me.CMS_ColumnMenu2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TB_File_Path
@@ -113,17 +120,17 @@ Partial Class frm_ExcelModify
         Me.BTN_Start.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Start.UseVisualStyleBackColor = True
         '
-        'CMS_ColumnMenu
+        'CMS_ColumnMenu1
         '
-        Me.CMS_ColumnMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref, Me.BTN_PartNo})
-        Me.CMS_ColumnMenu.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu.Size = New System.Drawing.Size(188, 70)
+        Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref1, Me.BTN_PartNo})
+        Me.CMS_ColumnMenu1.Name = "CMS_Menu"
+        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 48)
         '
-        'BTN_Ref
+        'BTN_Ref1
         '
-        Me.BTN_Ref.Name = "BTN_Ref"
-        Me.BTN_Ref.Size = New System.Drawing.Size(187, 22)
-        Me.BTN_Ref.Text = "Ref( Location )"
+        Me.BTN_Ref1.Name = "BTN_Ref1"
+        Me.BTN_Ref1.Size = New System.Drawing.Size(187, 22)
+        Me.BTN_Ref1.Text = "Ref( Location )"
         '
         'BTN_PartNo
         '
@@ -142,6 +149,42 @@ Partial Class frm_ExcelModify
         Me.BTN_RowSelect.Name = "BTN_RowSelect"
         Me.BTN_RowSelect.Size = New System.Drawing.Size(110, 22)
         Me.BTN_RowSelect.Text = "시작행"
+        '
+        'CMS_ColumnMenu2
+        '
+        Me.CMS_ColumnMenu2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref2, Me.BTN_X, Me.BTN_Y, Me.BTN_A, Me.BTN_TB})
+        Me.CMS_ColumnMenu2.Name = "CMS_Menu"
+        Me.CMS_ColumnMenu2.Size = New System.Drawing.Size(181, 136)
+        '
+        'BTN_Ref2
+        '
+        Me.BTN_Ref2.Name = "BTN_Ref2"
+        Me.BTN_Ref2.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Ref2.Text = "Ref( Location )"
+        '
+        'BTN_X
+        '
+        Me.BTN_X.Name = "BTN_X"
+        Me.BTN_X.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_X.Text = "X"
+        '
+        'BTN_Y
+        '
+        Me.BTN_Y.Name = "BTN_Y"
+        Me.BTN_Y.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Y.Text = "Y"
+        '
+        'BTN_A
+        '
+        Me.BTN_A.Name = "BTN_A"
+        Me.BTN_A.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_A.Text = "A"
+        '
+        'BTN_TB
+        '
+        Me.BTN_TB.Name = "BTN_TB"
+        Me.BTN_TB.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_TB.Text = "Top / Bottom"
         '
         'frm_ExcelModify
         '
@@ -162,8 +205,9 @@ Partial Class frm_ExcelModify
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "자료등록"
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.CMS_ColumnMenu.ResumeLayout(False)
+        Me.CMS_ColumnMenu1.ResumeLayout(False)
         Me.CMS_RowMenu.ResumeLayout(False)
+        Me.CMS_ColumnMenu2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -174,9 +218,15 @@ Partial Class frm_ExcelModify
     Friend WithEvents Label6 As Label
     Friend WithEvents CB_SheetName As ComboBox
     Friend WithEvents BTN_Start As Button
-    Friend WithEvents CMS_ColumnMenu As ContextMenuStrip
-    Friend WithEvents BTN_Ref As ToolStripMenuItem
+    Friend WithEvents CMS_ColumnMenu1 As ContextMenuStrip
+    Friend WithEvents BTN_Ref1 As ToolStripMenuItem
     Friend WithEvents BTN_PartNo As ToolStripMenuItem
     Friend WithEvents CMS_RowMenu As ContextMenuStrip
     Friend WithEvents BTN_RowSelect As ToolStripMenuItem
+    Friend WithEvents CMS_ColumnMenu2 As ContextMenuStrip
+    Friend WithEvents BTN_Ref2 As ToolStripMenuItem
+    Friend WithEvents BTN_X As ToolStripMenuItem
+    Friend WithEvents BTN_Y As ToolStripMenuItem
+    Friend WithEvents BTN_A As ToolStripMenuItem
+    Friend WithEvents BTN_TB As ToolStripMenuItem
 End Class

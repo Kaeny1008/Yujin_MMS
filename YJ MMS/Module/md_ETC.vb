@@ -144,13 +144,13 @@ Module md_ETC
 
     End Sub
 
-    Public Sub GridRedraw(ByVal status As Boolean, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+    Public Sub GridRedraw(ByVal status As Boolean, ByVal formName As Form, ByVal grid As C1FlexGrid)
 
-        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of Boolean, Form, C1FlexGrid)(AddressOf GridRedraw), status, form1, grid)
+                ts.Invoke(New Action(Of Boolean, Form, C1FlexGrid)(AddressOf GridRedraw), status, formName, grid)
             Else
                 grid.Redraw = status
             End If
@@ -158,13 +158,13 @@ Module md_ETC
 
     End Sub
 
-    Public Sub GridColsAutoSize(ByVal form1 As Form, ByVal grid As C1FlexGrid)
+    Public Sub GridColsAutoSize(ByVal formName As Form, ByVal grid As C1FlexGrid)
 
-        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of Form, C1FlexGrid)(AddressOf GridColsAutoSize), form1, grid)
+                ts.Invoke(New Action(Of Form, C1FlexGrid)(AddressOf GridColsAutoSize), formName, grid)
             Else
                 ts.AutoSizeCols()
             End If
@@ -172,13 +172,13 @@ Module md_ETC
 
     End Sub
 
-    Public Sub GridRowsAutoSize(ByVal startRow As Integer, ByVal endRow As Integer, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+    Public Sub GridRowsAutoSize(ByVal startRow As Integer, ByVal endRow As Integer, ByVal formName As Form, ByVal grid As C1FlexGrid)
 
-        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of Integer, Integer, Form, C1FlexGrid)(AddressOf GridRowsAutoSize), startRow, endRow, form1, grid)
+                ts.Invoke(New Action(Of Integer, Integer, Form, C1FlexGrid)(AddressOf GridRowsAutoSize), startRow, endRow, formName, grid)
             Else
                 ts.AutoSizeRows(startRow, 0, endRow, ts.Cols.Count - 1, 0, AutoSizeFlags.None)
             End If
@@ -186,41 +186,49 @@ Module md_ETC
 
     End Sub
 
-    Public Sub GridWriteText(ByVal text As String, ByVal row As Integer, ByVal col As Integer, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+    Public Sub GridWriteText(ByVal text As String,
+                             ByVal row As Integer,
+                             ByVal col As Integer,
+                             ByVal formName As Form,
+                             ByVal grid As C1FlexGrid,
+                             ByVal rowColor As Color)
 
-        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of String, Integer, Integer, Form, C1FlexGrid)(AddressOf GridWriteText), text, row, col, form1, grid)
+                ts.Invoke(New Action(Of String, Integer, Integer, Form, C1FlexGrid, Color)(AddressOf GridWriteText),
+                          text, row, col, formName, grid, rowColor)
             Else
                 ts(row, col) = text
+                ts.Rows(row).StyleNew.ForeColor = rowColor
             End If
         End If
 
     End Sub
 
-    Public Sub GridWriteText(ByVal text As String, ByVal form1 As Form, ByVal grid As C1FlexGrid)
+    Public Sub GridWriteText(ByVal text As String, ByVal formName As Form, ByVal grid As C1FlexGrid, ByVal rowColor As Color)
 
-        Dim ctls() As Control = form1.Controls.Find(grid.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of String, Form, C1FlexGrid)(AddressOf GridWriteText), text, form1, grid)
+                ts.Invoke(New Action(Of String, Form, C1FlexGrid, Color)(AddressOf GridWriteText), text, formName, grid, rowColor)
             Else
                 ts.AddItem(text)
+                ts.Rows(ts.Rows.Count - 1).StyleNew.ForeColor = rowColor
             End If
         End If
 
     End Sub
 
-    Public Sub ComboBoxItemAdd(ByVal itemName As String, ByVal form1 As Form, ByVal cb As ComboBox)
+    Public Sub ComboBoxItemAdd(ByVal itemName As String, ByVal formName As Form, ByVal cb As ComboBox)
 
-        Dim ctls() As Control = form1.Controls.Find(cb.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
             Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of String, Form, ComboBox)(AddressOf ComboBoxItemAdd), itemName, form1, cb)
+                ts.Invoke(New Action(Of String, Form, ComboBox)(AddressOf ComboBoxItemAdd), itemName, formName, cb)
             Else
                 ts.Items.Add(itemName)
             End If
@@ -228,13 +236,27 @@ Module md_ETC
 
     End Sub
 
-    Public Function ComboBoxTextReading(ByVal form1 As Form, ByVal cb As ComboBox) As String
+    Public Sub LabelTextUpdate(ByVal testString As String, ByVal formName As Form, ByVal lb As Label)
 
-        Dim ctls() As Control = form1.Controls.Find(cb.Name, True)
+        Dim ctls() As Control = formName.Controls.Find(lb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is Label Then
+            Dim ts As Label = DirectCast(ctls(0), Label)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, Label)(AddressOf LabelTextUpdate), testString, formName, lb)
+            Else
+                ts.Text = testString
+            End If
+        End If
+
+    End Sub
+
+    Public Function ComboBoxTextReading(ByVal formName As Form, ByVal cb As ComboBox) As String
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
             Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
             If ts.InvokeRequired Then
-                Return ts.Invoke(New Func(Of String)(Function() ComboBoxTextReading(form1, cb)))
+                Return ts.Invoke(New Func(Of String)(Function() ComboBoxTextReading(formName, cb)))
             Else
                 Return ts.Text
             End If
@@ -243,4 +265,15 @@ Module md_ETC
         End If
 
     End Function
+
+    Public Sub FormDispose(ByVal formName As Form)
+
+        If formName.InvokeRequired Then
+            formName.Invoke(New Action(Of Form)(AddressOf FormDispose), formName)
+        Else
+            formName.Dispose()
+            Console.WriteLine(formName.Name & " 창을 닫았습니다.")
+        End If
+
+    End Sub
 End Module

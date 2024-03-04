@@ -14,6 +14,7 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>false</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -71,6 +71,9 @@
     <Reference Include="MySql.Data">
       <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RegistryEdit">
       <HintPath>..\Add DLL\RegistryEdit.dll</HintPath>
     </Reference>
@@ -80,6 +83,9 @@
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Net.Json">
+      <HintPath>..\Add DLL\System.Net.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -101,6 +107,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Basic Information\frm_CodeMapping.Designer.vb">
+      <DependentUpon>frm_CodeMapping.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\frm_CodeMapping.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Basic Information\frm_CustomerPartCode.Designer.vb">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </Compile>
@@ -123,6 +135,12 @@
       <DependentUpon>frm_ModelEssentialDocument.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.Designer.vb">
+      <DependentUpon>frm_Coordinate_Find_Fault.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_ExcelModify.Designer.vb">
@@ -182,6 +200,7 @@
     <Compile Include="Module\HostedControl.vb" />
     <Compile Include="Module\md_ETC.vb" />
     <Compile Include="Module\md_FTP.vb" />
+    <Compile Include="Module\md_Json.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -200,6 +219,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\Basic Information\frm_CodeMapping.resx">
+      <DependentUpon>frm_CodeMapping.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_CustomerPartCode.resx">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </EmbeddedResource>
@@ -211,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelResistration.resx">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.resx">
+      <DependentUpon>frm_Coordinate_Find_Fault.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_ExcelModify.resx">
       <DependentUpon>frm_ExcelModify.vb</DependentUpon>
@@ -261,6 +286,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Activity Monitor_128.png" />
   </ItemGroup>
   <ItemGroup>
