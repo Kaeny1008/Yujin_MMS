@@ -20,7 +20,7 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub Grid_Setting()
 
-        With C1FlexGrid1
+        With Grid_MaterialList
             .AllowEditing = False
             .AllowFiltering = True
             .AllowSorting = AllowSortingEnum.None
@@ -31,10 +31,10 @@ Public Class frm_Supplier_Document_Register
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
-            C1FlexGrid1(0, 0) = "No"
-            C1FlexGrid1(0, 1) = "자재코드"
-            C1FlexGrid1(0, 2) = "Part No."
-            C1FlexGrid1(0, 3) = "입고수량"
+            Grid_MaterialList(0, 0) = "No"
+            Grid_MaterialList(0, 1) = "자재코드"
+            Grid_MaterialList(0, 2) = "Part No."
+            Grid_MaterialList(0, 3) = "입고수량"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -368,7 +368,7 @@ Public Class frm_Supplier_Document_Register
 
         Thread_LoadingFormStart("Excel Load...")
 
-        GridRedraw(False, Me, C1FlexGrid1)
+        GridRedraw(False, Me, Grid_MaterialList)
 
         Try
             With excelApp.ActiveWorkbook.Sheets(ComboBoxTextReading(Me, CB_SheetName))
@@ -379,12 +379,12 @@ Public Class frm_Supplier_Document_Register
                     If Not col_PartNo = 0 Then partNo = Trim(.Cells(i, col_PartNo).Value)
                     Dim qty As Double = Trim(.Cells(i, col_Qty).Value)
 
-                    GridWriteText(C1FlexGrid1.Rows.Count & vbTab &
+                    GridWriteText(Grid_MaterialList.Rows.Count & vbTab &
                                   partCode & vbTab &
                                   partNo & vbTab &
                                   Format(qty, "#,##0"),
                                   Me,
-                                  C1FlexGrid1, Color.Black)
+                                  Grid_MaterialList, Color.Black)
                 Next
             End With
         Catch ex As Exception
@@ -397,8 +397,8 @@ Public Class frm_Supplier_Document_Register
 
         End Try
 
-        GridColsAutoSize(Me, C1FlexGrid1)
-        GridRedraw(True, Me, C1FlexGrid1)
+        GridColsAutoSize(Me, Grid_MaterialList)
+        GridRedraw(True, Me, Grid_MaterialList)
 
         Thread_LoadingFormEnd()
 
@@ -430,8 +430,8 @@ Public Class frm_Supplier_Document_Register
 
         Grid_Excel.AutoSizeCols()
 
-        C1FlexGrid1.Rows.Count = 1
-        C1FlexGrid1.AutoSizeCols()
+        Grid_MaterialList.Rows.Count = 1
+        Grid_MaterialList.AutoSizeCols()
 
         TB_File_Path.Text = String.Empty
 
@@ -479,16 +479,16 @@ Public Class frm_Supplier_Document_Register
         sqlTran = dbConnection1.BeginTransaction
 
         Try
-            For i = 1 To C1FlexGrid1.Rows.Count - 1
+            For i = 1 To Grid_MaterialList.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_warehousing_document("
                 strSQL += "wd_no, document_no, supplier, part_code, part_no, part_qty, write_date, write_id"
                 strSQL += ") values("
                 strSQL += "'" & documentNo & "-" & Format(i, "0000") & "'"
                 strSQL += ", '" & documentNo & "'"
                 strSQL += ", '" & CB_Supplier.Text & "'"
-                strSQL += ", '" & C1FlexGrid1(i, 1) & "'"
-                strSQL += ", '" & C1FlexGrid1(i, 2) & "'"
-                strSQL += ", '" & CInt(C1FlexGrid1(i, 3)) & "'"
+                strSQL += ", '" & Grid_MaterialList(i, 1) & "'"
+                strSQL += ", '" & Grid_MaterialList(i, 2) & "'"
+                strSQL += ", '" & CInt(Grid_MaterialList(i, 3)) & "'"
                 strSQL += ", '" & writeDate & "'"
                 strSQL += ", '" & loginID & "');"
             Next
@@ -588,8 +588,8 @@ Public Class frm_Supplier_Document_Register
             NewControlSetting()
             CB_Supplier.Enabled = False
 
-            C1FlexGrid1.Redraw = False
-            C1FlexGrid1.Rows.Count = 1
+            Grid_MaterialList.Redraw = False
+            Grid_MaterialList.Rows.Count = 1
 
             DBConnect()
 
@@ -602,18 +602,18 @@ Public Class frm_Supplier_Document_Register
             Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
             Do While sqlDR.Read
-                Dim insert_String As String = C1FlexGrid1.Rows.Count & vbTab &
+                Dim insert_String As String = Grid_MaterialList.Rows.Count & vbTab &
                                               sqlDR("part_code") & vbTab &
                                               sqlDR("part_no") & vbTab &
                                               Format(sqlDR("part_qty"), "#,##0")
-                C1FlexGrid1.AddItem(insert_String)
+                Grid_MaterialList.AddItem(insert_String)
             Loop
             sqlDR.Close()
 
             DBClose()
 
-            C1FlexGrid1.AutoSizeCols()
-            C1FlexGrid1.Redraw = True
+            Grid_MaterialList.AutoSizeCols()
+            Grid_MaterialList.Redraw = True
 
             CB_Supplier.Text = Grid_DocumentsList(gridRow, 2)
 

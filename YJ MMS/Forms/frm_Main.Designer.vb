@@ -51,6 +51,7 @@ Partial Class frm_Main
         Me.ToolStripDropDownButton1 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.BTN_Warehousing_Document = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Warehousing_List = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Material_Warehousing = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -234,7 +235,7 @@ Partial Class frm_Main
         'ToolStripDropDownButton1
         '
         Me.ToolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripDropDownButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.BTN_Material_Warehousing_List})
+        Me.ToolStripDropDownButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing})
         Me.ToolStripDropDownButton1.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ToolStripDropDownButton1.Image = CType(resources.GetObject("ToolStripDropDownButton1.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -251,10 +252,18 @@ Partial Class frm_Main
         '
         'BTN_Material_Warehousing_List
         '
+        Me.BTN_Material_Warehousing_List.Enabled = False
         Me.BTN_Material_Warehousing_List.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_Warehousing_List.Name = "BTN_Material_Warehousing_List"
         Me.BTN_Material_Warehousing_List.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Material_Warehousing_List.Text = "자재입고(라벨발행)"
+        '
+        'BTN_Material_Warehousing
+        '
+        Me.BTN_Material_Warehousing.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.BTN_Material_Warehousing.Name = "BTN_Material_Warehousing"
+        Me.BTN_Material_Warehousing.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Warehousing.Text = "자재입고"
         '
         'frm_Main
         '
@@ -304,4 +313,5 @@ Partial Class frm_Main
     Friend WithEvents ToolStripDropDownButton1 As ToolStripDropDownButton
     Friend WithEvents BTN_Material_Warehousing_List As ToolStripMenuItem
     Friend WithEvents BTN_Warehousing_Document As ToolStripMenuItem
+    Friend WithEvents BTN_Material_Warehousing As ToolStripMenuItem
 End Class

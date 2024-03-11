@@ -173,6 +173,12 @@
     <Compile Include="Forms\Basic Information\frm_CustomerResistration.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Warehousing.Designer.vb">
+      <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Warehousing.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\frm_Material_Warehousing_List.Designer.vb">
       <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>
     </Compile>
@@ -264,6 +270,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_CustomerResistration.resx">
       <DependentUpon>frm_CustomerResistration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\frm_Material_Warehousing.resx">
+      <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\frm_Material_Warehousing_List.resx">
       <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>

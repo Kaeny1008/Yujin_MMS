@@ -25,6 +25,8 @@ Partial Class frm_Supplier_Document_Register
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Supplier_Document_Register))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_DocumentsList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
@@ -41,7 +43,7 @@ Partial Class frm_Supplier_Document_Register
         Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TB_File_Path = New System.Windows.Forms.TextBox()
         Me.BTN_FileSelect = New System.Windows.Forms.Button()
-        Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowSelect = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -52,14 +54,12 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_Qty = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_ExcelToGrid = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CB_Supplier = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.BTN_NewDocuments = New System.Windows.Forms.ToolStripButton()
-        Me.CB_Supplier = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -72,7 +72,7 @@ Partial Class frm_Supplier_Document_Register
         Me.SplitContainer2.Panel2.SuspendLayout()
         Me.SplitContainer2.SuspendLayout()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_RowMenu.SuspendLayout()
         Me.CMS_ColumnMenu.SuspendLayout()
         Me.SuspendLayout()
@@ -86,6 +86,16 @@ Partial Class frm_Supplier_Document_Register
         Me.TS_MainBar.Size = New System.Drawing.Size(1464, 25)
         Me.TS_MainBar.TabIndex = 1
         Me.TS_MainBar.Text = "ToolStrip1"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 25)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 25)
         '
         'SplitContainer1
         '
@@ -216,7 +226,7 @@ Partial Class frm_Supplier_Document_Register
         '
         'SplitContainer2.Panel2
         '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.C1FlexGrid1)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.Grid_MaterialList)
         Me.SplitContainer2.Size = New System.Drawing.Size(1039, 748)
         Me.SplitContainer2.SplitterDistance = 352
         Me.SplitContainer2.TabIndex = 3
@@ -292,17 +302,17 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_FileSelect.Text = "파일선택"
         Me.BTN_FileSelect.UseVisualStyleBackColor = True
         '
-        'C1FlexGrid1
+        'Grid_MaterialList
         '
-        Me.C1FlexGrid1.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.C1FlexGrid1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.C1FlexGrid1.Location = New System.Drawing.Point(0, 0)
-        Me.C1FlexGrid1.Name = "C1FlexGrid1"
-        Me.C1FlexGrid1.Rows.Count = 2
-        Me.C1FlexGrid1.Rows.DefaultSize = 20
-        Me.C1FlexGrid1.Size = New System.Drawing.Size(1039, 392)
-        Me.C1FlexGrid1.StyleInfo = resources.GetString("C1FlexGrid1.StyleInfo")
-        Me.C1FlexGrid1.TabIndex = 2
+        Me.Grid_MaterialList.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_MaterialList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_MaterialList.Location = New System.Drawing.Point(0, 0)
+        Me.Grid_MaterialList.Name = "Grid_MaterialList"
+        Me.Grid_MaterialList.Rows.Count = 2
+        Me.Grid_MaterialList.Rows.DefaultSize = 20
+        Me.Grid_MaterialList.Size = New System.Drawing.Size(1039, 392)
+        Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
+        Me.Grid_MaterialList.TabIndex = 2
         '
         'CMS_RowMenu
         '
@@ -362,10 +372,28 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_ExcelToGrid.Size = New System.Drawing.Size(122, 22)
         Me.BTN_ExcelToGrid.Text = "변환"
         '
-        'ToolStripSeparator3
+        'CB_Supplier
         '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 25)
+        Me.CB_Supplier.Enabled = False
+        Me.CB_Supplier.FormattingEnabled = True
+        Me.CB_Supplier.Location = New System.Drawing.Point(601, 31)
+        Me.CB_Supplier.Name = "CB_Supplier"
+        Me.CB_Supplier.Size = New System.Drawing.Size(626, 20)
+        Me.CB_Supplier.TabIndex = 27
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(431, 31)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(170, 21)
+        Me.Label4.TabIndex = 26
+        Me.Label4.Text = "공급사"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'BTN_Search
         '
@@ -393,29 +421,6 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_NewDocuments.Size = New System.Drawing.Size(75, 22)
         Me.BTN_NewDocuments.Text = "신규등록"
         '
-        'CB_Supplier
-        '
-        Me.CB_Supplier.Enabled = False
-        Me.CB_Supplier.FormattingEnabled = True
-        Me.CB_Supplier.Location = New System.Drawing.Point(601, 31)
-        Me.CB_Supplier.Name = "CB_Supplier"
-        Me.CB_Supplier.Size = New System.Drawing.Size(626, 20)
-        Me.CB_Supplier.TabIndex = 27
-        '
-        'Label4
-        '
-        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(431, 31)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(170, 21)
-        Me.Label4.TabIndex = 26
-        Me.Label4.Text = "공급사"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'BTN_Save
         '
         Me.BTN_Save.Enabled = False
@@ -424,11 +429,6 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
         Me.BTN_Save.Text = "저장"
-        '
-        'ToolStripSeparator4
-        '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 25)
         '
         'frm_Supplier_Document_Register
         '
@@ -456,7 +456,7 @@ Partial Class frm_Supplier_Document_Register
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer2.ResumeLayout(False)
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.CMS_RowMenu.ResumeLayout(False)
         Me.CMS_ColumnMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
@@ -476,7 +476,7 @@ Partial Class frm_Supplier_Document_Register
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Grid_MaterialList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents CB_SheetName As ComboBox
     Friend WithEvents Label6 As Label

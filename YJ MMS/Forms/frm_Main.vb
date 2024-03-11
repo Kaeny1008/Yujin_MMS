@@ -165,4 +165,12 @@ Public Class frm_Main
         frm_Supplier_Document_Register.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Warehousing_Click(sender As Object, e As EventArgs) Handles BTN_Material_Warehousing.Click
+
+        frm_Material_Warehousing.MdiParent = Me
+        If Not frm_Material_Warehousing.Visible Then frm_Material_Warehousing.Show()
+        frm_Material_Warehousing.Focus()
+
+    End Sub
 End Class
