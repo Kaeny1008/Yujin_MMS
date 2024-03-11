@@ -1,4 +1,7 @@
-﻿Imports System.Globalization
+﻿Imports System.Drawing.Printing
+Imports System.Globalization
+Imports System.IO
+Imports System.Text
 Imports System.Threading
 Imports C1.Win.C1FlexGrid
 
@@ -236,6 +239,20 @@ Module md_ETC
 
     End Sub
 
+    Public Sub ComboBoxEnabled(ByVal status As Boolean, ByVal formName As Form, ByVal cb As ComboBox)
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
+            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Boolean, Form, ComboBox)(AddressOf ComboBoxEnabled), status, formName, cb)
+            Else
+                ts.Enabled = status
+            End If
+        End If
+
+    End Sub
+
     Public Sub LabelTextUpdate(ByVal testString As String, ByVal formName As Form, ByVal lb As Label)
 
         Dim ctls() As Control = formName.Controls.Find(lb.Name, True)
@@ -274,6 +291,203 @@ Module md_ETC
             formName.Dispose()
             Console.WriteLine(formName.Name & " 창을 닫았습니다.")
         End If
+
+    End Sub
+
+    Public Sub PrinterListLoad(ByVal formName As Form, ByVal cb As ComboBox)
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
+            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Form, ComboBox)(AddressOf PrinterListLoad), formName, cb)
+            Else
+                cb.Items.Clear()
+                For i = 0 To Printing.PrinterSettings.InstalledPrinters.Count - 1
+                    Dim printers As String = Printing.PrinterSettings.InstalledPrinters.Item(i)
+                    cb.Items.Add(printers)
+                Next
+                cb.Sorted = True
+            End If
+        End If
+
+    End Sub
+
+    Private WithEvents ComPort As New Ports.SerialPort
+    Public printerCable As String = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "COM/LPT", "COM")
+    Public printerName As String = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Printer Name", "")
+    Public printerPort As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Port", 1)
+    Public printerLeftPosition As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Width", 0)
+    Public printerTopPosition As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Height", 0)
+    Public printerBaudRate As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "BaudRate", 9600)
+    Public printerDataBits As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "DataBits", 8)
+    Public printerParity As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Parity", 0)
+    Public printerStopBits As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "StopBits", 1)
+
+    Public Function TestPrinter(ByVal testCable As String,
+                                ByVal testName As String,
+                                ByVal testPort As Integer,
+                                ByVal testLeftPosition As Integer,
+                                ByVal testTopPosition As Integer,
+                                ByVal testBaudRate As Integer,
+                                ByVal testDataBits As Integer,
+                                ByVal testParity As Integer,
+                                ByVal testStopBits As Integer) As String
+
+        TestPrinter = String.Empty
+
+        '##### 프린터로 전송하는 부분
+        Try
+
+            If File.Exists(Application.StartupPath & "\print.txt") Then
+                File.Delete(Application.StartupPath & "\print.txt")
+            End If
+
+            Dim swFile As StreamWriter =
+            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
+
+            swFile.WriteLine("^XZ~JA^XZ")
+            swFile.WriteLine("^XA^LH" & testLeftPosition & ",0^LT" & testTopPosition) 'LH : 가로위치, LT : 세로위치
+            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
+            swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
+            swFile.WriteLine("^FO180,0000^A0,60,40^FDPart Code : 000000000^FS")
+            swFile.WriteLine("^FO180,0060^A0,40,30^FDVendor Code : ABCDEFGHIJKLMN^FS")
+            swFile.WriteLine("^FO180,0095^A0,40,30^FDLot No : A1B2C3D4E5^FS")
+            swFile.WriteLine("^FO180,0130^A0,40,30^FDQty : " & Format(CInt(9999), "#,##0") & "^FS")
+            swFile.WriteLine("^FO550,0140^A1N,30,20^FD한글고객사^FS")
+            Dim barcodeString As String = "000000000!ABCDEFGHIJKLMN!A1B2C3D4E5!9999!VENDOR"
+            swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & barcodeString & "^FS")
+            swFile.WriteLine("^PQ1^FS") 'PQ : 발행수량
+            swFile.WriteLine("^XZ")
+            swFile.Close()
+
+            If testCable = "LPT" Then
+                File.Copy(Application.StartupPath & "\print.txt", "LPT" & testPort)
+            ElseIf testCable = "COM" Then
+                ComPort.PortName = "COM" & testPort
+                ComPort.BaudRate = testBaudRate
+                ComPort.Parity = testParity
+                ComPort.DataBits = testDataBits
+                ComPort.StopBits = testStopBits
+                ComPort.Encoding = System.Text.Encoding.Default
+                'ComPort.Handshake = 
+
+                Call ComPort.Open()
+                Dim fs As System.IO.FileStream
+                Dim sr As System.IO.StreamReader
+                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                sr = New System.IO.StreamReader(fs) ' 스트림리더에 연결
+                Dim str As String = String.Empty
+
+                While sr.Peek() >= 0
+                    str = sr.ReadLine() ' 한줄씩 읽기
+                    ComPort.WriteLine(str)
+                End While
+
+                sr.Close()
+                ComPort.Close()
+            ElseIf testCable = "USB" Then
+                Dim p As New RawPrinterHelper
+                Dim s As New StringBuilder
+                Dim fs As System.IO.FileStream
+                Dim sr As System.IO.StreamReader
+                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
+                Dim str As String = String.Empty
+
+                While sr.Peek() >= 0
+                    str = sr.ReadLine() ' 한줄씩 읽기
+                    s.AppendLine(str)
+                End While
+
+                sr.Close()
+                If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                    TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
+                End If
+            End If
+            'File.Delete(Application.StartupPath & "\print.txt")
+            TestPrinter = "Success"
+        Catch ex As Exception
+            'File.Delete(Application.StartupPath & "\print.txt")
+            TestPrinter = ex.Message
+        End Try
+
+        Return TestPrinter
+
+    End Function
+
+    Public Function LabelPrint() As String
+
+        Dim printResult As String = String.Empty
+
+        Try
+            If printerCable = "LPT" Then
+                File.Copy(Application.StartupPath & "\print.txt", "LPT" & printerPort)
+            ElseIf printerCable = "COM" Then
+                ComPort.PortName = "COM" & printerPort
+                ComPort.BaudRate = printerBaudRate
+                ComPort.Parity = printerParity
+                ComPort.DataBits = printerDataBits
+                ComPort.StopBits = printerStopBits
+                ComPort.Encoding = System.Text.Encoding.Default
+                'ComPort.Handshake = 
+
+                Call ComPort.Open()
+                Dim fs As System.IO.FileStream
+                Dim sr As System.IO.StreamReader
+                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                sr = New System.IO.StreamReader(fs) ' 스트림리더에 연결
+                Dim str As String = String.Empty
+
+                While sr.Peek() >= 0
+                    str = sr.ReadLine() ' 한줄씩 읽기
+                    ComPort.WriteLine(str)
+                End While
+
+                sr.Close()
+                ComPort.Close()
+            ElseIf printerCable = "USB" Then
+                Dim p As New RawPrinterHelper
+                Dim s As New StringBuilder
+                Dim fs As System.IO.FileStream
+                Dim sr As System.IO.StreamReader
+                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
+                Dim str As String = String.Empty
+
+                While sr.Peek() >= 0
+                    str = sr.ReadLine() ' 한줄씩 읽기
+                    s.AppendLine(str)
+                End While
+
+                sr.Close()
+
+                If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                    printResult = "프린터가 정상적으로 작동하지 않았습니다."
+                End If
+            End If
+            'File.Delete(Application.StartupPath & "\print.txt")
+            printResult = "Success"
+        Catch ex As Exception
+            'File.Delete(Application.StartupPath & "\print.txt")
+            printResult = ex.Message
+        End Try
+
+        Return printResult
+
+    End Function
+
+    Public Sub ReleaseObject(ByVal obj As Object)
+
+        Try
+            System.Runtime.InteropServices.Marshal.ReleaseComObject(obj)
+            obj = Nothing
+        Catch ex As Exception
+            obj = Nothing
+        Finally
+            GC.Collect()
+        End Try
 
     End Sub
 End Module

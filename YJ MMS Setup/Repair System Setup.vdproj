@@ -94,13 +94,13 @@
         "Entry"
         {
         "MsmKey" = "8:_6D4342FB063F03F6AFFCF858BFB87768"
-        "OwnerKey" = "8:_A749E88512CC29A72D48A7DD12A8E972"
+        "OwnerKey" = "8:_20AA197BB38ADDA122D9D2127099DFDB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_6D4342FB063F03F6AFFCF858BFB87768"
-        "OwnerKey" = "8:_20AA197BB38ADDA122D9D2127099DFDB"
+        "OwnerKey" = "8:_A749E88512CC29A72D48A7DD12A8E972"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -178,7 +178,7 @@
         "Entry"
         {
         "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
-        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
+        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -190,7 +190,7 @@
         "Entry"
         {
         "MsmKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
-        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
+        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -208,7 +208,7 @@
         "Entry"
         {
         "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
-        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
+        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -220,7 +220,7 @@
         "Entry"
         {
         "MsmKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
-        "OwnerKey" = "8:_5D3F8E61B3A14FCE93E980F86DC919E7"
+        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -238,79 +238,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0ACFE4A5195F6835A9E48C2489ACD0E8"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BBF3B5985E7556EC378B0665A68D7AB4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_388B11D846E2F4655E9F34F1B7122B3F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B3866B606B5FC7BEDFA3506DB38C28D6"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B50B0ECF6DCC97F542FE3CBC1E14405D"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_14DD8713D9D41B5BC93DE7CC951470BB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A749E88512CC29A72D48A7DD12A8E972"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_20AA197BB38ADDA122D9D2127099DFDB"
+        "OwnerKey" = "8:_6D4342FB063F03F6AFFCF858BFB87768"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -322,7 +250,79 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6D4342FB063F03F6AFFCF858BFB87768"
+        "OwnerKey" = "8:_20AA197BB38ADDA122D9D2127099DFDB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A749E88512CC29A72D48A7DD12A8E972"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_14DD8713D9D41B5BC93DE7CC951470BB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B50B0ECF6DCC97F542FE3CBC1E14405D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B3866B606B5FC7BEDFA3506DB38C28D6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_388B11D846E2F4655E9F34F1B7122B3F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BBF3B5985E7556EC378B0665A68D7AB4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CE28D8FB6FB47B61D25A342DE3918475"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EF7EFE1722FDE19A4077693B61EE3E89"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1F17D486E67B4AB48FE1C335DCA30A58"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_9562904418BC4559AD33EA667B273603"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BE58245F1D58448EA36D5D6A56CBE7F5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0ACFE4A5195F6835A9E48C2489ACD0E8"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -483,11 +483,6 @@
             "AssemblyAsmDisplayName" = "8:stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_14DD8713D9D41B5BC93DE7CC951470BB"
-                    {
-                    "Name" = "8:stdole.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:stdole.dll"
             "TargetName" = "8:"
@@ -514,11 +509,6 @@
             "AssemblyAsmDisplayName" = "8:C1.Win.C1Report.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=41780e2fc605e636, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_20AA197BB38ADDA122D9D2127099DFDB"
-                    {
-                    "Name" = "8:C1.Win.C1Report.2.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:C1.Win.C1Report.2.dll"
             "TargetName" = "8:"
@@ -585,11 +575,6 @@
             "AssemblyAsmDisplayName" = "8:ShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
                 "ScatterAssemblies"
                 {
-                    "_388B11D846E2F4655E9F34F1B7122B3F"
-                    {
-                    "Name" = "8:ShockwaveFlashObjects.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:ShockwaveFlashObjects.dll"
             "TargetName" = "8:"
@@ -636,11 +621,6 @@
             "AssemblyAsmDisplayName" = "8:C1.C1Report.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=594a0605db190bb9, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6D4342FB063F03F6AFFCF858BFB87768"
-                    {
-                    "Name" = "8:C1.C1Report.2.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:C1.C1Report.2.dll"
             "TargetName" = "8:"
@@ -707,11 +687,6 @@
             "AssemblyAsmDisplayName" = "8:C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A1D2D4E6EC0E764DB2BAAA5347891C27"
-                    {
-                    "Name" = "8:C1.Win.C1FlexGrid.2.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:C1.Win.C1FlexGrid.2.dll"
             "TargetName" = "8:"
@@ -738,11 +713,6 @@
             "AssemblyAsmDisplayName" = "8:C1.Win.C1ReportDesigner.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=fb528571dbff5bd2, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A749E88512CC29A72D48A7DD12A8E972"
-                    {
-                    "Name" = "8:C1.Win.C1ReportDesigner.2.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:C1.Win.C1ReportDesigner.2.dll"
             "TargetName" = "8:"
@@ -789,11 +759,6 @@
             "AssemblyAsmDisplayName" = "8:CrystalDecisions.ReportAppServer.Prompting, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B3866B606B5FC7BEDFA3506DB38C28D6"
-                    {
-                    "Name" = "8:CrystalDecisions.ReportAppServer.Prompting.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:CrystalDecisions.ReportAppServer.Prompting.dll"
             "TargetName" = "8:"
@@ -820,11 +785,6 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_B50B0ECF6DCC97F542FE3CBC1E14405D"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -851,11 +811,6 @@
             "AssemblyAsmDisplayName" = "8:FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304"
                 "ScatterAssemblies"
                 {
-                    "_BBF3B5985E7556EC378B0665A68D7AB4"
-                    {
-                    "Name" = "8:FlashControlV71.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:FlashControlV71.dll"
             "TargetName" = "8:"
@@ -882,11 +837,6 @@
             "AssemblyAsmDisplayName" = "8:MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_CE28D8FB6FB47B61D25A342DE3918475"
-                    {
-                    "Name" = "8:MySql.Data.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:MySql.Data.dll"
             "TargetName" = "8:"
@@ -933,11 +883,6 @@
             "AssemblyAsmDisplayName" = "8:RegistryEdit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_EF7EFE1722FDE19A4077693B61EE3E89"
-                    {
-                    "Name" = "8:RegistryEdit.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:RegistryEdit.dll"
             "TargetName" = "8:"
@@ -1709,6 +1654,92 @@
                                                     }
                                                 }
                                             }
+                                            "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_B3AC3DF0652C46B5876CF5E5BE7BE0D5"
+                                            {
+                                            "Name" = "8:Label Printer"
+                                            "Condition" = "8:"
+                                            "AlwaysCreate" = "11:FALSE"
+                                            "DeleteAtUninstall" = "11:FALSE"
+                                            "Transitive" = "11:FALSE"
+                                                "Keys"
+                                                {
+                                                }
+                                                "Values"
+                                                {
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_0171064BFFDF4E229DE767F06304DC85"
+                                                    {
+                                                    "Name" = "8:Width"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:0"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_051A04F8CAE0408A9E22824B3BD8976D"
+                                                    {
+                                                    "Name" = "8:BaudRate"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:9600"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_1636CE3DEE1E4D59A817BE997F7773F9"
+                                                    {
+                                                    "Name" = "8:DataBits"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:8"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_9BE1D50B4C5246F98DF8633ECC36AD2A"
+                                                    {
+                                                    "Name" = "8:StopBits"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:1"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B7E1F877FCDB4E3B910364885F9D175B"
+                                                    {
+                                                    "Name" = "8:Parity"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:0"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_B9102472868845F38EC540752FE1CBA8"
+                                                    {
+                                                    "Name" = "8:Port"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:1"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_D1BAC110369C43A4BE3FD4C9BC846CE0"
+                                                    {
+                                                    "Name" = "8:Printer Name"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_E5D8ED0FD6514E21A72593DCC7D97CAD"
+                                                    {
+                                                    "Name" = "8:COM/LPT"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:1"
+                                                    "Value" = "8:COM"
+                                                    }
+                                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_EBE51FDF047346CB96107CB9E3EA0297"
+                                                    {
+                                                    "Name" = "8:Height"
+                                                    "Condition" = "8:"
+                                                    "Transitive" = "11:FALSE"
+                                                    "ValueTypes" = "3:3"
+                                                    "Value" = "3:0"
+                                                    }
+                                                }
+                                            }
                                         }
                                         "Values"
                                         {
@@ -1726,38 +1757,22 @@
                                         }
                                         "Values"
                                         {
-                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_15E725B03B7648CCA50255EACAC1277D"
-                                            {
-                                            "Name" = "8:ftpPassword"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "ValueTypes" = "3:1"
-                                            "Value" = "8:Yujin_ftp!"
-                                            }
-                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_547B9DBB84A945D8BEF83D4F93A79D21"
-                                            {
-                                            "Name" = "8:ftpID"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "ValueTypes" = "3:1"
-                                            "Value" = "8:yujin_ftp"
-                                            }
-                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_BBCB0EC84A564141A995967D10E1AAE4"
-                                            {
-                                            "Name" = "8:ftpPort"
-                                            "Condition" = "8:"
-                                            "Transitive" = "11:FALSE"
-                                            "ValueTypes" = "3:4"
-                                            "Value" = "8:1052"
-                                            }
                                         }
                                     }
                                 }
                                 "Values"
                                 {
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_14DB26B5F8944645947EBADD56E03BB1"
+                                    {
+                                    "Name" = "8:PHPPort"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:4"
+                                    "Value" = "8:00002918"
+                                    }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_154D6EB454AC4E6C8A36ED81DB48C757"
                                     {
-                                    "Name" = "8:server.ID"
+                                    "Name" = "8:ServerID"
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:1"
@@ -1771,9 +1786,17 @@
                                     "ValueTypes" = "3:4"
                                     "Value" = "8:00000005"
                                     }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_50116AC1ED234862B6EAAD5B05227047"
+                                    {
+                                    "Name" = "8:FtpID"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:yujin_ftp"
+                                    }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_54BEC93085C848879E41C7ECA0ADAEAB"
                                     {
-                                    "Name" = "8:server.PSWD"
+                                    "Name" = "8:ServerPSWD"
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:1"
@@ -1795,9 +1818,25 @@
                                     "ValueTypes" = "3:4"
                                     "Value" = "8:00002710"
                                     }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_6D0567F058B443B088FD8FFA5B17E6BC"
+                                    {
+                                    "Name" = "8:FtpPort"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:4"
+                                    "Value" = "8:1052"
+                                    }
+                                    "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_A8E1596F440A40588ADCD57B210CC2B7"
+                                    {
+                                    "Name" = "8:FtpPSWD"
+                                    "Condition" = "8:"
+                                    "Transitive" = "11:FALSE"
+                                    "ValueTypes" = "3:1"
+                                    "Value" = "8:Yujin_ftp!"
+                                    }
                                     "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_BF5FDF30DAF94DA087E66DF8F1A0F026"
                                     {
-                                    "Name" = "8:server.IP"
+                                    "Name" = "8:ServerIP"
                                     "Condition" = "8:"
                                     "Transitive" = "11:FALSE"
                                     "ValueTypes" = "3:1"

@@ -32,19 +32,22 @@ Partial Class frm_CustomerPartCode
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TB_Specification = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TB_CustomerPartCode = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Grid_PartList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.cms_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_NewPartsCode2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.COL_VIEW = New System.Windows.Forms.ToolStripSeparator()
         Me.btn_Save2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_CodeMapping = New System.Windows.Forms.ToolStripMenuItem()
         Me.ts_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -108,24 +111,49 @@ Partial Class frm_CustomerPartCode
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.TB_Specification)
+        Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.TB_CustomerPartCode)
         Me.Panel1.Controls.Add(Me.Label4)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.CB_CustomerName)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TB_CustomerCode)
-        Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 25)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1264, 55)
         Me.Panel1.TabIndex = 6
         '
+        'TB_Specification
+        '
+        Me.TB_Specification.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Specification.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_Specification.Location = New System.Drawing.Point(832, 24)
+        Me.TB_Specification.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Specification.Name = "TB_Specification"
+        Me.TB_Specification.Size = New System.Drawing.Size(250, 25)
+        Me.TB_Specification.TabIndex = 8
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label5.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(711, 24)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(121, 25)
+        Me.Label5.TabIndex = 7
+        Me.Label5.Text = "사양"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'TB_CustomerPartCode
         '
         Me.TB_CustomerPartCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_CustomerPartCode.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_CustomerPartCode.Location = New System.Drawing.Point(712, 24)
+        Me.TB_CustomerPartCode.Location = New System.Drawing.Point(561, 24)
         Me.TB_CustomerPartCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerPartCode.Name = "TB_CustomerPartCode"
         Me.TB_CustomerPartCode.Size = New System.Drawing.Size(150, 25)
@@ -137,7 +165,7 @@ Partial Class frm_CustomerPartCode
         Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label4.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(591, 24)
+        Me.Label4.Location = New System.Drawing.Point(440, 24)
         Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(121, 25)
@@ -185,25 +213,11 @@ Partial Class frm_CustomerPartCode
         Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_CustomerCode.Enabled = False
         Me.TB_CustomerCode.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_CustomerCode.Location = New System.Drawing.Point(441, 24)
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(320, 24)
         Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerCode.Name = "TB_CustomerCode"
-        Me.TB_CustomerCode.Size = New System.Drawing.Size(150, 25)
+        Me.TB_CustomerCode.Size = New System.Drawing.Size(120, 25)
         Me.TB_CustomerCode.TabIndex = 1
-        '
-        'Label3
-        '
-        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label3.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(320, 24)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(121, 25)
-        Me.Label3.TabIndex = 0
-        Me.Label3.Text = "고객사 코드"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Grid_PartList
         '
@@ -219,9 +233,9 @@ Partial Class frm_CustomerPartCode
         '
         'cms_Menu
         '
-        Me.cms_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewPartsCode2, Me.btn_RowDelete, Me.COL_VIEW, Me.btn_Save2})
+        Me.cms_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewPartsCode2, Me.btn_RowDelete, Me.COL_VIEW, Me.btn_Save2, Me.ToolStripSeparator3, Me.BTN_CodeMapping})
         Me.cms_Menu.Name = "GRID_Menu"
-        Me.cms_Menu.Size = New System.Drawing.Size(159, 76)
+        Me.cms_Menu.Size = New System.Drawing.Size(159, 104)
         '
         'BTN_NewPartsCode2
         '
@@ -248,6 +262,17 @@ Partial Class frm_CustomerPartCode
         Me.btn_Save2.Name = "btn_Save2"
         Me.btn_Save2.Size = New System.Drawing.Size(158, 22)
         Me.btn_Save2.Text = "저장"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(155, 6)
+        '
+        'BTN_CodeMapping
+        '
+        Me.BTN_CodeMapping.Name = "BTN_CodeMapping"
+        Me.BTN_CodeMapping.Size = New System.Drawing.Size(158, 22)
+        Me.BTN_CodeMapping.Text = "Code Mapping"
         '
         'frm_CustomerPartCode
         '
@@ -280,7 +305,6 @@ Partial Class frm_CustomerPartCode
     Friend WithEvents CB_CustomerName As ComboBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TB_CustomerCode As TextBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents Grid_PartList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents BTN_NewMultiPartsCode As ToolStripButton
     Friend WithEvents TB_CustomerPartCode As TextBox
@@ -290,4 +314,8 @@ Partial Class frm_CustomerPartCode
     Friend WithEvents COL_VIEW As ToolStripSeparator
     Friend WithEvents btn_Save2 As ToolStripMenuItem
     Friend WithEvents BTN_NewPartsCode2 As ToolStripMenuItem
+    Friend WithEvents TB_Specification As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents BTN_CodeMapping As ToolStripMenuItem
 End Class

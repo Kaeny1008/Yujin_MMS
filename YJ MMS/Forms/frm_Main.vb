@@ -142,11 +142,27 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_CodeMapping_Click(sender As Object, e As EventArgs) Handles BTN_CodeMapping.Click
+    Private Sub BTN_Material_Warehousing_List_Click(sender As Object, e As EventArgs) Handles BTN_Material_Warehousing_List.Click
 
-        frm_CodeMapping.MdiParent = Me
-        If Not frm_CodeMapping.Visible Then frm_CodeMapping.Show()
-        frm_CodeMapping.Focus()
+        frm_Material_Warehousing_List.MdiParent = Me
+        If Not frm_Material_Warehousing_List.Visible Then frm_Material_Warehousing_List.Show()
+        frm_Material_Warehousing_List.Focus()
+
+    End Sub
+
+    Private Sub BTN_LabelPrinterSetting_Click(sender As Object, e As EventArgs) Handles BTN_LabelPrinterSetting.Click
+
+        'frm_LabelPrinterSetting.MdiParent = Me
+        If Not frm_LabelPrinterSetting.Visible Then frm_LabelPrinterSetting.Show()
+        frm_LabelPrinterSetting.Focus()
+
+    End Sub
+
+    Private Sub BTN_Warehousing_Document_Click(sender As Object, e As EventArgs) Handles BTN_Warehousing_Document.Click
+
+        frm_Supplier_Document_Register.MdiParent = Me
+        If Not frm_Supplier_Document_Register.Visible Then frm_Supplier_Document_Register.Show()
+        frm_Supplier_Document_Register.Focus()
 
     End Sub
 End Class

@@ -39,7 +39,7 @@ Public Class frm_CustomerPartCode
             .Rows.Fixed = 1
             .Rows.Count = 1
             Grid_PartList(0, 0) = "No"
-            Grid_PartList(0, 1) = "고유번호"
+            Grid_PartList(0, 1) = "MainCode"
             Grid_PartList(0, 2) = "타입"
             Grid_PartList(0, 3) = "자재코드"
             Grid_PartList(0, 4) = "사양"
@@ -53,8 +53,7 @@ Public Class frm_CustomerPartCode
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
             .Cols(6).ComboList = "유상|무상|도급"
-            .Cols(7).ComboList = "..."
-            .Cols(1).Visible = False
+            .Cols(1).Visible = True
             .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
@@ -94,6 +93,8 @@ Public Class frm_CustomerPartCode
     End Sub
 
     Private Sub CB_CustomerName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectionChangeCommitted
+
+        TB_CustomerCode.Text = String.Empty
 
         DBConnect()
 
@@ -295,7 +296,7 @@ Public Class frm_CustomerPartCode
             Exit Sub
         End If
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart()
 
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
@@ -305,6 +306,7 @@ Public Class frm_CustomerPartCode
         Dim strSQL As String = "call sp_mms_customer_part_code(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
         strSQL += ",'" & TB_CustomerPartCode.Text & "'"
+        strSQL += ",'" & TB_Specification.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -312,13 +314,13 @@ Public Class frm_CustomerPartCode
 
         Do While sqlDR.Read
             Dim insert_String As String = Grid_PartList.Rows.Count & vbTab &
-                                          sqlDR("code_address") & vbTab &
+                                          sqlDR("part_maincode") & vbTab &
                                           sqlDR("part_type") & vbTab &
                                           sqlDR("part_code") & vbTab &
                                           sqlDR("part_specification") & vbTab &
                                           sqlDR("part_vendor") & vbTab &
                                           sqlDR("part_category") & vbTab &
-                                          vbTab &
+                                          sqlDR("registered_qty") & vbTab &
                                           sqlDR("part_code_note")
             Grid_PartList.AddItem(insert_String)
         Loop
@@ -329,7 +331,7 @@ Public Class frm_CustomerPartCode
         Grid_PartList.AutoSizeCols()
         Grid_PartList.Redraw = True
 
-        thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -356,7 +358,7 @@ Public Class frm_CustomerPartCode
             For i = 1 To Grid_PartList.Rows.Count - 1
                 If Grid_PartList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_customer_part_code("
-                    strSQL += "code_address, part_code, customer_code, part_type, part_specification"
+                    strSQL += "part_maincode, part_code, customer_code, part_type, part_specification"
                     strSQL += ", part_vendor, part_category, part_code_note, write_date, write_id"
                     strSQL += ") values("
                     strSQL += "'" & Grid_PartList(i, 1) & "'"
@@ -379,10 +381,10 @@ Public Class frm_CustomerPartCode
                     strSQL += ", part_code_note = '" & Replace(Grid_PartList(i, 8), "'", "\'") & "'"
                     strSQL += ", write_date = '" & writeDate & "'"
                     strSQL += ", write_id = '" & loginID & "'"
-                    strSQL += " where code_address = '" & Grid_PartList(i, 1) & "';"
+                    strSQL += " where part_maincode = '" & Grid_PartList(i, 1) & "';"
                 ElseIf Grid_PartList(i, 0).ToString = "D" Then
                     strSQL += "delete from tb_mms_customer_part_code"
-                    strSQL += " where code_address = '" & Grid_PartList(i, 1) & "';"
+                    strSQL += " where part_maincode = '" & Grid_PartList(i, 1) & "';"
                 End If
             Next
 
@@ -485,6 +487,37 @@ Public Class frm_CustomerPartCode
 
         Grid_PartList.AutoSizeCols()
         Grid_PartList.Redraw = True
+
+    End Sub
+
+    Private Sub TB_CustomerPartCode_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_CustomerPartCode.KeyDown,
+        TB_Specification.KeyDown
+
+        If e.KeyCode = 13 Then
+            BTN_Search_Click(Nothing, Nothing)
+        End If
+
+    End Sub
+
+    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
+
+        BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub BTN_CodeMapping_Click(sender As Object, e As EventArgs) Handles BTN_CodeMapping.Click
+
+        frm_PartCodeMapping.TB_CustomerCode.Text = TB_CustomerCode.Text
+        frm_PartCodeMapping.TB_Customer.Text = CB_CustomerName.Text
+        frm_PartCodeMapping.TB_MainCode.Text = Grid_PartList(Grid_PartList.Row, 1)
+
+        frm_PartCodeMapping.TB_PartCode.Text = Grid_PartList(Grid_PartList.Row, 3)
+        frm_PartCodeMapping.TB_Specification.Text = Grid_PartList(Grid_PartList.Row, 4)
+        frm_PartCodeMapping.TB_Vendor.Text = Grid_PartList(Grid_PartList.Row, 5)
+
+        If frm_PartCodeMapping.ShowDialog = DialogResult.Yes Then
+            BTN_Search_Click(Nothing, Nothing)
+        End If
 
     End Sub
 End Class

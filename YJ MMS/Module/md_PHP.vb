@@ -2,7 +2,12 @@
 Imports System.Net
 Imports Newtonsoft.Json.Linq
 
-Module md_Json
+Module md_PHP
+
+    Public phpPort As Integer = registryEdit.ReadRegKey("Software\Yujin\", "PHPPort", 10520)
+    Public phpUrl As String = "http://" & serverIP & ":" & phpPort
+    Public phpRootFolder As String = "/MMPS/BarcodeSplit"
+
     Public Function Load_PHP(ByVal uri As String,
                              ByVal rootName As String,
                              ByVal childName As String) As String
@@ -41,14 +46,14 @@ Module md_Json
                         If output = String.Empty Then
                             output = comment(childName)
                         Else
-                            output += "!~!" & CStr(comment(childName))
+                            output += "!@" & CStr(comment(childName))
                         End If
                     Next
                 End If
             Next
-            Return "Success!/!" & output
+            Return "Success!@" & output
         Catch ex As Exception
-            Return "Fail!/!" & ex.Message
+            Return "Fail!@" & ex.Message
         End Try
 
     End Function

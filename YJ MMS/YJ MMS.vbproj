@@ -107,12 +107,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Basic Information\frm_CodeMapping.Designer.vb">
-      <DependentUpon>frm_CodeMapping.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Basic Information\frm_CodeMapping.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Basic Information\frm_CustomerPartCode.Designer.vb">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </Compile>
@@ -131,12 +125,6 @@
     <Compile Include="Forms\Basic Information\frm_ModelResistration.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.Designer.vb">
-      <DependentUpon>frm_ModelEssentialDocument.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Basic Information\frm_ModelEssentialDocument.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.Designer.vb">
       <DependentUpon>frm_Coordinate_Find_Fault.vb</DependentUpon>
     </Compile>
@@ -147,6 +135,12 @@
       <DependentUpon>frm_ExcelModify.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_ExcelModify.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_PartCodeMapping.Designer.vb">
+      <DependentUpon>frm_PartCodeMapping.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Popup\frm_PartCodeMapping.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.Designer.vb">
@@ -179,10 +173,28 @@
     <Compile Include="Forms\Basic Information\frm_CustomerResistration.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Warehousing_List.Designer.vb">
+      <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Warehousing_List.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\frm_Supplier_Document_Register.Designer.vb">
+      <DependentUpon>frm_Supplier_Document_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\frm_Supplier_Document_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_LabelPrinterSetting.Designer.vb">
+      <DependentUpon>frm_LabelPrinterSetting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_LabelPrinterSetting.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_PG_Upload.Designer.vb">
@@ -200,8 +212,9 @@
     <Compile Include="Module\HostedControl.vb" />
     <Compile Include="Module\md_ETC.vb" />
     <Compile Include="Module\md_FTP.vb" />
-    <Compile Include="Module\md_Json.vb" />
+    <Compile Include="Module\md_PHP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
+    <Compile Include="Module\RawPrinterHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -219,17 +232,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\Basic Information\frm_CodeMapping.resx">
-      <DependentUpon>frm_CodeMapping.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_CustomerPartCode.resx">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelDocument.resx">
       <DependentUpon>frm_ModelDocument.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Basic Information\frm_ModelEssentialDocument.resx">
-      <DependentUpon>frm_ModelEssentialDocument.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\frm_ModelResistration.resx">
       <DependentUpon>frm_ModelResistration.vb</DependentUpon>
@@ -239,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_ExcelModify.resx">
       <DependentUpon>frm_ExcelModify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Popup\frm_PartCodeMapping.resx">
+      <DependentUpon>frm_PartCodeMapping.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.resx">
       <DependentUpon>frm_Popup_MultiPartsCode.vb</DependentUpon>
@@ -255,8 +265,17 @@
     <EmbeddedResource Include="Forms\Basic Information\frm_CustomerResistration.resx">
       <DependentUpon>frm_CustomerResistration.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\frm_Material_Warehousing_List.resx">
+      <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\frm_Supplier_Document_Register.resx">
+      <DependentUpon>frm_Supplier_Document_Register.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setting Form\frm_LabelPrinterSetting.resx">
+      <DependentUpon>frm_LabelPrinterSetting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_PG_Upload.resx">
       <DependentUpon>frm_PG_Upload.vb</DependentUpon>
@@ -267,9 +286,9 @@
     <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -375,9 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Mounter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\New.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\None Image.png" />
@@ -546,6 +562,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ordering_121.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barcode1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\new1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

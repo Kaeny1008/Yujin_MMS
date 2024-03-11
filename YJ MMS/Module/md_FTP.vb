@@ -15,10 +15,11 @@ Module md_FTP
     'Public ftpPort As Integer = 21
     'Public ftpID As String = "yujin_ftp"
     'Public ftpPassword As String = "Yujin_ftp!"
-    Public ftpUrl As String = "ftp://" & serverIP & ":" & registryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPort", 1052)
-    Public ftpPort As Integer = registryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPort", 1052)
-    Public ftpID As String = registryEdit.ReadRegKey("Software\Yujin\FTP", "ftpID", "yujin_ftp")
-    Public ftpPassword As String = registryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPassword", "Yujin_ftp!")
+
+    Public ftpPort As Integer = registryEdit.ReadRegKey("Software\Yujin", "FtpPort", 1052)
+    Public ftpUrl As String = "ftp://" & serverIP & ":" & ftpPort
+    Public ftpID As String = registryEdit.ReadRegKey("Software\Yujin", "FtpID", "yujin_ftp")
+    Public ftpPassword As String = registryEdit.ReadRegKey("Software\Yujin", "FtpPSWD", "Yujin_ftp!")
 
     Public Sub ftpFolderMake(ByVal ftpURL As String)
 
