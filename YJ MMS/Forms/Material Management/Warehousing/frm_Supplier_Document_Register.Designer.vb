@@ -217,12 +217,12 @@ Partial Class frm_Supplier_Document_Register
         'SplitContainer2.Panel1
         '
         Me.SplitContainer2.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_FileSelect)
         Me.SplitContainer2.Panel1.Controls.Add(Me.CB_SheetName)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label6)
-        Me.SplitContainer2.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Grid_Excel)
         Me.SplitContainer2.Panel1.Controls.Add(Me.TB_File_Path)
-        Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_FileSelect)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label10)
         '
         'SplitContainer2.Panel2
         '
@@ -294,7 +294,7 @@ Partial Class frm_Supplier_Document_Register
         'BTN_FileSelect
         '
         Me.BTN_FileSelect.Enabled = False
-        Me.BTN_FileSelect.Location = New System.Drawing.Point(802, 28)
+        Me.BTN_FileSelect.Location = New System.Drawing.Point(101, 28)
         Me.BTN_FileSelect.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.BTN_FileSelect.Name = "BTN_FileSelect"
         Me.BTN_FileSelect.Size = New System.Drawing.Size(75, 23)

@@ -68,6 +68,16 @@ Partial Class frm_Material_Warehousing
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.BTN_Save = New System.Windows.Forms.Button()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.DTP_End = New System.Windows.Forms.DateTimePicker()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.DTP_Start = New System.Windows.Forms.DateTimePicker()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -85,6 +95,8 @@ Partial Class frm_Material_Warehousing
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_DocumentsList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel5.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         Me.SuspendLayout()
         '
         'Grid_PartList
@@ -289,6 +301,7 @@ Partial Class frm_Material_Warehousing
         '
         'BTN_ListAdd
         '
+        Me.BTN_ListAdd.Enabled = False
         Me.BTN_ListAdd.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_ListAdd.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_ListAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -413,7 +426,6 @@ Partial Class frm_Material_Warehousing
         Me.TB_BarcodeScan.Name = "TB_BarcodeScan"
         Me.TB_BarcodeScan.Size = New System.Drawing.Size(280, 25)
         Me.TB_BarcodeScan.TabIndex = 18
-        Me.TB_BarcodeScan.Text = "130300323!CL21A106KPFNNNE!BJ6FP25/0322!2000!SAMSUNG"
         '
         'Label7
         '
@@ -541,6 +553,7 @@ Partial Class frm_Material_Warehousing
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_DocumentsList)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel5)
         '
         'SplitContainer1.Panel2
         '
@@ -553,11 +566,11 @@ Partial Class frm_Material_Warehousing
         '
         Me.Grid_DocumentsList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_DocumentsList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_DocumentsList.Location = New System.Drawing.Point(0, 0)
+        Me.Grid_DocumentsList.Location = New System.Drawing.Point(0, 94)
         Me.Grid_DocumentsList.Name = "Grid_DocumentsList"
         Me.Grid_DocumentsList.Rows.Count = 2
         Me.Grid_DocumentsList.Rows.DefaultSize = 20
-        Me.Grid_DocumentsList.Size = New System.Drawing.Size(341, 748)
+        Me.Grid_DocumentsList.Size = New System.Drawing.Size(341, 654)
         Me.Grid_DocumentsList.StyleInfo = resources.GetString("Grid_DocumentsList.StyleInfo")
         Me.Grid_DocumentsList.TabIndex = 1
         '
@@ -577,6 +590,7 @@ Partial Class frm_Material_Warehousing
         '
         'BTN_Save
         '
+        Me.BTN_Save.Enabled = False
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -587,6 +601,118 @@ Partial Class frm_Material_Warehousing
         Me.BTN_Save.Text = "확인저장"
         Me.BTN_Save.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Save.UseVisualStyleBackColor = True
+        '
+        'Panel5
+        '
+        Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.Panel6)
+        Me.Panel5.Controls.Add(Me.Label17)
+        Me.Panel5.Controls.Add(Me.DTP_End)
+        Me.Panel5.Controls.Add(Me.Label15)
+        Me.Panel5.Controls.Add(Me.DTP_Start)
+        Me.Panel5.Controls.Add(Me.Label16)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel5.Location = New System.Drawing.Point(0, 0)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(341, 94)
+        Me.Panel5.TabIndex = 2
+        '
+        'DTP_End
+        '
+        Me.DTP_End.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DTP_End.Location = New System.Drawing.Point(225, 22)
+        Me.DTP_End.Name = "DTP_End"
+        Me.DTP_End.Size = New System.Drawing.Size(102, 21)
+        Me.DTP_End.TabIndex = 20
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(199, 26)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(14, 12)
+        Me.Label15.TabIndex = 19
+        Me.Label15.Text = "~"
+        '
+        'DTP_Start
+        '
+        Me.DTP_Start.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DTP_Start.Location = New System.Drawing.Point(85, 22)
+        Me.DTP_Start.Margin = New System.Windows.Forms.Padding(0, 3, 3, 3)
+        Me.DTP_Start.Name = "DTP_Start"
+        Me.DTP_Start.Size = New System.Drawing.Size(102, 21)
+        Me.DTP_Start.TabIndex = 18
+        '
+        'Label16
+        '
+        Me.Label16.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.White
+        Me.Label16.Location = New System.Drawing.Point(9, 22)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(76, 21)
+        Me.Label16.TabIndex = 17
+        Me.Label16.Text = "입고일자"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label17
+        '
+        Me.Label17.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label17.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label17.ForeColor = System.Drawing.Color.White
+        Me.Label17.Location = New System.Drawing.Point(9, 49)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(76, 21)
+        Me.Label17.TabIndex = 21
+        Me.Label17.Text = "완료구분"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel6
+        '
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel6.Controls.Add(Me.RadioButton3)
+        Me.Panel6.Controls.Add(Me.RadioButton2)
+        Me.Panel6.Controls.Add(Me.RadioButton1)
+        Me.Panel6.Location = New System.Drawing.Point(85, 49)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(242, 21)
+        Me.Panel6.TabIndex = 25
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Checked = True
+        Me.RadioButton3.Location = New System.Drawing.Point(178, 1)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
+        Me.RadioButton3.TabIndex = 27
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "미완료"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(92, 1)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton2.TabIndex = 26
+        Me.RadioButton2.Text = "완료"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 1)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton1.TabIndex = 25
+        Me.RadioButton1.Text = "전체"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'frm_Material_Warehousing
         '
@@ -620,6 +746,10 @@ Partial Class frm_Material_Warehousing
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.Grid_DocumentsList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -668,4 +798,14 @@ Partial Class frm_Material_Warehousing
     Friend WithEvents Label14 As Label
     Friend WithEvents Timer1 As Timer
     Friend WithEvents BTN_Save As Button
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents Label17 As Label
+    Friend WithEvents DTP_End As DateTimePicker
+    Friend WithEvents Label15 As Label
+    Friend WithEvents DTP_Start As DateTimePicker
+    Friend WithEvents Label16 As Label
 End Class

@@ -32,7 +32,7 @@ Public Class frm_ModelResistration
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 8
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -40,10 +40,11 @@ Public Class frm_ModelResistration
             grid_ModelList(0, 1) = "모델코드(*)"
             grid_ModelList(0, 2) = "고객사 코드(*)"
             grid_ModelList(0, 3) = "고객사명"
-            grid_ModelList(0, 4) = "모델구분"
-            grid_ModelList(0, 5) = "모델명(*)"
-            grid_ModelList(0, 6) = "품목명"
-            grid_ModelList(0, 7) = "비고"
+            grid_ModelList(0, 4) = "SPG"
+            grid_ModelList(0, 5) = "품번(*)"
+            grid_ModelList(0, 6) = "품명"
+            grid_ModelList(0, 7) = "규격"
+            grid_ModelList(0, 8) = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -80,10 +81,9 @@ Public Class frm_ModelResistration
 
     End Sub
 
-    Dim before_data As String
     Private Sub grid_ModelList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles grid_ModelList.BeforeEdit
 
-        before_data = grid_ModelList(e.Row, e.Col)
+        before_griddata = grid_ModelList(e.Row, e.Col)
 
     End Sub
 
@@ -91,7 +91,7 @@ Public Class frm_ModelResistration
 
         If grid_ModelList(e.Row, 0).Equals("D") Then Exit Sub
 
-        If before_data = grid_ModelList(e.Row, e.Col) Then Exit Sub
+        If before_griddata = grid_ModelList(e.Row, e.Col) Then Exit Sub
 
         grid_ModelList.Redraw = False
 
@@ -162,6 +162,13 @@ Public Class frm_ModelResistration
     End Sub
 
     Private Sub btn_RowDelete_Click(sender As Object, e As EventArgs) Handles btn_RowDelete.Click
+
+        MessageBox.Show(Me,
+                        "현재 삭제 기능을 사용할 수 없습니다." & vbCrLf & "(모델 자료 삭제 기능 제작필요)",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error)
+        Exit Sub
 
         Dim sel_Row As Integer = grid_ModelList.Row
 
@@ -314,7 +321,7 @@ Public Class frm_ModelResistration
 
         DBConnect()
 
-        Dim strSQL As String = "select model_series"
+        Dim strSQL As String = "select spg"
         strSQL += " From tb_customer_list"
         strSQL += " where customer_code = '" & customer_code & "'"
 
@@ -324,7 +331,7 @@ Public Class frm_ModelResistration
         load_ModelSeries = String.Empty
 
         Do While sqlDR.Read
-            load_ModelSeries = sqlDR("model_series")
+            load_ModelSeries = sqlDR("spg")
         Loop
         sqlDR.Close()
 
@@ -357,7 +364,7 @@ Public Class frm_ModelResistration
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -373,23 +380,25 @@ Public Class frm_ModelResistration
 
             For i = 1 To grid_ModelList.Rows.Count - 1
                 If grid_ModelList(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_model_list(model_code, customer_code, model_series"
-                    strSQL += ", model_name, item_name, model_note, write_date, write_id) values("
+                    strSQL += "insert into tb_model_list(model_code, customer_code, spg"
+                    strSQL += ", item_code, item_name, item_spec, item_note, write_date, write_id) values("
                     strSQL += "'" & grid_ModelList(i, 1) & "'"
                     strSQL += ",'" & grid_ModelList(i, 2) & "'"
                     strSQL += ",'" & Replace(grid_ModelList(i, 4), "'", "\'") & "'"
                     strSQL += ",'" & Replace(grid_ModelList(i, 5), "'", "\'") & "'"
                     strSQL += ",'" & Replace(grid_ModelList(i, 6), "'", "\'") & "'"
-                    strSQL += ",'" & grid_ModelList(i, 7) & "'"
+                    strSQL += ",'" & Replace(grid_ModelList(i, 7), "'", "\'") & "'"
+                    strSQL += ",'" & grid_ModelList(i, 8) & "'"
                     strSQL += ",'" & writeDate & "'"
                     strSQL += ",'" & loginID & "');"
                 ElseIf grid_ModelList(i, 0).ToString = "M" Then
                     strSQL += "update tb_model_list set"
                     strSQL += " customer_code = '" & grid_ModelList(i, 2) & "'"
-                    strSQL += ", model_series = '" & Replace(grid_ModelList(i, 4), "'", "\'") & "'"
-                    strSQL += ", model_name = '" & Replace(grid_ModelList(i, 5), "'", "\'") & "'"
+                    strSQL += ", spg = '" & Replace(grid_ModelList(i, 4), "'", "\'") & "'"
+                    strSQL += ", item_code = '" & Replace(grid_ModelList(i, 5), "'", "\'") & "'"
                     strSQL += ", item_name = '" & Replace(grid_ModelList(i, 6), "'", "\'") & "'"
-                    strSQL += ", model_note = '" & grid_ModelList(i, 7) & "'"
+                    strSQL += ", item_spec = '" & Replace(grid_ModelList(i, 7), "'", "\'") & "'"
+                    strSQL += ", item_note = '" & grid_ModelList(i, 8) & "'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
                     strSQL += " where model_code = '" & grid_ModelList(i, 1) & "';"
@@ -411,8 +420,9 @@ Public Class frm_ModelResistration
 
             DBClose()
 
-            thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message,
+            Thread_LoadingFormEnd()
+            MessageBox.Show(Me,
+                            ex.Message,
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error,
@@ -422,8 +432,9 @@ Public Class frm_ModelResistration
 
         DBClose()
 
-        thread_LoadingFormEnd()
-        MessageBox.Show("저장완료.",
+        Thread_LoadingFormEnd()
+        MessageBox.Show(Me,
+                        "저장완료.",
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
@@ -435,21 +446,21 @@ Public Class frm_ModelResistration
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart()
 
         grid_ModelList.Redraw = False
         grid_ModelList.Rows.Count = 1
 
         DBConnect()
 
-        Dim strSQL As String = "select a.model_code, a.customer_code, a.model_series, a.model_name, a.item_name, a.model_note, b.customer_name"
+        Dim strSQL As String = "select a.model_code, a.customer_code, a.spg, a.item_code, a.item_name, a.item_spec, a.item_note, b.customer_name"
         strSQL += " from tb_model_list a"
         strSQL += " left join tb_customer_list b on a.customer_code = b.customer_code"
         strSQL += " where (a.customer_code like concat('%', '" & tb_SearchCustomer.Text & "', '%')"
         strSQL += " or b.customer_name like concat('%', '" & tb_SearchCustomer.Text & "', '%'))"
         strSQL += " and (a.model_code like concat('%', '" & tb_SearchModel.Text & "', '%')"
-        strSQL += " or a.model_name like concat('%', '" & tb_SearchModel.Text & "', '%'))"
-        strSQL += " order by a.model_name"
+        strSQL += " or a.item_code like concat('%', '" & tb_SearchModel.Text & "', '%'))"
+        strSQL += " order by a.item_code"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -459,10 +470,11 @@ Public Class frm_ModelResistration
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("customer_code") & vbTab &
                                           sqlDR("customer_name") & vbTab &
-                                          sqlDR("model_series") & vbTab &
-                                          sqlDR("model_name") & vbTab &
+                                          sqlDR("spg") & vbTab &
+                                          sqlDR("item_code") & vbTab &
                                           sqlDR("item_name") & vbTab &
-                                          sqlDR("model_note")
+                                          sqlDR("item_spec") & vbTab &
+                                          sqlDR("item_note")
             grid_ModelList.AddItem(insert_String)
         Loop
         sqlDR.Close()

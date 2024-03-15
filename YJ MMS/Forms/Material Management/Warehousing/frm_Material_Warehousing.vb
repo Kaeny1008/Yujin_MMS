@@ -14,6 +14,9 @@ Public Class frm_Material_Warehousing
         Timer1.Stop()
         Label14.Visible = False
 
+        DTP_Start.Value = Format(Now, "yyyy-MM-01 00:00:00")
+        DTP_End.Value = Format(Now, "yyyy-MM-dd 23:59:59")
+
     End Sub
 
     Private Sub Grid_Setting()
@@ -25,7 +28,7 @@ Public Class frm_Material_Warehousing
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 4
+            .Cols.Count = 5
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -33,6 +36,7 @@ Public Class frm_Material_Warehousing
             Grid_DocumentsList(0, 1) = "문서번호"
             Grid_DocumentsList(0, 2) = "공급사"
             Grid_DocumentsList(0, 3) = "입고품목 수"
+            Grid_DocumentsList(0, 4) = "완료여부"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -118,8 +122,8 @@ Public Class frm_Material_Warehousing
         TB_DocumentNo.Text = String.Empty
         TB_Supplier.Text = String.Empty
 
-        Grid_DocumentsList.Rows.Count = 1
         Grid_PartList.Rows.Count = 1
+        Grid_MaterialList.Rows.Count = 1
 
         TB_InNo.Text = String.Empty
         CB_CustomerName.SelectedIndex = -1
@@ -138,8 +142,20 @@ Public Class frm_Material_Warehousing
 
         DBConnect()
 
+        Dim checkResult As String = String.Empty
+        If RadioButton1.Checked Then
+            checkResult = RadioButton1.Text
+        ElseIf RadioButton2.Checked Then
+            checkResult = RadioButton2.Text
+        ElseIf RadioButton3.Checked Then
+            checkResult = RadioButton3.Text
+        End If
+
         Dim strSQL As String = "call sp_mms_material_warehousing(0"
         strSQL += ", null"
+        strSQL += ", '" & checkResult & "'"
+        strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
+        strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd HH:mm:ss") & "'"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -149,7 +165,8 @@ Public Class frm_Material_Warehousing
             Dim insert_String As String = Grid_DocumentsList.Rows.Count & vbTab &
                                           sqlDR("document_no") & vbTab &
                                           sqlDR("supplier") & vbTab &
-                                          Format(sqlDR("in_count"), "#,##0")
+                                          Format(sqlDR("in_count"), "#,##0") & vbTab &
+                                          sqlDR("check_result")
             Grid_DocumentsList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -188,6 +205,18 @@ Public Class frm_Material_Warehousing
             TB_DocumentNo.Text = Grid_DocumentsList(gridRow, 1)
             TB_Supplier.Text = Grid_DocumentsList(gridRow, 2)
 
+            If Grid_DocumentsList(gridRow, 4) = "완료" Then
+                BTN_Save.Enabled = False
+                BTN_ListAdd.Enabled = False
+                CB_CustomerName.Enabled = False
+                TB_BarcodeScan.Enabled = False
+            Else
+                BTN_Save.Enabled = True
+                BTN_ListAdd.Enabled = True
+                CB_CustomerName.Enabled = True
+                TB_BarcodeScan.Enabled = True
+            End If
+
             Thread_LoadingFormEnd()
         End If
 
@@ -215,6 +244,9 @@ Public Class frm_Material_Warehousing
 
         Dim strSQL As String = "call sp_mms_material_warehousing(1"
         strSQL += ",'" & documentNo & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -266,6 +298,9 @@ Public Class frm_Material_Warehousing
 
         Dim strSQL As String = "call sp_mms_material_warehousing(2"
         strSQL += ",'" & documentNo & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -453,6 +488,12 @@ Public Class frm_Material_Warehousing
 
     Private Sub BTN_ListAdd_Click(sender As Object, e As EventArgs) Handles BTN_ListAdd.Click
 
+        If TB_PartNo.Text = String.Empty Or
+            TB_Qty.Text = String.Empty Or
+            TB_CustomerPartCode.Text = String.Empty Then
+            Exit Sub
+        End If
+
         Thread_LoadingFormStart("Saving...")
 
         DBConnect()
@@ -517,6 +558,8 @@ Public Class frm_Material_Warehousing
         End Try
 
         DBClose()
+
+        Load_MaterialList_Detail(TB_DocumentNo.Text)
 
         Thread_LoadingFormEnd()
 
@@ -615,7 +658,7 @@ Public Class frm_Material_Warehousing
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             strSQL = "update tb_mms_material_warehousing_document set"
-            strSQL += "check_date = '" & writeDate & "'"
+            strSQL += " check_date = '" & writeDate & "'"
             strSQL += ", check_id = '" & loginID & "'"
             strSQL += " where document_no = '" & TB_DocumentNo.Text & "';"
 
@@ -642,6 +685,18 @@ Public Class frm_Material_Warehousing
         DBClose()
 
         Thread_LoadingFormEnd()
+
+        MessageBox.Show(Me,
+                        "저장완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information,
+                        MessageBoxDefaultButton.Button1)
+
+        BTN_Save.Enabled = False
+        BTN_ListAdd.Enabled = False
+
+        BTN_Search_Click(Nothing, Nothing)
 
     End Sub
 End Class

@@ -51,12 +51,26 @@ Public Class frm_Main
 
     End Sub
 
+    Private Sub frm_Main_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+
+
+
+    End Sub
+
     Private Sub frm_Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        If MsgBox("정말 종료하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then
+        'If MsgBox("정말 종료하시겠습니까?",
+        '          MsgBoxStyle.Question + MsgBoxStyle.YesNo,
+        '          msg_form) = MsgBoxResult.No Then
+        '    e.Cancel = True
+        'End If
+
+        If MessageBox.Show(Me,
+                           "정말 종료 하시겠습니까",
+                           msg_form, MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then
             e.Cancel = True
+            Exit Sub
         End If
 
         If IO.Directory.Exists(Application.StartupPath & "\Temp") Then
@@ -171,6 +185,38 @@ Public Class frm_Main
         frm_Material_Warehousing.MdiParent = Me
         If Not frm_Material_Warehousing.Visible Then frm_Material_Warehousing.Show()
         frm_Material_Warehousing.Focus()
+
+    End Sub
+
+    Private Sub BTN_MaterialWarehousing_History_Click(sender As Object, e As EventArgs) Handles BTN_MaterialWarehousing_History.Click
+
+        frm_Material_Warehousing_History.MdiParent = Me
+        If Not frm_Material_Warehousing_History.Visible Then frm_Material_Warehousing_History.Show()
+        frm_Material_Warehousing_History.Focus()
+
+    End Sub
+
+    Private Sub BTN_OrderRegistration_Click(sender As Object, e As EventArgs) Handles BTN_OrderRegistration.Click
+
+        frm_Order_Registration.MdiParent = Me
+        If Not frm_Order_Registration.Visible Then frm_Order_Registration.Show()
+        frm_Order_Registration.Focus()
+
+    End Sub
+
+    Private Sub BTN_OrderModify_Click(sender As Object, e As EventArgs) Handles BTN_OrderModify.Click
+
+        frm_Order_Modify.MdiParent = Me
+        If Not frm_Order_Modify.Visible Then frm_Order_Modify.Show()
+        frm_Order_Modify.Focus()
+
+    End Sub
+
+    Private Sub BTN_Material_CheckRequirements_Click(sender As Object, e As EventArgs) Handles BTN_Material_CheckRequirements.Click
+
+        frm_Material_CheckRequirements.MdiParent = Me
+        If Not frm_Material_CheckRequirements.Visible Then frm_Material_CheckRequirements.Show()
+        frm_Material_CheckRequirements.Focus()
 
     End Sub
 End Class

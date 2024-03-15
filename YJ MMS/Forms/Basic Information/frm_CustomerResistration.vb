@@ -206,7 +206,7 @@ Public Class frm_CustomerResistration
 
             For i = 1 To grid_CustomerList.Rows.Count - 1
                 If grid_CustomerList(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_customer_list(customer_code, customer_name, model_series"
+                    strSQL += "insert into tb_customer_list(customer_code, customer_name, spg"
                     strSQL += ", customer_note, use_part_code, write_date, write_id) values("
                     strSQL += "'" & grid_CustomerList(i, 1) & "'"
                     strSQL += ", '" & grid_CustomerList(i, 2) & "'"
@@ -218,7 +218,7 @@ Public Class frm_CustomerResistration
                 ElseIf grid_CustomerList(i, 0).ToString = "M" Then
                     strSQL += "update tb_customer_list set"
                     strSQL += " customer_name = '" & grid_CustomerList(i, 2) & "'"
-                    strSQL += ", model_series = '" & grid_CustomerList(i, 3) & "'"
+                    strSQL += ", spg = '" & grid_CustomerList(i, 3) & "'"
                     strSQL += ", use_part_code = '" & grid_CustomerList(i, 4) & "'"
                     strSQL += ", customer_note = '" & grid_CustomerList(i, 5) & "'"
                     strSQL += ", modify_date = '" & writeDate & "'"
@@ -240,7 +240,7 @@ Public Class frm_CustomerResistration
         Catch ex As MySqlException
             sqlTran.Rollback()
             DBClose()
-            thread_LoadingFormEnd()
+            Thread_LoadingFormEnd()
             If ex.Number = 1062 Then
                 MessageBox.Show("중복된 고객사명이 있습니다.",
                                 msg_form,
@@ -279,7 +279,7 @@ Public Class frm_CustomerResistration
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code, customer_name, model_series, customer_note, use_part_code"
+        Dim strSQL As String = "select customer_code, customer_name, spg, customer_note, use_part_code"
         strSQL += " from tb_customer_list"
         strSQL += " where customer_code like concat('%', '" & tb_SearchText.Text & "', '%')"
         strSQL += " or customer_name like concat('%', '" & tb_SearchText.Text & "', '%')"
@@ -292,7 +292,7 @@ Public Class frm_CustomerResistration
             Dim insert_String As String = grid_CustomerList.Rows.Count & vbTab &
                                           sqlDR("customer_code") & vbTab &
                                           sqlDR("customer_name") & vbTab &
-                                          sqlDR("model_series") & vbTab &
+                                          sqlDR("spg") & vbTab &
                                           sqlDR("use_part_code") & vbTab &
                                           sqlDR("customer_note")
             grid_CustomerList.AddItem(insert_String)

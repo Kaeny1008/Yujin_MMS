@@ -212,6 +212,31 @@ Public Class frm_ModelDocument
             '.SelectionMode = SelectionModeEnum.Row
         End With
 
+        With Grid_Process
+            .AllowEditing = True
+            .AllowFiltering = False
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .AllowDragging = AllowDraggingEnum.Columns
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 1
+            .Cols.Fixed = 1
+            .Rows.Fixed = 1
+            .Rows.Count = 2
+            Grid_Process(0, 0) = "No"
+            Grid_Process(1, 0) = "공정명"
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .AutoSizeCols()
+            .ShowCursor = True
+            .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
+            .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
+            .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            '.SelectionMode = SelectionModeEnum.Row
+        End With
+
     End Sub
 
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -609,14 +634,14 @@ Public Class frm_ModelDocument
 
         DBConnect()
 
-        Dim strSQL As String = "select a.model_code, a.customer_code, a.model_series, a.model_name, a.item_name, a.model_note, b.customer_name"
+        Dim strSQL As String = "select a.model_code, a.customer_code, a.spg, a.item_code, a.item_name, a.item_note, b.customer_name"
         strSQL += " from tb_model_list a"
         strSQL += " left join tb_customer_list b on a.customer_code = b.customer_code"
         strSQL += " where (a.customer_code like concat('%', '" & TB_SearchCustomer.Text & "', '%')"
         strSQL += " or b.customer_name like concat('%', '" & TB_SearchCustomer.Text & "', '%'))"
         strSQL += " and (a.model_code like concat('%', '" & TB_SearchModel.Text & "', '%')"
-        strSQL += " or a.model_name like concat('%', '" & TB_SearchModel.Text & "', '%'))"
-        strSQL += " order by a.model_name"
+        strSQL += " or a.item_code like concat('%', '" & TB_SearchModel.Text & "', '%'))"
+        strSQL += " order by a.item_code"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -626,10 +651,10 @@ Public Class frm_ModelDocument
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("customer_code") & vbTab &
                                           sqlDR("customer_name") & vbTab &
-                                          sqlDR("model_series") & vbTab &
-                                          sqlDR("model_name") & vbTab &
+                                          sqlDR("spg") & vbTab &
+                                          sqlDR("item_code") & vbTab &
                                           sqlDR("item_name") & vbTab &
-                                          sqlDR("model_note")
+                                          sqlDR("item_note")
             Grid_ModelList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -664,12 +689,40 @@ Public Class frm_ModelDocument
 
         Load_ModelInformation(Grid_ModelList(selRow, 2), Grid_ModelList(selRow, 1))
         Load_ManagementNo(Grid_ModelList(selRow, 2), Grid_ModelList(selRow, 1))
+        Load_Process(Grid_ModelList(selRow, 2), Grid_ModelList(selRow, 1))
 
         BTN_Save.Enabled = True
 
         SplitContainer1.Panel2Collapsed = False
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_Process(ByVal customerCode As String,
+                             ByVal modelCode As String)
+
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(7"
+        strSQL += ",'" & customerCode & "'"
+        strSQL += ",'" & modelCode & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            Grid_Process.Cols.Add()
+            Grid_Process(0, Grid_Process.Cols.Count - 1) = CStr(Grid_Process.Cols.Count - 1) & " 공정"
+            Grid_Process(1, Grid_Process.Cols.Count - 1) = sqlDR("process_name")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
@@ -693,8 +746,16 @@ Public Class frm_ModelDocument
             TB_CustomerCode.Text = sqlDR("customer_code")
             TB_CustomerName.Text = sqlDR("customer_name")
             TB_ModelCode.Text = sqlDR("model_code")
-            TB_ModelName.Text = sqlDR("model_name")
+            TB_ModelName.Text = sqlDR("item_code")
             TB_ItemName.Text = sqlDR("item_name")
+
+            If sqlDR("use_bond") = "사용" Then
+                RadioButton1.Checked = True
+            Else
+                RadioButton2.Checked = True
+            End If
+
+            TextBox1.Text = sqlDR("etc_text")
         Loop
         sqlDR.Close()
 
@@ -838,6 +899,8 @@ Public Class frm_ModelDocument
         Grid_BOM.Rows.Count = 1
         Grid_Coordinates.Rows.Count = 1
         Grid_BOM_Total.Rows.Count = 1
+
+        Grid_Process.Cols.Count = 1
 
         TabControl1.SelectedIndex = 0
 
@@ -996,26 +1059,33 @@ FTP_Control:
                 Next
             End If
 
-            'If Not Grid_Documents(1, 1) = "등록필요" And Not Grid_Documents(2, 1) = "등록필요" Then
-            '    strSQL += "delete from tb_model_ref_information"
-            '    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
-            '    strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
-            '    strSQL += " and management_no;"
-            '    For i = 1 To Grid_BOM_Total.Rows.Count - 1
-            '        strSQL += "insert into tb_model_ref_information("
-            '        strSQL += "customer_code, model_code, management_no, ref, part_no, x_mm, y_mm, angle, tb) values("
-            '        strSQL += "'" & TB_CustomerCode.Text & "'"
-            '        strSQL += ",'" & TB_ModelCode.Text & "'"
-            '        strSQL += ",'" & CB_ManagementNo.Text & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 1) & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 2) & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 3) & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 4) & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 5) & "'"
-            '        strSQL += ",'" & Grid_BOM_Total(i, 6) & "'"
-            '        strSQL += ");"
-            '    Next
-            'End If
+            Dim useBond As String = RadioButton2.Text
+
+            If RadioButton1.Checked = True Then
+                useBond = RadioButton1.Text
+            End If
+
+            '특이사항 기록
+            strSQL += "update tb_model_list set use_bond = '" & useBond & "'"
+            strSQL += ", etc_text = '" & TextBox1.Text & "'"
+            strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
+
+            '공정순서 기록
+            strSQL += "delete from tb_model_process"
+            strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
+
+            For i = 1 To Grid_Process.Cols.Count - 1
+                strSQL += "insert into tb_model_process("
+                strSQL += "customer_code, model_code, process_number, process_name"
+                strSQL += ") values("
+                strSQL += "'" & TB_CustomerCode.Text & "'"
+                strSQL += ",'" & TB_ModelCode.Text & "'"
+                strSQL += "," & i
+                strSQL += ",'" & Grid_Process(1, i) & "'"
+                strSQL += ");"
+            Next
 
             If strSQL = String.Empty Then
                 DBClose()
@@ -1286,6 +1356,103 @@ FTP_Control:
         Grid_BOM_Total.AutoSizeCols()
 
         Grid_BOM_Total.Redraw = True
+
+    End Sub
+
+    Private Sub Grid_Process_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_Process.MouseClick
+
+        Dim selCol As Integer = Grid_Process.MouseCol
+        Grid_Process.Col = selCol
+
+        If e.Button = MouseButtons.Right And selCol > -1 Then
+            CMS_GridMenu.Show(Grid_Process, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_ProcessAdd_Click(sender As Object, e As EventArgs) Handles BTN_ProcessAdd.Click
+
+        Dim selCol As Integer = Grid_Process.Col
+
+        Grid_Process.Cols.Add()
+        Grid_Process.Cols(Grid_Process.Cols.Count - 1).Move(selCol + 1)
+
+        For i = 1 To Grid_Process.Cols.Count - 1
+            Grid_Process(0, i) = CStr(i) + " 공정"
+        Next
+
+        Grid_Process.AutoSizeCols()
+
+    End Sub
+
+    Private Sub BTN_ProcessDelete_Click(sender As Object, e As EventArgs) Handles BTN_ProcessDelete.Click
+
+        Dim selCol As Integer = Grid_Process.Col
+
+        If selCol = 0 Then Exit Sub
+
+        Grid_Process.Cols.Remove(selCol)
+
+        For i = 1 To Grid_Process.Cols.Count - 1
+            Grid_Process(0, i) = CStr(i) + " 공정"
+        Next
+
+        Grid_Process.AutoSizeCols()
+
+    End Sub
+
+    Dim processList As String
+
+    Private Sub Grid_ComboList_Process()
+
+        processList = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "select sub_code_name"
+        strSQL += " from tb_code_sub"
+        strSQL += " where main_code = 'MC00000002'"
+        strSQL += " order by sub_code_name"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If processList = String.Empty Then
+                processList = sqlDR("sub_code_name")
+            Else
+                processList += "|" & sqlDR("sub_code_name")
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
+    Private Sub Grid_Process_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_Process.BeforeEdit
+
+        before_griddata = Grid_Process(e.Row, e.Col)
+
+    End Sub
+
+    Private Sub Grid_Process_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_Process.AfterEdit
+
+        If before_griddata = Grid_Process(e.Row, e.Col) Then Exit Sub
+
+        Grid_Process.AutoSizeCols()
+
+    End Sub
+
+    Private Sub TabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TabControl1.SelectedIndexChanged
+
+        If TabControl1.SelectedIndex = 4 Then
+            Grid_ComboList_Process()
+            'Console.WriteLine("Process List : " & processList)
+            For i = 1 To Grid_Process.Cols.Count - 1
+                Grid_Process.Cols(i).ComboList = processList
+            Next
+        End If
 
     End Sub
 End Class

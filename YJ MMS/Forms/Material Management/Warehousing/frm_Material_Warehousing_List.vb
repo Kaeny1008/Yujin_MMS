@@ -548,7 +548,7 @@ Public Class frm_Material_Warehousing_List
 
         Dim strSQL As String = "select f_mms_new_in_no("
         strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
-        strSQL += ") as new_in_no"
+        strSQL += ", null) as new_in_no"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader

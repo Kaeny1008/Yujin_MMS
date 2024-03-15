@@ -330,22 +330,22 @@ Partial Class frm_Material_Warehousing_List
         'RB_PrintNotUse
         '
         Me.RB_PrintNotUse.AutoSize = True
-        Me.RB_PrintNotUse.Checked = True
         Me.RB_PrintNotUse.Location = New System.Drawing.Point(142, 6)
         Me.RB_PrintNotUse.Name = "RB_PrintNotUse"
         Me.RB_PrintNotUse.Size = New System.Drawing.Size(59, 16)
         Me.RB_PrintNotUse.TabIndex = 7
-        Me.RB_PrintNotUse.TabStop = True
         Me.RB_PrintNotUse.Text = "미발행"
         Me.RB_PrintNotUse.UseVisualStyleBackColor = True
         '
         'RB_PrintUse
         '
         Me.RB_PrintUse.AutoSize = True
+        Me.RB_PrintUse.Checked = True
         Me.RB_PrintUse.Location = New System.Drawing.Point(17, 6)
         Me.RB_PrintUse.Name = "RB_PrintUse"
         Me.RB_PrintUse.Size = New System.Drawing.Size(47, 16)
         Me.RB_PrintUse.TabIndex = 6
+        Me.RB_PrintUse.TabStop = True
         Me.RB_PrintUse.Text = "발행"
         Me.RB_PrintUse.UseVisualStyleBackColor = True
         '

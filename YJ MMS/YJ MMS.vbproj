@@ -173,22 +173,46 @@
     <Compile Include="Forms\Basic Information\frm_CustomerResistration.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Material_Warehousing.Designer.vb">
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.Designer.vb">
+      <DependentUpon>frm_Material_CheckRequirements.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing.Designer.vb">
       <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Material_Warehousing.vb">
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Material_Warehousing_List.Designer.vb">
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_History.Designer.vb">
+      <DependentUpon>frm_Material_Warehousing_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_History.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_List.Designer.vb">
       <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Material_Warehousing_List.vb">
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_List.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Supplier_Document_Register.Designer.vb">
+    <Compile Include="Forms\Material Management\Warehousing\frm_Supplier_Document_Register.Designer.vb">
       <DependentUpon>frm_Supplier_Document_Register.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Material Management\frm_Supplier_Document_Register.vb">
+    <Compile Include="Forms\Material Management\Warehousing\frm_Supplier_Document_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Order Management\frm_Order_Modify.Designer.vb">
+      <DependentUpon>frm_Order_Modify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order Management\frm_Order_Modify.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Order Management\frm_Order_Registration.Designer.vb">
+      <DependentUpon>frm_Order_Registration.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order Management\frm_Order_Registration.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
@@ -271,14 +295,26 @@
     <EmbeddedResource Include="Forms\Basic Information\frm_CustomerResistration.resx">
       <DependentUpon>frm_CustomerResistration.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Material Management\frm_Material_Warehousing.resx">
+    <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.resx">
+      <DependentUpon>frm_Material_CheckRequirements.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing.resx">
       <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Material Management\frm_Material_Warehousing_List.resx">
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_History.resx">
+      <DependentUpon>frm_Material_Warehousing_History.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_List.resx">
       <DependentUpon>frm_Material_Warehousing_List.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Material Management\frm_Supplier_Document_Register.resx">
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Supplier_Document_Register.resx">
       <DependentUpon>frm_Supplier_Document_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Order Management\frm_Order_Modify.resx">
+      <DependentUpon>frm_Order_Modify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Order Management\frm_Order_Registration.resx">
+      <DependentUpon>frm_Order_Registration.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
@@ -581,5 +617,9 @@
   <ItemGroup>
     <None Include="Resources\new1.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

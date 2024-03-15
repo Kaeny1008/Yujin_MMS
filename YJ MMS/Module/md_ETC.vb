@@ -10,6 +10,7 @@ Module md_ETC
     '접속ID
     Public loginID As String = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "user")
     Public msg_form As String = "YJ MMS"
+    Public before_griddata As String
 
     Public Function GetWeekOfYear(ByVal targetDate As DateTime) As Integer
         Return GetWeekOfYear(targetDate, Nothing)
