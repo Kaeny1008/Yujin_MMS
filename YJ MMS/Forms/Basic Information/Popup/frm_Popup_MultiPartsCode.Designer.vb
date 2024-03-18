@@ -44,6 +44,8 @@ Partial Class frm_Popup_MultiPartsCode
         Me.CB_SheetName = New System.Windows.Forms.ComboBox()
         Me.BTN_Start = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.TB_PartSupplier = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -51,6 +53,8 @@ Partial Class frm_Popup_MultiPartsCode
         'GroupBox1
         '
         Me.GroupBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.GroupBox1.Controls.Add(Me.TB_PartSupplier)
+        Me.GroupBox1.Controls.Add(Me.Label9)
         Me.GroupBox1.Controls.Add(Me.TB_PartType)
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.TB_PartCategory)
@@ -68,7 +72,7 @@ Partial Class frm_Popup_MultiPartsCode
         Me.GroupBox1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.GroupBox1.Location = New System.Drawing.Point(12, 330)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(871, 55)
+        Me.GroupBox1.Size = New System.Drawing.Size(871, 76)
         Me.GroupBox1.TabIndex = 5
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "위치 설정"
@@ -303,7 +307,7 @@ Partial Class frm_Popup_MultiPartsCode
         Me.BTN_Start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Start.Image = Global.YJ_MMS.My.Resources.Resources.sitemap
         Me.BTN_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Start.Location = New System.Drawing.Point(778, 389)
+        Me.BTN_Start.Location = New System.Drawing.Point(778, 435)
         Me.BTN_Start.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.BTN_Start.Name = "BTN_Start"
         Me.BTN_Start.Size = New System.Drawing.Size(105, 51)
@@ -315,18 +319,44 @@ Partial Class frm_Popup_MultiPartsCode
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(680, 393)
+        Me.Label7.Location = New System.Drawing.Point(680, 439)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(95, 48)
         Me.Label7.TabIndex = 13
         Me.Label7.Text = "1. 파일선택" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2. 시트선택" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "3. 위치설정" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "4. 다중등록 버튼"
+        '
+        'TB_PartSupplier
+        '
+        Me.TB_PartSupplier.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_PartSupplier.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_PartSupplier.Location = New System.Drawing.Point(101, 46)
+        Me.TB_PartSupplier.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_PartSupplier.Name = "TB_PartSupplier"
+        Me.TB_PartSupplier.Size = New System.Drawing.Size(50, 21)
+        Me.TB_PartSupplier.TabIndex = 29
+        Me.TB_PartSupplier.Text = "3"
+        Me.TB_PartSupplier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label9
+        '
+        Me.Label9.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label9.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.White
+        Me.Label9.Location = New System.Drawing.Point(9, 46)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(92, 21)
+        Me.Label9.TabIndex = 28
+        Me.Label9.Text = "공급사"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'frm_Popup_MultiPartsCode
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(899, 450)
+        Me.ClientSize = New System.Drawing.Size(899, 498)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.BTN_Start)
         Me.Controls.Add(Me.CB_SheetName)
@@ -371,4 +401,6 @@ Partial Class frm_Popup_MultiPartsCode
     Friend WithEvents Label7 As Label
     Friend WithEvents TB_PartType As TextBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents TB_PartSupplier As TextBox
+    Friend WithEvents Label9 As Label
 End Class

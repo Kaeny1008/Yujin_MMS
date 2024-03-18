@@ -215,6 +215,12 @@
     <Compile Include="Forms\Order Management\frm_Order_Registration.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.Designer.vb">
+      <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
     </Compile>
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Order Management\frm_Order_Registration.resx">
       <DependentUpon>frm_Order_Registration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
+      <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>

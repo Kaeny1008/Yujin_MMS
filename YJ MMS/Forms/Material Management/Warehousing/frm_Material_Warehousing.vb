@@ -633,8 +633,7 @@ Public Class frm_Material_Warehousing
                             msgString,
                             msg_form,
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+                            MessageBoxIcon.Error)
             Exit Sub
         Else
             If MessageBox.Show(Me,
@@ -677,8 +676,7 @@ Public Class frm_Material_Warehousing
                             ex.Message & vbCrLf & "Error No. : " & ex.Number,
                             msg_form,
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+                            MessageBoxIcon.Error)
             Exit Sub
         End Try
 
@@ -690,8 +688,7 @@ Public Class frm_Material_Warehousing
                         "저장완료.",
                         msg_form,
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+                        MessageBoxIcon.Information)
 
         BTN_Save.Enabled = False
         BTN_ListAdd.Enabled = False

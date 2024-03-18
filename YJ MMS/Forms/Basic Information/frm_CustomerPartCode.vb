@@ -34,7 +34,7 @@ Public Class frm_CustomerPartCode
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 9
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -45,8 +45,9 @@ Public Class frm_CustomerPartCode
             Grid_PartList(0, 4) = "사양"
             Grid_PartList(0, 5) = "Vendor"
             Grid_PartList(0, 6) = "사/도급"
-            Grid_PartList(0, 7) = "연결된 자재"
-            Grid_PartList(0, 8) = "비고"
+            Grid_PartList(0, 7) = "공급사"
+            Grid_PartList(0, 8) = "연결된 자재"
+            Grid_PartList(0, 9) = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -169,6 +170,7 @@ Public Class frm_CustomerPartCode
             Dim partVendor As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Vendor", 6)
             Dim partCategory As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Category", 7)
             Dim partType As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Type", 8)
+            Dim partSupplier As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Supplier", 8)
 
             With excelApp.ActiveWorkbook.Sheets(sheetName)
                 For i = startRow To .UsedRange.Rows.Count
@@ -177,7 +179,8 @@ Public Class frm_CustomerPartCode
                                          .Cells(i, partCode).Value & vbTab &
                                          .Cells(i, partSpecification).Value & vbTab &
                                          .Cells(i, partVendor).Value & vbTab &
-                                         .Cells(i, partCategory).Value)
+                                         .Cells(i, partCategory).Value & vbTab &
+                                         .Cells(i, partSupplier))
                     Invoke(d_SetPGStatus,
                            "데이터를 불러오고 있습니다.     " &
                            Format(i - startRow + 1, "#,##0") & " / " &
@@ -320,6 +323,7 @@ Public Class frm_CustomerPartCode
                                           sqlDR("part_specification") & vbTab &
                                           sqlDR("part_vendor") & vbTab &
                                           sqlDR("part_category") & vbTab &
+                                          sqlDR("supplier") & vbTab &
                                           sqlDR("registered_qty") & vbTab &
                                           sqlDR("part_code_note")
             Grid_PartList.AddItem(insert_String)
@@ -359,7 +363,7 @@ Public Class frm_CustomerPartCode
                 If Grid_PartList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_customer_part_code("
                     strSQL += "part_maincode, part_code, customer_code, part_type, part_specification"
-                    strSQL += ", part_vendor, part_category, part_code_note, write_date, write_id"
+                    strSQL += ", part_vendor, part_category, supplier, part_code_note, write_date, write_id"
                     strSQL += ") values("
                     strSQL += "'" & Grid_PartList(i, 1) & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 3), "'", "\'") & "'"
@@ -368,7 +372,8 @@ Public Class frm_CustomerPartCode
                     strSQL += ", '" & Replace(Grid_PartList(i, 4), "'", "\'") & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 5), "'", "\'") & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 6), "'", "\'") & "'"
-                    strSQL += ", '" & Replace(Grid_PartList(i, 8), "'", "\'") & "'"
+                    strSQL += ", '" & Replace(Grid_PartList(i, 7), "'", "\'") & "'"
+                    strSQL += ", '" & Replace(Grid_PartList(i, 9), "'", "\'") & "'"
                     strSQL += ", '" & writeDate & "'"
                     strSQL += ", '" & loginID & "');"
                 ElseIf Grid_PartList(i, 0).ToString = "M" Then
@@ -378,7 +383,8 @@ Public Class frm_CustomerPartCode
                     strSQL += ", part_specification = '" & Replace(Grid_PartList(i, 4), "'", "\'") & "'"
                     strSQL += ", part_vendor = '" & Replace(Grid_PartList(i, 5), "'", "\'") & "'"
                     strSQL += ", part_category = '" & Replace(Grid_PartList(i, 6), "'", "\'") & "'"
-                    strSQL += ", part_code_note = '" & Replace(Grid_PartList(i, 8), "'", "\'") & "'"
+                    strSQL += ", supplier = '" & Replace(Grid_PartList(i, 7), "'", "\'") & "'"
+                    strSQL += ", part_code_note = '" & Replace(Grid_PartList(i, 9), "'", "\'") & "'"
                     strSQL += ", write_date = '" & writeDate & "'"
                     strSQL += ", write_id = '" & loginID & "'"
                     strSQL += " where part_maincode = '" & Grid_PartList(i, 1) & "';"
@@ -399,22 +405,22 @@ Public Class frm_CustomerPartCode
             sqlTran.Rollback()
             DBClose()
             thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
+            MessageBox.Show(Me,
+                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
                             msg_form,
                             MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+                            MessageBoxIcon.Error)
             Exit Sub
         End Try
 
         DBClose()
 
         thread_LoadingFormEnd()
-        MessageBox.Show("저장 완료.",
+        MessageBox.Show(Me,
+                        "저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+                        MessageBoxIcon.Information)
 
 
 
@@ -518,6 +524,17 @@ Public Class frm_CustomerPartCode
         If frm_PartCodeMapping.ShowDialog = DialogResult.Yes Then
             BTN_Search_Click(Nothing, Nothing)
         End If
+
+    End Sub
+
+    Private Sub Grid_PartList_RowColChange(sender As Object, e As EventArgs) Handles Grid_PartList.RowColChange
+
+        Select Case Grid_PartList.Col
+            Case 1, 9
+                Grid_PartList.AllowEditing = False
+            Case Else
+                Grid_PartList.AllowEditing = True
+        End Select
 
     End Sub
 End Class

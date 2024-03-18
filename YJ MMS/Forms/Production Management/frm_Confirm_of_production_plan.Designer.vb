@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frm_Material_CheckRequirements
+Partial Class frm_Confirm_of_production_plan
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,9 +22,14 @@ Partial Class frm_Material_CheckRequirements
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_CheckRequirements))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Confirm_of_production_plan))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Check = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Confirm = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -37,13 +42,8 @@ Partial Class frm_Material_CheckRequirements
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_OrderNo = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Check = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Confirm = New System.Windows.Forms.ToolStripButton()
+        Me.C1FlexGrid2 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -51,7 +51,8 @@ Partial Class frm_Material_CheckRequirements
         Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
-        CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.C1FlexGrid2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -61,13 +62,53 @@ Partial Class frm_Material_CheckRequirements
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
-        Me.TS_MainBar.TabIndex = 0
+        Me.TS_MainBar.TabIndex = 1
         Me.TS_MainBar.Text = "ToolStrip1"
+        '
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'BTN_Check
+        '
+        Me.BTN_Check.Image = Global.YJ_MMS.My.Resources.Resources.check
+        Me.BTN_Check.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Check.Name = "BTN_Check"
+        Me.BTN_Check.Size = New System.Drawing.Size(91, 22)
+        Me.BTN_Check.Text = "소요량 확인"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        '
+        'BTN_Confirm
+        '
+        Me.BTN_Confirm.Enabled = False
+        Me.BTN_Confirm.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
+        Me.BTN_Confirm.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Confirm.Name = "BTN_Confirm"
+        Me.BTN_Confirm.Size = New System.Drawing.Size(75, 22)
+        Me.BTN_Confirm.Text = "확인완료"
         '
         'SplitContainer1
         '
@@ -83,28 +124,29 @@ Partial Class frm_Material_CheckRequirements
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_MaterialList)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.C1FlexGrid2)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.C1FlexGrid1)
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 544
-        Me.SplitContainer1.TabIndex = 1
+        Me.SplitContainer1.TabIndex = 2
         '
         'Grid_OrderList
         '
         Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_OrderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 135)
+        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 105)
         Me.Grid_OrderList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_OrderList.Name = "Grid_OrderList"
         Me.Grid_OrderList.Rows.Count = 2
         Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(544, 613)
+        Me.Grid_OrderList.Size = New System.Drawing.Size(544, 643)
         Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
-        Me.Grid_OrderList.TabIndex = 1
+        Me.Grid_OrderList.TabIndex = 2
+        Me.Grid_OrderList.UseCompatibleTextRendering = True
         '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Panel5.Controls.Add(Me.Label4)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
         Me.Panel5.Controls.Add(Me.Label3)
@@ -117,8 +159,8 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(544, 135)
-        Me.Panel5.TabIndex = 0
+        Me.Panel5.Size = New System.Drawing.Size(544, 105)
+        Me.Panel5.TabIndex = 1
         '
         'CB_CustomerName
         '
@@ -227,77 +269,39 @@ Partial Class frm_Material_CheckRequirements
         Me.Label17.Text = "주문번호"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Grid_MaterialList
+        'C1FlexGrid2
         '
-        Me.Grid_MaterialList.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_MaterialList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_MaterialList.Location = New System.Drawing.Point(0, 0)
-        Me.Grid_MaterialList.Margin = New System.Windows.Forms.Padding(0)
-        Me.Grid_MaterialList.Name = "Grid_MaterialList"
-        Me.Grid_MaterialList.Rows.Count = 2
-        Me.Grid_MaterialList.Rows.DefaultSize = 20
-        Me.Grid_MaterialList.Size = New System.Drawing.Size(716, 748)
-        Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
-        Me.Grid_MaterialList.TabIndex = 2
+        Me.C1FlexGrid2.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.C1FlexGrid2.Location = New System.Drawing.Point(8, 255)
+        Me.C1FlexGrid2.Margin = New System.Windows.Forms.Padding(0)
+        Me.C1FlexGrid2.Name = "C1FlexGrid2"
+        Me.C1FlexGrid2.Rows.Count = 2
+        Me.C1FlexGrid2.Rows.DefaultSize = 20
+        Me.C1FlexGrid2.Size = New System.Drawing.Size(544, 231)
+        Me.C1FlexGrid2.StyleInfo = resources.GetString("C1FlexGrid2.StyleInfo")
+        Me.C1FlexGrid2.TabIndex = 4
         '
-        'ToolStripSeparator2
+        'C1FlexGrid1
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        Me.C1FlexGrid1.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.C1FlexGrid1.Location = New System.Drawing.Point(8, 8)
+        Me.C1FlexGrid1.Margin = New System.Windows.Forms.Padding(0)
+        Me.C1FlexGrid1.Name = "C1FlexGrid1"
+        Me.C1FlexGrid1.Rows.Count = 2
+        Me.C1FlexGrid1.Rows.DefaultSize = 20
+        Me.C1FlexGrid1.Size = New System.Drawing.Size(544, 231)
+        Me.C1FlexGrid1.StyleInfo = resources.GetString("C1FlexGrid1.StyleInfo")
+        Me.C1FlexGrid1.TabIndex = 3
         '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 123)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(215, 12)
-        Me.Label4.TabIndex = 9
-        Me.Label4.Text = "※ 선택/해제 : 마우스 왼쪽키 더블클릭"
-        '
-        'BTN_Search
-        '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
-        '
-        'BTN_Check
-        '
-        Me.BTN_Check.Image = Global.YJ_MMS.My.Resources.Resources.check
-        Me.BTN_Check.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Check.Name = "BTN_Check"
-        Me.BTN_Check.Size = New System.Drawing.Size(91, 22)
-        Me.BTN_Check.Text = "소요량 확인"
-        '
-        'BTN_Confirm
-        '
-        Me.BTN_Confirm.Enabled = False
-        Me.BTN_Confirm.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
-        Me.BTN_Confirm.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Confirm.Name = "BTN_Confirm"
-        Me.BTN_Confirm.Size = New System.Drawing.Size(75, 22)
-        Me.BTN_Confirm.Text = "확인완료"
-        '
-        'frm_Material_CheckRequirements
+        'frm_Confirm_of_production_plan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1264, 773)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_Material_CheckRequirements"
-        Me.Text = "소요량 확인"
+        Me.Name = "frm_Confirm_of_production_plan"
+        Me.Text = "생산계획 수립"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -307,7 +311,8 @@ Partial Class frm_Material_CheckRequirements
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.C1FlexGrid2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -317,21 +322,21 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_Search As ToolStripButton
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BTN_Check As ToolStripButton
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents BTN_Confirm As ToolStripButton
     Friend WithEvents SplitContainer1 As SplitContainer
-    Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents TB_OrderNo As TextBox
-    Friend WithEvents Label17 As Label
+    Friend WithEvents CB_CustomerName As ComboBox
+    Friend WithEvents TB_CustomerCode As TextBox
+    Friend WithEvents Label3 As Label
     Friend WithEvents TB_ItemName As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents TB_ItemCode As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents CB_CustomerName As ComboBox
-    Friend WithEvents TB_CustomerCode As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Grid_MaterialList As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents BTN_Check As ToolStripButton
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents BTN_Confirm As ToolStripButton
-    Friend WithEvents Label4 As Label
+    Friend WithEvents TB_OrderNo As TextBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents C1FlexGrid2 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

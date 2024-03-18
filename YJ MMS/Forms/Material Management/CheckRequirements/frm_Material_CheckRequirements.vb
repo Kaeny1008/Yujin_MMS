@@ -2,6 +2,9 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Material_CheckRequirements
+
+    Dim saveOK As Boolean = False
+
     Private Sub frm_Material_CheckRequirements_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
@@ -18,17 +21,18 @@ Public Class frm_Material_CheckRequirements
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 7
+            .Cols.Count = 8
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
             Grid_OrderList(0, 0) = "No"
             Grid_OrderList(0, 1) = "선택"
             Grid_OrderList(0, 2) = "Order Index"
-            Grid_OrderList(0, 3) = "고객사"
-            Grid_OrderList(0, 4) = "모델코드"
-            Grid_OrderList(0, 5) = "품번"
-            Grid_OrderList(0, 6) = "주문수량"
+            Grid_OrderList(0, 3) = "납기일자"
+            Grid_OrderList(0, 4) = "고객사"
+            Grid_OrderList(0, 5) = "모델코드"
+            Grid_OrderList(0, 6) = "품번"
+            Grid_OrderList(0, 7) = "주문수량"
             .Cols(1).DataType = GetType(Boolean)
             .Cols(2).Visible = False
             .AutoClipboard = True
@@ -51,7 +55,7 @@ Public Class frm_Material_CheckRequirements
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 10
+            .Cols.Count = 15
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -64,17 +68,26 @@ Public Class frm_Material_CheckRequirements
             rngM.Data = "No"
             rngM = .GetCellRange(0, 1, 1, 1)
             rngM.Data = "자재코드"
-            rngM = .GetCellRange(0, 2, 0, 7)
+            rngM = .GetCellRange(0, 2, 1, 2)
+            rngM.Data = "타입"
+            rngM = .GetCellRange(0, 3, 1, 3)
+            rngM.Data = "품명"
+            rngM = .GetCellRange(0, 4, 1, 4)
+            rngM.Data = "사/도급"
+            rngM = .GetCellRange(0, 5, 1, 5)
+            rngM.Data = "공급사"
+            rngM = .GetCellRange(0, 6, 0, 12)
             rngM.Data = "재고"
-            Grid_MaterialList(1, 2) = "기초재고"
-            Grid_MaterialList(1, 3) = "입고"
-            Grid_MaterialList(1, 4) = "Loss"
-            Grid_MaterialList(1, 5) = "납품"
-            Grid_MaterialList(1, 6) = "계획대기"
-            Grid_MaterialList(1, 7) = "생산(중, 완료)"
-            rngM = .GetCellRange(0, 8, 1, 8)
+            Grid_MaterialList(1, 6) = "기초재고"
+            Grid_MaterialList(1, 7) = "입고"
+            Grid_MaterialList(1, 8) = "Loss"
+            Grid_MaterialList(1, 9) = "납품"
+            Grid_MaterialList(1, 10) = "계획대기"
+            Grid_MaterialList(1, 11) = "생산 중"
+            Grid_MaterialList(1, 12) = "생산 완료"
+            rngM = .GetCellRange(0, 13, 1, 13)
             rngM.Data = "필요수량"
-            rngM = .GetCellRange(0, 9, 1, 9)
+            rngM = .GetCellRange(0, 14, 1, 14)
             rngM.Data = "미과출"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -92,9 +105,20 @@ Public Class frm_Material_CheckRequirements
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
+        If TB_CustomerCode.Text = String.Empty Then
+            MessageBox.Show(Me,
+                            "고객사를 먼저 선택하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
         Thread_LoadingFormStart()
 
         Grid_Setting()
+
+        saveOK = False
 
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
@@ -117,6 +141,7 @@ Public Class frm_Material_CheckRequirements
             Dim insert_String As String = Grid_OrderList.Rows.Count & vbTab &
                                           vbTab &
                                           sqlDR("order_index") & vbTab &
+                                          sqlDR("date_of_delivery") & vbTab &
                                           sqlDR("customer_name") & vbTab &
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("item_code") & vbTab &
@@ -197,9 +222,10 @@ Public Class frm_Material_CheckRequirements
 
         Thread_LoadingFormStart()
 
+        BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
-        Grid_MaterialList.Cols.Count = 10
+        Grid_MaterialList.Cols.Count = 15
 
         Dim checkCount As Integer = 0
         Dim checkModelCode As String = String.Empty
@@ -208,15 +234,19 @@ Public Class frm_Material_CheckRequirements
             If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
                 checkCount += 1
                 If checkModelCode = String.Empty Then
-                    checkModelCode = Grid_OrderList(i, 4)
+                    checkModelCode = Grid_OrderList(i, 5)
                 Else
-                    checkModelCode += "|" & Grid_OrderList(i, 4)
+                    checkModelCode += "|" & Grid_OrderList(i, 5)
                 End If
                 Grid_MaterialList.Cols.Add()
-                Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 5)
-                Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 6)
+                Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 6)
+                Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 7)
             End If
         Next
+
+        'Grid_MaterialList.Redraw = True
+        'Thread_LoadingFormEnd()
+        'Exit Sub
 
         Dim nowCode() As String = checkModelCode.Split("|")
 
@@ -234,7 +264,7 @@ Public Class frm_Material_CheckRequirements
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -247,33 +277,53 @@ Public Class frm_Material_CheckRequirements
 
             insert_String = Grid_MaterialList.Rows.Count - 1 & vbTab &
                 sqlDR("part_code") & vbTab &
-                sqlDR("basic_stock") & vbTab &
-                sqlDR("in_qty") & vbTab &
-                sqlDR("loss_qty") & vbTab &
-                sqlDR("delivery_qty") & vbTab &
-                sqlDR("ready_qty") & vbTab &
-                sqlDR("run_completed_qty")
+                sqlDR("part_type") & vbTab &
+                sqlDR("part_spec") & vbTab &
+                sqlDR("part_category") & vbTab &
+                sqlDR("part_supplier") & vbTab &
+                Format(sqlDR("basic_stock"), "#,##0") & vbTab &
+                Format(sqlDR("in_qty"), "#,##0") & vbTab &
+                Format(sqlDR("loss_qty"), "#,##0") & vbTab &
+                Format(sqlDR("delivery_qty"), "#,##0") & vbTab &
+                Format(sqlDR("ready_qty"), "#,##0") & vbTab &
+                Format(sqlDR("run_qty"), "#,##0") & vbTab &
+                Format(sqlDR("completed_qty"), "#,##0")
+
             Dim totalAmount As Double = 0
             For i As Integer = 0 To UBound(nowCode)
-                totalAmount += (sqlDR(nowCode(i)) * Grid_MaterialList(1, i + 10))
+                totalAmount += (sqlDR(nowCode(i)) * Grid_MaterialList(1, i + 15)) '총 사용수량
             Next
-            insert_String += vbTab & totalAmount & vbTab
+            insert_String += vbTab & Format(totalAmount, "#,##0")
+
+            Dim stock_qty As Double = sqlDR("basic_stock") +
+                sqlDR("in_qty") -
+                sqlDR("loss_qty") -
+                sqlDR("delivery_qty") -
+                sqlDR("ready_qty") -
+                sqlDR("run_qty") -
+                sqlDR("completed_qty")
+            insert_String += vbTab & Format((stock_qty - totalAmount), "#,##0")
+
             For i As Integer = 0 To UBound(nowCode)
-                insert_String += vbTab & sqlDR(nowCode(i))
+                insert_String += vbTab & Format(sqlDR(nowCode(i)), "#,##0") '모델별 사용수량
             Next
+
             Grid_MaterialList.AddItem(insert_String)
+            If stock_qty - totalAmount < 0 Then
+                Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Red
+            ElseIf stock_qty - totalAmount = 0 Then
+                Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+            ElseIf stock_qty - totalAmount > 0 Then
+                Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.black
+            End If
         Loop
         sqlDR.Close()
 
         DBClose()
 
-        Grid_MaterialList.Rows.Fixed = 2
-        Grid_MaterialList.AllowMerging = AllowMergingEnum.Custom
-        Dim crCellRange As CellRange = Grid_MaterialList.GetCellRange(1, 0, 1, 3)
-        Grid_MaterialList.MergedRanges.Add(crCellRange)
-
         Grid_MaterialList.AutoSizeCols()
         Grid_MaterialList.Redraw = True
+        saveOK = True
 
         Thread_LoadingFormEnd()
 
@@ -282,6 +332,85 @@ Public Class frm_Material_CheckRequirements
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
 
         Me.Dispose()
+
+    End Sub
+
+    Private Sub BTN_Confirm_Click(sender As Object, e As EventArgs) Handles BTN_Confirm.Click
+
+        For i = 2 To Grid_MaterialList.Rows.Count - 1
+            If Grid_MaterialList(i, 14) < 0 Then
+                MessageBox.Show(Me,
+                                "계획대비 부족한 자재가 존재 합니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+        Next
+
+        If MessageBox.Show(Me,
+                           "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+
+        Thread_LoadingFormStart("Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            For i = 1 To Grid_OrderList.Rows.Count - 1
+                If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
+                    strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation completed'"
+                    strSQL += " where order_index = '" & Grid_OrderList(i, 2) & "';"
+                End If
+            Next
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            BTN_Confirm.Enabled = False
+            Thread_LoadingFormEnd()
+            MessageBox.Show(Me,
+                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        DBClose()
+
+        BTN_Confirm.Enabled = False
+        saveOK = False
+
+        Thread_LoadingFormEnd()
+
+        MessageBox.Show(Me,
+                        "저장완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
+        BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
 
     End Sub
 End Class

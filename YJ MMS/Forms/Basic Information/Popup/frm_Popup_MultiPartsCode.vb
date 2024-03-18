@@ -68,6 +68,7 @@ Public Class frm_Popup_MultiPartsCode
         TB_Vendor.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Vendor", 6)
         TB_PartCategory.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Category", 7)
         TB_PartType.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Type", 8)
+        TB_PartSupplier.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Supplier", 9)
 
     End Sub
 
@@ -221,6 +222,7 @@ Public Class frm_Popup_MultiPartsCode
         registryEdit.WriteRegKey("Software\Yujin\MMS\Customer Part Code", "Part Vendor", TB_Vendor.Text)
         registryEdit.WriteRegKey("Software\Yujin\MMS\Customer Part Code", "Part Category", TB_PartCategory.Text)
         registryEdit.WriteRegKey("Software\Yujin\MMS\Customer Part Code", "Part Type", TB_PartType.Text)
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Customer Part Code", "Part Supplier", TB_PartSupplier.Text)
 
         DialogResult = DialogResult.OK
         Me.Hide()

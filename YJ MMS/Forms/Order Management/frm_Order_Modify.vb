@@ -164,8 +164,7 @@ Public Class frm_Order_Modify
                                 "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.",
                                 msg_form,
                                 MessageBoxButtons.OK,
-                                MessageBoxIcon.Information,
-                                MessageBoxDefaultButton.Button1)
+                                MessageBoxIcon.Information)
                 Exit Sub
             End If
         Next
@@ -229,8 +228,7 @@ Public Class frm_Order_Modify
             MessageBox.Show(Me,
                             ex.Message,
                             msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+                            MessageBoxButtons.OK)
             Exit Sub
         End Try
 

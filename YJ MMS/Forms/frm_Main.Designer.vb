@@ -56,8 +56,10 @@ Partial Class frm_Main
         Me.BTN_Material_Warehousing_List = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Warehousing = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_MaterialWarehousing_History = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.BTN_Material_CheckRequirements = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ToolStripDropDownButton2 = New System.Windows.Forms.ToolStripDropDownButton()
+        Me.BTN_ProductionPlan = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -112,7 +114,7 @@ Partial Class frm_Main
         '
         Me.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip.ImageScalingSize = New System.Drawing.Size(24, 24)
-        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnHome, Me.btnSetting, Me.ToolStripSeparator1, Me.btn_BasicInformation, Me.ToolStripSplitButton1, Me.ToolStripDropDownButton1})
+        Me.ToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnHome, Me.btnSetting, Me.ToolStripSeparator1, Me.btn_BasicInformation, Me.ToolStripSplitButton1, Me.ToolStripDropDownButton1, Me.ToolStripDropDownButton2})
         Me.ToolStrip.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip.Name = "ToolStrip"
         Me.ToolStrip.Size = New System.Drawing.Size(1123, 31)
@@ -253,14 +255,14 @@ Partial Class frm_Main
         '
         Me.BTN_OrderRegistration.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_OrderRegistration.Name = "BTN_OrderRegistration"
-        Me.BTN_OrderRegistration.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_OrderRegistration.Size = New System.Drawing.Size(165, 22)
         Me.BTN_OrderRegistration.Text = "주문 접수"
         '
         'BTN_OrderModify
         '
         Me.BTN_OrderModify.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_OrderModify.Name = "BTN_OrderModify"
-        Me.BTN_OrderModify.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_OrderModify.Size = New System.Drawing.Size(165, 22)
         Me.BTN_OrderModify.Text = "주문 확인 / 변경"
         '
         'ToolStripDropDownButton1
@@ -313,6 +315,24 @@ Partial Class frm_Main
         Me.BTN_Material_CheckRequirements.Name = "BTN_Material_CheckRequirements"
         Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Material_CheckRequirements.Text = "소요량 확인"
+        '
+        'ToolStripDropDownButton2
+        '
+        Me.ToolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_ProductionPlan})
+        Me.ToolStripDropDownButton2.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
+        Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripDropDownButton2.Name = "ToolStripDropDownButton2"
+        Me.ToolStripDropDownButton2.Size = New System.Drawing.Size(82, 28)
+        Me.ToolStripDropDownButton2.Text = "생산관리"
+        '
+        'BTN_ProductionPlan
+        '
+        Me.BTN_ProductionPlan.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.BTN_ProductionPlan.Name = "BTN_ProductionPlan"
+        Me.BTN_ProductionPlan.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_ProductionPlan.Text = "생산계획 수립"
         '
         'frm_Main
         '
@@ -369,4 +389,6 @@ Partial Class frm_Main
     Friend WithEvents BTN_Material_Warehousing As ToolStripMenuItem
     Friend WithEvents BTN_MaterialWarehousing_History As ToolStripMenuItem
     Friend WithEvents BTN_Material_CheckRequirements As ToolStripMenuItem
+    Friend WithEvents ToolStripDropDownButton2 As ToolStripDropDownButton
+    Friend WithEvents BTN_ProductionPlan As ToolStripMenuItem
 End Class

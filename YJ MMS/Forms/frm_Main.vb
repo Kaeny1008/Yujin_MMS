@@ -219,4 +219,12 @@ Public Class frm_Main
         frm_Material_CheckRequirements.Focus()
 
     End Sub
+
+    Private Sub BTN_ProductionPlan_Click(sender As Object, e As EventArgs) Handles BTN_ProductionPlan.Click
+
+        frm_Confirm_of_production_plan.MdiParent = Me
+        If Not frm_Confirm_of_production_plan.Visible Then frm_Confirm_of_production_plan.Show()
+        frm_Confirm_of_production_plan.Focus()
+
+    End Sub
 End Class
