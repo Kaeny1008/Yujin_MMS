@@ -27,7 +27,7 @@ Public Class frm_Order_Modify
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 16
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -46,8 +46,9 @@ Public Class frm_Order_Modify
             Grid_Excel(0, 12) = "납기일자"
             Grid_Excel(0, 13) = "모델등록"
             Grid_Excel(0, 14) = "BOM등록"
-            Grid_Excel(0, 15) = "Order Index"
-            .Cols(15).Visible = False
+            Grid_Excel(0, 15) = "상태"
+            Grid_Excel(0, 16) = "Order Index"
+            .Cols(16).Visible = False
             .Cols(12).DataType = GetType(Date)
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -192,23 +193,23 @@ Public Class frm_Order_Modify
                     strSQL += " order_status = 'Order Cancel'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
-                    strSQL += " where order_index = '" & Grid_Excel(i, 15) & "';"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 16) & "';"
                 ElseIf Grid_Excel(i, 0).ToString = "R" Then
                     strSQL += "update tb_mms_order_register_list set"
                     strSQL += " order_status = 'Order Confirm'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
-                    strSQL += " where order_index = '" & Grid_Excel(i, 15) & "';"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 16) & "';"
                 ElseIf Grid_Excel(i, 0).ToString = "M" Then
                     strSQL += "update tb_mms_order_register_list set"
                     strSQL += " date_of_delivery = '" & Grid_Excel(i, 12) & "'"
                     strSQL += ", modify_order_quantity = '" & CDbl(Grid_Excel(i, 10)) & "'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
-                    strSQL += " where order_index = '" & Grid_Excel(i, 15) & "';"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 16) & "';"
                 ElseIf Grid_Excel(i, 0).ToString = "D" Then
                     strSQL += "delete from tb_mms_order_register_list"
-                    strSQL += " where order_index = '" & Grid_Excel(i, 15) & "';"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 16) & "';"
                 End If
             Next
 
@@ -378,6 +379,7 @@ Public Class frm_Order_Modify
                                           sqlDR("date_of_delivery") & vbTab &
                                           vbTab &
                                           vbTab &
+                                          sqlDR("order_status") & vbTab &
                                           sqlDR("order_index")
 
             GridWriteText(insert_String, Me, Grid_Excel, rowColor)
@@ -455,6 +457,21 @@ Public Class frm_Order_Modify
         If Grid_Excel(e.Row, 0).Equals("D") Then Exit Sub
 
         If before_griddata = Grid_Excel(e.Row, e.Col) Then Exit Sub
+
+        Select Case e.Col
+            Case 10
+                If CDbl(before_griddata) < CDbl(Grid_Excel(e.Row, e.Col)) Then
+                    If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
+                        Grid_Excel(e.Row, e.Col) = before_griddata
+                        MessageBox.Show(Me,
+                                        "자재 소요량 확정된 주문은 기존 주문수량보다 클 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.",
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Exclamation)
+                        Exit Sub
+                    End If
+                End If
+        End Select
 
         Grid_Excel.Redraw = False
 

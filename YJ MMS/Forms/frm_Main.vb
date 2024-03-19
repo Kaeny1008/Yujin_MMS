@@ -222,9 +222,17 @@ Public Class frm_Main
 
     Private Sub BTN_ProductionPlan_Click(sender As Object, e As EventArgs) Handles BTN_ProductionPlan.Click
 
-        frm_Confirm_of_production_plan.MdiParent = Me
-        If Not frm_Confirm_of_production_plan.Visible Then frm_Confirm_of_production_plan.Show()
-        frm_Confirm_of_production_plan.Focus()
+        frm_Production_plan.MdiParent = Me
+        If Not frm_Production_plan.Visible Then frm_Production_plan.Show()
+        frm_Production_plan.Focus()
+
+    End Sub
+
+    Private Sub BTN_MMPS_DeviceData_Click(sender As Object, e As EventArgs) Handles BTN_MMPS_DeviceData.Click
+
+        frm_DeviceData.MdiParent = Me
+        If Not frm_DeviceData.Visible Then frm_DeviceData.Show()
+        frm_DeviceData.Focus()
 
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frm_Confirm_of_production_plan
+Partial Class frm_Production_plan
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,43 +22,39 @@ Partial Class frm_Confirm_of_production_plan
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Confirm_of_production_plan))
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Production_plan))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_Check = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_Confirm = New System.Windows.Forms.ToolStripButton()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.TB_ItemName = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.TB_ItemCode = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.TB_OrderNo = New System.Windows.Forms.TextBox()
+        Me.TB_Search = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
-        Me.C1FlexGrid2 = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_CellCopy = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_CellPaste = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
-        CType(Me.C1FlexGrid2, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.CMS_GridMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
         '
         Me.TS_MainBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.Form_CLose, Me.ToolStripSeparator1, Me.BTN_Check, Me.ToolStripSeparator2, Me.BTN_Confirm})
+        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.Form_CLose, Me.ToolStripSeparator1, Me.BTN_Save})
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
@@ -88,58 +84,24 @@ Partial Class frm_Confirm_of_production_plan
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'BTN_Check
+        'BTN_Save
         '
-        Me.BTN_Check.Image = Global.YJ_MMS.My.Resources.Resources.check
-        Me.BTN_Check.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Check.Name = "BTN_Check"
-        Me.BTN_Check.Size = New System.Drawing.Size(91, 22)
-        Me.BTN_Check.Text = "소요량 확인"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
-        '
-        'BTN_Confirm
-        '
-        Me.BTN_Confirm.Enabled = False
-        Me.BTN_Confirm.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
-        Me.BTN_Confirm.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Confirm.Name = "BTN_Confirm"
-        Me.BTN_Confirm.Size = New System.Drawing.Size(75, 22)
-        Me.BTN_Confirm.Text = "확인완료"
-        '
-        'SplitContainer1
-        '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 25)
-        Me.SplitContainer1.Name = "SplitContainer1"
-        '
-        'SplitContainer1.Panel1
-        '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_OrderList)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel5)
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.C1FlexGrid2)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.C1FlexGrid1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
-        Me.SplitContainer1.SplitterDistance = 544
-        Me.SplitContainer1.TabIndex = 2
+        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Save.Name = "BTN_Save"
+        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Save.Text = "저장"
         '
         'Grid_OrderList
         '
         Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_OrderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 105)
+        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 84)
         Me.Grid_OrderList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_OrderList.Name = "Grid_OrderList"
         Me.Grid_OrderList.Rows.Count = 2
         Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(544, 643)
+        Me.Grid_OrderList.Size = New System.Drawing.Size(1264, 689)
         Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
         Me.Grid_OrderList.TabIndex = 2
         Me.Grid_OrderList.UseCompatibleTextRendering = True
@@ -147,20 +109,61 @@ Partial Class frm_Confirm_of_production_plan
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.GroupBox1)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
         Me.Panel5.Controls.Add(Me.Label3)
-        Me.Panel5.Controls.Add(Me.TB_ItemName)
-        Me.Panel5.Controls.Add(Me.Label2)
-        Me.Panel5.Controls.Add(Me.TB_ItemCode)
-        Me.Panel5.Controls.Add(Me.Label1)
-        Me.Panel5.Controls.Add(Me.TB_OrderNo)
+        Me.Panel5.Controls.Add(Me.TB_Search)
         Me.Panel5.Controls.Add(Me.Label17)
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel5.Location = New System.Drawing.Point(0, 0)
+        Me.Panel5.Location = New System.Drawing.Point(0, 25)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(544, 105)
+        Me.Panel5.Size = New System.Drawing.Size(1264, 59)
         Me.Panel5.TabIndex = 1
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.RadioButton3)
+        Me.GroupBox1.Controls.Add(Me.RadioButton2)
+        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Location = New System.Drawing.Point(530, 7)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(278, 44)
+        Me.GroupBox1.TabIndex = 5
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "검색구분"
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Checked = True
+        Me.RadioButton3.Location = New System.Drawing.Point(112, 20)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
+        Me.RadioButton3.TabIndex = 2
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "미완료"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(59, 20)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.Text = "완료"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 20)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton1.TabIndex = 0
+        Me.RadioButton1.Text = "전체"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'CB_CustomerName
         '
@@ -197,63 +200,15 @@ Partial Class frm_Confirm_of_production_plan
         Me.Label3.Text = "고객사"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TB_ItemName
+        'TB_Search
         '
-        Me.TB_ItemName.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_ItemName.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_ItemName.Location = New System.Drawing.Point(85, 76)
-        Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_ItemName.Name = "TB_ItemName"
-        Me.TB_ItemName.Size = New System.Drawing.Size(442, 21)
-        Me.TB_ItemName.TabIndex = 8
-        '
-        'Label2
-        '
-        Me.Label2.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(9, 76)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(76, 21)
-        Me.Label2.TabIndex = 7
-        Me.Label2.Text = "품명"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_ItemCode
-        '
-        Me.TB_ItemCode.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_ItemCode.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_ItemCode.Location = New System.Drawing.Point(85, 53)
-        Me.TB_ItemCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_ItemCode.Name = "TB_ItemCode"
-        Me.TB_ItemCode.Size = New System.Drawing.Size(442, 21)
-        Me.TB_ItemCode.TabIndex = 6
-        '
-        'Label1
-        '
-        Me.Label1.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(9, 53)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(76, 21)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "품번"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_OrderNo
-        '
-        Me.TB_OrderNo.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_OrderNo.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_OrderNo.Location = New System.Drawing.Point(85, 30)
-        Me.TB_OrderNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_OrderNo.Name = "TB_OrderNo"
-        Me.TB_OrderNo.Size = New System.Drawing.Size(442, 21)
-        Me.TB_OrderNo.TabIndex = 1
+        Me.TB_Search.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Search.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Search.Location = New System.Drawing.Point(85, 30)
+        Me.TB_Search.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Search.Name = "TB_Search"
+        Me.TB_Search.Size = New System.Drawing.Size(442, 21)
+        Me.TB_Search.TabIndex = 1
         '
         'Label17
         '
@@ -266,53 +221,50 @@ Partial Class frm_Confirm_of_production_plan
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 21)
         Me.Label17.TabIndex = 0
-        Me.Label17.Text = "주문번호"
+        Me.Label17.Text = "검색"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'C1FlexGrid2
+        'CMS_GridMenu
         '
-        Me.C1FlexGrid2.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.C1FlexGrid2.Location = New System.Drawing.Point(8, 255)
-        Me.C1FlexGrid2.Margin = New System.Windows.Forms.Padding(0)
-        Me.C1FlexGrid2.Name = "C1FlexGrid2"
-        Me.C1FlexGrid2.Rows.Count = 2
-        Me.C1FlexGrid2.Rows.DefaultSize = 20
-        Me.C1FlexGrid2.Size = New System.Drawing.Size(544, 231)
-        Me.C1FlexGrid2.StyleInfo = resources.GetString("C1FlexGrid2.StyleInfo")
-        Me.C1FlexGrid2.TabIndex = 4
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste})
+        Me.CMS_GridMenu.Name = "CMS_GridMenu"
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 54)
         '
-        'C1FlexGrid1
+        'BTN_CellCopy
         '
-        Me.C1FlexGrid1.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.C1FlexGrid1.Location = New System.Drawing.Point(8, 8)
-        Me.C1FlexGrid1.Margin = New System.Windows.Forms.Padding(0)
-        Me.C1FlexGrid1.Name = "C1FlexGrid1"
-        Me.C1FlexGrid1.Rows.Count = 2
-        Me.C1FlexGrid1.Rows.DefaultSize = 20
-        Me.C1FlexGrid1.Size = New System.Drawing.Size(544, 231)
-        Me.C1FlexGrid1.StyleInfo = resources.GetString("C1FlexGrid1.StyleInfo")
-        Me.C1FlexGrid1.TabIndex = 3
+        Me.BTN_CellCopy.Name = "BTN_CellCopy"
+        Me.BTN_CellCopy.Size = New System.Drawing.Size(248, 22)
+        Me.BTN_CellCopy.Text = "선택 내용 복사(일자, 동, 라인)"
         '
-        'frm_Confirm_of_production_plan
+        'BTN_CellPaste
+        '
+        Me.BTN_CellPaste.Name = "BTN_CellPaste"
+        Me.BTN_CellPaste.Size = New System.Drawing.Size(248, 22)
+        Me.BTN_CellPaste.Text = "선택 행 붙혀넣기(일자, 동, 라인)"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
+        '
+        'frm_Production_plan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1264, 773)
-        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.Grid_OrderList)
+        Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_Confirm_of_production_plan"
+        Me.Name = "frm_Production_plan"
         Me.Text = "생산계획 수립"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        CType(Me.C1FlexGrid2, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.CMS_GridMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -322,21 +274,20 @@ Partial Class frm_Confirm_of_production_plan
     Friend WithEvents BTN_Search As ToolStripButton
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents BTN_Check As ToolStripButton
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents BTN_Confirm As ToolStripButton
-    Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents Panel5 As Panel
     Friend WithEvents CB_CustomerName As ComboBox
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents TB_ItemName As TextBox
-    Friend WithEvents Label2 As Label
-    Friend WithEvents TB_ItemCode As TextBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents TB_OrderNo As TextBox
+    Friend WithEvents TB_Search As TextBox
     Friend WithEvents Label17 As Label
     Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents C1FlexGrid2 As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents BTN_Save As ToolStripButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents CMS_GridMenu As ContextMenuStrip
+    Friend WithEvents BTN_CellCopy As ToolStripMenuItem
+    Friend WithEvents BTN_CellPaste As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class

@@ -68,6 +68,9 @@
   <ItemGroup>
     <Reference Include="C1.Win.C1Command.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
       <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
     </Reference>
@@ -221,6 +224,24 @@
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.Designer.vb">
+      <DependentUpon>frm_DeviceData_Sub.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.Designer.vb">
+      <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.Designer.vb">
+      <DependentUpon>frm_DeviceData.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
     </Compile>
@@ -248,6 +269,7 @@
     <Compile Include="Module\HostedControl.vb" />
     <Compile Include="Module\md_ETC.vb" />
     <Compile Include="Module\md_FTP.vb" />
+    <Compile Include="Module\md_MDB_Connection.vb" />
     <Compile Include="Module\md_PHP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
     <Compile Include="Module\RawPrinterHelper.vb" />
@@ -324,6 +346,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.resx">
+      <DependentUpon>frm_DeviceData_Sub.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.resx">
+      <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.resx">
+      <DependentUpon>frm_DeviceData.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
@@ -537,9 +568,6 @@
     <None Include="Resources\save4.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Search.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Setting_128.png" />
   </ItemGroup>
   <ItemGroup>
@@ -629,6 +657,11 @@
   <ItemGroup>
     <None Include="Resources\check.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exchange.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

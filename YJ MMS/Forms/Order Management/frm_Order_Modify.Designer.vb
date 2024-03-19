@@ -40,6 +40,7 @@ Partial Class frm_Order_Modify
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -50,7 +51,6 @@ Partial Class frm_Order_Modify
         Me.BTN_Resume = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -243,6 +243,17 @@ Partial Class frm_Order_Modify
         Me.Panel1.Size = New System.Drawing.Size(834, 85)
         Me.Panel1.TabIndex = 25
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.Yellow
+        Me.Label2.ForeColor = System.Drawing.Color.Red
+        Me.Label2.Location = New System.Drawing.Point(9, 70)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(303, 12)
+        Me.Label2.TabIndex = 35
+        Me.Label2.Text = "※ 납기일자 변경시 MMS에도 필히 수정하여 주십시오."
+        '
         'TB_CustomerName
         '
         Me.TB_CustomerName.BackColor = System.Drawing.SystemColors.Window
@@ -333,17 +344,6 @@ Partial Class frm_Order_Modify
         Me.BTN_Save2.Name = "BTN_Save2"
         Me.BTN_Save2.Size = New System.Drawing.Size(122, 22)
         Me.BTN_Save2.Text = "저장"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Yellow
-        Me.Label2.ForeColor = System.Drawing.Color.Red
-        Me.Label2.Location = New System.Drawing.Point(9, 70)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(303, 12)
-        Me.Label2.TabIndex = 35
-        Me.Label2.Text = "※ 납기일자 변경시 MMS에도 필히 수정하여 주십시오."
         '
         'frm_Order_Modify
         '

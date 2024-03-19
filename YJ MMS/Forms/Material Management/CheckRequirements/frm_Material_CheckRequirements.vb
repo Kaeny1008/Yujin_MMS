@@ -337,6 +337,8 @@ Public Class frm_Material_CheckRequirements
 
     Private Sub BTN_Confirm_Click(sender As Object, e As EventArgs) Handles BTN_Confirm.Click
 
+        If saveOK = False Then Exit Sub
+
         For i = 2 To Grid_MaterialList.Rows.Count - 1
             If Grid_MaterialList(i, 14) < 0 Then
                 MessageBox.Show(Me,

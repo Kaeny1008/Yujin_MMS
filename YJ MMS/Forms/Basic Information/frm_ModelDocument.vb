@@ -1381,6 +1381,12 @@ FTP_Control:
             Grid_Process(0, i) = CStr(i) + " 공정"
         Next
 
+        Grid_ComboList_Process()
+        'Console.WriteLine("Process List : " & processList)
+        For i = 1 To Grid_Process.Cols.Count - 1
+            Grid_Process.Cols(i).ComboList = processList
+        Next
+
         Grid_Process.AutoSizeCols()
 
     End Sub
