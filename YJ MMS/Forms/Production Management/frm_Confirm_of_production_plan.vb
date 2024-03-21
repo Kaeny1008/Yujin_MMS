@@ -62,7 +62,7 @@ Public Class frm_Production_plan
             .Cols(1).Visible = True
             .Cols(3).Visible = True
             .Cols(9).DataType = GetType(Date)
-            .AutoClipboard = True
+            .AutoClipboard = False
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(9).TextAlign = TextAlignEnum.CenterCenter
@@ -378,10 +378,23 @@ Public Class frm_Production_plan
         Dim cs As CellStyle = Grid_OrderList.Styles.Add("Yellow_Cell")
         cs.BackColor = Color.Yellow
         cs.ForeColor = Color.Red
+
         Grid_OrderList.Redraw = False
+
         For i = 3 To Grid_OrderList.Rows.Count - 1
             If Grid_OrderList.IsCellSelected(i, 1) Then
-                Grid_OrderList(i, 0) = "M"
+
+                'No가 숫자이며 각 셀이 비어 있다면 신규
+                If IsNumeric(Grid_OrderList(i, 0)) Then
+                    If Grid_OrderList(i, 9) = String.Empty And
+                        Grid_OrderList(i, 10) = String.Empty And
+                        Grid_OrderList(i, 11) = String.Empty Then
+                        Grid_OrderList(i, 0) = "N"
+                    Else
+                        Grid_OrderList(i, 0) = "M"
+                    End If
+                End If
+
                 If copyDate = String.Empty Then
                     Grid_OrderList(i, 9) = String.Empty
                 Else
@@ -394,16 +407,17 @@ Public Class frm_Production_plan
                 Grid_OrderList.SetCellStyle(i, 11, cs)
             End If
         Next
+
         Grid_OrderList.AutoSizeCols()
         Grid_OrderList.Redraw = True
 
     End Sub
 
-    Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+    Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click, BTN_Save2.Click
 
         For i = 3 To Grid_OrderList.Rows.Count - 1
             If Grid_OrderList(i, 0) = "N" Then
-                If not isdate(Grid_OrderList(i, 9)) Or Grid_OrderList(i, 10) = String.Empty Or Grid_OrderList(i, 11)=String.empty Then
+                If Not IsDate(Grid_OrderList(i, 9)) Or Grid_OrderList(i, 10) = String.Empty Or Grid_OrderList(i, 11) = String.Empty Then
                     MessageBox.Show(Me,
                                     "입력되지 않은 항목이 있습니다." & vbCrLf & "행 번호 : " & i - 2,
                                     msg_form,
@@ -445,7 +459,7 @@ Public Class frm_Production_plan
                     strSQL += ",'" & loginID & "');"
                     strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation of production plan'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
-                ElseIf grid_orderlist(i, 0).ToString = "M" Then
+                ElseIf Grid_OrderList(i, 0).ToString = "M" Then
                     strSQL += "update tb_mms_production_plan set"
                     strSQL += " start_date = '" & Format(Grid_OrderList(i, 9), "yyyy-MM-dd") & "'"
                     strSQL += ", smd_department = '" & Grid_OrderList(i, 10) & "'"
@@ -453,7 +467,7 @@ Public Class frm_Production_plan
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
-                ElseIf grid_orderlist(i, 0).ToString = "D" Then
+                ElseIf Grid_OrderList(i, 0).ToString = "D" Then
                     strSQL += "delete from tb_mms_production_plan"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
                 End If
@@ -490,6 +504,54 @@ Public Class frm_Production_plan
                         MessageBoxIcon.Information)
 
         BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub frm_Production_plan_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+
+        If e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.C Then
+            Dim rowSel As Integer = Grid_OrderList.Row
+
+            copyDate = Grid_OrderList(rowSel, 9)
+            copyDepartment = Grid_OrderList(rowSel, 10)
+            copyLine = Grid_OrderList(rowSel, 11)
+        ElseIf e.Modifiers = Keys.control AndAlso e.Keycode = Keys.V Then
+            Dim cs As CellStyle = Grid_OrderList.Styles.Add("Yellow_Cell")
+            cs.BackColor = Color.Yellow
+            cs.ForeColor = Color.Red
+
+            Grid_OrderList.Redraw = False
+
+            For i = 3 To Grid_OrderList.Rows.Count - 1
+                If Grid_OrderList.IsCellSelected(i, 1) Then
+
+                    'No가 숫자이며 각 셀이 비어 있다면 신규
+                    If IsNumeric(Grid_OrderList(i, 0)) Then
+                        If Grid_OrderList(i, 9) = String.Empty And
+                        Grid_OrderList(i, 10) = String.Empty And
+                        Grid_OrderList(i, 11) = String.Empty Then
+                            Grid_OrderList(i, 0) = "N"
+                        Else
+                            Grid_OrderList(i, 0) = "M"
+                        End If
+                    End If
+
+                    If copyDate = String.Empty Then
+                        Grid_OrderList(i, 9) = String.Empty
+                    Else
+                        Grid_OrderList(i, 9) = Format(CDate(copyDate), "yyyy-MM-dd")
+                    End If
+                    Grid_OrderList.SetCellStyle(i, 9, cs)
+                    Grid_OrderList(i, 10) = copyDepartment
+                    Grid_OrderList.SetCellStyle(i, 10, cs)
+                    Grid_OrderList(i, 11) = copyLine
+                    Grid_OrderList.SetCellStyle(i, 11, cs)
+                End If
+            Next
+
+            Grid_OrderList.AutoSizeCols()
+            Grid_OrderList.Redraw = True
+        End If
 
     End Sub
 

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frm_DeviceData_Sub
+Partial Class frm_DeviceData_PartsMapping
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -23,11 +23,13 @@ Partial Class frm_DeviceData_Sub
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_DeviceData_Sub))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_DeviceData_PartsMapping))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TB_mainParts_Maker = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.Tb_Customer = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Tb_mainParts = New System.Windows.Forms.TextBox()
+        Me.TB_PartCode = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Tb_DDCode = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -42,8 +44,7 @@ Partial Class frm_DeviceData_Sub
         Me.BTN_deleteLine = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TB_mainParts_Maker = New System.Windows.Forms.TextBox()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_DeviceData, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_gridMenu.SuspendLayout()
@@ -52,11 +53,12 @@ Partial Class frm_DeviceData_Sub
         'Panel1
         '
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel1.Controls.Add(Me.TB_CustomerCode)
         Me.Panel1.Controls.Add(Me.TB_mainParts_Maker)
         Me.Panel1.Controls.Add(Me.Label7)
         Me.Panel1.Controls.Add(Me.Tb_Customer)
         Me.Panel1.Controls.Add(Me.Label6)
-        Me.Panel1.Controls.Add(Me.Tb_mainParts)
+        Me.Panel1.Controls.Add(Me.TB_PartCode)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Controls.Add(Me.Tb_DDCode)
         Me.Panel1.Controls.Add(Me.Label4)
@@ -70,13 +72,35 @@ Partial Class frm_DeviceData_Sub
         Me.Panel1.Size = New System.Drawing.Size(776, 115)
         Me.Panel1.TabIndex = 1
         '
+        'TB_mainParts_Maker
+        '
+        Me.TB_mainParts_Maker.Enabled = False
+        Me.TB_mainParts_Maker.Location = New System.Drawing.Point(474, 79)
+        Me.TB_mainParts_Maker.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_mainParts_Maker.Name = "TB_mainParts_Maker"
+        Me.TB_mainParts_Maker.Size = New System.Drawing.Size(265, 21)
+        Me.TB_mainParts_Maker.TabIndex = 14
+        '
+        'Label7
+        '
+        Me.Label7.BackColor = System.Drawing.Color.SlateGray
+        Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(324, 79)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(150, 21)
+        Me.Label7.TabIndex = 13
+        Me.Label7.Text = "대표 Part No. Vendor"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Tb_Customer
         '
         Me.Tb_Customer.Enabled = False
-        Me.Tb_Customer.Location = New System.Drawing.Point(178, 33)
+        Me.Tb_Customer.Location = New System.Drawing.Point(144, 33)
         Me.Tb_Customer.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Tb_Customer.Name = "Tb_Customer"
-        Me.Tb_Customer.Size = New System.Drawing.Size(510, 21)
+        Me.Tb_Customer.Size = New System.Drawing.Size(360, 21)
         Me.Tb_Customer.TabIndex = 12
         '
         'Label6
@@ -84,7 +108,7 @@ Partial Class frm_DeviceData_Sub
         Me.Label6.BackColor = System.Drawing.Color.SlateGray
         Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(68, 33)
+        Me.Label6.Location = New System.Drawing.Point(34, 33)
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(110, 21)
@@ -92,21 +116,21 @@ Partial Class frm_DeviceData_Sub
         Me.Label6.Text = "고객사"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Tb_mainParts
+        'TB_PartCode
         '
-        Me.Tb_mainParts.Enabled = False
-        Me.Tb_mainParts.Location = New System.Drawing.Point(178, 79)
-        Me.Tb_mainParts.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_mainParts.Name = "Tb_mainParts"
-        Me.Tb_mainParts.Size = New System.Drawing.Size(180, 21)
-        Me.Tb_mainParts.TabIndex = 10
+        Me.TB_PartCode.Enabled = False
+        Me.TB_PartCode.Location = New System.Drawing.Point(144, 79)
+        Me.TB_PartCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_PartCode.Name = "TB_PartCode"
+        Me.TB_PartCode.Size = New System.Drawing.Size(180, 21)
+        Me.TB_PartCode.TabIndex = 10
         '
         'Label5
         '
         Me.Label5.BackColor = System.Drawing.Color.SlateGray
         Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(68, 79)
+        Me.Label5.Location = New System.Drawing.Point(34, 79)
         Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(110, 21)
@@ -117,10 +141,10 @@ Partial Class frm_DeviceData_Sub
         'Tb_DDCode
         '
         Me.Tb_DDCode.Enabled = False
-        Me.Tb_DDCode.Location = New System.Drawing.Point(538, 56)
+        Me.Tb_DDCode.Location = New System.Drawing.Point(504, 56)
         Me.Tb_DDCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Tb_DDCode.Name = "Tb_DDCode"
-        Me.Tb_DDCode.Size = New System.Drawing.Size(150, 21)
+        Me.Tb_DDCode.Size = New System.Drawing.Size(235, 21)
         Me.Tb_DDCode.TabIndex = 8
         '
         'Label4
@@ -128,7 +152,7 @@ Partial Class frm_DeviceData_Sub
         Me.Label4.BackColor = System.Drawing.Color.SlateGray
         Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(428, 56)
+        Me.Label4.Location = New System.Drawing.Point(394, 56)
         Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(110, 21)
@@ -139,7 +163,7 @@ Partial Class frm_DeviceData_Sub
         'Tb_feederNo
         '
         Me.Tb_feederNo.Enabled = False
-        Me.Tb_feederNo.Location = New System.Drawing.Point(358, 56)
+        Me.Tb_feederNo.Location = New System.Drawing.Point(324, 56)
         Me.Tb_feederNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Tb_feederNo.Name = "Tb_feederNo"
         Me.Tb_feederNo.Size = New System.Drawing.Size(70, 21)
@@ -150,7 +174,7 @@ Partial Class frm_DeviceData_Sub
         Me.Label3.BackColor = System.Drawing.Color.SlateGray
         Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(248, 56)
+        Me.Label3.Location = New System.Drawing.Point(214, 56)
         Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(110, 21)
@@ -161,7 +185,7 @@ Partial Class frm_DeviceData_Sub
         'Tb_machineNo
         '
         Me.Tb_machineNo.Enabled = False
-        Me.Tb_machineNo.Location = New System.Drawing.Point(178, 56)
+        Me.Tb_machineNo.Location = New System.Drawing.Point(144, 56)
         Me.Tb_machineNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Tb_machineNo.Name = "Tb_machineNo"
         Me.Tb_machineNo.Size = New System.Drawing.Size(70, 21)
@@ -172,7 +196,7 @@ Partial Class frm_DeviceData_Sub
         Me.Label2.BackColor = System.Drawing.Color.SlateGray
         Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(68, 56)
+        Me.Label2.Location = New System.Drawing.Point(34, 56)
         Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(110, 21)
@@ -236,29 +260,16 @@ Partial Class frm_DeviceData_Sub
         Me.BTN_Save.Size = New System.Drawing.Size(122, 22)
         Me.BTN_Save.Text = "저장"
         '
-        'TB_mainParts_Maker
+        'TB_CustomerCode
         '
-        Me.TB_mainParts_Maker.Enabled = False
-        Me.TB_mainParts_Maker.Location = New System.Drawing.Point(508, 79)
-        Me.TB_mainParts_Maker.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_mainParts_Maker.Name = "TB_mainParts_Maker"
-        Me.TB_mainParts_Maker.Size = New System.Drawing.Size(180, 21)
-        Me.TB_mainParts_Maker.TabIndex = 14
+        Me.TB_CustomerCode.Enabled = False
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(504, 33)
+        Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_CustomerCode.Name = "TB_CustomerCode"
+        Me.TB_CustomerCode.Size = New System.Drawing.Size(235, 21)
+        Me.TB_CustomerCode.TabIndex = 15
         '
-        'Label7
-        '
-        Me.Label7.BackColor = System.Drawing.Color.SlateGray
-        Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(358, 79)
-        Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(150, 21)
-        Me.Label7.TabIndex = 13
-        Me.Label7.Text = "대표 Part No. Maker"
-        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'DeviceData_Sub
+        'frm_DeviceData_Sub
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.LightSteelBlue
@@ -268,7 +279,7 @@ Partial Class frm_DeviceData_Sub
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "DeviceData_Sub"
+        Me.Name = "frm_DeviceData_Sub"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "대치자재 관리"
         Me.Panel1.ResumeLayout(False)
@@ -280,7 +291,7 @@ Partial Class frm_DeviceData_Sub
     End Sub
 
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents Tb_mainParts As TextBox
+    Friend WithEvents TB_PartCode As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Tb_DDCode As TextBox
     Friend WithEvents Label4 As Label
@@ -299,4 +310,5 @@ Partial Class frm_DeviceData_Sub
     Friend WithEvents Label6 As Label
     Friend WithEvents TB_mainParts_Maker As TextBox
     Friend WithEvents Label7 As Label
+    Friend WithEvents TB_CustomerCode As TextBox
 End Class

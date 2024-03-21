@@ -73,7 +73,6 @@ Public Class frm_CustomerPartCode
     Private Sub Load_CustomerList()
 
         CB_CustomerName.Items.Clear()
-        CB_CustomerName.Items.Add(String.Empty)
 
         DBConnect()
 

@@ -235,4 +235,20 @@ Public Class frm_Main
         frm_DeviceData.Focus()
 
     End Sub
+
+    Private Sub BTN_MMPS_History_Click(sender As Object, e As EventArgs) Handles BTN_MMPS_History.Click
+
+        frm_MMPS_History.MdiParent = Me
+        If Not frm_MMPS_History.Visible Then frm_MMPS_History.Show()
+        frm_MMPS_History.Focus()
+
+    End Sub
+
+    Private Sub BTN_SMD_ProductionStart_Click(sender As Object, e As EventArgs) Handles BTN_SMD_ProductionStart.Click
+
+        frm_SMD_Production_Start.MdiParent = Me
+        If Not frm_SMD_Production_Start.Visible Then frm_SMD_Production_Start.Show()
+        frm_SMD_Production_Start.Focus()
+
+    End Sub
 End Class

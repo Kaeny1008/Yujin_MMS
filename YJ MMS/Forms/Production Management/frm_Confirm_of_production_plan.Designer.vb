@@ -42,8 +42,10 @@ Partial Class frm_Production_plan
         Me.Label17 = New System.Windows.Forms.Label()
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_CellCopy = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_CellPaste = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_CellPaste = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -226,9 +228,9 @@ Partial Class frm_Production_plan
         '
         'CMS_GridMenu
         '
-        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste})
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste, Me.ToolStripSeparator3, Me.BTN_Save2})
         Me.CMS_GridMenu.Name = "CMS_GridMenu"
-        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 54)
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 82)
         '
         'BTN_CellCopy
         '
@@ -236,16 +238,28 @@ Partial Class frm_Production_plan
         Me.BTN_CellCopy.Size = New System.Drawing.Size(248, 22)
         Me.BTN_CellCopy.Text = "선택 내용 복사(일자, 동, 라인)"
         '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
+        '
         'BTN_CellPaste
         '
         Me.BTN_CellPaste.Name = "BTN_CellPaste"
         Me.BTN_CellPaste.Size = New System.Drawing.Size(248, 22)
         Me.BTN_CellPaste.Text = "선택 행 붙혀넣기(일자, 동, 라인)"
         '
-        'ToolStripSeparator2
+        'ToolStripSeparator3
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(245, 6)
+        '
+        'BTN_Save2
+        '
+        Me.BTN_Save2.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save2.Name = "BTN_Save2"
+        Me.BTN_Save2.Size = New System.Drawing.Size(248, 22)
+        Me.BTN_Save2.Text = "저장"
         '
         'frm_Production_plan
         '
@@ -255,6 +269,7 @@ Partial Class frm_Production_plan
         Me.Controls.Add(Me.Grid_OrderList)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.TS_MainBar)
+        Me.KeyPreview = True
         Me.Name = "frm_Production_plan"
         Me.Text = "생산계획 수립"
         Me.TS_MainBar.ResumeLayout(False)
@@ -290,4 +305,6 @@ Partial Class frm_Production_plan
     Friend WithEvents BTN_CellCopy As ToolStripMenuItem
     Friend WithEvents BTN_CellPaste As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents BTN_Save2 As ToolStripMenuItem
 End Class

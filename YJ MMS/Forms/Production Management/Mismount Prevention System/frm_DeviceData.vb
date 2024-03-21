@@ -371,7 +371,7 @@ Public Class frm_DeviceData
 
     End Sub
 
-    Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
+    Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If Tb_customerCode.Text = String.Empty Then
             MsgBox("고객사를 선택하여 주십시오.", MsgBoxStyle.Information, form_Msgbox_String)
@@ -1088,16 +1088,16 @@ Public Class frm_DeviceData
         Dim sel_part As String = Grid_DeviceData(e.Row, 5)
         Dim sel_part_maker As String = Grid_DeviceData(e.Row, 4)
 
-        frm_DeviceData_Sub.Tb_machineNo.Text = sel_machine
-        frm_DeviceData_Sub.Tb_feederNo.Text = sel_feeder
-        frm_DeviceData_Sub.Tb_DDCode.Text = sel_code
-        frm_DeviceData_Sub.Tb_mainParts.Text = sel_part
-        frm_DeviceData_Sub.ddMainCode = newDeviceData
-        frm_DeviceData_Sub.Tb_Customer.Text = CB_CustomerName.Text
-        frm_DeviceData_Sub.TB_mainParts_Maker.Text = sel_part_maker
+        frm_DeviceData_PartsMapping.Tb_machineNo.Text = sel_machine
+        frm_DeviceData_PartsMapping.Tb_feederNo.Text = sel_feeder
+        frm_DeviceData_PartsMapping.Tb_DDCode.Text = sel_code
+        frm_DeviceData_PartsMapping.TB_PartCode.Text = sel_part
+        frm_DeviceData_PartsMapping.ddMainCode = newDeviceData
+        frm_DeviceData_PartsMapping.Tb_Customer.Text = CB_CustomerName.Text
+        frm_DeviceData_PartsMapping.TB_mainParts_Maker.Text = sel_part_maker
+        frm_DeviceData_PartsMapping.TB_CustomerCode.Text = Tb_customerCode.Text
 
-        If Not frm_DeviceData_Sub.Visible Then frm_DeviceData_Sub.Show()
-        frm_DeviceData_Sub.Focus()
+        If frm_DeviceData_PartsMapping.ShowDialog() = DialogResult.OK Then BTN_Search_Click(Nothing, Nothing)
 
     End Sub
 

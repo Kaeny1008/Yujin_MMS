@@ -62,12 +62,14 @@ Partial Class frm_Main
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.오삽방지시스템ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_MMPS_DeviceData = New System.Windows.Forms.ToolStripMenuItem()
-        Me.오삽방지이력보기ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_MMPS_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.SMD생산ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.생산등록ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_SMD_ProductionStart = New System.Windows.Forms.ToolStripMenuItem()
         Me.완료등록ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.생산현황ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -349,7 +351,7 @@ Partial Class frm_Main
         '
         '오삽방지시스템ToolStripMenuItem
         '
-        Me.오삽방지시스템ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_MMPS_DeviceData, Me.오삽방지이력보기ToolStripMenuItem})
+        Me.오삽방지시스템ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_MMPS_DeviceData, Me.BTN_MMPS_History})
         Me.오삽방지시스템ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.오삽방지시스템ToolStripMenuItem.Name = "오삽방지시스템ToolStripMenuItem"
         Me.오삽방지시스템ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
@@ -358,39 +360,50 @@ Partial Class frm_Main
         'BTN_MMPS_DeviceData
         '
         Me.BTN_MMPS_DeviceData.Name = "BTN_MMPS_DeviceData"
-        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(174, 22)
         Me.BTN_MMPS_DeviceData.Text = "Device Data 등록"
         '
-        '오삽방지이력보기ToolStripMenuItem
+        'BTN_MMPS_History
         '
-        Me.오삽방지이력보기ToolStripMenuItem.Name = "오삽방지이력보기ToolStripMenuItem"
-        Me.오삽방지이력보기ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.오삽방지이력보기ToolStripMenuItem.Text = "오삽방지 이력보기"
+        Me.BTN_MMPS_History.Name = "BTN_MMPS_History"
+        Me.BTN_MMPS_History.Size = New System.Drawing.Size(174, 22)
+        Me.BTN_MMPS_History.Text = "오삽방지 이력보기"
         '
         'SMD생산ToolStripMenuItem
         '
-        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.생산등록ToolStripMenuItem, Me.완료등록ToolStripMenuItem})
+        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_ProductionStart, Me.완료등록ToolStripMenuItem, Me.ToolStripSeparator4, Me.생산현황ToolStripMenuItem})
         Me.SMD생산ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.SMD생산ToolStripMenuItem.Name = "SMD생산ToolStripMenuItem"
         Me.SMD생산ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.SMD생산ToolStripMenuItem.Text = "SMD 생산"
         '
-        '생산등록ToolStripMenuItem
+        'BTN_SMD_ProductionStart
         '
-        Me.생산등록ToolStripMenuItem.Name = "생산등록ToolStripMenuItem"
-        Me.생산등록ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
-        Me.생산등록ToolStripMenuItem.Text = "생산등록"
+        Me.BTN_SMD_ProductionStart.Name = "BTN_SMD_ProductionStart"
+        Me.BTN_SMD_ProductionStart.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_SMD_ProductionStart.Text = "생산등록"
         '
         '완료등록ToolStripMenuItem
         '
         Me.완료등록ToolStripMenuItem.Name = "완료등록ToolStripMenuItem"
-        Me.완료등록ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
+        Me.완료등록ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.완료등록ToolStripMenuItem.Text = "완료등록"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(177, 6)
+        '
+        '생산현황ToolStripMenuItem
+        '
+        Me.생산현황ToolStripMenuItem.Name = "생산현황ToolStripMenuItem"
+        Me.생산현황ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.생산현황ToolStripMenuItem.Text = "생산 현황"
         '
         'frm_Main
         '
@@ -452,9 +465,11 @@ Partial Class frm_Main
     Friend WithEvents 오삽방지시스템ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BTN_MMPS_DeviceData As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents 오삽방지이력보기ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BTN_MMPS_History As ToolStripMenuItem
     Friend WithEvents SMD생산ToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 생산등록ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BTN_SMD_ProductionStart As ToolStripMenuItem
     Friend WithEvents 완료등록ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents 생산현황ToolStripMenuItem As ToolStripMenuItem
 End Class

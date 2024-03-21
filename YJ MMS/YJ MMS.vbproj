@@ -66,9 +66,13 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C1.Win.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
+    <Reference Include="C1.Win.C1BarCode.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Command.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Editor.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data">
@@ -89,6 +93,7 @@
     <Reference Include="System.Net.Json">
       <HintPath>..\Add DLL\System.Net.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -224,22 +229,58 @@
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.Designer.vb">
-      <DependentUpon>frm_DeviceData_Sub.vb</DependentUpon>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.Designer.vb">
+      <DependentUpon>frm_AlarmHistory.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.vb">
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.Designer.vb">
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.Designer.vb">
+      <DependentUpon>frm_AllPartsCheckHistory.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.Designer.vb">
+      <DependentUpon>frm_DeviceData_PartsMapping.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.Designer.vb">
       <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.vb">
+    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.Designer.vb">
       <DependentUpon>frm_DeviceData.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.Designer.vb">
+      <DependentUpon>frm_MMPS_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.Designer.vb">
+      <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.Designer.vb">
+      <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.Designer.vb">
+      <DependentUpon>frm_SMD_Production_Information.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
@@ -287,6 +328,19 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\Device_Data_RPT.vb">
+      <DependentUpon>Device_Data_RPT.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\Device_Data_Sub.vb">
+      <DependentUpon>Device_Data_Sub.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -347,14 +401,32 @@
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Sub.resx">
-      <DependentUpon>frm_DeviceData_Sub.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.resx">
+      <DependentUpon>frm_AlarmHistory.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData_Report.resx">
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.resx">
+      <DependentUpon>frm_AllPartsCheckHistory.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.resx">
+      <DependentUpon>frm_DeviceData_PartsMapping.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.resx">
       <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.resx">
       <DependentUpon>frm_DeviceData.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.resx">
+      <DependentUpon>frm_MMPS_History.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.resx">
+      <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.resx">
+      <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.resx">
+      <DependentUpon>frm_SMD_Production_Information.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
@@ -374,6 +446,15 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Device_Data_RPT.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Device_Data_RPT.vb</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Device_Data_Sub.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Device_Data_Sub.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -662,6 +743,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\exchange.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\102_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\121_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\blue_question_mark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
