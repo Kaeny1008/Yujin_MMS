@@ -65,10 +65,6 @@ Public Class frm_SMD_Production_Start
             rngM.Data = "Bottom"
             rngM = .GetCellRange(1, 14, 2, 14)
             rngM.Data = "Top"
-
-            'Grid_OrderList(2, 12) = "BOM 확인"
-            'Grid_OrderList(2, 13) = "Bottom"
-            'Grid_OrderList(2, 14) = "Top"
             '.Rows(0).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
             '.Rows(1).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
             '.Rows(2).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
@@ -172,6 +168,14 @@ Public Class frm_SMD_Production_Start
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 3
 
+        'userButton을 초기화 한다.
+        If IsNothing(userButton) = False Then
+            For i = userButton.Count - 1 To 0 Step -1
+                Grid_OrderList.Controls.Remove(userButton(i))
+            Next
+        End If
+        userButton = Nothing
+
         Load_OrderList() '리스트를 불러온다.
         Load_TopBottom() 'Top/Bottom 작업 구분을 한다.
 
@@ -209,7 +213,9 @@ Public Class frm_SMD_Production_Start
                                           Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
                                           sqlDR("start_date") & vbTab &
                                           sqlDR("smd_department") & vbTab &
-                                          sqlDR("smd_line")
+                                          sqlDR("smd_line") & vbTab &
+                                          vbTab &
+                                          sqlDR("working_status")
             Grid_OrderList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -219,7 +225,6 @@ Public Class frm_SMD_Production_Start
     End Sub
 
     Friend userButton() As Button
-    Friend userButton2() As Button
     Dim _al As ArrayList = New ArrayList()
 
     Private Sub Load_TopBottom()
@@ -256,26 +261,50 @@ Public Class frm_SMD_Production_Start
 
         DBClose()
 
-        ReDim userButton(Grid_OrderList.Rows.Count - 4)
-        ReDim userButton2(Grid_OrderList.Rows.Count - 4)
-
         For i = 3 To Grid_OrderList.Rows.Count - 1
-            userButton(i - 3) = New Button()
-            userButton(i - 3).BackColor = SystemColors.Control
-            userButton(i - 3).Text = "생산시작"
-            userButton(i - 3).Tag = i
-            Controls.AddRange(New Control() {userButton(i - 3)})
-            AddHandler userButton(i - 3).Click, AddressOf UserButton_Bottom_Click
-            _al.Add(New HostedControl(Grid_OrderList, userButton(i - 3), i, 13))
-
-            userButton2(i - 3) = New Button()
-            userButton2(i - 3).BackColor = SystemColors.Control
-            userButton2(i - 3).Text = "생산시작"
-            userButton2(i - 3).Tag = i
-            Controls.AddRange(New Control() {userButton2(i - 3)})
-            AddHandler userButton2(i - 3).Click, AddressOf UserButton_Top_Click
-            _al.Add(New HostedControl(Grid_OrderList, userButton2(i - 3), i, 14))
+            If Grid_OrderList(i, 13) = "Ready" Then
+                If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
+                    'Bottom을 포함하고 있다면 버튼을 Bottom라인에 표시
+                    Grid_ButtonAdd(i, i, 13)
+                    Grid_OrderList(i, 14) = String.Empty
+                Else
+                    Grid_OrderList(i, 13) = String.Empty
+                    Grid_ButtonAdd(i, i, 14)
+                End If
+            ElseIf Grid_OrderList(i, 13) = "Bottom Run" Then
+                Grid_OrderList(i, 13) = "생산중"
+            ElseIf Grid_OrderList(i, 13) = "Top Run" Then
+                If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
+                    Grid_OrderList(i, 13) = "생산완료"
+                Else
+                    Grid_OrderList(i, 13) = String.Empty
+                End If
+                Grid_OrderList(i, 14) = "생산중"
+            End If
         Next
+
+    End Sub
+
+    Private Sub Grid_ButtonAdd(ByVal i As Integer, ByVal row As Integer, ByVal col As Integer)
+
+        If IsNothing(userButton) Then
+            ReDim userButton(0)
+        Else
+            ReDim Preserve userButton(userButton.Length + 1)
+        End If
+
+        userButton(userButton.Length - 1) = New Button()
+        userButton(userButton.Length - 1).BackColor = SystemColors.Control
+        userButton(userButton.Length - 1).Text = "생산시작"
+        If col = 13 Then
+            userButton(userButton.Length - 1).Tag = i & ",Bottom"
+        ElseIf col = 14 Then
+            userButton(userButton.Length - 1).Tag = i & ",Top"
+        End If
+        Controls.AddRange(New Control() {userButton(userButton.Length - 1)})
+        AddHandler userButton(userButton.Length - 1).Click, AddressOf UserButton_Bottom_Click
+
+        _al.Add(New HostedControl(Grid_OrderList, userButton(userButton.Length - 1), row, col))
 
     End Sub
 
@@ -287,26 +316,23 @@ Public Class frm_SMD_Production_Start
 
     Private Sub UserButton_Bottom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-        Dim bt As Button = CType(sender, Button)
-        Dim selRow As Integer = CInt(bt.Tag)
+        For i = 3 To Grid_OrderList.Rows.Count - 1
+            If Grid_OrderList(i, 13) = "생산중" Or Grid_OrderList(i, 14) = "생산중" Then
+                MessageBox.Show(Me,
+                                "생산중인 주문이 있으므로 시작등록을 할 수 없습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation,
+                                MessageBoxDefaultButton.Button1)
+                Exit Sub
+            End If
+        Next
 
-        frm_SMD_Mismount_Barcode.modelCode = Grid_OrderList(selRow, 5)
-        frm_SMD_Mismount_Barcode.factoryName = Grid_OrderList(selRow, 10)
-        frm_SMD_Mismount_Barcode.lineName = Grid_OrderList(selRow, 11)
-        frm_SMD_Mismount_Barcode.workSide = "Bottom"
-        If Not frm_SMD_Mismount_Barcode.ShowDialog = DialogResult.OK Then
-            'MessageBox.Show(Me,
-            '                "알 수 없는 오류가 발생하였습니다.",
-            '                msg_form,
-            '                MessageBoxButtons.OK,
-            '                MessageBoxIcon.Error)
-            frm_SMD_Mismount_Barcode.Dispose()
-            Exit Sub
-        End If
-        frm_SMD_Mismount_Barcode.Dispose()
+        Dim bt As Button = CType(sender, Button)
+        Dim selRow As Integer = CInt(bt.Tag.ToString.Split(",")(0))
+        Dim workingSide As String = bt.Tag.ToString.Split(",")(1)
 
         Dim warning As Boolean = False
-
         For i = 3 To Grid_OrderList.Rows.Count - 1
             If CDate(Grid_OrderList(i, 2)) < CDate(Grid_OrderList(selRow, 2)) Then
                 warning = True
@@ -315,10 +341,29 @@ Public Class frm_SMD_Production_Start
         Next
 
         If warning = True Then
-            frm_SMD_Production_Information.warning = True
-        Else
-            frm_SMD_Production_Information.warning = False
+            If MessageBox.Show(Me,
+                               "납기일자가 더 빠른 주문이 존재 합니다.",
+                               msg_form,
+                               MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
         End If
+
+        frm_SMD_Mismount_Barcode.modelCode = Grid_OrderList(selRow, 5)
+        frm_SMD_Mismount_Barcode.factoryName = Grid_OrderList(selRow, 10)
+        frm_SMD_Mismount_Barcode.lineName = Grid_OrderList(selRow, 11)
+        frm_SMD_Mismount_Barcode.workSide = workingSide
+        If Not frm_SMD_Mismount_Barcode.ShowDialog = DialogResult.OK Then
+            MessageBox.Show(Me,
+                            "※※ 생산시작 불가 ※※" & vbCrLf &
+                            "Device Data가 없습니다." & vbCrLf &
+                            "Device Data를 먼저 작성하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Exclamation)
+            frm_SMD_Mismount_Barcode.Dispose()
+            Exit Sub
+        End If
+        frm_SMD_Mismount_Barcode.Dispose()
 
         frm_SMD_Production_Information.TB_OrderIndex.Text = Grid_OrderList(selRow, 1)
         frm_SMD_Production_Information.TB_Factory.Text = CB_Department.Text
@@ -326,11 +371,12 @@ Public Class frm_SMD_Production_Start
         frm_SMD_Production_Information.TB_ModelCode.Text = Grid_OrderList(selRow, 5)
         frm_SMD_Production_Information.TB_ItemCode.Text = Grid_OrderList(selRow, 6)
         frm_SMD_Production_Information.TB_ItemName.Text = Grid_OrderList(selRow, 7)
-        frm_SMD_Production_Information.TB_WorkSide.Text = "Bottom"
+        frm_SMD_Production_Information.TB_WorkSide.Text = workingSide
 
         If frm_SMD_Production_Information.ShowDialog = DialogResult.OK Then
             If StartWrite(frm_SMD_Production_Information.TB_Operater.Text,
-                          Grid_OrderList(selRow, 1), "Bottom") = False Then
+                          Grid_OrderList(selRow, 1),
+                          workingSide) = False Then
                 MessageBox.Show(Me,
                                 "시작 등록을 실패 하였습니다.",
                                 msg_form,
@@ -343,18 +389,13 @@ Public Class frm_SMD_Production_Start
         End If
         frm_SMD_Production_Information.Dispose()
 
-        MessageBox.Show(Me,
-                        "시작등록을 최종 완료 하였습니다." & vbCrLf & "생산을 시작하여 주십시오.",
+        MessageBox.Show("시작등록을 최종 완료 하였습니다." & vbCrLf & "생산을 시작하여 주십시오.",
                         msg_form,
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+                        MessageBoxIcon.Information, MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly)
 
         BTN_Search_Click(Nothing, Nothing)
 
-    End Sub
-
-    Private Sub UserButton_Top_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        MsgBox("Top 시작")
     End Sub
 
     Private Sub Grid_OrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Grid_OrderList.MouseDoubleClick
@@ -446,13 +487,14 @@ Public Class frm_SMD_Production_Start
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             strSQL += "insert into tb_mms_smd_production_history("
-            strSQL += "order_index, smd_start_date, smd_operater, start_quantity, work_side"
+            strSQL += "order_index, smd_start_date, smd_operater, start_quantity, work_side, working_status"
             strSQL += ") values("
             strSQL += "'" & oder_index & "'"
             strSQL += ",'" & writeDate & "'"
             strSQL += ",'" & smd_operater & "'"
             strSQL += ",'" & 0 & "'"
             strSQL += ",'" & work_side & "'"
+            strSQL += ",'" & work_side & " Run'"
             strSQL += ");"
             strSQL += "update tb_mms_order_register_list set order_status = 'Production in SMD'"
             strSQL += " where order_index = '" & oder_index & "';"

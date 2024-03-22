@@ -349,8 +349,9 @@ Public Class frm_DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select model_code from tb_model_list"
-        strSQL += " where item_code = '" & Cb_modelName.Text & "'"
+        Dim strSQL As String = "select model_code"
+        strSQL += " from tb_model_list"
+        strSQL += " where item_code = '" & Cb_modelName.Text & "';"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader

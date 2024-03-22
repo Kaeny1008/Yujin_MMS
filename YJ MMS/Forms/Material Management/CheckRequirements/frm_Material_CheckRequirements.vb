@@ -371,6 +371,7 @@ Public Class frm_Material_CheckRequirements
             For i = 1 To Grid_OrderList.Rows.Count - 1
                 If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
                     strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation completed'"
+                    strSQL += ", management_no = (select max(management_no) from tb_model_bom where model_code = '" & Grid_OrderList(i, 5) & "')"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 2) & "';"
                 End If
             Next

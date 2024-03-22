@@ -22,7 +22,6 @@ Partial Class frm_SMD_Production_Start
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Production_Start))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
@@ -33,7 +32,6 @@ Partial Class frm_SMD_Production_Start
         Me.CB_Department = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ImageList1 = New System.Windows.Forms.ImageList(Me.components)
         Me.TS_MainBar.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -145,12 +143,6 @@ Partial Class frm_SMD_Production_Start
         Me.Grid_OrderList.TabIndex = 4
         Me.Grid_OrderList.UseCompatibleTextRendering = True
         '
-        'ImageList1
-        '
-        Me.ImageList1.ImageStream = CType(resources.GetObject("ImageList1.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.ImageList1.TransparentColor = System.Drawing.Color.Transparent
-        Me.ImageList1.Images.SetKeyName(0, "production_start.png")
-        '
         'frm_SMD_Production_Start
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -179,5 +171,4 @@ Partial Class frm_SMD_Production_Start
     Friend WithEvents CB_Department As ComboBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents ImageList1 As ImageList
 End Class

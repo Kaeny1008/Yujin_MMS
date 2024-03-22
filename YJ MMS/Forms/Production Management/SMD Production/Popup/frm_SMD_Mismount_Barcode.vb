@@ -19,13 +19,6 @@ Public Class frm_SMD_Mismount_Barcode
         LoadBarcode()
 
         If Grid_DeviceData.Rows.Count = 1 Then
-            MessageBox.Show(Me,
-                            "※※ 생산시작 불가 ※※" & vbCrLf &
-                            "Device Data가 없습니다." & vbCrLf &
-                            "Device Data를 먼저 작성하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation)
             Me.DialogResult = DialogResult.Cancel
         Else
             C1QRCode1.Text = Grid_DeviceData(1, 2)

@@ -1,6 +1,6 @@
 ﻿Public Class frm_SMD_Production_Information
 
-    Public warning As Boolean
+    'Public warning As Boolean
 
     Private Sub BTN_Cancel_Click(sender As Object, e As EventArgs) Handles BTN_Cancel.Click
 
@@ -21,9 +21,9 @@
 
     Private Sub frm_SMD_Production_Information_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        If warning = True Then
-            Label10.Visible = True
-        End If
+        'If warning = True Then
+        '    Label10.Visible = True
+        'End If
 
     End Sub
 
