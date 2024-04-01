@@ -620,4 +620,8 @@ Public Class frm_Material_Warehousing_List
     Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
 
     End Sub
+
+    Private Sub TB_BarcodeScan_TextChanged(sender As Object, e As EventArgs) Handles TB_BarcodeScan.TextChanged
+
+    End Sub
 End Class

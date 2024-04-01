@@ -158,9 +158,9 @@ Public Class frm_Main
 
     Private Sub BTN_Material_Warehousing_List_Click(sender As Object, e As EventArgs) Handles BTN_Material_Warehousing_List.Click
 
-        frm_Material_Warehousing_List.MdiParent = Me
-        If Not frm_Material_Warehousing_List.Visible Then frm_Material_Warehousing_List.Show()
-        frm_Material_Warehousing_List.Focus()
+        frm_Material_Warehousing_With_Label.MdiParent = Me
+        If Not frm_Material_Warehousing_With_Label.Visible Then frm_Material_Warehousing_With_Label.Show()
+        frm_Material_Warehousing_With_Label.Focus()
 
     End Sub
 
@@ -249,6 +249,14 @@ Public Class frm_Main
         frm_SMD_Production_Start.MdiParent = Me
         If Not frm_SMD_Production_Start.Visible Then frm_SMD_Production_Start.Show()
         frm_SMD_Production_Start.Focus()
+
+    End Sub
+
+    Private Sub BTN_SMD_ProductionEnd_Click(sender As Object, e As EventArgs) Handles BTN_SMD_ProductionEnd.Click
+
+        frm_SMD_Production_End.MdiParent = Me
+        If Not frm_SMD_Production_End.Visible Then frm_SMD_Production_End.Show()
+        frm_SMD_Production_End.Focus()
 
     End Sub
 End Class

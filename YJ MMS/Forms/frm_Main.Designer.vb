@@ -65,11 +65,11 @@ Partial Class frm_Main
         Me.BTN_MMPS_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.SMD생산ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SMD_ProductionStart = New System.Windows.Forms.ToolStripMenuItem()
-        Me.완료등록ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.BTN_SMD_ProductionEnd = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.생산현황ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -371,7 +371,7 @@ Partial Class frm_Main
         '
         'SMD생산ToolStripMenuItem
         '
-        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_ProductionStart, Me.완료등록ToolStripMenuItem, Me.ToolStripSeparator4, Me.생산현황ToolStripMenuItem})
+        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_ProductionStart, Me.BTN_SMD_ProductionEnd, Me.ToolStripSeparator4, Me.생산현황ToolStripMenuItem})
         Me.SMD생산ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.SMD생산ToolStripMenuItem.Name = "SMD생산ToolStripMenuItem"
         Me.SMD생산ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
@@ -383,16 +383,11 @@ Partial Class frm_Main
         Me.BTN_SMD_ProductionStart.Size = New System.Drawing.Size(180, 22)
         Me.BTN_SMD_ProductionStart.Text = "생산등록"
         '
-        '완료등록ToolStripMenuItem
+        'BTN_SMD_ProductionEnd
         '
-        Me.완료등록ToolStripMenuItem.Name = "완료등록ToolStripMenuItem"
-        Me.완료등록ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.완료등록ToolStripMenuItem.Text = "완료등록"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        Me.BTN_SMD_ProductionEnd.Name = "BTN_SMD_ProductionEnd"
+        Me.BTN_SMD_ProductionEnd.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_SMD_ProductionEnd.Text = "완료내역 등록"
         '
         'ToolStripSeparator4
         '
@@ -404,6 +399,11 @@ Partial Class frm_Main
         Me.생산현황ToolStripMenuItem.Name = "생산현황ToolStripMenuItem"
         Me.생산현황ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.생산현황ToolStripMenuItem.Text = "생산 현황"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
         '
         'frm_Main
         '
@@ -468,7 +468,7 @@ Partial Class frm_Main
     Friend WithEvents BTN_MMPS_History As ToolStripMenuItem
     Friend WithEvents SMD생산ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BTN_SMD_ProductionStart As ToolStripMenuItem
-    Friend WithEvents 완료등록ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BTN_SMD_ProductionEnd As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents 생산현황ToolStripMenuItem As ToolStripMenuItem

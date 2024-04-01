@@ -148,6 +148,20 @@ Module md_ETC
 
     End Sub
 
+    Public Sub GridRowReset(ByVal rownum As Integer, ByVal formName As Form, ByVal grid As C1FlexGrid)
+
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Integer, Form, C1FlexGrid)(AddressOf GridRowReset), rownum, formName, grid)
+            Else
+                grid.Rows.Count = rownum
+            End If
+        End If
+
+    End Sub
+
     Public Sub GridRedraw(ByVal status As Boolean, ByVal formName As Form, ByVal grid As C1FlexGrid)
 
         Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
@@ -247,6 +261,20 @@ Module md_ETC
             Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
             If ts.InvokeRequired Then
                 ts.Invoke(New Action(Of Boolean, Form, ComboBox)(AddressOf ComboBoxEnabled), status, formName, cb)
+            Else
+                ts.Enabled = status
+            End If
+        End If
+
+    End Sub
+
+    Public Sub ButtonEnabled(ByVal status As Boolean, ByVal formName As Form, ByVal cb As Button)
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is Button Then
+            Dim ts As Button = DirectCast(ctls(0), Button)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Boolean, Form, Button)(AddressOf ButtonEnabled), status, formName, cb)
             Else
                 ts.Enabled = status
             End If

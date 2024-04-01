@@ -37,25 +37,23 @@ Partial Class frm_Supplier_Document_Register
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.BTN_FileSelect = New System.Windows.Forms.Button()
         Me.CB_SheetName = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TB_File_Path = New System.Windows.Forms.TextBox()
-        Me.BTN_FileSelect = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowSelect = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_ExcelToGrid2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_ColumnMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_PartCode = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_PartNo = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Qty = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_ExcelToGrid = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Vendor = New System.Windows.Forms.ToolStripMenuItem()
         Me.CB_Supplier = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
+        Me.BTN_ExcelToGrid = New System.Windows.Forms.Button()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.BTN_NewDocuments = New System.Windows.Forms.ToolStripButton()
@@ -217,6 +215,7 @@ Partial Class frm_Supplier_Document_Register
         'SplitContainer2.Panel1
         '
         Me.SplitContainer2.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_ExcelToGrid)
         Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_FileSelect)
         Me.SplitContainer2.Panel1.Controls.Add(Me.CB_SheetName)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label6)
@@ -230,6 +229,17 @@ Partial Class frm_Supplier_Document_Register
         Me.SplitContainer2.Size = New System.Drawing.Size(1039, 748)
         Me.SplitContainer2.SplitterDistance = 352
         Me.SplitContainer2.TabIndex = 3
+        '
+        'BTN_FileSelect
+        '
+        Me.BTN_FileSelect.Enabled = False
+        Me.BTN_FileSelect.Location = New System.Drawing.Point(101, 28)
+        Me.BTN_FileSelect.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.BTN_FileSelect.Name = "BTN_FileSelect"
+        Me.BTN_FileSelect.Size = New System.Drawing.Size(75, 23)
+        Me.BTN_FileSelect.TabIndex = 22
+        Me.BTN_FileSelect.Text = "파일선택"
+        Me.BTN_FileSelect.UseVisualStyleBackColor = True
         '
         'CB_SheetName
         '
@@ -255,20 +265,6 @@ Partial Class frm_Supplier_Document_Register
         Me.Label6.Text = "Sheet 선택"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label10
-        '
-        Me.Label10.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label10.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label10.ForeColor = System.Drawing.Color.White
-        Me.Label10.Location = New System.Drawing.Point(6, 29)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(170, 21)
-        Me.Label10.TabIndex = 20
-        Me.Label10.Text = "File Path"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
         'Grid_Excel
         '
         Me.Grid_Excel.ColumnInfo = "2,1,0,0,0,100,Columns:"
@@ -291,16 +287,19 @@ Partial Class frm_Supplier_Document_Register
         Me.TB_File_Path.Size = New System.Drawing.Size(626, 21)
         Me.TB_File_Path.TabIndex = 21
         '
-        'BTN_FileSelect
+        'Label10
         '
-        Me.BTN_FileSelect.Enabled = False
-        Me.BTN_FileSelect.Location = New System.Drawing.Point(101, 28)
-        Me.BTN_FileSelect.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.BTN_FileSelect.Name = "BTN_FileSelect"
-        Me.BTN_FileSelect.Size = New System.Drawing.Size(75, 23)
-        Me.BTN_FileSelect.TabIndex = 22
-        Me.BTN_FileSelect.Text = "파일선택"
-        Me.BTN_FileSelect.UseVisualStyleBackColor = True
+        Me.Label10.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label10.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.White
+        Me.Label10.Location = New System.Drawing.Point(6, 29)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(170, 21)
+        Me.Label10.TabIndex = 20
+        Me.Label10.Text = "File Path"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Grid_MaterialList
         '
@@ -316,9 +315,9 @@ Partial Class frm_Supplier_Document_Register
         '
         'CMS_RowMenu
         '
-        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowSelect, Me.ToolStripSeparator1, Me.BTN_ExcelToGrid2})
+        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowSelect})
         Me.CMS_RowMenu.Name = "CMS_Menu"
-        Me.CMS_RowMenu.Size = New System.Drawing.Size(111, 54)
+        Me.CMS_RowMenu.Size = New System.Drawing.Size(111, 26)
         '
         'BTN_RowSelect
         '
@@ -326,22 +325,11 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_RowSelect.Size = New System.Drawing.Size(110, 22)
         Me.BTN_RowSelect.Text = "시작행"
         '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(107, 6)
-        '
-        'BTN_ExcelToGrid2
-        '
-        Me.BTN_ExcelToGrid2.Name = "BTN_ExcelToGrid2"
-        Me.BTN_ExcelToGrid2.Size = New System.Drawing.Size(110, 22)
-        Me.BTN_ExcelToGrid2.Text = "변환"
-        '
         'CMS_ColumnMenu
         '
-        Me.CMS_ColumnMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_PartCode, Me.BTN_PartNo, Me.BTN_Qty, Me.ToolStripSeparator2, Me.BTN_ExcelToGrid})
+        Me.CMS_ColumnMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_PartCode, Me.BTN_PartNo, Me.BTN_Qty, Me.BTN_Vendor})
         Me.CMS_ColumnMenu.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu.Size = New System.Drawing.Size(123, 98)
+        Me.CMS_ColumnMenu.Size = New System.Drawing.Size(123, 92)
         '
         'BTN_PartCode
         '
@@ -361,16 +349,11 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_Qty.Size = New System.Drawing.Size(122, 22)
         Me.BTN_Qty.Text = "입고수량"
         '
-        'ToolStripSeparator2
+        'BTN_Vendor
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(119, 6)
-        '
-        'BTN_ExcelToGrid
-        '
-        Me.BTN_ExcelToGrid.Name = "BTN_ExcelToGrid"
-        Me.BTN_ExcelToGrid.Size = New System.Drawing.Size(122, 22)
-        Me.BTN_ExcelToGrid.Text = "변환"
+        Me.BTN_Vendor.Name = "BTN_Vendor"
+        Me.BTN_Vendor.Size = New System.Drawing.Size(122, 22)
+        Me.BTN_Vendor.Text = "제조사"
         '
         'CB_Supplier
         '
@@ -394,6 +377,20 @@ Partial Class frm_Supplier_Document_Register
         Me.Label4.TabIndex = 26
         Me.Label4.Text = "공급사"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_ExcelToGrid
+        '
+        Me.BTN_ExcelToGrid.Enabled = False
+        Me.BTN_ExcelToGrid.Image = Global.YJ_MMS.My.Resources.Resources.arrow_double
+        Me.BTN_ExcelToGrid.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_ExcelToGrid.Location = New System.Drawing.Point(889, 296)
+        Me.BTN_ExcelToGrid.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.BTN_ExcelToGrid.Name = "BTN_ExcelToGrid"
+        Me.BTN_ExcelToGrid.Size = New System.Drawing.Size(75, 47)
+        Me.BTN_ExcelToGrid.TabIndex = 22
+        Me.BTN_ExcelToGrid.Text = "변환하기"
+        Me.BTN_ExcelToGrid.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_ExcelToGrid.UseVisualStyleBackColor = True
         '
         'BTN_Search
         '
@@ -490,14 +487,12 @@ Partial Class frm_Supplier_Document_Register
     Friend WithEvents BTN_PartCode As ToolStripMenuItem
     Friend WithEvents BTN_PartNo As ToolStripMenuItem
     Friend WithEvents BTN_Qty As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents BTN_ExcelToGrid2 As ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
-    Friend WithEvents BTN_ExcelToGrid As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents BTN_NewDocuments As ToolStripButton
     Friend WithEvents CB_Supplier As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents BTN_Save As ToolStripButton
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents BTN_ExcelToGrid As Button
+    Friend WithEvents BTN_Vendor As ToolStripMenuItem
 End Class

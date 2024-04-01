@@ -71,6 +71,7 @@
     <Reference Include="C1.Win.C1Command.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Editor.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1FlexGrid.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
@@ -85,6 +86,7 @@
       <HintPath>..\Add DLL\RegistryEdit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
@@ -187,6 +189,12 @@
     <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.Designer.vb">
+      <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing.Designer.vb">
       <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
     </Compile>
@@ -263,6 +271,12 @@
       <DependentUpon>frm_MMPS_History.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.Designer.vb">
+      <DependentUpon>frm_SMD_Production_End.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.Designer.vb">
@@ -380,6 +394,9 @@
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.resx">
       <DependentUpon>frm_Material_CheckRequirements.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.resx">
+      <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing.resx">
       <DependentUpon>frm_Material_Warehousing.vb</DependentUpon>
     </EmbeddedResource>
@@ -418,6 +435,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.resx">
       <DependentUpon>frm_MMPS_History.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.resx">
+      <DependentUpon>frm_SMD_Production_End.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.resx">
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
@@ -755,6 +775,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\blue_question_mark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_double1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

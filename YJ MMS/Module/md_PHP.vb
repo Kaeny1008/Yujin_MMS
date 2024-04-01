@@ -22,7 +22,7 @@ Module md_PHP
                 str = sr.ReadToEnd()
                 sr.Close()
             End Using
-
+            Console.WriteLine(str)
             Dim jsonstring As String = str
             Dim json_results As New System.Net.Json.JsonTextParser
             Dim j_result As System.Net.Json.JsonObjectCollection
@@ -52,6 +52,7 @@ Module md_PHP
                 End If
             Next
             Return "Success!@" & output
+            'Console.WriteLine(output)
         Catch ex As Exception
             Return "Fail!@" & ex.Message
         End Try

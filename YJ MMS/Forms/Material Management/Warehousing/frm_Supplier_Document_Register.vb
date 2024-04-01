@@ -27,14 +27,15 @@ Public Class frm_Supplier_Document_Register
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 4
+            .Cols.Count = 5
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
             Grid_MaterialList(0, 0) = "No"
             Grid_MaterialList(0, 1) = "자재코드"
             Grid_MaterialList(0, 2) = "Part No."
-            Grid_MaterialList(0, 3) = "입고수량"
+            Grid_MaterialList(0, 3) = "제조사"
+            Grid_MaterialList(0, 4) = "입고수량"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -231,6 +232,7 @@ Public Class frm_Supplier_Document_Register
         GridRedraw(True, Me, Grid_Excel)
 
         Thread_LoadingFormEnd()
+        ButtonEnabled(True, Me, BTN_ExcelToGrid)
 
         MessageBox.Show("각 항목의 위치를 선택하여 주십시오.",
                         msg_form,
@@ -289,11 +291,13 @@ Public Class frm_Supplier_Document_Register
     Dim col_PartCode As Integer = 0
     Dim col_PartNo As Integer = 0
     Dim col_Qty As Integer = 0
+    Dim col_vendor As Integer = 0
     Dim row_Start As Integer = 0
 
     Private Sub Button_Click(sender As Object, e As EventArgs) Handles BTN_PartCode.Click,
         BTN_PartNo.Click,
-        BTN_Qty.Click
+        BTN_Qty.Click,
+        BTN_Vendor.Click
 
         Dim selName As String = sender.ToString
 
@@ -314,6 +318,8 @@ Public Class frm_Supplier_Document_Register
             col_PartNo = Grid_Excel.Col
         ElseIf selName = BTN_Qty.Text Then
             col_Qty = Grid_Excel.Col
+        ElseIf selName = BTN_vendor.Text Then
+            col_vendor = Grid_Excel.Col
         End If
 
     End Sub
@@ -330,7 +336,7 @@ Public Class frm_Supplier_Document_Register
 
     End Sub
 
-    Private Sub BTN_ExcelToGrid_Click(sender As Object, e As EventArgs) Handles BTN_ExcelToGrid2.Click, BTN_ExcelToGrid.Click
+    Private Sub BTN_ExcelToGrid_Click(sender As Object, e As EventArgs) Handles BTN_ExcelToGrid.Click
 
         Dim msgString As String = String.Empty
 
@@ -369,23 +375,40 @@ Public Class frm_Supplier_Document_Register
         Thread_LoadingFormStart("Excel Load...")
 
         GridRedraw(False, Me, Grid_MaterialList)
+        GridRowReset(1, Me, Grid_MaterialList)
 
         Try
             With excelApp.ActiveWorkbook.Sheets(ComboBoxTextReading(Me, CB_SheetName))
+                Dim totalQty As Double = 0
                 For i = row_Start To .UsedRange.Rows.Count
                     Dim partCode As String = String.Empty
                     If Not col_PartCode = 0 Then partCode = Trim(.Cells(i, col_PartCode).Value)
                     Dim partNo As String = String.Empty
                     If Not col_PartNo = 0 Then partNo = Trim(.Cells(i, col_PartNo).Value)
-                    Dim qty As Double = Trim(.Cells(i, col_Qty).Value)
 
-                    GridWriteText(Grid_MaterialList.Rows.Count & vbTab &
-                                  partCode & vbTab &
-                                  partNo & vbTab &
-                                  Format(qty, "#,##0"),
-                                  Me,
-                                  Grid_MaterialList, Color.Black)
+                    If Not partCode = String.Empty Or Not partNo = String.Empty Then
+                        Dim qty As Double = Trim(.Cells(i, col_Qty).Value)
+                        Dim vendor As String = String.Empty
+                        If Not col_vendor = 0 Then vendor = Trim(.Cells(i, col_vendor).Value)
+                        If Not qty = 0 Then
+                            '아이템코드나 파트넘버가 비어 있다면 입력하지 않는다.
+                            '수량이 0인것도 입력 X
+                            GridWriteText(Grid_MaterialList.Rows.Count & vbTab &
+                                          partCode & vbTab &
+                                          partNo & vbTab &
+                                          vendor & vbTab &
+                                          Format(qty, "#,##0"),
+                                          Me,
+                                          Grid_MaterialList, Color.Black)
+                            totalQty += qty
+                        End If
+                    End If
                 Next
+                MessageBox.Show(frm_Main,
+                                "총 입고수량 : " & totalQty & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
             End With
         Catch ex As Exception
             MessageBox.Show(frm_Main,
@@ -393,8 +416,6 @@ Public Class frm_Supplier_Document_Register
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error)
-        Finally
-
         End Try
 
         GridColsAutoSize(Me, Grid_MaterialList)
@@ -439,6 +460,12 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub BTN_NewDocuments_Click(sender As Object, e As EventArgs) Handles BTN_NewDocuments.Click
 
+        col_PartCode = 0
+        col_PartNo = 0
+        col_Qty = 0
+        col_vendor = 0
+        row_Start = 0
+
         CB_Supplier.Enabled = True
 
         BTN_FileSelect.Enabled = True
@@ -481,14 +508,15 @@ Public Class frm_Supplier_Document_Register
         Try
             For i = 1 To Grid_MaterialList.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_warehousing_document("
-                strSQL += "wd_no, document_no, supplier, part_code, part_no, part_qty, write_date, write_id"
+                strSQL += "wd_no, document_no, supplier, part_code, part_no, vendor, part_qty, write_date, write_id"
                 strSQL += ") values("
                 strSQL += "'" & documentNo & "-" & Format(i, "0000") & "'"
                 strSQL += ", '" & documentNo & "'"
                 strSQL += ", '" & CB_Supplier.Text & "'"
                 strSQL += ", '" & Grid_MaterialList(i, 1) & "'"
                 strSQL += ", '" & Grid_MaterialList(i, 2) & "'"
-                strSQL += ", '" & CInt(Grid_MaterialList(i, 3)) & "'"
+                strSQL += ", '" & Grid_MaterialList(i, 3) & "'"
+                strSQL += ", '" & CInt(Grid_MaterialList(i, 4)) & "'"
                 strSQL += ", '" & writeDate & "'"
                 strSQL += ", '" & loginID & "');"
             Next
@@ -522,6 +550,7 @@ Public Class frm_Supplier_Document_Register
         BTN_FileSelect.Enabled = False
         CB_SheetName.Enabled = False
         CB_Supplier.Enabled = False
+        BTN_ExcelToGrid.Enabled = False
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
