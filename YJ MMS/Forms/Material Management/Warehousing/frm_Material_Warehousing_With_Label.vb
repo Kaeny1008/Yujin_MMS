@@ -670,12 +670,12 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += ", '" & TB_CustomerCode.Text & "'"
             strSQL += ", '" & TB_CustomerPartCode.Text & "'"
             strSQL += ", '" & TB_Vendor.Text & "'"
-            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
             strSQL += ", '" & CInt(TB_Qty.Text) & "'"
-            strSQL += ", '" & barcode1 & "'"
-            strSQL += ", '" & barcode2 & "'"
-            strSQL += ", '" & barcode3 & "'"
+            strSQL += ", '" & Replace(barcode1, "'", "\'") & "'"
+            strSQL += ", '" & Replace(barcode2, "'", "\'") & "'"
+            strSQL += ", '" & Replace(barcode3, "'", "\'") & "'"
             strSQL += ", '" & writeDate & "'"
             strSQL += ", '" & loginID & "');"
 
@@ -689,7 +689,7 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += ",'" & TB_CustomerCode.Text & "'"
             strSQL += ",'" & TB_CustomerPartCode.Text & "'"
             strSQL += ", '" & TB_Vendor.Text & "'"
-            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
             strSQL += ", '" & TB_BarcodeScan.Text & "'"
             strSQL += ", ''"
             strSQL += ", '" & writeDate & "'"
@@ -698,7 +698,7 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += " (select * from tb_mms_part_mapping"
             strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             strSQL += " and part_code = '" & TB_CustomerPartCode.Text & "'"
-            strSQL += " and part_no = '" & TB_PartNo.Text & "')"
+            strSQL += " and part_no = '" & Replace(TB_PartNo.Text, "'", "\'") & "')"
             strSQL += ";"
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
@@ -969,6 +969,15 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Sub CB_Vendor_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Vendor.SelectionChangeCommitted
 
+        Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(CB_Vendor.Text)
+        Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(CB_Vendor.Text)
+
+        If asciiTest <> unicodeTest Then
+            MessageBox.Show(Me, "Vendor명에 한글을 입력할 수 없습니다.(Barcode)", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            CB_Vendor.SelectedIndex = -1
+            Exit Sub
+        End If
+
         TB_BarcodeScan.SelectAll()
         TB_BarcodeScan.Focus()
 
@@ -1019,6 +1028,10 @@ Public Class frm_Material_Warehousing_With_Label
                    CInt(Grid_PartList(selRow, 10)),
                    Grid_PartList(selRow, 7),
                    1)
+
+    End Sub
+
+    Private Sub CB_Vendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Vendor.SelectedIndexChanged
 
     End Sub
 End Class

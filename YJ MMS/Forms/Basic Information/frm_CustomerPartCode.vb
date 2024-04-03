@@ -486,7 +486,7 @@ Public Class frm_CustomerPartCode
 
         Grid_PartList.Redraw = False
 
-        Grid_PartList.AddItem("N", Grid_PartList.Row + 1)
+        Grid_PartList.AddItem("N" & vbTab & Format(Now, "yyMMddHHmmssfff"), Grid_PartList.Row + 1)
         Grid_PartList.Rows(Grid_PartList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
         Grid_PartList.Select(Grid_PartList.Row + 1, 2)
 

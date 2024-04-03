@@ -34,6 +34,7 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.TB_DocumentNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TB_BarcodeScan = New System.Windows.Forms.TextBox()
         Me.TB_ItemCode = New System.Windows.Forms.TextBox()
@@ -85,7 +86,6 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -257,6 +257,16 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1025, 297)
         Me.Panel2.TabIndex = 32
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(467, 121)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(128, 16)
+        Me.CheckBox1.TabIndex = 30
+        Me.CheckBox1.Text = "수량 자동입력 금지"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
@@ -800,16 +810,6 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.BTN_RePrint.Name = "BTN_RePrint"
         Me.BTN_RePrint.Size = New System.Drawing.Size(110, 22)
         Me.BTN_RePrint.Text = "재발행"
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(467, 121)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(128, 16)
-        Me.CheckBox1.TabIndex = 30
-        Me.CheckBox1.Text = "수량 자동입력 금지"
-        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'frm_Material_Warehousing_With_Label
         '

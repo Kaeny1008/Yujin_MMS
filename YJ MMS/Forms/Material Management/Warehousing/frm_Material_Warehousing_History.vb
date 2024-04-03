@@ -23,7 +23,8 @@ Public Class frm_Material_Warehousing_History
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 25
-            .Cols.Count = (DTP_End.Value.Day - DTP_Start.Value.Day) + 1 + 6
+            '.Cols.Count = (DTP_End.Value.Day - DTP_Start.Value.Day) + 1 + 6
+            .Cols.Count = DateDiff(DateInterval.Day, DTP_Start.Value, DTP_End.Value) + 1 + 6
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1

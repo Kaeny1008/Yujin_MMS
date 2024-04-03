@@ -285,6 +285,12 @@
     <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.Designer.vb">
+      <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.Designer.vb">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
     </Compile>
@@ -441,6 +447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.resx">
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.resx">
+      <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.resx">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
@@ -778,6 +787,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_double1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkmark1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DeviceData1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ordering_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\order-history_321.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Stop1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

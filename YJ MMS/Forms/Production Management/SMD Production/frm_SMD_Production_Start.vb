@@ -533,4 +533,8 @@ Public Class frm_SMD_Production_Start
     Private Sub CB_Department_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Department.SelectedIndexChanged
 
     End Sub
+
+    Private Sub CB_Line_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Line.SelectedIndexChanged
+
+    End Sub
 End Class
