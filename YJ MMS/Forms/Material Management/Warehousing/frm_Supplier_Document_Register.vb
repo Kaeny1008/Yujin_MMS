@@ -387,7 +387,8 @@ Public Class frm_Supplier_Document_Register
                     If Not col_PartNo = 0 Then partNo = Trim(.Cells(i, col_PartNo).Value)
 
                     If Not partCode = String.Empty Or Not partNo = String.Empty Then
-                        Dim qty As Double = Trim(.Cells(i, col_Qty).Value)
+                        Dim qty As Double = 0
+                        If not Trim(.Cells(i, col_Qty).Value) = String.Empty Then qty =Trim(.Cells(i, col_Qty).Value)
                         Dim vendor As String = String.Empty
                         If Not col_vendor = 0 Then vendor = Trim(.Cells(i, col_vendor).Value)
                         If Not qty = 0 Then

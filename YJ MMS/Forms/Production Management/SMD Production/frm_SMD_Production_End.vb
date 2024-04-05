@@ -164,6 +164,8 @@ Public Class frm_SMD_Production_End
         TB_Operator.Text = String.Empty
 
         Load_OrderInformation()
+        Load_InspectList()
+
 
         If TB_OrderIndex.Text = String.Empty Then
             Thread_LoadingFormEnd()
@@ -187,6 +189,7 @@ Public Class frm_SMD_Production_End
         Dim strSQL As String = "call sp_mms_smd_production_end(0"
         strSQL += ", '" & CB_Department.Text & "'"
         strSQL += ", '" & CB_Line.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -210,17 +213,67 @@ Public Class frm_SMD_Production_End
 
     End Sub
 
+    Private Sub Load_InspectList()
+
+        Grid_History.Redraw = False
+        Grid_History.Rows.Count = 2
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_smd_production_end(3"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            Dim endDate As String = sqlDR("smd_end_date")
+            If Not endDate = String.Empty Then
+                Format(sqlDR("smd_end_date"), "yyyy-MM-dd HH:mm:ss")
+            End If
+            Dim insertString As String = Grid_History.Rows.Count - 1 & vbTab &
+                Format(sqlDR("smd_start_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
+                endDate & vbTab &
+                sqlDR("smd_operater") & vbTab &
+                sqlDR("smd_inspecter") & vbTab &
+                sqlDR("start_quantity") & vbTab &
+                sqlDR("fault_quantity") & vbTab &
+                sqlDR("end_quantity")
+
+            GridWriteText(insertString, Me, Grid_History, Color.Black)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_History.AutoSizeCols()
+        Grid_History.Redraw = True
+
+    End Sub
+
     Private Sub BTN_FaultRegister_Click(sender As Object, e As EventArgs) Handles BTN_FaultRegister.Click
 
-        'If TB_OrderIndex.Text = String.Empty Then
-        '    MessageBox.Show("생산중인 모델이 없습니다.",
-        '                    msg_form,
-        '                    MessageBoxButtons.OK,
-        '                    MessageBoxIcon.Information)
-        '    Exit Sub
-        'End If
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
-        frm_SMD_Fault_Register.Label1.Text = historyIndex
+        If TB_Inspecter.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        frm_SMD_Fault_Register.Label1.Text = TB_OrderIndex.Text
+        frm_SMD_Fault_Register.Label2.Text = historyIndex
         If Not frm_SMD_Fault_Register.Visible Then frm_SMD_Fault_Register.Show()
         frm_SMD_Fault_Register.Focus()
 

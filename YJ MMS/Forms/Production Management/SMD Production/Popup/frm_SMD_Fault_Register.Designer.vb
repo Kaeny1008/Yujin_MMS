@@ -24,11 +24,12 @@ Partial Class frm_SMD_Fault_Register
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Fault_Register))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Grid_Fault = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.BTN_RowAdd = New System.Windows.Forms.Button()
-        Me.BTN_RowDelete = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BTN_Exit = New System.Windows.Forms.Button()
+        Me.BTN_RowDelete = New System.Windows.Forms.Button()
+        Me.BTN_RowAdd = New System.Windows.Forms.Button()
+        Me.Grid_Fault = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_Fault, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -36,6 +37,7 @@ Partial Class frm_SMD_Fault_Register
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.BTN_Exit)
         Me.Panel1.Controls.Add(Me.BTN_RowDelete)
@@ -45,6 +47,56 @@ Partial Class frm_SMD_Fault_Register
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 62)
         Me.Panel1.TabIndex = 0
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(25, 26)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(67, 12)
+        Me.Label1.TabIndex = 32
+        Me.Label1.Text = "oder_index"
+        Me.Label1.Visible = False
+        '
+        'BTN_Exit
+        '
+        Me.BTN_Exit.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Exit.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Exit.Location = New System.Drawing.Point(644, 12)
+        Me.BTN_Exit.Name = "BTN_Exit"
+        Me.BTN_Exit.Size = New System.Drawing.Size(144, 37)
+        Me.BTN_Exit.TabIndex = 31
+        Me.BTN_Exit.Text = "창 닫기(저장)"
+        Me.BTN_Exit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Exit.UseVisualStyleBackColor = True
+        '
+        'BTN_RowDelete
+        '
+        Me.BTN_RowDelete.Enabled = False
+        Me.BTN_RowDelete.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_RowDelete.Image = Global.YJ_MMS.My.Resources.Resources.minus_blue
+        Me.BTN_RowDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_RowDelete.Location = New System.Drawing.Point(526, 12)
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(112, 37)
+        Me.BTN_RowDelete.TabIndex = 31
+        Me.BTN_RowDelete.Text = "행삭제(F3)"
+        Me.BTN_RowDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_RowDelete.UseVisualStyleBackColor = True
+        '
+        'BTN_RowAdd
+        '
+        Me.BTN_RowAdd.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_RowAdd.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
+        Me.BTN_RowAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_RowAdd.Location = New System.Drawing.Point(408, 12)
+        Me.BTN_RowAdd.Name = "BTN_RowAdd"
+        Me.BTN_RowAdd.Size = New System.Drawing.Size(112, 37)
+        Me.BTN_RowAdd.TabIndex = 30
+        Me.BTN_RowAdd.Text = "행추가(F1)"
+        Me.BTN_RowAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_RowAdd.UseVisualStyleBackColor = True
         '
         'Grid_Fault
         '
@@ -61,53 +113,15 @@ Partial Class frm_SMD_Fault_Register
         Me.Grid_Fault.TabIndex = 6
         Me.Grid_Fault.UseCompatibleTextRendering = True
         '
-        'BTN_RowAdd
+        'Label2
         '
-        Me.BTN_RowAdd.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_RowAdd.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
-        Me.BTN_RowAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RowAdd.Location = New System.Drawing.Point(408, 12)
-        Me.BTN_RowAdd.Name = "BTN_RowAdd"
-        Me.BTN_RowAdd.Size = New System.Drawing.Size(112, 37)
-        Me.BTN_RowAdd.TabIndex = 30
-        Me.BTN_RowAdd.Text = "행추가(F1)"
-        Me.BTN_RowAdd.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_RowAdd.UseVisualStyleBackColor = True
-        '
-        'BTN_RowDelete
-        '
-        Me.BTN_RowDelete.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_RowDelete.Image = Global.YJ_MMS.My.Resources.Resources.minus_blue
-        Me.BTN_RowDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RowDelete.Location = New System.Drawing.Point(526, 12)
-        Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(112, 37)
-        Me.BTN_RowDelete.TabIndex = 31
-        Me.BTN_RowDelete.Text = "행삭제(F3)"
-        Me.BTN_RowDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_RowDelete.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(25, 26)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(42, 12)
-        Me.Label1.TabIndex = 32
-        Me.Label1.Text = "Label1"
-        '
-        'BTN_Exit
-        '
-        Me.BTN_Exit.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Exit.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.BTN_Exit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Exit.Location = New System.Drawing.Point(644, 12)
-        Me.BTN_Exit.Name = "BTN_Exit"
-        Me.BTN_Exit.Size = New System.Drawing.Size(144, 37)
-        Me.BTN_Exit.TabIndex = 31
-        Me.BTN_Exit.Text = "창 닫기(저장)"
-        Me.BTN_Exit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Exit.UseVisualStyleBackColor = True
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(25, 38)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(80, 12)
+        Me.Label2.TabIndex = 33
+        Me.Label2.Text = "history_index"
+        Me.Label2.Visible = False
         '
         'frm_SMD_Fault_Register
         '
@@ -136,4 +150,5 @@ Partial Class frm_SMD_Fault_Register
     Friend WithEvents BTN_RowAdd As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents BTN_Exit As Button
+    Friend WithEvents Label2 As Label
 End Class

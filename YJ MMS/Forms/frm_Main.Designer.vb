@@ -291,7 +291,7 @@ Partial Class frm_Main
         Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.BTN_MaterialWarehousing_History})
         Me.ToolStripComboBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.ToolStripComboBox1.Name = "ToolStripComboBox1"
-        Me.ToolStripComboBox1.Size = New System.Drawing.Size(140, 22)
+        Me.ToolStripComboBox1.Size = New System.Drawing.Size(180, 22)
         Me.ToolStripComboBox1.Text = "입고"
         Me.ToolStripComboBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -323,7 +323,7 @@ Partial Class frm_Main
         '
         Me.BTN_Material_CheckRequirements.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_CheckRequirements.Name = "BTN_Material_CheckRequirements"
-        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(140, 22)
+        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Material_CheckRequirements.Text = "소요량 확인"
         '
         'ToolStripDropDownButton2
@@ -360,13 +360,13 @@ Partial Class frm_Main
         'BTN_MMPS_DeviceData
         '
         Me.BTN_MMPS_DeviceData.Name = "BTN_MMPS_DeviceData"
-        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(174, 22)
+        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(180, 22)
         Me.BTN_MMPS_DeviceData.Text = "Device Data 등록"
         '
         'BTN_MMPS_History
         '
         Me.BTN_MMPS_History.Name = "BTN_MMPS_History"
-        Me.BTN_MMPS_History.Size = New System.Drawing.Size(174, 22)
+        Me.BTN_MMPS_History.Size = New System.Drawing.Size(180, 22)
         Me.BTN_MMPS_History.Text = "오삽방지 이력보기"
         '
         'SMD생산ToolStripMenuItem
@@ -387,7 +387,7 @@ Partial Class frm_Main
         '
         Me.BTN_SMD_ProductionEnd.Name = "BTN_SMD_ProductionEnd"
         Me.BTN_SMD_ProductionEnd.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_SMD_ProductionEnd.Text = "완료내역 등록"
+        Me.BTN_SMD_ProductionEnd.Text = "검사내역 등록"
         '
         'ToolStripSeparator4
         '

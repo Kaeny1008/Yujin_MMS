@@ -376,8 +376,9 @@ Public Class frm_Material_Warehousing_With_Label
     End Sub
 
     Private Sub TB_BarcodeScan_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_BarcodeScan.KeyPress
-        'Console.WriteLine("Key : " & e.KeyChar & " , ascii : " & Asc(e.KeyChar))
+        Console.WriteLine("Key : " & e.KeyChar & " , ascii : " & Asc(e.KeyChar))
         If Asc(e.KeyChar) = 29 Then e.KeyChar = "!"
+        If Asc(e.KeyChar) = 35 Then e.KeyChar = "!" '#
     End Sub
 
     Private Sub TB_BarcodeScan_TextChanged_1(sender As Object, e As EventArgs) Handles TB_BarcodeScan.TextChanged

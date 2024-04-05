@@ -54,6 +54,9 @@ Partial Class frm_SMD_Production_End
         Me.BTN_FaultRegister = New System.Windows.Forms.Button()
         Me.BTN_LineSelect = New System.Windows.Forms.Button()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -73,6 +76,9 @@ Partial Class frm_SMD_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label13)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_WorkingQty)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_EndRegister)
@@ -475,6 +481,33 @@ Partial Class frm_SMD_Production_End
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(698, 155)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(63, 12)
+        Me.Label11.TabIndex = 34
+        Me.Label11.Text = "(불량기록)"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(808, 155)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(79, 12)
+        Me.Label12.TabIndex = 35
+        Me.Label12.Text = "(메거진 단위)"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(934, 155)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(63, 12)
+        Me.Label13.TabIndex = 36
+        Me.Label13.Text = "(생산완료)"
+        '
         'frm_SMD_Production_End
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -483,7 +516,7 @@ Partial Class frm_SMD_Production_End
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
         Me.Name = "frm_SMD_Production_End"
-        Me.Text = "SMD 완료내역 등록"
+        Me.Text = "SMD 검사내역 등록"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
@@ -528,4 +561,7 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents TB_WorkingQty As TextBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents Label11 As Label
 End Class
