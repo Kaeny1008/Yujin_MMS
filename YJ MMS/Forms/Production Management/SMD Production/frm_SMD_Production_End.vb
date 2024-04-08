@@ -147,7 +147,7 @@ Public Class frm_SMD_Production_End
 
     End Sub
 
-    Private Sub BTN_LineSelect_Click(sender As Object, e As EventArgs) Handles BTN_LineSelect.Click
+    Public Sub BTN_LineSelect_Click(sender As Object, e As EventArgs) Handles BTN_LineSelect.Click
 
         Thread_LoadingFormStart()
 
@@ -169,7 +169,8 @@ Public Class frm_SMD_Production_End
 
         If TB_OrderIndex.Text = String.Empty Then
             Thread_LoadingFormEnd()
-            MessageBox.Show("생산진행 중인 내역이 없습니다.",
+            MessageBox.Show(frm_Main,
+                            "생산진행 중인 내역이 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
@@ -189,6 +190,7 @@ Public Class frm_SMD_Production_End
         Dim strSQL As String = "call sp_mms_smd_production_end(0"
         strSQL += ", '" & CB_Department.Text & "'"
         strSQL += ", '" & CB_Line.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
 
@@ -224,6 +226,7 @@ Public Class frm_SMD_Production_End
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -241,15 +244,18 @@ Public Class frm_SMD_Production_End
                 sqlDR("smd_inspecter") & vbTab &
                 sqlDR("start_quantity") & vbTab &
                 sqlDR("fault_quantity") & vbTab &
-                sqlDR("end_quantity")
+                sqlDR("end_quantity") & vbTab &
+                sqlDR("history_note")
 
             GridWriteText(insertString, Me, Grid_History, Color.Black)
+            TB_Inspector.Text = sqlDR("smd_inspecter")
         Loop
         sqlDR.Close()
 
         DBClose()
 
         Grid_History.AutoSizeCols()
+        Grid_History.AutoSizeRows(2, 0, Grid_History.Rows.Count - 1, Grid_History.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_History.Redraw = True
 
     End Sub
@@ -264,7 +270,7 @@ Public Class frm_SMD_Production_End
             Exit Sub
         End If
 
-        If TB_Inspecter.Text = String.Empty Then
+        If TB_Inspector.Text = String.Empty Then
             MessageBox.Show("검사자를 입력하여 주십시오.",
                             msg_form,
                             MessageBoxButtons.OK,
@@ -281,13 +287,41 @@ Public Class frm_SMD_Production_End
 
     Private Sub BTN_PauseRegister_Click(sender As Object, e As EventArgs) Handles BTN_PauseRegister.Click
 
-        'If TB_OrderIndex.Text = String.Empty Then
-        '    MessageBox.Show("생산중인 모델이 없습니다.",
-        '                    msg_form,
-        '                    MessageBoxButtons.OK,
-        '                    MessageBoxIcon.Information)
-        '    Exit Sub
-        'End If
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Dim totalDefectCount As Integer = 0
+
+        For i = 2 To Grid_History.Rows.Count - 1
+            totalDefectCount += Grid_History(i, 6)
+        Next
+
+        frm_SMD_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 5)
+        frm_SMD_Magazine_Kitting.totalDefectCount = totalDefectCount
+        frm_SMD_Magazine_Kitting.workingCount = TB_WorkingQty.Text
+        frm_SMD_Magazine_Kitting.TB_TotalQty.Text = TB_WorkingQty.Text
+        frm_SMD_Magazine_Kitting.TB_ItemCode.Text = TB_ItemCode.Text
+        frm_SMD_Magazine_Kitting.TB_ItemName.Text = TB_ItemName.Text
+        frm_SMD_Magazine_Kitting.TB_PONo.Text = TB_OrderIndex.Text
+        frm_SMD_Magazine_Kitting.TB_SMDLine.Text = CB_Line.Text
+        frm_SMD_Magazine_Kitting.TB_TB.Text = TB_Workside.Text
+        frm_SMD_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
+        frm_SMD_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
+        If Not frm_SMD_Magazine_Kitting.Visible Then frm_SMD_Magazine_Kitting.Show()
+        frm_SMD_Magazine_Kitting.Focus()
 
     End Sub
 
@@ -300,6 +334,10 @@ Public Class frm_SMD_Production_End
         '                    MessageBoxIcon.Information)
         '    Exit Sub
         'End If
+
+    End Sub
+
+    Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
 
     End Sub
 End Class

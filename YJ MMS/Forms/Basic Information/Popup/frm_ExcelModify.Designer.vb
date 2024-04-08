@@ -41,6 +41,7 @@ Partial Class frm_ExcelModify
         Me.BTN_Y = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_A = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_TB = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Type = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_ColumnMenu1.SuspendLayout()
         Me.CMS_RowMenu.SuspendLayout()
@@ -122,9 +123,9 @@ Partial Class frm_ExcelModify
         '
         'CMS_ColumnMenu1
         '
-        Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref1, Me.BTN_PartNo})
+        Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref1, Me.BTN_PartNo, Me.BTN_Type})
         Me.CMS_ColumnMenu1.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 48)
+        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 92)
         '
         'BTN_Ref1
         '
@@ -154,37 +155,43 @@ Partial Class frm_ExcelModify
         '
         Me.CMS_ColumnMenu2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref2, Me.BTN_X, Me.BTN_Y, Me.BTN_A, Me.BTN_TB})
         Me.CMS_ColumnMenu2.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu2.Size = New System.Drawing.Size(181, 136)
+        Me.CMS_ColumnMenu2.Size = New System.Drawing.Size(154, 114)
         '
         'BTN_Ref2
         '
         Me.BTN_Ref2.Name = "BTN_Ref2"
-        Me.BTN_Ref2.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Ref2.Size = New System.Drawing.Size(153, 22)
         Me.BTN_Ref2.Text = "Ref( Location )"
         '
         'BTN_X
         '
         Me.BTN_X.Name = "BTN_X"
-        Me.BTN_X.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_X.Size = New System.Drawing.Size(153, 22)
         Me.BTN_X.Text = "X"
         '
         'BTN_Y
         '
         Me.BTN_Y.Name = "BTN_Y"
-        Me.BTN_Y.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Y.Size = New System.Drawing.Size(153, 22)
         Me.BTN_Y.Text = "Y"
         '
         'BTN_A
         '
         Me.BTN_A.Name = "BTN_A"
-        Me.BTN_A.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_A.Size = New System.Drawing.Size(153, 22)
         Me.BTN_A.Text = "A"
         '
         'BTN_TB
         '
         Me.BTN_TB.Name = "BTN_TB"
-        Me.BTN_TB.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_TB.Size = New System.Drawing.Size(153, 22)
         Me.BTN_TB.Text = "Top / Bottom"
+        '
+        'BTN_Type
+        '
+        Me.BTN_Type.Name = "BTN_Type"
+        Me.BTN_Type.Size = New System.Drawing.Size(187, 22)
+        Me.BTN_Type.Text = "Material Type"
         '
         'frm_ExcelModify
         '
@@ -229,4 +236,5 @@ Partial Class frm_ExcelModify
     Friend WithEvents BTN_Y As ToolStripMenuItem
     Friend WithEvents BTN_A As ToolStripMenuItem
     Friend WithEvents BTN_TB As ToolStripMenuItem
+    Friend WithEvents BTN_Type As ToolStripMenuItem
 End Class

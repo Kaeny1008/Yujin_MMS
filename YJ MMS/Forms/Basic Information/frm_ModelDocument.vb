@@ -21,7 +21,7 @@ Public Class frm_ModelDocument
     Friend BTN(21) As Button
     Dim runProcess As Thread
 
-    Public ref_col, part_col, spec_col, x_col, y_col, a_col, tb_col As Integer
+    Public ref_col, part_col, spec_col, x_col, y_col, a_col, tb_col, type_col As Integer
     Public start_row As Integer
     Public sheet_name As String
 
@@ -138,13 +138,14 @@ Public Class frm_ModelDocument
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 3
+            .Cols.Count = 4
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
             Grid_BOM(0, 0) = "No"
             Grid_BOM(0, 1) = "Ref( Location )"
             Grid_BOM(0, 2) = "Part No.( Part Code )"
+            Grid_BOM(0, 3) = "Material Type"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -384,6 +385,16 @@ Public Class frm_ModelDocument
                 For i = start_row To .UsedRange.Rows.Count
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim partString As String = Trim(.Cells(i, part_col).Value)
+                    Dim typeString As String = Trim(.Cells(i, type_col).Value)
+
+                    If typeString = "Ass'y" Then
+                        MessageBox.Show(frm_Main,
+                                        "Loader PCB가 검색 되었습니다. Loader PCB 사용으로 변경됩니다.",
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Information)
+                        RadioButtonChecked(True, Me, RadioButton4)
+                    End If
 
                     'If partString.Equals("1203020601") Then
                     '    For j = 0 To refString.Length - 1
@@ -411,10 +422,16 @@ Public Class frm_ModelDocument
                                     fNumber = CInt(Regex.Replace(lcSplit(0), "\D", "")) '처음 시작하는 숫자
                                     fNumber2 = CInt(Regex.Replace(lcSplit(UBound(Split(split_Ref(j), "~"))), "\D", "")) '마지막 숫자
                                     For jj = fNumber To fNumber2
-                                        GridWriteText(Grid_BOM.Rows.Count & vbTab & (lName & jj) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                        GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                                                      (lName & jj) & vbTab &
+                                                      partString & vbTab &
+                                                      typeString, Me, Grid_BOM, Color.Black)
                                     Next
                                 Else
-                                    GridWriteText(Grid_BOM.Rows.Count & vbTab & split_Ref(j) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                    GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                                                  split_Ref(j) & vbTab &
+                                                  partString & vbTab &
+                                                  typeString, Me, Grid_BOM, Color.Black)
                                 End If
                             Next
                         Else
@@ -424,14 +441,23 @@ Public Class frm_ModelDocument
                                 fNumber = CInt(Regex.Replace(lcSplit(0), "\D", "")) '처음 시작하는 숫자
                                 fNumber2 = CInt(Regex.Replace(lcSplit(UBound(Split(split_Ref(0), "~"))), "\D", "")) '마지막 숫자
                                 For jj = fNumber To fNumber2
-                                    GridWriteText(Grid_BOM.Rows.Count & vbTab & (lName & jj) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                    GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                                                  (lName & jj) & vbTab &
+                                                  partString & vbTab &
+                                                  typeString, Me, Grid_BOM, Color.Black)
                                 Next
                             Else
-                                GridWriteText(Grid_BOM.Rows.Count & vbTab & split_Ref(0) & vbTab & partString, Me, Grid_BOM, Color.Black)
+                                GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                                              split_Ref(0) & vbTab &
+                                              partString & vbTab &
+                                              typeString, Me, Grid_BOM, Color.Black)
                             End If
                         End If
                     Else
-                        GridWriteText(Grid_BOM.Rows.Count & vbTab & refString & vbTab & partString, Me, Grid_BOM, Color.Black)
+                        GridWriteText(Grid_BOM.Rows.Count & vbTab &
+                                      refString & vbTab &
+                                      partString & vbTab &
+                                      typeString, Me, Grid_BOM, Color.Black)
                     End If
 
                     Invoke(d_SetPGStatus,
@@ -755,6 +781,12 @@ Public Class frm_ModelDocument
                 RadioButton2.Checked = True
             End If
 
+            If sqlDR("loader_pcb") = "사용" Then
+                RadioButton4.Checked = True
+            Else
+                RadioButton3.Checked = True
+            End If
+
             TextBox1.Text = sqlDR("etc_text")
         Loop
         sqlDR.Close()
@@ -811,6 +843,7 @@ Public Class frm_ModelDocument
         For i = 1 To Grid_BOM.Rows.Count - 1
             Dim nowRef As String = Grid_BOM(i, 1)
             Dim nowPart As String = Grid_BOM(i, 2)
+            Dim nowType As String = Grid_BOM(i, 3)
             Dim coodinatesRow As Integer = Grid_Coordinates.FindRow(nowRef, 1, 1, True)
             Dim nowX As String = String.Empty
             Dim nowY As String = String.Empty
@@ -839,7 +872,8 @@ Public Class frm_ModelDocument
                                    nowX & vbTab &
                                    nowY & vbTab &
                                    nowA & vbTab &
-                                   nowTB & vbTab)
+                                   nowTB & vbTab &
+                                   nowType)
 
         Next
 
@@ -1029,12 +1063,13 @@ FTP_Control:
                 strSQL += " and management_no;"
                 For i = 1 To Grid_BOM.Rows.Count - 1
                     strSQL += "insert into tb_model_bom("
-                    strSQL += "customer_code, model_code, management_no, ref, part_no) values("
+                    strSQL += "customer_code, model_code, management_no, ref, part_no, material_type) values("
                     strSQL += "'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & TB_ModelCode.Text & "'"
                     strSQL += ",'" & CB_ManagementNo.Text & "'"
                     strSQL += ",'" & Grid_BOM(i, 1) & "'"
                     strSQL += ",'" & Grid_BOM(i, 2) & "'"
+                    strSQL += ",'" & Replace(Grid_BOM(i, 3), "'", "\'") & "'"
                     strSQL += ");"
                 Next
             End If
@@ -1060,14 +1095,20 @@ FTP_Control:
             End If
 
             Dim useBond As String = RadioButton2.Text
+            Dim useLoaderPCB As String = RadioButton3.Text
 
             If RadioButton1.Checked = True Then
                 useBond = RadioButton1.Text
             End If
 
+            If RadioButton4.Checked = True Then
+                useLoaderPCB = RadioButton4.Text
+            End If
+
             '특이사항 기록
             strSQL += "update tb_model_list set use_bond = '" & useBond & "'"
             strSQL += ", etc_text = '" & TextBox1.Text & "'"
+            strSQL += ", loader_pcb = '" & useLoaderPCB & "'"
             strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
 
@@ -1268,7 +1309,8 @@ FTP_Control:
         Do While sqlDR.Read
             GridWriteText(Grid_BOM.Rows.Count & vbTab &
                           sqlDR("ref") & vbTab &
-                          sqlDR("part_no"),
+                          sqlDR("part_no") & vbTab &
+                          sqlDR("material_type"),
                           Me,
                           Grid_BOM,
                           Color.Black)

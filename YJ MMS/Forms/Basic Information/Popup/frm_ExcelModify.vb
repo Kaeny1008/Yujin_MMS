@@ -15,7 +15,7 @@ Imports C1.Win.C1FlexGrid
 Public Class frm_ExcelModify
 
     Dim runProcess As Thread
-    Public ref_col, part_col, x_col, y_col, a_col, tb_col As Integer
+    Public ref_col, part_col, x_col, y_col, a_col, tb_col, type_col As Integer
     Public start_row As Integer
     Public callMode As String
 
@@ -187,6 +187,7 @@ Public Class frm_ExcelModify
             End If
             frm_ModelDocument.ref_col = ref_col
             frm_ModelDocument.part_col = part_col
+            frm_ModelDocument.type_col = type_col
             frm_ModelDocument.start_row = start_row
             frm_ModelDocument.sheet_name = CB_SheetName.Text
         ElseIf callMode = "Coordinates" Then
@@ -250,7 +251,8 @@ Public Class frm_ExcelModify
         BTN_X.Click,
         BTN_Y.Click,
         BTN_A.Click,
-        BTN_TB.Click
+        BTN_TB.Click,
+        BTN_Type.Click
 
         Dim selName As String = sender.ToString
 
@@ -271,14 +273,16 @@ Public Class frm_ExcelModify
             part_col = Grid_Excel.Col
         ElseIf selName = BTN_Ref2.Text Then
             ref_col = Grid_Excel.Col
-        ElseIf selName = BTN_x.Text Then
+        ElseIf selName = BTN_X.Text Then
             x_col = Grid_Excel.Col
-        ElseIf selName = BTN_y.Text Then
+        ElseIf selName = BTN_Y.Text Then
             y_col = Grid_Excel.Col
-        ElseIf selName = BTN_a.Text Then
+        ElseIf selName = BTN_A.Text Then
             a_col = Grid_Excel.Col
-        ElseIf selName = BTN_tb.Text Then
+        ElseIf selName = BTN_TB.Text Then
             tb_col = Grid_Excel.Col
+        ElseIf selName = BTN_type.Text Then
+            type_col = Grid_Excel.Col
         End If
 
     End Sub

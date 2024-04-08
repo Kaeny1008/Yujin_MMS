@@ -291,6 +291,12 @@
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.Designer.vb">
+      <DependentUpon>frm_SMD_Magazine_Kitting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.Designer.vb">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
     </Compile>
@@ -450,6 +456,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.resx">
       <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.resx">
+      <DependentUpon>frm_SMD_Magazine_Kitting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.resx">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>

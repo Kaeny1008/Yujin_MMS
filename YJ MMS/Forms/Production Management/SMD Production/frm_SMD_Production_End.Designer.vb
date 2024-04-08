@@ -26,7 +26,7 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TB_Workside = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.TB_Inspecter = New System.Windows.Forms.TextBox()
+        Me.TB_Inspector = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.TB_Operator = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -49,14 +49,14 @@ Partial Class frm_SMD_Production_End
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.TB_WorkingQty = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.BTN_EndRegister = New System.Windows.Forms.Button()
         Me.BTN_PauseRegister = New System.Windows.Forms.Button()
         Me.BTN_FaultRegister = New System.Windows.Forms.Button()
         Me.BTN_LineSelect = New System.Windows.Forms.Button()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -86,7 +86,7 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_FaultRegister)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Workside)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label9)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Inspecter)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Inspector)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label8)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Operator)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
@@ -140,15 +140,15 @@ Partial Class frm_SMD_Production_End
         Me.Label9.Text = "작업면"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TB_Inspecter
+        'TB_Inspector
         '
-        Me.TB_Inspecter.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_Inspecter.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_Inspecter.Location = New System.Drawing.Point(512, 196)
-        Me.TB_Inspecter.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_Inspecter.Name = "TB_Inspecter"
-        Me.TB_Inspecter.Size = New System.Drawing.Size(158, 26)
-        Me.TB_Inspecter.TabIndex = 26
+        Me.TB_Inspector.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Inspector.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.TB_Inspector.Location = New System.Drawing.Point(512, 196)
+        Me.TB_Inspector.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_Inspector.Name = "TB_Inspector"
+        Me.TB_Inspector.Size = New System.Drawing.Size(158, 26)
+        Me.TB_Inspector.TabIndex = 26
         '
         'Label8
         '
@@ -161,7 +161,7 @@ Partial Class frm_SMD_Production_End
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(89, 26)
         Me.Label8.TabIndex = 25
-        Me.Label8.Text = "Inspecter"
+        Me.Label8.Text = "Inspector"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_Operator
@@ -186,7 +186,7 @@ Partial Class frm_SMD_Production_End
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(89, 26)
         Me.Label7.TabIndex = 23
-        Me.Label7.Text = "Operater"
+        Me.Label7.Text = "Operator"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_OrderIndex
@@ -417,6 +417,34 @@ Partial Class frm_SMD_Production_End
         Me.Label10.Text = "작업수량"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(698, 155)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(63, 12)
+        Me.Label11.TabIndex = 34
+        Me.Label11.Text = "(불량기록)"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(808, 155)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(79, 12)
+        Me.Label12.TabIndex = 35
+        Me.Label12.Text = "(메거진 단위)"
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(914, 155)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(103, 12)
+        Me.Label13.TabIndex = 36
+        Me.Label13.Text = "(불량이 있을경우)"
+        Me.Label13.Visible = False
+        '
         'BTN_EndRegister
         '
         Me.BTN_EndRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -429,6 +457,7 @@ Partial Class frm_SMD_Production_End
         Me.BTN_EndRegister.Text = "생산종료" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
         Me.BTN_EndRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_EndRegister.UseVisualStyleBackColor = True
+        Me.BTN_EndRegister.Visible = False
         '
         'BTN_PauseRegister
         '
@@ -481,33 +510,6 @@ Partial Class frm_SMD_Production_End
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(698, 155)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(63, 12)
-        Me.Label11.TabIndex = 34
-        Me.Label11.Text = "(불량기록)"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(808, 155)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(79, 12)
-        Me.Label12.TabIndex = 35
-        Me.Label12.Text = "(메거진 단위)"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(934, 155)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(63, 12)
-        Me.Label13.TabIndex = 36
-        Me.Label13.Text = "(생산완료)"
-        '
         'frm_SMD_Production_End
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -549,7 +551,7 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Label4 As Label
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents Label17 As Label
-    Friend WithEvents TB_Inspecter As TextBox
+    Friend WithEvents TB_Inspector As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents TB_Operator As TextBox
     Friend WithEvents Label7 As Label

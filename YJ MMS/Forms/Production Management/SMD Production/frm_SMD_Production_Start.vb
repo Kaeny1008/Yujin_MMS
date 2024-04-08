@@ -262,25 +262,31 @@ Public Class frm_SMD_Production_Start
         DBClose()
 
         For i = 3 To Grid_OrderList.Rows.Count - 1
-            If Grid_OrderList(i, 13) = "Ready" Then
-                If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
-                    'Bottom을 포함하고 있다면 버튼을 Bottom라인에 표시
-                    Grid_ButtonAdd(i, i, 13)
+            Select Case Grid_OrderList(i, 13)
+                Case "Ready"
+                    If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
+                        Grid_ButtonAdd(i, i, 13)
+                        Grid_OrderList(i, 14) = String.Empty
+                    Else
+                        Grid_OrderList(i, 13) = String.Empty
+                        Grid_ButtonAdd(i, i, 14)
+                    End If
+                Case "Bottom Run"
+                    Grid_OrderList(i, 13) = "생산중"
                     Grid_OrderList(i, 14) = String.Empty
-                Else
-                    Grid_OrderList(i, 13) = String.Empty
-                    Grid_ButtonAdd(i, i, 14)
-                End If
-            ElseIf Grid_OrderList(i, 13) = "Bottom Run" Then
-                Grid_OrderList(i, 13) = "생산중"
-            ElseIf Grid_OrderList(i, 13) = "Top Run" Then
-                If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
+                Case "Bottom Completed"
                     Grid_OrderList(i, 13) = "생산완료"
-                Else
-                    Grid_OrderList(i, 13) = String.Empty
-                End If
-                Grid_OrderList(i, 14) = "생산중"
-            End If
+                    Grid_ButtonAdd(i, i, 14)
+                Case "Top Run"
+                    If Grid_OrderList(i, 12).ToString.Contains("Bottom") Then
+                        Grid_OrderList(i, 13) = "생산완료"
+                    Else
+                        Grid_OrderList(i, 13) = String.Empty
+                    End If
+                    Grid_OrderList(i, 14) = "생산중"
+                Case "Top Completed"
+
+            End Select
         Next
 
     End Sub

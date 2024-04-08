@@ -148,6 +148,20 @@ Module md_ETC
 
     End Sub
 
+    Public Sub RadioButtonChecked(ByVal status As Boolean, ByVal formName As Form, ByVal radioButton As RadioButton)
+
+        Dim ctls() As Control = formName.Controls.Find(radioButton.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is RadioButton Then
+            Dim ts As RadioButton = DirectCast(ctls(0), RadioButton)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Boolean, Form, RadioButton)(AddressOf RadioButtonChecked), status, formName, radioButton)
+            Else
+                radioButton.Checked = status
+            End If
+        End If
+
+    End Sub
+
     Public Sub GridRowReset(ByVal rownum As Integer, ByVal formName As Form, ByVal grid As C1FlexGrid)
 
         Dim ctls() As Control = formName.Controls.Find(grid.Name, True)

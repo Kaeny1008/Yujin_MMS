@@ -318,6 +318,35 @@ Public Class frm_Order_Registration
                                   Me,
                                   Grid_Excel,
                                   Color.Blue)
+                    Dim loaderPCB As String = RegistrationCheck(itemCode, Grid_Excel.Rows.Count - 1)
+                    If Not loaderPCB = String.Empty Then
+                        If MessageBox.Show(frm_Main,
+                                           "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
+                                           "Loader PCB PO를 자동으로 추가 하시겠습니까?",
+                                           msg_form,
+                                           MessageBoxButtons.YesNo,
+                                           MessageBoxIcon.Question) = DialogResult.Yes Then
+                            GridWriteText("N" & vbTab &
+                                          vbTab &
+                                          vbTab &
+                                          loaderPCB & vbTab &
+                                          vbTab &
+                                          vbTab &
+                                          vbTab &
+                                          orderNumber & vbTab &
+                                          orderDate & vbTab &
+                                          orderQuantity & vbTab &
+                                          deliveryPlace & vbTab &
+                                          dateOfDelivery & vbTab &
+                                          vbTab &
+                                          vbTab &
+                                          orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count + 2, "0000"),
+                                          Me,
+                                          Grid_Excel,
+                                          Color.Blue)
+                            RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
+                        End If
+                    End If
                 Next
             End With
         Catch ex As Exception
@@ -328,7 +357,12 @@ Public Class frm_Order_Registration
                             MessageBoxIcon.Error)
         End Try
 
-        RegistrationCheck()
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
 
         GridColsAutoSize(Me, Grid_Excel)
         GridRowsAutoSize(1, Grid_Excel.Rows.Count - 1, Me, Grid_Excel)
@@ -339,6 +373,36 @@ Public Class frm_Order_Registration
 
     End Sub
 
+    Private Function RegistrationCheck(ByVal itemCode As String, ByVal rowNum As Integer) As String
+
+        DBConnect()
+
+        Dim existCheck() As String = Load_ExistCheck(itemCode).Split("|")
+        Dim itemRegister As String = existCheck(0)
+        Dim itemBOM As String = existCheck(1)
+        Dim modelCode As String = existCheck(2)
+        Dim itemSpec As String = existCheck(3)
+        Dim itemName As String = existCheck(4)
+        Dim loaderPCB As String = existCheck(5)
+
+        GridWriteText(modelCode, rowNum, 1, Me, Grid_Excel, Color.Blue)
+        GridWriteText(itemRegister, rowNum, 12, Me, Grid_Excel, Color.Blue)
+        If itemRegister = "O" Then
+            GridWriteText(itemName, rowNum, 4, Me, Grid_Excel, Color.Blue)
+            GridWriteText(itemSpec, rowNum, 5, Me, Grid_Excel, Color.Blue)
+        End If
+        GridWriteText(itemBOM, rowNum, 13, Me, Grid_Excel, Color.Blue)
+
+        DBClose()
+
+        If loaderPCB = String.Empty Then
+            Return String.Empty
+        Else
+            Return loaderPCB
+        End If
+
+    End Function
+
     Private Function Load_ExistCheck(ByVal itemCode As String) As String
 
         Dim modelExist As String = "X"
@@ -346,6 +410,7 @@ Public Class frm_Order_Registration
         Dim model_Code As String = String.Empty
         Dim item_name As String = String.Empty
         Dim item_spec As String = String.Empty
+        Dim loaderPCB As String = String.Empty
 
         Dim strSQL As String = "call sp_mms_order_registration(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
@@ -364,52 +429,16 @@ Public Class frm_Order_Registration
                 model_Code = sqlDR("model_code")
                 item_name = sqlDR("item_name")
                 item_spec = sqlDR("item_spec")
+                loaderPCB = sqlDR("loader_pcb")
             End If
             If Not sqlDR("bom_exist") = 0 Then
                 bomExist = "O"
             End If
         Loop
-        sqlDR.Close()
 
-        Return modelExist & "|" & bomExist & "|" & model_Code & "|" & item_spec & "|" & item_name
+        Return modelExist & "|" & bomExist & "|" & model_Code & "|" & item_spec & "|" & item_name & "|" & loaderPCB
 
     End Function
-
-    Private Sub RegistrationCheck()
-
-        'Thread_LoadingFormStart()
-
-        DBConnect()
-
-        For i = 1 To Grid_Excel.Rows.Count - 1
-            Dim existCheck() As String = Load_ExistCheck(Grid_Excel(i, 3)).Split("|")
-            Dim itemRegister As String = existCheck(0)
-            Dim itemBOM As String = existCheck(1)
-            Dim modelCode As String = existCheck(2)
-            Dim itemSpec As String = existCheck(3)
-            Dim itemName As String = existCheck(4)
-
-            Grid_Excel(i, 1) = modelCode
-            Grid_Excel(i, 12) = itemRegister
-            If itemRegister = "O" Then
-                Grid_Excel(i, 4) = itemName
-                Grid_Excel(i, 5) = itemSpec
-            End If
-            Grid_Excel(i, 13) = itemBOM
-        Next
-
-        DBClose()
-
-        If Not IsNothing(excelApp) Then
-            excelApp.WorkBooks(1).Close()
-            excelApp.Quit()
-            ReleaseObject(excelApp)
-            excelApp = Nothing
-        End If
-
-        'Thread_LoadingFormEnd()
-
-    End Sub
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click, BTN_Save2.Click
 

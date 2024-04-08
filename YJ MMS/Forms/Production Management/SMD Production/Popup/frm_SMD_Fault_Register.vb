@@ -22,7 +22,7 @@ Public Class frm_SMD_Fault_Register
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 6
+            .Cols.Count = 7
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -44,7 +44,8 @@ Public Class frm_SMD_Fault_Register
         Grid_Fault(0, 2) = "불량구분"
         Grid_Fault(0, 3) = "불량명"
         Grid_Fault(0, 4) = "Ref(Location)"
-        Grid_Fault(0, 5) = "비고"
+        Grid_Fault(0, 5) = "Inspector"
+        Grid_Fault(0, 6) = "비고"
 
         Grid_Fault.autosizecols
 
@@ -61,6 +62,7 @@ Public Class frm_SMD_Fault_Register
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & Label2.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -72,6 +74,7 @@ Public Class frm_SMD_Fault_Register
                 sqlDR("defect_classification") & vbTab &
                 sqlDR("defect_name") & vbTab &
                 sqlDR("ref") & vbTab &
+                sqlDR("smd_inspector") & vbTab &
                 sqlDR("defect_note")
 
             GridWriteText(insertString, Me, Grid_Fault, Color.Black)
@@ -121,6 +124,8 @@ Public Class frm_SMD_Fault_Register
             End If
         Next
 
+        frm_SMD_Production_End.BTN_LineSelect_Click(Nothing, Nothing)
+
         Me.Dispose()
 
     End Sub
@@ -148,11 +153,11 @@ Public Class frm_SMD_Fault_Register
             strSQL += ",'" & Grid_Fault(rowNum, 2) & "'"
             strSQL += ",'" & Grid_Fault(rowNum, 3) & "'"
             strSQL += ",'" & Grid_Fault(rowNum, 4) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 5) & "'"
+            strSQL += ",'" & Grid_Fault(rowNum, 6) & "'"
             strSQL += ",'" & writeDate & "'"
             strSQL += ",'" & loginID & "'"
             strSQL += ",'" & Label2.Text & "'"
-            strSQL += ",'" & frm_SMD_Production_End.TB_Inspecter.Text & "'"
+            strSQL += ",'" & Grid_Fault(rowNum, 5) & "'"
             strSQL += ");"
 
             strSQL += "update tb_mms_smd_production_history set "
@@ -161,7 +166,7 @@ Public Class frm_SMD_Fault_Register
 
             If Grid_Fault.Rows.Count = 2 Then
                 strSQL += "update tb_mms_smd_production_history set "
-                strSQL += " smd_inspecter = '" & frm_SMD_Production_End.TB_Inspecter.Text & "'"
+                strSQL += " smd_inspecter = '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
                 strSQL += " where history_index = '" & Label2.Text & "';"
             End If
 
@@ -193,7 +198,13 @@ Public Class frm_SMD_Fault_Register
 
     Private Sub BTN_RowAdd_Click(sender As Object, e As EventArgs) Handles BTN_RowAdd.Click
 
-        Grid_Fault.AddItem("N" & vbTab & Format(Now, "yyMMddHHmmssfff"))
+        Grid_Fault.AddItem("N" & vbTab &
+                           Format(Now, "yyMMddHHmmssfff") &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           frm_SMD_Production_End.TB_Inspector.Text)
         Grid_Fault.AutoSizeCols()
 
     End Sub
@@ -252,6 +263,7 @@ Public Class frm_SMD_Fault_Register
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -283,6 +295,7 @@ Public Class frm_SMD_Fault_Register
         Dim comboList As String = "|"
 
         Dim strSQL As String = "call sp_mms_smd_production_end(2"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
