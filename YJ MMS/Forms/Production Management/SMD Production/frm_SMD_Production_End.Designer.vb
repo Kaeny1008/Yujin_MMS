@@ -24,6 +24,16 @@ Partial Class frm_SMD_Production_End
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Production_End))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TB_WorkingQty = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.BTN_EndRegister = New System.Windows.Forms.Button()
+        Me.BTN_PauseRegister = New System.Windows.Forms.Button()
+        Me.BTN_FaultRegister = New System.Windows.Forms.Button()
         Me.TB_Workside = New System.Windows.Forms.TextBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TB_Inspector = New System.Windows.Forms.TextBox()
@@ -47,20 +57,13 @@ Partial Class frm_SMD_Production_End
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.TB_WorkingQty = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.BTN_EndRegister = New System.Windows.Forms.Button()
-        Me.BTN_PauseRegister = New System.Windows.Forms.Button()
-        Me.BTN_FaultRegister = New System.Windows.Forms.Button()
-        Me.BTN_LineSelect = New System.Windows.Forms.Button()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_Reload = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
         Me.SuspendLayout()
@@ -76,6 +79,9 @@ Partial Class frm_SMD_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Reload)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label14)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_OrderList)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label13)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
@@ -90,7 +96,6 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label8)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Operator)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_LineSelect)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_OrderIndex)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label6)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_ItemName)
@@ -115,12 +120,139 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.SplitterDistance = 229
         Me.SplitContainer1.TabIndex = 0
         '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(14, 210)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(325, 12)
+        Me.Label14.TabIndex = 38
+        Me.Label14.Text = "여러개의 주문이 있을 경우 해당 주문을 더블클릭 하십시오."
+        '
+        'Grid_OrderList
+        '
+        Me.Grid_OrderList.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_OrderList.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Grid_OrderList.Location = New System.Drawing.Point(16, 74)
+        Me.Grid_OrderList.Margin = New System.Windows.Forms.Padding(0)
+        Me.Grid_OrderList.Name = "Grid_OrderList"
+        Me.Grid_OrderList.Rows.Count = 2
+        Me.Grid_OrderList.Rows.DefaultSize = 20
+        Me.Grid_OrderList.Size = New System.Drawing.Size(553, 135)
+        Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
+        Me.Grid_OrderList.TabIndex = 37
+        Me.Grid_OrderList.UseCompatibleTextRendering = True
+        '
+        'Label13
+        '
+        Me.Label13.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(842, 155)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(103, 12)
+        Me.Label13.TabIndex = 36
+        Me.Label13.Text = "(불량이 있을경우)"
+        Me.Label13.Visible = False
+        '
+        'Label12
+        '
+        Me.Label12.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(736, 155)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(79, 12)
+        Me.Label12.TabIndex = 35
+        Me.Label12.Text = "(메거진 단위)"
+        '
+        'Label11
+        '
+        Me.Label11.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(626, 155)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(63, 12)
+        Me.Label11.TabIndex = 34
+        Me.Label11.Text = "(불량기록)"
+        '
+        'TB_WorkingQty
+        '
+        Me.TB_WorkingQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_WorkingQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_WorkingQty.Enabled = False
+        Me.TB_WorkingQty.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.TB_WorkingQty.Location = New System.Drawing.Point(1097, 70)
+        Me.TB_WorkingQty.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_WorkingQty.Name = "TB_WorkingQty"
+        Me.TB_WorkingQty.Size = New System.Drawing.Size(158, 26)
+        Me.TB_WorkingQty.TabIndex = 33
+        '
+        'Label10
+        '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label10.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label10.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.Label10.ForeColor = System.Drawing.Color.White
+        Me.Label10.Location = New System.Drawing.Point(1008, 70)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(89, 26)
+        Me.Label10.TabIndex = 32
+        Me.Label10.Text = "작업수량"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_EndRegister
+        '
+        Me.BTN_EndRegister.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_EndRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_EndRegister.Image = Global.YJ_MMS.My.Resources.Resources._Stop
+        Me.BTN_EndRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_EndRegister.Location = New System.Drawing.Point(837, 169)
+        Me.BTN_EndRegister.Name = "BTN_EndRegister"
+        Me.BTN_EndRegister.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_EndRegister.TabIndex = 31
+        Me.BTN_EndRegister.Text = "생산종료" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_EndRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_EndRegister.UseVisualStyleBackColor = True
+        Me.BTN_EndRegister.Visible = False
+        '
+        'BTN_PauseRegister
+        '
+        Me.BTN_PauseRegister.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_PauseRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_PauseRegister.Image = Global.YJ_MMS.My.Resources.Resources.order_history_32
+        Me.BTN_PauseRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PauseRegister.Location = New System.Drawing.Point(719, 169)
+        Me.BTN_PauseRegister.Name = "BTN_PauseRegister"
+        Me.BTN_PauseRegister.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_PauseRegister.TabIndex = 30
+        Me.BTN_PauseRegister.Text = "생산내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_PauseRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PauseRegister.UseVisualStyleBackColor = True
+        '
+        'BTN_FaultRegister
+        '
+        Me.BTN_FaultRegister.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_FaultRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_FaultRegister.Image = Global.YJ_MMS.My.Resources.Resources.ordering_32
+        Me.BTN_FaultRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_FaultRegister.Location = New System.Drawing.Point(601, 169)
+        Me.BTN_FaultRegister.Name = "BTN_FaultRegister"
+        Me.BTN_FaultRegister.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_FaultRegister.TabIndex = 29
+        Me.BTN_FaultRegister.Text = "불량내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_FaultRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_FaultRegister.UseVisualStyleBackColor = True
+        '
         'TB_Workside
         '
+        Me.TB_Workside.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_Workside.BackColor = System.Drawing.SystemColors.Window
         Me.TB_Workside.Enabled = False
         Me.TB_Workside.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_Workside.Location = New System.Drawing.Point(512, 113)
+        Me.TB_Workside.Location = New System.Drawing.Point(1097, 42)
         Me.TB_Workside.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Workside.Name = "TB_Workside"
         Me.TB_Workside.Size = New System.Drawing.Size(158, 26)
@@ -128,11 +260,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label9.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label9.ForeColor = System.Drawing.Color.White
-        Me.Label9.Location = New System.Drawing.Point(423, 113)
+        Me.Label9.Location = New System.Drawing.Point(1008, 42)
         Me.Label9.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(89, 26)
@@ -142,9 +275,10 @@ Partial Class frm_SMD_Production_End
         '
         'TB_Inspector
         '
+        Me.TB_Inspector.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_Inspector.BackColor = System.Drawing.SystemColors.Window
         Me.TB_Inspector.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_Inspector.Location = New System.Drawing.Point(512, 196)
+        Me.TB_Inspector.Location = New System.Drawing.Point(1097, 125)
         Me.TB_Inspector.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Inspector.Name = "TB_Inspector"
         Me.TB_Inspector.Size = New System.Drawing.Size(158, 26)
@@ -152,11 +286,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label8
         '
+        Me.Label8.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label8.BackColor = System.Drawing.Color.SteelBlue
         Me.Label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label8.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label8.ForeColor = System.Drawing.Color.White
-        Me.Label8.Location = New System.Drawing.Point(423, 196)
+        Me.Label8.Location = New System.Drawing.Point(1008, 125)
         Me.Label8.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(89, 26)
@@ -166,10 +301,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_Operator
         '
+        Me.TB_Operator.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_Operator.BackColor = System.Drawing.SystemColors.Window
         Me.TB_Operator.Enabled = False
         Me.TB_Operator.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_Operator.Location = New System.Drawing.Point(512, 169)
+        Me.TB_Operator.Location = New System.Drawing.Point(1097, 98)
         Me.TB_Operator.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Operator.Name = "TB_Operator"
         Me.TB_Operator.Size = New System.Drawing.Size(158, 26)
@@ -177,11 +313,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label7.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(423, 169)
+        Me.Label7.Location = New System.Drawing.Point(1008, 98)
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(89, 26)
@@ -191,10 +328,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_OrderIndex
         '
+        Me.TB_OrderIndex.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_OrderIndex.BackColor = System.Drawing.SystemColors.Window
         Me.TB_OrderIndex.Enabled = False
         Me.TB_OrderIndex.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_OrderIndex.Location = New System.Drawing.Point(92, 113)
+        Me.TB_OrderIndex.Location = New System.Drawing.Point(677, 42)
         Me.TB_OrderIndex.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_OrderIndex.Name = "TB_OrderIndex"
         Me.TB_OrderIndex.Size = New System.Drawing.Size(331, 26)
@@ -202,11 +340,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label6
         '
+        Me.Label6.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label6.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label6.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(16, 113)
+        Me.Label6.Location = New System.Drawing.Point(601, 42)
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(76, 26)
@@ -216,10 +355,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_ItemName
         '
+        Me.TB_ItemName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_ItemName.BackColor = System.Drawing.SystemColors.Window
         Me.TB_ItemName.Enabled = False
         Me.TB_ItemName.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_ItemName.Location = New System.Drawing.Point(92, 196)
+        Me.TB_ItemName.Location = New System.Drawing.Point(677, 125)
         Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_ItemName.Name = "TB_ItemName"
         Me.TB_ItemName.Size = New System.Drawing.Size(331, 26)
@@ -227,10 +367,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_ItemCode
         '
+        Me.TB_ItemCode.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_ItemCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_ItemCode.Enabled = False
         Me.TB_ItemCode.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_ItemCode.Location = New System.Drawing.Point(197, 169)
+        Me.TB_ItemCode.Location = New System.Drawing.Point(782, 98)
         Me.TB_ItemCode.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_ItemCode.Name = "TB_ItemCode"
         Me.TB_ItemCode.Size = New System.Drawing.Size(226, 26)
@@ -238,10 +379,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_ModelCode
         '
+        Me.TB_ModelCode.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_ModelCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_ModelCode.Enabled = False
         Me.TB_ModelCode.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_ModelCode.Location = New System.Drawing.Point(92, 169)
+        Me.TB_ModelCode.Location = New System.Drawing.Point(677, 98)
         Me.TB_ModelCode.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_ModelCode.Name = "TB_ModelCode"
         Me.TB_ModelCode.Size = New System.Drawing.Size(105, 26)
@@ -249,11 +391,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label5.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(16, 169)
+        Me.Label5.Location = New System.Drawing.Point(601, 98)
         Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(76, 53)
@@ -263,10 +406,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_CustomerName
         '
+        Me.TB_CustomerName.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_CustomerName.BackColor = System.Drawing.SystemColors.Window
         Me.TB_CustomerName.Enabled = False
         Me.TB_CustomerName.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_CustomerName.Location = New System.Drawing.Point(197, 141)
+        Me.TB_CustomerName.Location = New System.Drawing.Point(782, 70)
         Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerName.Name = "TB_CustomerName"
         Me.TB_CustomerName.Size = New System.Drawing.Size(226, 26)
@@ -274,9 +418,10 @@ Partial Class frm_SMD_Production_End
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("굴림", 15.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label4.Location = New System.Drawing.Point(12, 80)
+        Me.Label4.Location = New System.Drawing.Point(597, 9)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(122, 21)
         Me.Label4.TabIndex = 14
@@ -284,10 +429,11 @@ Partial Class frm_SMD_Production_End
         '
         'TB_CustomerCode
         '
+        Me.TB_CustomerCode.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_CustomerCode.Enabled = False
         Me.TB_CustomerCode.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_CustomerCode.Location = New System.Drawing.Point(92, 141)
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(677, 70)
         Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerCode.Name = "TB_CustomerCode"
         Me.TB_CustomerCode.Size = New System.Drawing.Size(105, 26)
@@ -295,11 +441,12 @@ Partial Class frm_SMD_Production_End
         '
         'Label17
         '
+        Me.Label17.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label17.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label17.Font = New System.Drawing.Font("굴림", 12.0!)
         Me.Label17.ForeColor = System.Drawing.Color.White
-        Me.Label17.Location = New System.Drawing.Point(16, 141)
+        Me.Label17.Location = New System.Drawing.Point(601, 70)
         Me.Label17.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 26)
@@ -392,114 +539,6 @@ Partial Class frm_SMD_Production_End
         Me.TS_MainBar.TabIndex = 2
         Me.TS_MainBar.Text = "ToolStrip1"
         '
-        'TB_WorkingQty
-        '
-        Me.TB_WorkingQty.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_WorkingQty.Enabled = False
-        Me.TB_WorkingQty.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_WorkingQty.Location = New System.Drawing.Point(512, 141)
-        Me.TB_WorkingQty.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_WorkingQty.Name = "TB_WorkingQty"
-        Me.TB_WorkingQty.Size = New System.Drawing.Size(158, 26)
-        Me.TB_WorkingQty.TabIndex = 33
-        '
-        'Label10
-        '
-        Me.Label10.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label10.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.Label10.ForeColor = System.Drawing.Color.White
-        Me.Label10.Location = New System.Drawing.Point(423, 141)
-        Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(89, 26)
-        Me.Label10.TabIndex = 32
-        Me.Label10.Text = "작업수량"
-        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(698, 155)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(63, 12)
-        Me.Label11.TabIndex = 34
-        Me.Label11.Text = "(불량기록)"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(808, 155)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(79, 12)
-        Me.Label12.TabIndex = 35
-        Me.Label12.Text = "(메거진 단위)"
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(914, 155)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(103, 12)
-        Me.Label13.TabIndex = 36
-        Me.Label13.Text = "(불량이 있을경우)"
-        Me.Label13.Visible = False
-        '
-        'BTN_EndRegister
-        '
-        Me.BTN_EndRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_EndRegister.Image = Global.YJ_MMS.My.Resources.Resources._Stop
-        Me.BTN_EndRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_EndRegister.Location = New System.Drawing.Point(909, 169)
-        Me.BTN_EndRegister.Name = "BTN_EndRegister"
-        Me.BTN_EndRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_EndRegister.TabIndex = 31
-        Me.BTN_EndRegister.Text = "생산종료" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_EndRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_EndRegister.UseVisualStyleBackColor = True
-        Me.BTN_EndRegister.Visible = False
-        '
-        'BTN_PauseRegister
-        '
-        Me.BTN_PauseRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_PauseRegister.Image = Global.YJ_MMS.My.Resources.Resources.order_history_32
-        Me.BTN_PauseRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_PauseRegister.Location = New System.Drawing.Point(791, 169)
-        Me.BTN_PauseRegister.Name = "BTN_PauseRegister"
-        Me.BTN_PauseRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_PauseRegister.TabIndex = 30
-        Me.BTN_PauseRegister.Text = "생산내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_PauseRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_PauseRegister.UseVisualStyleBackColor = True
-        '
-        'BTN_FaultRegister
-        '
-        Me.BTN_FaultRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_FaultRegister.Image = Global.YJ_MMS.My.Resources.Resources.ordering_32
-        Me.BTN_FaultRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_FaultRegister.Location = New System.Drawing.Point(673, 169)
-        Me.BTN_FaultRegister.Name = "BTN_FaultRegister"
-        Me.BTN_FaultRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_FaultRegister.TabIndex = 29
-        Me.BTN_FaultRegister.Text = "불량내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_FaultRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_FaultRegister.UseVisualStyleBackColor = True
-        '
-        'BTN_LineSelect
-        '
-        Me.BTN_LineSelect.BackColor = System.Drawing.SystemColors.Desktop
-        Me.BTN_LineSelect.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_LineSelect.ForeColor = System.Drawing.SystemColors.Control
-        Me.BTN_LineSelect.Image = Global.YJ_MMS.My.Resources.Resources.checkmark
-        Me.BTN_LineSelect.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_LineSelect.Location = New System.Drawing.Point(586, 31)
-        Me.BTN_LineSelect.Name = "BTN_LineSelect"
-        Me.BTN_LineSelect.Size = New System.Drawing.Size(84, 47)
-        Me.BTN_LineSelect.TabIndex = 22
-        Me.BTN_LineSelect.Text = "선택"
-        Me.BTN_LineSelect.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_LineSelect.UseVisualStyleBackColor = False
-        '
         'Form_CLose
         '
         Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
@@ -509,6 +548,15 @@ Partial Class frm_SMD_Production_End
         Me.Form_CLose.Name = "Form_CLose"
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
+        '
+        'BTN_Reload
+        '
+        Me.BTN_Reload.Location = New System.Drawing.Point(572, 43)
+        Me.BTN_Reload.Name = "BTN_Reload"
+        Me.BTN_Reload.Size = New System.Drawing.Size(75, 23)
+        Me.BTN_Reload.TabIndex = 39
+        Me.BTN_Reload.Text = "재확인"
+        Me.BTN_Reload.UseVisualStyleBackColor = True
         '
         'frm_SMD_Production_End
         '
@@ -524,6 +572,7 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
@@ -540,7 +589,6 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Label3 As Label
     Friend WithEvents TS_MainBar As ToolStrip
     Friend WithEvents Form_CLose As ToolStripButton
-    Friend WithEvents BTN_LineSelect As Button
     Friend WithEvents TB_OrderIndex As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents TB_ItemName As TextBox
@@ -566,4 +614,7 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Label11 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents BTN_Reload As Button
 End Class

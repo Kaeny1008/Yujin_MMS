@@ -47,6 +47,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_Process = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.LB_ModelCode = New System.Windows.Forms.Label()
+        Me.LB_CustomerCode = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -357,12 +358,23 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.LB_ModelCode.Text = "model_code"
         Me.LB_ModelCode.Visible = False
         '
+        'LB_CustomerCode
+        '
+        Me.LB_CustomerCode.AutoSize = True
+        Me.LB_CustomerCode.Location = New System.Drawing.Point(12, 446)
+        Me.LB_CustomerCode.Name = "LB_CustomerCode"
+        Me.LB_CustomerCode.Size = New System.Drawing.Size(88, 12)
+        Me.LB_CustomerCode.TabIndex = 58
+        Me.LB_CustomerCode.Text = "customerCode"
+        Me.LB_CustomerCode.Visible = False
+        '
         'frm_SMD_Magazine_Kitting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSlateGray
         Me.ClientSize = New System.Drawing.Size(497, 502)
+        Me.Controls.Add(Me.LB_CustomerCode)
         Me.Controls.Add(Me.LB_ModelCode)
         Me.Controls.Add(Me.TB_Process)
         Me.Controls.Add(Me.Label11)
@@ -424,4 +436,5 @@ Partial Class frm_SMD_Magazine_Kitting
     Friend WithEvents TB_Process As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents LB_ModelCode As Label
+    Friend WithEvents LB_CustomerCode As Label
 End Class

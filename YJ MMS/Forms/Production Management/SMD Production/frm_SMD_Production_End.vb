@@ -75,6 +75,47 @@ Public Class frm_SMD_Production_End
             .SelectionMode = SelectionModeEnum.Default
         End With
 
+        With Grid_OrderList
+            .AllowEditing = False
+            .AllowFiltering = False
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .AllowMergingFixed = AllowMergingEnum.None
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 11
+            .Cols.Fixed = 1
+            .Rows.Count = 1
+            .Rows.Fixed = 1
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .ExtendLastCol = True
+            .ShowCursor = True
+            '.ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
+            '.Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
+            '.Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            '.SelectionMode = SelectionModeEnum.Default
+            .Cols(2).Visible = False
+            .Cols(4).Visible = False
+            .Cols(9).Visible = False
+            .Cols(10).Visible = False
+        End With
+
+        Grid_OrderList(0, 0) = "No"
+        Grid_OrderList(0, 1) = "주문번호"
+        Grid_OrderList(0, 2) = "고객사 코드"
+        Grid_OrderList(0, 3) = "고객사"
+        Grid_OrderList(0, 4) = "모델코드"
+        Grid_OrderList(0, 5) = "품번"
+        Grid_OrderList(0, 6) = "품명"
+        Grid_OrderList(0, 7) = "작업면"
+        Grid_OrderList(0, 8) = "작업수량"
+        Grid_OrderList(0, 9) = "Operator"
+        Grid_OrderList(0, 10) = "history_index"
+
+        Grid_OrderList.AutoSizeCols()
+
     End Sub
 
     Private Sub CB_Department_DropDown(sender As Object, e As EventArgs) Handles CB_Department.DropDown
@@ -141,18 +182,20 @@ Public Class frm_SMD_Production_End
 
     End Sub
 
-    Private Sub CB_Line_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Line.SelectionChangeCommitted
+    Private Sub BTN_Reload_Click(sender As Object, e As EventArgs) Handles BTN_Reload.Click
 
-
+        CB_Line_SelectionChangeCommitted(Nothing, Nothing)
 
     End Sub
 
-    Public Sub BTN_LineSelect_Click(sender As Object, e As EventArgs) Handles BTN_LineSelect.Click
+    Private Sub CB_Line_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Line.SelectedIndexChanged
+
+    End Sub
+
+    Public Sub CB_Line_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Line.SelectionChangeCommitted
 
         Thread_LoadingFormStart()
 
-        Grid_History.Redraw = False
-        Grid_History.Rows.Count = 2
         TB_OrderIndex.Text = String.Empty
         TB_CustomerCode.Text = String.Empty
         TB_CustomerName.Text = String.Empty
@@ -164,26 +207,24 @@ Public Class frm_SMD_Production_End
         TB_Operator.Text = String.Empty
 
         Load_OrderInformation()
-        Load_InspectList()
 
-
-        If TB_OrderIndex.Text = String.Empty Then
+        If Grid_OrderList.Rows.Count = 1 Then
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            "생산진행 중인 내역이 없습니다.",
+            MessageBox.Show("생산진행 중인 내역이 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
             Exit Sub
         End If
 
-        Grid_History.AutoSizeCols()
-        Grid_History.Redraw = True
         Thread_LoadingFormEnd()
 
     End Sub
 
     Private Sub Load_OrderInformation()
+
+        Grid_OrderList.Redraw = False
+        Grid_OrderList.Rows.Count = 1
 
         DBConnect()
 
@@ -192,26 +233,66 @@ Public Class frm_SMD_Production_End
         strSQL += ", '" & CB_Line.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            TB_OrderIndex.Text = sqlDR("order_index")
-            TB_CustomerCode.Text = sqlDR("customer_code")
-            TB_CustomerName.Text = sqlDR("customer_name")
-            TB_ModelCode.Text = sqlDR("model_code")
-            TB_ItemCode.Text = sqlDR("item_code")
-            TB_ItemName.Text = sqlDR("item_name")
-            TB_Workside.Text = sqlDR("work_side")
-            TB_WorkingQty.Text = Format(sqlDR("modify_order_quantity"), "#,##0")
-            TB_Operator.Text = sqlDR("smd_operater")
-            historyIndex = sqlDR("history_index")
+            Dim insertString As String = Grid_OrderList.Rows.Count & vbTab &
+                sqlDR("order_index") & vbTab &
+                sqlDR("customer_code") & vbTab &
+                sqlDR("customer_name") & vbTab &
+                sqlDR("model_code") & vbTab &
+                sqlDR("item_code") & vbTab &
+                sqlDR("item_name") & vbTab &
+                sqlDR("work_side") & vbTab &
+                Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
+                sqlDR("smd_operater") & vbTab &
+                sqlDR("history_index")
+            GridWriteText(insertString, Me, Grid_OrderList, Color.Black)
+            GridColsAutoSize(Me, Grid_OrderList)
         Loop
         sqlDR.Close()
 
         DBClose()
+
+        Grid_OrderList.Redraw = True
+
+        If Grid_OrderList.Rows.Count = 2 Then
+            TB_OrderIndex.Text = Grid_OrderList(1, 1)
+            TB_CustomerCode.Text = Grid_OrderList(1, 2)
+            TB_CustomerName.Text = Grid_OrderList(1, 3)
+            TB_ModelCode.Text = Grid_OrderList(1, 4)
+            TB_ItemCode.Text = Grid_OrderList(1, 5)
+            TB_ItemName.Text = Grid_OrderList(1, 6)
+            TB_Workside.Text = Grid_OrderList(1, 7)
+            TB_WorkingQty.Text = Grid_OrderList(1, 8)
+            TB_Operator.Text = Grid_OrderList(1, 9)
+            historyIndex = Grid_OrderList(1, 10)
+            Load_InspectList()
+        End If
+
+    End Sub
+
+    Private Sub Grid_OrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Grid_OrderList.MouseDoubleClick
+
+        Dim selRow As Integer = Grid_OrderList.MouseRow
+        If e.Button = MouseButtons.Left And selRow > 0 Then
+            TB_OrderIndex.Text = Grid_OrderList(selRow, 1)
+            TB_CustomerCode.Text = Grid_OrderList(selRow, 2)
+            TB_CustomerName.Text = Grid_OrderList(selRow, 3)
+            TB_ModelCode.Text = Grid_OrderList(selRow, 4)
+            TB_ItemCode.Text = Grid_OrderList(selRow, 5)
+            TB_ItemName.Text = Grid_OrderList(selRow, 6)
+            TB_Workside.Text = Grid_OrderList(selRow, 7)
+            TB_WorkingQty.Text = Grid_OrderList(selRow, 8)
+            TB_Operator.Text = Grid_OrderList(selRow, 9)
+            historyIndex = Grid_OrderList(selRow, 10)
+            Load_InspectList()
+        End If
 
     End Sub
 
@@ -227,6 +308,8 @@ Public Class frm_SMD_Production_End
         strSQL += ", null"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_Workside.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -278,8 +361,12 @@ Public Class frm_SMD_Production_End
             Exit Sub
         End If
 
-        frm_SMD_Fault_Register.Label1.Text = TB_OrderIndex.Text
-        frm_SMD_Fault_Register.Label2.Text = historyIndex
+        frm_SMD_Fault_Register.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_SMD_Fault_Register.LB_HistoryIndex.Text = historyIndex
+        frm_SMD_Fault_Register.LB_ItemCode.Text = TB_ItemCode.Text
+        frm_SMD_Fault_Register.LB_ItemName.Text = TB_ItemName.Text
+        frm_SMD_Fault_Register.LB_SMDLine.Text = CB_Line.Text
+        frm_SMD_Fault_Register.LB_WorkSide.Text = TB_Workside.Text
         If Not frm_SMD_Fault_Register.Visible Then frm_SMD_Fault_Register.Show()
         frm_SMD_Fault_Register.Focus()
 
@@ -320,6 +407,7 @@ Public Class frm_SMD_Production_End
         frm_SMD_Magazine_Kitting.TB_TB.Text = TB_Workside.Text
         frm_SMD_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
         frm_SMD_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
+        frm_SMD_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
         If Not frm_SMD_Magazine_Kitting.Visible Then frm_SMD_Magazine_Kitting.Show()
         frm_SMD_Magazine_Kitting.Focus()
 
@@ -334,10 +422,6 @@ Public Class frm_SMD_Production_End
         '                    MessageBoxIcon.Information)
         '    Exit Sub
         'End If
-
-    End Sub
-
-    Private Sub Label13_Click(sender As Object, e As EventArgs) Handles Label13.Click
 
     End Sub
 End Class

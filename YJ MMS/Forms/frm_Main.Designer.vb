@@ -65,11 +65,12 @@ Partial Class frm_Main
         Me.BTN_MMPS_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.SMD생산ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SMD_ProductionStart = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_SMD_ProductionEnd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_SMD_Inspection = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.생산현황ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.BTN_Repair_Management = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -291,7 +292,7 @@ Partial Class frm_Main
         Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.BTN_MaterialWarehousing_History})
         Me.ToolStripComboBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.ToolStripComboBox1.Name = "ToolStripComboBox1"
-        Me.ToolStripComboBox1.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripComboBox1.Size = New System.Drawing.Size(140, 22)
         Me.ToolStripComboBox1.Text = "입고"
         Me.ToolStripComboBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -323,13 +324,13 @@ Partial Class frm_Main
         '
         Me.BTN_Material_CheckRequirements.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_CheckRequirements.Name = "BTN_Material_CheckRequirements"
-        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(140, 22)
         Me.BTN_Material_CheckRequirements.Text = "소요량 확인"
         '
         'ToolStripDropDownButton2
         '
         Me.ToolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_ProductionPlan, Me.ToolStripSeparator2, Me.오삽방지시스템ToolStripMenuItem, Me.SMD생산ToolStripMenuItem, Me.ToolStripSeparator3})
+        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_ProductionPlan, Me.ToolStripSeparator2, Me.오삽방지시스템ToolStripMenuItem, Me.SMD생산ToolStripMenuItem, Me.ToolStripSeparator3, Me.BTN_Repair_Management})
         Me.ToolStripDropDownButton2.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -360,18 +361,18 @@ Partial Class frm_Main
         'BTN_MMPS_DeviceData
         '
         Me.BTN_MMPS_DeviceData.Name = "BTN_MMPS_DeviceData"
-        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MMPS_DeviceData.Size = New System.Drawing.Size(174, 22)
         Me.BTN_MMPS_DeviceData.Text = "Device Data 등록"
         '
         'BTN_MMPS_History
         '
         Me.BTN_MMPS_History.Name = "BTN_MMPS_History"
-        Me.BTN_MMPS_History.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MMPS_History.Size = New System.Drawing.Size(174, 22)
         Me.BTN_MMPS_History.Text = "오삽방지 이력보기"
         '
         'SMD생산ToolStripMenuItem
         '
-        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_ProductionStart, Me.BTN_SMD_ProductionEnd, Me.ToolStripSeparator4, Me.생산현황ToolStripMenuItem})
+        Me.SMD생산ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_ProductionStart, Me.BTN_SMD_Inspection, Me.ToolStripSeparator4, Me.생산현황ToolStripMenuItem})
         Me.SMD생산ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.SMD생산ToolStripMenuItem.Name = "SMD생산ToolStripMenuItem"
         Me.SMD생산ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
@@ -383,11 +384,11 @@ Partial Class frm_Main
         Me.BTN_SMD_ProductionStart.Size = New System.Drawing.Size(180, 22)
         Me.BTN_SMD_ProductionStart.Text = "생산등록"
         '
-        'BTN_SMD_ProductionEnd
+        'BTN_SMD_Inspection
         '
-        Me.BTN_SMD_ProductionEnd.Name = "BTN_SMD_ProductionEnd"
-        Me.BTN_SMD_ProductionEnd.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_SMD_ProductionEnd.Text = "검사내역 등록"
+        Me.BTN_SMD_Inspection.Name = "BTN_SMD_Inspection"
+        Me.BTN_SMD_Inspection.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_SMD_Inspection.Text = "검사내역 등록"
         '
         'ToolStripSeparator4
         '
@@ -404,6 +405,13 @@ Partial Class frm_Main
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        '
+        'BTN_Repair_Management
+        '
+        Me.BTN_Repair_Management.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.BTN_Repair_Management.Name = "BTN_Repair_Management"
+        Me.BTN_Repair_Management.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Repair_Management.Text = "수리내역 등록"
         '
         'frm_Main
         '
@@ -468,8 +476,9 @@ Partial Class frm_Main
     Friend WithEvents BTN_MMPS_History As ToolStripMenuItem
     Friend WithEvents SMD생산ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BTN_SMD_ProductionStart As ToolStripMenuItem
-    Friend WithEvents BTN_SMD_ProductionEnd As ToolStripMenuItem
+    Friend WithEvents BTN_SMD_Inspection As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents 생산현황ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BTN_Repair_Management As ToolStripMenuItem
 End Class

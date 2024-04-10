@@ -252,11 +252,19 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_SMD_ProductionEnd_Click(sender As Object, e As EventArgs) Handles BTN_SMD_ProductionEnd.Click
+    Private Sub BTN_SMD_ProductionEnd_Click(sender As Object, e As EventArgs) Handles BTN_SMD_Inspection.Click
 
         frm_SMD_Production_End.MdiParent = Me
         If Not frm_SMD_Production_End.Visible Then frm_SMD_Production_End.Show()
         frm_SMD_Production_End.Focus()
+
+    End Sub
+
+    Private Sub BTN_Repair_Management_Click(sender As Object, e As EventArgs) Handles BTN_Repair_Management.Click
+
+        frm_Repair_Management.MdiParent = Me
+        If Not frm_Repair_Management.Visible Then frm_Repair_Management.Show()
+        frm_Repair_Management.Focus()
 
     End Sub
 End Class

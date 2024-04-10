@@ -933,7 +933,7 @@ Public Class frm_Material_Warehousing_With_Label
 
             DBConnect()
 
-            Dim strSQL As String = "call s_mms_material_warehousing_with_label(0"
+            Dim strSQL As String = "call sp_mms_material_warehousing_with_label(0"
             strSQL += ",'" & TB_ItemCode.Text & "'"
             strSQL += ")"
 
