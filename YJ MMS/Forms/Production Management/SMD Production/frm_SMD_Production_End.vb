@@ -413,15 +413,23 @@ Public Class frm_SMD_Production_End
 
     End Sub
 
-    Private Sub BTN_EndRegister_Click(sender As Object, e As EventArgs) Handles BTN_EndRegister.Click
+    Private Sub BTN_RepairCheck_Click(sender As Object, e As EventArgs) Handles BTN_RepairCheck.Click
 
-        'If TB_OrderIndex.Text = String.Empty Then
-        '    MessageBox.Show("생산중인 모델이 없습니다.",
-        '                    msg_form,
-        '                    MessageBoxButtons.OK,
-        '                    MessageBoxIcon.Information)
-        '    Exit Sub
-        'End If
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
     End Sub
 End Class

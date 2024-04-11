@@ -31,7 +31,7 @@ Partial Class frm_SMD_Production_End
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TB_WorkingQty = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.BTN_EndRegister = New System.Windows.Forms.Button()
+        Me.BTN_RepairCheck = New System.Windows.Forms.Button()
         Me.BTN_PauseRegister = New System.Windows.Forms.Button()
         Me.BTN_FaultRegister = New System.Windows.Forms.Button()
         Me.TB_Workside = New System.Windows.Forms.TextBox()
@@ -87,7 +87,7 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_WorkingQty)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_EndRegister)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_RepairCheck)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_PauseRegister)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_FaultRegister)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Workside)
@@ -154,7 +154,6 @@ Partial Class frm_SMD_Production_End
         Me.Label13.Size = New System.Drawing.Size(103, 12)
         Me.Label13.TabIndex = 36
         Me.Label13.Text = "(불량이 있을경우)"
-        Me.Label13.Visible = False
         '
         'Label12
         '
@@ -203,20 +202,19 @@ Partial Class frm_SMD_Production_End
         Me.Label10.Text = "작업수량"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BTN_EndRegister
+        'BTN_RepairCheck
         '
-        Me.BTN_EndRegister.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BTN_EndRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_EndRegister.Image = Global.YJ_MMS.My.Resources.Resources._Stop
-        Me.BTN_EndRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_EndRegister.Location = New System.Drawing.Point(837, 169)
-        Me.BTN_EndRegister.Name = "BTN_EndRegister"
-        Me.BTN_EndRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_EndRegister.TabIndex = 31
-        Me.BTN_EndRegister.Text = "생산종료" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_EndRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_EndRegister.UseVisualStyleBackColor = True
-        Me.BTN_EndRegister.Visible = False
+        Me.BTN_RepairCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_RepairCheck.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_RepairCheck.Image = Global.YJ_MMS.My.Resources.Resources._Stop
+        Me.BTN_RepairCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_RepairCheck.Location = New System.Drawing.Point(837, 169)
+        Me.BTN_RepairCheck.Name = "BTN_RepairCheck"
+        Me.BTN_RepairCheck.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_RepairCheck.TabIndex = 31
+        Me.BTN_RepairCheck.Text = "수리결과" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "확인"
+        Me.BTN_RepairCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_RepairCheck.UseVisualStyleBackColor = True
         '
         'BTN_PauseRegister
         '
@@ -607,7 +605,7 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Label9 As Label
     Friend WithEvents BTN_FaultRegister As Button
     Friend WithEvents BTN_PauseRegister As Button
-    Friend WithEvents BTN_EndRegister As Button
+    Friend WithEvents BTN_RepairCheck As Button
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents TB_WorkingQty As TextBox
     Friend WithEvents Label10 As Label

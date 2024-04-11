@@ -26,28 +26,36 @@ Partial Class frm_Repair_Management
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_RepairList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.CB_Process = New System.Windows.Forms.ComboBox()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        CType(Me.Grid_RepairList, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.Grid_RepairList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
         '
         Me.TS_MainBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Form_CLose, Me.BTN_Search})
+        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Form_CLose, Me.BTN_Search, Me.ToolStripSeparator1, Me.BTN_Save})
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
@@ -72,6 +80,14 @@ Partial Class frm_Repair_Management
         Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
         Me.BTN_Search.Text = "검색"
         '
+        'BTN_Save
+        '
+        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Save.Name = "BTN_Save"
+        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Save.Text = "저장"
+        '
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -83,6 +99,9 @@ Partial Class frm_Repair_Management
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.CB_Process)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label3)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TextBox1)
@@ -93,15 +112,102 @@ Partial Class frm_Repair_Management
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.White
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_RepairList)
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
-        Me.SplitContainer1.SplitterDistance = 70
+        Me.SplitContainer1.SplitterDistance = 88
         Me.SplitContainer1.TabIndex = 1
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.CheckBox1)
+        Me.GroupBox1.Location = New System.Drawing.Point(384, 3)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(262, 75)
+        Me.GroupBox1.TabIndex = 4
+        Me.GroupBox1.TabStop = False
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(121, 43)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(138, 21)
+        Me.TextBox2.TabIndex = 2
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox1.Location = New System.Drawing.Point(6, 45)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(112, 16)
+        Me.CheckBox1.TabIndex = 0
+        Me.CheckBox1.Text = "수리사 자동입력"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(9, 13)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(100, 21)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "검색내용"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Panel1
+        '
+        Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel1.Controls.Add(Me.RadioButton3)
+        Me.Panel1.Controls.Add(Me.RadioButton2)
+        Me.Panel1.Controls.Add(Me.RadioButton1)
+        Me.Panel1.Location = New System.Drawing.Point(109, 13)
+        Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(272, 21)
+        Me.Panel1.TabIndex = 2
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Checked = True
+        Me.RadioButton3.Location = New System.Drawing.Point(131, 2)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
+        Me.RadioButton3.TabIndex = 2
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "미완료"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(67, 2)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.Text = "완료"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(3, 2)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton1.TabIndex = 0
+        Me.RadioButton1.Text = "전체"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(403, 28)
+        Me.TextBox1.Location = New System.Drawing.Point(109, 57)
         Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(143, 21)
+        Me.TextBox1.Size = New System.Drawing.Size(272, 21)
         Me.TextBox1.TabIndex = 1
         '
         'Label1
@@ -109,7 +215,7 @@ Partial Class frm_Repair_Management
         Me.Label1.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(303, 28)
+        Me.Label1.Location = New System.Drawing.Point(9, 57)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(100, 21)
@@ -127,67 +233,39 @@ Partial Class frm_Repair_Management
         Me.Grid_RepairList.Name = "Grid_RepairList"
         Me.Grid_RepairList.Rows.Count = 2
         Me.Grid_RepairList.Rows.DefaultSize = 20
-        Me.Grid_RepairList.Size = New System.Drawing.Size(1264, 674)
+        Me.Grid_RepairList.Size = New System.Drawing.Size(1264, 656)
         Me.Grid_RepairList.StyleInfo = resources.GetString("Grid_RepairList.StyleInfo")
         Me.Grid_RepairList.TabIndex = 0
         Me.Grid_RepairList.UseCompatibleTextRendering = True
         '
-        'Panel1
+        'Label3
         '
-        Me.Panel1.Controls.Add(Me.RadioButton3)
-        Me.Panel1.Controls.Add(Me.RadioButton2)
-        Me.Panel1.Controls.Add(Me.RadioButton1)
-        Me.Panel1.Location = New System.Drawing.Point(109, 28)
-        Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(194, 21)
-        Me.Panel1.TabIndex = 2
+        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(9, 35)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(100, 21)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "공정"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label2
+        'CB_Process
         '
-        Me.Label2.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(9, 28)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(100, 21)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "검색내용"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.CB_Process.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Process.FormattingEnabled = True
+        Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering"})
+        Me.CB_Process.Location = New System.Drawing.Point(109, 35)
+        Me.CB_Process.Margin = New System.Windows.Forms.Padding(0)
+        Me.CB_Process.Name = "CB_Process"
+        Me.CB_Process.Size = New System.Drawing.Size(272, 20)
+        Me.CB_Process.TabIndex = 6
         '
-        'RadioButton1
+        'ToolStripSeparator1
         '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(3, 2)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "전체"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(67, 2)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "완료"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(131, 2)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
-        Me.RadioButton3.TabIndex = 2
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "미완료"
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'frm_Repair_Management
         '
@@ -205,9 +283,11 @@ Partial Class frm_Repair_Management
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        CType(Me.Grid_RepairList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.Grid_RepairList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -225,4 +305,11 @@ Partial Class frm_Repair_Management
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents BTN_Save As ToolStripButton
+    Friend WithEvents Label3 As Label
+    Friend WithEvents CB_Process As ComboBox
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class
