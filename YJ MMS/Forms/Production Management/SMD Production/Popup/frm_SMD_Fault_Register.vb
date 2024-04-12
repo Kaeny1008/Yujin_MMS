@@ -68,7 +68,7 @@ Public Class frm_SMD_Fault_Register
         strSQL += ", '" & LB_OrderIndex.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & LB_WorkSide.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

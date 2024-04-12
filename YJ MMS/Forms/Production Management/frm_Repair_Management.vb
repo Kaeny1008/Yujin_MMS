@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frm_Repair_Management
     Private Sub frm_SMD_Defect_ReInspection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        CB_Process.SelectedIndex = 0
         Grid_Setting()
 
     End Sub
@@ -95,7 +96,7 @@ Public Class frm_Repair_Management
 
         Dim strSQL As String = "call sp_mms_repair_management("
         strSQL += "" & findIndex & ""
-        strSQL += ", '" & TextBox1.Text & "'"
+        strSQL += ", '" & TB_BoardNo.Text & "'"
         strSQL += ", '" & searchString & "'"
         strSQL += ")"
 
@@ -103,6 +104,10 @@ Public Class frm_Repair_Management
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
+            Dim repair_date As String = String.Empty
+            If Not IsDBNull(sqlDR("repair_date")) Then
+                repair_date = Format(sqlDR("repair_date"), "yyyy-MM-dd HH:mm:ss")
+            End If
             Dim insertString As String = Grid_RepairList.Rows.Count - 1 & vbTab &
                 sqlDR("defect_index") & vbTab &
                 sqlDR("board_no") & vbTab &
@@ -111,7 +116,7 @@ Public Class frm_Repair_Management
                 sqlDR("board_array") & vbTab &
                 sqlDR("ref") & vbTab &
                 sqlDR("defect_note") & vbTab &
-                Format(sqlDR("repair_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
+                repair_date & vbTab &
                 sqlDR("repair_action") & vbTab &
                 sqlDR("repairman") & vbTab &
                 sqlDR("repair_note")
@@ -148,7 +153,7 @@ Public Class frm_Repair_Management
         If e.Row < 2 Or e.Col < 9 Then Exit Sub
 
         If CheckBox1.Checked Then
-            If TextBox2.Text = String.Empty Then
+            If TB_Repairman.Text = String.Empty Then
                 'MessageBox.Show("수리사를 입력하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 'e.Cancel = true
             End If
@@ -171,8 +176,9 @@ Public Class frm_Repair_Management
             Grid_RepairList.Rows(e.Row).StyleNew.ForeColor = Color.Blue
         End If
 
-        Grid_RepairList(e.Row, 8) = Format(Now, "yyyy-MM-dd HH:mm:ss")
-        If CheckBox1.Checked Then Grid_RepairList(e.Row, 10) = TextBox2.Text
+        If Not e.Col = 10 Then
+            If CheckBox1.Checked Then Grid_RepairList(e.Row, 10) = TB_Repairman.Text
+        End If
 
         Grid_RepairList.AutoSizeCols()
         Grid_RepairList.Redraw = True
@@ -197,7 +203,7 @@ Public Class frm_Repair_Management
 
         Do While sqlDR.Read
             If comboList = String.Empty Then
-                comboList = sqlDR("sub_code_name")
+                comboList += sqlDR("sub_code_name")
             Else
                 comboList += "|" & sqlDR("sub_code_name")
             End If
@@ -221,8 +227,7 @@ Public Class frm_Repair_Management
 
         For i = 2 To Grid_RepairList.Rows.Count - 1
             If Grid_RepairList(i, 0) = "M" Then
-                If Grid_RepairList(i, 8) = String.Empty Or
-                    Grid_RepairList(i, 9) = String.Empty Or
+                If Grid_RepairList(i, 9) = String.Empty Or
                     Grid_RepairList(i, 10) = String.Empty Then
                     MessageBox.Show("필수 입력항목이 누락되었습니다." & vbCrLf & "번호 : " & i-1,
                                     msg_form,
@@ -258,7 +263,7 @@ Public Class frm_Repair_Management
                 If Grid_RepairList(i, 0) = "M" Then
                     strSQL = "update " & updateTable
                     strSQL += " set"
-                    strSQL += " repair_date = '" & Grid_RepairList(i, 8) & "'"
+                    strSQL += " repair_date = '" & writeDate & "'"
                     strSQL += ", repair_action = '" & Grid_RepairList(i, 9) & "'"
                     strSQL += ", repairman = '" & Grid_RepairList(i, 10) & "'"
                     strSQL += ", repair_note = '" & Grid_RepairList(i, 11) & "'"
@@ -295,6 +300,14 @@ Public Class frm_Repair_Management
         MessageBox.Show("저장 완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub TB_BoardNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_BoardNo.KeyDown
+
+        If Not Trim(TB_BoardNo.Text) = String.Empty And e.KeyCode = 13 Then
+            BTN_Search_Click(Nothing, Nothing)
+        End If
 
     End Sub
 End Class

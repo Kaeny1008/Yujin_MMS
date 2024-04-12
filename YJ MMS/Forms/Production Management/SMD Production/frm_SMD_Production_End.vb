@@ -205,6 +205,8 @@ Public Class frm_SMD_Production_End
         TB_Workside.Text = String.Empty
         TB_WorkingQty.Text = String.Empty
         TB_Operator.Text = String.Empty
+        Grid_OrderList.Rows.Count = 1
+        Grid_History.Rows.Count = 2
 
         Load_OrderInformation()
 
@@ -261,17 +263,27 @@ Public Class frm_SMD_Production_End
 
         Grid_OrderList.Redraw = True
 
-        If Grid_OrderList.Rows.Count = 2 Then
-            TB_OrderIndex.Text = Grid_OrderList(1, 1)
-            TB_CustomerCode.Text = Grid_OrderList(1, 2)
-            TB_CustomerName.Text = Grid_OrderList(1, 3)
-            TB_ModelCode.Text = Grid_OrderList(1, 4)
-            TB_ItemCode.Text = Grid_OrderList(1, 5)
-            TB_ItemName.Text = Grid_OrderList(1, 6)
-            TB_Workside.Text = Grid_OrderList(1, 7)
-            TB_WorkingQty.Text = Grid_OrderList(1, 8)
-            TB_Operator.Text = Grid_OrderList(1, 9)
-            historyIndex = Grid_OrderList(1, 10)
+        If Grid_OrderList.Rows.Count > 1 Then
+            Dim findRow As Integer = 1
+            If Not historyIndex = 0 Then
+                findRow = Grid_OrderList.FindRow(CStr(historyIndex), 1, 10, False)
+                'For i = 1 To Grid_OrderList.Rows.Count - 1
+                '    Console.WriteLine(historyIndex & ", " & Grid_OrderList(i, 10) & ", " & Grid_OrderList(i, 10).Equals(CStr(historyIndex)))
+                'Next
+                If findRow = -1 Then
+                    findRow = 1
+                End If
+            End If
+            TB_OrderIndex.Text = Grid_OrderList(findRow, 1)
+            TB_CustomerCode.Text = Grid_OrderList(findRow, 2)
+            TB_CustomerName.Text = Grid_OrderList(findRow, 3)
+            TB_ModelCode.Text = Grid_OrderList(findRow, 4)
+            TB_ItemCode.Text = Grid_OrderList(findRow, 5)
+            TB_ItemName.Text = Grid_OrderList(findRow, 6)
+            TB_Workside.Text = Grid_OrderList(findRow, 7)
+            TB_WorkingQty.Text = Grid_OrderList(findRow, 8)
+            TB_Operator.Text = Grid_OrderList(findRow, 9)
+            historyIndex = Grid_OrderList(findRow, 10)
             Load_InspectList()
         End If
 
@@ -430,6 +442,11 @@ Public Class frm_SMD_Production_End
                             MessageBoxIcon.Information)
             Exit Sub
         End If
+
+        frm_SMD_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_SMD_Reinspection.TB_Inspector.Text = TB_Inspector.Text
+        If Not frm_SMD_Reinspection.Visible Then frm_SMD_Reinspection.Show()
+        frm_SMD_Reinspection.Focus()
 
     End Sub
 End Class

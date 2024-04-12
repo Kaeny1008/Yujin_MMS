@@ -26,22 +26,22 @@ Partial Class frm_Repair_Management
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.CB_Process = New System.Windows.Forms.ComboBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TB_Repairman = New System.Windows.Forms.TextBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TB_BoardNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_RepairList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.CB_Process = New System.Windows.Forms.ComboBox()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -80,6 +80,11 @@ Partial Class frm_Repair_Management
         Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
         Me.BTN_Search.Text = "검색"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
         'BTN_Save
         '
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
@@ -104,7 +109,7 @@ Partial Class frm_Repair_Management
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TextBox1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_BoardNo)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
         '
         'SplitContainer1.Panel2
@@ -115,9 +120,33 @@ Partial Class frm_Repair_Management
         Me.SplitContainer1.SplitterDistance = 88
         Me.SplitContainer1.TabIndex = 1
         '
+        'CB_Process
+        '
+        Me.CB_Process.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Process.FormattingEnabled = True
+        Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering"})
+        Me.CB_Process.Location = New System.Drawing.Point(109, 35)
+        Me.CB_Process.Margin = New System.Windows.Forms.Padding(0)
+        Me.CB_Process.Name = "CB_Process"
+        Me.CB_Process.Size = New System.Drawing.Size(272, 20)
+        Me.CB_Process.TabIndex = 6
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(9, 35)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(100, 21)
+        Me.Label3.TabIndex = 5
+        Me.Label3.Text = "공정"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.TextBox2)
+        Me.GroupBox1.Controls.Add(Me.TB_Repairman)
         Me.GroupBox1.Controls.Add(Me.CheckBox1)
         Me.GroupBox1.Location = New System.Drawing.Point(384, 3)
         Me.GroupBox1.Name = "GroupBox1"
@@ -125,13 +154,13 @@ Partial Class frm_Repair_Management
         Me.GroupBox1.TabIndex = 4
         Me.GroupBox1.TabStop = False
         '
-        'TextBox2
+        'TB_Repairman
         '
-        Me.TextBox2.Location = New System.Drawing.Point(121, 43)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(138, 21)
-        Me.TextBox2.TabIndex = 2
+        Me.TB_Repairman.Location = New System.Drawing.Point(121, 43)
+        Me.TB_Repairman.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_Repairman.Name = "TB_Repairman"
+        Me.TB_Repairman.Size = New System.Drawing.Size(138, 21)
+        Me.TB_Repairman.TabIndex = 2
         '
         'CheckBox1
         '
@@ -202,13 +231,13 @@ Partial Class frm_Repair_Management
         Me.RadioButton1.Text = "전체"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'TB_BoardNo
         '
-        Me.TextBox1.Location = New System.Drawing.Point(109, 57)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(272, 21)
-        Me.TextBox1.TabIndex = 1
+        Me.TB_BoardNo.Location = New System.Drawing.Point(109, 57)
+        Me.TB_BoardNo.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_BoardNo.Name = "TB_BoardNo"
+        Me.TB_BoardNo.Size = New System.Drawing.Size(272, 21)
+        Me.TB_BoardNo.TabIndex = 1
         '
         'Label1
         '
@@ -237,35 +266,6 @@ Partial Class frm_Repair_Management
         Me.Grid_RepairList.StyleInfo = resources.GetString("Grid_RepairList.StyleInfo")
         Me.Grid_RepairList.TabIndex = 0
         Me.Grid_RepairList.UseCompatibleTextRendering = True
-        '
-        'Label3
-        '
-        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(9, 35)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(100, 21)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "공정"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'CB_Process
-        '
-        Me.CB_Process.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_Process.FormattingEnabled = True
-        Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering"})
-        Me.CB_Process.Location = New System.Drawing.Point(109, 35)
-        Me.CB_Process.Margin = New System.Windows.Forms.Padding(0)
-        Me.CB_Process.Name = "CB_Process"
-        Me.CB_Process.Size = New System.Drawing.Size(272, 20)
-        Me.CB_Process.TabIndex = 6
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
         'frm_Repair_Management
         '
@@ -298,7 +298,7 @@ Partial Class frm_Repair_Management
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents Grid_RepairList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents BTN_Search As ToolStripButton
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TB_BoardNo As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Panel1 As Panel
@@ -307,7 +307,7 @@ Partial Class frm_Repair_Management
     Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TB_Repairman As TextBox
     Friend WithEvents BTN_Save As ToolStripButton
     Friend WithEvents Label3 As Label
     Friend WithEvents CB_Process As ComboBox

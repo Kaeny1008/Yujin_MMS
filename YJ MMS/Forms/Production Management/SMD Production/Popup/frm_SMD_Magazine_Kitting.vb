@@ -17,14 +17,6 @@ Public Class frm_SMD_Magazine_Kitting
 
     End Sub
 
-    Private Sub TB_MagazineQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_MagazineQty.KeyPress
-
-        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
-            e.Handled = True
-        End If
-
-    End Sub
-
     Private Sub Load_Process()
 
         DBConnect()
@@ -115,8 +107,22 @@ Public Class frm_SMD_Magazine_Kitting
 
         Dim workingEnd As Boolean = False
         If lastWorkingCount + TB_MagazineQty.Text = workingCount Then
+            If CheckReinspection() = False Then
+                MessageBox.Show(Me,
+                                "수리품 재검사가 완료되지 않았습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Asterisk)
+                Exit Sub
+            End If
             workingEnd = True
         End If
+
+        If MessageBox.Show(Me,
+                           "생산내역을 등록 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
         DBConnect()
 
@@ -183,7 +189,7 @@ Public Class frm_SMD_Magazine_Kitting
         DBClose()
 
         If RadioButton1.Checked = True Then
-            PrintLabel(writeDate, workingEnd)
+            PrintLabel(writeDate, modelTB)
         End If
 
         frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
@@ -192,7 +198,48 @@ Public Class frm_SMD_Magazine_Kitting
 
     End Sub
 
-    Private Sub PrintLabel(ByVal writeDate As String, ByVal workingEnd As Boolean)
+    Private Function CheckReinspection() As Boolean
+
+        Dim not_inspect As Integer = 0
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_smd_production_end(7"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            not_inspect += sqlDR("not_inspect")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        If not_inspect = 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
+
+    Private Sub PrintLabel(ByVal writeDate As String, ByVal modelTB As String)
+
+        Dim readyTop As Boolean = False
+
+        If modelTB = "Bottom / Top" Then
+            If TB_TB.Text = "Bottom" Then
+                readyTop = True
+            End If
+        End If
 
         If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
 
@@ -236,12 +283,12 @@ Public Class frm_SMD_Magazine_Kitting
         swFile.WriteLine("^FO0518,0246^A0,30,20^FD" & TB_TB.Text & "^FS")
         swFile.WriteLine("^FO0016,0284^A0,30,20^FDSMD Date^FS")
         swFile.WriteLine("^FO0170,0284^A0,30,18^FD" & writeDate & "^FS")
-        If workingEnd = True Then
-            swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
-            swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
-        Else
+        If readyTop = True Then
             swFile.WriteLine("^FO0016,0324^A1N,30,20^FD비고^FS")
             swFile.WriteLine("^FO0170,0324^A1N,70,50^FDTop 작업대기품^FS")
+        Else
+            swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
+            swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
         End If
 
         swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_PONo.Text & "!" & LB_HistoryIndex.Text & "^FS")
@@ -259,6 +306,22 @@ Public Class frm_SMD_Magazine_Kitting
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error)
+        End If
+
+    End Sub
+
+    Private Sub TB_MagazineQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_MagazineQty.KeyDown
+
+        If Not TB_MagazineQty.Text = String.Empty And e.KeyCode = 13 Then
+            BTN_Exit_Click(Nothing, Nothing)
+        End If
+
+    End Sub
+
+    Private Sub TB_MagazineQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_MagazineQty.KeyPress
+
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
+            e.Handled = True
         End If
 
     End Sub

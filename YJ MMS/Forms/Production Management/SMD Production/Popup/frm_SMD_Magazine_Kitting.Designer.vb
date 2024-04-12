@@ -59,7 +59,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.BTN_Exit.Location = New System.Drawing.Point(335, 422)
         Me.BTN_Exit.Name = "BTN_Exit"
         Me.BTN_Exit.Size = New System.Drawing.Size(144, 53)
-        Me.BTN_Exit.TabIndex = 32
+        Me.BTN_Exit.TabIndex = 22
         Me.BTN_Exit.Text = "저장 및 발행"
         Me.BTN_Exit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Exit.UseVisualStyleBackColor = True
@@ -74,7 +74,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(161, 26)
-        Me.Label6.TabIndex = 33
+        Me.Label6.TabIndex = 14
         Me.Label6.Text = "라벨발행 여부"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -86,7 +86,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_MagazineQty.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_MagazineQty.Name = "TB_MagazineQty"
         Me.TB_MagazineQty.Size = New System.Drawing.Size(309, 26)
-        Me.TB_MagazineQty.TabIndex = 36
+        Me.TB_MagazineQty.TabIndex = 16
         '
         'Label1
         '
@@ -98,7 +98,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(161, 26)
-        Me.Label1.TabIndex = 35
+        Me.Label1.TabIndex = 15
         Me.Label1.Text = "Magazine 수량"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -111,7 +111,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.RadioButton1.Location = New System.Drawing.Point(3, 3)
         Me.RadioButton1.Name = "RadioButton1"
         Me.RadioButton1.Size = New System.Drawing.Size(58, 20)
-        Me.RadioButton1.TabIndex = 37
+        Me.RadioButton1.TabIndex = 0
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "발행"
         Me.RadioButton1.UseVisualStyleBackColor = True
@@ -124,7 +124,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.RadioButton2.Location = New System.Drawing.Point(113, 3)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(74, 20)
-        Me.RadioButton2.TabIndex = 38
+        Me.RadioButton2.TabIndex = 1
         Me.RadioButton2.Text = "미발행"
         Me.RadioButton2.UseVisualStyleBackColor = True
         '
@@ -136,7 +136,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Panel1.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(309, 26)
-        Me.Panel1.TabIndex = 39
+        Me.Panel1.TabIndex = 23
         '
         'TB_Note
         '
@@ -147,7 +147,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_Note.Multiline = True
         Me.TB_Note.Name = "TB_Note"
         Me.TB_Note.Size = New System.Drawing.Size(309, 146)
-        Me.TB_Note.TabIndex = 41
+        Me.TB_Note.TabIndex = 18
         '
         'Label2
         '
@@ -159,7 +159,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(161, 146)
-        Me.Label2.TabIndex = 40
+        Me.Label2.TabIndex = 17
         Me.Label2.Text = "특이사항"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -169,7 +169,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.LB_HistoryIndex.Location = New System.Drawing.Point(12, 422)
         Me.LB_HistoryIndex.Name = "LB_HistoryIndex"
         Me.LB_HistoryIndex.Size = New System.Drawing.Size(80, 12)
-        Me.LB_HistoryIndex.TabIndex = 42
+        Me.LB_HistoryIndex.TabIndex = 19
         Me.LB_HistoryIndex.Text = "history_index"
         Me.LB_HistoryIndex.Visible = False
         '
@@ -182,7 +182,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_ItemCode.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_ItemCode.Name = "TB_ItemCode"
         Me.TB_ItemCode.Size = New System.Drawing.Size(309, 26)
-        Me.TB_ItemCode.TabIndex = 44
+        Me.TB_ItemCode.TabIndex = 1
         '
         'Label4
         '
@@ -194,7 +194,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(161, 26)
-        Me.Label4.TabIndex = 43
+        Me.Label4.TabIndex = 0
         Me.Label4.Text = "ItemCode"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -207,7 +207,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_ItemName.Name = "TB_ItemName"
         Me.TB_ItemName.Size = New System.Drawing.Size(309, 26)
-        Me.TB_ItemName.TabIndex = 46
+        Me.TB_ItemName.TabIndex = 3
         '
         'Label5
         '
@@ -219,7 +219,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(161, 26)
-        Me.Label5.TabIndex = 45
+        Me.Label5.TabIndex = 2
         Me.Label5.Text = "ItemName"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -232,7 +232,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_PONo.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_PONo.Name = "TB_PONo"
         Me.TB_PONo.Size = New System.Drawing.Size(309, 26)
-        Me.TB_PONo.TabIndex = 48
+        Me.TB_PONo.TabIndex = 5
         '
         'Label7
         '
@@ -244,7 +244,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(161, 26)
-        Me.Label7.TabIndex = 47
+        Me.Label7.TabIndex = 4
         Me.Label7.Text = "PO No."
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -257,7 +257,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_TotalQty.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_TotalQty.Name = "TB_TotalQty"
         Me.TB_TotalQty.Size = New System.Drawing.Size(309, 26)
-        Me.TB_TotalQty.TabIndex = 50
+        Me.TB_TotalQty.TabIndex = 7
         '
         'Label8
         '
@@ -269,7 +269,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label8.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(161, 26)
-        Me.Label8.TabIndex = 49
+        Me.Label8.TabIndex = 6
         Me.Label8.Text = "Total Q'ty"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -282,7 +282,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_SMDLine.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_SMDLine.Name = "TB_SMDLine"
         Me.TB_SMDLine.Size = New System.Drawing.Size(309, 26)
-        Me.TB_SMDLine.TabIndex = 52
+        Me.TB_SMDLine.TabIndex = 9
         '
         'Label9
         '
@@ -294,7 +294,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label9.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(161, 26)
-        Me.Label9.TabIndex = 51
+        Me.Label9.TabIndex = 8
         Me.Label9.Text = "SMD Line"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -307,7 +307,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_TB.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_TB.Name = "TB_TB"
         Me.TB_TB.Size = New System.Drawing.Size(309, 26)
-        Me.TB_TB.TabIndex = 54
+        Me.TB_TB.TabIndex = 11
         '
         'Label10
         '
@@ -319,7 +319,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(161, 26)
-        Me.Label10.TabIndex = 53
+        Me.Label10.TabIndex = 10
         Me.Label10.Text = "TOP / Bottom"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -332,7 +332,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.TB_Process.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Process.Name = "TB_Process"
         Me.TB_Process.Size = New System.Drawing.Size(309, 26)
-        Me.TB_Process.TabIndex = 56
+        Me.TB_Process.TabIndex = 13
         '
         'Label11
         '
@@ -344,7 +344,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.Label11.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(161, 26)
-        Me.Label11.TabIndex = 55
+        Me.Label11.TabIndex = 12
         Me.Label11.Text = "Process"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -354,7 +354,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.LB_ModelCode.Location = New System.Drawing.Point(12, 434)
         Me.LB_ModelCode.Name = "LB_ModelCode"
         Me.LB_ModelCode.Size = New System.Drawing.Size(74, 12)
-        Me.LB_ModelCode.TabIndex = 57
+        Me.LB_ModelCode.TabIndex = 20
         Me.LB_ModelCode.Text = "model_code"
         Me.LB_ModelCode.Visible = False
         '
@@ -364,7 +364,7 @@ Partial Class frm_SMD_Magazine_Kitting
         Me.LB_CustomerCode.Location = New System.Drawing.Point(12, 446)
         Me.LB_CustomerCode.Name = "LB_CustomerCode"
         Me.LB_CustomerCode.Size = New System.Drawing.Size(88, 12)
-        Me.LB_CustomerCode.TabIndex = 58
+        Me.LB_CustomerCode.TabIndex = 21
         Me.LB_CustomerCode.Text = "customerCode"
         Me.LB_CustomerCode.Visible = False
         '

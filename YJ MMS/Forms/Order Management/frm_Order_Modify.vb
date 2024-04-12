@@ -460,17 +460,28 @@ Public Class frm_Order_Modify
 
         Select Case e.Col
             Case 10
-                If CDbl(before_griddata) < CDbl(Grid_Excel(e.Row, e.Col)) Then
-                    If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
-                        Grid_Excel(e.Row, e.Col) = before_griddata
-                        MessageBox.Show(Me,
-                                        "자재 소요량 확정된 주문은 기존 주문수량보다 클 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.",
-                                        msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Exclamation)
-                        Exit Sub
-                    End If
+                If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
+                    '주문접수된 상태가 아닐때
+                    Grid_Excel(e.Row, e.Col) = before_griddata
+                    MessageBox.Show(Me,
+                                    "주문접수 상태가 아니므로 변경 할 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
+                    Exit Sub
                 End If
+
+                'If CDbl(before_griddata) < CDbl(Grid_Excel(e.Row, e.Col)) Then
+                '    If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
+                '        Grid_Excel(e.Row, e.Col) = before_griddata
+                '        MessageBox.Show(Me,
+                '                        "자재 소요량 확정된 주문은 기존 주문수량보다 클 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.",
+                '                        msg_form,
+                '                        MessageBoxButtons.OK,
+                '                        MessageBoxIcon.Exclamation)
+                '        Exit Sub
+                '    End If
+                'End If
         End Select
 
         Grid_Excel.Redraw = False

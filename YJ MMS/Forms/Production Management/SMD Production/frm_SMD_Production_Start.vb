@@ -357,13 +357,23 @@ Public Class frm_SMD_Production_Start
         If MessageBox.Show(Me,
                            "Item Code : " & Grid_OrderList(selRow, 6) & vbCrLf &
                            "Item Name : " & Grid_OrderList(selRow, 7) & vbCrLf &
+                           "작업면 : " & workingSide & vbCrLf &
                            "생산종료 등록을 하시겠습니까?",
                            msg_form,
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
+        Dim lastCompleted As Boolean = True
+
+        If Grid_OrderList(selRow, 12) = "Bottom / Top" Then
+            If workingSide = "Bottom" Then
+                lastCompleted = False
+            End If
+        End If
+
         If EndWrite(Grid_OrderList(selRow, 1),
-                    workingSide) = False Then
+                    workingSide,
+                    lastCompleted) = False Then
             MessageBox.Show(Me,
                             "종료 등록을 실패 하였습니다.",
                             msg_form,
@@ -386,6 +396,7 @@ Public Class frm_SMD_Production_Start
         If MessageBox.Show(Me,
                            "Item Code : " & Grid_OrderList(selRow, 6) & vbCrLf &
                            "Item Name : " & Grid_OrderList(selRow, 7) & vbCrLf &
+                           "작업면 : " & workingSide & vbCrLf &
                            "생산시작 등록을 하시겠습니까?",
                            msg_form,
                            MessageBoxButtons.YesNo,
@@ -492,6 +503,7 @@ Public Class frm_SMD_Production_Start
             strSQL += " where order_index = '" & oder_index & "';"
             '생산계획 SMD시작일 등록
             strSQL += "update tb_mms_production_plan set smd_" & work_side.ToLower & "_start = '" & writeDate & "'"
+            strSQL += ", smd_status = '" & work_side & " Run'"
             strSQL += " where order_index = '" & oder_index & "';"
 
             If Not strSQL = String.Empty Then
@@ -526,7 +538,8 @@ Public Class frm_SMD_Production_Start
     End Function
 
     Private Function EndWrite(ByVal oder_index As String,
-                              ByVal work_side As String) As Boolean
+                              ByVal work_side As String,
+                              ByVal lastCompleted As Boolean) As Boolean
 
         Dim writeSuccess As Boolean = True
 
@@ -545,7 +558,12 @@ Public Class frm_SMD_Production_Start
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             '생산계획 SMD종료일 등록
+            Dim completedString As String = work_side & " Completed"
+            If lastCompleted = True Then
+                completedString = "SMD Completed"
+            End If
             strSQL = "update tb_mms_production_plan set smd_" & work_side.ToLower & "_end = '" & writeDate & "'"
+            strSQL += ", smd_status = '" & completedString & "'"
             strSQL += " where order_index = '" & oder_index & "';"
 
             If Not strSQL = String.Empty Then

@@ -315,6 +315,18 @@
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.Designer.vb">
+      <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
     </Compile>
@@ -474,6 +486,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.resx">
       <DependentUpon>frm_SMD_Production_Information.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.resx">
+      <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.resx">
+      <DependentUpon>frm_Wave_Selective_Production.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>

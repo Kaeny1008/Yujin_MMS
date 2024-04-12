@@ -267,4 +267,12 @@ Public Class frm_Main
         frm_Repair_Management.Focus()
 
     End Sub
+
+    Private Sub BTN_WSProduction_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction.Click
+
+        frm_Wave_Selective_Production.MdiParent = Me
+        If Not frm_Wave_Selective_Production.Visible Then frm_Wave_Selective_Production.Show()
+        frm_Wave_Selective_Production.Focus()
+
+    End Sub
 End Class
