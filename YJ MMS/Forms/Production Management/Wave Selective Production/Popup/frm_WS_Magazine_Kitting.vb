@@ -1,7 +1,7 @@
 ﻿Imports System.IO
 Imports MySql.Data.MySqlClient
 
-Public Class frm_SMD_Magazine_Kitting
+Public Class frm_WS_Magazine_Kitting
 
     Public lastWorkingCount As Integer
     Public totalDefectCount As Integer

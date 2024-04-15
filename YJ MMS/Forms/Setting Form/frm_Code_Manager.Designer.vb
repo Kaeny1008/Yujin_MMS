@@ -31,8 +31,6 @@ Partial Class frm_Code_Manager
         Me.Label2 = New System.Windows.Forms.Label()
         Me.tb_Code = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.btn_Search = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.grid_SubCode = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -45,13 +43,15 @@ Partial Class frm_Code_Manager
         Me.btn_Row_Delete = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.btn_Save = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btn_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         CType(Me.grid_MainCode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
@@ -59,6 +59,7 @@ Partial Class frm_Code_Manager
         CType(Me.grid_SubCode, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.grid_LastCode, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GRID_Menu.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -66,7 +67,7 @@ Partial Class frm_Code_Manager
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SplitContainer1.IsSplitterFixed = True
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 25)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
         'SplitContainer1.Panel1
@@ -77,7 +78,7 @@ Partial Class frm_Code_Manager
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.SplitContainer2)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 773)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 530
         Me.SplitContainer1.TabIndex = 0
         '
@@ -89,7 +90,7 @@ Partial Class frm_Code_Manager
         Me.grid_MainCode.Name = "grid_MainCode"
         Me.grid_MainCode.Rows.Count = 2
         Me.grid_MainCode.Rows.DefaultSize = 20
-        Me.grid_MainCode.Size = New System.Drawing.Size(530, 690)
+        Me.grid_MainCode.Size = New System.Drawing.Size(530, 665)
         Me.grid_MainCode.StyleInfo = resources.GetString("grid_MainCode.StyleInfo")
         Me.grid_MainCode.TabIndex = 3
         Me.grid_MainCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
@@ -101,7 +102,6 @@ Partial Class frm_Code_Manager
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.tb_Code)
         Me.Panel1.Controls.Add(Me.Label3)
-        Me.Panel1.Controls.Add(Me.ToolStrip1)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
@@ -156,24 +156,6 @@ Partial Class frm_Code_Manager
         Me.Label3.Text = "CODE"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Search})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(530, 25)
-        Me.ToolStrip1.TabIndex = 0
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'btn_Search
-        '
-        Me.btn_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.btn_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.btn_Search.Name = "btn_Search"
-        Me.btn_Search.Size = New System.Drawing.Size(51, 22)
-        Me.btn_Search.Text = "검색"
-        '
         'SplitContainer2
         '
         Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
@@ -192,7 +174,7 @@ Partial Class frm_Code_Manager
         Me.SplitContainer2.Panel2.Controls.Add(Me.grid_LastCode)
         Me.SplitContainer2.Panel2.Controls.Add(Me.Label4)
         Me.SplitContainer2.Panel2.Controls.Add(Me.Label6)
-        Me.SplitContainer2.Size = New System.Drawing.Size(730, 773)
+        Me.SplitContainer2.Size = New System.Drawing.Size(730, 748)
         Me.SplitContainer2.SplitterDistance = 509
         Me.SplitContainer2.TabIndex = 6
         '
@@ -204,7 +186,7 @@ Partial Class frm_Code_Manager
         Me.grid_SubCode.Name = "grid_SubCode"
         Me.grid_SubCode.Rows.Count = 2
         Me.grid_SubCode.Rows.DefaultSize = 20
-        Me.grid_SubCode.Size = New System.Drawing.Size(509, 687)
+        Me.grid_SubCode.Size = New System.Drawing.Size(509, 662)
         Me.grid_SubCode.StyleInfo = resources.GetString("grid_SubCode.StyleInfo")
         Me.grid_SubCode.TabIndex = 4
         Me.grid_SubCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
@@ -244,7 +226,7 @@ Partial Class frm_Code_Manager
         Me.grid_LastCode.Name = "grid_LastCode"
         Me.grid_LastCode.Rows.Count = 2
         Me.grid_LastCode.Rows.DefaultSize = 20
-        Me.grid_LastCode.Size = New System.Drawing.Size(217, 687)
+        Me.grid_LastCode.Size = New System.Drawing.Size(217, 662)
         Me.grid_LastCode.StyleInfo = resources.GetString("grid_LastCode.StyleInfo")
         Me.grid_LastCode.TabIndex = 6
         Me.grid_LastCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
@@ -308,12 +290,41 @@ Partial Class frm_Code_Manager
         Me.btn_Save.Size = New System.Drawing.Size(114, 22)
         Me.btn_Save.Text = "저장"
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btn_Search, Me.Form_CLose})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(1264, 25)
+        Me.ToolStrip1.TabIndex = 1
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btn_Search
+        '
+        Me.btn_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.btn_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btn_Search.Name = "btn_Search"
+        Me.btn_Search.Size = New System.Drawing.Size(51, 22)
+        Me.btn_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
         'frm_Code_Manager
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1264, 773)
         Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.KeyPreview = True
         Me.Name = "frm_Code_Manager"
         Me.Text = "Code 관리"
@@ -324,8 +335,6 @@ Partial Class frm_Code_Manager
         CType(Me.grid_MainCode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.SplitContainer2.Panel1.ResumeLayout(False)
         Me.SplitContainer2.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
@@ -333,15 +342,16 @@ Partial Class frm_Code_Manager
         CType(Me.grid_SubCode, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.grid_LastCode, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GRID_Menu.ResumeLayout(False)
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents Panel1 As Panel
     Friend WithEvents grid_MainCode As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents ToolStrip1 As ToolStrip
-    Friend WithEvents btn_Search As ToolStripButton
     Friend WithEvents grid_SubCode As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label1 As Label
     Friend WithEvents GRID_Menu As ContextMenuStrip
@@ -358,4 +368,7 @@ Partial Class frm_Code_Manager
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btn_Search As ToolStripButton
+    Friend WithEvents Form_CLose As ToolStripButton
 End Class

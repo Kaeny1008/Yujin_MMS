@@ -685,7 +685,7 @@ Public Class frm_Code_Manager
 
     End Sub
 
-    Private Sub ToolStrip1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ToolStrip1.MouseDoubleClick
+    Private Sub ToolStrip1_MouseDoubleClick(sender As Object, e As MouseEventArgs)
 
         If grid_MainCode.AllowEditing = True Then grid_MainCode.AllowEditing = False
 
@@ -725,6 +725,12 @@ Public Class frm_Code_Manager
     Private Sub CodeManager_Activated(sender As Object, e As EventArgs) Handles Me.Activated
 
         frm_Main.form_name = Me
+
+    End Sub
+
+    Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
+
+        Me.Dispose()
 
     End Sub
 End Class

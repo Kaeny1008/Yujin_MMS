@@ -93,7 +93,7 @@ Module md_ETC
         Try
             Console.WriteLine("(Loading Form) '{0}' Staring thread...",
                               Thread.CurrentThread.Name)
-            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
+            If (frm_LoadingImage.ShowDialog(frm_Main) = DialogResult.OK) Then
                 Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
                                   Thread.CurrentThread.Name)
                 'th_LoadingWindow.Abort() '강제종료는 프로그램 종료시나 써야할듯.. abortexception이 생김
@@ -120,13 +120,9 @@ Module md_ETC
             Console.WriteLine("(Loading Form) '{0}' Staring thread...",
                               Thread.CurrentThread.Name)
             frm_LoadingImage.Label1.Text = showText
-            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
+            If (frm_LoadingImage.ShowDialog(frm_Main) = DialogResult.OK) Then
                 Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
                                   Thread.CurrentThread.Name)
-                'th_LoadingWindow.Abort()
-                'Console.WriteLine("(Loading Form) '{0}' Waiting until thread stop...",
-                '                  Thread.CurrentThread.Name)
-                'th_LoadingWindow.Join()
                 Console.WriteLine("(Loading Form) '{0}' Finished...",
                                   Thread.CurrentThread.Name)
             End If

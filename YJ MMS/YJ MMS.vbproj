@@ -321,10 +321,22 @@
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.Designer.vb">
-      <DependentUpon>frm_Wave_Selective_Production.vb</DependentUpon>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.vb">
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.Designer.vb">
+      <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
@@ -490,8 +502,14 @@
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.resx">
       <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production.resx">
-      <DependentUpon>frm_Wave_Selective_Production.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.resx">
+      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
+      <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.resx">
+      <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
