@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frm_SMD_Reinspection
+Partial Class frm_WS_Reinspection
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,7 +22,7 @@ Partial Class frm_SMD_Reinspection
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Reinspection))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_WS_Reinspection))
         Me.TB_BoardNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -154,7 +154,7 @@ Partial Class frm_SMD_Reinspection
         Me.BTN_Save.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Save.UseVisualStyleBackColor = True
         '
-        'frm_SMD_Reinspection
+        'frm_WS_Reinspection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -173,9 +173,9 @@ Partial Class frm_SMD_Reinspection
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frm_SMD_Reinspection"
+        Me.Name = "frm_WS_Reinspection"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "SMD 수리결과 확인"
+        Me.Text = "Wave / Selective Soldering 수리결과 확인"
         CType(Me.Grid_Information, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

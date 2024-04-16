@@ -7,6 +7,9 @@ Public Class frm_Repair_Management
         CB_Process.SelectedIndex = 0
         Grid_Setting()
 
+        TB_Repairman.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Repair", "Repairman", String.Empty)
+        CB_Process.Text = registryEdit.ReadRegKey("Software\Yujin\MMS\Repair", "Process", String.Empty)
+
     End Sub
 
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
@@ -91,13 +94,14 @@ Public Class frm_Repair_Management
         ElseIf CB_Process.Text = "Selective Soldering" Then
             findIndex = 2
         ElseIf CB_Process.Text = "Wave Soldering" Then
-            findIndex = 3
+            findIndex = 2
         End If
 
         Dim strSQL As String = "call sp_mms_repair_management("
         strSQL += "" & findIndex & ""
         strSQL += ", '" & TB_BoardNo.Text & "'"
         strSQL += ", '" & searchString & "'"
+        strSQL += ", '" & CB_Process.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -196,6 +200,7 @@ Public Class frm_Repair_Management
         Dim strSQL As String = "call sp_mms_repair_management(0"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -238,7 +243,7 @@ Public Class frm_Repair_Management
             End If
         Next
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -253,15 +258,15 @@ Public Class frm_Repair_Management
         If CB_Process.Text = "SMD" Then
             updateTable = "tb_mms_smd_defect"
         ElseIf CB_Process.Text = "Selective Soldering" Then
-            updateTable = String.Empty
+            updateTable = "tb_mms_ws_defect"
         ElseIf CB_Process.Text = "Wave Soldering" Then
-            updateTable = String.Empty
+            updateTable = "tb_mms_ws_defect"
         End If
 
         Try
             For i = 2 To Grid_RepairList.Rows.Count - 1
                 If Grid_RepairList(i, 0) = "M" Then
-                    strSQL = "update " & updateTable
+                    strSQL += "update " & updateTable
                     strSQL += " set"
                     strSQL += " repair_date = '" & writeDate & "'"
                     strSQL += ", repair_action = '" & Grid_RepairList(i, 9) & "'"
@@ -297,7 +302,11 @@ Public Class frm_Repair_Management
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show("저장 완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(frm_Main,
+                        "저장 완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
 
         BTN_Search_Click(Nothing, Nothing)
 
@@ -308,6 +317,18 @@ Public Class frm_Repair_Management
         If Not Trim(TB_BoardNo.Text) = String.Empty And e.KeyCode = 13 Then
             BTN_Search_Click(Nothing, Nothing)
         End If
+
+    End Sub
+
+    Private Sub TB_Repairman_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_Repairman.KeyDown
+
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Repair", "Repairman", TB_Repairman.Text)
+
+    End Sub
+
+    Private Sub CB_Process_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Process.SelectionChangeCommitted
+
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Repair", "Process", CB_Process.Text)
 
     End Sub
 End Class

@@ -1,8 +1,8 @@
 ﻿Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-Public Class frm_SMD_Reinspection
-    Private Sub frm_SMD_Reinspection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+Public Class frm_WS_Reinspection
+    Private Sub frm_WS_Reinspection_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.TopMost = True
         CB_Result.SelectedIndex = 0
@@ -75,7 +75,7 @@ Public Class frm_SMD_Reinspection
 
             DBConnect()
 
-            Dim strSQL As String = "call sp_mms_smd_reinspection("
+            Dim strSQL As String = "call sp_mms_wave_selective_reinspection("
             strSQL += "'" & TB_BoardNo.Text & "'"
             strSQL += ",'" & LB_OrderIndex.Text & "'"
             strSQL += ")"
@@ -167,7 +167,7 @@ Public Class frm_SMD_Reinspection
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -181,7 +181,7 @@ Public Class frm_SMD_Reinspection
 
         Try
 
-            strSQL = "update tb_mms_smd_defect"
+            strSQL = "update tb_mms_ws_defect"
             strSQL += " set"
             strSQL += " reinspect_date = '" & writeDate & "'"
             strSQL += ", reinspect_result = '" & CB_Result.Text & "'"
@@ -214,7 +214,11 @@ Public Class frm_SMD_Reinspection
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show("저장 완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(frm_Main,
+                        "저장 완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
 
         Me.Dispose()
 

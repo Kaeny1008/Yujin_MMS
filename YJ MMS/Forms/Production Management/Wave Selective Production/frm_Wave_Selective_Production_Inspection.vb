@@ -80,6 +80,26 @@ Public Class frm_Wave_Selective_Production_Inspection
 
     End Sub
 
+    Private Sub ComboBox_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Department.SelectionChangeCommitted,
+        CB_Line.SelectionChangeCommitted,
+        CB_Process.SelectionChangeCommitted
+
+        TB_Barcode.SelectAll()
+        TB_Barcode.Focus()
+
+        If sender.name = CB_Process.Name Then
+            CB_Department.SelectedIndex = -1
+            CB_Line.SelectedIndex = -1
+        ElseIf sender.name = CB_Department.Name Then
+            CB_Line.SelectedIndex = -1
+        End If
+
+        registryEdit.WriteRegKey("Software\Yujin\MMS\WS Production", "Process", CB_Process.Text)
+        registryEdit.WriteRegKey("Software\Yujin\MMS\WS Production", "Department", CB_Department.Text)
+        registryEdit.WriteRegKey("Software\Yujin\MMS\WS Production", "Line", CB_Line.Text)
+
+    End Sub
+
     Private Sub TB_Inspector_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_Inspector.KeyDown
 
         If Not Trim(TB_Inspector.Text) = String.Empty And e.KeyCode = 13 Then
@@ -193,6 +213,7 @@ Public Class frm_Wave_Selective_Production_Inspection
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+        Dim workingCompletedQty As Integer = 0
 
         Do While sqlDR.Read
             Dim endDate As String = String.Empty
@@ -209,6 +230,7 @@ Public Class frm_Wave_Selective_Production_Inspection
                 sqlDR("history_note")
 
             GridWriteText(insertString, Me, Grid_History, Color.Black)
+            workingCompletedQty += sqlDR("end_quantity")
         Loop
         sqlDR.Close()
 
@@ -218,9 +240,19 @@ Public Class frm_Wave_Selective_Production_Inspection
         Grid_History.AutoSizeRows(2, 0, Grid_History.Rows.Count - 1, Grid_History.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_History.Redraw = True
 
+        If workingCompletedQty = CDbl(TB_TotalQty.Text) Then
+            MessageBox.Show("생산이 완료된 주문입니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Control_Initialize()
+        End If
+
     End Sub
 
-    Private Sub Control_Initialize()
+    Public Sub Control_Initialize()
+
+        Grid_History.Rows.Count = 2
 
         TB_OrderIndex.Text = String.Empty
         TB_SMD_HistoryNo.Text = String.Empty
@@ -372,7 +404,7 @@ Public Class frm_Wave_Selective_Production_Inspection
             totalDefectCount += Grid_History(i, 6)
         Next
 
-        frm_WS_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 5)
+        frm_WS_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 4)
         frm_WS_Magazine_Kitting.totalDefectCount = totalDefectCount
         frm_WS_Magazine_Kitting.workingCount = TB_TotalQty.Text
         frm_WS_Magazine_Kitting.TB_TotalQty.Text = TB_TotalQty.Text
@@ -385,6 +417,31 @@ Public Class frm_Wave_Selective_Production_Inspection
         frm_WS_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
         If Not frm_WS_Magazine_Kitting.Visible Then frm_WS_Magazine_Kitting.Show()
         frm_WS_Magazine_Kitting.Focus()
+
+    End Sub
+
+    Private Sub BTN_RepairCheck_Click(sender As Object, e As EventArgs) Handles BTN_RepairCheck.Click
+
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        frm_WS_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_WS_Reinspection.TB_Inspector.Text = TB_Inspector.Text
+        If Not frm_WS_Reinspection.Visible Then frm_WS_Reinspection.Show()
+        frm_WS_Reinspection.Focus()
 
     End Sub
 End Class

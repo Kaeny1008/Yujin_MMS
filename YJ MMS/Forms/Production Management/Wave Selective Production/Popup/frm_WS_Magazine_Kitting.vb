@@ -13,7 +13,6 @@ Public Class frm_WS_Magazine_Kitting
         Me.TopMost = True
 
         Load_Process()
-        Load_TopBottom()
 
     End Sub
 
@@ -21,11 +20,11 @@ Public Class frm_WS_Magazine_Kitting
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mms_smd_production_end(5"
-        strSQL += ", null"
+        Dim strSQL As String = "call sp_mms_wave_selective_production(8"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & LB_ModelCode.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
@@ -46,42 +45,18 @@ Public Class frm_WS_Magazine_Kitting
 
     End Sub
 
-    Private Sub Load_TopBottom()
-
-        DBConnect()
-
-        Dim strSQL As String = "call sp_mms_smd_production_end(6"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", '" & LB_ModelCode.Text & "'"
-        strSQL += ", '" & LB_CustomerCode.Text & "'"
-        strSQL += ", null"
-        strSQL += ")"
-
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
-
-        Do While sqlDR.Read
-            Dim workSite As String = "Bottom / Top"
-
-            If IsDBNull(sqlDR("Bottom")) And
-                Not IsDBNull(sqlDR("Top")) Then
-                workSite = "Top"
-            ElseIf Not IsDBNull(sqlDR("Bottom")) And
-                IsDBNull(sqlDR("Top")) Then
-                workSite = "Bottom"
-            End If
-
-            modelTB = workSite
-        Loop
-        sqlDR.Close()
-
-        DBClose()
-
-    End Sub
-
     Private Sub BTN_Exit_Click(sender As Object, e As EventArgs) Handles BTN_Exit.Click
+
+        If CDbl(TB_MagazineQty.Text) = 0 Then
+            MessageBox.Show(Me,
+                            "0이 아닌 숫자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Asterisk)
+            TB_MagazineQty.SelectAll()
+            TB_MagazineQty.Focus()
+            Exit Sub
+        End If
 
         If TB_MagazineQty.Text = String.Empty Then
             MessageBox.Show(Me,
@@ -94,7 +69,7 @@ Public Class frm_WS_Magazine_Kitting
             Exit Sub
         End If
 
-        If lastWorkingCount + TB_MagazineQty.Text > workingCount Then
+        If lastWorkingCount + CDbl(TB_MagazineQty.Text) > workingCount Then
             MessageBox.Show(Me,
                             "총 생산수량보다 큽니다.",
                             msg_form,
@@ -105,8 +80,17 @@ Public Class frm_WS_Magazine_Kitting
             Exit Sub
         End If
 
+        If CheckInputQty(lastWorkingCount + CDbl(TB_MagazineQty.Text)) = False Then
+            MessageBox.Show(Me,
+                            "입력한 수량이 총 투입수량보다 많습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Asterisk)
+            Exit Sub
+        End If
+
         Dim workingEnd As Boolean = False
-        If lastWorkingCount + TB_MagazineQty.Text = workingCount Then
+        If lastWorkingCount + CDbl(TB_MagazineQty.Text) = workingCount Then
             If CheckReinspection() = False Then
                 MessageBox.Show(Me,
                                 "수리품 재검사가 완료되지 않았습니다.",
@@ -135,34 +119,30 @@ Public Class frm_WS_Magazine_Kitting
         Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
         Try
             If workingEnd = False Then
-                strSQL = "insert into tb_mms_smd_production_history("
-                strSQL += "order_index, smd_start_date, smd_operater"
-                strSQL += ", smd_inspecter, start_quantity, work_side, working_status"
+                strSQL = "insert into tb_mms_ws_output_history("
+                strSQL += "order_index, history_index, ws_start_date"
+                strSQL += ", ws_inspector, start_quantity, working_status, process_name"
                 strSQL += ") select order_index"
+                strSQL += ", 'WSO" & Format(Now, "yyMMddHHmmssfff") & "'"
                 strSQL += ", '" & writeDate & "'"
-                strSQL += ", smd_operater"
-                strSQL += ", '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
-                strSQL += ", start_quantity + '" & TB_MagazineQty.Text & "', work_side, working_status"
-                strSQL += " from tb_mms_smd_production_history"
-                strSQL += " where history_index = " & LB_HistoryIndex.Text
+                strSQL += ", '" & frm_Wave_Selective_Production_Inspection.TB_Inspector.Text & "'"
+                strSQL += ", start_quantity + '" & TB_MagazineQty.Text & "', working_status"
+                strSQL += ", '" & TB_SMDLine.Text & "'"
+                strSQL += " from tb_mms_ws_output_history"
+                strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
                 strSQL += ";"
             Else
-                If modelTB = "Bottom / Top" And TB_TB.Text = "Top" Then
-                    strSQL += "update tb_mms_order_register_list set order_status = 'SMD Process Completed'"
-                    strSQL += " where order_index = '" & TB_PONo.Text & "';"
-                ElseIf modelTB = "Bottom" Or modelTB = "Top" Then
-                    strSQL += "update tb_mms_order_register_list set order_status = 'SMD Process Completed'"
-                    strSQL += " where order_index = '" & TB_PONo.Text & "';"
-                End If
+                strSQL += "update tb_mms_order_register_list set order_status = '" & frm_Wave_Selective_Production_Inspection.CB_Line.Text & " Process Completed'"
+                strSQL += " where order_index = '" & TB_PONo.Text & "';"
             End If
 
-            strSQL += "update tb_mms_smd_production_history set"
-            strSQL += " smd_end_date = '" & writeDate & "'"
+            strSQL += "update tb_mms_ws_output_history set"
+            strSQL += " ws_end_date = '" & writeDate & "'"
             strSQL += ", end_quantity = '" & TB_MagazineQty.Text & "'"
-            strSQL += ", working_status = concat(work_side, ' Completed')"
+            strSQL += ", working_status = 'Completed'"
             strSQL += ", history_note = '" & TB_Note.Text & "'"
-            strSQL += ", smd_inspecter = '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
-            strSQL += " where history_index = " & LB_HistoryIndex.Text
+            strSQL += ", ws_inspector = '" & frm_Wave_Selective_Production_Inspection.TB_Inspector.Text & "'"
+            strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
             strSQL += ";"
 
             If Not strSQL = String.Empty Then
@@ -192,7 +172,11 @@ Public Class frm_WS_Magazine_Kitting
             PrintLabel(writeDate, modelTB)
         End If
 
-        frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
+        If workingEnd = True Then
+            frm_Wave_Selective_Production_Inspection.Control_Initialize()
+        Else
+            frm_Wave_Selective_Production_Inspection.Load_InspectList()
+        End If
 
         Me.Dispose()
 
@@ -204,10 +188,10 @@ Public Class frm_WS_Magazine_Kitting
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mms_smd_production_end(7"
-        strSQL += ", null"
-        strSQL += ", null"
+        Dim strSQL As String = "call sp_mms_wave_selective_production(9"
         strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -231,15 +215,39 @@ Public Class frm_WS_Magazine_Kitting
 
     End Function
 
-    Private Sub PrintLabel(ByVal writeDate As String, ByVal modelTB As String)
+    Private Function CheckInputQty(ByVal totalQty As Integer) As Boolean
 
-        Dim readyTop As Boolean = False
+        DBConnect()
 
-        If modelTB = "Bottom / Top" Then
-            If TB_TB.Text = "Bottom" Then
-                readyTop = True
-            End If
+        Dim strSQL As String = "call sp_mms_wave_selective_production(10"
+        strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+        Dim inputQty As Integer = 0
+
+        Do While sqlDR.Read
+            inputQty += sqlDR("working_quantity")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        If inputQty >= totalQty Then
+            Return True
+        Else
+            Return False
         End If
+
+    End Function
+
+    Private Sub PrintLabel(ByVal writeDate As String, ByVal modelTB As String)
 
         If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
 
@@ -263,7 +271,7 @@ Public Class frm_WS_Magazine_Kitting
         swFile.WriteLine("^FO0352,0200^GB0000,0116,2,B,0^FS")
         swFile.WriteLine("^FO0510,0200^GB0000,0116,2,B,0^FS")
 
-        swFile.WriteLine("^FO0300,0008^A1N,70,50^FDSMD현품표^FS")
+        swFile.WriteLine("^FO0300,0008^A1N,70,50^FD" & TB_SMDLine.Text & "현품표^FS")
         swFile.WriteLine("^FO0172,0080^A0,40,20^FDItemCode : ^FS")
         swFile.WriteLine("^FO0264,0080^A0,40,20^FD" & TB_ItemCode.Text & "^FS")
         swFile.WriteLine("^FO0172,0120^A0,40,20^FDItemName : ^FS")
@@ -277,19 +285,14 @@ Public Class frm_WS_Magazine_Kitting
         swFile.WriteLine("^FO0360,0208^A0,30,20^FDMagazine Q'ty^FS")
         swFile.WriteLine("^FO0518,0208^A0,30,20^FD" & TB_MagazineQty.Text & " EA^FS")
 
-        swFile.WriteLine("^FO0016,0246^A0,30,20^FDSMD Line^FS")
+        swFile.WriteLine("^FO0016,0246^A0,30,20^FDLine^FS")
         swFile.WriteLine("^FO0170,0246^A0,30,20^FD" & TB_SMDLine.Text & "^FS")
-        swFile.WriteLine("^FO0360,0246^A0,30,20^FDTop / Bottom^FS")
-        swFile.WriteLine("^FO0518,0246^A0,30,20^FD" & TB_TB.Text & "^FS")
-        swFile.WriteLine("^FO0016,0284^A0,30,20^FDSMD Date^FS")
+        'swFile.WriteLine("^FO0360,0246^A0,30,20^FDTop / Bottom^FS")
+        'swFile.WriteLine("^FO0518,0246^A0,30,20^FD" & TB_TB.Text & "^FS")
+        swFile.WriteLine("^FO0016,0284^A0,30,20^FDDate^FS")
         swFile.WriteLine("^FO0170,0284^A0,30,18^FD" & writeDate & "^FS")
-        If readyTop = True Then
-            swFile.WriteLine("^FO0016,0324^A1N,30,20^FD비고^FS")
-            swFile.WriteLine("^FO0170,0324^A1N,70,50^FDTop 작업대기품^FS")
-        Else
-            swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
-            swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
-        End If
+        swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
+        swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
 
         swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_PONo.Text & "!" & LB_HistoryIndex.Text & "^FS")
 

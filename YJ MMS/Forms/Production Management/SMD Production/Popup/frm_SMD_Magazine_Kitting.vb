@@ -83,6 +83,17 @@ Public Class frm_SMD_Magazine_Kitting
 
     Private Sub BTN_Exit_Click(sender As Object, e As EventArgs) Handles BTN_Exit.Click
 
+        If CDbl(TB_MagazineQty.Text) = 0 Then
+            MessageBox.Show(Me,
+                            "0이 아닌 숫자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Asterisk)
+            TB_MagazineQty.SelectAll()
+            TB_MagazineQty.Focus()
+            Exit Sub
+        End If
+
         If TB_MagazineQty.Text = String.Empty Then
             MessageBox.Show(Me,
                             "Magazine 수량이 입력되지 않았습니다.",
@@ -144,7 +155,7 @@ Public Class frm_SMD_Magazine_Kitting
                 strSQL += ", '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
                 strSQL += ", start_quantity + '" & TB_MagazineQty.Text & "', work_side, working_status"
                 strSQL += " from tb_mms_smd_production_history"
-                strSQL += " where history_index = " & LB_HistoryIndex.Text
+                strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
                 strSQL += ";"
             Else
                 If modelTB = "Bottom / Top" And TB_TB.Text = "Top" Then
@@ -162,7 +173,7 @@ Public Class frm_SMD_Magazine_Kitting
             strSQL += ", working_status = concat(work_side, ' Completed')"
             strSQL += ", history_note = '" & TB_Note.Text & "'"
             strSQL += ", smd_inspecter = '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
-            strSQL += " where history_index = " & LB_HistoryIndex.Text
+            strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
             strSQL += ";"
 
             If Not strSQL = String.Empty Then

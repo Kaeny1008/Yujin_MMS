@@ -220,7 +220,7 @@ Public Class frm_WS_Fault_Register
         Try
             strSQL = "insert into tb_mms_ws_defect("
             strSQL += "defect_index, order_index, defect_classification, defect_name, board_array, ref, defect_note"
-            strSQL += ", write_date, write_id, history_index, ws_inspector, board_no"
+            strSQL += ", write_date, write_id, history_index, ws_inspector, board_no, defect_process"
             strSQL += ") values ("
             strSQL += "'" & Grid_Fault(rowNum, 1) & "'"
             strSQL += ",'" & LB_OrderIndex.Text & "'"
@@ -234,6 +234,7 @@ Public Class frm_WS_Fault_Register
             strSQL += ",'" & LB_HistoryIndex.Text & "'"
             strSQL += ",'" & Grid_Fault(rowNum, 7) & "'"
             strSQL += ",'" & Grid_Fault(rowNum, 2) & "'"
+            strSQL += ",'" & LB_SMDLine.Text & "'"
             strSQL += ");"
 
             strSQL += "update tb_mms_ws_output_history set "

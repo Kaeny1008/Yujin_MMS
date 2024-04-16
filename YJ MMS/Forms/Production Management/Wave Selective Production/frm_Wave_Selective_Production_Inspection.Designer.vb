@@ -24,10 +24,14 @@ Partial Class frm_Wave_Selective_Production_Inspection
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Wave_Selective_Production_Inspection))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.BTN_RepairCheck = New System.Windows.Forms.Button()
+        Me.BTN_PauseRegister = New System.Windows.Forms.Button()
+        Me.BTN_FaultRegister = New System.Windows.Forms.Button()
         Me.TB_Inspector = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TB_SMD_HistoryNo = New System.Windows.Forms.TextBox()
@@ -53,10 +57,6 @@ Partial Class frm_Wave_Selective_Production_Inspection
         Me.CB_Process = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.BTN_RepairCheck = New System.Windows.Forms.Button()
-        Me.BTN_PauseRegister = New System.Windows.Forms.Button()
-        Me.BTN_FaultRegister = New System.Windows.Forms.Button()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -74,6 +74,16 @@ Partial Class frm_Wave_Selective_Production_Inspection
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
         Me.TS_MainBar.TabIndex = 0
         Me.TS_MainBar.Text = "ToolStrip1"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
         '
         'SplitContainer1
         '
@@ -150,6 +160,45 @@ Partial Class frm_Wave_Selective_Production_Inspection
         Me.Label14.Size = New System.Drawing.Size(63, 12)
         Me.Label14.TabIndex = 11
         Me.Label14.Text = "(불량기록)"
+        '
+        'BTN_RepairCheck
+        '
+        Me.BTN_RepairCheck.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_RepairCheck.Image = Global.YJ_MMS.My.Resources.Resources._Stop
+        Me.BTN_RepairCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_RepairCheck.Location = New System.Drawing.Point(245, 183)
+        Me.BTN_RepairCheck.Name = "BTN_RepairCheck"
+        Me.BTN_RepairCheck.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_RepairCheck.TabIndex = 16
+        Me.BTN_RepairCheck.Text = "수리결과" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "확인"
+        Me.BTN_RepairCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_RepairCheck.UseVisualStyleBackColor = True
+        '
+        'BTN_PauseRegister
+        '
+        Me.BTN_PauseRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_PauseRegister.Image = Global.YJ_MMS.My.Resources.Resources.order_history_32
+        Me.BTN_PauseRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_PauseRegister.Location = New System.Drawing.Point(127, 183)
+        Me.BTN_PauseRegister.Name = "BTN_PauseRegister"
+        Me.BTN_PauseRegister.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_PauseRegister.TabIndex = 14
+        Me.BTN_PauseRegister.Text = "생산내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_PauseRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_PauseRegister.UseVisualStyleBackColor = True
+        '
+        'BTN_FaultRegister
+        '
+        Me.BTN_FaultRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_FaultRegister.Image = Global.YJ_MMS.My.Resources.Resources.ordering_32
+        Me.BTN_FaultRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_FaultRegister.Location = New System.Drawing.Point(9, 183)
+        Me.BTN_FaultRegister.Name = "BTN_FaultRegister"
+        Me.BTN_FaultRegister.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_FaultRegister.TabIndex = 12
+        Me.BTN_FaultRegister.Text = "불량내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_FaultRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_FaultRegister.UseVisualStyleBackColor = True
         '
         'TB_Inspector
         '
@@ -458,55 +507,6 @@ Partial Class frm_Wave_Selective_Production_Inspection
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 1
         Me.Grid_History.UseCompatibleTextRendering = True
-        '
-        'BTN_RepairCheck
-        '
-        Me.BTN_RepairCheck.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_RepairCheck.Image = Global.YJ_MMS.My.Resources.Resources._Stop
-        Me.BTN_RepairCheck.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RepairCheck.Location = New System.Drawing.Point(245, 183)
-        Me.BTN_RepairCheck.Name = "BTN_RepairCheck"
-        Me.BTN_RepairCheck.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_RepairCheck.TabIndex = 16
-        Me.BTN_RepairCheck.Text = "수리결과" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "확인"
-        Me.BTN_RepairCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_RepairCheck.UseVisualStyleBackColor = True
-        '
-        'BTN_PauseRegister
-        '
-        Me.BTN_PauseRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_PauseRegister.Image = Global.YJ_MMS.My.Resources.Resources.order_history_32
-        Me.BTN_PauseRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_PauseRegister.Location = New System.Drawing.Point(127, 183)
-        Me.BTN_PauseRegister.Name = "BTN_PauseRegister"
-        Me.BTN_PauseRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_PauseRegister.TabIndex = 14
-        Me.BTN_PauseRegister.Text = "생산내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_PauseRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_PauseRegister.UseVisualStyleBackColor = True
-        '
-        'BTN_FaultRegister
-        '
-        Me.BTN_FaultRegister.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_FaultRegister.Image = Global.YJ_MMS.My.Resources.Resources.ordering_32
-        Me.BTN_FaultRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_FaultRegister.Location = New System.Drawing.Point(9, 183)
-        Me.BTN_FaultRegister.Name = "BTN_FaultRegister"
-        Me.BTN_FaultRegister.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_FaultRegister.TabIndex = 12
-        Me.BTN_FaultRegister.Text = "불량내역" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_FaultRegister.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_FaultRegister.UseVisualStyleBackColor = True
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
         '
         'frm_Wave_Selective_Production_Inspection
         '

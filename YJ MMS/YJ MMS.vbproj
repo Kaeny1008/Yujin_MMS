@@ -189,6 +189,12 @@
     <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.Designer.vb">
+      <DependentUpon>frm_Material_Stock_Information.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.Designer.vb">
       <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>
     </Compile>
@@ -321,16 +327,28 @@
     <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.Designer.vb">
-      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.vb">
+    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.Designer.vb">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.Designer.vb">
+      <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.Designer.vb">
+      <DependentUpon>frm_WS_Magazine_Kitting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.Designer.vb">
@@ -436,6 +454,9 @@
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.resx">
       <DependentUpon>frm_Material_CheckRequirements.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.resx">
+      <DependentUpon>frm_Material_Stock_Information.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.resx">
       <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>
     </EmbeddedResource>
@@ -502,11 +523,17 @@
     <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.resx">
       <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_End.resx">
-      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.resx">
+      <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.resx">
+      <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.resx">
+      <DependentUpon>frm_WS_Magazine_Kitting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.resx">
       <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>

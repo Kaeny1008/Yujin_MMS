@@ -283,4 +283,12 @@ Public Class frm_Main
         frm_Wave_Selective_Production_Inspection.Focus()
 
     End Sub
+
+    Private Sub BTN_MaterialStock_Click(sender As Object, e As EventArgs) Handles BTN_MaterialStock.Click
+
+        frm_Material_Stock_Information.MdiParent = Me
+        If Not frm_Material_Stock_Information.Visible Then frm_Material_Stock_Information.Show()
+        frm_Material_Stock_Information.Focus()
+
+    End Sub
 End Class

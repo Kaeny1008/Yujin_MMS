@@ -233,8 +233,10 @@ Partial Class frm_Repair_Management
         '
         'TB_BoardNo
         '
+        Me.TB_BoardNo.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_BoardNo.Location = New System.Drawing.Point(109, 57)
         Me.TB_BoardNo.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_BoardNo.MaxLength = 20
         Me.TB_BoardNo.Name = "TB_BoardNo"
         Me.TB_BoardNo.Size = New System.Drawing.Size(272, 21)
         Me.TB_BoardNo.TabIndex = 1

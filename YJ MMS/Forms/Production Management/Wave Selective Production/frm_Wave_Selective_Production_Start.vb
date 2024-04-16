@@ -204,7 +204,10 @@ Public Class frm_Wave_Selective_Production_Start
 
             If TB_CustomerCode.Text = String.Empty Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show("해당 주문을 확인 할 수 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("해당 주문을 확인 할 수 없습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
                 TB_Barcode.Text = String.Empty
                 TB_Barcode.Focus()
                 Exit Sub
@@ -212,10 +215,13 @@ Public Class frm_Wave_Selective_Production_Start
 
             If Load_Process() = 0 Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show("선택된 공정이 모델정보에 등록되어 있지 않습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                Control_Initialize()
                 TB_Barcode.Text = String.Empty
                 TB_Barcode.Focus()
+                MessageBox.Show("선택된 공정이 모델정보에 등록되어 있지 않습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
+                Control_Initialize()
                 Exit Sub
             End If
 
@@ -227,9 +233,12 @@ Public Class frm_Wave_Selective_Production_Start
 
             If Not SMDHistoryCheck() = 0 Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show("이미 생산등록된 No.입니다." & vbCrLf & "확인하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 TB_Barcode.SelectAll()
                 TB_Barcode.Focus()
+                MessageBox.Show("이미 생산등록된 No.입니다." & vbCrLf & "확인하여 주십시오.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
                 Exit Sub
             End If
 
@@ -481,6 +490,10 @@ Public Class frm_Wave_Selective_Production_Start
             TB_Barcode.SelectAll()
             TB_Barcode.Focus()
         End If
+
+    End Sub
+
+    Private Sub CB_Process_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Process.SelectedIndexChanged
 
     End Sub
 End Class
