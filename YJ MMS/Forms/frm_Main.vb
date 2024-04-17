@@ -252,7 +252,7 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_SMD_ProductionEnd_Click(sender As Object, e As EventArgs) Handles BTN_SMD_Inspection.Click
+    Private Sub BTN_SMD_Inspection_Click(sender As Object, e As EventArgs) Handles BTN_SMD_Inspection.Click
 
         frm_SMD_Production_End.MdiParent = Me
         If Not frm_SMD_Production_End.Visible Then frm_SMD_Production_End.Show()
@@ -278,7 +278,7 @@ Public Class frm_Main
 
     Private Sub BTN_WSProduction_Inspection_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_Inspection.Click
 
-        frm_Wave_Selective_Production_inspection.MdiParent = Me
+        frm_Wave_Selective_Production_Inspection.MdiParent = Me
         If Not frm_Wave_Selective_Production_Inspection.Visible Then frm_Wave_Selective_Production_Inspection.Show()
         frm_Wave_Selective_Production_Inspection.Focus()
 
@@ -289,6 +289,22 @@ Public Class frm_Main
         frm_Material_Stock_Information.MdiParent = Me
         If Not frm_Material_Stock_Information.Visible Then frm_Material_Stock_Information.Show()
         frm_Material_Stock_Information.Focus()
+
+    End Sub
+
+    Private Sub BTN_SolderPaste_Warehousing_Click(sender As Object, e As EventArgs) Handles BTN_SolderPaste_Warehousing.Click
+
+        frm_SolderPaste_Warehousing.MdiParent = Me
+        If Not frm_SolderPaste_Warehousing.Visible Then frm_SolderPaste_Warehousing.Show()
+        frm_SolderPaste_Warehousing.Focus()
+
+    End Sub
+
+    Private Sub BTN_SolderPaste_Use_Click(sender As Object, e As EventArgs) Handles BTN_SolderPaste_Use.Click
+
+        frm_SolderPaste_Use.MdiParent = Me
+        If Not frm_SolderPaste_Use.Visible Then frm_SolderPaste_Use.Show()
+        frm_SolderPaste_Use.Focus()
 
     End Sub
 End Class

@@ -31,7 +31,7 @@ Public Class frm_MMPS_History
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
-            .Rows(0).Height = 30
+            .Rows(0).Height = 40
             .Rows.DefaultSize = 20
             Grid_AllPartsCheck(0, 0) = "No"
             Grid_AllPartsCheck(0, 1) = "Check Code"
@@ -70,7 +70,7 @@ Public Class frm_MMPS_History
             .KeyActionEnter = KeyActionEnum.MoveDown
             .KeyActionTab = KeyActionEnum.MoveAcross
             .SelectionMode = SelectionModeEnum.Default
-            '.Rows(0).Height = 30
+            .Rows(0).Height = 40
             .Rows.DefaultSize = 20
             .Cols.Count = 18
             .Cols.Fixed = 1

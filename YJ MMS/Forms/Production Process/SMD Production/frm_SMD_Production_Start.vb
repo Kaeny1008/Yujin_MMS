@@ -596,4 +596,14 @@ Public Class frm_SMD_Production_Start
         Return writeSuccess
 
     End Function
+
+    Private Sub CB_Line_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Line.SelectionChangeCommitted
+
+        BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Sub CB_Department_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Department.SelectedIndexChanged
+
+    End Sub
 End Class

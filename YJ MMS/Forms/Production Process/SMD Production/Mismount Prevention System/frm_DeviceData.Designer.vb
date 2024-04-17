@@ -265,7 +265,6 @@ Partial Class frm_DeviceData
         Me.Grid_DeviceData.Size = New System.Drawing.Size(1264, 682)
         Me.Grid_DeviceData.StyleInfo = resources.GetString("Grid_DeviceData.StyleInfo")
         Me.Grid_DeviceData.TabIndex = 4
-        Me.Grid_DeviceData.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'ToolStrip1
         '

@@ -93,11 +93,10 @@ Partial Class frm_Code_Manager
         Me.grid_MainCode.Size = New System.Drawing.Size(530, 665)
         Me.grid_MainCode.StyleInfo = resources.GetString("grid_MainCode.StyleInfo")
         Me.grid_MainCode.TabIndex = 3
-        Me.grid_MainCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.White
+        Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Panel1.Controls.Add(Me.tb_Name)
         Me.Panel1.Controls.Add(Me.Label2)
         Me.Panel1.Controls.Add(Me.tb_Code)
@@ -189,7 +188,6 @@ Partial Class frm_Code_Manager
         Me.grid_SubCode.Size = New System.Drawing.Size(509, 662)
         Me.grid_SubCode.StyleInfo = resources.GetString("grid_SubCode.StyleInfo")
         Me.grid_SubCode.TabIndex = 4
-        Me.grid_SubCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'Label1
         '
@@ -229,7 +227,6 @@ Partial Class frm_Code_Manager
         Me.grid_LastCode.Size = New System.Drawing.Size(217, 662)
         Me.grid_LastCode.StyleInfo = resources.GetString("grid_LastCode.StyleInfo")
         Me.grid_LastCode.TabIndex = 6
-        Me.grid_LastCode.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'Label4
         '

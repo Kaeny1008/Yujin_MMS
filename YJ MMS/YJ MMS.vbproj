@@ -243,118 +243,136 @@
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AlarmHistory.Designer.vb">
       <DependentUpon>frm_AlarmHistory.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AlarmHistory.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.Designer.vb">
       <DependentUpon>frm_AllPartsCheckHistory.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.Designer.vb">
       <DependentUpon>frm_DeviceData_PartsMapping.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_Report.Designer.vb">
       <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_DeviceData.Designer.vb">
       <DependentUpon>frm_DeviceData.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_DeviceData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_MMPS_History.Designer.vb">
       <DependentUpon>frm_MMPS_History.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_MMPS_History.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\frm_Repair_Management.Designer.vb">
+    <Compile Include="Forms\Production Process\frm_Repair_Management.Designer.vb">
       <DependentUpon>frm_Repair_Management.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\frm_Repair_Management.vb">
+    <Compile Include="Forms\Production Process\frm_Repair_Management.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_End.Designer.vb">
       <DependentUpon>frm_SMD_Production_End.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.vb">
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_End.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_Start.Designer.vb">
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.vb">
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_Start.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_Register.Designer.vb">
       <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_Register.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Magazine_Kitting.Designer.vb">
       <DependentUpon>frm_SMD_Magazine_Kitting.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Magazine_Kitting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Mismount_Barcode.Designer.vb">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Mismount_Barcode.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Production_Information.Designer.vb">
       <DependentUpon>frm_SMD_Production_Information.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Production_Information.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Reinspection.Designer.vb">
       <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.Designer.vb">
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Use.Designer.vb">
+      <DependentUpon>frm_SolderPaste_Use.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Use.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Warehousing.Designer.vb">
+      <DependentUpon>frm_SolderPaste_Warehousing.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Warehousing.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\Popup\frm_SolderPaste_Standard.Designer.vb">
+      <DependentUpon>frm_SolderPaste_Standard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\Popup\frm_SolderPaste_Standard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.Designer.vb">
       <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.Designer.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.Designer.vb">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.Designer.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.Designer.vb">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.Designer.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.Designer.vb">
       <DependentUpon>frm_WS_Magazine_Kitting.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.Designer.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_Register.Designer.vb">
       <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_Register.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
@@ -481,61 +499,70 @@
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AlarmHistory.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AlarmHistory.resx">
       <DependentUpon>frm_AlarmHistory.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_AllPartsCheckHistory.resx">
       <DependentUpon>frm_AllPartsCheckHistory.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_PartsMapping.resx">
       <DependentUpon>frm_DeviceData_PartsMapping.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\Popup\frm_DeviceData_Report.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\Popup\frm_DeviceData_Report.resx">
       <DependentUpon>frm_DeviceData_Report.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_DeviceData.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_DeviceData.resx">
       <DependentUpon>frm_DeviceData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Mismount Prevention System\frm_MMPS_History.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Mismount Prevention System\frm_MMPS_History.resx">
       <DependentUpon>frm_MMPS_History.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\frm_Repair_Management.resx">
+    <EmbeddedResource Include="Forms\Production Process\frm_Repair_Management.resx">
       <DependentUpon>frm_Repair_Management.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_End.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\frm_SMD_Production_End.resx">
       <DependentUpon>frm_SMD_Production_End.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\frm_SMD_Production_Start.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\frm_SMD_Production_Start.resx">
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Fault_Register.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_Register.resx">
       <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Magazine_Kitting.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Magazine_Kitting.resx">
       <DependentUpon>frm_SMD_Magazine_Kitting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Mismount_Barcode.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Mismount_Barcode.resx">
       <DependentUpon>frm_SMD_Mismount_Barcode.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Production_Information.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Production_Information.resx">
       <DependentUpon>frm_SMD_Production_Information.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\SMD Production\Popup\frm_SMD_Reinspection.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Reinspection.resx">
       <DependentUpon>frm_SMD_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Inspection.resx">
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Use.resx">
+      <DependentUpon>frm_SolderPaste_Use.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Solder Paste Management\frm_SolderPaste_Warehousing.resx">
+      <DependentUpon>frm_SolderPaste_Warehousing.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Solder Paste Management\Popup\frm_SolderPaste_Standard.resx">
+      <DependentUpon>frm_SolderPaste_Standard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.resx">
       <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Reinspection.resx">
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.resx">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.resx">
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Magazine_Kitting.resx">
       <DependentUpon>frm_WS_Magazine_Kitting.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Management\Wave Selective Production\Popup\frm_WS_Fault_Register.resx">
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_Register.resx">
       <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">

@@ -84,6 +84,7 @@ Partial Class frm_MMPS_History
         '
         'C1DockingTab1
         '
+        Me.C1DockingTab1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
         Me.C1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -93,10 +94,8 @@ Partial Class frm_MMPS_History
         Me.C1DockingTab1.SelectedTabBold = True
         Me.C1DockingTab1.Size = New System.Drawing.Size(1264, 748)
         Me.C1DockingTab1.TabIndex = 0
-        Me.C1DockingTab1.TabsSpacing = 5
-        Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Office2010
-        Me.C1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Office2010Blue
-        Me.C1DockingTab1.VisualStyleBase = C1.Win.C1Command.VisualStyle.Office2010Blue
+        Me.C1DockingTab1.TabsSpacing = -11
+        Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Sloping
         '
         'C1DockingTabPage1
         '
@@ -337,7 +336,6 @@ Partial Class frm_MMPS_History
         Me.Grid_AllPartsCheck.Size = New System.Drawing.Size(1262, 654)
         Me.Grid_AllPartsCheck.StyleInfo = resources.GetString("Grid_AllPartsCheck.StyleInfo")
         Me.Grid_AllPartsCheck.TabIndex = 0
-        Me.Grid_AllPartsCheck.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'C1DockingTabPage2
         '
@@ -619,7 +617,6 @@ Partial Class frm_MMPS_History
         Me.Grid_PartsChange.Size = New System.Drawing.Size(1262, 654)
         Me.Grid_PartsChange.StyleInfo = resources.GetString("Grid_PartsChange.StyleInfo")
         Me.Grid_PartsChange.TabIndex = 55
-        Me.Grid_PartsChange.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
         'ToolStrip1
         '

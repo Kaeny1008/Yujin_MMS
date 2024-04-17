@@ -22,7 +22,7 @@ Public Class frm_DeviceData
             .AllowFiltering = True
             .AutoClipboard = True
             .AllowSorting = AllowSortingEnum.None
-            .Rows(0).Height = 30
+            .Rows(0).Height = 40
             .Rows.DefaultSize = 20
             .Cols.Count = 10
             .Cols.Fixed = 1
