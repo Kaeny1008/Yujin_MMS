@@ -1,6 +1,6 @@
 ﻿Imports C1.Win.C1FlexGrid
 
-Friend Class HostedControl
+Friend Class md_HostedControl
     Friend _flex As C1FlexGrid
     Friend _ctl As Control
     Friend _row As Row

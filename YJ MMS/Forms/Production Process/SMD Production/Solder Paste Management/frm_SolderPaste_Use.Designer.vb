@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_SolderPaste_Use
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,8 +20,9 @@ Partial Class frm_SolderPaste_Use
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SolderPaste_Use))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.C1DockingTab1 = New C1.Win.C1Command.C1DockingTab()
@@ -41,6 +42,12 @@ Partial Class frm_SolderPaste_Use
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_Use_LotNo = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
+        Me.C1DockingTabPage3 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.BTN_Scrap = New System.Windows.Forms.Button()
+        Me.TB_Scrap_Worker = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TB_Scrap_LotNo = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.LB_Mixing_Time = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -62,6 +69,7 @@ Partial Class frm_SolderPaste_Use
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_SolderPaste_Standard = New System.Windows.Forms.ToolStripButton()
+        Me.CheckTimer = New System.Windows.Forms.Timer(Me.components)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -70,6 +78,7 @@ Partial Class frm_SolderPaste_Use
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
         Me.C1DockingTabPage2.SuspendLayout()
+        Me.C1DockingTabPage3.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_StatusList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel1.SuspendLayout()
@@ -106,6 +115,7 @@ Partial Class frm_SolderPaste_Use
         '
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage3)
         Me.C1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.C1DockingTab1.Location = New System.Drawing.Point(0, 344)
         Me.C1DockingTab1.Name = "C1DockingTab1"
@@ -308,6 +318,78 @@ Partial Class frm_SolderPaste_Use
         Me.Label8.TabIndex = 7
         Me.Label8.Text = "Lot No."
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'C1DockingTabPage3
+        '
+        Me.C1DockingTabPage3.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTabPage3.Controls.Add(Me.BTN_Scrap)
+        Me.C1DockingTabPage3.Controls.Add(Me.TB_Scrap_Worker)
+        Me.C1DockingTabPage3.Controls.Add(Me.Label11)
+        Me.C1DockingTabPage3.Controls.Add(Me.TB_Scrap_LotNo)
+        Me.C1DockingTabPage3.Controls.Add(Me.Label12)
+        Me.C1DockingTabPage3.Image = Global.YJ_MMS.My.Resources.Resources.stop_16
+        Me.C1DockingTabPage3.Location = New System.Drawing.Point(1, 25)
+        Me.C1DockingTabPage3.Name = "C1DockingTabPage3"
+        Me.C1DockingTabPage3.Size = New System.Drawing.Size(591, 378)
+        Me.C1DockingTabPage3.TabBackColor = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTabPage3.TabBackColorSelected = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTabPage3.TabIndex = 2
+        Me.C1DockingTabPage3.Text = "폐기"
+        '
+        'BTN_Scrap
+        '
+        Me.BTN_Scrap.Location = New System.Drawing.Point(407, 8)
+        Me.BTN_Scrap.Name = "BTN_Scrap"
+        Me.BTN_Scrap.Size = New System.Drawing.Size(126, 43)
+        Me.BTN_Scrap.TabIndex = 11
+        Me.BTN_Scrap.Text = "폐기등록"
+        Me.BTN_Scrap.UseVisualStyleBackColor = True
+        '
+        'TB_Scrap_Worker
+        '
+        Me.TB_Scrap_Worker.Location = New System.Drawing.Point(108, 30)
+        Me.TB_Scrap_Worker.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
+        Me.TB_Scrap_Worker.MaxLength = 20
+        Me.TB_Scrap_Worker.Name = "TB_Scrap_Worker"
+        Me.TB_Scrap_Worker.Size = New System.Drawing.Size(272, 21)
+        Me.TB_Scrap_Worker.TabIndex = 10
+        '
+        'Label11
+        '
+        Me.Label11.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label11.ForeColor = System.Drawing.Color.White
+        Me.Label11.Location = New System.Drawing.Point(8, 30)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(100, 21)
+        Me.Label11.TabIndex = 9
+        Me.Label11.Text = "작업자"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Scrap_LotNo
+        '
+        Me.TB_Scrap_LotNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TB_Scrap_LotNo.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_Scrap_LotNo.Location = New System.Drawing.Point(108, 8)
+        Me.TB_Scrap_LotNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
+        Me.TB_Scrap_LotNo.MaxLength = 20
+        Me.TB_Scrap_LotNo.Name = "TB_Scrap_LotNo"
+        Me.TB_Scrap_LotNo.Size = New System.Drawing.Size(272, 21)
+        Me.TB_Scrap_LotNo.TabIndex = 8
+        '
+        'Label12
+        '
+        Me.Label12.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(8, 8)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(100, 21)
+        Me.Label12.TabIndex = 7
+        Me.Label12.Text = "Lot No."
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel1
         '
@@ -555,6 +637,9 @@ Partial Class frm_SolderPaste_Use
         Me.BTN_SolderPaste_Standard.Size = New System.Drawing.Size(103, 22)
         Me.BTN_SolderPaste_Standard.Text = "사용기준 관리"
         '
+        'CheckTimer
+        '
+        '
         'frm_SolderPaste_Use
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -574,6 +659,8 @@ Partial Class frm_SolderPaste_Use
         Me.C1DockingTabPage1.PerformLayout()
         Me.C1DockingTabPage2.ResumeLayout(False)
         Me.C1DockingTabPage2.PerformLayout()
+        Me.C1DockingTabPage3.ResumeLayout(False)
+        Me.C1DockingTabPage3.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.Grid_StatusList, System.ComponentModel.ISupportInitialize).EndInit()
@@ -630,4 +717,11 @@ Partial Class frm_SolderPaste_Use
     Friend WithEvents Label6 As Label
     Friend WithEvents TB_Use_LotNo As TextBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents CheckTimer As Timer
+    Friend WithEvents C1DockingTabPage3 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents BTN_Scrap As Button
+    Friend WithEvents TB_Scrap_Worker As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents TB_Scrap_LotNo As TextBox
+    Friend WithEvents Label12 As Label
 End Class

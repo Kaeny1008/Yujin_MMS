@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.IO
 
-Public Class RawPrinterHelper
+Public Class md_RawPrinterHelper
     ' Structure and API declarions:
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Ansi)>
     Public Class DOCINFOA

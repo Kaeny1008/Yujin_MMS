@@ -427,7 +427,7 @@ Module md_ETC
                 sr.Close()
                 ComPort.Close()
             ElseIf testCable = "USB" Then
-                Dim p As New RawPrinterHelper
+                Dim p As New md_RawPrinterHelper
                 Dim s As New StringBuilder
                 Dim fs As System.IO.FileStream
                 Dim sr As System.IO.StreamReader
@@ -487,7 +487,7 @@ Module md_ETC
                 sr.Close()
                 ComPort.Close()
             ElseIf printerCable = "USB" Then
-                Dim p As New RawPrinterHelper
+                Dim p As New md_RawPrinterHelper
                 Dim s As New StringBuilder
                 Dim fs As System.IO.FileStream
                 Dim sr As System.IO.StreamReader

@@ -183,6 +183,26 @@ Namespace My.Resources
         '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         '''</summary>
+        Friend ReadOnly Property delete2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("delete2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property deviceData2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("deviceData2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
         Friend ReadOnly Property exchange() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("exchange", resourceCulture)
@@ -196,6 +216,16 @@ Namespace My.Resources
         Friend ReadOnly Property home() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("home", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property index() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("index", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -253,6 +283,26 @@ Namespace My.Resources
         '''<summary>
         '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         '''</summary>
+        Friend ReadOnly Property print() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("print", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property printer_blue() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("printer_blue", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
         Friend ReadOnly Property save() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("save", resourceCulture)
@@ -296,6 +346,16 @@ Namespace My.Resources
         Friend ReadOnly Property sitemap() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("sitemap", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property stop_16() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("stop_16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

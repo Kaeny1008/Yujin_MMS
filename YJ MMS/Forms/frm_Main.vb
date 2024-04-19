@@ -307,4 +307,20 @@ Public Class frm_Main
         frm_SolderPaste_Use.Focus()
 
     End Sub
+
+    Private Sub BTN_MetalMask_Management_Click(sender As Object, e As EventArgs) Handles BTN_MetalMask_Management.Click
+
+        frm_MetalMaskManagement.MdiParent = Me
+        If Not frm_MetalMaskManagement.Visible Then frm_MetalMaskManagement.Show()
+        frm_MetalMaskManagement.Focus()
+
+    End Sub
+
+    Private Sub BTN_MetalMask_History_Click(sender As Object, e As EventArgs) Handles BTN_MetalMask_History.Click
+
+        frm_MetalMaskHistory.MdiParent = Me
+        If Not frm_MetalMaskHistory.Visible Then frm_MetalMaskHistory.Show()
+        frm_MetalMaskHistory.Focus()
+
+    End Sub
 End Class

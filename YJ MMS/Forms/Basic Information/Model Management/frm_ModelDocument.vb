@@ -126,7 +126,7 @@ Public Class frm_ModelDocument
                 BTN(IndexButton).Tag = IndexButton
                 Controls.AddRange(New Control() {BTN(IndexButton)})
                 AddHandler BTN(IndexButton).Click, AddressOf Button_Click
-                _al.Add(New HostedControl(Grid_Documents, BTN(IndexButton), i, j))
+                _al.Add(New md_HostedControl(Grid_Documents, BTN(IndexButton), i, j))
                 IndexButton += 1
             Next
         Next
@@ -638,7 +638,7 @@ Public Class frm_ModelDocument
     End Sub
 
     Private Sub Grid_Documents_Paint(sender As Object, e As PaintEventArgs) Handles Grid_Documents.Paint
-        For Each hosted As HostedControl In _al
+        For Each hosted As md_HostedControl In _al
             hosted.UpdatePosition()
         Next
     End Sub
@@ -966,6 +966,14 @@ Public Class frm_ModelDocument
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If TB_ModelCode.Text.Equals(String.Empty) Then Exit Sub
+
+        If Grid_Process.Cols.Count = 1 Then
+            MessageBox.Show("공정 흐름을 등록하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
         If MsgBox("저장 하시겠습니까?",
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,

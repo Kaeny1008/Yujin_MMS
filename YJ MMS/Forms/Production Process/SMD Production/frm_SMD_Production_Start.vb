@@ -316,12 +316,12 @@ Public Class frm_SMD_Production_Start
         Controls.AddRange(New Control() {userButton(userButton.Length - 1)})
         AddHandler userButton(userButton.Length - 1).Click, AddressOf UserButton_Bottom_Click
 
-        _al.Add(New HostedControl(Grid_OrderList, userButton(userButton.Length - 1), row, col))
+        _al.Add(New md_HostedControl(Grid_OrderList, userButton(userButton.Length - 1), row, col))
 
     End Sub
 
     Private Sub Grid_OrderList_Paint(sender As Object, e As PaintEventArgs) Handles Grid_OrderList.Paint
-        For Each hosted As HostedControl In _al
+        For Each hosted As md_HostedControl In _al
             hosted.UpdatePosition()
         Next
     End Sub
