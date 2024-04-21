@@ -515,7 +515,7 @@ Public Class frm_Supplier_Document_Register
                 strSQL += ", '" & documentNo & "'"
                 strSQL += ", '" & CB_Supplier.Text & "'"
                 strSQL += ", '" & Grid_MaterialList(i, 1) & "'"
-                strSQL += ", '" & Grid_MaterialList(i, 2) & "'"
+                strSQL += ", '" & Grid_MaterialList(i, 2).ToString.Replace("'", "\'")  & "'"
                 strSQL += ", '" & Grid_MaterialList(i, 3).ToString.Replace("'", "\'") & "'"
                 strSQL += ", '" & CInt(Grid_MaterialList(i, 4)) & "'"
                 strSQL += ", '" & writeDate & "'"
