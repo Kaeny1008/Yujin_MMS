@@ -413,8 +413,4 @@ Public Class frm_MetalMaskManagement
         frm_MetalMaskHistory.Focus()
 
     End Sub
-
-    Private Sub Btn_PrinterSetting_Click(sender As Object, e As EventArgs) Handles Btn_PrinterSetting.Click
-
-    End Sub
 End Class

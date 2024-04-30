@@ -177,6 +177,8 @@ Public Class frm_MetalMask_Register
 
         If Btn_Save.Text = "저장" Then
             If NewMaskSave() = True Then
+                MessageBox.Show("Metal Mask QR Label을 발행 합니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                Brother_Printer(Tb_MaskSN.Text)
                 Me.DialogResult = DialogResult.Yes
                 Me.Dispose()
             End If

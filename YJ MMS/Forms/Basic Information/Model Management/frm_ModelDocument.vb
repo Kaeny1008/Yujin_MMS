@@ -385,7 +385,11 @@ Public Class frm_ModelDocument
                 For i = start_row To .UsedRange.Rows.Count
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim partString As String = Trim(.Cells(i, part_col).Value)
-                    Dim typeString As String = Trim(.Cells(i, type_col).Value)
+                    Dim typeString As String = String.Empty
+
+                    If Not type_col = 0 Then
+                        typeString = Trim(.Cells(i, type_col).Value)
+                    End If
 
                     If typeString = "Ass'y" Then
                         MessageBox.Show(frm_Main,

@@ -660,7 +660,7 @@ Public Class frm_DeviceData
 
             For i = 1 To Grid_DeviceData.Rows.Count - 1
                 If Grid_DeviceData(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_mmps_device_data(dd_code, model_code, FACTORY_NAME, LINE_NAME, WORK_SIDE"
+                    strSQL += "insert into tb_mmps_device_data(dd_code, model_code, factory_name, line_name, work_side"
                     strSQL += ", machine_no, feeder_no, part_maker, part_no, part_specification, dd_note, write_id, write_date, dd_main_no, feeder_sn, FEEDER_DATE) values"
                     strSQL += "('" & Grid_DeviceData(i, 1) & "'"
                     strSQL += ",'" & Tb_modelCode.Text & "'"

@@ -26,7 +26,7 @@ Public Class frm_Material_Stock_Information
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 14
+            .Cols.Count = 15
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -47,7 +47,7 @@ Public Class frm_Material_Stock_Information
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 1, 5)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 12)
+            rngM = .GetCellRange(0, 6, 0, 14)
             rngM.Data = "재고"
             Grid_MaterialList(1, 6) = "기초재고"
             Grid_MaterialList(1, 7) = "입고"
@@ -56,7 +56,8 @@ Public Class frm_Material_Stock_Information
             Grid_MaterialList(1, 10) = "계획대기"
             Grid_MaterialList(1, 11) = "생산 중"
             Grid_MaterialList(1, 12) = "생산 완료"
-            rngM = .GetCellRange(0, 13, 1, 13)
+            Grid_MaterialList(1, 13) = "품번전환"
+            rngM = .GetCellRange(0, 14, 1, 14)
             rngM.Data = "미과출(재고)"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -158,7 +159,8 @@ Public Class frm_Material_Stock_Information
                 Format(sqlDR("delivery_qty"), "#,##0") & vbTab &
                 Format(sqlDR("ready_qty"), "#,##0") & vbTab &
                 Format(sqlDR("run_qty"), "#,##0") & vbTab &
-                Format(sqlDR("completed_qty"), "#,##0")
+                Format(sqlDR("completed_qty"), "#,##0") & vbTab &
+                Format(sqlDR("code_change_qty"), "#,##0")
 
             'Dim totalAmount As Double = 0
             'For i As Integer = 0 To UBound(nowCode)
@@ -172,7 +174,8 @@ Public Class frm_Material_Stock_Information
                 sqlDR("delivery_qty") -
                 sqlDR("ready_qty") -
                 sqlDR("run_qty") -
-                sqlDR("completed_qty")
+                sqlDR("completed_qty") -
+                sqlDR("code_change_qty")
             insert_String += vbTab & Format((stock_qty), "#,##0")
 
             'For i As Integer = 0 To UBound(nowCode)

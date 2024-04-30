@@ -323,4 +323,12 @@ Public Class frm_Main
         frm_MetalMaskHistory.Focus()
 
     End Sub
+
+    Private Sub BTN_MaterialCode_Change_Click(sender As Object, e As EventArgs) Handles BTN_MaterialCode_Change.Click
+
+        frm_MaterialCode_Change.MdiParent = Me
+        If Not frm_MaterialCode_Change.Visible Then frm_MaterialCode_Change.Show()
+        frm_MaterialCode_Change.Focus()
+
+    End Sub
 End Class
