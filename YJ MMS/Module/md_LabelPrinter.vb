@@ -46,7 +46,7 @@ Module md_LabelPrinter
 
     End Sub
 
-    Dim sPath = Application.StartupPath & "\QR Label Layout\Label.lbx"
+    ReadOnly sPath = Application.StartupPath & "\QR Label Layout\Label.lbx"
     Public Sub Brother_Printer(ByVal barcodeString As String)
         'LabelTest_Process()
         Dim objDoc As bpac.Document
