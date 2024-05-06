@@ -212,6 +212,7 @@ Public Class frm_Order_Registration
         Grid_Excel.Redraw = True
 
         excelApp = CreateObject("Excel.Application")
+        excelApp.DisplayAlerts = False
         excelApp.WorkBooks.Open(TB_File_Path.Text)
         excelApp.Visible = False
 

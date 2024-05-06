@@ -14,7 +14,8 @@ Imports C1.Win.C1FlexGrid
 
 Public Class frm_ExcelModify
 
-    Dim runProcess As Thread
+    Dim excelApp As Object
+    Dim thread_ExcelOpen, thread_ExcelRead As Thread
     Public ref_col, part_col, x_col, y_col, a_col, tb_col, type_col As Integer
     Public start_row As Integer
     Public callMode As String
@@ -70,10 +71,23 @@ Public Class frm_ExcelModify
 
     Private Sub Load_SheetList()
 
-        runProcess = New Thread(AddressOf File_Open)
-        runProcess.IsBackground = True
-        runProcess.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
-        runProcess.Start()
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        excelApp = CreateObject("Excel.Application")
+        excelApp.DisplayAlerts = False
+        excelApp.WorkBooks.Open(Application.StartupPath & "\Temp\" & TB_File_Path.Text)
+        excelApp.Visible = False
+
+        thread_ExcelOpen = New Thread(AddressOf File_Open)
+        thread_ExcelOpen.IsBackground = True
+        thread_ExcelOpen.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
+        thread_ExcelOpen.Name = "ExcelOpen Thread"
+        thread_ExcelOpen.Start()
 
     End Sub
 
@@ -81,30 +95,20 @@ Public Class frm_ExcelModify
 
         Thread_LoadingFormStart("Excel Open...")
 
-        Dim excelApp As Object
-        Dim selectFile As String = Application.StartupPath & "\Temp\" & TB_File_Path.Text
+        'Dim excelApp As Object
+        'Dim selectFile As String = Application.StartupPath & "\Temp\" & TB_File_Path.Text
 
-        excelApp = CreateObject("Excel.Application")
-        excelApp.WorkBooks.Open(selectFile)
-        excelApp.Visible = False
-        'Console.WriteLine(TB_File_Path.Text & " : 파일을 열었습니다." & vbCrLf & "시트 목록을 불러 옵니다.")
-        'Console.WriteLine("현재 문서의 총 시트 수는 : " & excelApp.ActiveWorkbook.Sheets.Count & "개 입니다.")
+        'excelApp = CreateObject("Excel.Application")
+        'excelApp.DisplayAlerts = False
+        'excelApp.WorkBooks.Open(selectFile)
+        'excelApp.Visible = False
+
         For i = 1 To excelApp.ActiveWorkbook.Sheets.Count
-            'Invoke(ComboBox_Item_Add, excelApp.ActiveWorkbook.Sheets(i).Name)
             ComboBoxItemAdd(excelApp.ActiveWorkbook.Sheets(i).Name, Me, CB_SheetName)
         Next
-        'Console.WriteLine("모든 시트 이름을 불러 왔습니다.")
-        excelApp.WorkBooks(1).Close()
-        excelApp.Quit()
-        excelApp = Nothing
 
         Thread_LoadingFormEnd()
 
-        'MessageBox.Show(New Form With {.TopMost = True},
-        '                "해당 시트를 선택하여 주십시오.",
-        '                msg_form,
-        '                MessageBoxButtons.OK,
-        '                MessageBoxIcon.Information)
 
         MessageBox.Show("해당 시트를 선택하여 주십시오.",
                         msg_form,
@@ -112,18 +116,17 @@ Public Class frm_ExcelModify
                         MessageBoxIcon.Information,
                         MessageBoxDefaultButton.Button1,
                         MessageBoxOptions.DefaultDesktopOnly)
-        'MsgBox("해당 시트를 선택하여 주십시오.", MsgBoxStyle.Information, msg_form)
 
-        runProcess.Abort()
+        'runProcess.Abort()
 
     End Sub
 
     Private Sub CB_SheetName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_SheetName.SelectedIndexChanged
 
-        runProcess = New Thread(AddressOf Load_TempData)
-        runProcess.IsBackground = True
-        runProcess.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
-        runProcess.Start()
+        thread_ExcelRead = New Thread(AddressOf Load_TempData)
+        thread_ExcelRead.IsBackground = True
+        thread_ExcelRead.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
+        thread_ExcelRead.Start()
 
     End Sub
 
@@ -133,13 +136,13 @@ Public Class frm_ExcelModify
 
         GridRedraw(False, Me, Grid_Excel)
 
-        Dim excelApp As Object
-        Dim selectFile As String = Application.StartupPath & "\Temp\" & TB_File_Path.Text
+        'Dim excelApp As Object
+        'Dim selectFile As String = Application.StartupPath & "\Temp\" & TB_File_Path.Text
 
-        excelApp = CreateObject("Excel.Application")
-        excelApp.WorkBooks.Open(selectFile)
+        'excelApp = CreateObject("Excel.Application")
+        'excelApp.WorkBooks.Open(selectFile)
 
-        excelApp.Visible = False
+        'excelApp.Visible = False
 
         Try
             Dim sheetName As String = ComboBoxTextReading(Me, CB_SheetName)
@@ -157,10 +160,6 @@ Public Class frm_ExcelModify
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Error)
-        Finally
-            excelApp.WorkBooks(1).Close()
-            excelApp.Quit()
-            excelApp = Nothing
         End Try
 
         GridColsAutoSize(Me, Grid_Excel)
@@ -170,7 +169,7 @@ Public Class frm_ExcelModify
 
         Thread_LoadingFormEnd()
 
-        runProcess.Abort()
+        'runProcess.Abort()
 
     End Sub
 
@@ -206,6 +205,27 @@ Public Class frm_ExcelModify
             frm_ModelDocument.tb_col = tb_col
             frm_ModelDocument.start_row = start_row
             frm_ModelDocument.sheet_name = CB_SheetName.Text
+        End If
+
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        If Not IsNothing(thread_ExcelRead) Then
+            Console.WriteLine("'{0}' Finished...",
+                                  thread_ExcelRead.Name)
+            thread_ExcelRead.Abort()
+            thread_ExcelRead = Nothing
+        End If
+
+        If Not IsNothing(thread_ExcelOpen) Then
+            Console.WriteLine("'{0}' Finished...",
+                                  thread_ExcelOpen.Name)
+            thread_ExcelOpen.Abort()
+            thread_ExcelOpen = Nothing
         End If
 
         DialogResult = DialogResult.OK
@@ -289,6 +309,14 @@ Public Class frm_ExcelModify
 
     Private Sub frm_ExcelModify_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
 
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        '아무것도 안하고 창을 그냥 닫았을경우
         If e.CloseReason = 3 Then
             frm_ModelDocument.TabControl1.SelectedIndex = 0
             If callMode = "BOM" Then
@@ -299,6 +327,31 @@ Public Class frm_ExcelModify
         End If
 
         Me.Dispose()
+
+    End Sub
+
+    Private Sub frm_ExcelModify_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
+
+        'If Not IsNothing(excelApp) Then
+        '    excelApp.WorkBooks(1).Close()
+        '    excelApp.Quit()
+        '    ReleaseObject(excelApp)
+        '    excelApp = Nothing
+        'End If
+
+        'If Not IsNothing(thread_ExcelRead) Then
+        '    Console.WriteLine("'{0}' Finished...",
+        '                          thread_ExcelRead.Name)
+        '    thread_ExcelRead.Abort()
+        '    thread_ExcelRead = Nothing
+        'End If
+
+        'If Not IsNothing(thread_ExcelOpen) Then
+        '    Console.WriteLine("'{0}' Finished...",
+        '                          thread_ExcelOpen.Name)
+        '    thread_ExcelOpen.Abort()
+        '    thread_ExcelOpen = Nothing
+        'End If
 
     End Sub
 End Class

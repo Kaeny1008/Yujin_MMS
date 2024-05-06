@@ -374,6 +374,7 @@ Public Class frm_ModelDocument
         Dim excelApp As Object
 
         excelApp = CreateObject("Excel.Application")
+        excelApp.DisplayAlerts = False
         excelApp.WorkBooks.Open(selectFile & Grid_Documents(1, 2))
 
         excelApp.Visible = False
@@ -530,6 +531,7 @@ Public Class frm_ModelDocument
         Dim excelApp As Object
 
         excelApp = CreateObject("Excel.Application")
+        excelApp.DisplayAlerts = False
         excelApp.WorkBooks.Open(selectFile & Grid_Documents(2, 2))
 
         excelApp.Visible = False

@@ -331,4 +331,20 @@ Public Class frm_Main
         frm_MaterialCode_Change.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Stock_Survay_Plan_Click(sender As Object, e As EventArgs) Handles BTN_Material_Stock_Survay_Plan.Click
+
+        frm_Material_Stock_Survey_Plan.MdiParent = Me
+        If Not frm_Material_Stock_Survey_Plan.Visible Then frm_Material_Stock_Survey_Plan.Show()
+        frm_Material_Stock_Survey_Plan.Focus()
+
+    End Sub
+
+    Private Sub BTN_Material_Stock_Survay_Input_Click(sender As Object, e As EventArgs) Handles BTN_Material_Stock_Survay_Input.Click
+
+        frm_Material_Stock_Survey_Input.MdiParent = Me
+        If Not frm_Material_Stock_Survey_Input.Visible Then frm_Material_Stock_Survey_Input.Show()
+        frm_Material_Stock_Survey_Input.Focus()
+
+    End Sub
 End Class
