@@ -392,7 +392,7 @@ Public Class frm_ModelDocument
                         typeString = Trim(.Cells(i, type_col).Value)
                     End If
 
-                    If typeString = "Ass'y" Then
+                    If typeString.ToUpper = "ASS'Y" Or typeString.ToUpper = "ASS’Y" Then
                         MessageBox.Show(frm_Main,
                                         "Loader PCB가 검색 되었습니다. Loader PCB 사용으로 변경됩니다.",
                                         msg_form,

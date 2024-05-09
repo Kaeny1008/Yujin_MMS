@@ -6,7 +6,7 @@ Module md_PHP
 
     Public phpPort As Integer = registryEdit.ReadRegKey("Software\Yujin\", "PHPPort", 10520)
     Public phpUrl As String = "http://" & serverIP & ":" & phpPort
-    Public phpRootFolder As String = "/MMPS/BarcodeSplit"
+    Public phpRootFolder As String = "/MMPS_V2/BarcodeSplit"
 
     Public Function Load_PHP(ByVal uri As String,
                              ByVal rootName As String,

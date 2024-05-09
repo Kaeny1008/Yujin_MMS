@@ -347,4 +347,12 @@ Public Class frm_Main
         frm_Material_Stock_Survey_Input.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Return_Click(sender As Object, e As EventArgs) Handles BTN_Material_Return.Click
+
+        frm_Material_Return.MdiParent = Me
+        If Not frm_Material_Return.Visible Then frm_Material_Return.Show()
+        frm_Material_Return.Focus()
+
+    End Sub
 End Class

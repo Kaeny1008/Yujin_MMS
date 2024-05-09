@@ -58,7 +58,7 @@ Public Class frm_AlarmHistory
 
         DBConnect()
 
-        Dim strSQL As String = "call USP_HISTORY(1"
+        Dim strSQL As String = "call sp_mmps_history(1"
         strSQL += ",null"
         strSQL += ",null"
         strSQL += ",null"
@@ -76,11 +76,11 @@ Public Class frm_AlarmHistory
         Do While sqlDR.Read
             Dim insert As String = String.Empty
             insert = Grid_historyList.Rows.Count &
-                vbTab & sqlDR("MACHINE_NO") &
-                vbTab & sqlDR("FEEDER_NO") &
-                vbTab & sqlDR("ORG_PART_NO") &
-                vbTab & sqlDR("CHECK_PART_NO") &
-                vbTab & sqlDR("NG_RESULT")
+                vbTab & sqlDR("machine_no") &
+                vbTab & sqlDR("feeder_no") &
+                vbTab & sqlDR("org_part_no") &
+                vbTab & sqlDR("check_part_no") &
+                vbTab & sqlDR("ng_result")
             Grid_historyList.AddItem(insert)
         Loop
         sqlDR.Close()

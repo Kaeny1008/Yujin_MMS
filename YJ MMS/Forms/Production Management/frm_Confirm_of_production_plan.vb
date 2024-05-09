@@ -23,7 +23,7 @@ Public Class frm_Production_plan
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 12
+            .Cols.Count = 13
             .Cols.Fixed = 1
             .Rows.Count = 3
             .Rows.Fixed = 3
@@ -51,21 +51,23 @@ Public Class frm_Production_plan
             rngM.Data = "품명"
             rngM = .GetCellRange(0, 8, 2, 8)
             rngM.Data = "주문수량"
-            rngM = .GetCellRange(0, 9, 2, 11)
+            rngM = .GetCellRange(0, 9, 2, 9)
+            rngM.Data = "공정순서"
+            rngM = .GetCellRange(0, 10, 2, 12)
             rngM.Data = "생산계획"
-            rngM = .GetCellRange(1, 9, 2, 9)
+            rngM = .GetCellRange(1, 10, 2, 10)
             rngM.Data = "생산시작일"
-            rngM = .GetCellRange(1, 10, 1, 11)
+            rngM = .GetCellRange(1, 11, 1, 12)
             rngM.Data = "SMD"
-            Grid_OrderList(2, 10) = "동"
-            Grid_OrderList(2, 11) = "Line"
+            Grid_OrderList(2, 11) = "동"
+            Grid_OrderList(2, 12) = "Line"
             .Cols(1).Visible = True
             .Cols(3).Visible = True
-            .Cols(9).DataType = GetType(Date)
+            .Cols(10).DataType = GetType(Date)
             .AutoClipboard = False
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
-            .Cols(9).TextAlign = TextAlignEnum.CenterCenter
+            .Cols(10).TextAlign = TextAlignEnum.CenterCenter
             '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = False
             .AutoSizeCols()
@@ -177,6 +179,7 @@ Public Class frm_Production_plan
                                           sqlDR("item_code") & vbTab &
                                           sqlDR("item_name") & vbTab &
                                           Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
+                                          sqlDR("process_list") & vbTab &
                                           sqlDR("start_date") & vbTab &
                                           sqlDR("smd_department") & vbTab &
                                           sqlDR("smd_line")
@@ -198,14 +201,14 @@ Public Class frm_Production_plan
         If Grid_OrderList.Row < 3 Or Grid_OrderList.Col < 1 Then Exit Sub
 
         Select Case Grid_OrderList.Col
-            Case 9
-                Grid_OrderList.AllowEditing = True
             Case 10
                 Grid_OrderList.AllowEditing = True
-                Grid_OrderList.Cols(10).ComboList = Load_Department()
             Case 11
                 Grid_OrderList.AllowEditing = True
-                Grid_OrderList.Cols(11).ComboList = Load_Line(Grid_OrderList(Grid_OrderList.Row, 10))
+                Grid_OrderList.Cols(11).ComboList = Load_Department()
+            Case 12
+                Grid_OrderList.AllowEditing = True
+                Grid_OrderList.Cols(12).ComboList = Load_Line(Grid_OrderList(Grid_OrderList.Row, 10))
             Case Else
                 Grid_OrderList.AllowEditing = False
         End Select
@@ -327,8 +330,8 @@ Public Class frm_Production_plan
         Grid_OrderList.SetCellStyle(e.Row, e.Col, cs)
 
         Select Case e.Col
-            Case 10
-                Grid_OrderList(Grid_OrderList.Row, 11) = String.Empty
+            Case 11
+                Grid_OrderList(Grid_OrderList.Row, 12) = String.Empty
         End Select
 
         Grid_OrderList.AutoSizeCols()
@@ -366,9 +369,9 @@ Public Class frm_Production_plan
 
         Dim rowSel As Integer = Grid_OrderList.Row
 
-        copyDate = Grid_OrderList(rowSel, 9)
-        copyDepartment = Grid_OrderList(rowSel, 10)
-        copyLine = Grid_OrderList(rowSel, 11)
+        copyDate = Grid_OrderList(rowSel, 10)
+        copyDepartment = Grid_OrderList(rowSel, 11)
+        copyLine = Grid_OrderList(rowSel, 12)
         'buttonDisable = True
 
     End Sub
@@ -386,9 +389,9 @@ Public Class frm_Production_plan
 
                 'No가 숫자이며 각 셀이 비어 있다면 신규
                 If IsNumeric(Grid_OrderList(i, 0)) Then
-                    If Grid_OrderList(i, 9) = String.Empty And
-                        Grid_OrderList(i, 10) = String.Empty And
-                        Grid_OrderList(i, 11) = String.Empty Then
+                    If Grid_OrderList(i, 10) = String.Empty And
+                        Grid_OrderList(i, 11) = String.Empty And
+                        Grid_OrderList(i, 12) = String.Empty Then
                         Grid_OrderList(i, 0) = "N"
                     Else
                         Grid_OrderList(i, 0) = "M"
@@ -396,15 +399,15 @@ Public Class frm_Production_plan
                 End If
 
                 If copyDate = String.Empty Then
-                    Grid_OrderList(i, 9) = String.Empty
+                    Grid_OrderList(i, 10) = String.Empty
                 Else
-                    Grid_OrderList(i, 9) = Format(CDate(copyDate), "yyyy-MM-dd")
+                    Grid_OrderList(i, 10) = Format(CDate(copyDate), "yyyy-MM-dd")
                 End If
-                Grid_OrderList.SetCellStyle(i, 9, cs)
-                Grid_OrderList(i, 10) = copyDepartment
                 Grid_OrderList.SetCellStyle(i, 10, cs)
-                Grid_OrderList(i, 11) = copyLine
-                Grid_OrderList.SetCellStyle(i, 11, cs)
+                Grid_OrderList(i, 11) = copyDepartment
+                Grid_OrderList.SetCellStyle(i, 10, cs)
+                Grid_OrderList(i, 12) = copyLine
+                Grid_OrderList.SetCellStyle(i, 12, cs)
             End If
         Next
 
@@ -417,7 +420,7 @@ Public Class frm_Production_plan
 
         For i = 3 To Grid_OrderList.Rows.Count - 1
             If Grid_OrderList(i, 0) = "N" Then
-                If Not IsDate(Grid_OrderList(i, 9)) Or Grid_OrderList(i, 10) = String.Empty Or Grid_OrderList(i, 11) = String.Empty Then
+                If Not IsDate(Grid_OrderList(i, 10)) Or Grid_OrderList(i, 11) = String.Empty Or Grid_OrderList(i, 12) = String.Empty Then
                     MessageBox.Show(Me,
                                     "입력되지 않은 항목이 있습니다." & vbCrLf & "행 번호 : " & i - 2,
                                     msg_form,
@@ -452,18 +455,18 @@ Public Class frm_Production_plan
                 If Grid_OrderList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_production_plan(order_index, start_date, smd_department, smd_line, write_date, write_id) values("
                     strSQL += "'" & Grid_OrderList(i, 1) & "'"
-                    strSQL += ",'" & Grid_OrderList(i, 9) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 10) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 11) & "'"
+                    strSQL += ",'" & Grid_OrderList(i, 12) & "'"
                     strSQL += ",'" & writeDate & "'"
                     strSQL += ",'" & loginID & "');"
                     strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation of production plan'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
                 ElseIf Grid_OrderList(i, 0).ToString = "M" Then
                     strSQL += "update tb_mms_production_plan set"
-                    strSQL += " start_date = '" & Format(Grid_OrderList(i, 9), "yyyy-MM-dd") & "'"
-                    strSQL += ", smd_department = '" & Grid_OrderList(i, 10) & "'"
-                    strSQL += ", smd_line = '" & Grid_OrderList(i, 11) & "'"
+                    strSQL += " start_date = '" & Format(Grid_OrderList(i, 10), "yyyy-MM-dd") & "'"
+                    strSQL += ", smd_department = '" & Grid_OrderList(i, 11) & "'"
+                    strSQL += ", smd_line = '" & Grid_OrderList(i, 12) & "'"
                     strSQL += ", modify_date = '" & writeDate & "'"
                     strSQL += ", modify_id = '" & loginID & "'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
@@ -512,9 +515,9 @@ Public Class frm_Production_plan
         If e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.C Then
             Dim rowSel As Integer = Grid_OrderList.Row
 
-            copyDate = Grid_OrderList(rowSel, 9)
-            copyDepartment = Grid_OrderList(rowSel, 10)
-            copyLine = Grid_OrderList(rowSel, 11)
+            copyDate = Grid_OrderList(rowSel, 10)
+            copyDepartment = Grid_OrderList(rowSel, 11)
+            copyLine = Grid_OrderList(rowSel, 12)
         ElseIf e.Modifiers = Keys.control AndAlso e.Keycode = Keys.V Then
             Dim cs As CellStyle = Grid_OrderList.Styles.Add("Yellow_Cell")
             cs.BackColor = Color.Yellow
@@ -527,9 +530,9 @@ Public Class frm_Production_plan
 
                     'No가 숫자이며 각 셀이 비어 있다면 신규
                     If IsNumeric(Grid_OrderList(i, 0)) Then
-                        If Grid_OrderList(i, 9) = String.Empty And
-                        Grid_OrderList(i, 10) = String.Empty And
-                        Grid_OrderList(i, 11) = String.Empty Then
+                        If Grid_OrderList(i, 10) = String.Empty And
+                        Grid_OrderList(i, 11) = String.Empty And
+                        Grid_OrderList(i, 12) = String.Empty Then
                             Grid_OrderList(i, 0) = "N"
                         Else
                             Grid_OrderList(i, 0) = "M"
@@ -537,15 +540,15 @@ Public Class frm_Production_plan
                     End If
 
                     If copyDate = String.Empty Then
-                        Grid_OrderList(i, 9) = String.Empty
+                        Grid_OrderList(i, 10) = String.Empty
                     Else
-                        Grid_OrderList(i, 9) = Format(CDate(copyDate), "yyyy-MM-dd")
+                        Grid_OrderList(i, 10) = Format(CDate(copyDate), "yyyy-MM-dd")
                     End If
-                    Grid_OrderList.SetCellStyle(i, 9, cs)
-                    Grid_OrderList(i, 10) = copyDepartment
                     Grid_OrderList.SetCellStyle(i, 10, cs)
-                    Grid_OrderList(i, 11) = copyLine
+                    Grid_OrderList(i, 11) = copyDepartment
                     Grid_OrderList.SetCellStyle(i, 11, cs)
+                    Grid_OrderList(i, 12) = copyLine
+                    Grid_OrderList.SetCellStyle(i, 12, cs)
                 End If
             Next
 

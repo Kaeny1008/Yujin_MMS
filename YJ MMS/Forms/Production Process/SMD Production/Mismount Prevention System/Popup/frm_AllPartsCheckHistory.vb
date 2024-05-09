@@ -60,7 +60,7 @@ Public Class frm_AllPartsCheckHistory
 
         DBConnect()
 
-        Dim strSQL As String = "call USP_HISTORY(2"
+        Dim strSQL As String = "call sp_mmps_history(2"
         strSQL += ",null"
         strSQL += ",null"
         strSQL += ",null"
@@ -78,19 +78,19 @@ Public Class frm_AllPartsCheckHistory
         Do While sqlDR.Read
             Dim insert As String = String.Empty
             Dim insertQty As String = String.Empty
-            If IsNumeric(sqlDR("CHECK_QTY")) Then
-                insertQty = Format(CDbl(sqlDR("CHECK_QTY")), "#,##0")
+            If IsNumeric(sqlDR("check_qty")) Then
+                insertQty = Format(CDbl(sqlDR("check_qty")), "#,##0")
             Else
-                insertQty = sqlDR("CHECK_QTY")
+                insertQty = sqlDR("check_qty")
             End If
             insert = Grid_historyList.Rows.Count &
-                vbTab & Format(sqlDR("CHECK_DATE"), "yyyy-MM-dd HH:mm:ss") &
-                vbTab & sqlDR("MACHINE_NO") &
-                vbTab & sqlDR("FEEDER_NO") &
-                vbTab & sqlDR("CHECK_PART_NO") &
-                vbTab & sqlDR("CHECK_LOT_NO") &
+                vbTab & Format(sqlDR("check_date"), "yyyy-MM-dd HH:mm:ss") &
+                vbTab & sqlDR("machine_no") &
+                vbTab & sqlDR("feeder_no") &
+                vbTab & sqlDR("check_part_no") &
+                vbTab & sqlDR("check_lot_no") &
                 vbTab & insertQty &
-                vbTab & sqlDR("USER_NAME")
+                vbTab & sqlDR("user_name")
             Grid_historyList.AddItem(insert)
         Loop
         sqlDR.Close()
