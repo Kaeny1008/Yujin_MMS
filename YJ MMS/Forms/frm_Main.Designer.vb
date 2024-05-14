@@ -59,6 +59,9 @@ Partial Class frm_Main
         Me.ToolStripSeparator7 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_MaterialWarehousing_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.반출ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Material_Return = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Material_CheckRequirements = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_MaterialStock = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator8 = New System.Windows.Forms.ToolStripSeparator()
@@ -90,9 +93,8 @@ Partial Class frm_Main
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Repair_Management = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
-        Me.반출ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_Material_Return = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator11 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Material_Label_Reprint = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -311,7 +313,7 @@ Partial Class frm_Main
         '
         'ToolStripComboBox1
         '
-        Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.ToolStripSeparator6, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.ToolStripSeparator7, Me.BTN_MaterialWarehousing_History})
+        Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.ToolStripSeparator6, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.ToolStripSeparator7, Me.BTN_MaterialWarehousing_History, Me.ToolStripSeparator11, Me.BTN_Material_Label_Reprint})
         Me.ToolStripComboBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.ToolStripComboBox1.Name = "ToolStripComboBox1"
         Me.ToolStripComboBox1.Size = New System.Drawing.Size(180, 22)
@@ -356,6 +358,25 @@ Partial Class frm_Main
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
+        '반출ToolStripMenuItem
+        '
+        Me.반출ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Return})
+        Me.반출ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.반출ToolStripMenuItem.Name = "반출ToolStripMenuItem"
+        Me.반출ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.반출ToolStripMenuItem.Text = "반출"
+        '
+        'BTN_Material_Return
+        '
+        Me.BTN_Material_Return.Name = "BTN_Material_Return"
+        Me.BTN_Material_Return.Size = New System.Drawing.Size(122, 22)
+        Me.BTN_Material_Return.Text = "반출등록"
+        '
+        'ToolStripSeparator10
+        '
+        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(177, 6)
         '
         'BTN_Material_CheckRequirements
         '
@@ -563,24 +584,16 @@ Partial Class frm_Main
         Me.BTN_Repair_Management.Size = New System.Drawing.Size(220, 22)
         Me.BTN_Repair_Management.Text = "수리내역 등록"
         '
-        'ToolStripSeparator10
+        'ToolStripSeparator11
         '
-        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
-        Me.ToolStripSeparator10.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator11.Name = "ToolStripSeparator11"
+        Me.ToolStripSeparator11.Size = New System.Drawing.Size(179, 6)
         '
-        '반출ToolStripMenuItem
+        'BTN_Material_Label_Reprint
         '
-        Me.반출ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Return})
-        Me.반출ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
-        Me.반출ToolStripMenuItem.Name = "반출ToolStripMenuItem"
-        Me.반출ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.반출ToolStripMenuItem.Text = "반출"
-        '
-        'BTN_Material_Return
-        '
-        Me.BTN_Material_Return.Name = "BTN_Material_Return"
-        Me.BTN_Material_Return.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_Material_Return.Text = "반출등록"
+        Me.BTN_Material_Label_Reprint.Name = "BTN_Material_Label_Reprint"
+        Me.BTN_Material_Label_Reprint.Size = New System.Drawing.Size(182, 22)
+        Me.BTN_Material_Label_Reprint.Text = "라벨 재발행"
         '
         'frm_Main
         '
@@ -672,4 +685,6 @@ Partial Class frm_Main
     Friend WithEvents 반출ToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents BTN_Material_Return As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
+    Friend WithEvents ToolStripSeparator11 As ToolStripSeparator
+    Friend WithEvents BTN_Material_Label_Reprint As ToolStripMenuItem
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frm_Material_Return
+Partial Class frm_Material_Label_Reprint
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -23,19 +23,20 @@ Partial Class frm_Material_Return
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Return))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Label_Reprint))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_Change = New System.Windows.Forms.ToolStripButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TB_PartCode = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -45,11 +46,11 @@ Partial Class frm_Material_Return
         'TS_MainBar
         '
         Me.TS_MainBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.Form_CLose, Me.ToolStripSeparator1, Me.BTN_Change})
+        Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.Form_CLose, Me.ToolStripSeparator1})
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
-        Me.TS_MainBar.TabIndex = 7
+        Me.TS_MainBar.TabIndex = 8
         Me.TS_MainBar.Text = "ToolStrip1"
         '
         'BTN_Search
@@ -75,25 +76,43 @@ Partial Class frm_Material_Return
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'BTN_Change
-        '
-        Me.BTN_Change.Image = Global.YJ_MMS.My.Resources.Resources.order_history_32
-        Me.BTN_Change.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Change.Name = "BTN_Change"
-        Me.BTN_Change.Size = New System.Drawing.Size(75, 22)
-        Me.BTN_Change.Text = "반출등록"
-        '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.TB_PartCode)
+        Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.CB_CustomerName)
         Me.Panel1.Controls.Add(Me.TB_CustomerCode)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 25)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1264, 47)
-        Me.Panel1.TabIndex = 8
+        Me.Panel1.Size = New System.Drawing.Size(1264, 69)
+        Me.Panel1.TabIndex = 9
+        '
+        'TB_PartCode
+        '
+        Me.TB_PartCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_PartCode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_PartCode.Location = New System.Drawing.Point(85, 34)
+        Me.TB_PartCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_PartCode.Name = "TB_PartCode"
+        Me.TB_PartCode.Size = New System.Drawing.Size(442, 21)
+        Me.TB_PartCode.TabIndex = 9
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(9, 34)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(76, 21)
+        Me.Label1.TabIndex = 8
+        Me.Label1.Text = "자재코드"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'CB_CustomerName
         '
@@ -134,28 +153,28 @@ Partial Class frm_Material_Return
         '
         Me.Grid_History.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_History.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_History.Location = New System.Drawing.Point(0, 72)
+        Me.Grid_History.Location = New System.Drawing.Point(0, 94)
         Me.Grid_History.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(1264, 701)
+        Me.Grid_History.Size = New System.Drawing.Size(1264, 679)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
-        Me.Grid_History.TabIndex = 9
+        Me.Grid_History.TabIndex = 10
         '
         'CMS_Menu
         '
-        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint})
+        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint})
         Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(111, 26)
+        Me.CMS_Menu.Size = New System.Drawing.Size(181, 48)
         '
-        'BTN_RePrint
+        'BTN_Reprint
         '
-        Me.BTN_RePrint.Name = "BTN_RePrint"
-        Me.BTN_RePrint.Size = New System.Drawing.Size(110, 22)
-        Me.BTN_RePrint.Text = "재발행"
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Reprint.Text = "라벨 재발행"
         '
-        'frm_Material_Return
+        'frm_Material_Label_Reprint
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -163,8 +182,8 @@ Partial Class frm_Material_Return
         Me.Controls.Add(Me.Grid_History)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_Material_Return"
-        Me.Text = "자재 반출등록"
+        Me.Name = "frm_Material_Label_Reprint"
+        Me.Text = "자재라벨 재발행"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -180,12 +199,13 @@ Partial Class frm_Material_Return
     Friend WithEvents BTN_Search As ToolStripButton
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
-    Friend WithEvents BTN_Change As ToolStripButton
     Friend WithEvents Panel1 As Panel
     Friend WithEvents CB_CustomerName As ComboBox
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents TB_PartCode As TextBox
+    Friend WithEvents Label1 As Label
     Friend WithEvents CMS_Menu As ContextMenuStrip
-    Friend WithEvents BTN_RePrint As ToolStripMenuItem
+    Friend WithEvents BTN_Reprint As ToolStripMenuItem
 End Class

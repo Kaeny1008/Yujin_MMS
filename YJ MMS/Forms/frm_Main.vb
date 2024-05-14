@@ -355,4 +355,12 @@ Public Class frm_Main
         frm_Material_Return.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Label_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Material_Label_Reprint.Click
+
+        frm_Material_Label_Reprint.MdiParent = Me
+        If Not frm_Material_Label_Reprint.Visible Then frm_Material_Label_Reprint.Show()
+        frm_Material_Label_Reprint.Focus()
+
+    End Sub
 End Class

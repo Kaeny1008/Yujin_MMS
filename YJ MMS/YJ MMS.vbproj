@@ -194,6 +194,12 @@
     <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Label_Reprint.Designer.vb">
+      <DependentUpon>frm_Material_Label_Reprint.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\frm_Material_Label_Reprint.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Material Code Change\frm_CodeChange.Designer.vb">
       <DependentUpon>frm_CodeChange.vb</DependentUpon>
     </Compile>
@@ -210,6 +216,12 @@
       <DependentUpon>frm_Material_Return.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Material Management\Material Return\frm_Material_Return.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Material Return\frm_Material_Return_Register.Designer.vb">
+      <DependentUpon>frm_Material_Return_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Material Return\frm_Material_Return_Register.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.Designer.vb">
@@ -533,6 +545,9 @@
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements.resx">
       <DependentUpon>frm_Material_CheckRequirements.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\frm_Material_Label_Reprint.resx">
+      <DependentUpon>frm_Material_Label_Reprint.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Material Code Change\frm_CodeChange.resx">
       <DependentUpon>frm_CodeChange.vb</DependentUpon>
     </EmbeddedResource>
@@ -541,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Material Return\frm_Material_Return.resx">
       <DependentUpon>frm_Material_Return.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Material Return\frm_Material_Return_Register.resx">
+      <DependentUpon>frm_Material_Return_Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.resx">
       <DependentUpon>frm_Material_Stock_Information.vb</DependentUpon>

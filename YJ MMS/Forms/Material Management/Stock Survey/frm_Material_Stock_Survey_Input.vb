@@ -26,7 +26,7 @@ Public Class frm_Material_Stock_Survey_Input
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 18
+            .Cols.Count = 19
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -57,20 +57,20 @@ Public Class frm_Material_Stock_Survey_Input
             Grid_MaterialList(1, 11) = "생산 중"
             Grid_MaterialList(1, 12) = "생산 완료"
             Grid_MaterialList(1, 13) = "품번전환"
-            rngM = .GetCellRange(0, 14, 1, 16)
+            rngM = .GetCellRange(0, 15, 1, 17)
             rngM.Data = "재고"
-            Grid_MaterialList(1, 14) = "전산재고"
-            Grid_MaterialList(1, 15) = "실사수량"
-            Grid_MaterialList(1, 16) = "차이"
-            rngM = .GetCellRange(0, 17, 1, 17)
+            Grid_MaterialList(1, 15) = "전산재고"
+            Grid_MaterialList(1, 16) = "실사수량"
+            Grid_MaterialList(1, 17) = "차이"
+            rngM = .GetCellRange(0, 18, 1, 18)
             rngM.Data = "Modify"
-            For i = 6 To 16
+            For i = 6 To 17
                 .Cols(i).DataType = GetType(Integer)
                 .Cols(i).Format = "#,##0"
             Next
-            .Cols(14).StyleNew.BackColor = Color.LightYellow
-            .Cols(15).StyleNew.BackColor = Color.Bisque
-            .Cols(17).Visible = False
+            .Cols(15).StyleNew.BackColor = Color.LightYellow
+            .Cols(16).StyleNew.BackColor = Color.Bisque
+            .Cols(18).Visible = False
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -207,6 +207,7 @@ Public Class frm_Material_Stock_Survey_Input
                 vbTab & Format(sqlDR("production_qty"), "#,##0") &
                 vbTab & Format(sqlDR("production_completed_qty"), "#,##0") &
                 vbTab & Format(sqlDR("code_change_qty"), "#,##0") &
+                vbTab & Format(sqlDR("return_qty"), "#,##0") &
                 vbTab & Format(sqlDR("stock_qty"), "#,##0") &
                 vbTab & Format(sqlDR("check_qty"), "#,##0") &
                 vbTab & checkString
@@ -234,7 +235,7 @@ Public Class frm_Material_Stock_Survey_Input
     Private Sub Grid_MaterialList_RowColChange(sender As Object, e As EventArgs) Handles Grid_MaterialList.RowColChange
 
         Select Case Grid_MaterialList.Col
-            Case 15, 17
+            Case 16
                 Grid_MaterialList.AllowEditing = True
             Case Else
                 Grid_MaterialList.AllowEditing = False
@@ -272,8 +273,8 @@ Public Class frm_Material_Stock_Survey_Input
 
                     Grid_MaterialList.TopRow = findRow
                     Grid_MaterialList.Row = findRow
-                    Grid_MaterialList.Select(findRow, 15)
-                    Grid_MaterialList.StartEditing(findRow, 15)
+                    Grid_MaterialList.Select(findRow, 16)
+                    Grid_MaterialList.StartEditing(findRow, 16)
 
                 Catch ex As Exception
                     MessageBox.Show(Me,
@@ -292,20 +293,20 @@ Public Class frm_Material_Stock_Survey_Input
 
     Private Sub Grid_MaterialList_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_MaterialList.AfterEdit
 
-        If e.Col = 15 Then
-            Dim orgCount As Integer = Grid_MaterialList(e.Row, 14)
-            Dim checkCount As Integer = Grid_MaterialList(e.Row, 15)
+        If e.Col = 16 Then
+            Dim orgCount As Integer = Grid_MaterialList(e.Row, 15)
+            Dim checkCount As Integer = Grid_MaterialList(e.Row, 16)
 
-            Grid_MaterialList(e.Row, 16) = checkCount - orgCount
+            Grid_MaterialList(e.Row, 17) = checkCount - orgCount
 
-            If Grid_MaterialList(e.Row, 16) = 0 Then
+            If Grid_MaterialList(e.Row, 17) = 0 Then
                 Grid_MaterialList.Rows(e.Row).StyleNew.ForeColor = Color.Black
-            ElseIf Grid_MaterialList(e.Row, 16) > 0 Then
+            ElseIf Grid_MaterialList(e.Row, 17) > 0 Then
                 Grid_MaterialList.Rows(e.Row).StyleNew.ForeColor = Color.Blue
-            ElseIf Grid_MaterialList(e.Row, 16) < 0 Then
+            ElseIf Grid_MaterialList(e.Row, 17) < 0 Then
                 Grid_MaterialList.Rows(e.Row).StyleNew.ForeColor = Color.Red
             End If
-            Grid_MaterialList(e.Row, 17) = "Modify"
+            Grid_MaterialList(e.Row, 18) = "Modify"
             TB_Barcode.SelectAll()
             TB_Barcode.Focus()
         End If
@@ -331,10 +332,10 @@ Public Class frm_Material_Stock_Survey_Input
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             For i = 2 To Grid_MaterialList.Rows.Count - 1
-                If Grid_MaterialList(i, 17) = "Modify" Then
+                If Grid_MaterialList(i, 18) = "Modify" Then
                     strSQL += "update tb_mms_material_stock_survey_plan_content set"
-                    strSQL += " check_qty = " & CDbl(Grid_MaterialList(i, 15))
-                    strSQL += ", check_result = " & CDbl(Grid_MaterialList(i, 16))
+                    strSQL += " check_qty = " & CDbl(Grid_MaterialList(i, 16))
+                    strSQL += ", check_result = " & CDbl(Grid_MaterialList(i, 17))
                     strSQL += ", check_date = '" & writeDate & "'"
                     strSQL += ", check_id = '" & loginID & "'"
                     strSQL += " where content_no = '" & LB_InspectionNo.Text & Format(CDbl(Grid_MaterialList(i, 0)), "0000") & "'"

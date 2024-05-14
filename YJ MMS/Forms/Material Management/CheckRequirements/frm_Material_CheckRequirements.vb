@@ -55,7 +55,7 @@ Public Class frm_Material_CheckRequirements
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 16
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -76,7 +76,7 @@ Public Class frm_Material_CheckRequirements
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 1, 5)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 13)
+            rngM = .GetCellRange(0, 6, 0, 14)
             rngM.Data = "재고"
             Grid_MaterialList(1, 6) = "기초재고"
             Grid_MaterialList(1, 7) = "입고"
@@ -86,9 +86,10 @@ Public Class frm_Material_CheckRequirements
             Grid_MaterialList(1, 11) = "생산 중"
             Grid_MaterialList(1, 12) = "생산 완료"
             Grid_MaterialList(1, 13) = "품번전환"
-            rngM = .GetCellRange(0, 14, 1, 14)
-            rngM.Data = "필요수량"
+            Grid_MaterialList(1, 14) = "반출"
             rngM = .GetCellRange(0, 15, 1, 15)
+            rngM.Data = "필요수량"
+            rngM = .GetCellRange(0, 16, 1, 16)
             rngM.Data = "미과출"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -226,7 +227,7 @@ Public Class frm_Material_CheckRequirements
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
-        Grid_MaterialList.Cols.Count = 16
+        Grid_MaterialList.Cols.Count = 17
 
         Dim checkCount As Integer = 0
         Dim checkModelCode As String = String.Empty
@@ -289,11 +290,12 @@ Public Class frm_Material_CheckRequirements
                 Format(sqlDR("ready_qty"), "#,##0") & vbTab &
                 Format(sqlDR("run_qty"), "#,##0") & vbTab &
                 Format(sqlDR("completed_qty"), "#,##0") & vbTab &
-                Format(sqlDR("code_change_qty"), "#,##0")
+                Format(sqlDR("code_change_qty"), "#,##0") & vbTab &
+                Format(sqlDR("return_qty"), "#,##0")
 
             Dim totalAmount As Double = 0
             For i As Integer = 0 To UBound(nowCode)
-                totalAmount += (sqlDR(nowCode(i)) * Grid_MaterialList(1, i + 16)) '총 사용수량
+                totalAmount += (sqlDR(nowCode(i)) * Grid_MaterialList(1, i + 17)) '총 사용수량
             Next
             insert_String += vbTab & Format(totalAmount, "#,##0")
 
@@ -304,7 +306,8 @@ Public Class frm_Material_CheckRequirements
                 sqlDR("ready_qty") -
                 sqlDR("run_qty") -
                 sqlDR("completed_qty") -
-                sqlDR("code_change_qty")
+                sqlDR("code_change_qty") -
+                sqlDR("return_qty")
             insert_String += vbTab & Format((stock_qty - totalAmount), "#,##0")
 
             For i As Integer = 0 To UBound(nowCode)
@@ -343,7 +346,7 @@ Public Class frm_Material_CheckRequirements
         If saveOK = False Then Exit Sub
 
         For i = 2 To Grid_MaterialList.Rows.Count - 1
-            If Grid_MaterialList(i, 14) < 0 Then
+            If Grid_MaterialList(i, 16) < 0 Then
                 MessageBox.Show(Me,
                                 "계획대비 부족한 자재가 존재 합니다.",
                                 msg_form,
