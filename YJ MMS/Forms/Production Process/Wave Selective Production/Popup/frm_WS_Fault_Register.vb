@@ -136,7 +136,7 @@ Public Class frm_WS_Fault_Register
             End If
         Next
 
-        frm_Wave_Selective_Production_Inspection.Load_InspectList()
+        frm_Wave_Selective_Production_End.Load_InspectList()
 
         Me.Dispose()
 
@@ -243,7 +243,7 @@ Public Class frm_WS_Fault_Register
 
             If Grid_Fault.Rows.Count = 2 Then
                 strSQL += "update tb_mms_ws_output_history set "
-                strSQL += " ws_inspector = '" & frm_Wave_Selective_Production_Inspection.TB_Inspector.Text & "'"
+                strSQL += " ws_inspector = '" & frm_Wave_Selective_Production_End.TB_Inspector.Text & "'"
                 strSQL += " where history_index = '" & LB_HistoryIndex.Text & "';"
             End If
 
@@ -285,7 +285,7 @@ Public Class frm_WS_Fault_Register
                            vbTab &
                            vbTab &
                            vbTab &
-                           frm_Wave_Selective_Production_Inspection.TB_Inspector.Text)
+                           frm_Wave_Selective_Production_End.TB_Inspector.Text)
         Grid_Fault.AutoSizeCols()
 
     End Sub

@@ -412,7 +412,8 @@ Public Class frm_SMD_Production_Start
 
         If warning = True Then
             If MessageBox.Show(Me,
-                               "납기일자가 더 빠른 주문이 존재 합니다.",
+                               "납기일자가 더 빠른 주문이 존재 합니다." & vbCrLf &
+                               "생산시작 등록을 계속 하시겠습니까?",
                                msg_form,
                                MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question) = DialogResult.No Then Exit Sub

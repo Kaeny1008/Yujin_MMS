@@ -268,7 +268,7 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_WSProduction_Start_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_Start.Click
+    Private Sub BTN_WSProduction_Start_SMD_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_Start_SMD.Click
 
         frm_Wave_Selective_Production_Start.MdiParent = Me
         If Not frm_Wave_Selective_Production_Start.Visible Then frm_Wave_Selective_Production_Start.Show()
@@ -276,11 +276,19 @@ Public Class frm_Main
 
     End Sub
 
+    Private Sub BTN_WSProduction_Start_First_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_Start_First.Click
+
+        frm_Wave_Selective_Production_First_Start.MdiParent = Me
+        If Not frm_Wave_Selective_Production_First_Start.Visible Then frm_Wave_Selective_Production_First_Start.Show()
+        frm_Wave_Selective_Production_First_Start.Focus()
+
+    End Sub
+
     Private Sub BTN_WSProduction_Inspection_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_Inspection.Click
 
-        frm_Wave_Selective_Production_Inspection.MdiParent = Me
-        If Not frm_Wave_Selective_Production_Inspection.Visible Then frm_Wave_Selective_Production_Inspection.Show()
-        frm_Wave_Selective_Production_Inspection.Focus()
+        frm_Wave_Selective_Production_End.MdiParent = Me
+        If Not frm_Wave_Selective_Production_End.Visible Then frm_Wave_Selective_Production_End.Show()
+        frm_Wave_Selective_Production_End.Focus()
 
     End Sub
 

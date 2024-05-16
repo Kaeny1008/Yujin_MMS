@@ -214,7 +214,7 @@ Public Class frm_WS_Reinspection
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(frm_Main,
+        MessageBox.Show(Me,
                         "저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,

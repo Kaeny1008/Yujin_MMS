@@ -416,10 +416,22 @@
     <Compile Include="Forms\Production Process\SMD Production\Solder Paste Management\Popup\frm_SolderPaste_Standard.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.Designer.vb">
-      <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_End.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.vb">
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_End.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Backup.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_Backup.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Backup.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_First_Start.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_First_Start.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_First_Start.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.Designer.vb">
@@ -656,8 +668,14 @@
     <EmbeddedResource Include="Forms\Production Process\SMD Production\Solder Paste Management\Popup\frm_SolderPaste_Standard.resx">
       <DependentUpon>frm_SolderPaste_Standard.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Inspection.resx">
-      <DependentUpon>frm_Wave_Selective_Production_Inspection.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_End.resx">
+      <DependentUpon>frm_Wave_Selective_Production_End.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Backup.resx">
+      <DependentUpon>frm_Wave_Selective_Production_Backup.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_First_Start.resx">
+      <DependentUpon>frm_Wave_Selective_Production_First_Start.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>

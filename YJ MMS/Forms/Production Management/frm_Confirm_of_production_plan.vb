@@ -53,7 +53,7 @@ Public Class frm_Production_plan
             rngM.Data = "주문수량"
             rngM = .GetCellRange(0, 9, 2, 9)
             rngM.Data = "공정순서"
-            rngM = .GetCellRange(0, 10, 2, 12)
+            rngM = .GetCellRange(0, 10, 0, 12)
             rngM.Data = "생산계획"
             rngM = .GetCellRange(1, 10, 2, 10)
             rngM.Data = "생산시작일"
@@ -208,7 +208,7 @@ Public Class frm_Production_plan
                 Grid_OrderList.Cols(11).ComboList = Load_Department()
             Case 12
                 Grid_OrderList.AllowEditing = True
-                Grid_OrderList.Cols(12).ComboList = Load_Line(Grid_OrderList(Grid_OrderList.Row, 10))
+                Grid_OrderList.Cols(12).ComboList = Load_Line(Grid_OrderList(Grid_OrderList.Row, 11))
             Case Else
                 Grid_OrderList.AllowEditing = False
         End Select
@@ -296,9 +296,9 @@ Public Class frm_Production_plan
         If e.Row < 3 Or e.Col < 1 Then Exit Sub
 
         beforeString = Grid_OrderList(e.Row, e.Col)
-        beforeDate = Grid_OrderList(e.Row, 9)
-        beforeDepartment = Grid_OrderList(e.Row, 10)
-        beforeLine = Grid_OrderList(e.Row, 11)
+        beforeDate = Grid_OrderList(e.Row, 10)
+        beforeDepartment = Grid_OrderList(e.Row, 11)
+        beforeLine = Grid_OrderList(e.Row, 12)
 
     End Sub
 
@@ -420,7 +420,8 @@ Public Class frm_Production_plan
 
         For i = 3 To Grid_OrderList.Rows.Count - 1
             If Grid_OrderList(i, 0) = "N" Then
-                If Not IsDate(Grid_OrderList(i, 10)) Or Grid_OrderList(i, 11) = String.Empty Or Grid_OrderList(i, 12) = String.Empty Then
+                'If Not IsDate(Grid_OrderList(i, 10)) Or Grid_OrderList(i, 11) = String.Empty Or Grid_OrderList(i, 12) = String.Empty Then
+                If Not IsDate(Grid_OrderList(i, 10)) Then
                     MessageBox.Show(Me,
                                     "입력되지 않은 항목이 있습니다." & vbCrLf & "행 번호 : " & i - 2,
                                     msg_form,
@@ -453,11 +454,14 @@ Public Class frm_Production_plan
 
             For i = 1 To Grid_OrderList.Rows.Count - 1
                 If Grid_OrderList(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_mms_production_plan(order_index, start_date, smd_department, smd_line, write_date, write_id) values("
+                    strSQL += "insert into tb_mms_production_plan("
+                    strSQL += "order_index, start_date, smd_department, smd_line, start_process, write_date, write_id"
+                    strSQL += ") values("
                     strSQL += "'" & Grid_OrderList(i, 1) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 10) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 11) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 12) & "'"
+                    strSQL += ",'" & trim(Grid_OrderList(i, 9).ToString.Split(">")(0)) & "'"
                     strSQL += ",'" & writeDate & "'"
                     strSQL += ",'" & loginID & "');"
                     strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation of production plan'"
@@ -467,8 +471,8 @@ Public Class frm_Production_plan
                     strSQL += " start_date = '" & Format(Grid_OrderList(i, 10), "yyyy-MM-dd") & "'"
                     strSQL += ", smd_department = '" & Grid_OrderList(i, 11) & "'"
                     strSQL += ", smd_line = '" & Grid_OrderList(i, 12) & "'"
-                    strSQL += ", modify_date = '" & writeDate & "'"
-                    strSQL += ", modify_id = '" & loginID & "'"
+                    strSQL += ", write_date = '" & writeDate & "'"
+                    strSQL += ", write_id = '" & loginID & "'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"
                 ElseIf Grid_OrderList(i, 0).ToString = "D" Then
                     strSQL += "delete from tb_mms_production_plan"
@@ -530,7 +534,7 @@ Public Class frm_Production_plan
 
                     'No가 숫자이며 각 셀이 비어 있다면 신규
                     If IsNumeric(Grid_OrderList(i, 0)) Then
-                        If Grid_OrderList(i, 10) = String.Empty And
+                        If CStr(Grid_OrderList(i, 10)) = String.Empty And
                         Grid_OrderList(i, 11) = String.Empty And
                         Grid_OrderList(i, 12) = String.Empty Then
                             Grid_OrderList(i, 0) = "N"

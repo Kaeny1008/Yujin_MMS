@@ -549,7 +549,7 @@ Partial Class frm_Wave_Selective_Production_Start
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
         Me.Name = "frm_Wave_Selective_Production_Start"
-        Me.Text = "Wave / Selective Soldering 공정 생산등록"
+        Me.Text = "Wave / Selective Soldering 공정 생산등록(인계품)"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)

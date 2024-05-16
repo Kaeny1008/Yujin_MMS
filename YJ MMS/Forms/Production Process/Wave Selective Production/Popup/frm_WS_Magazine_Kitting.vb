@@ -80,14 +80,15 @@ Public Class frm_WS_Magazine_Kitting
             Exit Sub
         End If
 
-        If CheckInputQty(lastWorkingCount + CDbl(TB_MagazineQty.Text)) = False Then
-            MessageBox.Show(Me,
-                            "입력한 수량이 총 투입수량보다 많습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Asterisk)
-            Exit Sub
-        End If
+        '투입수량이 입력되는 상황이 없어 삭제함
+        'If CheckInputQty(lastWorkingCount + CDbl(TB_MagazineQty.Text)) = False Then
+        '    MessageBox.Show(Me,
+        '                    "입력한 수량이 총 투입수량보다 많습니다.",
+        '                    msg_form,
+        '                    MessageBoxButtons.OK,
+        '                    MessageBoxIcon.Asterisk)
+        '    Exit Sub
+        'End If
 
         Dim workingEnd As Boolean = False
         If lastWorkingCount + CDbl(TB_MagazineQty.Text) = workingCount Then
@@ -117,23 +118,25 @@ Public Class frm_WS_Magazine_Kitting
         sqlTran = dbConnection1.BeginTransaction
 
         Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+        Dim new_history_index As String = "WSO" & Format(Now, "yyMMddHHmmssfff")
         Try
             If workingEnd = False Then
                 strSQL = "insert into tb_mms_ws_output_history("
                 strSQL += "order_index, history_index, ws_start_date"
                 strSQL += ", ws_inspector, start_quantity, working_status, process_name"
                 strSQL += ") select order_index"
-                strSQL += ", 'WSO" & Format(Now, "yyMMddHHmmssfff") & "'"
+                strSQL += ", '" & new_history_index & "'"
                 strSQL += ", '" & writeDate & "'"
-                strSQL += ", '" & frm_Wave_Selective_Production_Inspection.TB_Inspector.Text & "'"
+                strSQL += ", '" & frm_Wave_Selective_Production_End.TB_Inspector.Text & "'"
                 strSQL += ", start_quantity + '" & TB_MagazineQty.Text & "', working_status"
                 strSQL += ", '" & TB_SMDLine.Text & "'"
                 strSQL += " from tb_mms_ws_output_history"
                 strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
                 strSQL += ";"
             Else
-                strSQL += "update tb_mms_order_register_list set order_status = '" & frm_Wave_Selective_Production_Inspection.CB_Line.Text & " Process Completed'"
-                strSQL += " where order_index = '" & TB_PONo.Text & "';"
+                '투입쪽에서 업데이트하는걸로 변경
+                'strSQL += "update tb_mms_order_register_list set order_status = '" & frm_Wave_Selective_Production_End.CB_Line.Text & " Process Completed'"
+                'strSQL += " where order_index = '" & TB_PONo.Text & "';"
             End If
 
             strSQL += "update tb_mms_ws_output_history set"
@@ -141,7 +144,7 @@ Public Class frm_WS_Magazine_Kitting
             strSQL += ", end_quantity = '" & TB_MagazineQty.Text & "'"
             strSQL += ", working_status = 'Completed'"
             strSQL += ", history_note = '" & TB_Note.Text & "'"
-            strSQL += ", ws_inspector = '" & frm_Wave_Selective_Production_Inspection.TB_Inspector.Text & "'"
+            strSQL += ", ws_inspector = '" & frm_Wave_Selective_Production_End.TB_Inspector.Text & "'"
             strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
             strSQL += ";"
 
@@ -173,9 +176,12 @@ Public Class frm_WS_Magazine_Kitting
         End If
 
         If workingEnd = True Then
-            frm_Wave_Selective_Production_Inspection.Control_Initialize()
+            frm_Wave_Selective_Production_End.historyIndex = String.Empty
+            frm_Wave_Selective_Production_End.Control_Initialize()
+            frm_Wave_Selective_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
         Else
-            frm_Wave_Selective_Production_Inspection.Load_InspectList()
+            frm_Wave_Selective_Production_End.historyIndex = new_history_index
+            frm_Wave_Selective_Production_End.Load_InspectList()
         End If
 
         Me.Dispose()
@@ -271,7 +277,7 @@ Public Class frm_WS_Magazine_Kitting
         swFile.WriteLine("^FO0352,0200^GB0000,0116,2,B,0^FS")
         swFile.WriteLine("^FO0510,0200^GB0000,0116,2,B,0^FS")
 
-        swFile.WriteLine("^FO0300,0008^A1N,70,50^FD" & TB_SMDLine.Text & "현품표^FS")
+        swFile.WriteLine("^FO0170,0008^A1N,60,40^FD" & TB_SMDLine.Text & " 현품표^FS")
         swFile.WriteLine("^FO0172,0080^A0,40,20^FDItemCode : ^FS")
         swFile.WriteLine("^FO0264,0080^A0,40,20^FD" & TB_ItemCode.Text & "^FS")
         swFile.WriteLine("^FO0172,0120^A0,40,20^FDItemName : ^FS")

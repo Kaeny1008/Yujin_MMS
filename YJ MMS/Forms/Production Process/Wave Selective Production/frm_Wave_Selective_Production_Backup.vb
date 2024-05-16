@@ -1,7 +1,7 @@
 ﻿Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-Public Class frm_Wave_Selective_Production_Inspection
+Public Class frm_Wave_Selective_Production_Backup
 
     Dim historyIndex As String
 
