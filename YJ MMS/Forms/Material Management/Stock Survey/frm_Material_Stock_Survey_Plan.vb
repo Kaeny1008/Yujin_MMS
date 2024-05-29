@@ -27,7 +27,7 @@ Public Class frm_Material_Stock_Survey_Plan
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 16
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -47,19 +47,21 @@ Public Class frm_Material_Stock_Survey_Plan
             rngM = .GetCellRange(0, 4, 1, 4)
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 1, 5)
+            rngM.Data = "단가(\)"
+            rngM = .GetCellRange(0, 6, 1, 6)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 14)
+            rngM = .GetCellRange(0, 7, 0, 15)
             rngM.Data = "재고"
-            Grid_MaterialList(1, 6) = "기초재고"
-            Grid_MaterialList(1, 7) = "입고"
-            Grid_MaterialList(1, 8) = "Loss"
-            Grid_MaterialList(1, 9) = "납품"
-            Grid_MaterialList(1, 10) = "계획대기"
-            Grid_MaterialList(1, 11) = "생산 중"
-            Grid_MaterialList(1, 12) = "생산 완료"
-            Grid_MaterialList(1, 13) = "품번전환"
-            Grid_MaterialList(1, 14) = "반출"
-            rngM = .GetCellRange(0, 15, 1, 15)
+            Grid_MaterialList(1, 7) = "기초재고"
+            Grid_MaterialList(1, 8) = "입고"
+            Grid_MaterialList(1, 9) = "Loss"
+            Grid_MaterialList(1, 10) = "납품"
+            Grid_MaterialList(1, 11) = "계획대기"
+            Grid_MaterialList(1, 12) = "생산 중"
+            Grid_MaterialList(1, 13) = "생산 완료"
+            Grid_MaterialList(1, 14) = "품번전환"
+            Grid_MaterialList(1, 15) = "반출"
+            rngM = .GetCellRange(0, 16, 1, 16)
             rngM.Data = "전산재고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -333,11 +335,12 @@ Public Class frm_Material_Stock_Survey_Plan
 
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_stock_survey_plan_content("
-                strSQL += "content_no, part_code, basic_qty, in_qty, loss_qty, delivery_qty, plan_ready_qty"
+                strSQL += "content_no, part_code, unit_price, basic_qty, in_qty, loss_qty, delivery_qty, plan_ready_qty"
                 strSQL += ", production_qty, production_completed_qty, code_change_qty, return_qty, stock_qty"
                 strSQL += ") values ("
                 strSQL += "'" & LB_InspectionNo.Text & Format(CDbl(Grid_MaterialList(i, 0)), "0000") & "'"
                 strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
+                strSQL += "," & CDbl(Grid_MaterialList(i, 2)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 6)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 7)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 8)) & ""
@@ -507,6 +510,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 vbTab & sqlDR("part_type") &
                 vbTab & sqlDR("part_specification") &
                 vbTab & sqlDR("part_category") &
+                vbTab & Format(sqlDR("unit_price"), "#,##0.000") &
                 vbTab & sqlDR("supplier") &
                 vbTab & Format(sqlDR("basic_qty"), "#,##0") &
                 vbTab & Format(sqlDR("in_qty"), "#,##0") &

@@ -242,6 +242,12 @@
     <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Plan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Result.Designer.vb">
+      <DependentUpon>frm_Material_Stock_Survey_Result.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Result.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.Designer.vb">
       <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>
     </Compile>
@@ -288,6 +294,12 @@
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.Designer.vb">
+      <DependentUpon>frm_OQC_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.designer.vb">
@@ -580,6 +592,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Plan.resx">
       <DependentUpon>frm_Material_Stock_Survey_Plan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Result.resx">
+      <DependentUpon>frm_Material_Stock_Survey_Result.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_With_Label.resx">
       <DependentUpon>frm_Material_Warehousing_With_Label.vb</DependentUpon>

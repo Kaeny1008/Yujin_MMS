@@ -371,4 +371,20 @@ Public Class frm_Main
         frm_Material_Label_Reprint.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Stock_Survay_Result_Click(sender As Object, e As EventArgs) Handles BTN_Material_Stock_Survay_Result.Click
+
+        frm_Material_Stock_Survey_Result.MdiParent = Me
+        If Not frm_Material_Stock_Survey_Result.Visible Then frm_Material_Stock_Survey_Result.Show()
+        frm_Material_Stock_Survey_Result.Focus()
+
+    End Sub
+
+    Private Sub BTN_OQC_Click(sender As Object, e As EventArgs) Handles BTN_OQC.Click
+
+        frm_OQC_Register.MdiParent = Me
+        If Not frm_OQC_Register.Visible Then frm_OQC_Register.Show()
+        frm_OQC_Register.Focus()
+
+    End Sub
 End Class

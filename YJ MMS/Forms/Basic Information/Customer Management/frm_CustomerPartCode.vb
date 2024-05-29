@@ -34,7 +34,7 @@ Public Class frm_CustomerPartCode
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 10
+            .Cols.Count = 11
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -45,9 +45,10 @@ Public Class frm_CustomerPartCode
             Grid_PartList(0, 4) = "사양"
             Grid_PartList(0, 5) = "Vendor"
             Grid_PartList(0, 6) = "사/도급"
-            Grid_PartList(0, 7) = "공급사"
-            Grid_PartList(0, 8) = "연결된 자재"
-            Grid_PartList(0, 9) = "비고"
+            Grid_PartList(0, 7) = "단가(\)"
+            Grid_PartList(0, 8) = "공급사"
+            Grid_PartList(0, 9) = "연결된 자재"
+            Grid_PartList(0, 10) = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -322,6 +323,7 @@ Public Class frm_CustomerPartCode
                                           sqlDR("part_specification") & vbTab &
                                           sqlDR("part_vendor") & vbTab &
                                           sqlDR("part_category") & vbTab &
+                                          Format(sqlDR("unit_price"), "#,##0.000") & vbTab &
                                           sqlDR("supplier") & vbTab &
                                           sqlDR("registered_qty") & vbTab &
                                           sqlDR("part_code_note")
@@ -362,7 +364,7 @@ Public Class frm_CustomerPartCode
                 If Grid_PartList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_customer_part_code("
                     strSQL += "part_maincode, part_code, customer_code, part_type, part_specification"
-                    strSQL += ", part_vendor, part_category, supplier, part_code_note, write_date, write_id"
+                    strSQL += ", part_vendor, part_category, unit_price, supplier, part_code_note, write_date, write_id"
                     strSQL += ") values("
                     strSQL += "'" & Grid_PartList(i, 1) & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 3), "'", "\'") & "'"
@@ -372,7 +374,8 @@ Public Class frm_CustomerPartCode
                     strSQL += ", '" & Replace(Grid_PartList(i, 5), "'", "\'") & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 6), "'", "\'") & "'"
                     strSQL += ", '" & Replace(Grid_PartList(i, 7), "'", "\'") & "'"
-                    strSQL += ", '" & Replace(Grid_PartList(i, 9), "'", "\'") & "'"
+                    strSQL += ", '" & Replace(Grid_PartList(i, 8), "'", "\'") & "'"
+                    strSQL += ", '" & Replace(Grid_PartList(i, 10), "'", "\'") & "'"
                     strSQL += ", '" & writeDate & "'"
                     strSQL += ", '" & loginID & "');"
                 ElseIf Grid_PartList(i, 0).ToString = "M" Then
@@ -382,8 +385,9 @@ Public Class frm_CustomerPartCode
                     strSQL += ", part_specification = '" & Replace(Grid_PartList(i, 4), "'", "\'") & "'"
                     strSQL += ", part_vendor = '" & Replace(Grid_PartList(i, 5), "'", "\'") & "'"
                     strSQL += ", part_category = '" & Replace(Grid_PartList(i, 6), "'", "\'") & "'"
-                    strSQL += ", supplier = '" & Replace(Grid_PartList(i, 7), "'", "\'") & "'"
-                    strSQL += ", part_code_note = '" & Replace(Grid_PartList(i, 9), "'", "\'") & "'"
+                    strSQL += ", unit_price = '" & Replace(Grid_PartList(i, 7), "'", "\'") & "'"
+                    strSQL += ", supplier = '" & Replace(Grid_PartList(i, 8), "'", "\'") & "'"
+                    strSQL += ", part_code_note = '" & Replace(Grid_PartList(i, 10), "'", "\'") & "'"
                     strSQL += ", write_date = '" & writeDate & "'"
                     strSQL += ", write_id = '" & loginID & "'"
                     strSQL += " where part_maincode = '" & Grid_PartList(i, 1) & "';"

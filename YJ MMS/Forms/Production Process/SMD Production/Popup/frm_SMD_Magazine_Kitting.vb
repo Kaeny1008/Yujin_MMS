@@ -302,7 +302,7 @@ Public Class frm_SMD_Magazine_Kitting
             swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
         End If
 
-        swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_PONo.Text & "!" & LB_HistoryIndex.Text & "^FS")
+        swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_PONo.Text & "!" & LB_HistoryIndex.Text & "!SMD^FS")
 
         swFile.WriteLine("^PQ" & 1 & "^FS") 'PQ : 발행수량
         swFile.WriteLine("^XZ")
