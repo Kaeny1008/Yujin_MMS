@@ -624,7 +624,7 @@ Public Class frm_Supplier_Document_Register
 
             DBConnect()
 
-            Dim strSQL As String = "select part_code, part_no, part_qty"
+            Dim strSQL As String = "select part_code, part_no, part_qty, vendor"
             strSQL += " from tb_mms_material_warehousing_document"
             strSQL += " where document_no = '" & Grid_DocumentsList(gridRow, 1) & "'"
             strSQL += " order by wd_no"
@@ -636,6 +636,7 @@ Public Class frm_Supplier_Document_Register
                 Dim insert_String As String = Grid_MaterialList.Rows.Count & vbTab &
                                               sqlDR("part_code") & vbTab &
                                               sqlDR("part_no") & vbTab &
+                                              sqlDR("vendor") & vbTab &
                                               Format(sqlDR("part_qty"), "#,##0")
                 Grid_MaterialList.AddItem(insert_String)
             Loop

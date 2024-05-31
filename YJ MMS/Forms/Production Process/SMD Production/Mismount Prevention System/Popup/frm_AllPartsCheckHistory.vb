@@ -25,7 +25,7 @@ Public Class frm_AllPartsCheckHistory
             .AllowResizing = AllowResizingEnum.None
             .KeyActionEnter = KeyActionEnum.MoveDown
             .KeyActionTab = KeyActionEnum.MoveAcross
-            .Cols.Count = 8
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -35,10 +35,11 @@ Public Class frm_AllPartsCheckHistory
             Grid_historyList(0, 1) = "작업일자"
             Grid_historyList(0, 2) = "Machine No."
             Grid_historyList(0, 3) = "Feeder No."
-            Grid_historyList(0, 4) = "Part No."
-            Grid_historyList(0, 5) = "Lot No."
-            Grid_historyList(0, 6) = "수량"
-            Grid_historyList(0, 7) = "작업자"
+            Grid_historyList(0, 4) = "Part Code"
+            Grid_historyList(0, 5) = "Part No."
+            Grid_historyList(0, 6) = "Lot No."
+            Grid_historyList(0, 7) = "수량"
+            Grid_historyList(0, 8) = "작업자"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -87,6 +88,7 @@ Public Class frm_AllPartsCheckHistory
                 vbTab & Format(sqlDR("check_date"), "yyyy-MM-dd HH:mm:ss") &
                 vbTab & sqlDR("machine_no") &
                 vbTab & sqlDR("feeder_no") &
+                vbTab & sqlDR("check_part_code") &
                 vbTab & sqlDR("check_part_no") &
                 vbTab & sqlDR("check_lot_no") &
                 vbTab & insertQty &

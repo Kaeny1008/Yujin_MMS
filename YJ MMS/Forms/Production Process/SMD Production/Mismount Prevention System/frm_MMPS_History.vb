@@ -72,7 +72,7 @@ Public Class frm_MMPS_History
             .SelectionMode = SelectionModeEnum.Default
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 18
+            .Cols.Count = 19
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -100,22 +100,24 @@ Public Class frm_MMPS_History
             Mrng = .GetCellRange(0, 9, 1, 9)
             Mrng.Data = "Feeder" & vbCrLf & "No"
             Mrng = .GetCellRange(0, 10, 1, 10)
-            Mrng.Data = "확인" & vbCrLf & "Part No."
+            Mrng.Data = "확인" & vbCrLf & "Part Code"
             Mrng = .GetCellRange(0, 11, 1, 11)
-            Mrng.Data = "교환전" & vbCrLf & "Part No."
-            Mrng = .GetCellRange(0, 12, 0, 14)
+            Mrng.Data = "교환전" & vbCrLf & "Part Code"
+            Mrng = .GetCellRange(0, 12, 0, 15)
             Mrng.Data = "교환후"
             Mrng = .GetCellRange(1, 12, 1, 12)
-            Mrng.Data = "Part No."
+            Mrng.Data = "Part Code"
             Mrng = .GetCellRange(1, 13, 1, 13)
-            Mrng.Data = "Lot No."
+            Mrng.Data = "Part No."
             Mrng = .GetCellRange(1, 14, 1, 14)
+            Mrng.Data = "Lot No."
+            Mrng = .GetCellRange(1, 15, 1, 15)
             Mrng.Data = "Q'ty"
-            Mrng = .GetCellRange(0, 15, 1, 15)
-            Mrng.Data = "결과"
             Mrng = .GetCellRange(0, 16, 1, 16)
-            Mrng.Data = "NG 사유"
+            Mrng.Data = "결과"
             Mrng = .GetCellRange(0, 17, 1, 17)
+            Mrng.Data = "NG 사유"
+            Mrng = .GetCellRange(0, 18, 1, 18)
             Mrng.Data = "NG 확인자"
             For i = 0 To .Cols.Count - 1
                 .Cols(i).AllowMerging = True
@@ -373,9 +375,10 @@ Public Class frm_MMPS_History
                 vbTab & sqlDR("worker") &
                 vbTab & sqlDR("machine_no") &
                 vbTab & sqlDR("feeder_no") &
-                vbTab & sqlDR("org_part_no") &
-                vbTab & sqlDR("bef_part_no") &
-                vbTab & sqlDR("chg_part_no") &
+                vbTab & sqlDR("org_part_code") &
+                vbTab & sqlDR("bef_part_code") &
+                vbTab & sqlDR("chg_part_code") &
+            vbTab & sqlDR("chg_part_no") &
                 vbTab & sqlDR("chg_lot_no") &
                 vbTab & insertQty &
                 vbTab & checkResult &

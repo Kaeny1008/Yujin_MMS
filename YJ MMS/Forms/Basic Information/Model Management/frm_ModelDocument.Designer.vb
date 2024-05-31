@@ -50,6 +50,10 @@ Partial Class frm_ModelDocument
         Me.Grid_BOM_Total = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.BTN_Result = New System.Windows.Forms.Button()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
@@ -79,10 +83,8 @@ Partial Class frm_ModelDocument
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel5 = New System.Windows.Forms.Panel()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TB_BarcodeString = New System.Windows.Forms.TextBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -100,12 +102,12 @@ Partial Class frm_ModelDocument
         Me.TabPage4.SuspendLayout()
         CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage5.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
-        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -397,6 +399,8 @@ Partial Class frm_ModelDocument
         '
         'TabPage5
         '
+        Me.TabPage5.Controls.Add(Me.TB_BarcodeString)
+        Me.TabPage5.Controls.Add(Me.Label18)
         Me.TabPage5.Controls.Add(Me.Panel5)
         Me.TabPage5.Controls.Add(Me.Label17)
         Me.TabPage5.Controls.Add(Me.TextBox1)
@@ -412,6 +416,47 @@ Partial Class frm_ModelDocument
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "공정 및 특이사항"
         Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.RadioButton3)
+        Me.Panel5.Controls.Add(Me.RadioButton4)
+        Me.Panel5.Enabled = False
+        Me.Panel5.Location = New System.Drawing.Point(122, 382)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(246, 22)
+        Me.Panel5.TabIndex = 10
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Checked = True
+        Me.RadioButton3.Location = New System.Drawing.Point(56, 3)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
+        Me.RadioButton3.TabIndex = 1
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "미사용"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton4
+        '
+        Me.RadioButton4.AutoSize = True
+        Me.RadioButton4.Location = New System.Drawing.Point(3, 3)
+        Me.RadioButton4.Name = "RadioButton4"
+        Me.RadioButton4.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton4.TabIndex = 0
+        Me.RadioButton4.Text = "사용"
+        Me.RadioButton4.UseVisualStyleBackColor = True
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(26, 387)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(83, 12)
+        Me.Label17.TabIndex = 9
+        Me.Label17.Text = "- Loader PCB"
         '
         'TextBox1
         '
@@ -743,46 +788,21 @@ Partial Class frm_ModelDocument
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
-        'Panel5
+        'Label18
         '
-        Me.Panel5.Controls.Add(Me.RadioButton3)
-        Me.Panel5.Controls.Add(Me.RadioButton4)
-        Me.Panel5.Enabled = False
-        Me.Panel5.Location = New System.Drawing.Point(122, 382)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(246, 22)
-        Me.Panel5.TabIndex = 10
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(28, 420)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(85, 12)
+        Me.Label18.TabIndex = 11
+        Me.Label18.Text = "- 품목명(라벨)"
         '
-        'RadioButton3
+        'TB_BarcodeString
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Checked = True
-        Me.RadioButton3.Location = New System.Drawing.Point(56, 3)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(59, 16)
-        Me.RadioButton3.TabIndex = 1
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "미사용"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'RadioButton4
-        '
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(3, 3)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton4.TabIndex = 0
-        Me.RadioButton4.Text = "사용"
-        Me.RadioButton4.UseVisualStyleBackColor = True
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(26, 387)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(83, 12)
-        Me.Label17.TabIndex = 9
-        Me.Label17.Text = "- Loader PCB"
+        Me.TB_BarcodeString.Location = New System.Drawing.Point(122, 416)
+        Me.TB_BarcodeString.Name = "TB_BarcodeString"
+        Me.TB_BarcodeString.Size = New System.Drawing.Size(246, 21)
+        Me.TB_BarcodeString.TabIndex = 12
         '
         'frm_ModelDocument
         '
@@ -815,6 +835,8 @@ Partial Class frm_ModelDocument
         CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).EndInit()
@@ -822,8 +844,6 @@ Partial Class frm_ModelDocument
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
-        Me.Panel5.ResumeLayout(False)
-        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -888,4 +908,6 @@ Partial Class frm_ModelDocument
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents Label17 As Label
+    Friend WithEvents TB_BarcodeString As TextBox
+    Friend WithEvents Label18 As Label
 End Class

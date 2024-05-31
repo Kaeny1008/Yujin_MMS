@@ -780,6 +780,7 @@ Public Class frm_ModelDocument
             TB_ModelCode.Text = sqlDR("model_code")
             TB_ModelName.Text = sqlDR("item_code")
             TB_ItemName.Text = sqlDR("item_name")
+            TB_BarcodeString.Text = sqlDR("barcode_string")
 
             If sqlDR("use_bond") = "사용" Then
                 RadioButton1.Checked = True
@@ -992,7 +993,7 @@ Public Class frm_ModelDocument
 
         If dbWrite_Result.Equals("No Change") Then
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
+            MessageBox.Show(Me,
                             "변경사항이 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
@@ -1003,7 +1004,7 @@ Public Class frm_ModelDocument
             GoTo FTP_Control
         Else
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
+            MessageBox.Show(Me,
                             dbWrite_Result,
                             msg_form,
                             MessageBoxButtons.OK,
@@ -1018,7 +1019,7 @@ FTP_Control:
         Thread_LoadingFormEnd()
 
         TabControl1.SelectedIndex = 0
-        MessageBox.Show(frm_Main,
+        MessageBox.Show(Me,
                         "저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,
@@ -1123,6 +1124,7 @@ FTP_Control:
             strSQL += "update tb_model_list set use_bond = '" & useBond & "'"
             strSQL += ", etc_text = '" & TextBox1.Text & "'"
             strSQL += ", loader_pcb = '" & useLoaderPCB & "'"
+            strSQL += ", barcode_string = '" & TB_BarcodeString.Text & "'"
             strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
 

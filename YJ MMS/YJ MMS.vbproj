@@ -638,6 +638,9 @@
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_Register.resx">
+      <DependentUpon>frm_OQC_Register.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.resx">
       <DependentUpon>frm_MetalMaskHistory.vb</DependentUpon>
     </EmbeddedResource>

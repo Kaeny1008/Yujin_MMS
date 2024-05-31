@@ -34,8 +34,8 @@ Public Class frm_AlarmHistory
             Grid_historyList(0, 0) = "No"
             Grid_historyList(0, 1) = "Machine No."
             Grid_historyList(0, 2) = "Feeder No."
-            Grid_historyList(0, 3) = "등록 Parts No."
-            Grid_historyList(0, 4) = "확인 Parts No."
+            Grid_historyList(0, 3) = "등록 Parts Code"
+            Grid_historyList(0, 4) = "확인 Parts Code"
             Grid_historyList(0, 5) = "NG 사유"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -78,8 +78,8 @@ Public Class frm_AlarmHistory
             insert = Grid_historyList.Rows.Count &
                 vbTab & sqlDR("machine_no") &
                 vbTab & sqlDR("feeder_no") &
-                vbTab & sqlDR("org_part_no") &
-                vbTab & sqlDR("check_part_no") &
+                vbTab & sqlDR("org_part_code") &
+                vbTab & sqlDR("check_part_code") &
                 vbTab & sqlDR("ng_result")
             Grid_historyList.AddItem(insert)
         Loop

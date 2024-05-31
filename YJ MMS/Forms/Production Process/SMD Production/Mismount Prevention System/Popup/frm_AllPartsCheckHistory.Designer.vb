@@ -42,15 +42,14 @@ Partial Class frm_AllPartsCheckHistory
         Me.Grid_historyList.Size = New System.Drawing.Size(903, 561)
         Me.Grid_historyList.StyleInfo = resources.GetString("Grid_historyList.StyleInfo")
         Me.Grid_historyList.TabIndex = 2
-        Me.Grid_historyList.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
-        'AllPartsCheckHistory
+        'frm_AllPartsCheckHistory
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(903, 561)
         Me.Controls.Add(Me.Grid_historyList)
-        Me.Name = "AllPartsCheckHistory"
+        Me.Name = "frm_AllPartsCheckHistory"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "All Parts Check 세부이력"
         CType(Me.Grid_historyList, System.ComponentModel.ISupportInitialize).EndInit()

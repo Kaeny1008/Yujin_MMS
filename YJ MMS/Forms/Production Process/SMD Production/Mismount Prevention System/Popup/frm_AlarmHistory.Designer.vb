@@ -42,9 +42,8 @@ Partial Class frm_AlarmHistory
         Me.Grid_historyList.Size = New System.Drawing.Size(903, 561)
         Me.Grid_historyList.StyleInfo = resources.GetString("Grid_historyList.StyleInfo")
         Me.Grid_historyList.TabIndex = 1
-        Me.Grid_historyList.VisualStyle = C1.Win.C1FlexGrid.VisualStyle.Office2010Blue
         '
-        'AlarmHistory
+        'frm_AlarmHistory
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.White
@@ -53,7 +52,7 @@ Partial Class frm_AlarmHistory
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "AlarmHistory"
+        Me.Name = "frm_AlarmHistory"
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "알람이력 확인"
