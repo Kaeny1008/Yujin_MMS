@@ -26,7 +26,7 @@ Public Class frm_MaterialCode_Change
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 12
+            .Cols.Count = 13
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -39,6 +39,7 @@ Public Class frm_MaterialCode_Change
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(12).Visible = False
         End With
 
         Grid_History(0, 0) = "No."
@@ -53,6 +54,7 @@ Public Class frm_MaterialCode_Change
         Grid_History(0, 9) = "전환수량"
         Grid_History(0, 10) = "변경후 Code"
         Grid_History(0, 11) = "변경 사유"
+        Grid_History(0, 12) = "입고일자"
 
     End Sub
 
@@ -180,8 +182,10 @@ Public Class frm_MaterialCode_Change
                             Grid_History(selRow, 7),
                             Grid_History(selRow, 8),
                             Grid_History(selRow, 9),
-                            Grid_History(selRow, 6), 1,
-                            CB_CustomerName.Text)
+                            Grid_History(selRow, 6),
+                            1,
+                            CB_CustomerName.Text,
+                            Format(CDate(Grid_History(selRow, 12)), "yyyy.MM.dd"))
 
     End Sub
 End Class

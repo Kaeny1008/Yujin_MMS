@@ -118,6 +118,7 @@ Public Class frm_CodeChange
 
         Do While sqlDR.Read
             TB_Vendor.Text = sqlDR("part_vendor")
+            TextBox1.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
         Loop
         sqlDR.Close()
 
@@ -204,7 +205,14 @@ Public Class frm_CodeChange
             Dim dbResult As Boolean = DB_Write()
 
             If dbResult = True Then
-                Material_PrintLabel(TB_AfterItemCode.Text, TB_PartNo.Text, TB_LotNo.Text, TB_AfterQty.Text, TB_Vendor.Text, 1, CB_CustomerName.Text)
+                Material_PrintLabel(TB_AfterItemCode.Text,
+                                    TB_PartNo.Text,
+                                    TB_LotNo.Text,
+                                    TB_AfterQty.Text,
+                                    TB_Vendor.Text,
+                                    1,
+                                    CB_CustomerName.Text,
+                                    Format(CDate(TextBox1.Text), "yyyy.MM.dd"))
                 MessageBox.Show("저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.Dispose()
             End If
@@ -229,7 +237,7 @@ Public Class frm_CodeChange
 
             strSQL = "insert into tb_mms_material_history("
             strSQL += "history_index, category, write_date, writer, customer_code, part_code"
-            strSQL += ", part_vendor, part_no, part_lot_no, history_qty, change_part_code, change_reason"
+            strSQL += ", part_vendor, part_no, part_lot_no, history_qty, change_part_code, change_reason, org_in_date"
             strSQL += ") values ("
             strSQL += "f_mms_material_history_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "')"
             strSQL += ", '품번변경'"
@@ -243,6 +251,7 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ", '" & TB_AfterItemCode.Text & "'"
             strSQL += ", '" & TB_Reason.Text & "'"
+            strSQL += ", '" & TextBox1.Text & "'"
             strSQL += ");"
 
             strSQL += "insert into tb_mms_material_warehousing("
@@ -258,7 +267,7 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_Vendor.Text & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
             strSQL += ", '" & TB_AfterQty.Text & "'"
-            strSQL += ", '" & writeDate & "'"
+            strSQL += ", '" & TextBox1.Text & "'"
             strSQL += ", '" & loginID & "'"
             strSQL += ");"
 

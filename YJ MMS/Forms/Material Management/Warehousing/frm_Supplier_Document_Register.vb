@@ -380,6 +380,7 @@ Public Class frm_Supplier_Document_Register
         Try
             With excelApp.ActiveWorkbook.Sheets(ComboBoxTextReading(Me, CB_SheetName))
                 Dim totalQty As Double = 0
+                Console.WriteLine("사용된 행수 : " & .UsedRange.Rows.Count)
                 For i = row_Start To .UsedRange.Rows.Count
                     Dim partCode As String = String.Empty
                     If Not col_PartCode = 0 Then partCode = Trim(.Cells(i, col_PartCode).Value)
@@ -388,7 +389,7 @@ Public Class frm_Supplier_Document_Register
 
                     If Not partCode = String.Empty Or Not partNo = String.Empty Then
                         Dim qty As Double = 0
-                        If not Trim(.Cells(i, col_Qty).Value) = String.Empty Then qty =Trim(.Cells(i, col_Qty).Value)
+                        If Not Trim(.Cells(i, col_Qty).Value) = String.Empty Then qty = Trim(.Cells(i, col_Qty).Value)
                         Dim vendor As String = String.Empty
                         If Not col_vendor = 0 Then vendor = Trim(.Cells(i, col_vendor).Value)
                         If Not qty = 0 Then
@@ -406,7 +407,7 @@ Public Class frm_Supplier_Document_Register
                     End If
                 Next
                 MessageBox.Show(frm_Main,
-                                "총 입고수량 : " & totalQty & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
+                                "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information)

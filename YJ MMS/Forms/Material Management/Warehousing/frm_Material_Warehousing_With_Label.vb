@@ -739,7 +739,8 @@ Public Class frm_Material_Warehousing_With_Label
                             CInt(TB_Qty.Text),
                             TB_Vendor.Text,
                             NumericUpDown1.Value,
-                            CB_CustomerName.Text)
+                            CB_CustomerName.Text,
+                            Format(Now, "yyyy.MM.dd"))
 
         Load_MaterialList_Detail(TB_DocumentNo.Text)
 
@@ -995,12 +996,17 @@ Public Class frm_Material_Warehousing_With_Label
                             CInt(Grid_PartList(selRow, 10)),
                             Grid_PartList(selRow, 7),
                             1,
-                            CB_CustomerName.Text
+                            CB_CustomerName.Text,
+                            Format(Now, "yyyy.MM.dd")
                             )
 
     End Sub
 
     Private Sub CB_Vendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Vendor.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
 
     End Sub
 End Class

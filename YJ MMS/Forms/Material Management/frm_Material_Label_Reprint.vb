@@ -165,7 +165,8 @@ Public Class frm_Material_Label_Reprint
                             Grid_History(selRow, 6),
                             Grid_History(selRow, 3),
                             1,
-                            CB_CustomerName.Text)
+                            CB_CustomerName.Text,
+                            Format(CDate(Grid_History(selRow, 1)), "yyyy.MM.dd"))
 
     End Sub
 End Class

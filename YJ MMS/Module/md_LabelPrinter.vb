@@ -7,7 +7,8 @@ Module md_LabelPrinter
                                    ByVal qty As Integer,
                                    ByVal vendor As String,
                                    ByVal printQty As Integer,
-                                   ByVal customerName As String)
+                                   ByVal customerName As String,
+                                   ByVal inDate As String)
 
         If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
 
@@ -25,8 +26,9 @@ Module md_LabelPrinter
         swFile.WriteLine("^FO180,0060^A0,40,30^FDVendor Code : " & partNo & "^FS")
         swFile.WriteLine("^FO180,0095^A0,40,30^FDLot No : " & lotNo & "^FS")
         swFile.WriteLine("^FO180,0130^A0,40,30^FDQty : " & Format(qty, "#,##0") & "^FS")
+        swFile.WriteLine("^FO370,0140^A1N,40,30^FD" & inDate & "^FS")
         swFile.WriteLine("^FO550,0140^A1N,30,20^FD" & customerName & "^FS")
-        Dim barcodeString As String = custPartCode & "!" & partNo & "!" & lotNo & "!" & qty & "!" & vendor
+        Dim barcodeString As String = custPartCode & "!" & partNo & "!" & lotNo & "!" & qty & "!" & vendor & "!" & inDate
         swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & barcodeString & "^FS")
         swFile.WriteLine("^PQ" & printQty & "^FS") 'PQ : 발행수량
         swFile.WriteLine("^XZ")

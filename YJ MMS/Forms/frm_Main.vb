@@ -387,4 +387,12 @@ Public Class frm_Main
         frm_OQC_Register.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Transfer_WorkSite_Click(sender As Object, e As EventArgs) Handles BTN_Material_Transfer_WorkSite.Click
+
+        frm_Material_Transfer.MdiParent = Me
+        If Not frm_Material_Transfer.Visible Then frm_Material_Transfer.Show()
+        frm_Material_Transfer.Focus()
+
+    End Sub
 End Class

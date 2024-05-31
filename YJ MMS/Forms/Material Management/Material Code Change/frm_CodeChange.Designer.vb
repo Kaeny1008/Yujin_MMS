@@ -40,6 +40,8 @@ Partial Class frm_CodeChange
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TB_Vendor = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.TB_Reason = New System.Windows.Forms.TextBox()
         Me.TB_AfterSpec = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TB_AfterVendor = New System.Windows.Forms.TextBox()
@@ -53,8 +55,8 @@ Partial Class frm_CodeChange
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BTN_Save = New System.Windows.Forms.Button()
-        Me.TB_Reason = New System.Windows.Forms.TextBox()
-        Me.Label16 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -131,6 +133,8 @@ Partial Class frm_CodeChange
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSkyBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TextBox1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label9)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Qty)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label8)
@@ -167,7 +171,7 @@ Partial Class frm_CodeChange
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(13, 183)
+        Me.Label9.Location = New System.Drawing.Point(13, 197)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(273, 12)
         Me.Label9.TabIndex = 11
@@ -307,6 +311,30 @@ Partial Class frm_CodeChange
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Vendor"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label16
+        '
+        Me.Label16.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.White
+        Me.Label16.Location = New System.Drawing.Point(15, 194)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(88, 21)
+        Me.Label16.TabIndex = 13
+        Me.Label16.Text = "전환사유"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Reason
+        '
+        Me.TB_Reason.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Reason.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Reason.Location = New System.Drawing.Point(103, 194)
+        Me.TB_Reason.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Reason.Name = "TB_Reason"
+        Me.TB_Reason.Size = New System.Drawing.Size(238, 21)
+        Me.TB_Reason.TabIndex = 12
         '
         'TB_AfterSpec
         '
@@ -461,29 +489,30 @@ Partial Class frm_CodeChange
         Me.BTN_Save.Text = "변경내용 저장 및 프린트"
         Me.BTN_Save.UseVisualStyleBackColor = True
         '
-        'TB_Reason
+        'TextBox1
         '
-        Me.TB_Reason.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_Reason.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_Reason.Location = New System.Drawing.Point(103, 194)
-        Me.TB_Reason.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_Reason.Name = "TB_Reason"
-        Me.TB_Reason.Size = New System.Drawing.Size(238, 21)
-        Me.TB_Reason.TabIndex = 12
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TextBox1.Location = New System.Drawing.Point(91, 172)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(238, 21)
+        Me.TextBox1.TabIndex = 13
         '
-        'Label16
+        'Label12
         '
-        Me.Label16.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label16.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label16.ForeColor = System.Drawing.Color.White
-        Me.Label16.Location = New System.Drawing.Point(15, 194)
-        Me.Label16.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(88, 21)
-        Me.Label16.TabIndex = 13
-        Me.Label16.Text = "전환사유"
-        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label12.BackColor = System.Drawing.Color.SteelBlue
+        Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(15, 172)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(76, 21)
+        Me.Label12.TabIndex = 12
+        Me.Label12.Text = "입고일자"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frm_CodeChange
         '
@@ -544,4 +573,6 @@ Partial Class frm_CodeChange
     Friend WithEvents BTN_Save As Button
     Friend WithEvents TB_Reason As TextBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label12 As Label
 End Class
