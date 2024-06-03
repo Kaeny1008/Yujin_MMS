@@ -48,6 +48,7 @@ Partial Class Subform
         Me.BTN_uploadPG.TabIndex = 30
         Me.BTN_uploadPG.Text = "PG Upload"
         Me.BTN_uploadPG.UseVisualStyleBackColor = True
+        Me.BTN_uploadPG.Visible = False
         '
         'BTN_connection
         '

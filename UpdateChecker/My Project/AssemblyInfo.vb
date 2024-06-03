@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' 어셈블리 특성 값을 검토합니다.
 
-<Assembly: AssemblyTitle("UpdateChecker")>
+<Assembly: AssemblyTitle("Update Checker")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("Yujin Electronics")>
-<Assembly: AssemblyProduct("UpdateChecker")>
+<Assembly: AssemblyProduct("Update Checker")>
 <Assembly: AssemblyCopyright("Copyright © Yujin Electronis")>
 <Assembly: AssemblyTrademark("")>
 

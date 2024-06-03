@@ -77,7 +77,7 @@ Public Class Mainform
             IO.Directory.Delete(Application.StartupPath & "\TEMP_FILE", True)
         End If
 
-        Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("UpdateChecker")
+        Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Update Checker")
 
         '아래 목록은 YJ 프로그램이 실행된 상태인지 확인 후 하나라도 켜져 있다면 업데이트체커 프로그램을 끄지 않도록 한다.
         '현재 내자신(프로그램)을 제외하고 실행되었는지 확인 후 없다면 업데이트체커 프로그램을 종료시킨다.

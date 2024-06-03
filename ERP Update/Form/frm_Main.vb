@@ -17,9 +17,9 @@ Public Class frm_Main
         Timer1.Interval = 1000
         Timer1.Enabled = True
 
-        If UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")) = 0 Then
+        If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) = 0 Then
             'UpdateChecker가 켜져 있다면 종료
-            Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("UpdateChecker")
+            Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Update Checker")
             If ucProcess.Length > 0 Then
                 ucProcess(0).Kill()
             End If
@@ -179,8 +179,8 @@ Public Class frm_Main
             Try
                 'Shell(Application.StartupPath & "\YJ MMS.exe", AppWinStyle.NormalFocus)
                 'CreateObject("WScript.Shell").Run(Chr(34) & Application.StartupPath & "\YJ Login.exe" & Chr(34), True)
-                If UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")) < 0 Then
-                    Shell(Application.StartupPath & "\UpdateChecker.exe", AppWinStyle.Hide)
+                If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) < 0 Then
+                    Shell(Application.StartupPath & "\Update Checker.exe", AppWinStyle.Hide)
                 End If
                 Shell(Application.StartupPath & "\YJ Login.exe", AppWinStyle.NormalFocus)
             Catch ex As Exception
@@ -297,8 +297,8 @@ Public Class frm_Main
         'Shell(Application.StartupPath & "\YJ MMS.exe", AppWinStyle.NormalFocus)
         'CreateObject("WScript.Shell").Run(Chr(34) & Application.StartupPath & "\YJ Login.exe" & Chr(34), True)
         'MsgBox(UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")))
-        If UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")) < 0 Then
-            Shell(Application.StartupPath & "\UpdateChecker.exe", AppWinStyle.Hide)
+        If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) < 0 Then
+            Shell(Application.StartupPath & "\Update Checker.exe", AppWinStyle.Hide)
         End If
 
         Shell(Application.StartupPath & "\YJ Login.exe", AppWinStyle.NormalFocus)

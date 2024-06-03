@@ -388,6 +388,9 @@ Public Class frm_Material_Stock_Survey_Result
         End If
         msgString += vbCrLf & "조사목적 : " & TB_Purpose.Text
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
+        msgString += vbCrLf & vbCrLf & "차이가 전산재고보다 많은 경우 많은수량은 잉여자재로 저장되며,"
+        msgString += vbCrLf & "외 목록은 결과 값이 기초재공으로 저장됩니다."
+
         msgString += vbCrLf & vbCrLf & "결과를 확정 하시겠습니까?"
 
         If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
@@ -414,8 +417,19 @@ Public Class frm_Material_Stock_Survey_Result
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 Grid_MaterialList(i, 0) = i - 1
                 '기초재고를 입력한다.
-                '0이하 값은 저장하지 않는다.
-                If CDbl(Grid_MaterialList(i, 17)) > 0 Then
+                If CDbl(Grid_MaterialList(i, 18)) > 0 Then
+                    '결과값이 + 인경우 재고수량보다 많으니까
+                    '전산수량을 기초재고로 잡고 나머지수량을 기록한다.
+                    strSQL += "insert into tb_mms_material_basic_inventory("
+                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
+                    strSQL += ") values("
+                    strSQL += "'" & dateTime & "'"
+                    strSQL += ",'" & TB_CustomerCode.Text & "'"
+                    strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
+                    strSQL += "," & CDbl(Grid_MaterialList(i, 16)) & ""
+                    strSQL += "," & CDbl(Grid_MaterialList(i, 18)) & ""
+                    strSQL += ");"
+                Else
                     strSQL += "insert into tb_mms_material_basic_inventory("
                     strSQL += "clearance_date, customer_code, part_code, available_qty"
                     strSQL += ") values("

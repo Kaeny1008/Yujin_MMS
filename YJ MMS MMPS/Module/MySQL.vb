@@ -11,7 +11,7 @@ Module MySQL
     Public serverID As String = registryEdit.ReadRegKey("Software\Yujin", "server.ID", "yujin_MySQL")
     Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "server.PSWD", "Dbwlswjswk1!")
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
-    Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
+    Public dbName As String = registryEdit.ReadRegKey("Software\Yujin\MMS_MMPS", "dbName", "YUJIN_MMS_MMPS")
 
     'DB 연결 함수
     Public Sub DBConnect()

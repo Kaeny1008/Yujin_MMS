@@ -19,7 +19,7 @@ Public Class CodeManager
 
         GRID_Setting()
 
-        SplitContainer2.SplitterDistance = SplitContainer2.Width / 2+300
+        SplitContainer2.SplitterDistance = SplitContainer2.Width / 2 + 300
 
     End Sub
 
@@ -108,7 +108,7 @@ Public Class CodeManager
 
         If e.Button = MouseButtons.Right And row > -1 Then
             sel_grid.Row = row
-            'If sel_grid.AllowEditing = False And sel_grid.Name = GRID_main_code.Name Then
+            'If sel_grid.AllowEditing = False And sel_grid.Name = GRID_Main_Code.Name Then
             '    BTN_Row_Add.Enabled = False
             '    BTN_Row_Delete.Enabled = False
             'Else
@@ -185,23 +185,23 @@ Public Class CodeManager
         Dim strSQL As String = String.Empty
 
         If main_sub = "Main" Then
-            strSQL = "select main_code as last_code from tb_code_main"
-            strSQL += " order by main_code desc limit 1;"
+            strSQL = "select MAIN_CODE as LAST_CODE from TB_MAIN_CODE"
+            strSQL += " order by MAIN_CODE desc limit 1;"
         ElseIf main_sub = "Sub" Then
-            strSQL = "select sub_code as last_code from tb_code_sub"
-            strSQL += " where sub_code like 'SC%'"
-            strSQL += " order by sub_code desc limit 1;"
+            strSQL = "select SUB_CODE as LAST_CODE from TB_SUB_CODE"
+            strSQL += " where SUB_CODE like 'SC%'"
+            strSQL += " order by SUB_CODE desc limit 1;"
         ElseIf main_sub = "Last" Then
-            strSQL = "select last_code as last_code from tb_code_last"
-            strSQL += " where last_code like 'LC%'"
-            strSQL += " order by last_code desc limit 1;"
+            strSQL = "select LAST_CODE as LAST_CODE from TB_LAST_CODE"
+            strSQL += " where LAST_CODE like 'LC%'"
+            strSQL += " order by LAST_CODE desc limit 1;"
         End If
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Code_Maker = sqlDR("last_code")
+            Code_Maker = sqlDR("LAST_CODE")
         Loop
         sqlDR.Close()
 
@@ -209,7 +209,7 @@ Public Class CodeManager
 
         If Code_Maker = String.Empty Then
             If main_sub = "Main" Then
-                Code_Maker = "MC00000001"
+                Code_Maker = "MC0001"
             ElseIf main_sub = "Sub" Then
                 Code_Maker = "SC00000001"
             ElseIf main_sub = "Last" Then
@@ -276,13 +276,13 @@ Public Class CodeManager
     Dim before_text_Sub As String
     Dim before_text_Last As String
 
-    Private Sub GRID_sub_code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Sub_Code.BeforeEdit
+    Private Sub GRID_Sub_Code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Sub_Code.BeforeEdit
 
         before_text_Sub = GRID_Sub_Code(e.Row, e.Col)
 
     End Sub
 
-    Private Sub GRID_sub_code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Sub_Code.AfterEdit
+    Private Sub GRID_Sub_Code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Sub_Code.AfterEdit
 
         If before_text_Sub = GRID_Sub_Code(e.Row, e.Col) Then Exit Sub
 
@@ -296,13 +296,13 @@ Public Class CodeManager
 
     End Sub
 
-    Private Sub GRID_main_code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Main_Code.BeforeEdit
+    Private Sub GRID_Main_Code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Main_Code.BeforeEdit
 
         before_text_Main = GRID_Main_Code(e.Row, e.Col)
 
     End Sub
 
-    Private Sub GRID_main_code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Main_Code.AfterEdit
+    Private Sub GRID_Main_Code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Main_Code.AfterEdit
 
         If before_text_Main = GRID_Main_Code(e.Row, e.Col) Then Exit Sub
 
@@ -316,13 +316,13 @@ Public Class CodeManager
 
     End Sub
 
-    Private Sub GRID_last_code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Last_Code.BeforeEdit
+    Private Sub GRID_Last_Code_BeforeEdit(sender As Object, e As RowColEventArgs) Handles GRID_Last_Code.BeforeEdit
 
         before_text_Last = GRID_Last_Code(e.Row, e.Col)
 
     End Sub
 
-    Private Sub GRID_last_code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Last_Code.AfterEdit
+    Private Sub GRID_Last_Code_AfterEdit(sender As Object, e As RowColEventArgs) Handles GRID_Last_Code.AfterEdit
 
         If before_text_Last = GRID_Last_Code(e.Row, e.Col) Then Exit Sub
 
@@ -366,20 +366,20 @@ Public Class CodeManager
 
             For i = 1 To GRID_Main_Code.Rows.Count - 1
                 If GRID_Main_Code(i, 0).ToString = "N" Then
-                    strSQL += "insert into tb_code_main(write_date, main_code, main_code_name, main_code_note) values"
+                    strSQL += "insert into TB_MAIN_CODE(WRITE_DATE, MAIN_CODE, MAIN_CODE_NAME, MAIN_CODE_NOTE) values"
                     strSQL += "('" & Format(CDate(GRID_Main_Code(i, 1)), "yyyy-MM-dd HH:mm:ss") & "'"
                     strSQL += ",'" & GRID_Main_Code(i, 2) & "'"
                     strSQL += ",'" & GRID_Main_Code(i, 3) & "'"
                     strSQL += ",'" & GRID_Main_Code(i, 4) & "');"
                 ElseIf GRID_Main_Code(i, 0).ToString = "M" Then
-                    strSQL += "update tb_code_main set write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                    strSQL += ", main_code_name ='" & GRID_Main_Code(i, 3) & "'"
-                    strSQL += ", main_code_note ='" & GRID_Main_Code(i, 4) & "'"
-                    strSQL += " where main_code = '" & GRID_Main_Code(i, 2) & "';"
+                    strSQL += "update TB_MAIN_CODE set WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                    strSQL += ", MAIN_CODE_NAME ='" & GRID_Main_Code(i, 3) & "'"
+                    strSQL += ", MAIN_CODE_NOTE ='" & GRID_Main_Code(i, 4) & "'"
+                    strSQL += " where MAIN_CODE = '" & GRID_Main_Code(i, 2) & "';"
                 ElseIf GRID_Main_Code(i, 0).ToString = "D" Then
-                    strSQL += "delete from tb_code_main where main_code = '" & GRID_Main_Code(i, 2) & "';"
-                    strSQL += "delete from tb_code_sub where main_code = '" & GRID_Main_Code(i, 2) & "';"
-                    strSQL += "delete from tb_code_last where main_code = '" & GRID_Main_Code(i, 2) & "';"
+                    strSQL += "delete from TB_MAIN_CODE where MAIN_CODE = '" & GRID_Main_Code(i, 2) & "';"
+                    strSQL += "delete from TB_SUB_CODE where MAIN_CODE = '" & GRID_Main_Code(i, 2) & "';"
+                    strSQL += "delete from TB_LAST_CODE where MAIN_CODE = '" & GRID_Main_Code(i, 2) & "';"
                 End If
             Next
 
@@ -423,34 +423,34 @@ Public Class CodeManager
             If main_code = "MC0001" Then
                 For i = 1 To GRID_Sub_Code.Rows.Count - 1
                     If GRID_Sub_Code(i, 0).ToString = "M" Then
-                        strSQL += "update tb_code_sub set write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", sub_code_NAME ='" & GRID_Sub_Code(i, 3) & "'"
-                        strSQL += ", sub_code_NOTE ='" & GRID_Sub_Code(i, 4) & "'"
-                        strSQL += " where sub_code = '" & GRID_Sub_Code(i, 2) & "';"
+                        strSQL += "update TB_SUB_CODE set WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", SUB_CODE_NAME ='" & GRID_Sub_Code(i, 3) & "'"
+                        strSQL += ", SUB_CODE_NOTE ='" & GRID_Sub_Code(i, 4) & "'"
+                        strSQL += " where SUB_CODE = '" & GRID_Sub_Code(i, 2) & "';"
 
                         strSQL += "update TB_CUSTOMER_LIST set CUSTOMER_NAME = '" & GRID_Sub_Code(i, 3) & "'"
-                        strSQL += ", write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", write_id = '" & Mainform.login_user & "'"
+                        strSQL += ", WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", WRITE_ID = '" & Mainform.login_user & "'"
                         strSQL += " where CUSTOMER_CODE = '" & GRID_Sub_Code(i, 2) & "';"
                     End If
                 Next
             Else
                 For i = 1 To GRID_Sub_Code.Rows.Count - 1
                     If GRID_Sub_Code(i, 0).ToString = "N" Then
-                        strSQL += "insert into tb_code_sub(write_date, sub_code, sub_code_NAME, sub_code_NOTE, main_code) values"
+                        strSQL += "insert into TB_SUB_CODE(WRITE_DATE, SUB_CODE, SUB_CODE_NAME, SUB_CODE_NOTE, MAIN_CODE) values"
                         strSQL += "('" & Format(CDate(GRID_Sub_Code(i, 1)), "yyyy-MM-dd HH:mm:ss") & "'"
                         strSQL += ",'" & GRID_Sub_Code(i, 2) & "'"
                         strSQL += ",'" & GRID_Sub_Code(i, 3) & "'"
                         strSQL += ",'" & GRID_Sub_Code(i, 4) & "'"
                         strSQL += ",'" & main_code & "');"
                     ElseIf GRID_Sub_Code(i, 0).ToString = "M" Then
-                        strSQL += "update tb_code_sub set write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", sub_code_NAME ='" & GRID_Sub_Code(i, 3) & "'"
-                        strSQL += ", sub_code_NOTE ='" & GRID_Sub_Code(i, 4) & "'"
-                        strSQL += " where sub_code = '" & GRID_Sub_Code(i, 2) & "';"
+                        strSQL += "update TB_SUB_CODE set WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", SUB_CODE_NAME ='" & GRID_Sub_Code(i, 3) & "'"
+                        strSQL += ", SUB_CODE_NOTE ='" & GRID_Sub_Code(i, 4) & "'"
+                        strSQL += " where SUB_CODE = '" & GRID_Sub_Code(i, 2) & "';"
                     ElseIf GRID_Sub_Code(i, 0).ToString = "D" Then
-                        strSQL += "delete from tb_code_sub where sub_code = '" & GRID_Sub_Code(i, 2) & "';"
-                        strSQL += "delete from tb_code_last where sub_code = '" & GRID_Sub_Code(i, 2) & "';"
+                        strSQL += "delete from TB_SUB_CODE where SUB_CODE = '" & GRID_Sub_Code(i, 2) & "';"
+                        strSQL += "delete from TB_LAST_CODE where SUB_CODE = '" & GRID_Sub_Code(i, 2) & "';"
                     End If
                 Next
             End If
@@ -495,25 +495,25 @@ Public Class CodeManager
             If main_code = "MC0001" Then
                 For i = 1 To GRID_Last_Code.Rows.Count - 1
                     If GRID_Last_Code(i, 0).ToString = "M" Then
-                        strSQL += "update tb_code_last set write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", last_code_name ='" & GRID_Last_Code(i, 3) & "'"
-                        strSQL += ", last_code_note ='" & GRID_Last_Code(i, 4) & "'"
-                        strSQL += " where last_code = '" & GRID_Last_Code(i, 2) & "';"
+                        strSQL += "update TB_LAST_CODE set WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", LAST_CODE_NAME ='" & GRID_Last_Code(i, 3) & "'"
+                        strSQL += ", LAST_CODE_NOTE ='" & GRID_Last_Code(i, 4) & "'"
+                        strSQL += " where LAST_CODE = '" & GRID_Last_Code(i, 2) & "';"
 
-                        strSQL += "update tb_mmps_model_list set model_name = '" & GRID_Last_Code(i, 3) & "'"
-                        strSQL += ", write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", write_id = '" & Mainform.login_user & "'"
-                        strSQL += " where model_code = '" & GRID_Last_Code(i, 2) & "';"
+                        strSQL += "update TB_MODEL_LIST set MODEL_NAME = '" & GRID_Last_Code(i, 3) & "'"
+                        strSQL += ", WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", WRITE_ID = '" & Mainform.login_user & "'"
+                        strSQL += " where MODEL_CODE = '" & GRID_Last_Code(i, 2) & "';"
                     ElseIf GRID_Last_Code(i, 0).ToString = "D" Then
                         '삭제 금지
                         '신규 추가 금지
-                        'strSQL += "delete from tb_code_last where last_code = '" & GRID_last_code(i, 2) & "';"
+                        'strSQL += "delete from TB_LAST_CODE where LAST_CODE = '" & GRID_Last_Code(i, 2) & "';"
                     End If
                 Next
             Else
                 For i = 1 To GRID_Last_Code.Rows.Count - 1
                     If GRID_Last_Code(i, 0).ToString = "N" Then
-                        strSQL += "insert into tb_code_last(write_date, last_code, last_code_name, last_code_note, sub_code, main_code) values"
+                        strSQL += "insert into TB_LAST_CODE(WRITE_DATE, LAST_CODE, LAST_CODE_NAME, LAST_CODE_NOTE, SUB_CODE, MAIN_CODE) values"
                         strSQL += "('" & Format(CDate(GRID_Last_Code(i, 1)), "yyyy-MM-dd HH:mm:ss") & "'"
                         strSQL += ",'" & GRID_Last_Code(i, 2) & "'"
                         strSQL += ",'" & GRID_Last_Code(i, 3) & "'"
@@ -521,12 +521,12 @@ Public Class CodeManager
                         strSQL += ",'" & sub_code & "'"
                         strSQL += ",'" & main_code & "');"
                     ElseIf GRID_Last_Code(i, 0).ToString = "M" Then
-                        strSQL += "update tb_code_last set write_date = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
-                        strSQL += ", last_code_name ='" & GRID_Last_Code(i, 3) & "'"
-                        strSQL += ", last_code_note ='" & GRID_Last_Code(i, 4) & "'"
-                        strSQL += " where last_code = '" & GRID_Last_Code(i, 2) & "';"
+                        strSQL += "update TB_LAST_CODE set WRITE_DATE = '" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "'"
+                        strSQL += ", LAST_CODE_NAME ='" & GRID_Last_Code(i, 3) & "'"
+                        strSQL += ", LAST_CODE_NOTE ='" & GRID_Last_Code(i, 4) & "'"
+                        strSQL += " where LAST_CODE = '" & GRID_Last_Code(i, 2) & "';"
                     ElseIf GRID_Last_Code(i, 0).ToString = "D" Then
-                        strSQL += "delete from tb_code_last where last_code = '" & GRID_Last_Code(i, 2) & "';"
+                        strSQL += "delete from TB_LAST_CODE where LAST_CODE = '" & GRID_Last_Code(i, 2) & "';"
                     End If
                 Next
             End If
@@ -563,31 +563,31 @@ Public Class CodeManager
 
         DBConnect()
 
-        Dim strSQL As String = "select write_date, main_code, main_code_name, main_code_note from tb_code_main"
+        Dim strSQL As String = "select WRITE_DATE, MAIN_CODE, MAIN_CODE_NAME, MAIN_CODE_NOTE from TB_MAIN_CODE"
 
         If Not TB_CODE.Text = String.Empty Then
-            strSQL += " where main_code like '%" & TB_CODE.Text & "%'"
+            strSQL += " where MAIN_CODE like '%" & TB_CODE.Text & "%'"
         End If
 
         If Not TB_Name.Text = String.Empty Then
             If TB_CODE.Text = String.Empty Then
-                strSQL += " where main_code_name like '%" & TB_Name.Text & "%'"
+                strSQL += " where MAIN_CODE_NAME like '%" & TB_Name.Text & "%'"
             Else
-                strSQL += " and main_code_name like '%" & TB_Name.Text & "%'"
+                strSQL += " and MAIN_CODE_NAME like '%" & TB_Name.Text & "%'"
             End If
         End If
 
-        strSQL += " order by main_code_name"
+        strSQL += " order by MAIN_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
             Dim insert_string As String = GRID_Main_Code.Rows.Count & vbTab &
-                                          Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
-                                          sqlDR("main_code") & vbTab &
-                                          sqlDR("main_code_name") & vbTab &
-                                          sqlDR("main_code_note")
+                                          Format(sqlDR("WRITE_DATE"), "yyyy-MM-dd HH:mm:ss") & vbTab &
+                                          sqlDR("MAIN_CODE") & vbTab &
+                                          sqlDR("MAIN_CODE_NAME") & vbTab &
+                                          sqlDR("MAIN_CODE_NOTE")
             GRID_Main_Code.AddItem(insert_string)
         Loop
         sqlDR.Close()
@@ -599,7 +599,7 @@ Public Class CodeManager
 
     End Sub
 
-    Private Sub GRID_main_code_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles GRID_Main_Code.MouseDoubleClick
+    Private Sub GRID_Main_Code_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles GRID_Main_Code.MouseDoubleClick
 
         Dim row As Integer = GRID_Main_Code.MouseRow
 
@@ -607,11 +607,11 @@ Public Class CodeManager
 
         Label1.Text = "상위 Code : " & GRID_Main_Code(row, 2)
 
-        sub_code_Load(GRID_Main_Code(row, 2))
+        SUB_Code_Load(GRID_Main_Code(row, 2))
 
     End Sub
 
-    Private Sub sub_code_Load(ByVal main_code As String)
+    Private Sub SUB_Code_Load(ByVal main_code As String)
 
         GRID_Last_Code.Rows.Count = 1
         Label4.Text = "상위 Code : "
@@ -620,18 +620,18 @@ Public Class CodeManager
 
         DBConnect()
 
-        Dim strSQL As String = "select write_date, sub_code, sub_code_NAME, sub_code_NOTE from tb_code_sub"
-        strSQL += " where main_code = '" & main_code & "' order by sub_code_NAME"
+        Dim strSQL As String = "select WRITE_DATE, SUB_CODE, SUB_CODE_NAME, SUB_CODE_NOTE from TB_SUB_CODE"
+        strSQL += " where MAIN_CODE = '" & main_code & "' order by SUB_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
             Dim insert_string As String = GRID_Sub_Code.Rows.Count & vbTab &
-                                          Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
-                                          sqlDR("sub_code") & vbTab &
-                                          sqlDR("sub_code_NAME") & vbTab &
-                                          sqlDR("sub_code_NOTE")
+                                          Format(sqlDR("WRITE_DATE"), "yyyy-MM-dd HH:mm:ss") & vbTab &
+                                          sqlDR("SUB_CODE") & vbTab &
+                                          sqlDR("SUB_CODE_NAME") & vbTab &
+                                          sqlDR("SUB_CODE_NOTE")
             GRID_Sub_Code.AddItem(insert_string)
         Loop
         sqlDR.Close()
@@ -643,7 +643,7 @@ Public Class CodeManager
 
     End Sub
 
-    Private Sub GRID_sub_code_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles GRID_Sub_Code.MouseDoubleClick
+    Private Sub GRID_SUB_Code_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles GRID_Sub_Code.MouseDoubleClick
 
         Dim row As Integer = GRID_Sub_Code.MouseRow
 
@@ -651,29 +651,29 @@ Public Class CodeManager
 
         Label4.Text = "상위 Code : " & GRID_Sub_Code(row, 2)
 
-        last_code_Load(GRID_Sub_Code(row, 2))
+        LAST_Code_Load(GRID_Sub_Code(row, 2))
 
     End Sub
 
-    Private Sub last_code_Load(ByVal sub_code As String)
+    Private Sub LAST_Code_Load(ByVal sub_code As String)
 
         GRID_Last_Code.Redraw = False
         GRID_Last_Code.Rows.Count = 1
 
         DBConnect()
 
-        Dim strSQL As String = "select write_date, last_code, last_code_name, last_code_note from tb_code_last"
-        strSQL += " where sub_code = '" & sub_code & "' order by last_code_name"
+        Dim strSQL As String = "select WRITE_DATE, LAST_CODE, LAST_CODE_NAME, LAST_CODE_NOTE from TB_LAST_CODE"
+        strSQL += " where SUB_CODE = '" & sub_code & "' order by LAST_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
             Dim insert_string As String = GRID_Last_Code.Rows.Count & vbTab &
-                                          Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
-                                          sqlDR("last_code") & vbTab &
-                                          sqlDR("last_code_name") & vbTab &
-                                          sqlDR("last_code_note")
+                                          Format(sqlDR("WRITE_DATE"), "yyyy-MM-dd HH:mm:ss") & vbTab &
+                                          sqlDR("LAST_CODE") & vbTab &
+                                          sqlDR("LAST_CODE_NAME") & vbTab &
+                                          sqlDR("LAST_CODE_NOTE")
             GRID_Last_Code.AddItem(insert_string)
         Loop
         sqlDR.Close()

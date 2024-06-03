@@ -84,7 +84,7 @@ Public Class frm_Main
 
         DBConnect()
 
-        Dim strSql As String = "select file_name, folder_name, upload_date from setting_program_manager order by folder_name, file_code"
+        Dim strSql As String = "select file_name, folder_name, upload_date from tb_execute_file_update_manager order by folder_name, file_code"
 
         Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader

@@ -4,16 +4,17 @@ Module MySQL
 
     Public registryEdit As New RegistryEdit.RegReadWrite '레지스트리 편집
     Public DBConnect1 As MySqlConnection
-    Public serverIP As String = registryEdit.ReadRegKey("Software\Yujin", "Server.IP", "192.168.0.222")
+    Public serverIP As String = registryEdit.ReadRegKey("Software\Yujin", "Server.IP", "125.137.78.158")
     Public serverPORT As String = registryEdit.ReadRegKey("Software\Yujin", "server.PORT", "10522")
-    Public serverID As String = registryEdit.ReadRegKey("Software\Yujin\Repair System", "Server.ID", "yujin_REPAIR")
-    Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin\Repair System", "Server.PSWD", "Dbwlswjswk1!")
+    Public serverID As String = registryEdit.ReadRegKey("Software\Yujin", "server.ID", "yujin_MySQL")
+    Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "server.PSWD", "Dbwlswjswk1!")
+    Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
 
     'DB 연결 함수
     Public Sub DBConnect()
 
         DBConnect1 = New MySqlConnection
-        DBConnect1.ConnectionString = "Database=Repair System" &
+        DBConnect1.ConnectionString = "Database=" & dbName &
                                        ";Data Source=" & serverIP &
                                        ";PORT=" & serverPORT &
                                        ";User Id=" & serverID &

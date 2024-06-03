@@ -26,7 +26,7 @@ Public Class frm_Material_Stock_Information
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 16
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -47,18 +47,19 @@ Public Class frm_Material_Stock_Information
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 1, 5)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 14)
+            rngM = .GetCellRange(0, 6, 0, 15)
             rngM.Data = "재고"
             Grid_MaterialList(1, 6) = "기초재고"
-            Grid_MaterialList(1, 7) = "입고"
-            Grid_MaterialList(1, 8) = "Loss"
-            Grid_MaterialList(1, 9) = "납품"
-            Grid_MaterialList(1, 10) = "계획대기"
-            Grid_MaterialList(1, 11) = "생산 중"
-            Grid_MaterialList(1, 12) = "생산 완료"
-            Grid_MaterialList(1, 13) = "품번전환"
-            Grid_MaterialList(1, 14) = "반출"
-            rngM = .GetCellRange(0, 15, 1, 15)
+            Grid_MaterialList(1, 7) = "잉여재고"
+            Grid_MaterialList(1, 8) = "입고"
+            Grid_MaterialList(1, 9) = "Loss"
+            Grid_MaterialList(1, 10) = "납품"
+            Grid_MaterialList(1, 11) = "계획대기"
+            Grid_MaterialList(1, 12) = "생산 중"
+            Grid_MaterialList(1, 13) = "생산 완료"
+            Grid_MaterialList(1, 14) = "품번전환"
+            Grid_MaterialList(1, 15) = "반출"
+            rngM = .GetCellRange(0, 16, 1, 16)
             rngM.Data = "미과출(재고)"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -155,6 +156,7 @@ Public Class frm_Material_Stock_Information
                 sqlDR("part_category") & vbTab &
                 sqlDR("part_supplier") & vbTab &
                 Format(sqlDR("basic_stock"), "#,##0") & vbTab &
+                Format(sqlDR("over_cut"), "#,##0") & vbTab &
                 Format(sqlDR("in_qty"), "#,##0") & vbTab &
                 Format(sqlDR("loss_qty"), "#,##0") & vbTab &
                 Format(sqlDR("delivery_qty"), "#,##0") & vbTab &
@@ -171,6 +173,7 @@ Public Class frm_Material_Stock_Information
             'insert_String += vbTab & Format(totalAmount, "#,##0")
 
             Dim stock_qty As Double = sqlDR("basic_stock") +
+                sqlDR("over_cut") +
                 sqlDR("in_qty") -
                 sqlDR("loss_qty") -
                 sqlDR("delivery_qty") -

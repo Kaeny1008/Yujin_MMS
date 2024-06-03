@@ -231,6 +231,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 sqlDR("part_type") & vbTab &
                 sqlDR("part_spec") & vbTab &
                 sqlDR("part_category") & vbTab &
+                Format(sqlDR("unit_price"), "#,##0.000") & vbTab &
                 sqlDR("part_supplier") & vbTab &
                 Format(sqlDR("basic_stock"), "#,##0") & vbTab &
                 Format(sqlDR("in_qty"), "#,##0") & vbTab &

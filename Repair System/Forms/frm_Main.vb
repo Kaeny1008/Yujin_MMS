@@ -170,9 +170,7 @@ Public Class frm_Main
 
     Private Sub frm_Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
-        If MsgBox("정말 종료하시겠습니까?", vbYesNo + vbQuestion, "Repair System") = vbYes Then '메세지박스 띄우기
-            End '종료
-        Else
+        If MsgBox("정말 종료하시겠습니까?", vbYesNo + vbQuestion, "Repair System") = vbNo Then '메세지박스 띄우기
             e.Cancel = True
         End If
 
@@ -180,14 +178,16 @@ Public Class frm_Main
             IO.Directory.Delete(Application.StartupPath & "\TEMP_FILE", True)
         End If
 
-        Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("UpdateChecker")
+        Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Update Checker")
 
         '아래 목록은 YJ 프로그램이 실행된 상태인지 확인 후 하나라도 켜져 있다면 업데이트체커 프로그램을 끄지 않도록 한다.
         '현재 내자신(프로그램)을 제외하고 실행되었는지 확인 후 없다면 업데이트체커 프로그램을 종료시킨다.
-        Dim repairSystemProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Repair System")
+        Dim repairSystemProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS MMPS")
+        Dim ryjmmsProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS")
 
         If ucProcess.Length > 0 Then
-            If repairSystemProcess.Length = 0 Then
+            If repairSystemProcess.Length = 0 And
+                ryjmmsProcess.Length = 0 Then
                 ucProcess(0).Kill()
             End If
         End If

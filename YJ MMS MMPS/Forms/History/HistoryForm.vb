@@ -142,7 +142,7 @@ Public Class HistoryForm
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mmps_history(0"
+        Dim strSQL As String = "call USP_HISTORY(0"
         strSQL += ",'" & Format(DTP_startDate.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ",'" & Format(DTP_endDate.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ",'" & Tb_customerName.Text & "'"
@@ -160,16 +160,16 @@ Public Class HistoryForm
         Do While sqlDR.Read
             Dim insert As String = String.Empty
             insert = Grid_AllPartsCheck.Rows.Count &
-                vbTab & sqlDR("check_code") &
-                vbTab & Format(sqlDR("check_date"), "yyyy-MM-dd HH:mm:ss") &
-                vbTab & sqlDR("customer_name") &
-                vbTab & sqlDR("model_name") &
-                vbTab & sqlDR("factory_name") &
-                vbTab & sqlDR("work_line") &
-                vbTab & sqlDR("work_side") &
-                vbTab & sqlDR("machine_no") &
-                vbTab & sqlDR("worker") &
-                vbTab & sqlDR("ng_check_count")
+                vbTab & sqlDR("CHECK_CODE") &
+                vbTab & Format(sqlDR("CHECK_DATE"), "yyyy-MM-dd HH:mm:ss") &
+                vbTab & sqlDR("CUSTOMER_NAME") &
+                vbTab & sqlDR("MODEL_NAME") &
+                vbTab & sqlDR("FACTORY_NAME") &
+                vbTab & sqlDR("WORK_LINE") &
+                vbTab & sqlDR("WORK_SIDE") &
+                vbTab & sqlDR("MACHINE_NO") &
+                vbTab & sqlDR("WORKER") &
+                vbTab & sqlDR("NG_CHECK_COUNT")
             Grid_AllPartsCheck.AddItem(insert)
         Loop
         sqlDR.Close()
@@ -199,14 +199,14 @@ Public Class HistoryForm
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code from tb_mmps_sub_code"
-        strSQL += " where sub_code_name = '" & Cb_factoryName.Text & "'"
+        Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
+        strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            selFactoryCode = sqlDR("sub_code")
+            selFactoryCode = sqlDR("SUB_CODE")
         Loop
         sqlDR.Close()
 
@@ -220,14 +220,14 @@ Public Class HistoryForm
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code from tb_mmps_sub_code"
-        strSQL += " where sub_code_name = '" & Cb_factoryName2.Text & "'"
+        Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
+        strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName2.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            selFactoryCode2 = sqlDR("sub_code")
+            selFactoryCode2 = sqlDR("SUB_CODE")
         Loop
         sqlDR.Close()
 
@@ -248,14 +248,14 @@ Public Class HistoryForm
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code_name from tb_mmps_sub_code"
-        strSQL += " where main_code = 'MC0002' order by sub_code_name"
+        Dim strSQL As String = "select SUB_CODE_NAME from TB_SUB_CODE"
+        strSQL += " where MAIN_CODE = 'MC0002' order by SUB_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            cb.Items.Add(sqlDR("sub_code_name"))
+            cb.Items.Add(sqlDR("SUB_CODE_NAME"))
         Loop
         sqlDR.Close()
 
@@ -283,18 +283,18 @@ Public Class HistoryForm
         Dim strSQL As String = String.Empty
 
         If cb.Name = Cb_workLine.Name Then
-            strSQL = "select last_code_name from tb_mmps_last_code"
-            strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
+            strSQL = "select LAST_CODE_NAME from TB_LAST_CODE"
+            strSQL += " where SUB_CODE = '" & selFactoryCode & "' order by LAST_CODE_NAME"
         ElseIf cb.Name = Cb_workLine2.Name Then
-            strSQL = "select last_code_name from tb_mmps_last_code"
-            strSQL += " where sub_code = '" & selFactoryCode2 & "' order by last_code_name"
+            strSQL = "select LAST_CODE_NAME from TB_LAST_CODE"
+            strSQL += " where SUB_CODE = '" & selFactoryCode2 & "' order by LAST_CODE_NAME"
         End If
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            cb.Items.Add(sqlDR("last_code_name"))
+            cb.Items.Add(sqlDR("LAST_CODE_NAME"))
         Loop
         sqlDR.Close()
 
@@ -332,7 +332,7 @@ Public Class HistoryForm
             firstSttingShow = "Yes"
         End If
 
-        Dim strSQL As String = "call sp_mmps_history(3"
+        Dim strSQL As String = "call USP_HISTORY(3"
         strSQL += ",'" & Format(DTP_startDate2.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ",'" & Format(DTP_endDate2.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ",'" & Tb_customerName2.Text & "'"
@@ -349,38 +349,38 @@ Public Class HistoryForm
 
         Do While sqlDR.Read
             Dim checkResult As String = String.Empty
-            If sqlDR("chg_result") = "OK" Then
+            If sqlDR("CHG_RESULT") = "OK" Then
                 checkResult = "정상"
-            ElseIf sqlDR("chg_result") = "NG1" Then
+            ElseIf sqlDR("CHG_RESULT") = "NG1" Then
                 checkResult = "교환 전 Part No.가 다릅니다."
-            ElseIf sqlDR("chg_result") = "NG2" Then
+            ElseIf sqlDR("CHG_RESULT") = "NG2" Then
                 checkResult = "교환 후 Part No.가 다릅니다."
             End If
             Dim insert As String = String.Empty
             Dim insertQty As String = String.Empty
-            If IsNumeric(sqlDR("chg_qty")) Then
-                insertQty = Format(CDbl(sqlDR("chg_qty")), "#,##0")
+            If IsNumeric(sqlDR("CHG_QTY")) Then
+                insertQty = Format(CDbl(sqlDR("CHG_QTY")), "#,##0")
             Else
-                insertQty = sqlDR("chg_qty")
+                insertQty = sqlDR("CHG_QTY")
             End If
             insert = Grid_PartsChange.Rows.Count - 1 &
-                vbTab & Format(sqlDR("check_date"), "yyyy-MM-dd HH:mm:ss") &
-                vbTab & sqlDR("customer_name") &
-                vbTab & sqlDR("model_name") &
-                vbTab & sqlDR("factory_name") &
-                vbTab & sqlDR("work_line") &
-                vbTab & sqlDR("work_side") &
-                vbTab & sqlDR("worker") &
-                vbTab & sqlDR("machine_no") &
-                vbTab & sqlDR("feeder_no") &
-                vbTab & sqlDR("org_part_no") &
-                vbTab & sqlDR("bef_part_no") &
-                vbTab & sqlDR("chg_part_no") &
-                vbTab & sqlDR("chg_lot_no") &
+                vbTab & Format(sqlDR("CHECK_DATE"), "yyyy-MM-dd HH:mm:ss") &
+                vbTab & sqlDR("CUSTOMER_NAME") &
+                vbTab & sqlDR("MODEL_NAME") &
+                vbTab & sqlDR("FACTORY_NAME") &
+                vbTab & sqlDR("WORK_LINE") &
+                vbTab & sqlDR("WORK_SIDE") &
+                vbTab & sqlDR("WORKER") &
+                vbTab & sqlDR("MACHINE_NO") &
+                vbTab & sqlDR("FEEDER_NO") &
+                vbTab & sqlDR("ORG_PART_NO") &
+                vbTab & sqlDR("BEF_PART_NO") &
+                vbTab & sqlDR("CHG_PART_NO") &
+                vbTab & sqlDR("CHG_LOT_NO") &
                 vbTab & insertQty &
                 vbTab & checkResult &
-                vbTab & sqlDR("ng_result") &
-                vbTab & sqlDR("ng_check_id")
+                vbTab & sqlDR("NG_RESULT") &
+                vbTab & sqlDR("NG_CHECK_ID")
             Grid_PartsChange.AddItem(insert)
         Loop
         sqlDR.Close()

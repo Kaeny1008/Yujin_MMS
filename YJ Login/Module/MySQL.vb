@@ -5,11 +5,11 @@ Module MySQL
     Public registryEdit As New RegistryEdit.RegReadWrite '레지스트리 편집
     Public DBConnect1 As MySqlConnection
     Public MDBConnect1 As OleDb.OleDbConnection
-    Public serverIP As String = registryEdit.ReadRegKey("Software\Yujin", "Server.IP", "192.168.0.222")
+    Public serverIP As String = registryEdit.ReadRegKey("Software\Yujin", "Server.IP", "125.137.78.158")
     Public serverPORT As String = registryEdit.ReadRegKey("Software\Yujin", "server.PORT", "10522")
-    Public serverID As String = registryEdit.ReadRegKey("Software\Yujin\Repair System", "Server.ID", "yujin_REPAIR")
-    Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin\Repair System", "Server.PSWD", "Dbwlswjswk1!")
-    Public DBName As String = registryEdit.ReadRegKey("Software\Yujin\Repair System", "Server.DBName", "Repair System")
+    Public serverID As String = registryEdit.ReadRegKey("Software\Yujin", "Server.ID", "yujin_MySQL")
+    Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "Server.PSWD", "Dbwlswjswk1!")
+    Public DBName As String = registryEdit.ReadRegKey("Software\Yujin", "yj_mms", "yj_mms")
 
     'DB 연결 함수
     Public Sub DBConnect()

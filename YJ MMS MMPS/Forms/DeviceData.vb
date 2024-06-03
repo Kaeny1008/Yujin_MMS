@@ -66,14 +66,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_name from tb_customer_list"
-        strSQL += " order by customer_name"
+        Dim strSQL As String = "select CUSTOMER_NAME from TB_CUSTOMER_LIST"
+        strSQL += " order by CUSTOMER_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Cb_customerName.Items.Add(sqlDR("customer_name"))
+            Cb_customerName.Items.Add(sqlDR("CUSTOMER_NAME"))
         Loop
         sqlDR.Close()
 
@@ -89,14 +89,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_customer_list"
-        strSQL += " where customer_name = '" & Cb_customerName.Text & "'"
+        Dim strSQL As String = "select CUSTOMER_CODE from TB_CUSTOMER_LIST"
+        strSQL += " where CUSTOMER_NAME = '" & Cb_customerName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Tb_customerCode.Text = sqlDR("customer_code")
+            Tb_customerCode.Text = sqlDR("CUSTOMER_CODE")
         Loop
         sqlDR.Close()
 
@@ -127,15 +127,15 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select model_name from tb_mmps_model_list"
-        strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
-        strSQL += " order by model_name"
+        Dim strSQL As String = "select MODEL_NAME from TB_MODEL_LIST"
+        strSQL += " where CUSTOMER_CODE = '" & Tb_customerCode.Text & "'"
+        strSQL += " order by MODEL_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Cb_modelName.Items.Add(sqlDR("model_name"))
+            Cb_modelName.Items.Add(sqlDR("MODEL_NAME"))
         Loop
         sqlDR.Close()
 
@@ -156,7 +156,7 @@ Public Class DeviceData
             Tb_modelCode.Text = String.Empty
             Cb_workLine.SelectedIndex = -1
             Cb_workSide.SelectedIndex = -1
-            Tb_customerCode.Text = customer_code_Make()
+            Tb_customerCode.Text = Customer_Code_Make()
             Cb_customerName.Focus()
         Else
             Dim customerName As String = Trim(Cb_customerName.Text)
@@ -191,13 +191,13 @@ Public Class DeviceData
 
             Dim write_date As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-            strSQL = "insert into tb_customer_list(customer_code, customer_name, write_date, write_id) values"
+            strSQL = "insert into TB_CUSTOMER_LIST(CUSTOMER_CODE, CUSTOMER_NAME, WRITE_DATE, WRITE_ID) values"
             strSQL += "('" & Tb_customerCode.Text & "'"
             strSQL += ",'" & Cb_customerName.Text & "'"
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
-            strSQL += "insert into tb_code_sub(write_date, sub_code, sub_code_name, main_code, sub_code_note) values"
+            strSQL += "insert into TB_SUB_CODE(WRITE_DATE, SUB_CODE, SUB_CODE_NAME, MAIN_CODE, SUB_CODE_NOTE) values"
             strSQL += "('" & write_date & "'"
             strSQL += ",'" & Tb_customerCode.Text & "'"
             strSQL += ",'" & Cb_customerName.Text & "'"
@@ -223,19 +223,19 @@ Public Class DeviceData
 
     End Function
 
-    Private Function customer_code_Make() As String
+    Private Function Customer_Code_Make() As String
 
         Dim lastCode As String = String.Empty
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_customer_list order by customer_code desc limit 1"
+        Dim strSQL As String = "select CUSTOMER_CODE from TB_CUSTOMER_LIST order by CUSTOMER_CODE desc limit 1"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            lastCode = sqlDR("customer_code")
+            lastCode = sqlDR("CUSTOMER_CODE")
         Loop
         sqlDR.Close()
 
@@ -257,7 +257,7 @@ Public Class DeviceData
 
     Private Sub Btn_newModel_Click(sender As Object, e As EventArgs) Handles Btn_newModel.Click
 
-        If customer_code_Check() = False Then
+        If Customer_Code_Check() = False Then
             MsgBox("등록되지 않은 고객사 입니다.", MsgBoxStyle.Information, form_Msgbox_String)
             Exit Sub
         End If
@@ -268,7 +268,7 @@ Public Class DeviceData
             Btn_newModel.Text = "저장"
             Cb_workLine.SelectedIndex = -1
             Cb_workSide.SelectedIndex = -1
-            Tb_modelCode.Text = model_code_Make()
+            Tb_modelCode.Text = Model_Code_Make()
             Cb_modelName.Focus()
             newModel = True
         Else
@@ -302,7 +302,7 @@ Public Class DeviceData
 
         ExsistModelCheck = False
 
-        Dim strSQL As String = "select * from tb_mmps_model_list where model_name = '" & Cb_modelName.Text & "' and customer_code = '" & Tb_customerCode.Text & "';"
+        Dim strSQL As String = "select * from TB_MODEL_LIST where MODEL_NAME = '" & Cb_modelName.Text & "' and CUSTOMER_CODE = '" & Tb_customerCode.Text & "';"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -318,14 +318,14 @@ Public Class DeviceData
 
     End Function
 
-    Private Function customer_code_Check() As Boolean
+    Private Function Customer_Code_Check() As Boolean
 
         Dim lastCode As Boolean = False
 
         DBConnect()
 
-        Dim strSQL As String = "select customer_code from tb_customer_list"
-        strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
+        Dim strSQL As String = "select CUSTOMER_CODE from TB_CUSTOMER_LIST"
+        strSQL += " where CUSTOMER_CODE = '" & Tb_customerCode.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -341,20 +341,20 @@ Public Class DeviceData
 
     End Function
 
-    Private Function model_code_Make() As String
+    Private Function Model_Code_Make() As String
 
         Dim lastCode As String = String.Empty
 
         DBConnect()
 
-        Dim strSQL As String = "select model_code from tb_mmps_model_list"
-        strSQL += " order by model_code desc limit 1"
+        Dim strSQL As String = "select MODEL_CODE from TB_MODEL_LIST"
+        strSQL += " order by MODEL_CODE desc limit 1"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            lastCode = sqlDR("model_code")
+            lastCode = sqlDR("MODEL_CODE")
         Loop
         sqlDR.Close()
 
@@ -387,14 +387,14 @@ Public Class DeviceData
 
             Dim write_date As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-            strSQL = "insert into tb_mmps_model_list(model_code, model_name, customer_code, write_date, write_id) values"
+            strSQL = "insert into TB_MODEL_LIST(MODEL_CODE, MODEL_NAME, CUSTOMER_CODE, WRITE_dATE, WRITE_ID) values"
             strSQL += "('" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_modelName.Text & "'"
             strSQL += ",'" & Tb_customerCode.Text & "'"
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
-            strSQL += "insert into tb_code_last(write_date, last_code, last_code_name, sub_code, main_code, last_code_note) values"
+            strSQL += "insert into TB_LAST_CODE(WRITE_DATE, LAST_CODE, LAST_CODE_NAME, SUB_CODE, MAIN_CODE, LAST_CODE_NOTE) values"
             strSQL += "('" & write_date & "'"
             strSQL += ",'" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_modelName.Text & "'"
@@ -427,14 +427,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select model_code from tb_mmps_model_list"
-        strSQL += " where model_name = '" & Cb_modelName.Text & "'"
+        Dim strSQL As String = "select MODEL_CODE from TB_MODEL_LIST"
+        strSQL += " where MODEL_NAME = '" & Cb_modelName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Tb_modelCode.Text = sqlDR("model_code")
+            Tb_modelCode.Text = sqlDR("MODEL_CODE")
         Loop
         sqlDR.Close()
 
@@ -489,7 +489,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mmps_device_data(0"
+        Dim strSQL As String = "call USP_DEVICE_DATA(0"
         strSQL += ",'" & Tb_modelCode.Text & "'"
         strSQL += ",'" & Cb_workLine.Text & "'"
         strSQL += ",'" & Cb_workSide.Text & "'"
@@ -503,17 +503,17 @@ Public Class DeviceData
         Do While sqlDR.Read
             Dim insert As String = String.Empty
             insert = Grid_DeviceData.Rows.Count &
-                vbTab & sqlDR("dd_code") &
-                vbTab & sqlDR("machine_no") &
-                vbTab & sqlDR("feeder_no") &
-                vbTab & sqlDR("part_maker") &
-                vbTab & sqlDR("part_no") &
-                vbTab & sqlDR("part_specification") &
-                vbTab & sqlDR("feeder_sn") &
-                vbTab & sqlDR("match_count") &
-                vbTab & sqlDR("dd_note")
+                vbTab & sqlDR("DD_CODE") &
+                vbTab & sqlDR("MACHINE_NO") &
+                vbTab & sqlDR("FEEDER_NO") &
+                vbTab & sqlDR("PART_MAKER") &
+                vbTab & sqlDR("PART_NO") &
+                vbTab & sqlDR("PART_SPECIFICATION") &
+                vbTab & sqlDR("FEEDER_SN") &
+                vbTab & sqlDR("MATCH_COUNT") &
+                vbTab & sqlDR("DD_NOTE")
             Grid_DeviceData.AddItem(insert)
-            newDeviceData = sqlDR("dd_main_no")
+            newDeviceData = sqlDR("DD_MAIN_NO")
         Loop
         sqlDR.Close()
 
@@ -630,7 +630,7 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mmps_device_data(1"
+        Dim strSQL As String = "call USP_DEVICE_DATA(1"
         strSQL += ",null"
         strSQL += ",null"
         strSQL += ",null"
@@ -642,7 +642,7 @@ Public Class DeviceData
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            newCode = sqlDR("dd_code")
+            newCode = sqlDR("DD_CODE")
         Loop
         sqlDR.Close()
 
@@ -696,16 +696,16 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mmps_maker_list"
+        Dim strSQL As String = "call USP_MAKER_LIST"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
             If makerList = String.Empty Then
-                makerList = sqlDR("sub_code_name")
+                makerList = sqlDR("SUB_CODE_NAME")
             Else
-                makerList += "|" & sqlDR("sub_code_name")
+                makerList += "|" & sqlDR("SUB_CODE_NAME")
             End If
         Loop
         sqlDR.Close()
@@ -751,8 +751,8 @@ Public Class DeviceData
 
             For i = 1 To Grid_DeviceData.Rows.Count - 1
                 If Grid_DeviceData(i, 0).ToString = "N" Then
-                    strSQL += "insert into TB_DEVICE_DATA(dd_code, model_code, FACTORY_NAME, LINE_NAME, WORK_SIDE"
-                    strSQL += ", machine_no, feeder_no, part_maker, part_no, part_specification, dd_note, write_id, write_date, dd_main_no, feeder_sn, FEEDER_DATE) values"
+                    strSQL += "insert into TB_DEVICE_DATA(DD_CODE, MODEL_CODE, FACTORY_NAME, LINE_NAME, WORK_SIDE"
+                    strSQL += ", MACHINE_NO, FEEDER_NO, PART_MAKER, PART_NO, PART_SPECIFICATION, DD_NOTE, WRITE_ID, WRITE_DATE, DD_MAIN_NO, FEEDER_SN, FEEDER_DATE) values"
                     strSQL += "('" & Grid_DeviceData(i, 1) & "'"
                     strSQL += ",'" & Tb_modelCode.Text & "'"
                     strSQL += ",'" & Cb_FactoryName.Text & "'"
@@ -770,23 +770,23 @@ Public Class DeviceData
                     strSQL += ",'" & Grid_DeviceData(i, 7) & "'"
                     strSQL += ",'" & writeDate & "');"
                 ElseIf Grid_DeviceData(i, 0).ToString = "M" Then
-                    strSQL += "update TB_DEVICE_DATA set machine_no = '" & Grid_DeviceData(i, 2) & "'"
-                    strSQL += ", feeder_no = '" & Grid_DeviceData(i, 3) & "'"
-                    strSQL += ", part_maker = '" & Grid_DeviceData(i, 4) & "'"
-                    strSQL += ", part_no = '" & Grid_DeviceData(i, 5) & "'"
-                    strSQL += ", part_specification = '" & Grid_DeviceData(i, 6) & "'"
-                    strSQL += ", dd_note = '" & Grid_DeviceData(i, 9) & "'"
-                    strSQL += ", write_id = '" & Mainform.login_user & "'"
-                    strSQL += ", write_date = '" & writeDate & "'"
-                    strSQL += ", feeder_sn = '" & Grid_DeviceData(i, 7) & "'"
+                    strSQL += "update TB_DEVICE_DATA set MACHINE_NO = '" & Grid_DeviceData(i, 2) & "'"
+                    strSQL += ", FEEDER_NO = '" & Grid_DeviceData(i, 3) & "'"
+                    strSQL += ", PART_MAKER = '" & Grid_DeviceData(i, 4) & "'"
+                    strSQL += ", PART_NO = '" & Grid_DeviceData(i, 5) & "'"
+                    strSQL += ", PART_SPECIFICATION = '" & Grid_DeviceData(i, 6) & "'"
+                    strSQL += ", DD_NOTE = '" & Grid_DeviceData(i, 9) & "'"
+                    strSQL += ", WRITE_ID = '" & Mainform.login_user & "'"
+                    strSQL += ", WRITE_DATE = '" & writeDate & "'"
+                    strSQL += ", FEEDER_SN = '" & Grid_DeviceData(i, 7) & "'"
                     strSQL += ", FEEDER_DATE = '" & writeDate & "'"
-                    strSQL += " where dd_code = '" & Grid_DeviceData(i, 1) & "';"
-                    strSQL += "update TB_DEVICE_DATA set part_specification = '" & Grid_DeviceData(i, 6) & "'"
-                    strSQL += " where part_maker = '" & Grid_DeviceData(i, 4) & "'"
-                    strSQL += " and part_no = '" & Grid_DeviceData(i, 5) & "';"
+                    strSQL += " where DD_CODE = '" & Grid_DeviceData(i, 1) & "';"
+                    strSQL += "update TB_DEVICE_DATA set PART_SPECIFICATIOn = '" & Grid_DeviceData(i, 6) & "'"
+                    strSQL += " where PART_MAKER = '" & Grid_DeviceData(i, 4) & "'"
+                    strSQL += " and PART_NO = '" & Grid_DeviceData(i, 5) & "';"
                 ElseIf Grid_DeviceData(i, 0).ToString = "D" Then
                     strSQL += "delete from TB_DEVICE_DATA"
-                    strSQL += " where dd_code = '" & Grid_DeviceData(i, 1) & "';"
+                    strSQL += " where DD_CODE = '" & Grid_DeviceData(i, 1) & "';"
                 End If
             Next
 
@@ -863,7 +863,7 @@ Public Class DeviceData
         DBConnect()
 
         Try
-            Dim strSQL As String = "call sp_mmps_device_data(2"
+            Dim strSQL As String = "call USP_DEVICE_DATA(2"
             strSQL += ",null"
             strSQL += ",null"
             strSQL += ",null"
@@ -875,7 +875,7 @@ Public Class DeviceData
             Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
             Do While sqlDR.Read
-                partSpec = sqlDR("part_specification")
+                partSpec = sqlDR("PART_SPECIFICATION")
             Loop
             sqlDR.Close()
         Catch ex As Exception
@@ -1047,7 +1047,7 @@ Public Class DeviceData
         Try
             DBConnect()
 
-            strSQL = "call sp_mmps_device_data(3"
+            strSQL = "call USP_DEVICE_DATA(3"
             strSQL += ",'" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_workLine.Text & "'"
             strSQL += ",'" & Cb_workSide.Text & "'"
@@ -1059,25 +1059,25 @@ Public Class DeviceData
             Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
             '''' 서브도 집어 넣어야 된다!!!!
             Do While sqlDR.Read
-                strSQL = "insert into DEVICE_DATA_PRT(dd_code, customer_code, customer_name"
-                strSQL += ", model_code, model_name, LINE_NAME, SIDE, machine_no, feeder_no, part_maker, part_no"
-                strSQL += ", SPECIFICATION, dd_note, feeder_sn, match_count, dd_main_no) values"
-                strSQL += "('" & sqlDR("dd_code") & "'"
+                strSQL = "insert into DEVICE_DATA_PRT(DD_CODE, CUSTOMER_CODE, CUSTOMER_NAME"
+                strSQL += ", MODEL_CODE, MODEL_NAME, LINE_NAME, SIDE, MACHINE_NO, FEEDER_NO, PART_MAKER, PART_NO"
+                strSQL += ", SPECIFICATION, DD_NOTE, FEEDER_SN, MATCH_COUNT, DD_MAIN_NO) values"
+                strSQL += "('" & sqlDR("DD_CODE") & "'"
                 strSQL += ",'" & Tb_customerCode.Text & "'"
                 strSQL += ",'" & Cb_customerName.Text & "'"
                 strSQL += ",'" & Tb_modelCode.Text & "'"
                 strSQL += ",'" & Cb_modelName.Text & "'"
                 strSQL += ",'" & Cb_workLine.Text & "'"
                 strSQL += ",'" & Cb_workSide.Text & "'"
-                strSQL += ",'" & sqlDR("machine_no") & "'"
-                strSQL += ",'" & sqlDR("feeder_no") & "'"
-                strSQL += ",'" & sqlDR("part_maker") & "'"
-                strSQL += ",'" & sqlDR("part_no") & "'"
-                strSQL += ",'" & sqlDR("part_specification") & "'"
-                strSQL += ",'" & sqlDR("dd_note") & "'"
+                strSQL += ",'" & sqlDR("MACHINE_NO") & "'"
+                strSQL += ",'" & sqlDR("FEEDER_NO") & "'"
+                strSQL += ",'" & sqlDR("PART_MAKER") & "'"
+                strSQL += ",'" & sqlDR("PART_NO") & "'"
+                strSQL += ",'" & sqlDR("PART_SPECIFICATION") & "'"
+                strSQL += ",'" & sqlDR("DD_NOTE") & "'"
                 strSQL += ",'" & String.Empty & "'"
-                strSQL += ",'" & sqlDR("match_count") & "'"
-                strSQL += ",'" & sqlDR("dd_main_no") & "');"
+                strSQL += ",'" & sqlDR("MATCH_COUNT") & "'"
+                strSQL += ",'" & sqlDR("DD_MAIN_NO") & "');"
 
                 sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, MDBConnect1)
                 sqlCmd_MDB.Transaction = sqlTran_MDB
@@ -1085,7 +1085,7 @@ Public Class DeviceData
             Loop
             sqlDR.Close()
 
-            strSQL = "call sp_mmps_device_data(4"
+            strSQL = "call USP_DEVICE_DATA(4"
             strSQL += ",'" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_workLine.Text & "'"
             strSQL += ",'" & Cb_workSide.Text & "'"
@@ -1097,11 +1097,11 @@ Public Class DeviceData
             sqlDR = sqlCmd.ExecuteReader
             '''' 서브도 집어 넣어야 된다!!!!
             Do While sqlDR.Read
-                strSQL = "insert into DEVICE_DATA_SUB(dd_code, DS_CODE, part_maker, part_no, dd_note) values"
-                strSQL += "('" & sqlDR("dd_code") & "'"
+                strSQL = "insert into DEVICE_DATA_SUB(DD_CODE, DS_CODE, PART_MAKER, PART_NO, DD_NOTE) values"
+                strSQL += "('" & sqlDR("DD_CODE") & "'"
                 strSQL += ",'" & sqlDR("DS_CODE") & "'"
-                strSQL += ",'" & sqlDR("part_maker") & "'"
-                strSQL += ",'" & sqlDR("part_no") & "'"
+                strSQL += ",'" & sqlDR("PART_MAKER") & "'"
+                strSQL += ",'" & sqlDR("PART_NO") & "'"
                 strSQL += ",'" & sqlDR("DS_NOTE") & "');"
 
                 sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, MDBConnect1)
@@ -1131,13 +1131,13 @@ Public Class DeviceData
             Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Application.StartupPath + "\TempDB\TempDB.mdb" & ";Jet OLEDB:Database Password='dbwlspark'")
             connection.Open()
 
-            Dim strQuery As String = "SELECT `DEVICE_DATA_PRT`.`customer_code`, `DEVICE_DATA_PRT`.`customer_name`"
-            strQuery += ", `DEVICE_DATA_PRT`.`model_code`, `DEVICE_DATA_PRT`.`model_name`, `DEVICE_DATA_PRT`.`LINE_NAME`"
-            strQuery += ", `DEVICE_DATA_PRT`.`SIDE`, `DEVICE_DATA_PRT`.`machine_no`, `DEVICE_DATA_PRT`.`feeder_no`"
-            strQuery += ", `DEVICE_DATA_PRT`.`part_no`, `DEVICE_DATA_PRT`.`SPECIFICATION`, `DEVICE_DATA_PRT`.`dd_note`"
-            strQuery += ", `DEVICE_DATA_PRT`.`dd_code`, `DEVICE_DATA_PRT`.`match_count`, `DEVICE_DATA_PRT`.`dd_main_no`"
+            Dim strQuery As String = "SELECT `DEVICE_DATA_PRT`.`CUSTOMER_CODE`, `DEVICE_DATA_PRT`.`CUSTOMER_NAME`"
+            strQuery += ", `DEVICE_DATA_PRT`.`MODEL_CODE`, `DEVICE_DATA_PRT`.`MODEL_NAME`, `DEVICE_DATA_PRT`.`LINE_NAME`"
+            strQuery += ", `DEVICE_DATA_PRT`.`SIDE`, `DEVICE_DATA_PRT`.`MACHINE_NO`, `DEVICE_DATA_PRT`.`FEEDER_NO`"
+            strQuery += ", `DEVICE_DATA_PRT`.`PART_NO`, `DEVICE_DATA_PRT`.`SPECIFICATION`, `DEVICE_DATA_PRT`.`DD_NOTE`"
+            strQuery += ", `DEVICE_DATA_PRT`.`DD_CODE`, `DEVICE_DATA_PRT`.`MATCH_COUNT`, `DEVICE_DATA_PRT`.`DD_MAIN_NO`"
             strQuery += " FROM   `DEVICE_DATA_PRT` `DEVICE_DATA_PRT`"
-            strQuery += " ORDER BY `DEVICE_DATA_PRT`.`machine_no`, `DEVICE_DATA_PRT`.`feeder_no`"
+            strQuery += " ORDER BY `DEVICE_DATA_PRT`.`MACHINE_NO`, `DEVICE_DATA_PRT`.`FEEDER_NO`"
 
             'Console.WriteLine(strQuery)
 
@@ -1201,14 +1201,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code from tb_code_sub"
-        strSQL += " where sub_code_name = '" & Cb_FactoryName.Text & "'"
+        Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
+        strSQL += " where SUB_CODE_NAME = '" & Cb_FactoryName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            selFactoryCode = sqlDR("sub_code")
+            selFactoryCode = sqlDR("SUB_CODE")
         Loop
         sqlDR.Close()
 
@@ -1229,14 +1229,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select sub_code_name from tb_code_sub"
-        strSQL += " where main_code = 'MC0002' order by sub_code_name"
+        Dim strSQL As String = "select SUB_CODE_NAME from TB_SUB_CODE"
+        strSQL += " where MAIN_CODE = 'MC0002' order by SUB_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Cb_FactoryName.Items.Add(sqlDR("sub_code_name"))
+            Cb_FactoryName.Items.Add(sqlDR("SUB_CODE_NAME"))
         Loop
         sqlDR.Close()
 
@@ -1259,14 +1259,14 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select last_code_name from tb_code_last"
-        strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
+        Dim strSQL As String = "select LAST_CODE_NAME from TB_LAST_CODE"
+        strSQL += " where SUB_CODE = '" & selFactoryCode & "' order by LAST_CODE_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Cb_workLine.Items.Add(sqlDR("last_code_name"))
+            Cb_workLine.Items.Add(sqlDR("LAST_CODE_NAME"))
         Loop
         sqlDR.Close()
 
@@ -1377,13 +1377,13 @@ Public Class DeviceData
 
         DBConnect()
 
-        Dim strSQL As String = "select part_maker, part_specification from TB_DEVICE_DATA where part_no = '" & partNo & "' limit 1;"
+        Dim strSQL As String = "select PART_MAKER, PART_SPECIFICATION from TB_DEVICE_DATA where PART_NO = '" & partNo & "' limit 1;"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            loadMakerSpec = sqlDR("part_maker") & "@" & sqlDR("part_specification")
+            loadMakerSpec = sqlDR("PART_MAKER") & "@" & sqlDR("PART_SPECIFICATION")
         Loop
         sqlDR.Close()
 
@@ -1486,16 +1486,16 @@ Public Class DeviceData
 
         For i = 1 To Grid_DeviceData.Rows.Count - 1
             If Grid_DeviceData(i, 4).Equals("") Then
-                Dim strSQL As String = "select part_maker from TB_DEVICE_DATA where part_no = '" & Grid_DeviceData(i, 5) & "' limit 1"
+                Dim strSQL As String = "select PART_MAKER from TB_DEVICE_DATA where PART_NO = '" & Grid_DeviceData(i, 5) & "' limit 1"
 
                 Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
                 Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
                 Do While sqlDR.Read
-                    If Not sqlDR("part_maker").Equals("") Then
+                    If Not sqlDR("PART_MAKER").Equals("") Then
                         Grid_DeviceData(i, 0) = "M"
                         Grid_DeviceData.Rows(i).StyleNew.ForeColor = Color.Red
-                        Grid_DeviceData(i, 4) = sqlDR("part_maker")
+                        Grid_DeviceData(i, 4) = sqlDR("PART_MAKER")
                     End If
                 Loop
                 sqlDR.Close()

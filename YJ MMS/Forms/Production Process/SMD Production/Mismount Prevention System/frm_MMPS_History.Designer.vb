@@ -93,9 +93,11 @@ Partial Class frm_MMPS_History
         Me.C1DockingTab1.Name = "C1DockingTab1"
         Me.C1DockingTab1.SelectedTabBold = True
         Me.C1DockingTab1.Size = New System.Drawing.Size(1264, 748)
+        Me.C1DockingTab1.TabAreaBackColor = System.Drawing.Color.LightYellow
         Me.C1DockingTab1.TabIndex = 0
         Me.C1DockingTab1.TabsSpacing = -11
         Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Sloping
+        Me.C1DockingTab1.VisualStyle = C1.Win.C1Command.VisualStyle.Custom
         '
         'C1DockingTabPage1
         '

@@ -65,7 +65,7 @@
     <Reference Include="FlashControlV71, Version=1.0.3187.32366, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="RegistryEdit">
-      <HintPath>..\YJ MMS\bin\Debug\RegistryEdit.dll</HintPath>
+      <HintPath>..\Add DLL\RegistryEdit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
