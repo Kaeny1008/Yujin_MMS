@@ -455,6 +455,7 @@ Public Class frm_Material_Transfer
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
+            Exit Sub
         End If
 
         Control_Init()

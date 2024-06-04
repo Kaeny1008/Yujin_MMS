@@ -36,10 +36,21 @@ Partial Class frm_Material_Return
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_Menu.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
+        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -86,23 +97,27 @@ Partial Class frm_Material_Return
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.DateTimePicker2)
+        Me.Panel1.Controls.Add(Me.Label4)
+        Me.Panel1.Controls.Add(Me.DateTimePicker1)
+        Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.CB_CustomerName)
         Me.Panel1.Controls.Add(Me.TB_CustomerCode)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel1.Location = New System.Drawing.Point(0, 25)
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1264, 47)
+        Me.Panel1.Size = New System.Drawing.Size(546, 72)
         Me.Panel1.TabIndex = 8
         '
         'CB_CustomerName
         '
         Me.CB_CustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_CustomerName.FormattingEnabled = True
-        Me.CB_CustomerName.Location = New System.Drawing.Point(85, 11)
+        Me.CB_CustomerName.Location = New System.Drawing.Point(130, 11)
         Me.CB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_CustomerName.Name = "CB_CustomerName"
-        Me.CB_CustomerName.Size = New System.Drawing.Size(266, 20)
+        Me.CB_CustomerName.Size = New System.Drawing.Size(221, 20)
         Me.CB_CustomerName.TabIndex = 6
         '
         'TB_CustomerCode
@@ -125,7 +140,7 @@ Partial Class frm_Material_Return
         Me.Label3.Location = New System.Drawing.Point(9, 11)
         Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(76, 21)
+        Me.Label3.Size = New System.Drawing.Size(121, 21)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "고객사"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -139,7 +154,7 @@ Partial Class frm_Material_Return
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(1264, 701)
+        Me.Grid_History.Size = New System.Drawing.Size(546, 676)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 9
         '
@@ -155,13 +170,88 @@ Partial Class frm_Material_Return
         Me.BTN_RePrint.Size = New System.Drawing.Size(110, 22)
         Me.BTN_RePrint.Text = "재발행"
         '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 25)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_History)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.C1FlexGrid1)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
+        Me.SplitContainer1.SplitterDistance = 546
+        Me.SplitContainer1.TabIndex = 10
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(272, 37)
+        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(0)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(117, 21)
+        Me.DateTimePicker2.TabIndex = 12
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Label4.Location = New System.Drawing.Point(250, 42)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(14, 12)
+        Me.Label4.TabIndex = 11
+        Me.Label4.Text = "~"
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(130, 37)
+        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(0)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(117, 21)
+        Me.DateTimePicker1.TabIndex = 10
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(9, 37)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(121, 21)
+        Me.Label1.TabIndex = 9
+        Me.Label1.Text = "납품일자"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'C1FlexGrid1
+        '
+        Me.C1FlexGrid1.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.C1FlexGrid1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.C1FlexGrid1.Location = New System.Drawing.Point(0, 0)
+        Me.C1FlexGrid1.Margin = New System.Windows.Forms.Padding(0)
+        Me.C1FlexGrid1.Name = "C1FlexGrid1"
+        Me.C1FlexGrid1.Rows.Count = 2
+        Me.C1FlexGrid1.Rows.DefaultSize = 20
+        Me.C1FlexGrid1.Size = New System.Drawing.Size(714, 748)
+        Me.C1FlexGrid1.StyleInfo = resources.GetString("C1FlexGrid1.StyleInfo")
+        Me.C1FlexGrid1.TabIndex = 10
+        '
         'frm_Material_Return
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1264, 773)
-        Me.Controls.Add(Me.Grid_History)
-        Me.Controls.Add(Me.Panel1)
+        Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
         Me.Name = "frm_Material_Return"
         Me.Text = "자재 반출등록"
@@ -171,6 +261,11 @@ Partial Class frm_Material_Return
         Me.Panel1.PerformLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
         Me.CMS_Menu.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
+        CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -188,4 +283,10 @@ Partial Class frm_Material_Return
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents CMS_Menu As ContextMenuStrip
     Friend WithEvents BTN_RePrint As ToolStripMenuItem
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents Label4 As Label
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Label1 As Label
+    Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
 End Class

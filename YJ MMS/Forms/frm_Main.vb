@@ -403,4 +403,12 @@ Public Class frm_Main
         frm_Delivery_Register.Focus()
 
     End Sub
+
+    Private Sub BTN_Delivery_History_Click(sender As Object, e As EventArgs) Handles BTN_Delivery_History.Click
+
+        frm_Delivery_History.MdiParent = Me
+        If Not frm_Delivery_History.Visible Then frm_Delivery_History.Show()
+        frm_Delivery_History.Focus()
+
+    End Sub
 End Class

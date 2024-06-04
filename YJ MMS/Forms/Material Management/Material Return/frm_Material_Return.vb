@@ -24,9 +24,9 @@ Public Class frm_Material_Return
             .AllowSorting = AllowSortingEnum.None
             .AllowFreezing = AllowFreezingEnum.None
             .AllowMergingFixed = AllowMergingEnum.None
-            .Rows(0).Height = 40
+            .Rows(0).Height = 30
             .Rows.DefaultSize = 20
-            .Cols.Count = 11
+            .Cols.Count = 4
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -34,24 +34,20 @@ Public Class frm_Material_Return
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = False
-            .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(3).DataType = GetType(Date)
+            .Cols(3).Format = "yyyy-MM-dd"
+            .Cols(3).StyleNew.TextAlign = TextAlignEnum.CenterCenter
         End With
 
         Grid_History(0, 0) = "No."
-        Grid_History(0, 1) = "반출일자"
-        Grid_History(0, 2) = "반출 작업자"
-        Grid_History(0, 3) = "고객사명"
-        Grid_History(0, 4) = "고객사코드"
-        Grid_History(0, 5) = "자재코드"
-        Grid_History(0, 6) = "Vendor"
-        Grid_History(0, 7) = "Vendor Code"
-        Grid_History(0, 8) = "Lot No."
-        Grid_History(0, 9) = "수량"
-        Grid_History(0, 10) = "잔출 사유"
+        Grid_History(0, 1) = "전표번호"
+        Grid_History(0, 2) = "고객사"
+        Grid_History(0, 3) = "반출일자"
+        Grid_History.AutoSizeCols()
 
     End Sub
 

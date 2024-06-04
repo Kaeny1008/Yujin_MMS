@@ -107,7 +107,7 @@ Public Class frm_Delivery_Register
 
     End Sub
 
-    Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
+    Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
             MessageBox.Show("고객사를 먼저 선택 하여 주십시오.",
@@ -129,6 +129,9 @@ Public Class frm_Delivery_Register
         strSQL += ",'" & TB_CustomerCode.Text & "'"
         strSQL += ",'" & TB_ItemCode.Text & "'"
         strSQL += ",'" & TB_ItemName.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -153,6 +156,8 @@ Public Class frm_Delivery_Register
         Grid_POList.AutoSizeCols()
         Grid_POList.Redraw = True
 
+        BTN_Save.Enabled = True
+
         Thread_LoadingFormEnd()
 
     End Sub
@@ -170,6 +175,49 @@ Public Class frm_Delivery_Register
                 Grid_POList.SetCellCheck(selRow, 1, CheckEnum.Checked)
                 Grid_POList.Rows(selRow).StyleNew.BackColor = Color.LightBlue
             End If
+        End If
+
+    End Sub
+
+    Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+
+        Dim a As frm_Delivery_Register_Check = New frm_Delivery_Register_Check
+        a.Show()
+        a.Visible = False
+
+        Dim checkCount As Integer = 0
+
+        For i = 1 To Grid_POList.Rows.Count - 1
+            If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
+                Dim insertString As String
+                insertString = a.Grid_POList.Rows.Count
+                insertString += vbTab
+                insertString += vbTab & Grid_POList(i, 2)
+                insertString += vbTab & Grid_POList(i, 3)
+                insertString += vbTab & Grid_POList(i, 4)
+                insertString += vbTab & Grid_POList(i, 5)
+                insertString += vbTab & Grid_POList(i, 6)
+                insertString += vbTab & Grid_POList(i, 7)
+                insertString += vbTab & Grid_POList(i, 8)
+                insertString += vbTab & Grid_POList(i, 8)
+
+                a.Grid_POList.AddItem(insertString)
+                checkCount += 1
+            End If
+        Next
+        a.Grid_POList.AutoSizeCols()
+
+        If checkCount > 99 Then
+            a.Dispose()
+            MessageBox.Show(Me, "총 주문 선택은 99개를 넘을수 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
+
+        If a.Grid_POList.Rows.Count = 1 Then
+            a.Dispose()
+            MessageBox.Show(Me, "선택된 주문이 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            a.Visible = True
+            'a.TopMost = True
         End If
 
     End Sub

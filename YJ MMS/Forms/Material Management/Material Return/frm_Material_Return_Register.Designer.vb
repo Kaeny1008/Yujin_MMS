@@ -22,6 +22,7 @@ Partial Class frm_Material_Return_Register
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Return_Register))
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
@@ -46,7 +47,14 @@ Partial Class frm_Material_Return_Register
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TB_Reason = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.BTN_Grid_Add = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
+        CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel1
@@ -125,15 +133,16 @@ Partial Class frm_Material_Return_Register
         '
         'BTN_Save
         '
+        Me.BTN_Save.BackColor = System.Drawing.Color.BurlyWood
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.checkmark
-        Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(625, 178)
+        Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_Save.Location = New System.Drawing.Point(678, 269)
         Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(96, 53)
+        Me.BTN_Save.Size = New System.Drawing.Size(96, 59)
         Me.BTN_Save.TabIndex = 5
-        Me.BTN_Save.Text = "반출등록"
-        Me.BTN_Save.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Save.UseVisualStyleBackColor = True
+        Me.BTN_Save.Text = "반출 목록 저장"
+        Me.BTN_Save.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_Save.UseVisualStyleBackColor = False
         '
         'Label9
         '
@@ -337,15 +346,72 @@ Partial Class frm_Material_Return_Register
         Me.Label12.Text = "반출사유"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label13.Location = New System.Drawing.Point(14, 312)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(112, 16)
+        Me.Label13.TabIndex = 29
+        Me.Label13.Text = "[ 반출 목록 ]"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.Grid_History)
+        Me.Panel2.Location = New System.Drawing.Point(12, 331)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(762, 256)
+        Me.Panel2.TabIndex = 30
+        '
+        'Grid_History
+        '
+        Me.Grid_History.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_History.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_History.Location = New System.Drawing.Point(0, 0)
+        Me.Grid_History.Margin = New System.Windows.Forms.Padding(0)
+        Me.Grid_History.Name = "Grid_History"
+        Me.Grid_History.Rows.Count = 2
+        Me.Grid_History.Rows.DefaultSize = 20
+        Me.Grid_History.Size = New System.Drawing.Size(762, 256)
+        Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
+        Me.Grid_History.TabIndex = 10
+        '
+        'BTN_Grid_Add
+        '
+        Me.BTN_Grid_Add.Image = Global.YJ_MMS.My.Resources.Resources.arrow_down
+        Me.BTN_Grid_Add.ImageAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.BTN_Grid_Add.Location = New System.Drawing.Point(407, 176)
+        Me.BTN_Grid_Add.Name = "BTN_Grid_Add"
+        Me.BTN_Grid_Add.Size = New System.Drawing.Size(96, 53)
+        Me.BTN_Grid_Add.TabIndex = 31
+        Me.BTN_Grid_Add.Text = "반출 목록 등록"
+        Me.BTN_Grid_Add.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.BTN_Grid_Add.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(184, 312)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(48, 12)
+        Me.Label14.TabIndex = 32
+        Me.Label14.Text = "Label14"
+        Me.Label14.Visible = False
+        '
         'frm_Material_Return_Register
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(786, 277)
+        Me.ClientSize = New System.Drawing.Size(786, 599)
+        Me.Controls.Add(Me.BTN_Save)
+        Me.Controls.Add(Me.Label14)
+        Me.Controls.Add(Me.BTN_Grid_Add)
+        Me.Controls.Add(Me.Panel2)
+        Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.TB_Reason)
         Me.Controls.Add(Me.Label12)
-        Me.Controls.Add(Me.BTN_Save)
         Me.Controls.Add(Me.TB_ReturnQty)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
@@ -367,6 +433,8 @@ Partial Class frm_Material_Return_Register
         Me.Text = "자재 반출등록"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -396,4 +464,9 @@ Partial Class frm_Material_Return_Register
     Friend WithEvents Label11 As Label
     Friend WithEvents TB_Reason As TextBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents BTN_Grid_Add As Button
+    Friend WithEvents Label14 As Label
 End Class

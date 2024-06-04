@@ -72,8 +72,8 @@ Partial Class frm_Delivery_Register
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Save.Text = "저장"
+        Me.BTN_Save.Size = New System.Drawing.Size(103, 22)
+        Me.BTN_Save.Text = "납품전표 발행"
         '
         'Form_CLose
         '
@@ -118,10 +118,10 @@ Partial Class frm_Delivery_Register
         '
         Me.TB_ItemName.BackColor = System.Drawing.SystemColors.Window
         Me.TB_ItemName.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_ItemName.Location = New System.Drawing.Point(802, 24)
+        Me.TB_ItemName.Location = New System.Drawing.Point(882, 24)
         Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ItemName.Name = "TB_ItemName"
-        Me.TB_ItemName.Size = New System.Drawing.Size(120, 25)
+        Me.TB_ItemName.Size = New System.Drawing.Size(200, 25)
         Me.TB_ItemName.TabIndex = 8
         '
         'Label4
@@ -130,7 +130,7 @@ Partial Class frm_Delivery_Register
         Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label4.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(681, 24)
+        Me.Label4.Location = New System.Drawing.Point(761, 24)
         Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(121, 25)
@@ -145,7 +145,7 @@ Partial Class frm_Delivery_Register
         Me.TB_ItemCode.Location = New System.Drawing.Point(561, 24)
         Me.TB_ItemCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ItemCode.Name = "TB_ItemCode"
-        Me.TB_ItemCode.Size = New System.Drawing.Size(120, 25)
+        Me.TB_ItemCode.Size = New System.Drawing.Size(200, 25)
         Me.TB_ItemCode.TabIndex = 6
         '
         'Label3
