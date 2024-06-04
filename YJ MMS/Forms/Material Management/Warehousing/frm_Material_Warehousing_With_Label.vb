@@ -127,7 +127,7 @@ Public Class frm_Material_Warehousing_With_Label
         Grid_MaterialList.Rows.Count = 1
 
         TB_InNo.Text = String.Empty
-        CB_CustomerName.SelectedIndex = -1
+        TB_CustomerName.Text = String.Empty
         TB_CustomerCode.Text = String.Empty
         TB_BarcodeScan.Text = String.Empty
         TB_CustomerPartCode.Text = String.Empty
@@ -202,9 +202,10 @@ Public Class frm_Material_Warehousing_With_Label
 
             DBConnect()
 
-            Load_CustomerList()
+            'Load_CustomerList()
             Load_MaterialList(Grid_DocumentsList(gridRow, 1))
-            Load_NewInNo(Grid_DocumentsList(gridRow, 1))
+            Load_CustomerName()
+            'Load_NewInNo(Grid_DocumentsList(gridRow, 1))
             Load_MaterialList_Detail(Grid_DocumentsList(gridRow, 1))
 
             DBClose()
@@ -218,12 +219,12 @@ Public Class frm_Material_Warehousing_With_Label
             If Grid_DocumentsList(gridRow, 4) = "완료" Then
                 BTN_Save.Enabled = False
                 BTN_ListAdd.Enabled = False
-                CB_CustomerName.Enabled = False
+                'CB_CustomerName.Enabled = False
                 TB_BarcodeScan.Enabled = False
             Else
                 BTN_Save.Enabled = True
                 BTN_ListAdd.Enabled = True
-                CB_CustomerName.Enabled = True
+                'CB_CustomerName.Enabled = True
                 TB_BarcodeScan.Enabled = True
             End If
 
@@ -232,23 +233,23 @@ Public Class frm_Material_Warehousing_With_Label
 
     End Sub
 
-    Private Sub Load_CustomerList()
+    'Private Sub Load_CustomerList()
 
-        CB_CustomerName.Items.Clear()
+    '    CB_CustomerName.Items.Clear()
 
-        Dim strSQL As String = "select customer_name"
-        strSQL += " from tb_customer_list"
-        strSQL += " order by customer_name"
+    '    Dim strSQL As String = "select customer_name"
+    '    strSQL += " from tb_customer_list"
+    '    strSQL += " order by customer_name"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            CB_CustomerName.Items.Add(sqlDR("customer_name"))
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        CB_CustomerName.Items.Add(sqlDR("customer_name"))
+    '    Loop
+    '    sqlDR.Close()
 
-    End Sub
+    'End Sub
 
     Private Sub Load_MaterialList(ByVal documentNo As String)
 
@@ -277,6 +278,23 @@ Public Class frm_Material_Warehousing_With_Label
                 Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Red
                 Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.BackColor = Color.Yellow
             End If
+            TB_CustomerCode.Text = sqlDR("customer_code")
+        Loop
+        sqlDR.Close()
+
+    End Sub
+
+    Private Sub Load_CustomerName()
+
+        Dim strSQL As String = "select customer_name"
+        strSQL += " from tb_customer_list"
+        strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_CustomerName.Text = sqlDR("customer_name")
         Loop
         sqlDR.Close()
 
@@ -332,8 +350,7 @@ Public Class frm_Material_Warehousing_With_Label
                                           sqlDR("barcode2") & vbTab &
                                           sqlDR("barcode3")
             Grid_PartList.AddItem(insert_String)
-            CB_CustomerName.Text = sqlDR("customer_name")
-            CB_CustomerName_SelectionChangeCommitted(Nothing, Nothing)
+            'CB_CustomerName_SelectionChangeCommitted(Nothing, Nothing)
         Loop
         sqlDR.Close()
 
@@ -344,36 +361,36 @@ Public Class frm_Material_Warehousing_With_Label
 
     End Sub
 
-    Private Sub CB_CustomerName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectionChangeCommitted
+    'Private Sub CB_CustomerName_SelectionChangeCommitted(sender As Object, e As EventArgs)
 
-        TB_CustomerCode.Text = String.Empty
+    '    TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+    '    DBConnect()
 
-        Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
-        strSQL += " from tb_customer_list"
-        strSQL += " where customer_name = '" & CB_CustomerName.Text & "'"
-        strSQL += " order by customer_name"
+    '    Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
+    '    strSQL += " from tb_customer_list"
+    '    strSQL += " where customer_name = '" & CB_CustomerName.Text & "'"
+    '    strSQL += " order by customer_name"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            TB_CustomerCode.Text = sqlDR("customer_code")
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        TB_CustomerCode.Text = sqlDR("customer_code")
+    '    Loop
+    '    sqlDR.Close()
 
-        DBClose()
+    '    DBClose()
 
-        'If CB_CustomerName.Text = "LS Mecapion" Then
-        '    RB_2DType.Checked = True
-        '    TB_SplitChar.Text = "!"
-        'End If
+    '    'If CB_CustomerName.Text = "LS Mecapion" Then
+    '    '    RB_2DType.Checked = True
+    '    '    TB_SplitChar.Text = "!"
+    '    'End If
 
-        TB_BarcodeScan.Focus()
-        TB_BarcodeScan.SelectAll()
+    '    TB_BarcodeScan.Focus()
+    '    TB_BarcodeScan.SelectAll()
 
-    End Sub
+    'End Sub
 
     Private Sub TB_BarcodeScan_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_BarcodeScan.KeyPress
         Console.WriteLine("Key : " & e.KeyChar & " , ascii : " & Asc(e.KeyChar))
@@ -399,17 +416,17 @@ Public Class frm_Material_Warehousing_With_Label
 
         If (e.KeyCode = 13) And
             (Not TB_BarcodeScan.Text = String.Empty) Then
-            If CB_CustomerName.Text = String.Empty Then
-                MessageBox.Show(Me,
-                                "사용 고객사를 먼저 선택하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
-                TB_BarcodeScan.SelectAll()
-                Exit Sub
-            End If
+            'If CB_CustomerName.Text = String.Empty Then
+            '    MessageBox.Show(Me,
+            '                    "사용 고객사를 먼저 선택하여 주십시오.",
+            '                    msg_form,
+            '                    MessageBoxButtons.OK,
+            '                    MessageBoxIcon.Error)
+            '    TB_BarcodeScan.SelectAll()
+            '    Exit Sub
+            'End If
 
-            If CB_CustomerName.Text = "LS Mecapion" Then
+            If TB_CustomerName.Text = "LS Mecapion" Then
                 If RB_Supplier.Checked Then
                     SplitBarcode_Supplier()
                 ElseIf RB_Vendor.Checked Then
@@ -434,7 +451,7 @@ Public Class frm_Material_Warehousing_With_Label
             TB_BarcodeScan.Multiline = False
             TB_BarcodeScan.Text = String.Empty
             TB_BarcodeScan.Multiline = True
-            
+
             If TB_CustomerPartCode.Text = String.Empty Or
                 TB_PartNo.Text = String.Empty Or
                 TB_Qty.Text = String.Empty Or
@@ -664,9 +681,9 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL = "insert into tb_mms_material_warehousing("
             strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor, part_no, part_lot_no"
             strSQL += ", part_qty, barcode1,barcode2, barcode3, write_date, write_id"
-            strSQL += ") values("
-            strSQL += "f_mms_new_mw_no('" & TB_InNo.Text & "')"
-            strSQL += ", '" & TB_InNo.Text & "'"
+            strSQL += ") "
+            strSQL += "select f_mms_new_mw_no(f_mms_new_in_no(date_format(now(), '%Y-%m-%d'), '" & TB_DocumentNo.Text & "'))"
+            strSQL += ", f_mms_new_in_no(date_format(now(), '%Y-%m-%d'), '" & TB_DocumentNo.Text & "')"
             strSQL += ", '" & TB_DocumentNo.Text & "'"
             strSQL += ", '" & TB_CustomerCode.Text & "'"
             strSQL += ", '" & TB_CustomerPartCode.Text & "'"
@@ -678,7 +695,7 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += ", '" & Replace(barcode2, "'", "\'") & "'"
             strSQL += ", '" & Replace(barcode3, "'", "\'") & "'"
             strSQL += ", '" & writeDate & "'"
-            strSQL += ", '" & loginID & "');"
+            strSQL += ", '" & loginID & "';"
 
             '맵핑을 자동으로 등록하도록 한다.
             '중복된 값이 있으면 저장X
@@ -739,7 +756,7 @@ Public Class frm_Material_Warehousing_With_Label
                             CInt(TB_Qty.Text),
                             TB_Vendor.Text,
                             NumericUpDown1.Value,
-                            CB_CustomerName.Text,
+                            TB_CustomerName.Text,
                             Format(Now, "yyyy.MM.dd"))
 
         Load_MaterialList_Detail(TB_DocumentNo.Text)
@@ -756,7 +773,7 @@ Public Class frm_Material_Warehousing_With_Label
         barcode3 = String.Empty
         TB_ItemCode.Text = String.Empty
         CB_Vendor.SelectedIndex = -1
-        TextBox1.Text = String.empty
+        TextBox1.Text = String.Empty
 
         If RB_Supplier.Checked = True Then
             TB_BarcodeScan.Focus()
@@ -928,7 +945,7 @@ Public Class frm_Material_Warehousing_With_Label
                         "고객사 코드를 찾을 수 없습니다..",
                         msg_form,
                         MessageBoxButtons.OK,
-                        MessageBoxIcon.Information, MessageBoxDefaultButton.Button1 )
+                        MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
             End If
 
         End If
@@ -996,7 +1013,7 @@ Public Class frm_Material_Warehousing_With_Label
                             CInt(Grid_PartList(selRow, 10)),
                             Grid_PartList(selRow, 7),
                             1,
-                            CB_CustomerName.Text,
+                            TB_CustomerName.Text,
                             Format(Now, "yyyy.MM.dd")
                             )
 
@@ -1006,7 +1023,7 @@ Public Class frm_Material_Warehousing_With_Label
 
     End Sub
 
-    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
+    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs)
 
     End Sub
 End Class

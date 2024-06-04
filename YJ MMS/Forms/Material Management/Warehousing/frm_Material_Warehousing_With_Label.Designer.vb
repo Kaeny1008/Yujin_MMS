@@ -65,7 +65,6 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_InNo = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
@@ -86,6 +85,7 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -234,6 +234,7 @@ Partial Class frm_Material_Warehousing_With_Label
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel2.Controls.Add(Me.TB_CustomerName)
         Me.Panel2.Controls.Add(Me.CheckBox1)
         Me.Panel2.Controls.Add(Me.TextBox1)
         Me.Panel2.Controls.Add(Me.TB_BarcodeScan)
@@ -249,7 +250,6 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Panel2.Controls.Add(Me.Label6)
         Me.Panel2.Controls.Add(Me.TB_InNo)
         Me.Panel2.Controls.Add(Me.Label3)
-        Me.Panel2.Controls.Add(Me.CB_CustomerName)
         Me.Panel2.Controls.Add(Me.TB_CustomerCode)
         Me.Panel2.Controls.Add(Me.Label5)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
@@ -589,17 +589,6 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Label3.Text = "1. 입고 No."
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'CB_CustomerName
-        '
-        Me.CB_CustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_CustomerName.Font = New System.Drawing.Font("굴림", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.CB_CustomerName.FormattingEnabled = True
-        Me.CB_CustomerName.Location = New System.Drawing.Point(181, 33)
-        Me.CB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
-        Me.CB_CustomerName.Name = "CB_CustomerName"
-        Me.CB_CustomerName.Size = New System.Drawing.Size(160, 25)
-        Me.CB_CustomerName.TabIndex = 8
-        '
         'TB_CustomerCode
         '
         Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
@@ -811,6 +800,17 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.BTN_RePrint.Size = New System.Drawing.Size(110, 22)
         Me.BTN_RePrint.Text = "재발행"
         '
+        'TB_CustomerName
+        '
+        Me.TB_CustomerName.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_CustomerName.Enabled = False
+        Me.TB_CustomerName.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_CustomerName.Location = New System.Drawing.Point(181, 33)
+        Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_CustomerName.Name = "TB_CustomerName"
+        Me.TB_CustomerName.Size = New System.Drawing.Size(160, 25)
+        Me.TB_CustomerName.TabIndex = 31
+        '
         'frm_Material_Warehousing_With_Label
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -869,7 +869,6 @@ Partial Class frm_Material_Warehousing_With_Label
     Friend WithEvents Panel2 As Panel
     Friend WithEvents TB_InNo As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents CB_CustomerName As ComboBox
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents Panel3 As Panel
@@ -915,4 +914,5 @@ Partial Class frm_Material_Warehousing_With_Label
     Friend WithEvents BTN_RePrint As ToolStripMenuItem
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TB_CustomerName As TextBox
 End Class

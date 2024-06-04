@@ -115,6 +115,51 @@ Public Class frm_Supplier_Document_Register
 
     End Sub
 
+    Private Sub Load_CustomerList()
+
+        CB_CustomerName.Items.Clear()
+
+        DBConnect()
+
+        Dim strSQL As String = "select customer_name"
+        strSQL += " from tb_customer_list"
+        strSQL += " order by customer_name"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            CB_CustomerName.Items.Add(sqlDR("customer_name"))
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
+    Private Sub CB_CustomerName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectionChangeCommitted
+
+        TB_CustomerCode.Text = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "select customer_code"
+        strSQL += " from tb_customer_list"
+        strSQL += " where customer_name = '" & CB_CustomerName.Text & "'"
+        strSQL += " order by customer_name"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_CustomerCode.Text = sqlDR("customer_code")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
     Private Sub BTN_FileSelect_Click(sender As Object, e As EventArgs) Handles BTN_FileSelect.Click
 
         If Trim(CB_Supplier.Text) = String.Empty Then
@@ -473,11 +518,23 @@ Public Class frm_Supplier_Document_Register
         BTN_FileSelect.Enabled = True
         BTN_Save.Enabled = True
 
+        CB_CustomerName.Enabled = True
+
         NewControlSetting()
+        Load_CustomerList()
 
     End Sub
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+
+        If TB_CustomerCode.Text = String.Empty Then
+            MessageBox.Show(Me,
+                            "고객사를 선택하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
         If MessageBox.Show(Me,
                            "저장 하시겠습니까?",
@@ -510,7 +567,7 @@ Public Class frm_Supplier_Document_Register
         Try
             For i = 1 To Grid_MaterialList.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_warehousing_document("
-                strSQL += "wd_no, document_no, supplier, part_code, part_no, vendor, part_qty, write_date, write_id"
+                strSQL += "wd_no, document_no, supplier, part_code, part_no, vendor, part_qty, customer_code, write_date, write_id"
                 strSQL += ") values("
                 strSQL += "'" & documentNo & "-" & Format(i, "0000") & "'"
                 strSQL += ", '" & documentNo & "'"
@@ -519,6 +576,7 @@ Public Class frm_Supplier_Document_Register
                 strSQL += ", '" & Grid_MaterialList(i, 2).ToString.Replace("'", "\'")  & "'"
                 strSQL += ", '" & Grid_MaterialList(i, 3).ToString.Replace("'", "\'") & "'"
                 strSQL += ", '" & CInt(Grid_MaterialList(i, 4)) & "'"
+                strSQL += ", '" & TB_CustomerCode.Text & "'"
                 strSQL += ", '" & writeDate & "'"
                 strSQL += ", '" & loginID & "');"
             Next
@@ -553,6 +611,9 @@ Public Class frm_Supplier_Document_Register
         CB_SheetName.Enabled = False
         CB_Supplier.Enabled = False
         BTN_ExcelToGrid.Enabled = False
+        CB_CustomerName.SelectedIndex = -1
+        CB_CustomerName.Enabled = False
+        TB_CustomerCode.Text = String.Empty
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
