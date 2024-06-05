@@ -18,7 +18,7 @@ Imports System
 Imports System.ComponentModel
 
 
-Public Class rpt_PO_Delivery
+Public Class rpt_Material_Return
     Inherits ReportClass
     
     Public Sub New()
@@ -27,7 +27,7 @@ Public Class rpt_PO_Delivery
     
     Public Overrides Property ResourceName() As String
         Get
-            Return "rpt_PO_Delivery.rpt"
+            Return "rpt_Material_Return.rpt"
         End Get
         Set
             'Do nothing
@@ -45,7 +45,7 @@ Public Class rpt_PO_Delivery
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "YJ_MMS.rpt_PO_Delivery.rpt"
+            Return "YJ_MMS.rpt_Material_Return.rpt"
         End Get
         Set
             'Do nothing
@@ -110,7 +110,7 @@ Public Class rpt_PO_Delivery
 End Class
 
 <System.Drawing.ToolboxBitmapAttribute(GetType(CrystalDecisions.[Shared].ExportOptions), "report.bmp")>  _
-Public Class Cachedrpt_PO_Delivery
+Public Class Cachedrpt_Material_Return
     Inherits Component
     Implements ICachedReport
     
@@ -152,7 +152,7 @@ Public Class Cachedrpt_PO_Delivery
     End Property
     
     Public Overridable Function CreateReport() As CrystalDecisions.CrystalReports.Engine.ReportDocument Implements CrystalDecisions.ReportSource.ICachedReport.CreateReport
-        Dim rpt As rpt_PO_Delivery = New rpt_PO_Delivery()
+        Dim rpt As rpt_Material_Return = New rpt_Material_Return()
         rpt.Site = Me.Site
         Return rpt
     End Function

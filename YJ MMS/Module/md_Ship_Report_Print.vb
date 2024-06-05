@@ -83,6 +83,7 @@ Module md_Ship_Report_Print
             sqlDR = sqlCmd.ExecuteReader
             '''' 서브도 집어 넣어야 된다!!!!
             Do While sqlDR.Read
+                Dim insertName As String = sqlDR("item_name").ToString.Replace("'", "!!")
                 strSQL = "insert into tb_mms_delivery_history_content("
                 strSQL += "delivery_no, po_split, delivery_qty, history_note, item_code, item_name, item_spec"
                 strSQL += ") values("
@@ -91,7 +92,7 @@ Module md_Ship_Report_Print
                 strSQL += "," & sqlDR("delivery_qty") & ""
                 strSQL += ",'" & sqlDR("history_note") & "'"
                 strSQL += ",'" & sqlDR("item_code") & "'"
-                strSQL += ",'" & sqlDR("item_name").replace("'", "") & "'"
+                strSQL += ",'" & insertName & "'"
                 strSQL += ",'" & sqlDR("item_spec") & "'"
                 strSQL += ");"
 
@@ -130,6 +131,166 @@ Module md_Ship_Report_Print
             strQuery += " FROM   `tb_mms_delivery_history` `tb_mms_delivery_history`"
             strQuery += " INNER JOIN `tb_mms_delivery_history_content` `tb_mms_delivery_history_content`"
             strQuery += " ON `tb_mms_delivery_history`.`delivery_no`=`tb_mms_delivery_history_content`.`delivery_no`"
+
+            Console.WriteLine(strQuery)
+
+            Dim da As OleDb.OleDbDataAdapter = New OleDb.OleDbDataAdapter(strQuery, connection)
+            da.Fill(ds)
+
+            Dim rDOC As ReportDocument = New ReportDocument
+
+            rDOC.Load(rptPath)
+            rDOC.SetDataSource(ds)
+            'rDOC.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape '용지방향 설정
+            frm_DeviceData_Report.CrystalReportViewer1.ReportSource = Nothing
+            frm_DeviceData_Report.CrystalReportViewer1.ReportSource = rDOC
+
+            If MsgBox("인쇄 미리보기를 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, msg_form) = MsgBoxResult.Yes Then
+                frm_DeviceData_Report.ShowDialog()
+            Else
+                rDOC.PrintToPrinter(1, True, 0, 0)
+            End If
+
+            connection.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+        End Try
+
+    End Sub
+
+    Public Sub Material_Return_Report_Print(ByVal returnNo As String)
+
+        Dim strSQL As String = String.Empty
+
+        'MySQL DB에서 정보를 불러오기전에 기존 내용 삭제
+        Mdbconnect()
+
+        Dim sqlTran_MDB As OleDb.OleDbTransaction
+        Dim sqlCmd_MDB As OleDb.OleDbCommand
+
+        sqlTran_MDB = mdbConnection1.BeginTransaction
+
+        Try
+            '기존 저장 데이터를 삭제
+            strSQL = "delete from tb_mms_material_return;"
+
+            sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, mdbConnection1)
+            sqlCmd_MDB.Transaction = sqlTran_MDB
+            sqlCmd_MDB.ExecuteNonQuery()
+
+            strSQL = "delete from tb_mms_material_return_content;"
+
+            sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, mdbConnection1)
+            sqlCmd_MDB.Transaction = sqlTran_MDB
+            sqlCmd_MDB.ExecuteNonQuery()
+
+            sqlTran_MDB.Commit()
+
+        Catch ex As OleDb.OleDbException
+            sqlTran_MDB.Rollback()
+            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+            Exit Sub
+        End Try
+
+        '새로운 데이터를 MySQL에서 가져온다.
+        sqlTran_MDB = mdbConnection1.BeginTransaction
+
+        Try
+            DBConnect()
+
+            strSQL = "call sp_mms_material_return(3"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ", '" & returnNo & "'"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ");"
+
+            Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+            '''' 서브도 집어 넣어야 된다!!!!
+            Do While sqlDR.Read
+                strSQL = "insert into tb_mms_material_return("
+                strSQL += "return_no, customer_name, write_date"
+                strSQL += ") values("
+                strSQL += "'" & sqlDR("return_no") & "'"
+                strSQL += ",'" & sqlDR("customer_name") & "'"
+                strSQL += ",'" & sqlDR("write_date") & "'"
+                strSQL += ");"
+
+                sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, mdbConnection1)
+                sqlCmd_MDB.Transaction = sqlTran_MDB
+                sqlCmd_MDB.ExecuteNonQuery()
+            Loop
+            sqlDR.Close()
+
+            strSQL = "call sp_mms_material_return(4"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ", '" & returnNo & "'"
+            strSQL += ",  null"
+            strSQL += ",  null"
+            strSQL += ");"
+
+            sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+            sqlDR = sqlCmd.ExecuteReader
+            '''' 서브도 집어 넣어야 된다!!!!
+            Do While sqlDR.Read
+                Dim insertSpec As String = sqlDR("part_specification")
+
+                strSQL = "insert into tb_mms_material_return_content("
+                strSQL += "history_index, part_code, part_specification, part_type, part_qty, return_reason, history_note, return_no"
+                strSQL += ") values("
+                strSQL += "'" & sqlDR("history_index") & "'"
+                strSQL += ",'" & sqlDR("part_code") & "'"
+                strSQL += ",'" & insertSpec & "'"
+                strSQL += ",'" & sqlDR("part_type") & "'"
+                strSQL += "," & sqlDR("history_qty") & ""
+                strSQL += ",'" & sqlDR("return_reason") & "'"
+                strSQL += ",''"
+                strSQL += ",'" & sqlDR("return_no") & "'"
+                strSQL += ");"
+
+                sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, mdbConnection1)
+                sqlCmd_MDB.Transaction = sqlTran_MDB
+                sqlCmd_MDB.ExecuteNonQuery()
+            Loop
+            sqlDR.Close()
+
+            DBClose()
+
+            sqlTran_MDB.Commit()
+
+        Catch ex As OleDb.OleDbException
+            sqlTran_MDB.Rollback()
+            MsgBox(ex.Message, MsgBoxStyle.Critical, msg_form)
+            Exit Sub
+        End Try
+
+        MDBClose()
+
+        '크리스탈 레포트에서 인쇄하는 규칙
+        Try
+            Dim rptPath As String = Application.StartupPath & "\Reports\rpt_Material_Return.rpt"
+
+            Dim ds As DataSet = New DataSet
+
+            Dim connection As New OleDb.OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Application.StartupPath + "\TempDB\TempDB.mdb" & ";Jet OLEDB:Database Password='dbwlspark'")
+            connection.Open()
+
+            Dim strQuery As String = "SELECT `tb_mms_material_return`.`return_no`, `tb_mms_material_return`.`customer_name`"
+            strQuery += ", `tb_mms_material_return`.`write_date`, `tb_mms_material_return_content`.`part_code`"
+            strQuery += ", `tb_mms_material_return_content`.`part_specification`, `tb_mms_material_return_content`.`part_type`"
+            strQuery += ", `tb_mms_material_return_content`.`part_qty`, `tb_mms_material_return_content`.`history_note`"
+            strQuery += " FROM   `tb_mms_material_return_content` `tb_mms_material_return_content`"
+            strQuery += " INNER JOIN `tb_mms_material_return` `tb_mms_material_return`"
+            strQuery += " ON `tb_mms_material_return_content`.`return_no`=`tb_mms_material_return`.`return_no`"
 
             Console.WriteLine(strQuery)
 

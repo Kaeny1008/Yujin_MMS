@@ -51,8 +51,6 @@ Public Class frm_Material_Return_Register
 
     Private Sub Make_ReturnNo()
 
-        CB_CustomerName.Items.Clear()
-
         DBConnect()
 
         Dim strSQL As String = "select f_mms_material_return_no("
@@ -86,6 +84,7 @@ Public Class frm_Material_Return_Register
 
         Do While sqlDR.Read
             CB_CustomerName.Items.Add(sqlDR("customer_name"))
+            Console.WriteLine("고객사 추가 : " & sqlDR("customer_name"))
         Loop
         sqlDR.Close()
 
@@ -137,6 +136,8 @@ Public Class frm_Material_Return_Register
             End If
             Dim splitBarcode() As String = TB_Barcode.Text.Split("!")
             '140500199!STW4N150!81G28FBJ0010!89!STM
+            '130600027!SN65C1168PWR!20240503001!2000!TI!2024.05.03
+            '140300272!SMAJ9.0CA-13-F!1933-883931J9L17.E!5000!DIODES!2024.04.05
             Try
                 Load_Information(splitBarcode(0),
                                  splitBarcode(1),
@@ -180,6 +181,9 @@ Public Class frm_Material_Return_Register
         strSQL += ", '" & lot_no & "'"
         strSQL += ", '" & qty & "'"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ",  null"
+        strSQL += ",  null"
+        strSQL += ",  null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -198,26 +202,23 @@ Public Class frm_Material_Return_Register
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
-        If Not TB_Vendor.Text = String.Empty And
-            Not TB_ReturnQty.Text = String.Empty And
-            Not Trim(TB_Reason.Text) = String.Empty Then
+        If (MessageBox.Show("반출 등록을 하시겠습니까?",
+                            msg_form,
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question)) = DialogResult.No Then Exit Sub
 
-            If (MessageBox.Show("반출 등록을 하시겠습니까?",
+        Dim dbResult As Boolean = DB_Write()
+
+        If dbResult = True Then
+            If MessageBox.Show("저장완료." & vbCrLf & "자재반납 전표를 출력 하시겠습니까?",
                                 msg_form,
                                 MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question)) = DialogResult.No Then Exit Sub
-
-            Dim dbResult As Boolean = DB_Write()
-
-            If dbResult = True Then
-                If MessageBox.Show("저장완료." & vbCrLf & "자재반납 전표를 출력 하시겠습니까?",
-                                   msg_form,
-                                   MessageBoxButtons.YesNo,
-                                   MessageBoxIcon.Question) = DialogResult.Yes Then
-                    '반납전표 출력
-                Else
-                    Me.Dispose()
-                End If
+                                MessageBoxIcon.Question) = DialogResult.Yes Then
+                '반납전표 출력
+                Material_Return_Report_Print(Label14.Text)
+                Me.Dispose()
+            Else
+                Me.Dispose()
             End If
         End If
 
@@ -245,6 +246,7 @@ Public Class frm_Material_Return_Register
             strSQL += ",'" & TB_CustomerCode.Text & "'"
             strSQL += ",'" & writeDate & "'"
             strSQL += ",'" & loginID & "'"
+            strSQL += ");"
 
             For i = 1 To Grid_History.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_history("
@@ -338,6 +340,9 @@ Public Class frm_Material_Return_Register
         Grid_History.AutoSizeCols()
 
         ControlReset()
+
+        TB_Barcode.SelectAll()
+        TB_Barcode.Focus()
 
     End Sub
 

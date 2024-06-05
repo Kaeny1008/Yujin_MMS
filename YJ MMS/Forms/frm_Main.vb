@@ -356,14 +356,6 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_Material_Return_Click(sender As Object, e As EventArgs) Handles BTN_Material_Return.Click
-
-        frm_Material_Return.MdiParent = Me
-        If Not frm_Material_Return.Visible Then frm_Material_Return.Show()
-        frm_Material_Return.Focus()
-
-    End Sub
-
     Private Sub BTN_Material_Label_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Material_Label_Reprint.Click
 
         frm_Material_Label_Reprint.MdiParent = Me
@@ -388,14 +380,6 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub BTN_Material_Transfer_WorkSite_Click(sender As Object, e As EventArgs) Handles BTN_Material_Transfer_WorkSite.Click
-
-        frm_Material_Transfer.MdiParent = Me
-        If Not frm_Material_Transfer.Visible Then frm_Material_Transfer.Show()
-        frm_Material_Transfer.Focus()
-
-    End Sub
-
     Private Sub BTN_Delivery_Register_Click(sender As Object, e As EventArgs) Handles BTN_Delivery_Register.Click
 
         frm_Delivery_Register.MdiParent = Me
@@ -409,6 +393,22 @@ Public Class frm_Main
         frm_Delivery_History.MdiParent = Me
         If Not frm_Delivery_History.Visible Then frm_Delivery_History.Show()
         frm_Delivery_History.Focus()
+
+    End Sub
+
+    Private Sub BTN_Material_Return_Click(sender As Object, e As EventArgs) Handles BTN_Material_Return.Click
+
+        frm_Material_Return.MdiParent = Me
+        If Not frm_Material_Return.Visible Then frm_Material_Return.Show()
+        frm_Material_Return.Focus()
+
+    End Sub
+
+    Private Sub BTN_Material_Transfer_Click(sender As Object, e As EventArgs) Handles BTN_Material_Transfer.Click
+
+        frm_Material_Transfer.MdiParent = Me
+        If Not frm_Material_Transfer.Visible Then frm_Material_Transfer.Show()
+        frm_Material_Transfer.Focus()
 
     End Sub
 End Class
