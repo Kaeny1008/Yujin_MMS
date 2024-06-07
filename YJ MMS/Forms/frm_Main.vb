@@ -411,4 +411,12 @@ Public Class frm_Main
         frm_Material_Transfer.Focus()
 
     End Sub
+
+    Private Sub BTN_AssyLabelPrint_Click(sender As Object, e As EventArgs) Handles BTN_AssyLabelPrint.Click
+
+        frm_Assy_Label_Print.MdiParent = Me
+        If Not frm_Assy_Label_Print.Visible Then frm_Assy_Label_Print.Show()
+        frm_Assy_Label_Print.Focus()
+
+    End Sub
 End Class

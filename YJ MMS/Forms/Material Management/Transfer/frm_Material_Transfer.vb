@@ -3,6 +3,8 @@ Imports MySql.Data.MySqlClient
 
 Public Class frm_Material_Transfer
 
+    Dim mwNo As String
+
     Private Sub frm_Material_WorkSite_Transfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
@@ -141,6 +143,8 @@ Public Class frm_Material_Transfer
         TB_LotNo.Text = String.Empty
         TB_Qty.Text = String.Empty
         TB_Vendor.Text = String.Empty
+        TB_1stQty.Text = String.Empty
+        TB_2ndQty.Text = String.Empty
 
     End Sub
 
@@ -183,7 +187,7 @@ Public Class frm_Material_Transfer
 
             '입고번호를 불러온다.
             '현장에 출고된 자재라고 명시하기 위해.
-            Dim mwNo As String = Load_MW_No()
+            mwNo = Load_MW_No()
 
             If RadioButton1.Checked Then
                 If WorkSite_Move(mwNo) = False Then Exit Sub
@@ -191,20 +195,10 @@ Public Class frm_Material_Transfer
                 If Warehouse_Move(mwNo) = False Then Exit Sub
             End If
 
-            '그리드에 임시저장 리스트를 등록한다.
-            Dim insertString As String
-            insertString = Grid_History.Rows.Count
-            insertString += vbTab & TB_CustomerPartCode.Text
-            insertString += vbTab & TB_Vendor.Text
-            insertString += vbTab & TB_PartNo.Text
-            insertString += vbTab & TB_LotNo.Text
-            insertString += vbTab & TB_Qty.Text
-            insertString += vbTab & mwNo
+            If CB_AutoAdd.Checked = True Then
+                BTN_ListAdd_Click(Nothing, Nothing)
+            End If
 
-            Grid_History.AddItem(insertString)
-            Grid_History.AutoSizeCols()
-
-            Control_Init()
             TB_BarcodeScan.Focus()
         End If
 
@@ -303,6 +297,7 @@ Public Class frm_Material_Transfer
             TB_LotNo.Text = Trim(splitBarcode(2))
             TB_Qty.Text = Format(CInt(Trim(splitBarcode(3))), "#,##0")
             TB_Vendor.Text = Trim(splitBarcode(4))
+            'TB_InDate.Text = Trim(splitBarcode(5)) <-서버에서 일자시간까지 불러오는걸로 변경
             TB_BarcodeScan.Clear()
             splitResult = True
         Catch ex As Exception
@@ -382,6 +377,9 @@ Public Class frm_Material_Transfer
 
         Do While sqlDR.Read
             mwNo = sqlDR("mw_no")
+            TB_InDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
+            TextBox1.Text = sqlDR("split_count")
+            TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
         Loop
         sqlDR.Close()
 
@@ -403,7 +401,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & mw_no & "'"
-        strSQL += ", null"
+            strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & status & "'"
@@ -713,6 +711,258 @@ Public Class frm_Material_Transfer
             SplitContainer1.Panel2.Enabled = False
 
             Thread_LoadingFormEnd()
+        End If
+
+    End Sub
+
+    Private Sub CB_PartsSplit_CheckedChanged(sender As Object, e As EventArgs) Handles CB_PartsSplit.CheckedChanged
+
+        If CB_PartsSplit.Checked = True Then
+            TB_1stQty.Enabled = True
+            TB_2ndQty.Enabled = True
+            TB_1stQty.SelectAll()
+            TB_1stQty.Focus()
+        Else
+            TB_1stQty.Enabled = False
+            TB_2ndQty.Enabled = False
+        End If
+
+    End Sub
+
+    Private Sub TB_Qty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_1stQty.KeyPress, TB_2ndQty.KeyPress
+
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub CB_AutoAdd_CheckedChanged(sender As Object, e As EventArgs) Handles CB_AutoAdd.CheckedChanged
+
+        If CB_AutoAdd.Checked = True Then
+            CB_PartsSplit.Checked = False
+            CB_PartsSplit.Enabled = False
+            BTN_ListAdd.Enabled = False
+        Else
+            CB_PartsSplit.Enabled = True
+            BTN_ListAdd.Enabled = True
+        End If
+
+    End Sub
+
+    Private Sub TB_1stQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_1stQty.KeyDown
+
+        If Not TB_1stQty.Text = String.Empty And e.KeyCode = 13 Then
+            TB_2ndQty.SelectAll()
+            TB_2ndQty.Focus()
+        End If
+
+    End Sub
+
+    Private Sub TB_2ndQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_2ndQty.KeyDown
+
+        If Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
+
+            If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
+                MessageBox.Show(Me,
+                                "출고+보관 수량이 입고 수량보다 큽니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error)
+                Exit Sub
+            End If
+        End If
+
+    End Sub
+
+    Private Sub BTN_ListAdd_Click(sender As Object, e As EventArgs) Handles BTN_ListAdd.Click
+
+        If CB_PartsSplit.Checked = True Then
+            If MessageBox.Show(Me,
+                               "출고, 보관수량을 확인하여 주십시오." & vbCrLf & "분할작업은 즉시 데이터가 저장됩니다." & vbCrLf & "출고목록에 등록하시겠습니까?",
+                               msg_form,
+                               MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+            Dim splitCount As Integer = CInt(TextBox1.Text)
+            Dim newLotNo As String = TB_LotNo.Text & "-S" & (splitCount + 1)
+            '분할내용 서버저장
+            Dim dbResult As Boolean = DB_Write(newLotNo)
+
+            If dbResult = True Then
+                Material_PrintLabel(TB_CustomerPartCode.Text,
+                                    TB_PartNo.Text,
+                                    TB_LotNo.Text,
+                                    TB_2ndQty.Text,
+                                    TB_Vendor.Text,
+                                    1,
+                                    CB_CustomerName.Text,
+                                    Format(CDate(TB_InDate.Text), "yyyy.MM.dd"),
+                                    True,
+                                    newLotNo,
+                                    TB_1stQty.Text)
+            Else
+                Exit Sub
+            End If
+
+            Dim newMwNo As String = Load_New_MW_No()
+
+            '그리드에 임시저장 리스트를 등록한다.
+            Dim insertString As String
+            insertString = Grid_History.Rows.Count
+            insertString += vbTab & TB_CustomerPartCode.Text
+            insertString += vbTab & TB_Vendor.Text
+            insertString += vbTab & TB_PartNo.Text
+            insertString += vbTab & newLotNo
+            insertString += vbTab & TB_1stQty.Text
+            insertString += vbTab & newMwNo
+
+            Grid_History.AddItem(insertString)
+            Grid_History.AutoSizeCols()
+        Else
+            '그리드에 임시저장 리스트를 등록한다.
+            Dim insertString As String
+            insertString = Grid_History.Rows.Count
+            insertString += vbTab & TB_CustomerPartCode.Text
+            insertString += vbTab & TB_Vendor.Text
+            insertString += vbTab & TB_PartNo.Text
+            insertString += vbTab & TB_LotNo.Text
+            insertString += vbTab & TB_Qty.Text
+            insertString += vbTab & mwNo
+
+            Grid_History.AddItem(insertString)
+            Grid_History.AutoSizeCols()
+        End If
+
+        Control_Init()
+        TB_BarcodeScan.Focus()
+
+    End Sub
+
+    Private Function DB_Write(ByVal newLotNo As String) As Boolean
+
+        Thread_LoadingFormStart("Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+            'History에 등록
+            strSQL = "insert into tb_mms_material_history("
+            strSQL += "history_index, category, write_date, writer, customer_code, part_code"
+            strSQL += ", part_vendor, part_no, part_lot_no, history_qty, split_1stqty, split_2ndqty, org_in_date"
+            strSQL += ") values ("
+            strSQL += "f_mms_material_history_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "')"
+            strSQL += ", '자재분할'"
+            strSQL += ", '" & writeDate & "'"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_CustomerPartCode.Text & "'"
+            strSQL += ", '" & TB_Vendor.Text & "'"
+            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & TB_LotNo.Text & "'"
+            strSQL += ", " & CDbl(TB_Qty.Text) & ""
+            strSQL += ", " & CDbl(TB_1stQty.Text) & ""
+            strSQL += ", " & CDbl(TB_2ndQty.Text) & ""
+            strSQL += ", '" & TB_InDate.Text & "'"
+            strSQL += ");"
+            '입고등록
+            strSQL += "insert into tb_mms_material_warehousing("
+            strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor"
+            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id"
+            strSQL += ") values ("
+            strSQL += "f_mms_new_mw_no(f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'))"
+            strSQL += ", f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX')"
+            strSQL += ", 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_CustomerPartCode.Text & "'"
+            strSQL += ", '" & TB_Vendor.Text & "'"
+            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & newLotNo & "'"
+            strSQL += ", " & CDbl(TB_1stQty.Text) & ""
+            strSQL += ", '" & TB_InDate.Text & "'"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ");"
+            '기존자재수량에 현재 분할된 자재수량을 차감
+            strSQL += "update tb_mms_material_warehousing set part_qty = " & CDbl(TB_Qty.Text) - CDbl(TB_1stQty.Text) & ""
+            strSQL += ", split_count = " & CInt(TextBox1.Text) + 1 & ""
+            strSQL += " where mw_no = '" & mwNo & "';"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            Thread_LoadingFormEnd()
+            MessageBox.Show(frm_Main,
+                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1)
+            Return False
+        Finally
+
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return True
+
+    End Function
+
+    Private Function Load_New_MW_No() As String
+
+        Dim newMwNo As String = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_material_transfer("
+        strSQL += "1"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", '" & TB_CustomerPartCode.Text & "'"
+        strSQL += ", '" & TB_LotNo.Text & "-S" & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            newMwNo = sqlDR("mw_no")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return newMwNo
+
+    End Function
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+
+        If RadioButton2.Checked = True Then
+            CB_PartsSplit.Checked = False
+            CB_PartsSplit.Enabled = False
+        Else
+            CB_PartsSplit.Enabled = True
         End If
 
     End Sub

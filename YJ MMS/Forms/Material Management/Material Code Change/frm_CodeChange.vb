@@ -212,7 +212,10 @@ Public Class frm_CodeChange
                                     TB_Vendor.Text,
                                     1,
                                     CB_CustomerName.Text,
-                                    Format(CDate(TextBox1.Text), "yyyy.MM.dd"))
+                                    Format(CDate(TextBox1.Text), "yyyy.MM.dd"),
+                                    False,
+                                    String.Empty,
+                                    0)
                 MessageBox.Show("저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
                 Me.Dispose()
             End If
@@ -263,8 +266,8 @@ Public Class frm_CodeChange
             strSQL += ", 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'"
             strSQL += ", '" & TB_CustomerCode.Text & "'"
             strSQL += ", '" & TB_AfterItemCode.Text & "'"
-            strSQL += ", '" & TB_PartNo.Text & "'"
             strSQL += ", '" & TB_Vendor.Text & "'"
+            strSQL += ", '" & TB_PartNo.Text & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ", '" & TextBox1.Text & "'"

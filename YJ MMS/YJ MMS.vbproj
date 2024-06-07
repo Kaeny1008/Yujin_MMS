@@ -332,6 +332,12 @@
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Process\frm_Assy_Label_Print.Designer.vb">
+      <DependentUpon>frm_Assy_Label_Print.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\frm_Assy_Label_Print.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.Designer.vb">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </Compile>
@@ -698,6 +704,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\frm_Assy_Label_Print.resx">
+      <DependentUpon>frm_Assy_Label_Print.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_Register.resx">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>

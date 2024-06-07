@@ -147,7 +147,8 @@ Public Class frm_MaterialCode_Change
                 sqlDR("part_lot_no") & vbTab &
                 Format(sqlDR("history_qty"), "#,##0") & vbTab &
                 sqlDR("change_part_code") & vbTab &
-                sqlDR("change_reason")
+                sqlDR("change_reason") & vbTab &
+                Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
 
             GridWriteText(insertString, Me, Grid_History, Color.Black)
         Loop
@@ -185,7 +186,10 @@ Public Class frm_MaterialCode_Change
                             Grid_History(selRow, 6),
                             1,
                             CB_CustomerName.Text,
-                            Format(CDate(Grid_History(selRow, 12)), "yyyy.MM.dd"))
+                            Format(CDate(Grid_History(selRow, 12)), "yyyy.MM.dd"),
+                            False,
+                            String.Empty,
+                            0)
 
     End Sub
 End Class

@@ -31,6 +31,10 @@ Partial Class frm_Material_Transfer
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_TNList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.RadioButton5 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.DateTimePicker3 = New System.Windows.Forms.DateTimePicker()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
@@ -40,12 +44,22 @@ Partial Class frm_Material_Transfer
         Me.TB_TN_No = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.TB_2ndQty = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.TB_1stQty = New System.Windows.Forms.TextBox()
+        Me.CB_PartsSplit = New System.Windows.Forms.CheckBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.CB_AutoAdd = New System.Windows.Forms.CheckBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.BTN_Save = New System.Windows.Forms.Button()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.TB_InDate = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.TB_Vendor = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -62,10 +76,8 @@ Partial Class frm_Material_Transfer
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton4 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton5 = New System.Windows.Forms.RadioButton()
+        Me.BTN_ListAdd = New System.Windows.Forms.Button()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -76,6 +88,7 @@ Partial Class frm_Material_Transfer
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
@@ -173,6 +186,52 @@ Partial Class frm_Material_Transfer
         Me.Panel4.Size = New System.Drawing.Size(421, 75)
         Me.Panel4.TabIndex = 12
         '
+        'RadioButton5
+        '
+        Me.RadioButton5.AutoSize = True
+        Me.RadioButton5.Checked = True
+        Me.RadioButton5.Location = New System.Drawing.Point(245, 43)
+        Me.RadioButton5.Name = "RadioButton5"
+        Me.RadioButton5.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton5.TabIndex = 46
+        Me.RadioButton5.TabStop = True
+        Me.RadioButton5.Text = "전체"
+        Me.RadioButton5.UseVisualStyleBackColor = True
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(192, 43)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton3.TabIndex = 45
+        Me.RadioButton3.Text = "입고"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton4
+        '
+        Me.RadioButton4.AutoSize = True
+        Me.RadioButton4.Location = New System.Drawing.Point(139, 43)
+        Me.RadioButton4.Name = "RadioButton4"
+        Me.RadioButton4.Size = New System.Drawing.Size(47, 16)
+        Me.RadioButton4.TabIndex = 44
+        Me.RadioButton4.Text = "출고"
+        Me.RadioButton4.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.RoyalBlue
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(9, 41)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(127, 21)
+        Me.Label4.TabIndex = 43
+        Me.Label4.Text = "구분"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'DateTimePicker3
         '
         Me.DateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
@@ -218,12 +277,12 @@ Partial Class frm_Material_Transfer
         '
         Me.Grid_History.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_History.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_History.Location = New System.Drawing.Point(0, 311)
+        Me.Grid_History.Location = New System.Drawing.Point(0, 416)
         Me.Grid_History.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(839, 437)
+        Me.Grid_History.Size = New System.Drawing.Size(839, 332)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 10
         '
@@ -233,7 +292,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.Controls.Add(Me.TB_TN_No)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(0, 255)
+        Me.Panel2.Location = New System.Drawing.Point(0, 360)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(839, 56)
         Me.Panel2.TabIndex = 11
@@ -267,6 +326,8 @@ Partial Class frm_Material_Transfer
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.Panel6)
+        Me.Panel1.Controls.Add(Me.Label15)
         Me.Panel1.Controls.Add(Me.Panel5)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Controls.Add(Me.BTN_Save)
@@ -280,17 +341,102 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(839, 255)
+        Me.Panel1.Size = New System.Drawing.Size(839, 360)
         Me.Panel1.TabIndex = 0
+        '
+        'Panel6
+        '
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel6.Controls.Add(Me.TextBox1)
+        Me.Panel6.Controls.Add(Me.BTN_ListAdd)
+        Me.Panel6.Controls.Add(Me.Label17)
+        Me.Panel6.Controls.Add(Me.TB_2ndQty)
+        Me.Panel6.Controls.Add(Me.Label16)
+        Me.Panel6.Controls.Add(Me.TB_1stQty)
+        Me.Panel6.Controls.Add(Me.CB_PartsSplit)
+        Me.Panel6.Location = New System.Drawing.Point(175, 278)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(620, 78)
+        Me.Panel6.TabIndex = 38
+        '
+        'Label17
+        '
+        Me.Label17.Location = New System.Drawing.Point(285, 44)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(124, 16)
+        Me.Label17.TabIndex = 41
+        Me.Label17.Text = "2번 자재 수량(보관) :"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'TB_2ndQty
+        '
+        Me.TB_2ndQty.Enabled = False
+        Me.TB_2ndQty.Location = New System.Drawing.Point(411, 42)
+        Me.TB_2ndQty.Name = "TB_2ndQty"
+        Me.TB_2ndQty.Size = New System.Drawing.Size(142, 21)
+        Me.TB_2ndQty.TabIndex = 40
+        '
+        'Label16
+        '
+        Me.Label16.Location = New System.Drawing.Point(11, 44)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(124, 16)
+        Me.Label16.TabIndex = 39
+        Me.Label16.Text = "1번 자재 수량(출고) :"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'TB_1stQty
+        '
+        Me.TB_1stQty.Enabled = False
+        Me.TB_1stQty.Location = New System.Drawing.Point(137, 42)
+        Me.TB_1stQty.Name = "TB_1stQty"
+        Me.TB_1stQty.Size = New System.Drawing.Size(142, 21)
+        Me.TB_1stQty.TabIndex = 38
+        '
+        'CB_PartsSplit
+        '
+        Me.CB_PartsSplit.AutoSize = True
+        Me.CB_PartsSplit.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CB_PartsSplit.Location = New System.Drawing.Point(12, 17)
+        Me.CB_PartsSplit.Name = "CB_PartsSplit"
+        Me.CB_PartsSplit.Size = New System.Drawing.Size(100, 16)
+        Me.CB_PartsSplit.TabIndex = 37
+        Me.CB_PartsSplit.Text = "자재분할 사용"
+        Me.CB_PartsSplit.UseVisualStyleBackColor = False
+        '
+        'Label15
+        '
+        Me.Label15.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label15.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.White
+        Me.Label15.Location = New System.Drawing.Point(10, 278)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(165, 78)
+        Me.Label15.TabIndex = 36
+        Me.Label15.Text = "5. 자재분할 선택"
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.CB_AutoAdd)
         Me.Panel5.Controls.Add(Me.RadioButton2)
         Me.Panel5.Controls.Add(Me.RadioButton1)
         Me.Panel5.Location = New System.Drawing.Point(175, 16)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(620, 25)
         Me.Panel5.TabIndex = 35
+        '
+        'CB_AutoAdd
+        '
+        Me.CB_AutoAdd.AutoSize = True
+        Me.CB_AutoAdd.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CB_AutoAdd.Location = New System.Drawing.Point(119, 4)
+        Me.CB_AutoAdd.Name = "CB_AutoAdd"
+        Me.CB_AutoAdd.Size = New System.Drawing.Size(100, 16)
+        Me.CB_AutoAdd.TabIndex = 38
+        Me.CB_AutoAdd.Text = "자동목록 추가"
+        Me.CB_AutoAdd.UseVisualStyleBackColor = False
         '
         'RadioButton2
         '
@@ -328,10 +474,11 @@ Partial Class frm_Material_Transfer
         '
         'BTN_Save
         '
+        Me.BTN_Save.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(798, 176)
+        Me.BTN_Save.Location = New System.Drawing.Point(735, 290)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(98, 66)
         Me.BTN_Save.TabIndex = 33
@@ -342,6 +489,8 @@ Partial Class frm_Material_Transfer
         'Panel3
         '
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.Label14)
+        Me.Panel3.Controls.Add(Me.TB_InDate)
         Me.Panel3.Controls.Add(Me.Label13)
         Me.Panel3.Controls.Add(Me.TB_Vendor)
         Me.Panel3.Controls.Add(Me.Label11)
@@ -355,8 +504,25 @@ Partial Class frm_Material_Transfer
         Me.Panel3.Location = New System.Drawing.Point(175, 97)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(620, 145)
+        Me.Panel3.Size = New System.Drawing.Size(620, 179)
         Me.Panel3.TabIndex = 32
+        '
+        'Label14
+        '
+        Me.Label14.Location = New System.Drawing.Point(10, 145)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(61, 16)
+        Me.Label14.TabIndex = 11
+        Me.Label14.Text = "입고일자 :"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TB_InDate
+        '
+        Me.TB_InDate.Enabled = False
+        Me.TB_InDate.Location = New System.Drawing.Point(77, 143)
+        Me.TB_InDate.Name = "TB_InDate"
+        Me.TB_InDate.Size = New System.Drawing.Size(529, 21)
+        Me.TB_InDate.TabIndex = 10
         '
         'Label13
         '
@@ -452,7 +618,7 @@ Partial Class frm_Material_Transfer
         Me.Label7.Location = New System.Drawing.Point(10, 97)
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(165, 145)
+        Me.Label7.Size = New System.Drawing.Size(165, 179)
         Me.Label7.TabIndex = 31
         Me.Label7.Text = "4. Scan 결과"
         '
@@ -517,51 +683,22 @@ Partial Class frm_Material_Transfer
         Me.Label5.Text = "2. 사용고객사"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label4
+        'BTN_ListAdd
         '
-        Me.Label4.BackColor = System.Drawing.Color.RoyalBlue
-        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(9, 41)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(127, 21)
-        Me.Label4.TabIndex = 43
-        Me.Label4.Text = "구분"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.BTN_ListAdd.Location = New System.Drawing.Point(559, 3)
+        Me.BTN_ListAdd.Name = "BTN_ListAdd"
+        Me.BTN_ListAdd.Size = New System.Drawing.Size(56, 70)
+        Me.BTN_ListAdd.TabIndex = 42
+        Me.BTN_ListAdd.Text = "목록" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "추가"
+        Me.BTN_ListAdd.UseVisualStyleBackColor = True
         '
-        'RadioButton3
+        'TextBox1
         '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(192, 43)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton3.TabIndex = 45
-        Me.RadioButton3.Text = "입고"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'RadioButton4
-        '
-        Me.RadioButton4.AutoSize = True
-        Me.RadioButton4.Location = New System.Drawing.Point(139, 43)
-        Me.RadioButton4.Name = "RadioButton4"
-        Me.RadioButton4.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton4.TabIndex = 44
-        Me.RadioButton4.Text = "출고"
-        Me.RadioButton4.UseVisualStyleBackColor = True
-        '
-        'RadioButton5
-        '
-        Me.RadioButton5.AutoSize = True
-        Me.RadioButton5.Checked = True
-        Me.RadioButton5.Location = New System.Drawing.Point(245, 43)
-        Me.RadioButton5.Name = "RadioButton5"
-        Me.RadioButton5.Size = New System.Drawing.Size(47, 16)
-        Me.RadioButton5.TabIndex = 46
-        Me.RadioButton5.TabStop = True
-        Me.RadioButton5.Text = "전체"
-        Me.RadioButton5.UseVisualStyleBackColor = True
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(512, 11)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(41, 21)
+        Me.TextBox1.TabIndex = 43
         '
         'frm_Material_Transfer
         '
@@ -586,6 +723,8 @@ Partial Class frm_Material_Transfer
         Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         Me.Panel3.ResumeLayout(False)
@@ -638,4 +777,16 @@ Partial Class frm_Material_Transfer
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton4 As RadioButton
     Friend WithEvents Label4 As Label
+    Friend WithEvents Label14 As Label
+    Friend WithEvents TB_InDate As TextBox
+    Friend WithEvents Label15 As Label
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents CB_PartsSplit As CheckBox
+    Friend WithEvents Label17 As Label
+    Friend WithEvents TB_2ndQty As TextBox
+    Friend WithEvents Label16 As Label
+    Friend WithEvents TB_1stQty As TextBox
+    Friend WithEvents CB_AutoAdd As CheckBox
+    Friend WithEvents BTN_ListAdd As Button
+    Friend WithEvents TextBox1 As TextBox
 End Class

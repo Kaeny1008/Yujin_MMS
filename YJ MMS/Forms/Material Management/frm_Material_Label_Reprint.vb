@@ -166,7 +166,18 @@ Public Class frm_Material_Label_Reprint
                             Grid_History(selRow, 3),
                             1,
                             CB_CustomerName.Text,
-                            Format(CDate(Grid_History(selRow, 1)), "yyyy.MM.dd"))
+                            Format(CDate(Grid_History(selRow, 1)), "yyyy.MM.dd"),
+                            False,
+                            String.Empty,
+                            0)
+
+    End Sub
+
+    Private Sub TB_PartCode_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_PartCode.KeyDown
+
+        If e.KeyCode = 13 And Not Trim(TB_PartCode.Text) = String.Empty Then
+            BTN_Search_Click(Nothing, Nothing)
+        End If
 
     End Sub
 End Class

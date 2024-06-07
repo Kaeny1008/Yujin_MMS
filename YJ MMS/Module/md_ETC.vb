@@ -503,10 +503,10 @@ Module md_ETC
                     TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
-            'File.Delete(Application.StartupPath & "\print.txt")
+            File.Delete(Application.StartupPath & "\print.txt")
             TestPrinter = "Success"
         Catch ex As Exception
-            'File.Delete(Application.StartupPath & "\print.txt")
+            File.Delete(Application.StartupPath & "\print.txt")
             TestPrinter = ex.Message
         End Try
 

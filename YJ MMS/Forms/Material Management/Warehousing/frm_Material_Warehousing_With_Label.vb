@@ -757,7 +757,10 @@ Public Class frm_Material_Warehousing_With_Label
                             TB_Vendor.Text,
                             NumericUpDown1.Value,
                             TB_CustomerName.Text,
-                            Format(Now, "yyyy.MM.dd"))
+                            Format(Now, "yyyy.MM.dd"),
+                            False,
+                            String.Empty,
+                            0)
 
         Load_MaterialList_Detail(TB_DocumentNo.Text)
 
@@ -1014,8 +1017,10 @@ Public Class frm_Material_Warehousing_With_Label
                             Grid_PartList(selRow, 7),
                             1,
                             TB_CustomerName.Text,
-                            Format(Now, "yyyy.MM.dd")
-                            )
+                            Format(Now, "yyyy.MM.dd"),
+                            False,
+                            String.Empty,
+                            0)
 
     End Sub
 
