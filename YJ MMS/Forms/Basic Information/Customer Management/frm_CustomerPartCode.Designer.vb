@@ -25,12 +25,8 @@ Partial Class frm_CustomerPartCode
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_CustomerPartCode))
         Me.ts_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_NewMultiPartsCode = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TB_Specification = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -42,12 +38,17 @@ Partial Class frm_CustomerPartCode
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Grid_PartList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.cms_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_NewPartsCode2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.btn_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.COL_VIEW = New System.Windows.Forms.ToolStripSeparator()
-        Me.btn_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_CodeMapping = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_Part_Update = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_NewMultiPartsCode = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_NewPartsCode2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btn_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ts_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,56 +58,22 @@ Partial Class frm_CustomerPartCode
         'ts_MainBar
         '
         Me.ts_MainBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ts_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.ToolStripSeparator1, Me.BTN_NewMultiPartsCode, Me.ToolStripSeparator2, Me.BTN_Save, Me.Form_CLose})
+        Me.ts_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.ToolStripSeparator1, Me.BTN_Part_Update, Me.BTN_NewMultiPartsCode, Me.ToolStripSeparator2, Me.BTN_Save, Me.Form_CLose})
         Me.ts_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.ts_MainBar.Name = "ts_MainBar"
         Me.ts_MainBar.Size = New System.Drawing.Size(1264, 25)
         Me.ts_MainBar.TabIndex = 4
         Me.ts_MainBar.Text = "ToolStrip1"
         '
-        'BTN_Search
-        '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
-        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'BTN_NewMultiPartsCode
-        '
-        Me.BTN_NewMultiPartsCode.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
-        Me.BTN_NewMultiPartsCode.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_NewMultiPartsCode.Name = "BTN_NewMultiPartsCode"
-        Me.BTN_NewMultiPartsCode.Size = New System.Drawing.Size(75, 22)
-        Me.BTN_NewMultiPartsCode.Text = "다중등록"
-        '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
-        '
-        'BTN_Save
-        '
-        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
-        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Save.Text = "저장"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
         '
         'Panel1
         '
@@ -237,6 +204,65 @@ Partial Class frm_CustomerPartCode
         Me.cms_Menu.Name = "GRID_Menu"
         Me.cms_Menu.Size = New System.Drawing.Size(159, 104)
         '
+        'COL_VIEW
+        '
+        Me.COL_VIEW.Name = "COL_VIEW"
+        Me.COL_VIEW.Size = New System.Drawing.Size(155, 6)
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(155, 6)
+        '
+        'BTN_CodeMapping
+        '
+        Me.BTN_CodeMapping.Name = "BTN_CodeMapping"
+        Me.BTN_CodeMapping.Size = New System.Drawing.Size(158, 22)
+        Me.BTN_CodeMapping.Text = "Code Mapping"
+        '
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'BTN_Part_Update
+        '
+        Me.BTN_Part_Update.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
+        Me.BTN_Part_Update.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Part_Update.Name = "BTN_Part_Update"
+        Me.BTN_Part_Update.Size = New System.Drawing.Size(103, 22)
+        Me.BTN_Part_Update.Text = "자료 업데이트"
+        '
+        'BTN_NewMultiPartsCode
+        '
+        Me.BTN_NewMultiPartsCode.Enabled = False
+        Me.BTN_NewMultiPartsCode.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
+        Me.BTN_NewMultiPartsCode.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_NewMultiPartsCode.Name = "BTN_NewMultiPartsCode"
+        Me.BTN_NewMultiPartsCode.Size = New System.Drawing.Size(75, 22)
+        Me.BTN_NewMultiPartsCode.Text = "다중등록"
+        '
+        'BTN_Save
+        '
+        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Save.Name = "BTN_Save"
+        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Save.Text = "저장"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
         'BTN_NewPartsCode2
         '
         Me.BTN_NewPartsCode2.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
@@ -251,28 +277,12 @@ Partial Class frm_CustomerPartCode
         Me.btn_RowDelete.Size = New System.Drawing.Size(158, 22)
         Me.btn_RowDelete.Text = "등록 삭제(취소)"
         '
-        'COL_VIEW
-        '
-        Me.COL_VIEW.Name = "COL_VIEW"
-        Me.COL_VIEW.Size = New System.Drawing.Size(155, 6)
-        '
         'btn_Save2
         '
         Me.btn_Save2.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.btn_Save2.Name = "btn_Save2"
         Me.btn_Save2.Size = New System.Drawing.Size(158, 22)
         Me.btn_Save2.Text = "저장"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(155, 6)
-        '
-        'BTN_CodeMapping
-        '
-        Me.BTN_CodeMapping.Name = "BTN_CodeMapping"
-        Me.BTN_CodeMapping.Size = New System.Drawing.Size(158, 22)
-        Me.BTN_CodeMapping.Text = "Code Mapping"
         '
         'frm_CustomerPartCode
         '
@@ -318,4 +328,5 @@ Partial Class frm_CustomerPartCode
     Friend WithEvents Label5 As Label
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents BTN_CodeMapping As ToolStripMenuItem
+    Friend WithEvents BTN_Part_Update As ToolStripButton
 End Class

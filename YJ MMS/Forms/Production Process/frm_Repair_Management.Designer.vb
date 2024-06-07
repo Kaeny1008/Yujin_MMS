@@ -124,7 +124,7 @@ Partial Class frm_Repair_Management
         '
         Me.CB_Process.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_Process.FormattingEnabled = True
-        Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering"})
+        Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering", "출하검사"})
         Me.CB_Process.Location = New System.Drawing.Point(109, 35)
         Me.CB_Process.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_Process.Name = "CB_Process"

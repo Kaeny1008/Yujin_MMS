@@ -26,26 +26,30 @@ Partial Class frm_ExcelModify
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_ExcelModify))
         Me.TB_File_Path = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Grid_ExcelUpper = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.CB_SheetName = New System.Windows.Forms.ComboBox()
         Me.BTN_Start = New System.Windows.Forms.Button()
         Me.CMS_ColumnMenu1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Ref1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_PartNo = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Type = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_RowSelect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_StartRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_ColumnMenu2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Ref2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_X = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Y = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_A = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_TB = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_Type = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Grid_ExcelLower = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.ToolStripTextBox1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_LastRow = New System.Windows.Forms.ToolStripMenuItem()
+        CType(Me.Grid_ExcelUpper, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_ColumnMenu1.SuspendLayout()
         Me.CMS_RowMenu.SuspendLayout()
         Me.CMS_ColumnMenu2.SuspendLayout()
+        CType(Me.Grid_ExcelLower, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TB_File_Path
@@ -53,7 +57,7 @@ Partial Class frm_ExcelModify
         Me.TB_File_Path.BackColor = System.Drawing.SystemColors.Window
         Me.TB_File_Path.Enabled = False
         Me.TB_File_Path.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_File_Path.Location = New System.Drawing.Point(182, 10)
+        Me.TB_File_Path.Location = New System.Drawing.Point(182, 33)
         Me.TB_File_Path.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_File_Path.Name = "TB_File_Path"
         Me.TB_File_Path.Size = New System.Drawing.Size(701, 21)
@@ -65,7 +69,7 @@ Partial Class frm_ExcelModify
         Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(12, 10)
+        Me.Label2.Location = New System.Drawing.Point(12, 33)
         Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(170, 21)
@@ -73,16 +77,16 @@ Partial Class frm_ExcelModify
         Me.Label2.Text = "File Path"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Grid_Excel
+        'Grid_ExcelUpper
         '
-        Me.Grid_Excel.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_Excel.Location = New System.Drawing.Point(12, 63)
-        Me.Grid_Excel.Name = "Grid_Excel"
-        Me.Grid_Excel.Rows.Count = 2
-        Me.Grid_Excel.Rows.DefaultSize = 20
-        Me.Grid_Excel.Size = New System.Drawing.Size(871, 261)
-        Me.Grid_Excel.StyleInfo = resources.GetString("Grid_Excel.StyleInfo")
-        Me.Grid_Excel.TabIndex = 9
+        Me.Grid_ExcelUpper.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_ExcelUpper.Location = New System.Drawing.Point(12, 86)
+        Me.Grid_ExcelUpper.Name = "Grid_ExcelUpper"
+        Me.Grid_ExcelUpper.Rows.Count = 2
+        Me.Grid_ExcelUpper.Rows.DefaultSize = 20
+        Me.Grid_ExcelUpper.Size = New System.Drawing.Size(871, 261)
+        Me.Grid_ExcelUpper.StyleInfo = resources.GetString("Grid_ExcelUpper.StyleInfo")
+        Me.Grid_ExcelUpper.TabIndex = 9
         '
         'Label6
         '
@@ -90,7 +94,7 @@ Partial Class frm_ExcelModify
         Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(12, 33)
+        Me.Label6.Location = New System.Drawing.Point(12, 56)
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(170, 21)
@@ -102,7 +106,7 @@ Partial Class frm_ExcelModify
         '
         Me.CB_SheetName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_SheetName.FormattingEnabled = True
-        Me.CB_SheetName.Location = New System.Drawing.Point(182, 33)
+        Me.CB_SheetName.Location = New System.Drawing.Point(182, 56)
         Me.CB_SheetName.Name = "CB_SheetName"
         Me.CB_SheetName.Size = New System.Drawing.Size(701, 20)
         Me.CB_SheetName.TabIndex = 11
@@ -112,7 +116,7 @@ Partial Class frm_ExcelModify
         Me.BTN_Start.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Start.Image = CType(resources.GetObject("BTN_Start.Image"), System.Drawing.Image)
         Me.BTN_Start.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Start.Location = New System.Drawing.Point(808, 328)
+        Me.BTN_Start.Location = New System.Drawing.Point(808, 628)
         Me.BTN_Start.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.BTN_Start.Name = "BTN_Start"
         Me.BTN_Start.Size = New System.Drawing.Size(75, 51)
@@ -125,7 +129,7 @@ Partial Class frm_ExcelModify
         '
         Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref1, Me.BTN_PartNo, Me.BTN_Type})
         Me.CMS_ColumnMenu1.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 92)
+        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 70)
         '
         'BTN_Ref1
         '
@@ -139,17 +143,23 @@ Partial Class frm_ExcelModify
         Me.BTN_PartNo.Size = New System.Drawing.Size(187, 22)
         Me.BTN_PartNo.Text = "Part No.( Part Code )"
         '
+        'BTN_Type
+        '
+        Me.BTN_Type.Name = "BTN_Type"
+        Me.BTN_Type.Size = New System.Drawing.Size(187, 22)
+        Me.BTN_Type.Text = "Material Type"
+        '
         'CMS_RowMenu
         '
-        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowSelect})
+        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_StartRow, Me.ToolStripTextBox1, Me.BTN_LastRow})
         Me.CMS_RowMenu.Name = "CMS_Menu"
-        Me.CMS_RowMenu.Size = New System.Drawing.Size(111, 26)
+        Me.CMS_RowMenu.Size = New System.Drawing.Size(181, 76)
         '
-        'BTN_RowSelect
+        'BTN_StartRow
         '
-        Me.BTN_RowSelect.Name = "BTN_RowSelect"
-        Me.BTN_RowSelect.Size = New System.Drawing.Size(110, 22)
-        Me.BTN_RowSelect.Text = "시작행"
+        Me.BTN_StartRow.Name = "BTN_StartRow"
+        Me.BTN_StartRow.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_StartRow.Text = "시작행"
         '
         'CMS_ColumnMenu2
         '
@@ -187,22 +197,39 @@ Partial Class frm_ExcelModify
         Me.BTN_TB.Size = New System.Drawing.Size(153, 22)
         Me.BTN_TB.Text = "Top / Bottom"
         '
-        'BTN_Type
+        'Grid_ExcelLower
         '
-        Me.BTN_Type.Name = "BTN_Type"
-        Me.BTN_Type.Size = New System.Drawing.Size(187, 22)
-        Me.BTN_Type.Text = "Material Type"
+        Me.Grid_ExcelLower.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_ExcelLower.Location = New System.Drawing.Point(12, 353)
+        Me.Grid_ExcelLower.Name = "Grid_ExcelLower"
+        Me.Grid_ExcelLower.Rows.Count = 2
+        Me.Grid_ExcelLower.Rows.DefaultSize = 20
+        Me.Grid_ExcelLower.Size = New System.Drawing.Size(871, 261)
+        Me.Grid_ExcelLower.StyleInfo = resources.GetString("Grid_ExcelLower.StyleInfo")
+        Me.Grid_ExcelLower.TabIndex = 35
+        '
+        'ToolStripTextBox1
+        '
+        Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
+        Me.ToolStripTextBox1.Size = New System.Drawing.Size(177, 6)
+        '
+        'BTN_LastRow
+        '
+        Me.BTN_LastRow.Name = "BTN_LastRow"
+        Me.BTN_LastRow.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_LastRow.Text = "마지막행"
         '
         'frm_ExcelModify
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(899, 394)
+        Me.ClientSize = New System.Drawing.Size(899, 689)
+        Me.Controls.Add(Me.Grid_ExcelLower)
         Me.Controls.Add(Me.BTN_Start)
         Me.Controls.Add(Me.CB_SheetName)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.Grid_Excel)
+        Me.Controls.Add(Me.Grid_ExcelUpper)
         Me.Controls.Add(Me.TB_File_Path)
         Me.Controls.Add(Me.Label2)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -211,17 +238,18 @@ Partial Class frm_ExcelModify
         Me.Name = "frm_ExcelModify"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "자료등록"
-        CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Grid_ExcelUpper, System.ComponentModel.ISupportInitialize).EndInit()
         Me.CMS_ColumnMenu1.ResumeLayout(False)
         Me.CMS_RowMenu.ResumeLayout(False)
         Me.CMS_ColumnMenu2.ResumeLayout(False)
+        CType(Me.Grid_ExcelLower, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
     Friend WithEvents TB_File_Path As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Grid_Excel As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Grid_ExcelUpper As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label6 As Label
     Friend WithEvents CB_SheetName As ComboBox
     Friend WithEvents BTN_Start As Button
@@ -229,7 +257,7 @@ Partial Class frm_ExcelModify
     Friend WithEvents BTN_Ref1 As ToolStripMenuItem
     Friend WithEvents BTN_PartNo As ToolStripMenuItem
     Friend WithEvents CMS_RowMenu As ContextMenuStrip
-    Friend WithEvents BTN_RowSelect As ToolStripMenuItem
+    Friend WithEvents BTN_StartRow As ToolStripMenuItem
     Friend WithEvents CMS_ColumnMenu2 As ContextMenuStrip
     Friend WithEvents BTN_Ref2 As ToolStripMenuItem
     Friend WithEvents BTN_X As ToolStripMenuItem
@@ -237,4 +265,7 @@ Partial Class frm_ExcelModify
     Friend WithEvents BTN_A As ToolStripMenuItem
     Friend WithEvents BTN_TB As ToolStripMenuItem
     Friend WithEvents BTN_Type As ToolStripMenuItem
+    Friend WithEvents Grid_ExcelLower As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents ToolStripTextBox1 As ToolStripSeparator
+    Friend WithEvents BTN_LastRow As ToolStripMenuItem
 End Class

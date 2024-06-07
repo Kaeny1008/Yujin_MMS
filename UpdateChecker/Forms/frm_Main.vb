@@ -153,7 +153,7 @@ Public Class frm_Main
             Else
                 MsgBox("프로그램이 종료되고 업데이트가 실행 됩니다.", MsgBoxStyle.Information, form_msgbox_string)
                 Try
-                    Dim myProgram As String = "ERP Update, YJ Login, Repair System"
+                    Dim myProgram As String = "ERP Update, YJ Login, Repair System, YJ MMS, YJ MMS MMPS"
                     Dim myProgram2() As String = Split(myProgram, ", ")
                     For i = 0 To UBound(myProgram2)
                         Dim pcProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName(myProgram2(i))

@@ -438,10 +438,10 @@ Public Class frm_Wave_Selective_Production_Backup
             Exit Sub
         End If
 
-        frm_WS_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
-        frm_WS_Reinspection.TB_Inspector.Text = TB_Inspector.Text
-        If Not frm_WS_Reinspection.Visible Then frm_WS_Reinspection.Show()
-        frm_WS_Reinspection.Focus()
+        frm_OQC_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_OQC_Reinspection.TB_Inspector.Text = TB_Inspector.Text
+        If Not frm_OQC_Reinspection.Visible Then frm_OQC_Reinspection.Show()
+        frm_OQC_Reinspection.Focus()
 
     End Sub
 End Class

@@ -2,7 +2,7 @@
 Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-Public Class frm_SMD_Fault_Register
+Public Class frm_OQC_Falult_Register
     Private Sub frm_SMD_Fault_Register_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.TopMost = True
@@ -32,10 +32,6 @@ Public Class frm_SMD_Fault_Register
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = True
             .ShowCursor = True
-            '.ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
-            '.Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
-            '.Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            '.SelectionMode = SelectionModeEnum.Default
             .Cols(1).Visible = False
             .Cols(3).ComboList = "공정불량|원자재불량"
             .Cols(5).DataType = GetType(Integer)
@@ -62,13 +58,11 @@ Public Class frm_SMD_Fault_Register
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_mms_smd_production_end(4"
-        strSQL += ", null"
-        strSQL += ", null"
+        Dim strSQL As String = "call sp_mms_oqc(5"
         strSQL += ", '" & LB_OrderIndex.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", '" & LB_WorkSide.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -82,7 +76,7 @@ Public Class frm_SMD_Fault_Register
                 sqlDR("defect_name") & vbTab &
                 sqlDR("board_array") & vbTab &
                 sqlDR("ref") & vbTab &
-                sqlDR("smd_inspector") & vbTab &
+                sqlDR("oqc_inspector") & vbTab &
                 sqlDR("defect_note")
 
             GridWriteText(insertString, Me, Grid_Fault, Color.Black)
@@ -136,73 +130,9 @@ Public Class frm_SMD_Fault_Register
             End If
         Next
 
-        frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
+        'frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
 
         Me.Dispose()
-
-    End Sub
-
-    Private Sub PrintLabel(ByVal writeDate As String, ByVal rowNum As Integer)
-
-        If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
-
-        Dim swFile As StreamWriter =
-            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
-
-        swFile.WriteLine("^XZ~JA^XZ")
-        swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
-        swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
-        swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
-
-        swFile.WriteLine("^FO0008,0162^GB0694,0302,2,B,1^FS")
-
-        swFile.WriteLine("^FO0008,0200^GB0694,0000,2,B,0^FS")
-        swFile.WriteLine("^FO0008,0238^GB0694,0000,2,B,0^FS")
-        swFile.WriteLine("^FO0008,0276^GB0694,0000,2,B,0^FS")
-
-        swFile.WriteLine("^FO0162,0162^GB0000,0302,2,B,0^FS")
-        swFile.WriteLine("^FO0352,0200^GB0000,0076,2,B,0^FS")
-        swFile.WriteLine("^FO0510,0200^GB0000,0076,2,B,0^FS")
-
-        swFile.WriteLine("^FO0380,0008^A1N,70,50^FD불량현황^FS")
-        swFile.WriteLine("^FO0172,0080^A0,40,20^FDItemCode : ^FS")
-        swFile.WriteLine("^FO0264,0080^A0,40,20^FD" & LB_ItemCode.Text & "^FS")
-        swFile.WriteLine("^FO0172,0120^A0,40,20^FDItemName : ^FS")
-        swFile.WriteLine("^FO0272,0120^A0,40,20^FD" & LB_ItemName.Text & "^FS")
-
-        swFile.WriteLine("^FO0016,0170^A0,30,20^FDPO No.^FS")
-        swFile.WriteLine("^FO0170,0170^A0,30,20^FD" & LB_OrderIndex.Text & "^FS")
-
-        swFile.WriteLine("^FO0016,0208^A0,30,20^FDSMD Line^FS")
-        swFile.WriteLine("^FO0170,0208^A0,30,20^FD" & LB_SMDLine.Text & "^FS")
-        swFile.WriteLine("^FO0360,0208^A0,30,20^FDTop / Bottom^FS")
-        swFile.WriteLine("^FO0518,0208^A0,30,20^FD" & LB_WorkSide.Text & "^FS")
-
-        swFile.WriteLine("^FO0016,0246^A0,30,20^FDSMD Date^FS")
-        swFile.WriteLine("^FO0170,0246^A0,30,18^FD" & writeDate & "^FS")
-        swFile.WriteLine("^FO0016,0284^A1N,30,20^FD불량내용^FS")
-        swFile.WriteLine("^FO0170,0284^A1N,30,18^FD구분 : " & Grid_Fault(rowNum, 3) & "^FS")
-        swFile.WriteLine("^FO0170,0324^A1N,30,20^FD불량명 : " & Grid_Fault(rowNum, 4) & "^FS")
-        swFile.WriteLine("^FO0170,0364^A1N,30,20^FDArray : " & Grid_Fault(rowNum, 5) & "^FS")
-        swFile.WriteLine("^FO0170,0404^A1N,30,20^FDRef : " & Grid_Fault(rowNum, 6) & "^FS")
-
-        swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & LB_OrderIndex.Text & "!" & Grid_Fault(rowNum, 1) & "^FS")
-
-        swFile.WriteLine("^PQ" & 1 & "^FS") 'PQ : 발행수량
-        swFile.WriteLine("^XZ")
-        swFile.Close()
-
-        Dim printResult As String = LabelPrint()
-
-        If Not printResult = "Success" Then
-            MessageBox.Show(frm_Main,
-                            "라벨 발행에 실패 하였습니다." & vbCrLf &
-                            printResult,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
-        End If
 
     End Sub
 
@@ -218,9 +148,9 @@ Public Class frm_SMD_Fault_Register
 
         Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
         Try
-            strSQL = "insert into tb_mms_smd_defect("
+            strSQL = "insert into tb_mms_oqc_defect("
             strSQL += "defect_index, order_index, defect_classification, defect_name, board_array, ref, defect_note"
-            strSQL += ", write_date, write_id, history_index, smd_inspector, board_no"
+            strSQL += ", write_date, write_id, history_index, oqc_inspector, board_no"
             strSQL += ") values ("
             strSQL += "'" & Grid_Fault(rowNum, 1) & "'"
             strSQL += ",'" & LB_OrderIndex.Text & "'"
@@ -235,16 +165,6 @@ Public Class frm_SMD_Fault_Register
             strSQL += ",'" & Grid_Fault(rowNum, 7) & "'"
             strSQL += ",'" & Grid_Fault(rowNum, 2) & "'"
             strSQL += ");"
-
-            strSQL += "update tb_mms_smd_production_history set "
-            strSQL += " fault_quantity = fault_quantity + 1"
-            strSQL += " where history_index = '" & LB_HistoryIndex.Text & "';"
-
-            If Grid_Fault.Rows.Count = 2 Then
-                strSQL += "update tb_mms_smd_production_history set "
-                strSQL += " smd_inspecter = '" & frm_SMD_Production_End.TB_Inspector.Text & "'"
-                strSQL += " where history_index = '" & LB_HistoryIndex.Text & "';"
-            End If
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
@@ -268,9 +188,6 @@ Public Class frm_SMD_Fault_Register
 
         DBClose()
 
-        '현재는 사용하지 않음
-        'PrintLabel(writeDate, rowNum)
-
         Return True
 
     End Function
@@ -284,7 +201,7 @@ Public Class frm_SMD_Fault_Register
                            vbTab &
                            vbTab &
                            vbTab &
-                           frm_SMD_Production_End.TB_Inspector.Text)
+                           frm_OQC_Register.TB_Inspector.Text)
         Grid_Fault.AutoSizeCols()
 
     End Sub

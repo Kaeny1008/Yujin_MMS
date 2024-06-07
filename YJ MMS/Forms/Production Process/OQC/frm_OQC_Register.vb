@@ -75,14 +75,14 @@ Public Class frm_OQC_Register
 
     Private Sub Control_Init()
 
-        TB_PONo.Text = String.Empty
+        TB_OrderIndex.Text = String.Empty
         TB_LastProcess.Text = String.Empty
         TB_ItemCode.Text = String.Empty
         TB_ItemName.Text = String.Empty
         TB_ItemSpec.Text = String.Empty
         TB_POQty.Text = String.Empty
         TB_ModelCode.Text = String.Empty
-        TextBox1.Text = String.Empty
+        TB_OQC_No.Text = String.Empty
 
     End Sub
 
@@ -95,7 +95,7 @@ Public Class frm_OQC_Register
 
             Try
                 Dim splitBarcode() As String = TB_MagazineBarcode.Text.Split("!")
-                TB_PONo.Text = splitBarcode(0)
+                TB_OrderIndex.Text = splitBarcode(0)
                 TB_LastProcess.Text = splitBarcode(2)
             Catch ex As Exception
                 MessageBox.Show(Me,
@@ -141,7 +141,7 @@ Public Class frm_OQC_Register
             '출하검사 이력을 불러온다.
             Load_OQCList()
 
-            If CDbl(TB_POQty.Text) = CDbl(TB_InspectQty.Text) Then
+            If CDbl(TB_POQty.Text) = CDbl(TB_InspectedQty.Text) Then
                 MessageBox.Show(Me, "이미 검사완료된 주문번호 입니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
                 Control_Init()
@@ -170,12 +170,12 @@ Public Class frm_OQC_Register
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
 
-        TB_InspectQty.Text = 0
+        TB_InspectedQty.Text = 0
 
         DBConnect()
 
         Dim strSQL As String = "call sp_mms_oqc(2"
-        strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -195,7 +195,7 @@ Public Class frm_OQC_Register
 
             Grid_History.AddItem(insertString)
 
-            TB_InspectQty.Text = Format(CDbl(TB_InspectQty.Text) + sqlDR("box_qty"), "#,##0")
+            TB_InspectedQty.Text = Format(CDbl(TB_InspectedQty.Text) + sqlDR("box_qty"), "#,##0")
         Loop
         sqlDR.Close()
 
@@ -215,7 +215,7 @@ Public Class frm_OQC_Register
         DBConnect()
 
         Dim strSQL As String = "call sp_mms_oqc(0"
-        strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -230,6 +230,11 @@ Public Class frm_OQC_Register
             TB_ItemSpec.Text = sqlDR("item_spec")
             TB_POQty.Text = sqlDR("modify_order_quantity")
             TB_ModelCode.Text = sqlDR("model_code")
+            If Not sqlDR("barcode_string").ToString.Equals("") Then
+                RB_UseSerial.Checked = True
+            Else
+                RB_NotUseSerial.Checked = True
+            End If
         Loop
         sqlDR.Close()
 
@@ -279,6 +284,17 @@ Public Class frm_OQC_Register
             If BTN_Save.Enabled = False Then
                 MessageBox.Show(Me,
                                 "출하검사번호를 먼저 생성하여 주십시오.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
+                TB_SerialNo.SelectAll()
+                TB_SerialNo.Focus()
+                Exit Sub
+            End If
+
+            If RB_NotUseSerial.Checked = True Then
+                MessageBox.Show(Me,
+                                "제품 시리얼번호가 존재하지 않은 모델입니다.",
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation)
@@ -344,7 +360,7 @@ Public Class frm_OQC_Register
                 End If
             Next
 
-            If CDbl(TB_POQty.Text) = (CDbl(TB_InspectQty.Text) + newRow + 1) Then
+            If CDbl(TB_POQty.Text) = (CDbl(TB_InspectedQty.Text) + newRow + 1) Then
                 MessageBox.Show(Me,
                             "주문수량과 총 검사결과 수량이 같습니다." & vbCrLf & "최종 수량이 맞는지 확인 하여 주십시오.",
                             msg_form,
@@ -401,7 +417,7 @@ Public Class frm_OQC_Register
 
     Private Sub BTN_NewBox_Click(sender As Object, e As EventArgs) Handles BTN_NewBox.Click
 
-        If Trim(TB_PONo.Text) = String.Empty Then
+        If Trim(TB_OrderIndex.Text) = String.Empty Then
             MessageBox.Show(Me,
                             "제품을 선택(현품표 스캔)을 먼저 하여 주십시오.",
                             msg_form,
@@ -410,7 +426,7 @@ Public Class frm_OQC_Register
             Exit Sub
         End If
 
-        TextBox1.Text = String.Empty
+        TB_OQC_No.Text = String.Empty
 
         Thread_LoadingFormStart()
 
@@ -427,7 +443,7 @@ Public Class frm_OQC_Register
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            TextBox1.Text = sqlDR("new_oqc_no")
+            TB_OQC_No.Text = sqlDR("new_oqc_no")
         Loop
         sqlDR.Close()
 
@@ -435,7 +451,7 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormEnd()
 
-        If TextBox1.Text = String.Empty Then
+        If TB_OQC_No.Text = String.Empty Then
             MessageBox.Show(Me,
                             "출하검사번호를 생성하지 못하였습니다.",
                             msg_form,
@@ -444,10 +460,12 @@ Public Class frm_OQC_Register
             Exit Sub
         End If
 
-        Label16.Visible = True
-        Label16.Text = "신규"
+        LB_New_Update.Visible = True
+        LB_New_Update.Text = "신규"
         BTN_NewBox.Enabled = False
         BTN_Save.Enabled = True
+        BTN_Fault_Register.Enabled = True
+        BTN_Reinspector.Enabled = True
 
         Grid_BoxList.Redraw = False
         Grid_BoxList.Rows.Count = 1
@@ -488,20 +506,24 @@ Public Class frm_OQC_Register
 
         Dim newRow As Integer = 0
 
-        For i = 1 To Grid_BoxList.Rows.Count - 1
-            If CStr(Grid_BoxList(i, 0)).ToString.Equals("N") Then
-                newRow += 1
-            End If
-        Next
+        If RB_UseSerial.Checked = True Then
+            For i = 1 To Grid_BoxList.Rows.Count - 1
+                If CStr(Grid_BoxList(i, 0)).ToString.Equals("N") Then
+                    newRow += 1
+                End If
+            Next
+        Else
+            newRow = CInt(TB_BoxQty.Text)
+        End If
 
-        If CDbl(TB_POQty.Text) < (CDbl(TB_InspectQty.Text) + newRow) Then
+        If CDbl(TB_POQty.Text) < (CDbl(TB_InspectedQty.Text) + newRow) Then
             MessageBox.Show(Me,
                             "주문수량 보다 검사결과 수량이 많습니다." & vbCrLf & "확인하여 주십시오.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
-        ElseIf CDbl(TB_POQty.Text) = (CDbl(TB_InspectQty.Text) + newrow) Then
+        ElseIf CDbl(TB_POQty.Text) = (CDbl(TB_InspectedQty.Text) + newRow) Then
             poEnd = True
         End If
 
@@ -525,6 +547,8 @@ Public Class frm_OQC_Register
 
         BTN_NewBox.Enabled = True
         BTN_Save.Enabled = False
+        BTN_Reinspector.Enabled = False
+        BTN_Fault_Register.Enabled = False
 
         If poEnd = True Then
             MessageBox.Show(Me,
@@ -544,9 +568,10 @@ Public Class frm_OQC_Register
         Grid_BoxList.Rows.Count = 1
         Grid_BoxList.Redraw = True
 
-        TextBox1.Text = String.Empty
 
-        Label16.Visible = False
+        TB_OQC_No.Text = String.Empty
+
+        LB_New_Update.Visible = False
 
         Load_OQCList()
 
@@ -574,14 +599,18 @@ Public Class frm_OQC_Register
                 inspectResult = "NG"
             End If
 
-            If Label16.Text = "신규" Then
+            If LB_New_Update.Text = "신규" Then
                 strSQL = "insert into tb_mms_oqc_list("
                 strSQL += "oqc_no, po_no, inspect_result, box_qty, inspector, oqc_note, write_date"
                 strSQL += ") values("
-                strSQL += "'" & TextBox1.Text & "'"
-                strSQL += ",'" & TB_PONo.Text & "'"
+                strSQL += "'" & TB_OQC_No.Text & "'"
+                strSQL += ",'" & TB_OrderIndex.Text & "'"
                 strSQL += ",'" & inspectResult & "'"
-                strSQL += "," & Grid_BoxList.Rows.Count - 1 & ""
+                If RB_UseSerial.Checked = True Then
+                    strSQL += "," & Grid_BoxList.Rows.Count - 1 & ""
+                Else
+                    strSQL += "," & CInt(TB_BoxQty.Text) & ""
+                End If
                 strSQL += ",'" & TB_Inspector.Text & "'"
                 strSQL += ",''"
                 strSQL += ",'" & writeDate & "'"
@@ -589,29 +618,35 @@ Public Class frm_OQC_Register
             Else
                 strSQL = "update tb_mms_oqc_list set"
                 strSQL += " inspect_result = '" & inspectResult & "'"
-                strSQL += ", box_qty = " & Grid_BoxList.Rows.Count - 1 & ""
+                If RB_UseSerial.Checked = True Then
+                    strSQL += ", box_qty = " & Grid_BoxList.Rows.Count - 1 & ""
+                Else
+                    strSQL += ", box_qty = " & CInt(TB_BoxQty.Text) & ""
+                End If
                 strSQL += ", inspector = '" & TB_Inspector.Text & "'"
-                strSQL += " where oqc_no = '" & TextBox1.Text & "'"
+                strSQL += " where oqc_no = '" & TB_OQC_No.Text & "'"
                 strSQL += ";"
             End If
 
-            For i = 1 To Grid_BoxList.Rows.Count - 1
-                If CStr(Grid_BoxList(i, 0)).ToString.Equals("N") Then
-                    strSQL += "insert into tb_mms_oqc_list_content("
-                    strSQL += "content_no, oqc_no, serial_no, register_date, content_note"
-                    strSQL += ") values("
-                    strSQL += "'" & TextBox1.Text & "-" & Format(i, "000") & "'"
-                    strSQL += ",'" & TextBox1.Text & "'"
-                    strSQL += ",'" & Grid_BoxList(i, 1) & "'"
-                    strSQL += ",'" & Grid_BoxList(i, 2) & "'"
-                    strSQL += ",'" & Grid_BoxList(i, 3) & "'"
-                    strSQL += ");"
-                End If
-            Next
+            If RB_UseSerial.Checked = True Then
+                For i = 1 To Grid_BoxList.Rows.Count - 1
+                    If CStr(Grid_BoxList(i, 0)).ToString.Equals("N") Then
+                        strSQL += "insert into tb_mms_oqc_list_content("
+                        strSQL += "content_no, oqc_no, serial_no, register_date, content_note"
+                        strSQL += ") values("
+                        strSQL += "'" & TB_OQC_No.Text & "-" & Format(i, "000") & "'"
+                        strSQL += ",'" & TB_OQC_No.Text & "'"
+                        strSQL += ",'" & Grid_BoxList(i, 1) & "'"
+                        strSQL += ",'" & Grid_BoxList(i, 2) & "'"
+                        strSQL += ",'" & Grid_BoxList(i, 3) & "'"
+                        strSQL += ");"
+                    End If
+                Next
+            End If
 
             If poEnd = True Then
                 strSQL += "update tb_mms_order_register_list set order_status = 'All Process Completed'"
-                strSQL += "where order_index = '" & TB_PONo.Text & "'"
+                strSQL += "where order_index = '" & TB_OrderIndex.Text & "'"
                 strSQL += ";"
             End If
 
@@ -646,8 +681,8 @@ Public Class frm_OQC_Register
         Dim selRow As Integer = Grid_History.MouseRow
 
         If e.Button = MouseButtons.Left And selRow > 0 Then
-            Label16.Visible = True
-            Label16.Text = "수정"
+            LB_New_Update.Visible = True
+            LB_New_Update.Text = "수정"
 
             BTN_NewBox.Enabled = True
             BTN_Save.Enabled = True
@@ -659,7 +694,7 @@ Public Class frm_OQC_Register
             RB_Inspection_OK.Checked = False
             RB_Inspection_NG.Checked = False
 
-            TextBox1.Text = Grid_History(selRow, 2)
+            TB_OQC_No.Text = Grid_History(selRow, 2)
 
             TB_SerialNo.SelectAll()
             TB_SerialNo.Focus()
@@ -704,6 +739,85 @@ Public Class frm_OQC_Register
         Grid_BoxList.Redraw = True
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub BTN_Fault_Register_Click(sender As Object, e As EventArgs) Handles BTN_Fault_Register.Click
+
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            TB_Inspector.SelectAll()
+            TB_Inspector.Focus()
+            Exit Sub
+        End If
+
+        frm_OQC_Falult_Register.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_OQC_Falult_Register.LB_HistoryIndex.Text = TB_OQC_No.Text
+        frm_OQC_Falult_Register.LB_ItemCode.Text = TB_ItemCode.Text
+        frm_OQC_Falult_Register.LB_ItemName.Text = TB_ItemName.Text
+        If Not frm_OQC_Falult_Register.Visible Then frm_OQC_Falult_Register.Show()
+        frm_OQC_Falult_Register.Focus()
+
+    End Sub
+
+    Private Sub BTN_Reinspector_Click(sender As Object, e As EventArgs) Handles BTN_Reinspector.Click
+
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            TB_Inspector.SelectAll()
+            TB_Inspector.Focus()
+            Exit Sub
+        End If
+
+        frm_OQC_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
+        frm_OQC_Reinspection.TB_Inspector.Text = TB_Inspector.Text
+        If Not frm_OQC_Reinspection.Visible Then frm_OQC_Reinspection.Show()
+        frm_OQC_Reinspection.Focus()
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RB_UseSerial.CheckedChanged, RB_NotUseSerial.CheckedChanged
+
+        If RB_UseSerial.Checked = True Then
+            C1DockingTabPage1.Enabled = True
+            C1DockingTabPage2.Enabled = False
+            C1DockingTabPage1.Focus()
+            C1DockingTab1.SelectedTab = C1DockingTabPage1
+        Else
+            C1DockingTabPage1.Enabled = False
+            C1DockingTabPage2.Enabled = True
+            C1DockingTab1.SelectedTab = C1DockingTabPage2
+        End If
+
+    End Sub
+
+    Private Sub TB_BoxQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_BoxQty.KeyPress
+
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
+            e.Handled = True
+        End If
 
     End Sub
 End Class

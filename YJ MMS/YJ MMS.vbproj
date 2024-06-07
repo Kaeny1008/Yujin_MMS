@@ -128,6 +128,12 @@
     <Compile Include="Forms\Basic Information\Customer Management\frm_CustomerPartCode.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.Designer.vb">
+      <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Basic Information\Model Management\frm_ModelDocument.Designer.vb">
       <DependentUpon>frm_ModelDocument.vb</DependentUpon>
     </Compile>
@@ -158,10 +164,10 @@
     <Compile Include="Forms\Basic Information\Popup\frm_PartCodeMapping.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.Designer.vb">
+    <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Popup_MultiPartsCode.Designer.vb">
       <DependentUpon>frm_Popup_MultiPartsCode.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.vb">
+    <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Popup_MultiPartsCode.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Delivery Management\frm_Delivery_History.Designer.vb">
@@ -330,6 +336,18 @@
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Falult_Register.Designer.vb">
+      <DependentUpon>frm_OQC_Falult_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Falult_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.Designer.vb">
+      <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.designer.vb">
@@ -579,6 +597,9 @@
     <EmbeddedResource Include="Forms\Basic Information\Customer Management\frm_CustomerPartCode.resx">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.resx">
+      <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_ModelDocument.resx">
       <DependentUpon>frm_ModelDocument.vb</DependentUpon>
     </EmbeddedResource>
@@ -594,7 +615,7 @@
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_PartCodeMapping.resx">
       <DependentUpon>frm_PartCodeMapping.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Basic Information\Popup\frm_Popup_MultiPartsCode.resx">
+    <EmbeddedResource Include="Forms\Basic Information\Customer Management\PopUp\frm_Popup_MultiPartsCode.resx">
       <DependentUpon>frm_Popup_MultiPartsCode.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Delivery Management\frm_Delivery_History.resx">
@@ -680,6 +701,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_Register.resx">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Falult_Register.resx">
+      <DependentUpon>frm_OQC_Falult_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.resx">
+      <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.resx">
       <DependentUpon>frm_MetalMaskHistory.vb</DependentUpon>
@@ -1128,5 +1155,6 @@
   <ItemGroup>
     <None Include="Resources\printer-blue.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

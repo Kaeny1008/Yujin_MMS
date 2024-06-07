@@ -81,6 +81,13 @@ Public Class frm_Material_Stock_Survey_Result
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            For i = 7 To 18
+                .Cols(i).DataType = GetType(Double)
+                .Cols(i).Format = "#,##0"
+            Next
+            .Cols(19).DataType = GetType(Double)
+            .Cols(19).Format = "#,##0.000"
+            .SelectionMode = SelectionModeEnum.CellRange
         End With
 
         With Grid_PlanList
@@ -244,19 +251,19 @@ Public Class frm_Material_Stock_Survey_Result
                 vbTab & sqlDR("part_category") &
                 vbTab & Format(sqlDR("unit_price"), "#,##0.000") &
                 vbTab & sqlDR("supplier") &
-                vbTab & Format(sqlDR("basic_qty"), "#,##0") &
-                vbTab & Format(sqlDR("in_qty"), "#,##0") &
-                vbTab & Format(sqlDR("loss_qty"), "#,##0") &
-                vbTab & Format(sqlDR("delivery_qty"), "#,##0") &
-                vbTab & Format(sqlDR("plan_ready_qty"), "#,##0") &
-                vbTab & Format(sqlDR("production_qty"), "#,##0") &
-                vbTab & Format(sqlDR("production_completed_qty"), "#,##0") &
-                vbTab & Format(sqlDR("code_change_qty"), "#,##0") &
-                vbTab & Format(sqlDR("return_qty"), "#,##0") &
-                vbTab & Format(sqlDR("stock_qty"), "#,##0") &
-                vbTab & Format(sqlDR("check_qty"), "#,##0") &
-                vbTab & Format(diff_Qty, "#,##0") &
-                vbTab & Format(sqlDR("unit_price") * diff_Qty, "#,##0.000") &
+                vbTab & sqlDR("basic_qty") &
+                vbTab & sqlDR("in_qty") &
+                vbTab & sqlDR("loss_qty") &
+                vbTab & sqlDR("delivery_qty") &
+                vbTab & sqlDR("plan_ready_qty") &
+                vbTab & sqlDR("production_qty") &
+                vbTab & sqlDR("production_completed_qty") &
+                vbTab & sqlDR("code_change_qty") &
+                vbTab & sqlDR("return_qty") &
+                vbTab & sqlDR("stock_qty") &
+                vbTab & sqlDR("check_qty") &
+                vbTab & diff_Qty &
+                vbTab & sqlDR("unit_price") * diff_Qty &
                 vbTab & sqlDR("check_reason")
 
             Grid_MaterialList.AddItem(insertString)
@@ -272,16 +279,6 @@ Public Class frm_Material_Stock_Survey_Result
 
     End Sub
 
-    Private Sub Grid_MaterialList_RowColChange(sender As Object, e As EventArgs) Handles Grid_MaterialList.RowColChange
-
-        If Grid_MaterialList.Col = Grid_MaterialList.Cols.Count - 1 Then
-            Grid_MaterialList.AllowEditing = True
-        Else
-            Grid_MaterialList.AllowEditing = False
-        End If
-
-    End Sub
-
     Dim beforeString As String
 
     Private Sub Grid_MaterialList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_MaterialList.BeforeEdit
@@ -292,7 +289,12 @@ Public Class frm_Material_Stock_Survey_Result
 
     Private Sub Grid_MaterialList_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_MaterialList.AfterEdit
 
-        If e.Row < 2 Or e.Col < Grid_MaterialList.Cols.Count - 1 Then Exit Sub
+        If e.Row < 2 Then Exit Sub
+
+        Select Case e.Col
+            Case 17
+                Grid_MaterialList(e.Row, 18) = Format(CDbl(Grid_MaterialList(e.Row, 17)) - CDbl(Grid_MaterialList(e.Row, 16)), "#,##0")
+        End Select
 
         Grid_MaterialList.Redraw = False
         If IsNumeric(Grid_MaterialList(e.Row, 0)) Then
@@ -336,6 +338,7 @@ Public Class frm_Material_Stock_Survey_Result
                     Grid_MaterialList(i, 0) = i - 1
                     strSQL += "update tb_mms_material_stock_survey_plan_content set"
                     strSQL += " check_reason = '" & Grid_MaterialList(i, 20) & "'"
+                    strSQL += ", temp_qty = '" & Grid_MaterialList(i, 17) & "'"
                     strSQL += " where content_no like concat('" & LB_InspectionNo.Text & "', '%')"
                     strSQL += " and part_code = '" & Grid_MaterialList(i, 1) & "'"
                     strSQL += ";"
@@ -412,6 +415,9 @@ Public Class frm_Material_Stock_Survey_Result
         strSQL += ", completed_id = '" & loginID & "'"
         strSQL += " where plan_no = '" & LB_InspectionNo.Text & "'"
         strSQL += ";"
+
+        strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
+        strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
 
         Try
             For i = 2 To Grid_MaterialList.Rows.Count - 1
@@ -687,6 +693,128 @@ Public Class frm_Material_Stock_Survey_Result
             Grid_MaterialList.ClearFilter()
             Label6.Text = "표시행 : " & Format(Grid_MaterialList.Rows.Count - 2, "#,##0")
         End If
+
+    End Sub
+
+    Dim selCol As Integer
+
+    Private Sub Grid_MaterialList_KeyDown(sender As Object, e As KeyEventArgs) Handles Grid_MaterialList.KeyDown
+
+        If e.KeyCode = Keys.V AndAlso e.Modifiers = Keys.Control Then
+            For i = 1 To Grid_MaterialList.Rows.Count - 1
+                'Console.WriteLine("선택된 행 : " & Grid_MaterialList.IsCellSelected(i, selCol))
+                If Grid_MaterialList.IsCellSelected(i, selCol) And Grid_MaterialList.Rows(i).Visible = True Then
+                    Grid_MaterialList(i, selCol) = Clipboard.GetText
+                End If
+            Next
+        End If
+
+    End Sub
+
+    Private Sub Grid_MaterialList_RowColChange(sender As Object, e As EventArgs) Handles Grid_MaterialList.RowColChange
+
+        selCol = Grid_MaterialList.Col
+
+        Select Case Grid_MaterialList.Col
+            Case 17, 20
+                Grid_MaterialList.AllowEditing = True
+            Case Else
+                Grid_MaterialList.AllowEditing = False
+        End Select
+
+    End Sub
+
+    Private Declare Function GetAsyncKeyState Lib "user32" (ByVal vKey As Integer) As Short
+
+    Dim selectRow() As Integer
+    Dim selectCol() As Integer
+    Dim selStart_Row As Integer
+    Dim selEnd_Row As Integer
+    Dim selStart_Col As Integer
+    Dim selEnd_Col As Integer
+
+    Private Sub Grid_MaterialList_MouseDown(sender As Object, e As MouseEventArgs) Handles Grid_MaterialList.MouseDown
+
+        'Dim mRow As Integer = Grid_MaterialList.MouseRow
+        'Dim mCol As Integer = Grid_MaterialList.MouseCol
+        'selStart_Row = mRow
+        'selStart_Col = mCol
+
+    End Sub
+
+    Private Sub Grid_MaterialList_MouseUp(sender As Object, e As MouseEventArgs) Handles Grid_MaterialList.MouseUp
+
+        'Dim mRow As Integer = Grid_MaterialList.MouseRow
+        'Dim mCol As Integer = Grid_MaterialList.MouseCol
+        'selEnd_Row = mRow
+        'selEnd_Col = mCol
+
+        'Dim cs As CellStyle = Grid_MaterialList.Styles.Add("select_style")
+        'cs.BackColor = Color.LightBlue
+
+        'If e.Button = MouseButtons.Left And GetAsyncKeyState(17) Then
+        '    If Not selStart_Row = selEnd_Row And selStart_Col = selEnd_Col Then
+        '        '세로로 이동
+        '        For i = selStart_Row To selEnd_Row
+        '            Grid_MaterialList.SetCellStyle(i, mCol, cs)
+        '            If IsNothing(selectRow) Then
+        '                ReDim selectRow(0)
+        '                ReDim selectCol(0)
+        '            Else
+        '                ReDim Preserve selectRow(selectRow.Length)
+        '                ReDim Preserve selectCol(selectCol.Length)
+        '            End If
+        '            selectRow(selectRow.Length - 1) = i
+        '            selectCol(selectCol.Length - 1) = mCol
+        '        Next
+        '    ElseIf selStart_Row = selEnd_Row And Not selStart_Col = selEnd_Col Then
+        '        '가로로 이동
+        '        For i = selStart_Col To selEnd_Col
+        '            Grid_MaterialList.SetCellStyle(mRow, i, cs)
+        '            If IsNothing(selectRow) Then
+        '                ReDim selectRow(0)
+        '                ReDim selectCol(0)
+        '            Else
+        '                ReDim Preserve selectRow(selectRow.Length)
+        '                ReDim Preserve selectCol(selectCol.Length)
+        '            End If
+        '            selectRow(selectRow.Length - 1) = mRow
+        '            selectCol(selectCol.Length - 1) = i
+        '        Next
+        '    ElseIf selStart_Row = selEnd_Row And selStart_Col = selEnd_Col Then
+        '        '제자리 클릭
+        '        Grid_MaterialList.SetCellStyle(mRow, mCol, cs)
+        '        If IsNothing(selectRow) Then
+        '            ReDim selectRow(0)
+        '            ReDim selectCol(0)
+        '        Else
+        '            ReDim Preserve selectRow(selectRow.Length)
+        '            ReDim Preserve selectCol(selectCol.Length)
+        '        End If
+        '        selectRow(selectRow.Length - 1) = mRow
+        '        selectCol(selectCol.Length - 1) = mCol
+        '    Else
+        '        '가로, 세로 모두 이동
+        '        For i = selStart_Row To selEnd_Row
+        '            For j = selStart_Col To selEnd_Col
+        '                Grid_MaterialList.SetCellStyle(i, j, cs)
+        '                If IsNothing(selectRow) Then
+        '                    ReDim selectRow(0)
+        '                    ReDim selectCol(0)
+        '                Else
+        '                    ReDim Preserve selectRow(selectRow.Length)
+        '                    ReDim Preserve selectCol(selectCol.Length)
+        '                End If
+        '                selectRow(selectRow.Length - 1) = i
+        '                selectCol(selectCol.Length - 1) = j
+        '            Next
+        '        Next
+        '    End If
+        '    Console.WriteLine(selectRow.ToString & ", " & selectCol.ToString)
+        'Else
+        '    selectRow = Nothing
+        '    selectCol = Nothing
+        'End If
 
     End Sub
 End Class

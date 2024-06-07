@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frm_SMD_Fault_Register
+Partial Class frm_OQC_Falult_Register
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -24,16 +24,14 @@ Partial Class frm_SMD_Fault_Register
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_OQC_Falult_Register))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.LB_ItemName = New System.Windows.Forms.Label()
+        Me.LB_ItemCode = New System.Windows.Forms.Label()
         Me.LB_HistoryIndex = New System.Windows.Forms.Label()
         Me.LB_OrderIndex = New System.Windows.Forms.Label()
         Me.BTN_Exit = New System.Windows.Forms.Button()
         Me.BTN_RowDelete = New System.Windows.Forms.Button()
         Me.BTN_RowAdd = New System.Windows.Forms.Button()
         Me.Grid_Fault = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.LB_ItemCode = New System.Windows.Forms.Label()
-        Me.LB_ItemName = New System.Windows.Forms.Label()
-        Me.LB_SMDLine = New System.Windows.Forms.Label()
-        Me.LB_WorkSide = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_Fault, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -41,8 +39,6 @@ Partial Class frm_SMD_Fault_Register
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Panel1.Controls.Add(Me.LB_WorkSide)
-        Me.Panel1.Controls.Add(Me.LB_SMDLine)
         Me.Panel1.Controls.Add(Me.LB_ItemName)
         Me.Panel1.Controls.Add(Me.LB_ItemCode)
         Me.Panel1.Controls.Add(Me.LB_HistoryIndex)
@@ -55,6 +51,26 @@ Partial Class frm_SMD_Fault_Register
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 62)
         Me.Panel1.TabIndex = 0
+        '
+        'LB_ItemName
+        '
+        Me.LB_ItemName.AutoSize = True
+        Me.LB_ItemName.Location = New System.Drawing.Point(188, 38)
+        Me.LB_ItemName.Name = "LB_ItemName"
+        Me.LB_ItemName.Size = New System.Drawing.Size(63, 12)
+        Me.LB_ItemName.TabIndex = 35
+        Me.LB_ItemName.Text = "itemName"
+        Me.LB_ItemName.Visible = False
+        '
+        'LB_ItemCode
+        '
+        Me.LB_ItemCode.AutoSize = True
+        Me.LB_ItemCode.Location = New System.Drawing.Point(188, 26)
+        Me.LB_ItemCode.Name = "LB_ItemCode"
+        Me.LB_ItemCode.Size = New System.Drawing.Size(59, 12)
+        Me.LB_ItemCode.TabIndex = 34
+        Me.LB_ItemCode.Text = "itemCode"
+        Me.LB_ItemCode.Visible = False
         '
         'LB_HistoryIndex
         '
@@ -131,47 +147,7 @@ Partial Class frm_SMD_Fault_Register
         Me.Grid_Fault.TabIndex = 6
         Me.Grid_Fault.UseCompatibleTextRendering = True
         '
-        'LB_ItemCode
-        '
-        Me.LB_ItemCode.AutoSize = True
-        Me.LB_ItemCode.Location = New System.Drawing.Point(188, 26)
-        Me.LB_ItemCode.Name = "LB_ItemCode"
-        Me.LB_ItemCode.Size = New System.Drawing.Size(59, 12)
-        Me.LB_ItemCode.TabIndex = 34
-        Me.LB_ItemCode.Text = "itemCode"
-        Me.LB_ItemCode.Visible = False
-        '
-        'LB_ItemName
-        '
-        Me.LB_ItemName.AutoSize = True
-        Me.LB_ItemName.Location = New System.Drawing.Point(188, 38)
-        Me.LB_ItemName.Name = "LB_ItemName"
-        Me.LB_ItemName.Size = New System.Drawing.Size(63, 12)
-        Me.LB_ItemName.TabIndex = 35
-        Me.LB_ItemName.Text = "itemName"
-        Me.LB_ItemName.Visible = False
-        '
-        'LB_SMDLine
-        '
-        Me.LB_SMDLine.AutoSize = True
-        Me.LB_SMDLine.Location = New System.Drawing.Point(276, 26)
-        Me.LB_SMDLine.Name = "LB_SMDLine"
-        Me.LB_SMDLine.Size = New System.Drawing.Size(60, 12)
-        Me.LB_SMDLine.TabIndex = 36
-        Me.LB_SMDLine.Text = "SMD Line"
-        Me.LB_SMDLine.Visible = False
-        '
-        'LB_WorkSide
-        '
-        Me.LB_WorkSide.AutoSize = True
-        Me.LB_WorkSide.Location = New System.Drawing.Point(276, 37)
-        Me.LB_WorkSide.Name = "LB_WorkSide"
-        Me.LB_WorkSide.Size = New System.Drawing.Size(56, 12)
-        Me.LB_WorkSide.TabIndex = 37
-        Me.LB_WorkSide.Text = "workside"
-        Me.LB_WorkSide.Visible = False
-        '
-        'frm_SMD_Fault_Register
+        'frm_OQC_Falult_Register
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -182,9 +158,9 @@ Partial Class frm_SMD_Fault_Register
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frm_SMD_Fault_Register"
+        Me.Name = "frm_OQC_Falult_Register"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "SMD 불량내역 등록"
+        Me.Text = "출하검사 불량내역 등록"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.Grid_Fault, System.ComponentModel.ISupportInitialize).EndInit()
@@ -201,6 +177,4 @@ Partial Class frm_SMD_Fault_Register
     Friend WithEvents LB_HistoryIndex As Label
     Friend WithEvents LB_ItemName As Label
     Friend WithEvents LB_ItemCode As Label
-    Friend WithEvents LB_SMDLine As Label
-    Friend WithEvents LB_WorkSide As Label
 End Class

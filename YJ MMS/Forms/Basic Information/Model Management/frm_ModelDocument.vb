@@ -22,7 +22,7 @@ Public Class frm_ModelDocument
     Dim runProcess As Thread
 
     Public ref_col, part_col, spec_col, x_col, y_col, a_col, tb_col, type_col As Integer
-    Public start_row As Integer
+    Public start_row, last_row As Integer
     Public sheet_name As String
 
     Private Sub frm_ModelDocument_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -383,7 +383,7 @@ Public Class frm_ModelDocument
 
         Try
             With excelApp.ActiveWorkbook.Sheets(sheet_name)
-                For i = start_row To .UsedRange.Rows.Count
+                For i = start_row To last_row
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim partString As String = Trim(.Cells(i, part_col).Value)
                     Dim typeString As String = String.Empty
@@ -540,7 +540,7 @@ Public Class frm_ModelDocument
 
         Try
             With excelApp.ActiveWorkbook.Sheets(sheet_name)
-                For i = start_row To .UsedRange.Rows.Count
+                For i = start_row To last_row
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim xString As Double = Trim(.Cells(i, x_col).Value)
                     Dim yString As Double = Trim(.Cells(i, y_col).Value)

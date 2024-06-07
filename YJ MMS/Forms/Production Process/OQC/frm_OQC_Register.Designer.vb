@@ -28,7 +28,7 @@ Partial Class frm_OQC_Register
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.TB_InspectQty = New System.Windows.Forms.TextBox()
+        Me.TB_InspectedQty = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TB_ModelCode = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -42,20 +42,25 @@ Partial Class frm_OQC_Register
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TB_ItemCode = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.TB_PONo = New System.Windows.Forms.TextBox()
+        Me.TB_OrderIndex = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_MagazineBarcode = New System.Windows.Forms.TextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.RB_NotUseSerial = New System.Windows.Forms.RadioButton()
+        Me.RB_UseSerial = New System.Windows.Forms.RadioButton()
+        Me.C1DockingTab1 = New C1.Win.C1Command.C1DockingTab()
+        Me.C1DockingTabPage1 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.Grid_BoxList = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.C1DockingTabPage2 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.TB_BoxQty = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
+        Me.LB_New_Update = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.BTN_NewBox = New System.Windows.Forms.ToolStripButton()
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Grid_BoxList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.TB_SerialNo = New System.Windows.Forms.TextBox()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Fault_Register = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_Reinspector = New System.Windows.Forms.ToolStripButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.TB_Inspector = New System.Windows.Forms.TextBox()
@@ -63,6 +68,12 @@ Partial Class frm_OQC_Register
         Me.RB_Inspection_NG = New System.Windows.Forms.RadioButton()
         Me.RB_Inspection_OK = New System.Windows.Forms.RadioButton()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.TB_OQC_No = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TB_SerialNo = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
@@ -75,11 +86,16 @@ Partial Class frm_OQC_Register
         Me.SplitContainer2.Panel2.SuspendLayout()
         Me.SplitContainer2.SuspendLayout()
         Me.Panel3.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.C1DockingTab1.SuspendLayout()
+        Me.C1DockingTabPage1.SuspendLayout()
         CType(Me.Grid_BoxList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox2.SuspendLayout()
+        Me.C1DockingTabPage2.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.Panel2.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
         Me.SuspendLayout()
@@ -122,13 +138,14 @@ Partial Class frm_OQC_Register
         '
         'SplitContainer2.Panel2
         '
-        Me.SplitContainer2.Panel2.Controls.Add(Me.Label16)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox3)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.C1DockingTab1)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.LB_New_Update)
         Me.SplitContainer2.Panel2.Controls.Add(Me.ToolStrip1)
-        Me.SplitContainer2.Panel2.Controls.Add(Me.TextBox1)
-        Me.SplitContainer2.Panel2.Controls.Add(Me.Label14)
-        Me.SplitContainer2.Panel2.Controls.Add(Me.Grid_BoxList)
-        Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox2)
         Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox1)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.TB_OQC_No)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.Label14)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.GroupBox2)
         Me.SplitContainer2.Size = New System.Drawing.Size(771, 748)
         Me.SplitContainer2.SplitterDistance = 248
         Me.SplitContainer2.TabIndex = 0
@@ -152,7 +169,7 @@ Partial Class frm_OQC_Register
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel3.Controls.Add(Me.Label15)
-        Me.Panel3.Controls.Add(Me.TB_InspectQty)
+        Me.Panel3.Controls.Add(Me.TB_InspectedQty)
         Me.Panel3.Controls.Add(Me.Label4)
         Me.Panel3.Controls.Add(Me.TB_ModelCode)
         Me.Panel3.Controls.Add(Me.Label2)
@@ -166,7 +183,7 @@ Partial Class frm_OQC_Register
         Me.Panel3.Controls.Add(Me.Label9)
         Me.Panel3.Controls.Add(Me.TB_ItemCode)
         Me.Panel3.Controls.Add(Me.Label8)
-        Me.Panel3.Controls.Add(Me.TB_PONo)
+        Me.Panel3.Controls.Add(Me.TB_OrderIndex)
         Me.Panel3.Location = New System.Drawing.Point(128, 34)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
@@ -182,13 +199,13 @@ Partial Class frm_OQC_Register
         Me.Label15.Text = "누적 검사수량 :"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'TB_InspectQty
+        'TB_InspectedQty
         '
-        Me.TB_InspectQty.Enabled = False
-        Me.TB_InspectQty.Location = New System.Drawing.Point(436, 143)
-        Me.TB_InspectQty.Name = "TB_InspectQty"
-        Me.TB_InspectQty.Size = New System.Drawing.Size(184, 21)
-        Me.TB_InspectQty.TabIndex = 15
+        Me.TB_InspectedQty.Enabled = False
+        Me.TB_InspectedQty.Location = New System.Drawing.Point(436, 143)
+        Me.TB_InspectedQty.Name = "TB_InspectedQty"
+        Me.TB_InspectedQty.Size = New System.Drawing.Size(184, 21)
+        Me.TB_InspectedQty.TabIndex = 15
         '
         'Label4
         '
@@ -301,13 +318,13 @@ Partial Class frm_OQC_Register
         Me.Label8.Text = "주문번호 :"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'TB_PONo
+        'TB_OrderIndex
         '
-        Me.TB_PONo.Enabled = False
-        Me.TB_PONo.Location = New System.Drawing.Point(121, 8)
-        Me.TB_PONo.Name = "TB_PONo"
-        Me.TB_PONo.Size = New System.Drawing.Size(499, 21)
-        Me.TB_PONo.TabIndex = 1
+        Me.TB_OrderIndex.Enabled = False
+        Me.TB_OrderIndex.Location = New System.Drawing.Point(121, 8)
+        Me.TB_OrderIndex.Name = "TB_OrderIndex"
+        Me.TB_OrderIndex.Size = New System.Drawing.Size(499, 21)
+        Me.TB_OrderIndex.TabIndex = 1
         '
         'Label1
         '
@@ -334,21 +351,137 @@ Partial Class frm_OQC_Register
         Me.TB_MagazineBarcode.Name = "TB_MagazineBarcode"
         Me.TB_MagazineBarcode.Size = New System.Drawing.Size(625, 25)
         Me.TB_MagazineBarcode.TabIndex = 1
+        Me.TB_MagazineBarcode.Text = "PO202404010002-0005!WSO240516080232117!WAVE SOLDERING"
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.RB_NotUseSerial)
+        Me.GroupBox3.Controls.Add(Me.RB_UseSerial)
+        Me.GroupBox3.Enabled = False
+        Me.GroupBox3.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.GroupBox3.Location = New System.Drawing.Point(315, 33)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(123, 92)
+        Me.GroupBox3.TabIndex = 7
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Serial No."
+        '
+        'RB_NotUseSerial
+        '
+        Me.RB_NotUseSerial.AutoSize = True
+        Me.RB_NotUseSerial.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.RB_NotUseSerial.Location = New System.Drawing.Point(6, 54)
+        Me.RB_NotUseSerial.Name = "RB_NotUseSerial"
+        Me.RB_NotUseSerial.Size = New System.Drawing.Size(41, 19)
+        Me.RB_NotUseSerial.TabIndex = 2
+        Me.RB_NotUseSerial.TabStop = True
+        Me.RB_NotUseSerial.Text = "無"
+        Me.RB_NotUseSerial.UseVisualStyleBackColor = True
+        '
+        'RB_UseSerial
+        '
+        Me.RB_UseSerial.AutoSize = True
+        Me.RB_UseSerial.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold)
+        Me.RB_UseSerial.Location = New System.Drawing.Point(6, 29)
+        Me.RB_UseSerial.Name = "RB_UseSerial"
+        Me.RB_UseSerial.Size = New System.Drawing.Size(41, 19)
+        Me.RB_UseSerial.TabIndex = 1
+        Me.RB_UseSerial.TabStop = True
+        Me.RB_UseSerial.Text = "有"
+        Me.RB_UseSerial.UseVisualStyleBackColor = True
+        '
+        'C1DockingTab1
+        '
+        Me.C1DockingTab1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.C1DockingTab1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
+        Me.C1DockingTab1.Location = New System.Drawing.Point(10, 159)
+        Me.C1DockingTab1.Name = "C1DockingTab1"
+        Me.C1DockingTab1.SelectedTabBold = True
+        Me.C1DockingTab1.Size = New System.Drawing.Size(743, 323)
+        Me.C1DockingTab1.TabIndex = 3
+        Me.C1DockingTab1.TabsSpacing = -11
+        Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Sloping
+        '
+        'C1DockingTabPage1
+        '
+        Me.C1DockingTabPage1.Controls.Add(Me.Grid_BoxList)
+        Me.C1DockingTabPage1.Enabled = False
+        Me.C1DockingTabPage1.Location = New System.Drawing.Point(1, 25)
+        Me.C1DockingTabPage1.Name = "C1DockingTabPage1"
+        Me.C1DockingTabPage1.Size = New System.Drawing.Size(741, 297)
+        Me.C1DockingTabPage1.TabIndex = 0
+        Me.C1DockingTabPage1.Text = "Serial No. 有"
+        '
+        'Grid_BoxList
+        '
+        Me.Grid_BoxList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Grid_BoxList.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_BoxList.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Grid_BoxList.Location = New System.Drawing.Point(10, 8)
+        Me.Grid_BoxList.Margin = New System.Windows.Forms.Padding(0)
+        Me.Grid_BoxList.Name = "Grid_BoxList"
+        Me.Grid_BoxList.Rows.Count = 2
+        Me.Grid_BoxList.Rows.DefaultSize = 20
+        Me.Grid_BoxList.Size = New System.Drawing.Size(719, 280)
+        Me.Grid_BoxList.StyleInfo = resources.GetString("Grid_BoxList.StyleInfo")
+        Me.Grid_BoxList.TabIndex = 0
+        Me.Grid_BoxList.UseCompatibleTextRendering = True
+        '
+        'C1DockingTabPage2
+        '
+        Me.C1DockingTabPage2.Controls.Add(Me.TB_BoxQty)
+        Me.C1DockingTabPage2.Controls.Add(Me.Label16)
+        Me.C1DockingTabPage2.Enabled = False
+        Me.C1DockingTabPage2.Location = New System.Drawing.Point(1, 25)
+        Me.C1DockingTabPage2.Name = "C1DockingTabPage2"
+        Me.C1DockingTabPage2.Size = New System.Drawing.Size(741, 297)
+        Me.C1DockingTabPage2.TabIndex = 1
+        Me.C1DockingTabPage2.Text = "Serial No. 無"
+        '
+        'TB_BoxQty
+        '
+        Me.TB_BoxQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_BoxQty.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_BoxQty.Location = New System.Drawing.Point(138, 28)
+        Me.TB_BoxQty.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_BoxQty.Name = "TB_BoxQty"
+        Me.TB_BoxQty.Size = New System.Drawing.Size(147, 25)
+        Me.TB_BoxQty.TabIndex = 5
         '
         'Label16
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(646, 109)
+        Me.Label16.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label16.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label16.ForeColor = System.Drawing.Color.White
+        Me.Label16.Location = New System.Drawing.Point(17, 28)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(48, 12)
-        Me.Label16.TabIndex = 6
-        Me.Label16.Text = "Label16"
-        Me.Label16.Visible = False
+        Me.Label16.Size = New System.Drawing.Size(121, 25)
+        Me.Label16.TabIndex = 4
+        Me.Label16.Text = "박스구성 수량"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'LB_New_Update
+        '
+        Me.LB_New_Update.AutoSize = True
+        Me.LB_New_Update.Location = New System.Drawing.Point(10, 117)
+        Me.LB_New_Update.Name = "LB_New_Update"
+        Me.LB_New_Update.Size = New System.Drawing.Size(124, 12)
+        Me.LB_New_Update.TabIndex = 6
+        Me.LB_New_Update.Text = "New_Update_Section"
+        Me.LB_New_Update.Visible = False
         '
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewBox, Me.BTN_Save})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewBox, Me.BTN_Save, Me.ToolStripSeparator1, Me.BTN_Fault_Register, Me.BTN_Reinspector})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(767, 25)
@@ -372,98 +505,28 @@ Partial Class frm_OQC_Register
         Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
         Me.BTN_Save.Text = "저장"
         '
-        'TextBox1
+        'ToolStripSeparator1
         '
-        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TextBox1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TextBox1.Location = New System.Drawing.Point(128, 130)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(625, 25)
-        Me.TextBox1.TabIndex = 4
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'Label14
+        'BTN_Fault_Register
         '
-        Me.Label14.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label14.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label14.ForeColor = System.Drawing.Color.White
-        Me.Label14.Location = New System.Drawing.Point(7, 130)
-        Me.Label14.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(121, 25)
-        Me.Label14.TabIndex = 3
-        Me.Label14.Text = "출하검사번호"
-        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Fault_Register.Enabled = False
+        Me.BTN_Fault_Register.Image = Global.YJ_MMS.My.Resources.Resources.ordering_32
+        Me.BTN_Fault_Register.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Fault_Register.Name = "BTN_Fault_Register"
+        Me.BTN_Fault_Register.Size = New System.Drawing.Size(103, 22)
+        Me.BTN_Fault_Register.Text = "불량내역 등록"
         '
-        'Grid_BoxList
+        'BTN_Reinspector
         '
-        Me.Grid_BoxList.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Grid_BoxList.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_BoxList.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Grid_BoxList.Location = New System.Drawing.Point(7, 156)
-        Me.Grid_BoxList.Margin = New System.Windows.Forms.Padding(0)
-        Me.Grid_BoxList.Name = "Grid_BoxList"
-        Me.Grid_BoxList.Rows.Count = 2
-        Me.Grid_BoxList.Rows.DefaultSize = 20
-        Me.Grid_BoxList.Size = New System.Drawing.Size(746, 329)
-        Me.Grid_BoxList.StyleInfo = resources.GetString("Grid_BoxList.StyleInfo")
-        Me.Grid_BoxList.TabIndex = 0
-        Me.Grid_BoxList.UseCompatibleTextRendering = True
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.Label12)
-        Me.GroupBox2.Controls.Add(Me.TB_SerialNo)
-        Me.GroupBox2.Controls.Add(Me.Label5)
-        Me.GroupBox2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(7, 28)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(309, 93)
-        Me.GroupBox2.TabIndex = 1
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "박스구성"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label12.Location = New System.Drawing.Point(14, 64)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(245, 12)
-        Me.Label12.TabIndex = 2
-        Me.Label12.Text = "※ 제품에 부착된 라벨을 스캔하여 주십시오."
-        '
-        'TB_SerialNo
-        '
-        Me.TB_SerialNo.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_SerialNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TB_SerialNo.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_SerialNo.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TB_SerialNo.Location = New System.Drawing.Point(137, 28)
-        Me.TB_SerialNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_SerialNo.Name = "TB_SerialNo"
-        Me.TB_SerialNo.Size = New System.Drawing.Size(156, 25)
-        Me.TB_SerialNo.TabIndex = 1
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label5.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(16, 28)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(121, 25)
-        Me.Label5.TabIndex = 0
-        Me.Label5.Text = "제품 일련번호"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Reinspector.Enabled = False
+        Me.BTN_Reinspector.Image = Global.YJ_MMS.My.Resources.Resources.stop_16
+        Me.BTN_Reinspector.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Reinspector.Name = "BTN_Reinspector"
+        Me.BTN_Reinspector.Size = New System.Drawing.Size(103, 22)
+        Me.BTN_Reinspector.Text = "수리결과 확인"
         '
         'GroupBox1
         '
@@ -472,9 +535,9 @@ Partial Class frm_OQC_Register
         Me.GroupBox1.Controls.Add(Me.Panel2)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.GroupBox1.Location = New System.Drawing.Point(320, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 33)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(320, 93)
+        Me.GroupBox1.Size = New System.Drawing.Size(297, 93)
         Me.GroupBox1.TabIndex = 2
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "검사결과 입력"
@@ -500,7 +563,7 @@ Partial Class frm_OQC_Register
         Me.TB_Inspector.Location = New System.Drawing.Point(137, 55)
         Me.TB_Inspector.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Inspector.Name = "TB_Inspector"
-        Me.TB_Inspector.Size = New System.Drawing.Size(174, 25)
+        Me.TB_Inspector.Size = New System.Drawing.Size(147, 25)
         Me.TB_Inspector.TabIndex = 3
         '
         'Panel2
@@ -510,14 +573,14 @@ Partial Class frm_OQC_Register
         Me.Panel2.Location = New System.Drawing.Point(137, 28)
         Me.Panel2.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(174, 25)
+        Me.Panel2.Size = New System.Drawing.Size(147, 25)
         Me.Panel2.TabIndex = 1
         '
         'RB_Inspection_NG
         '
         Me.RB_Inspection_NG.AutoSize = True
         Me.RB_Inspection_NG.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold)
-        Me.RB_Inspection_NG.Location = New System.Drawing.Point(104, 3)
+        Me.RB_Inspection_NG.Location = New System.Drawing.Point(79, 3)
         Me.RB_Inspection_NG.Name = "RB_Inspection_NG"
         Me.RB_Inspection_NG.Size = New System.Drawing.Size(57, 19)
         Me.RB_Inspection_NG.TabIndex = 1
@@ -550,6 +613,83 @@ Partial Class frm_OQC_Register
         Me.Label7.TabIndex = 2
         Me.Label7.Text = "검사자"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_OQC_No
+        '
+        Me.TB_OQC_No.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_OQC_No.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TB_OQC_No.Enabled = False
+        Me.TB_OQC_No.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_OQC_No.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_OQC_No.Location = New System.Drawing.Point(128, 130)
+        Me.TB_OQC_No.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_OQC_No.Name = "TB_OQC_No"
+        Me.TB_OQC_No.Size = New System.Drawing.Size(625, 25)
+        Me.TB_OQC_No.TabIndex = 4
+        '
+        'Label14
+        '
+        Me.Label14.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label14.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label14.ForeColor = System.Drawing.Color.White
+        Me.Label14.Location = New System.Drawing.Point(7, 130)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(121, 25)
+        Me.Label14.TabIndex = 3
+        Me.Label14.Text = "출하검사번호"
+        Me.Label14.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label12)
+        Me.GroupBox2.Controls.Add(Me.TB_SerialNo)
+        Me.GroupBox2.Controls.Add(Me.Label5)
+        Me.GroupBox2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.GroupBox2.Location = New System.Drawing.Point(444, 33)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(309, 93)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "박스구성"
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label12.Location = New System.Drawing.Point(14, 64)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(245, 12)
+        Me.Label12.TabIndex = 2
+        Me.Label12.Text = "※ 제품에 부착된 라벨을 스캔하여 주십시오."
+        '
+        'TB_SerialNo
+        '
+        Me.TB_SerialNo.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_SerialNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TB_SerialNo.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_SerialNo.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_SerialNo.Location = New System.Drawing.Point(137, 28)
+        Me.TB_SerialNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_SerialNo.Name = "TB_SerialNo"
+        Me.TB_SerialNo.Size = New System.Drawing.Size(156, 25)
+        Me.TB_SerialNo.TabIndex = 1
+        Me.TB_SerialNo.Text = "SD02LB2132406050001"
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label5.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(16, 28)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(121, 25)
+        Me.Label5.TabIndex = 0
+        Me.Label5.Text = "제품 일련번호"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Grid_History
         '
@@ -607,15 +747,22 @@ Partial Class frm_OQC_Register
         Me.SplitContainer2.ResumeLayout(False)
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.C1DockingTab1.ResumeLayout(False)
+        Me.C1DockingTabPage1.ResumeLayout(False)
+        CType(Me.Grid_BoxList, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.C1DockingTabPage2.ResumeLayout(False)
+        Me.C1DockingTabPage2.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        CType(Me.Grid_BoxList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
@@ -637,7 +784,7 @@ Partial Class frm_OQC_Register
     Friend WithEvents Label9 As Label
     Friend WithEvents TB_ItemCode As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents TB_PONo As TextBox
+    Friend WithEvents TB_OrderIndex As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents TB_LastProcess As TextBox
@@ -659,12 +806,23 @@ Partial Class frm_OQC_Register
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents Grid_BoxList As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TB_OQC_No As TextBox
     Friend WithEvents Label14 As Label
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents BTN_NewBox As ToolStripButton
     Friend WithEvents BTN_Save As ToolStripButton
     Friend WithEvents Label15 As Label
-    Friend WithEvents TB_InspectQty As TextBox
+    Friend WithEvents TB_InspectedQty As TextBox
+    Friend WithEvents LB_New_Update As Label
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BTN_Fault_Register As ToolStripButton
+    Friend WithEvents BTN_Reinspector As ToolStripButton
+    Friend WithEvents C1DockingTab1 As C1.Win.C1Command.C1DockingTab
+    Friend WithEvents C1DockingTabPage1 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents C1DockingTabPage2 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents RB_NotUseSerial As RadioButton
+    Friend WithEvents RB_UseSerial As RadioButton
+    Friend WithEvents TB_BoxQty As TextBox
     Friend WithEvents Label16 As Label
 End Class

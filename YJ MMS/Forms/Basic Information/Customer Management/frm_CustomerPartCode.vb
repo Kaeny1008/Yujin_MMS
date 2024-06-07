@@ -16,6 +16,15 @@ Imports MySql.Data.MySqlClient
 Public Class frm_CustomerPartCode
 
     Dim runProcess As Thread
+    Dim thread_Update As Thread
+
+    Public priceCol, supplierCol, categoryCol, partCodeCol As Integer
+    Public start_Row, last_Row As Integer
+    Public sheetName, fileName As String
+
+    Public d_TB_FileName As String
+
+    Dim excelApp As Object
 
     Private Sub frm_CustomerPartCode_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -54,7 +63,9 @@ Public Class frm_CustomerPartCode
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
-            .Cols(6).ComboList = "유상|무상|도급"
+            .Cols(6).ComboList = "유상|무상|도급|미사용"
+            .Cols(7).DataType = GetType(Double)
+            .Cols(7).Format = "#,##0.000"
             .Cols(1).Visible = True
             .AutoSizeCols()
             .ShowCursor = True
@@ -129,164 +140,164 @@ Public Class frm_CustomerPartCode
 
     End Sub
 
-    Private Sub BTN_NewMultiPartsCode_Click(sender As Object, e As EventArgs) Handles BTN_NewMultiPartsCode.Click
+    'Private Sub BTN_NewMultiPartsCode_Click(sender As Object, e As EventArgs) Handles BTN_NewMultiPartsCode.Click
 
-        If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택 하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-            Exit Sub
-        End If
+    '    If TB_CustomerCode.Text = String.Empty Then
+    '        MessageBox.Show(Me,
+    '                        "고객사를 먼저 선택 하여 주십시오.",
+    '                        msg_form,
+    '                        MessageBoxButtons.OK,
+    '                        MessageBoxIcon.Information)
+    '        Exit Sub
+    '    End If
 
-        If frm_Popup_MultiPartsCode.ShowDialog() = DialogResult.OK Then
-            runProcess = New Thread(AddressOf Load_List)
-            runProcess.IsBackground = True
-            runProcess.SetApartmentState(ApartmentState.STA)
-            runProcess.Start()
-        End If
+    '    If frm_Popup_MultiPartsCode.ShowDialog() = DialogResult.OK Then
+    '        runProcess = New Thread(AddressOf Load_List)
+    '        runProcess.IsBackground = True
+    '        runProcess.SetApartmentState(ApartmentState.STA)
+    '        runProcess.Start()
+    '    End If
 
-    End Sub
+    'End Sub
 
-    Private Sub Load_List()
+    'Private Sub Load_List()
 
-        thread_LoadingFormStart("Excel Load...")
+    '    thread_LoadingFormStart("Excel Load...")
 
-        Invoke(d_GridRedraw, False)
+    '    GridRedraw(False, Me, Grid_PartList)
 
-        Dim excelApp As Object
+    '    Dim excelApp As Object
 
-        excelApp = CreateObject("Excel.Application")
-        excelApp.WorkBooks.Open(Invoke(d_TB_FileName))
+    '    excelApp = CreateObject("Excel.Application")
+    '    excelApp.WorkBooks.Open(d_TB_FileName)
 
-        excelApp.Visible = False
+    '    excelApp.Visible = False
 
-        Try
-            Dim sheetName As String = Invoke(d_CB_SheetNameText)
-            Dim startRow As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Start Row", 3)
-            Dim partCode As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Code", 4)
-            Dim partSpecification As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Specification", 5)
-            Dim partVendor As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Vendor", 6)
-            Dim partCategory As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Category", 7)
-            Dim partType As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Type", 8)
-            Dim partSupplier As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Supplier", 8)
+    '    Try
+    '        Dim sheetName As String = Invoke(d_CB_SheetNameText)
+    '        Dim startRow As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Start Row", 3)
+    '        Dim partCode As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Code", 4)
+    '        Dim partSpecification As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Specification", 5)
+    '        Dim partVendor As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Vendor", 6)
+    '        Dim partCategory As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Category", 7)
+    '        Dim partType As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Type", 8)
+    '        Dim partSupplier As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Customer Part Code", "Part Supplier", 8)
 
-            With excelApp.ActiveWorkbook.Sheets(sheetName)
-                For i = startRow To .UsedRange.Rows.Count
-                    Invoke(d_Sub_RowAdd, Format(Now, "yyMMddHHmmssfff") & vbTab &
-                                         .Cells(i, partType).Value & vbTab &
-                                         .Cells(i, partCode).Value & vbTab &
-                                         .Cells(i, partSpecification).Value & vbTab &
-                                         .Cells(i, partVendor).Value & vbTab &
-                                         .Cells(i, partCategory).Value & vbTab &
-                                         .Cells(i, partSupplier))
-                    Invoke(d_SetPGStatus,
-                           "데이터를 불러오고 있습니다.     " &
-                           Format(i - startRow + 1, "#,##0") & " / " &
-                           Format(.UsedRange.Rows.Count - startRow + 1, "#,##0") & " 행")
-                Next
-            End With
-        Catch ex As Exception
-            MessageBox.Show(New Form With {.TopMost = True},
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
-        Finally
-            excelApp.WorkBooks(1).Close()
-            excelApp.Quit()
-            excelApp = Nothing
-        End Try
+    '        With excelApp.ActiveWorkbook.Sheets(sheetName)
+    '            For i = startRow To .UsedRange.Rows.Count
+    '                Invoke(d_Sub_RowAdd, Format(Now, "yyMMddHHmmssfff") & vbTab &
+    '                                     .Cells(i, partType).Value & vbTab &
+    '                                     .Cells(i, partCode).Value & vbTab &
+    '                                     .Cells(i, partSpecification).Value & vbTab &
+    '                                     .Cells(i, partVendor).Value & vbTab &
+    '                                     .Cells(i, partCategory).Value & vbTab &
+    '                                     .Cells(i, partSupplier))
+    '                Invoke(d_SetPGStatus,
+    '                       "데이터를 불러오고 있습니다.     " &
+    '                       Format(i - startRow + 1, "#,##0") & " / " &
+    '                       Format(.UsedRange.Rows.Count - startRow + 1, "#,##0") & " 행")
+    '            Next
+    '        End With
+    '    Catch ex As Exception
+    '        MessageBox.Show(New Form With {.TopMost = True},
+    '                        ex.Message,
+    '                        msg_form,
+    '                        MessageBoxButtons.OK,
+    '                        MessageBoxIcon.Error)
+    '    Finally
+    '        excelApp.WorkBooks(1).Close()
+    '        excelApp.Quit()
+    '        excelApp = Nothing
+    '    End Try
 
-        Invoke(d_GriAutoSize, "Col")
-        'Invoke(d_GriAutoSize, "Row")
+    '    Invoke(d_GriAutoSize, "Col")
+    '    'Invoke(d_GriAutoSize, "Row")
 
-        Invoke(d_GridRedraw, True)
+    '    Invoke(d_GridRedraw, True)
 
-        thread_LoadingFormEnd()
+    '    thread_LoadingFormEnd()
 
-        Invoke(d_FormClose)
+    '    Invoke(d_FormClose)
 
-        Invoke(d_SetPGStatus,
-               String.Empty)
+    '    Invoke(d_SetPGStatus,
+    '           String.Empty)
 
-        runProcess.Abort()
+    '    runProcess.Abort()
 
-    End Sub
+    'End Sub
 
-#Region "Delegate"
-    Private Delegate Sub Sub_SetPGStatus(ByVal statusText As String)
-    Private d_SetPGStatus = New Sub_SetPGStatus(AddressOf PG_Status)
+    '#Region "Delegate"
+    '    Private Delegate Sub Sub_SetPGStatus(ByVal statusText As String)
+    '    Private d_SetPGStatus = New Sub_SetPGStatus(AddressOf PG_Status)
 
-    Private Sub PG_Status(ByVal statusText As String)
+    '    Private Sub PG_Status(ByVal statusText As String)
 
-        frm_Main.lb_Status.Text = statusText
+    '        frm_Main.lb_Status.Text = statusText
 
-    End Sub
+    '    End Sub
 
-    Private Delegate Sub Sub_RowAdd(ByVal addString As String)
-    Private d_Sub_RowAdd = New Sub_RowAdd(AddressOf RowAdd)
+    '    Private Delegate Sub Sub_RowAdd(ByVal addString As String)
+    '    Private d_Sub_RowAdd = New Sub_RowAdd(AddressOf RowAdd)
 
-    Private Sub RowAdd(ByVal addString As String)
+    '    Private Sub RowAdd(ByVal addString As String)
 
-        Grid_PartList.AddItem("N" & vbTab & addString)
-        Grid_PartList.Rows(Grid_PartList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+    '        Grid_PartList.AddItem("N" & vbTab & addString)
+    '        Grid_PartList.Rows(Grid_PartList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
 
-    End Sub
+    '    End Sub
 
-    Private Delegate Sub Sub_FormClose()
-    Private d_FormClose = New Sub_FormClose(AddressOf formClose)
+    '    Private Delegate Sub Sub_FormClose()
+    '    Private d_FormClose = New Sub_FormClose(AddressOf formClose)
 
-    Private Sub formClose()
+    '    Private Sub formClose()
 
-        frm_Popup_MultiPartsCode.Dispose()
+    '        frm_Popup_MultiPartsCode.Dispose()
 
-    End Sub
+    '    End Sub
 
-    Private Delegate Function Sub_TB_FileName()
-    Private d_TB_FileName = New Sub_TB_FileName(AddressOf TB_FileName)
+    '    Private Delegate Function Sub_TB_FileName()
+    '    Private d_TB_FileName = New Sub_TB_FileName(AddressOf TB_FileName)
 
-    Private Function TB_FileName()
+    '    Private Function TB_FileName()
 
-        Return frm_Popup_MultiPartsCode.TB_File_Path.Text
+    '        Return frm_Popup_MultiPartsCode.TB_File_Path.Text
 
-    End Function
+    '    End Function
 
-    Private Delegate Function Sub_CB_SheetNameText()
-    Private d_CB_SheetNameText = New Sub_CB_SheetNameText(AddressOf CB_SheetNameText)
+    '    Private Delegate Function Sub_CB_SheetNameText()
+    '    Private d_CB_SheetNameText = New Sub_CB_SheetNameText(AddressOf CB_SheetNameText)
 
-    Private Function CB_SheetNameText()
+    '    Private Function CB_SheetNameText()
 
-        Return frm_Popup_MultiPartsCode.CB_SheetName.Text
+    '        Return frm_Popup_MultiPartsCode.CB_SheetName.Text
 
-    End Function
+    '    End Function
 
-    Private Delegate Sub Sub_GriAutoSize(ByVal rowcol As String)
-    Private d_GriAutoSize = New Sub_GriAutoSize(AddressOf Grid_AutoSizeColRow)
+    '    Private Delegate Sub Sub_GriAutoSize(ByVal rowcol As String)
+    '    Private d_GriAutoSize = New Sub_GriAutoSize(AddressOf Grid_AutoSizeColRow)
 
-    Private Sub Grid_AutoSizeColRow(ByVal rowcol As String)
+    '    Private Sub Grid_AutoSizeColRow(ByVal rowcol As String)
 
-        If rowcol.Equals("Row") Then
-            Grid_PartList.AutoSizeRows()
-        ElseIf rowcol.Equals("Col") Then
-            Grid_PartList.AutoSizeCols()
-        End If
+    '        If rowcol.Equals("Row") Then
+    '            Grid_PartList.AutoSizeRows()
+    '        ElseIf rowcol.Equals("Col") Then
+    '            Grid_PartList.AutoSizeCols()
+    '        End If
 
-    End Sub
+    '    End Sub
 
-    Private Delegate Sub Sub_GridRedraw(ByVal status As Boolean)
-    Private d_GridRedraw = New Sub_GridRedraw(AddressOf GridRedraw)
+    '    Private Delegate Sub Sub_GridRedraw(ByVal status As Boolean)
+    '    Private d_GridRedraw = New Sub_GridRedraw(AddressOf GridRedraw)
 
-    Private Sub GridRedraw(ByVal status As Boolean)
+    '    Private Sub GridRedraw(ByVal status As Boolean)
 
-        Grid_PartList.Redraw = status
+    '        Grid_PartList.Redraw = status
 
-    End Sub
+    '    End Sub
 
-    Private Delegate Sub Sub_FormFocus()
-    Private d_FormFocus = New Sub_FormFocus(AddressOf Focus)
-#End Region
+    '    Private Delegate Sub Sub_FormFocus()
+    '    Private d_FormFocus = New Sub_FormFocus(AddressOf Focus)
+    '#End Region
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
@@ -323,7 +334,7 @@ Public Class frm_CustomerPartCode
                                           sqlDR("part_specification") & vbTab &
                                           sqlDR("part_vendor") & vbTab &
                                           sqlDR("part_category") & vbTab &
-                                          Format(sqlDR("unit_price"), "#,##0.000") & vbTab &
+                                          sqlDR("unit_price") & vbTab &
                                           sqlDR("supplier") & vbTab &
                                           sqlDR("registered_qty") & vbTab &
                                           sqlDR("part_code_note")
@@ -461,7 +472,7 @@ Public Class frm_CustomerPartCode
             Grid_PartList(e.Row, 0) = "M"
         End If
 
-        Dim cs As CellStyle = Grid_PartList.Styles.Add("red")
+        Dim cs As CellStyle = Grid_PartList.Styles.Add("new_style")
         cs.BackColor = Color.Yellow
         cs.ForeColor = Color.Red
 
@@ -538,6 +549,100 @@ Public Class frm_CustomerPartCode
             Case Else
                 Grid_PartList.AllowEditing = True
         End Select
+
+    End Sub
+
+    Private Sub BTN_Part_Update_Click(sender As Object, e As EventArgs) Handles BTN_Part_Update.Click
+
+        If Grid_PartList.Rows.Count = 1 Then
+            MessageBox.Show(Me, "자료 검색을 먼저 하십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If frm_Material_Data_Update.ShowDialog = DialogResult.OK Then
+            thread_Update = New Thread(AddressOf Load_ExcelData)
+            thread_Update.IsBackground = True
+            thread_Update.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
+            thread_Update.Name = "Update Thread"
+            thread_Update.Start()
+        End If
+
+    End Sub
+
+    Private Sub Load_ExcelData()
+
+        Thread_LoadingFormStart("Excel Open...")
+
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        excelApp = CreateObject("Excel.Application")
+        excelApp.DisplayAlerts = False
+        excelApp.WorkBooks.Open(Application.StartupPath & "\TEMP_FILE\" & fileName)
+        excelApp.Visible = False
+
+        GridRedraw(False, Me, Grid_PartList)
+
+        Try
+            With excelApp.ActiveWorkbook.Sheets(sheetName)
+                For i = start_Row To last_Row
+                    'Dim priceCol, supplierCol, categoryCol As Integer
+                    Dim partCode As String = Trim(.Cells(i, partCodeCol).Value)
+                    Dim findRow As Integer = GridFindRow(Me, Grid_PartList, partCode, 3)
+                    If findRow > 0 Then
+                        GridWriteText("M", findRow, 0, Me, Grid_PartList, Color.Black)
+                        If Not priceCol = 0 Then
+                            GridWriteText(Trim(.Cells(i, priceCol).Value), findRow, 7, Me, Grid_PartList, Color.Red, Color.Yellow)
+                        End If
+                        If Not supplierCol = 0 Then
+                            GridWriteText(Trim(.Cells(i, supplierCol).Value), findRow, 8, Me, Grid_PartList, Color.Red, Color.Yellow)
+                        End If
+                        If Not categoryCol = 0 Then
+                            GridWriteText(Trim(.Cells(i, categoryCol).Value), findRow, 6, Me, Grid_PartList, Color.Red, Color.Yellow)
+                        End If
+                    End If
+                Next
+            End With
+        Catch ex As Exception
+            MessageBox.Show(ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly)
+        End Try
+
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        GridColsAutoSize(Me, Grid_PartList)
+        GridRowsAutoSize(1, Grid_PartList.Rows.Count - 1, Me, Grid_PartList)
+
+        GridRedraw(True, Me, Grid_PartList)
+
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        Thread_LoadingFormEnd()
+
+        If Not IsNothing(thread_Update) Then
+            Console.WriteLine("'{0}' Finished...",
+                                  thread_Update.Name)
+            thread_Update.Abort()
+            thread_Update = Nothing
+        End If
 
     End Sub
 End Class

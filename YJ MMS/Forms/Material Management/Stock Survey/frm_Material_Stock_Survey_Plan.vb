@@ -341,8 +341,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 strSQL += ") values ("
                 strSQL += "'" & LB_InspectionNo.Text & Format(CDbl(Grid_MaterialList(i, 0)), "0000") & "'"
                 strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
-                strSQL += "," & CDbl(Grid_MaterialList(i, 2)) & ""
-                strSQL += "," & CDbl(Grid_MaterialList(i, 6)) & ""
+                strSQL += "," & CDbl(Grid_MaterialList(i, 5)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 7)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 8)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 9)) & ""
@@ -352,6 +351,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 strSQL += "," & CDbl(Grid_MaterialList(i, 13)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 14)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 15)) & ""
+                strSQL += "," & CDbl(Grid_MaterialList(i, 16)) & ""
                 strSQL += ");"
             Next
 

@@ -219,17 +219,43 @@ Module md_ETC
                              ByVal col As Integer,
                              ByVal formName As Form,
                              ByVal grid As C1FlexGrid,
-                             ByVal rowColor As Color)
+                             ByVal rowForeColor As Color)
 
         Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
                 ts.Invoke(New Action(Of String, Integer, Integer, Form, C1FlexGrid, Color)(AddressOf GridWriteText),
-                          text, row, col, formName, grid, rowColor)
+                          text, row, col, formName, grid, rowForeColor)
             Else
                 ts(row, col) = text
-                ts.Rows(row).StyleNew.ForeColor = rowColor
+                ts.Rows(row).StyleNew.ForeColor = rowForeColor
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridWriteText(ByVal text As String,
+                             ByVal row As Integer,
+                             ByVal col As Integer,
+                             ByVal formName As Form,
+                             ByVal grid As C1FlexGrid,
+                             ByVal foreColor As Color,
+                             ByVal backColor As Color)
+
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Integer, Integer, Form, C1FlexGrid, Color, Color)(AddressOf GridWriteText),
+                          text, row, col, formName, grid, foreColor, backColor)
+            Else
+                ts(row, col) = text
+                Dim cs As CellStyle = ts.Styles.Add("new_style")
+                cs.BackColor = backColor
+                cs.ForeColor = foreColor
+
+                ts.SetCellStyle(row, col, cs)
             End If
         End If
 
@@ -249,6 +275,24 @@ Module md_ETC
         End If
 
     End Sub
+
+    Public Function GridFindRow(ByVal formName As Form, ByVal cb As C1FlexGrid, ByVal findText As String, ByVal findCol As Integer) As Integer
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                Return ts.Invoke(New Func(Of Integer)(Function() GridFindRow(formName, cb, findText, findCol)))
+            Else
+                'MessageBox.Show(cb.name)
+                Dim findRow As Integer = cb.FindRow(findText, 1, findCol, True)
+                Return findrow
+            End If
+        Else
+            Return -99
+        End If
+
+    End Function
 
     Public Sub ComboBoxItemAdd(ByVal itemName As String, ByVal formName As Form, ByVal cb As ComboBox)
 
@@ -299,6 +343,20 @@ Module md_ETC
             Dim ts As Label = DirectCast(ctls(0), Label)
             If ts.InvokeRequired Then
                 ts.Invoke(New Action(Of String, Form, Label)(AddressOf LabelTextUpdate), testString, formName, lb)
+            Else
+                ts.Text = testString
+            End If
+        End If
+
+    End Sub
+
+    Public Sub TextBoxTextUpdate(ByVal testString As String, ByVal formName As Form, ByVal lb As TextBox)
+
+        Dim ctls() As Control = formName.Controls.Find(lb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is TextBox Then
+            Dim ts As TextBox = DirectCast(ctls(0), TextBox)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, TextBox)(AddressOf TextBoxTextUpdate), testString, formName, lb)
             Else
                 ts.Text = testString
             End If

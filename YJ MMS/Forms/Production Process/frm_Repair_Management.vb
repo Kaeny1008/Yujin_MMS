@@ -95,6 +95,8 @@ Public Class frm_Repair_Management
             findIndex = 2
         ElseIf CB_Process.Text = "Wave Soldering" Then
             findIndex = 2
+        ElseIf CB_Process.Text = "출하검사" Then
+            findIndex = 3
         End If
 
         Dim strSQL As String = "call sp_mms_repair_management("
@@ -261,6 +263,8 @@ Public Class frm_Repair_Management
             updateTable = "tb_mms_ws_defect"
         ElseIf CB_Process.Text = "Wave Soldering" Then
             updateTable = "tb_mms_ws_defect"
+        ElseIf CB_Process.Text = "출하검사" Then
+            updateTable = "tb_mms_oqc_defect"
         End If
 
         Try

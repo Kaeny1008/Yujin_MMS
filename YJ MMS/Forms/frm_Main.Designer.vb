@@ -100,6 +100,8 @@ Partial Class frm_Main
         Me.BTN_OQC = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Repair_Management = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
+        Me.PCBAssyLabel발행ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripDropDownButton4 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.BTN_Delivery_Register = New System.Windows.Forms.ToolStripMenuItem()
@@ -391,13 +393,13 @@ Partial Class frm_Main
         'BTN_Material_Transfer
         '
         Me.BTN_Material_Transfer.Name = "BTN_Material_Transfer"
-        Me.BTN_Material_Transfer.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Transfer.Size = New System.Drawing.Size(141, 22)
         Me.BTN_Material_Transfer.Text = "현장 입,출고"
         '
         'BTN_Material_Return
         '
         Me.BTN_Material_Return.Name = "BTN_Material_Return"
-        Me.BTN_Material_Return.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Return.Size = New System.Drawing.Size(141, 22)
         Me.BTN_Material_Return.Text = "반출"
         '
         'ToolStripSeparator12
@@ -456,6 +458,7 @@ Partial Class frm_Main
         Me.BTN_Material_Stock_Survay_Input.Name = "BTN_Material_Stock_Survay_Input"
         Me.BTN_Material_Stock_Survay_Input.Size = New System.Drawing.Size(241, 22)
         Me.BTN_Material_Stock_Survay_Input.Text = "조사결과 입력(사용X PDA활용)"
+        Me.BTN_Material_Stock_Survay_Input.Visible = False
         '
         'BTN_Material_Stock_Survay_Result
         '
@@ -478,7 +481,7 @@ Partial Class frm_Main
         '
         Me.BTN_ProductionPlan.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_ProductionPlan.Name = "BTN_ProductionPlan"
-        Me.BTN_ProductionPlan.Size = New System.Drawing.Size(152, 22)
+        Me.BTN_ProductionPlan.Size = New System.Drawing.Size(180, 22)
         Me.BTN_ProductionPlan.Text = "생산계획 수립"
         '
         'ToolStripSeparator4
@@ -489,7 +492,7 @@ Partial Class frm_Main
         'ToolStripDropDownButton3
         '
         Me.ToolStripDropDownButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripDropDownButton3.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SMD생산ToolStripMenuItem, Me.ToolStripMenuItem1, Me.출하ToolStripMenuItem, Me.ToolStripSeparator3, Me.BTN_Repair_Management})
+        Me.ToolStripDropDownButton3.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SMD생산ToolStripMenuItem, Me.ToolStripMenuItem1, Me.출하ToolStripMenuItem, Me.ToolStripSeparator3, Me.BTN_Repair_Management, Me.ToolStripSeparator10, Me.PCBAssyLabel발행ToolStripMenuItem})
         Me.ToolStripDropDownButton3.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ToolStripDropDownButton3.Image = CType(resources.GetObject("ToolStripDropDownButton3.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -643,6 +646,18 @@ Partial Class frm_Main
         Me.BTN_Repair_Management.Size = New System.Drawing.Size(220, 22)
         Me.BTN_Repair_Management.Text = "수리내역 등록"
         '
+        'ToolStripSeparator10
+        '
+        Me.ToolStripSeparator10.Name = "ToolStripSeparator10"
+        Me.ToolStripSeparator10.Size = New System.Drawing.Size(217, 6)
+        '
+        'PCBAssyLabel발행ToolStripMenuItem
+        '
+        Me.PCBAssyLabel발행ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.PCBAssyLabel발행ToolStripMenuItem.Name = "PCBAssyLabel발행ToolStripMenuItem"
+        Me.PCBAssyLabel발행ToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
+        Me.PCBAssyLabel발행ToolStripMenuItem.Text = "PCB Ass'y Label 발행"
+        '
         'ToolStripSeparator13
         '
         Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
@@ -775,4 +790,6 @@ Partial Class frm_Main
     Friend WithEvents BTN_Delivery_History As ToolStripMenuItem
     Friend WithEvents BTN_Material_Transfer As ToolStripMenuItem
     Friend WithEvents BTN_Material_Return As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator10 As ToolStripSeparator
+    Friend WithEvents PCBAssyLabel발행ToolStripMenuItem As ToolStripMenuItem
 End Class
