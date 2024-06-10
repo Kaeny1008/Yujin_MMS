@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Material_CheckRequirements
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,11 +20,16 @@ Partial Class frm_Material_CheckRequirements
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_CheckRequirements))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Check = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Confirm = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -38,12 +43,6 @@ Partial Class frm_Material_CheckRequirements
         Me.TB_OrderNo = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Check = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Confirm = New System.Windows.Forms.ToolStripButton()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -64,10 +63,50 @@ Partial Class frm_Material_CheckRequirements
         Me.TS_MainBar.TabIndex = 0
         Me.TS_MainBar.Text = "ToolStrip1"
         '
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'BTN_Check
+        '
+        Me.BTN_Check.Image = Global.YJ_MMS.My.Resources.Resources.check
+        Me.BTN_Check.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Check.Name = "BTN_Check"
+        Me.BTN_Check.Size = New System.Drawing.Size(91, 22)
+        Me.BTN_Check.Text = "소요량 확인"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
+        '
+        'BTN_Confirm
+        '
+        Me.BTN_Confirm.Enabled = False
+        Me.BTN_Confirm.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
+        Me.BTN_Confirm.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Confirm.Name = "BTN_Confirm"
+        Me.BTN_Confirm.Size = New System.Drawing.Size(75, 22)
+        Me.BTN_Confirm.Text = "확인완료"
         '
         'SplitContainer1
         '
@@ -92,19 +131,18 @@ Partial Class frm_Material_CheckRequirements
         '
         Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_OrderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 135)
+        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 106)
         Me.Grid_OrderList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_OrderList.Name = "Grid_OrderList"
         Me.Grid_OrderList.Rows.Count = 2
         Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(544, 613)
+        Me.Grid_OrderList.Size = New System.Drawing.Size(544, 642)
         Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
         Me.Grid_OrderList.TabIndex = 1
         '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Panel5.Controls.Add(Me.Label4)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
         Me.Panel5.Controls.Add(Me.Label3)
@@ -117,7 +155,7 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(544, 135)
+        Me.Panel5.Size = New System.Drawing.Size(544, 106)
         Me.Panel5.TabIndex = 0
         '
         'CB_CustomerName
@@ -240,55 +278,6 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
         Me.Grid_MaterialList.TabIndex = 2
         '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(12, 123)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(215, 12)
-        Me.Label4.TabIndex = 9
-        Me.Label4.Text = "※ 선택/해제 : 마우스 왼쪽키 더블클릭"
-        '
-        'BTN_Search
-        '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
-        '
-        'BTN_Check
-        '
-        Me.BTN_Check.Image = Global.YJ_MMS.My.Resources.Resources.check
-        Me.BTN_Check.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Check.Name = "BTN_Check"
-        Me.BTN_Check.Size = New System.Drawing.Size(91, 22)
-        Me.BTN_Check.Text = "소요량 확인"
-        '
-        'BTN_Confirm
-        '
-        Me.BTN_Confirm.Enabled = False
-        Me.BTN_Confirm.Image = Global.YJ_MMS.My.Resources.Resources.ordering_12
-        Me.BTN_Confirm.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Confirm.Name = "BTN_Confirm"
-        Me.BTN_Confirm.Size = New System.Drawing.Size(75, 22)
-        Me.BTN_Confirm.Text = "확인완료"
-        '
         'frm_Material_CheckRequirements
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -333,5 +322,4 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_Check As ToolStripButton
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents BTN_Confirm As ToolStripButton
-    Friend WithEvents Label4 As Label
 End Class

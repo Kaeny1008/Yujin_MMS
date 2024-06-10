@@ -351,7 +351,6 @@ Partial Class frm_OQC_Register
         Me.TB_MagazineBarcode.Name = "TB_MagazineBarcode"
         Me.TB_MagazineBarcode.Size = New System.Drawing.Size(625, 25)
         Me.TB_MagazineBarcode.TabIndex = 1
-        Me.TB_MagazineBarcode.Text = "PO202404010002-0005!WSO240516080232117!WAVE SOLDERING"
         '
         'GroupBox3
         '
@@ -675,7 +674,6 @@ Partial Class frm_OQC_Register
         Me.TB_SerialNo.Name = "TB_SerialNo"
         Me.TB_SerialNo.Size = New System.Drawing.Size(156, 25)
         Me.TB_SerialNo.TabIndex = 1
-        Me.TB_SerialNo.Text = "SD02LB2132406050001"
         '
         'Label5
         '

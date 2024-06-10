@@ -83,6 +83,10 @@ Public Class frm_OQC_Register
         TB_POQty.Text = String.Empty
         TB_ModelCode.Text = String.Empty
         TB_OQC_No.Text = String.Empty
+        TB_BoxQty.Text = String.Empty
+
+        Grid_BoxList.Rows.Count = 1
+        Grid_History.Rows.Count = 1
 
     End Sub
 
@@ -475,13 +479,24 @@ Public Class frm_OQC_Register
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
-        If Grid_BoxList.Rows.Count = 1 Then
+        If RB_UseSerial.Checked = True And Grid_BoxList.Rows.Count = 1 Then
             MessageBox.Show(Me,
                             "박스 구성된 제품이 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
+        ElseIf RB_NotUseSerial.Checked = True Then
+            If Trim(TB_BoxQty.Text) = String.Empty Then
+                MessageBox.Show(Me,
+                                "박스 구성 수량을 입력하여 주십시오.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Exclamation)
+                TB_BoxQty.SelectAll()
+                TB_BoxQty.Focus()
+                Exit Sub
+            End If
         End If
 
         If Not RB_Inspection_OK.Checked And Not RB_Inspection_NG.Checked Then
@@ -499,6 +514,8 @@ Public Class frm_OQC_Register
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
+            TB_Inspector.SelectAll()
+            TB_Inspector.Focus()
             Exit Sub
         End If
 
@@ -524,6 +541,14 @@ Public Class frm_OQC_Register
                             MessageBoxIcon.Exclamation)
             Exit Sub
         ElseIf CDbl(TB_POQty.Text) = (CDbl(TB_InspectedQty.Text) + newRow) Then
+            If CheckReinspection() = False Then
+                MessageBox.Show(Me,
+                                "수리품 재검사가 완료되지 않았습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Asterisk)
+                Exit Sub
+            End If
             poEnd = True
         End If
 
@@ -556,26 +581,61 @@ Public Class frm_OQC_Register
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
+            Control_Init()
+            TB_MagazineBarcode.SelectAll()
+            TB_MagazineBarcode.Focus()
         Else
             MessageBox.Show(Me,
                             "저장완료.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
+
+            Grid_BoxList.Redraw = False
+            Grid_BoxList.Rows.Count = 1
+            Grid_BoxList.Redraw = True
+
+            TB_BoxQty.Text = String.Empty
+
+            TB_OQC_No.Text = String.Empty
+
+            LB_New_Update.Visible = False
+
+            Load_OQCList()
         End If
 
-        Grid_BoxList.Redraw = False
-        Grid_BoxList.Rows.Count = 1
-        Grid_BoxList.Redraw = True
-
-
-        TB_OQC_No.Text = String.Empty
-
-        LB_New_Update.Visible = False
-
-        Load_OQCList()
-
     End Sub
+
+    Private Function CheckReinspection() As Boolean
+
+        Dim not_inspect As Integer = 0
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_oqc(6"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            not_inspect += sqlDR("not_inspect")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        If not_inspect = 0 Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
 
     Private Function Write_Data(ByVal poEnd As Boolean) As String
 

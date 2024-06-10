@@ -161,11 +161,14 @@ Public Class frm_Material_CheckRequirements
 
     End Sub
 
-    Private Sub Grid_OrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Grid_OrderList.MouseDoubleClick
+    Private Sub Grid_OrderList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_OrderList.MouseClick
 
         Dim selRow As Integer = Grid_OrderList.MouseRow
+        Dim selCol As Integer = Grid_OrderList.MouseCol
 
-        If e.Button = MouseButtons.Left And selRow > 0 Then
+        If selRow < 1 Then Exit Sub
+
+        If e.Button = MouseButtons.Left And selCol = 1 Then
             If Grid_OrderList.GetCellCheck(selRow, 1) = CheckEnum.Checked Then
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Unchecked)
             Else

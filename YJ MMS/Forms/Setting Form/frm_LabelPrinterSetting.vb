@@ -80,7 +80,7 @@
         TB_Port.KeyPress,
         TB_StopBits.KeyPress
 
-        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "." Then
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "." And Not e.KeyChar = "-" Then
             e.Handled = True
         End If
     End Sub
