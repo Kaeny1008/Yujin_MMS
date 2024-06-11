@@ -57,7 +57,6 @@ Partial Class frm_MetalMaskHistory
         Me.Tb_ModelName = New System.Windows.Forms.TextBox()
         Me.Tb_CustomerName = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.Tb_ModelCode = New System.Windows.Forms.TextBox()
         Me.Tb_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Rb_Not_Use = New System.Windows.Forms.RadioButton()
@@ -130,7 +129,6 @@ Partial Class frm_MetalMaskHistory
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_ModelName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_CustomerName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label5)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_ModelCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_CustomerCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Panel1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_Note)
@@ -487,10 +485,10 @@ Partial Class frm_MetalMaskHistory
         Me.Tb_ModelName.BackColor = System.Drawing.SystemColors.Window
         Me.Tb_ModelName.Enabled = False
         Me.Tb_ModelName.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Tb_ModelName.Location = New System.Drawing.Point(211, 223)
+        Me.Tb_ModelName.Location = New System.Drawing.Point(136, 223)
         Me.Tb_ModelName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Tb_ModelName.Name = "Tb_ModelName"
-        Me.Tb_ModelName.Size = New System.Drawing.Size(384, 21)
+        Me.Tb_ModelName.Size = New System.Drawing.Size(459, 21)
         Me.Tb_ModelName.TabIndex = 191
         '
         'Tb_CustomerName
@@ -517,17 +515,6 @@ Partial Class frm_MetalMaskHistory
         Me.Label5.TabIndex = 179
         Me.Label5.Text = "작업면"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Tb_ModelCode
-        '
-        Me.Tb_ModelCode.BackColor = System.Drawing.SystemColors.Window
-        Me.Tb_ModelCode.Enabled = False
-        Me.Tb_ModelCode.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Tb_ModelCode.Location = New System.Drawing.Point(136, 223)
-        Me.Tb_ModelCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_ModelCode.Name = "Tb_ModelCode"
-        Me.Tb_ModelCode.Size = New System.Drawing.Size(75, 21)
-        Me.Tb_ModelCode.TabIndex = 176
         '
         'Tb_CustomerCode
         '
@@ -876,6 +863,7 @@ Partial Class frm_MetalMaskHistory
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "frm_MetalMaskHistory"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "MetalMask 이력확인"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
@@ -917,7 +905,6 @@ Partial Class frm_MetalMaskHistory
     Friend WithEvents Tb_ModelName As TextBox
     Friend WithEvents Tb_CustomerName As TextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents Tb_ModelCode As TextBox
     Friend WithEvents Tb_CustomerCode As TextBox
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Rb_Not_Use As RadioButton

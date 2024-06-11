@@ -32,7 +32,6 @@ Partial Class frm_MetalMaskManagement
         Me.Btn_PrinterSetting = New System.Windows.Forms.ToolStripButton()
         Me.TB_ModelCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.CB_ModelName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
@@ -110,12 +109,11 @@ Partial Class frm_MetalMaskManagement
         'TB_ModelCode
         '
         Me.TB_ModelCode.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_ModelCode.Enabled = False
         Me.TB_ModelCode.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.TB_ModelCode.Location = New System.Drawing.Point(136, 34)
         Me.TB_ModelCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ModelCode.Name = "TB_ModelCode"
-        Me.TB_ModelCode.Size = New System.Drawing.Size(75, 21)
+        Me.TB_ModelCode.Size = New System.Drawing.Size(392, 21)
         Me.TB_ModelCode.TabIndex = 26
         '
         'Label1
@@ -131,17 +129,6 @@ Partial Class frm_MetalMaskManagement
         Me.Label1.TabIndex = 24
         Me.Label1.Text = "모델명"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'CB_ModelName
-        '
-        Me.CB_ModelName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_ModelName.Font = New System.Drawing.Font("굴림", 9.75!)
-        Me.CB_ModelName.FormattingEnabled = True
-        Me.CB_ModelName.Location = New System.Drawing.Point(211, 34)
-        Me.CB_ModelName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.CB_ModelName.Name = "CB_ModelName"
-        Me.CB_ModelName.Size = New System.Drawing.Size(317, 21)
-        Me.CB_ModelName.TabIndex = 25
         '
         'TB_CustomerCode
         '
@@ -196,7 +183,6 @@ Partial Class frm_MetalMaskManagement
         Me.SplitContainer1.Panel1.Controls.Add(Me.CB_WorkSide)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_ModelCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.CB_ModelName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_CustomerCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
         Me.SplitContainer1.Panel1.Controls.Add(Me.CB_CustomerName)
@@ -274,7 +260,7 @@ Partial Class frm_MetalMaskManagement
         '
         Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Cms_MaskEdit, Me.ToolStripSeparator4, Me.Cms_MaskClose, Me.Cms_MaskClose_Cancel, Me.ToolStripSeparator5, Me.Cms_MaskDelete, Me.ToolStripSeparator1, Me.Cms_LabelPrinter, Me.ToolStripSeparator6, Me.Cms_History})
         Me.Grid_Menu.Name = "ContextMenuStrip1"
-        Me.Grid_Menu.Size = New System.Drawing.Size(155, 160)
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 182)
         '
         'Cms_MaskEdit
         '
@@ -321,7 +307,7 @@ Partial Class frm_MetalMaskManagement
         'Cms_LabelPrinter
         '
         Me.Cms_LabelPrinter.Name = "Cms_LabelPrinter"
-        Me.Cms_LabelPrinter.Size = New System.Drawing.Size(154, 22)
+        Me.Cms_LabelPrinter.Size = New System.Drawing.Size(180, 22)
         Me.Cms_LabelPrinter.Text = "Label 인쇄"
         '
         'ToolStripSeparator6
@@ -363,7 +349,6 @@ Partial Class frm_MetalMaskManagement
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents TB_ModelCode As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents CB_ModelName As ComboBox
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents CB_CustomerName As ComboBox

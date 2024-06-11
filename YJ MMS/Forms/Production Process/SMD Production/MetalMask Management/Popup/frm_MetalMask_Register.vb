@@ -35,9 +35,9 @@ Public Class frm_MetalMask_Register
             Tb_customerCode.Text = sqlDR("customer_code")
             Cb_customerName_DropDown("notClose", Nothing)
             Cb_customerName.Text = sqlDR("customer_name")
-            Tb_modelCode.Text = sqlDR("model_code")
-            Cb_modelName_DropDown("notClose", Nothing)
-            Cb_modelName.Text = sqlDR("item_code")
+            Tb_modelCode.Text = sqlDR("model_name")
+            'Cb_modelName_DropDown("notClose", Nothing)
+            'Cb_modelName.Text = sqlDR("model_name")
             Cb_WorkSide.Text = sqlDR("work_side")
             Tb_Revision.Text = sqlDR("revision")
             Cb_Thickness.Text = sqlDR("thickness")
@@ -58,6 +58,8 @@ Public Class frm_MetalMask_Register
                 TB_CheckResult.Enabled = True
                 Label7.Visible = False
             End If
+            TB_Storage_Box.Text = sqlDR("storage_box")
+            TB_Storage_No.Text = sqlDR("storage_no")
         Loop
         sqlDR.Close()
 
@@ -110,57 +112,57 @@ Public Class frm_MetalMask_Register
         DBClose()
 
         Tb_modelCode.Text = String.Empty
-        Cb_modelName.SelectedIndex = -1
+        'Cb_modelName.SelectedIndex = -1
 
     End Sub
 
-    Private Sub Cb_modelName_DropDown(sender As Object, e As EventArgs) Handles Cb_modelName.DropDown
+    'Private Sub Cb_modelName_DropDown(sender As Object, e As EventArgs) Handles Cb_modelName.DropDown
 
 
-        Dim cb_old_string As String = Cb_modelName.Text
+    '    Dim cb_old_string As String = Cb_modelName.Text
 
-        Cb_modelName.Items.Clear()
+    '    Cb_modelName.Items.Clear()
 
-        DBConnect()
+    '    DBConnect()
 
-        Dim strSQL As String = "select item_code from tb_model_list"
-        strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
-        strSQL += " order by item_code"
+    '    Dim strSQL As String = "select item_code from tb_model_list"
+    '    strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
+    '    strSQL += " order by item_code"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            Cb_modelName.Items.Add(sqlDR("item_code"))
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        Cb_modelName.Items.Add(sqlDR("item_code"))
+    '    Loop
+    '    sqlDR.Close()
 
-        DBClose()
+    '    DBClose()
 
-        Cb_modelName.Text = cb_old_string
+    '    Cb_modelName.Text = cb_old_string
 
-    End Sub
+    'End Sub
 
-    Private Sub Cb_modelName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_modelName.SelectedIndexChanged
+    'Private Sub Cb_modelName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_modelName.SelectedIndexChanged
 
-        Tb_modelCode.Text = String.Empty
+    '    Tb_modelCode.Text = String.Empty
 
-        DBConnect()
+    '    DBConnect()
 
-        Dim strSQL As String = "select model_code from tb_model_list"
-        strSQL += " where item_code = '" & Cb_modelName.Text & "'"
+    '    Dim strSQL As String = "select model_code from tb_model_list"
+    '    strSQL += " where item_code = '" & Cb_modelName.Text & "'"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            Tb_modelCode.Text = sqlDR("model_code")
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        Tb_modelCode.Text = sqlDR("model_code")
+    '    Loop
+    '    sqlDR.Close()
 
-        DBClose()
+    '    DBClose()
 
-    End Sub
+    'End Sub
 
     Private Sub Btn_Save_Click(sender As Object, e As EventArgs) Handles Btn_Save.Click
 
@@ -215,7 +217,7 @@ Public Class frm_MetalMask_Register
             strSQL = "update tb_mmms_metal_mask_list"
             strSQL += " set mask_usable = '" & maskStatus & "'"
             strSQL += ", customer_code = '" & Tb_customerCode.Text & "'"
-            strSQL += ", model_code = '" & Tb_modelCode.Text & "'"
+            strSQL += ", model_name = '" & Tb_modelCode.Text & "'"
             strSQL += ", revision = '" & Tb_Revision.Text & "'"
             strSQL += ", thickness = '" & Cb_Thickness.Text & "'"
             strSQL += ", making_date = '" & Format(DT_MakingDate.Value, "yyyy-MM-dd") & "'"
@@ -226,6 +228,8 @@ Public Class frm_MetalMask_Register
             strSQL += ", mask_note = '" & Tb_Note.Text & "'"
             strSQL += ", work_side = '" & Cb_WorkSide.Text & "'"
             strSQL += ", first_unique_note = '" & TB_CheckResult.Text & "'"
+            strSQL += ", storage_box = '" & TB_Storage_Box.Text & "'"
+            strSQL += ", storage_no = " & CInt(TB_Storage_No.Text) & ""
             strSQL += " where mask_sn = '" & Tb_MaskSN.Text & "';"
 
             strSQL += "update tb_mmms_metal_mask_history"
@@ -269,10 +273,12 @@ Public Class frm_MetalMask_Register
 
             Dim write_date As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-            strSQL = "insert into tb_mmms_metal_mask_list(mask_sn, mask_usable, first_unique_note, customer_code"
-            strSQL += ", model_code, revision, thickness, making_date, in_date, making_company"
-            strSQL += ", wh_size, using_count, mask_note, work_side, write_id, write_date) values"
-            strSQL += "('" & Tb_MaskSN.Text & "'"
+            strSQL = "insert into tb_mmms_metal_mask_list("
+            strSQL += "mask_sn, mask_usable, first_unique_note, customer_code"
+            strSQL += ", model_name, revision, thickness, making_date, in_date, making_company"
+            strSQL += ", wh_size, using_count, mask_note, work_side, write_id, write_date, storage_box, storage_no"
+            strSQL += ") values("
+            strSQL += "'" & Tb_MaskSN.Text & "'"
             If Rb_Use.Checked Then
                 strSQL += ",'Yes'"
             Else
@@ -291,11 +297,16 @@ Public Class frm_MetalMask_Register
             strSQL += ",'" & Tb_Note.Text & "'"
             strSQL += ",'" & Cb_WorkSide.Text & "'"
             strSQL += ",'" & loginID & "'"
-            strSQL += ",'" & write_date & "');"
+            strSQL += ",'" & write_date & "'"
+            strSQL += ",'" & TB_Storage_Box.Text & "'"
+            strSQL += "," & CInt(TB_Storage_No.Text) & ""
+            strSQL += ");"
 
-            strSQL += "insert into tb_mmms_metal_mask_history(write_option, mask_sn, use_count, daily_use_count, total_use_count"
-            strSQL += ", gubun, unique_note, write_id, write_date, mask_note) values"
-            strSQL += "('Event'"
+            strSQL += "insert into tb_mmms_metal_mask_history("
+            strSQL += "write_option, mask_sn, use_count, daily_use_count, total_use_count"
+            strSQL += ", gubun, unique_note, write_id, write_date, mask_note"
+            strSQL += ") values("
+            strSQL += "'Event'"
             strSQL += ",'" & Tb_MaskSN.Text & "'"
             strSQL += ",0"
             strSQL += ",0"

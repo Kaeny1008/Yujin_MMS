@@ -18,7 +18,7 @@ Public Class frm_MetalMaskManagement
             .AllowSorting = AllowSortingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 15
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -36,7 +36,9 @@ Public Class frm_MetalMaskManagement
             Grid_List(0, 11) = "제작업체"
             Grid_List(0, 12) = "사이즈"
             Grid_List(0, 13) = "사용횟수"
-            Grid_List(0, 14) = "비고"
+            Grid_List(0, 14) = "보관함"
+            Grid_List(0, 15) = "보관번호"
+            Grid_List(0, 16) = "비고"
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(Grid_List.Cols.Count - 1).TextAlign = TextAlignEnum.LeftCenter
@@ -140,62 +142,62 @@ Public Class frm_MetalMaskManagement
         DBClose()
 
         TB_ModelCode.Text = String.Empty
-        CB_ModelName.SelectedIndex = -1
+        'CB_ModelName.SelectedIndex = -1
         CB_WorkSide.SelectedIndex = -1
         Grid_List.Rows.Count = 1
 
     End Sub
 
-    Private Sub Cb_modelName_DropDown(sender As Object, e As EventArgs) Handles CB_ModelName.DropDown
+    'Private Sub Cb_modelName_DropDown(sender As Object, e As EventArgs)
 
 
-        Dim cb_old_string As String = CB_ModelName.Text
+    '    Dim cb_old_string As String = CB_ModelName.Text
 
-        CB_ModelName.Items.Clear()
+    '    CB_ModelName.Items.Clear()
 
-        DBConnect()
+    '    DBConnect()
 
-        Dim strSQL As String = "select item_code from tb_model_list"
-        strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
-        strSQL += " order by item_code"
+    '    Dim strSQL As String = "select item_code from tb_model_list"
+    '    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+    '    strSQL += " order by item_code"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            CB_ModelName.Items.Add(sqlDR("item_code"))
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        CB_ModelName.Items.Add(sqlDR("item_code"))
+    '    Loop
+    '    sqlDR.Close()
 
-        DBClose()
+    '    DBClose()
 
-        CB_ModelName.Text = cb_old_string
+    '    CB_ModelName.Text = cb_old_string
 
-    End Sub
+    'End Sub
 
-    Private Sub Cb_modelName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_ModelName.SelectedIndexChanged
+    'Private Sub Cb_modelName_SelectedIndexChanged(sender As Object, e As EventArgs)
 
-        TB_ModelCode.Text = String.Empty
+    '    TB_ModelCode.Text = String.Empty
 
-        DBConnect()
+    '    DBConnect()
 
-        Dim strSQL As String = "select model_code from tb_model_list"
-        strSQL += " where item_code = '" & CB_ModelName.Text & "'"
+    '    Dim strSQL As String = "select model_code from tb_model_list"
+    '    strSQL += " where item_code = '" & CB_ModelName.Text & "'"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+    '    Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+    '    Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            TB_ModelCode.Text = sqlDR("model_code")
-        Loop
-        sqlDR.Close()
+    '    Do While sqlDR.Read
+    '        TB_ModelCode.Text = sqlDR("model_code")
+    '    Loop
+    '    sqlDR.Close()
 
-        DBClose()
+    '    DBClose()
 
-        CB_WorkSide.SelectedIndex = -1
-        Grid_List.Rows.Count = 1
+    '    CB_WorkSide.SelectedIndex = -1
+    '    Grid_List.Rows.Count = 1
 
-    End Sub
+    'End Sub
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
@@ -221,7 +223,7 @@ Public Class frm_MetalMaskManagement
                 sqlDR("first_unique_note") & vbTab &
                 sqlDR("mask_sn") & vbTab &
                 sqlDR("customer_name") & vbTab &
-                sqlDR("item_code") & vbTab &
+                sqlDR("model_name") & vbTab &
                 sqlDR("work_side") & vbTab &
                 sqlDR("revision") & vbTab &
                 sqlDR("thickness") & vbTab &
@@ -230,7 +232,9 @@ Public Class frm_MetalMaskManagement
                 sqlDR("making_company") & vbTab &
                 sqlDR("wh_size") & vbTab &
                 Format(sqlDR("using_count"), "#,##0") & vbTab &
-                sqlDR("mask_note")
+                sqlDR("storage_box") & vbTab &
+                sqlDR("storage_no") & vbTab &
+            sqlDR("mask_note")
             Grid_List.AddItem(insertString)
         Loop
         sqlDR.Close()
@@ -411,6 +415,10 @@ Public Class frm_MetalMaskManagement
         frm_MetalMaskHistory.Tb_MaskSN.Text = Grid_List(Grid_List.Row, 3)
         frm_MetalMaskHistory.BTN_Search_Click(Nothing, Nothing)
         frm_MetalMaskHistory.Focus()
+
+    End Sub
+
+    Private Sub Cms_LabelPrinter_Click(sender As Object, e As EventArgs) Handles Cms_LabelPrinter.Click
 
     End Sub
 End Class

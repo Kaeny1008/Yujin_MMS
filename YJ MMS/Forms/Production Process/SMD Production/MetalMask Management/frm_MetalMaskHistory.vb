@@ -4,7 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frm_MetalMaskHistory
     Private Sub MaskHistory_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Me.WindowState = FormWindowState.Maximized
+        'Me.WindowState = FormWindowState.Maximized
 
         GridSetting()
 
@@ -58,7 +58,7 @@ Public Class frm_MetalMaskHistory
         MaskClose_Load()
         MaskHistory_Load()
 
-        If Tb_ModelCode.Text = String.Empty Then
+        If Tb_ModelName.Text = String.Empty Then
             MsgBox("조회된 데이터가 없습니다.", MsgBoxStyle.Information, msg_form)
         End If
 
@@ -68,7 +68,6 @@ Public Class frm_MetalMaskHistory
 
         Tb_CustomerCode.Text = String.Empty
         Tb_CustomerName.Text = String.Empty
-        Tb_ModelCode.Text = String.Empty
         Tb_ModelName.Text = String.Empty
         Tb_WorkSide.Text = String.Empty
         Tb_Revision.Text = String.Empty
@@ -102,8 +101,7 @@ Public Class frm_MetalMaskHistory
             End If
             Tb_CustomerCode.Text = sqlDR("customer_code")
             Tb_CustomerName.Text = sqlDR("customer_name")
-            Tb_ModelCode.Text = sqlDR("model_code")
-            Tb_ModelName.Text = sqlDR("item_code")
+            Tb_ModelName.Text = sqlDR("model_name")
             Tb_WorkSide.Text = sqlDR("work_side")
             Tb_Revision.Text = sqlDR("revision")
             Tb_Thickness.Text = sqlDR("thickness")
