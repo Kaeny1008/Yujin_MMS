@@ -219,12 +219,12 @@ Public Class frm_ExcelModify
                             MessageBoxIcon.Information)
                 Exit Sub
             End If
-            frm_ModelDocument.ref_col = ref_col
-            frm_ModelDocument.part_col = part_col
-            frm_ModelDocument.type_col = type_col
-            frm_ModelDocument.start_row = start_row
-            frm_ModelDocument.last_row = last_row
-            frm_ModelDocument.sheet_name = CB_SheetName.Text
+            frm_Model_Document.ref_col = ref_col
+            frm_Model_Document.part_col = part_col
+            frm_Model_Document.type_col = type_col
+            frm_Model_Document.start_row = start_row
+            frm_Model_Document.last_row = last_row
+            frm_Model_Document.sheet_name = CB_SheetName.Text
         ElseIf callMode = "Coordinates" Then
             If ref_col = 0 Or x_col = 0 Or y_col = 0 Or a_col = 0 Or tb_col = 0 Or start_row = 0 Then
                 MessageBox.Show(Me,
@@ -234,14 +234,14 @@ Public Class frm_ExcelModify
                             MessageBoxIcon.Information)
                 Exit Sub
             End If
-            frm_ModelDocument.ref_col = ref_col
-            frm_ModelDocument.x_col = x_col
-            frm_ModelDocument.y_col = y_col
-            frm_ModelDocument.a_col = a_col
-            frm_ModelDocument.tb_col = tb_col
-            frm_ModelDocument.start_row = start_row
-            frm_ModelDocument.last_row = last_row
-            frm_ModelDocument.sheet_name = CB_SheetName.Text
+            frm_Model_Document.ref_col = ref_col
+            frm_Model_Document.x_col = x_col
+            frm_Model_Document.y_col = y_col
+            frm_Model_Document.a_col = a_col
+            frm_Model_Document.tb_col = tb_col
+            frm_Model_Document.start_row = start_row
+            frm_Model_Document.last_row = last_row
+            frm_Model_Document.sheet_name = CB_SheetName.Text
         End If
 
         If Not IsNothing(excelApp) Then
@@ -386,11 +386,11 @@ Public Class frm_ExcelModify
 
         '아무것도 안하고 창을 그냥 닫았을경우
         If e.CloseReason = 3 Then
-            frm_ModelDocument.TabControl1.SelectedIndex = 0
+            frm_Model_Document.TabControl1.SelectedIndex = 0
             If callMode = "BOM" Then
-                frm_ModelDocument.FileDelete_Ready(1)
+                frm_Model_Document.FileDelete_Ready(1)
             ElseIf callMode = "Coordinates" Then
-                frm_ModelDocument.FileDelete_Ready(2)
+                frm_Model_Document.FileDelete_Ready(2)
             End If
         End If
 

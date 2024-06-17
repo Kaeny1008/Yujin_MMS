@@ -134,17 +134,17 @@ Public Class frm_Main
 
     Private Sub btn_ModelResistration_Click(sender As Object, e As EventArgs) Handles btn_ModelResistration.Click
 
-        frm_ModelResistration.MdiParent = Me
-        If Not frm_ModelResistration.Visible Then frm_ModelResistration.Show()
-        frm_ModelResistration.Focus()
+        frm_Model_Resistration.MdiParent = Me
+        If Not frm_Model_Resistration.Visible Then frm_Model_Resistration.Show()
+        frm_Model_Resistration.Focus()
 
     End Sub
 
     Private Sub btn_ModelDocument_Click(sender As Object, e As EventArgs) Handles btn_ModelDocument.Click
 
-        frm_ModelDocument.MdiParent = Me
-        If Not frm_ModelDocument.Visible Then frm_ModelDocument.Show()
-        frm_ModelDocument.Focus()
+        frm_Model_Document.MdiParent = Me
+        If Not frm_Model_Document.Visible Then frm_Model_Document.Show()
+        frm_Model_Document.Focus()
 
     End Sub
 
@@ -425,6 +425,14 @@ Public Class frm_Main
         frm_MRP.MdiParent = Me
         If Not frm_MRP.Visible Then frm_MRP.Show()
         frm_MRP.Focus()
+
+    End Sub
+
+    Private Sub BTN_Model_Process_Documents_Click(sender As Object, e As EventArgs) Handles BTN_Model_Process_Documents.Click
+
+        frm_Model_Process_Documents.MdiParent = Me
+        If Not frm_Model_Process_Documents.Visible Then frm_Model_Process_Documents.Show()
+        frm_Model_Process_Documents.Focus()
 
     End Sub
 End Class

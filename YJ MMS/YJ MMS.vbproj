@@ -100,6 +100,7 @@
     <Reference Include="System.Net.Json">
       <HintPath>..\Add DLL\System.Net.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -134,16 +135,34 @@
     <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Basic Information\Model Management\frm_ModelDocument.Designer.vb">
-      <DependentUpon>frm_ModelDocument.vb</DependentUpon>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Document.Designer.vb">
+      <DependentUpon>frm_Model_Document.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Basic Information\Model Management\frm_ModelDocument.vb">
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Document.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Basic Information\Model Management\frm_ModelResistration.Designer.vb">
-      <DependentUpon>frm_ModelResistration.vb</DependentUpon>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Resistration.Designer.vb">
+      <DependentUpon>frm_Model_Resistration.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Basic Information\Model Management\frm_ModelResistration.vb">
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Resistration.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Process_Documents.Designer.vb">
+      <DependentUpon>frm_Model_Process_Documents.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Model_Process_Documents.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\Popup\frm_Model_Document_List.Designer.vb">
+      <DependentUpon>frm_Model_Document_List.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\Popup\frm_Model_Document_List.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\Popup\frm_PDF_Viewer.Designer.vb">
+      <DependentUpon>frm_PDF_Viewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\Popup\frm_PDF_Viewer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.Designer.vb">
@@ -612,11 +631,20 @@
     <EmbeddedResource Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.resx">
       <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_ModelDocument.resx">
-      <DependentUpon>frm_ModelDocument.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Model_Document.resx">
+      <DependentUpon>frm_Model_Document.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_ModelResistration.resx">
-      <DependentUpon>frm_ModelResistration.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Model_Process_Documents.resx">
+      <DependentUpon>frm_Model_Process_Documents.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Model_Resistration.resx">
+      <DependentUpon>frm_Model_Resistration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\Popup\frm_Model_Document_List.resx">
+      <DependentUpon>frm_Model_Document_List.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\Popup\frm_PDF_Viewer.resx">
+      <DependentUpon>frm_PDF_Viewer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Popup\frm_Coordinate_Find_Fault.resx">
       <DependentUpon>frm_Coordinate_Find_Fault.vb</DependentUpon>

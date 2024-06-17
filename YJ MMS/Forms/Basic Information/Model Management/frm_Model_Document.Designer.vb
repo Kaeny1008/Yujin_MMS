@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frm_ModelDocument
+Partial Class frm_Model_Document
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -23,7 +23,7 @@ Partial Class frm_ModelDocument
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_ModelDocument))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Model_Document))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
@@ -850,15 +850,15 @@ Partial Class frm_ModelDocument
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
-        'frm_ModelDocument
+        'frm_Model_Document
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1364, 773)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_ModelDocument"
-        Me.Text = "모델별 자료 등록"
+        Me.Name = "frm_Model_Document"
+        Me.Text = "모델별 기초자료"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)

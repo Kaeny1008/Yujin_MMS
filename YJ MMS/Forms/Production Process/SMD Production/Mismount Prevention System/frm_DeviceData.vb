@@ -825,7 +825,7 @@ Public Class frm_DeviceData
 
         Grid_DeviceData.Redraw = False
 
-        Dim doc = New XmlDocument
+        Dim doc As XmlDocument = New XmlDocument
         doc.Load(openFileDialog1.FileName)
 
         Dim root As XmlNode = doc.DocumentElement
@@ -1479,5 +1479,146 @@ Public Class frm_DeviceData
         Next
 
     End Sub
+
+    Private Sub BTN_New_Hanwha_Click(sender As Object, e As EventArgs) Handles BTN_New_Hanwha.Click
+
+        If writeReady = False Then
+            MsgBox("조회된 내용이 없습니다." & vbCrLf & "목록 선택 후 조회를 먼저 실행 하십시오.", MsgBoxStyle.Information, form_Msgbox_String)
+            Exit Sub
+        End If
+
+        Dim DialogFolderBrowser As New FolderBrowserDialog
+
+        DialogFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop
+        DialogFolderBrowser.SelectedPath = "E:\"
+        DialogFolderBrowser.ShowNewFolderButton = True
+        DialogFolderBrowser.Description = "PCB 폴더를 선택하세요."
+        If DialogFolderBrowser.ShowDialog = DialogResult.No Then Exit Sub
+
+        'Debug.Print("선택된 폴더 : " & DialogFolderBrowser.SelectedPath)
+
+        Dim pcb_Dir As New IO.DirectoryInfo(DialogFolderBrowser.SelectedPath)
+
+        If pcb_Dir.GetFiles("*.eoj").Count = 0 Then
+            MessageBox.Show(Me, "PCB 폴더를 확인하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Thread_LoadingFormStart()
+
+        Grid_DeviceData.Redraw = False
+        Grid_DeviceData.Rows.Count = 1
+
+        Dim folderList As List(Of String) = New List(Of String)
+        For Each fname In pcb_Dir.GetDirectories()
+            folderList.Add(fname.ToString)
+        Next
+        folderList.Sort()
+
+        Dim nowMachieNo As Integer = 1
+        For i = 0 To folderList.Count - 1
+            'Dim nowFolder As String = DialogFolderBrowser.SelectedPath & "\" & folderList(i)
+            Dim fileList As List(Of String) = New List(Of String)
+            Dim machine_Dir As New IO.DirectoryInfo(DialogFolderBrowser.SelectedPath & "\" & folderList(i))
+            For Each fname In machine_Dir.GetFiles("*.xml")
+                fileList.Add(fname.ToString)
+            Next
+            nowMachieNo = Load_Xml(machine_Dir.FullName & "\" & fileList(0), nowMachieNo)
+        Next
+
+        Grid_DeviceData.AutoSizeCols()
+        Grid_DeviceData.AutoSizeRows(1, 0, Grid_DeviceData.Rows.Count - 1, Grid_DeviceData.Cols.Count - 1, 0, AutoSizeFlags.None)
+        Grid_DeviceData.Redraw = True
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Function Load_Xml(ByVal fileName As String, ByVal machine_no As Integer) As Integer
+
+        Dim doc As XmlDocument = New XmlDocument
+        doc.Load(fileName)
+
+        Dim root As XmlNode = doc.DocumentElement
+
+        Dim trayFeeder_Location As Integer = 2
+        If root.SelectSingleNode("PCBDATA").SelectSingleNode("MACHINE").Attributes("NAME").Value = "HM520W" Then
+            trayFeeder_Location = 4
+        End If
+
+
+        Dim devices As XmlNodeList = root.SelectNodes("PCBDATA/MACHINE/DEVICES/FEEDERBASE")
+
+        For Each base_no As XmlNode In devices
+            'Console.WriteLine(base_no.ChildNodes.ToString)
+            Dim exist_StickFeeder As XmlNodeList = base_no.SelectNodes("STICKFEEDER")
+            Dim exist_TapeFeeder As XmlNodeList = base_no.SelectNodes("TAPEFEEDER")
+            Dim exist_TrayFeeder As XmlNodeList = base_no.SelectNodes("TRAYFEEDER")
+
+            If Not machine_no = base_no.Attributes("ID").Value Then 'Feeder Base No.
+                machine_no += 1
+            End If
+
+            If exist_StickFeeder.Count > 0 Then
+                Dim selectFeeder As XmlNodeList = base_no.SelectNodes("STICKFEEDER")
+                For Each feeder_info As XmlNode In selectFeeder
+                    Dim partInfo As String = loadMakerSpec(feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value)
+                    Dim insert_string As String = "N" & vbTab &
+                          DeviceDataCode() & vbTab &
+                          machine_no & vbTab &
+                          feeder_info.SelectSingleNode("INSTALL").Attributes("SLOT").Value & vbTab &
+                          partInfo.Split("@")(0) & vbTab &
+                          feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value & vbTab &
+                          partInfo.Split("@")(1) & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty
+                    Grid_DeviceData.AddItem(insert_string)
+                    Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                Next
+            End If
+
+            If exist_TapeFeeder.Count > 0 Then
+                Dim selectFeeder As XmlNodeList = base_no.SelectNodes("TAPEFEEDER")
+                For Each feeder_info As XmlNode In selectFeeder
+                    Dim partInfo As String = loadMakerSpec(feeder_info.SelectSingleNode("TAPE").Attributes("PARTNAME").Value)
+                    Dim insert_string As String = "N" & vbTab &
+                          DeviceDataCode() & vbTab &
+                          machine_no & vbTab &
+                          feeder_info.SelectSingleNode("INSTALL").Attributes("SLOT").Value & vbTab &
+                          partInfo.Split("@")(0) & vbTab &
+                          feeder_info.SelectSingleNode("TAPE").Attributes("PARTNAME").Value & vbTab &
+                          partInfo.Split("@")(1) & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty
+                    Grid_DeviceData.AddItem(insert_string)
+                    Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                Next
+            End If
+
+            If base_no.Attributes("ID").Value = trayFeeder_Location And exist_TrayFeeder.Count > 0 Then
+                Dim selectFeeder As XmlNodeList = base_no.SelectNodes("TRAYFEEDER/PALLET")
+                For Each feeder_info As XmlNode In selectFeeder
+                    Dim partInfo As String = loadMakerSpec(feeder_info.SelectSingleNode("TRAY").Attributes("PARTNAME").Value)
+                    Dim insert_string As String = "N" & vbTab &
+                          DeviceDataCode() & vbTab &
+                          machine_no & vbTab &
+                          cdbl(feeder_info.Attributes("ID").Value) + 100 & vbTab &
+                          partInfo.Split("@")(0) & vbTab &
+                          feeder_info.SelectSingleNode("TRAY").Attributes("PARTNAME").Value & vbTab &
+                          partInfo.Split("@")(1) & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty & vbTab &
+                          String.Empty
+                    Grid_DeviceData.AddItem(insert_string)
+                    Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                Next
+            End If
+        Next
+
+        Return machine_no
+
+    End Function
 End Class
 

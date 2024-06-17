@@ -51,12 +51,13 @@ Partial Class frm_DeviceData
         Me.CMS_gridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_newLine = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_deleteLine = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_deleteMachine = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_AllDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_DataPrint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_deleteMachine = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_AllDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_New_Hanwha = New System.Windows.Forms.ToolStripButton()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -270,7 +271,7 @@ Partial Class frm_DeviceData
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.TB_MakerCheck, Me.ToolStripSeparator3, Me.BTN_MX_Feeder, Me.BTN_SM_Feeder, Me.BTN_SM_Feeder2, Me.ToolStripButton1, Me.Form_CLose})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.TB_MakerCheck, Me.ToolStripSeparator3, Me.BTN_MX_Feeder, Me.BTN_SM_Feeder, Me.BTN_SM_Feeder2, Me.ToolStripButton1, Me.Form_CLose, Me.BTN_New_Hanwha})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1264, 25)
@@ -362,6 +363,18 @@ Partial Class frm_DeviceData
         Me.BTN_deleteLine.Size = New System.Drawing.Size(196, 22)
         Me.BTN_deleteLine.Text = "삭제"
         '
+        'BTN_deleteMachine
+        '
+        Me.BTN_deleteMachine.Name = "BTN_deleteMachine"
+        Me.BTN_deleteMachine.Size = New System.Drawing.Size(196, 22)
+        Me.BTN_deleteMachine.Text = "동일 Machine No 삭제"
+        '
+        'BTN_AllDelete
+        '
+        Me.BTN_AllDelete.Name = "BTN_AllDelete"
+        Me.BTN_AllDelete.Size = New System.Drawing.Size(196, 22)
+        Me.BTN_AllDelete.Text = "모든 항목 삭제"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
@@ -385,17 +398,13 @@ Partial Class frm_DeviceData
         Me.BTN_DataPrint.Size = New System.Drawing.Size(196, 22)
         Me.BTN_DataPrint.Text = "DeviceData 출력"
         '
-        'BTN_deleteMachine
+        'BTN_New_Hanwha
         '
-        Me.BTN_deleteMachine.Name = "BTN_deleteMachine"
-        Me.BTN_deleteMachine.Size = New System.Drawing.Size(196, 22)
-        Me.BTN_deleteMachine.Text = "동일 Machine No 삭제"
-        '
-        'BTN_AllDelete
-        '
-        Me.BTN_AllDelete.Name = "BTN_AllDelete"
-        Me.BTN_AllDelete.Size = New System.Drawing.Size(196, 22)
-        Me.BTN_AllDelete.Text = "모든 항목 삭제"
+        Me.BTN_New_Hanwha.Image = CType(resources.GetObject("BTN_New_Hanwha.Image"), System.Drawing.Image)
+        Me.BTN_New_Hanwha.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_New_Hanwha.Name = "BTN_New_Hanwha"
+        Me.BTN_New_Hanwha.Size = New System.Drawing.Size(223, 22)
+        Me.BTN_New_Hanwha.Text = "SAMSUNG(HANWHA) 일괄불러오기"
         '
         'frm_DeviceData
         '
@@ -453,4 +462,5 @@ Partial Class frm_DeviceData
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents BTN_deleteMachine As ToolStripMenuItem
     Friend WithEvents BTN_AllDelete As ToolStripMenuItem
+    Friend WithEvents BTN_New_Hanwha As ToolStripButton
 End Class

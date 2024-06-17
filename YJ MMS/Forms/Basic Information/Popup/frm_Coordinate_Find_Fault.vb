@@ -84,13 +84,13 @@ Public Class frm_Coordinate_Find_Fault
 
         If e.Button = MouseButtons.Left And Grid_Coordinates.MouseRow > 0 Then
             Dim selRow As Integer = Grid_Coordinates.MouseRow
-            Dim findRow As Integer = frm_ModelDocument.Grid_BOM_Total.FindRow(Grid_BOM(Grid_BOM.Row, 1), 0, 1, True)
+            Dim findRow As Integer = frm_Model_Document.Grid_BOM_Total.FindRow(Grid_BOM(Grid_BOM.Row, 1), 0, 1, True)
             'frm_ModelDocument.Grid_BOM_Total(findRow, 1) = Grid_Coordinates(selRow, 1)
-            frm_ModelDocument.Grid_BOM_Total(findRow, 3) = Grid_Coordinates(selRow, 2)
-            frm_ModelDocument.Grid_BOM_Total(findRow, 4) = Grid_Coordinates(selRow, 3)
-            frm_ModelDocument.Grid_BOM_Total(findRow, 5) = Grid_Coordinates(selRow, 4)
-            frm_ModelDocument.Grid_BOM_Total(findRow, 6) = Grid_Coordinates(selRow, 5)
-            frm_ModelDocument.Grid_BOM_Total.TopRow = findRow
+            frm_Model_Document.Grid_BOM_Total(findRow, 3) = Grid_Coordinates(selRow, 2)
+            frm_Model_Document.Grid_BOM_Total(findRow, 4) = Grid_Coordinates(selRow, 3)
+            frm_Model_Document.Grid_BOM_Total(findRow, 5) = Grid_Coordinates(selRow, 4)
+            frm_Model_Document.Grid_BOM_Total(findRow, 6) = Grid_Coordinates(selRow, 5)
+            frm_Model_Document.Grid_BOM_Total.TopRow = findRow
             Grid_Coordinates.Rows(selRow).StyleNew.ForeColor = Color.DarkGray
             Grid_BOM.Rows(Grid_BOM.RowSel).StyleNew.ForeColor = Color.DarkGray
             MessageBox.Show(Me, "좌표를 입력하였습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)

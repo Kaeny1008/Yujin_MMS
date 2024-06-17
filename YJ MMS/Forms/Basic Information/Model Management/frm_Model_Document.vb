@@ -15,7 +15,7 @@ Imports System.Threading
 Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-Public Class frm_ModelDocument
+Public Class frm_Model_Document
 
     Dim _al As ArrayList = New ArrayList()
     Friend BTN(21) As Button
@@ -52,8 +52,8 @@ Public Class frm_ModelDocument
             Grid_ModelList(0, 2) = "고객사 코드"
             Grid_ModelList(0, 3) = "고객사명"
             Grid_ModelList(0, 4) = "모델구분"
-            Grid_ModelList(0, 5) = "모델명"
-            Grid_ModelList(0, 6) = "품목명"
+            Grid_ModelList(0, 5) = "품번"
+            Grid_ModelList(0, 6) = "품명"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -250,7 +250,7 @@ Public Class frm_ModelDocument
         End If
 
         Dim bt As Button = CType(sender, Button)
-
+        '업로드다운로드지우기
         Select Case CInt(bt.Tag)
             Case 0 To 6
                 'Upload
@@ -412,13 +412,13 @@ Public Class frm_ModelDocument
                         End If
                     End If
 
-                        'If partString.Equals("1203020601") Then
-                        '    For j = 0 To refString.Length - 1
-                        '        Console.WriteLine(Asc(refString.Substring(j, 1)))
-                        '    Next
-                        'End If
+                    'If partString.Equals("1203020601") Then
+                    '    For j = 0 To refString.Length - 1
+                    '        Console.WriteLine(Asc(refString.Substring(j, 1)))
+                    '    Next
+                    'End If
 
-                        If Not refString.Equals(String.Empty) Then
+                    If Not refString.Equals(String.Empty) Then
                         'Console.WriteLine(refString)
                         refString = refString.Replace(" ", ",")
                         refString = refString.Replace(vbLf, String.Empty)

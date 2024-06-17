@@ -16,6 +16,8 @@ Public Class frm_Supplier_Document_Register
 
         Grid_Setting()
 
+        Load_Supplier()
+
     End Sub
 
     Private Sub Grid_Setting()
@@ -112,6 +114,29 @@ Public Class frm_Supplier_Document_Register
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
 
         Me.Dispose()
+
+    End Sub
+
+    Private Sub Load_Supplier()
+
+        CB_CustomerName.Items.Clear()
+
+        DBConnect()
+
+        Dim strSQL As String = "select sub_code_name"
+        strSQL += " from tb_code_sub"
+        strSQL += " where main_code = 'MC00000007'"
+        strSQL += " order by sub_code_name"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            CB_Supplier.Items.Add(sqlDR("sub_code_name"))
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
