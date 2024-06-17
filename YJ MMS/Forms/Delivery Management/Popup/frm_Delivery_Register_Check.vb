@@ -139,7 +139,7 @@ Public Class frm_Delivery_Register_Check
         For i = 1 To Grid_POList.Rows.Count - 1
             If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
                 MessageBox.Show(Me,
-                                "현재 구분납품을 할 수 없습니다.",
+                                "현재 분할납품을 할 수 없습니다.",
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Exclamation)

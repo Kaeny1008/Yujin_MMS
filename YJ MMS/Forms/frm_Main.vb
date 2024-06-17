@@ -419,4 +419,12 @@ Public Class frm_Main
         frm_Assy_Label_Print.Focus()
 
     End Sub
+
+    Private Sub BTN_MRP_Click(sender As Object, e As EventArgs) Handles BTN_MRP.Click
+
+        frm_MRP.MdiParent = Me
+        If Not frm_MRP.Visible Then frm_MRP.Show()
+        frm_MRP.Focus()
+
+    End Sub
 End Class

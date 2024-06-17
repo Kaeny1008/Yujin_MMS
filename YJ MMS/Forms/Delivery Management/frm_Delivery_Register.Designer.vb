@@ -121,7 +121,7 @@ Partial Class frm_Delivery_Register
         Me.TB_ItemName.Location = New System.Drawing.Point(882, 24)
         Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ItemName.Name = "TB_ItemName"
-        Me.TB_ItemName.Size = New System.Drawing.Size(200, 25)
+        Me.TB_ItemName.Size = New System.Drawing.Size(373, 25)
         Me.TB_ItemName.TabIndex = 8
         '
         'Label4

@@ -8,6 +8,9 @@ Public Class frm_MaterialCode_Change
 
         Load_CustomerList()
 
+        DTP_Start.Value = Format(Now, "yyyy-MM-01")
+        DTP_End.Value = Format(Now, "yyyy-MM-dd")
+
     End Sub
 
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
@@ -130,6 +133,8 @@ Public Class frm_MaterialCode_Change
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
+        strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

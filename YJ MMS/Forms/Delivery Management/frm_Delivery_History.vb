@@ -163,6 +163,7 @@ Public Class frm_Delivery_History
         strSQL += ", null"
         strSQL += ", '" & Format(DateTimePicker1.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DateTimePicker2.Value, "yyyy-MM-dd 23:59:59") & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -204,6 +205,7 @@ Public Class frm_Delivery_History
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ", '" & selDeliveryNo & "'"
+            strSQL += ", null"
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ")"

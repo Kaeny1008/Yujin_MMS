@@ -248,6 +248,12 @@
     <Compile Include="Forms\Material Management\Material Return\frm_Material_Return_Register.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\MRP\frm_MRP.Designer.vb">
+      <DependentUpon>frm_MRP.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\MRP\frm_MRP.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.Designer.vb">
       <DependentUpon>frm_Material_Stock_Information.vb</DependentUpon>
     </Compile>
@@ -662,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Material Return\frm_Material_Return_Register.resx">
       <DependentUpon>frm_Material_Return_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\MRP\frm_MRP.resx">
+      <DependentUpon>frm_MRP.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Stock Information\frm_Material_Stock_Information.resx">
       <DependentUpon>frm_Material_Stock_Information.vb</DependentUpon>

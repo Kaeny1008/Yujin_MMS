@@ -277,6 +277,8 @@ Public Class frm_Order_Registration
 
         GridRedraw(False, Me, Grid_Excel)
 
+        Dim loaderPCB_Add As Boolean = False
+
         Try
             Dim sheetName As String = ComboBoxTextReading(Me, CB_SheetName)
 
@@ -321,13 +323,13 @@ Public Class frm_Order_Registration
                                   Color.Blue)
                     Dim loaderPCB As String = RegistrationCheck(itemCode, Grid_Excel.Rows.Count - 1)
                     If Not loaderPCB = String.Empty Then
-                        If MessageBox.Show(frm_Main,
-                                           "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
-                                           "Loader PCB PO를 자동으로 추가 하시겠습니까?",
-                                           msg_form,
-                                           MessageBoxButtons.YesNo,
-                                           MessageBoxIcon.Question) = DialogResult.Yes Then
-                            GridWriteText("N" & vbTab &
+                        'If MessageBox.Show(frm_Main,
+                        '                   "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
+                        '                   "Loader PCB PO를 자동으로 추가 하시겠습니까?",
+                        '                   msg_form,
+                        '                   MessageBoxButtons.YesNo,
+                        '                   MessageBoxIcon.Question) = DialogResult.Yes Then
+                        GridWriteText("N" & vbTab &
                                           vbTab &
                                           vbTab &
                                           loaderPCB & vbTab &
@@ -345,8 +347,9 @@ Public Class frm_Order_Registration
                                           Me,
                                           Grid_Excel,
                                           Color.Blue)
-                            RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
-                        End If
+                        RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
+                        loaderPCB_Add = True
+                        'End If
                     End If
                 Next
             End With
@@ -369,6 +372,15 @@ Public Class frm_Order_Registration
         GridRowsAutoSize(1, Grid_Excel.Rows.Count - 1, Me, Grid_Excel)
 
         GridRedraw(True, Me, Grid_Excel)
+
+        If loaderPCB_Add = True Then
+            MessageBox.Show(frm_Main,
+                            "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
+                            "Loader PCB PO를 자동으로 추가 하였습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+        End If
 
         Thread_LoadingFormEnd()
 
@@ -526,8 +538,7 @@ Public Class frm_Order_Registration
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show(Me,
-                        "저장완료.",
+        MessageBox.Show("저장완료.",
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information)

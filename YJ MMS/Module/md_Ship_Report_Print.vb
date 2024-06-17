@@ -49,6 +49,7 @@ Module md_Ship_Report_Print
             strSQL += ",'" & deliveryNo & "'"
             strSQL += ", null"
             strSQL += ", null"
+            strSQL += ", null"
             strSQL += ")"
 
             Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -75,6 +76,7 @@ Module md_Ship_Report_Print
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ",'" & deliveryNo & "'"
+            strSQL += ", null"
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ")"

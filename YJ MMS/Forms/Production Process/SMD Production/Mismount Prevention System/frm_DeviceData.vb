@@ -1445,5 +1445,39 @@ Public Class frm_DeviceData
         Me.Dispose()
 
     End Sub
+
+    Private Sub BTN_deleteMachine_Click(sender As Object, e As EventArgs) Handles BTN_deleteMachine.Click
+
+        Dim nowMachineNo As Integer = Grid_DeviceData(Grid_DeviceData.Row, 2)
+
+        If MessageBox.Show(Me,
+                           "Machine No. : " & nowMachineNo & vbCrLf & "모두 삭제 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        For i = 1 To Grid_DeviceData.Rows.Count - 1
+            If CInt(Grid_DeviceData(i, 2)) = nowMachineNo Then
+                Grid_DeviceData(i, 0) = "D"
+                Grid_DeviceData.Rows(i).StyleNew.ForeColor = Color.DarkGray
+            End If
+        Next
+
+    End Sub
+
+    Private Sub BTN_AllDelete_Click(sender As Object, e As EventArgs) Handles BTN_AllDelete.Click
+
+        If MessageBox.Show(Me,
+                           "모두 삭제 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        For i = 1 To Grid_DeviceData.Rows.Count - 1
+            Grid_DeviceData(i, 0) = "D"
+            Grid_DeviceData.Rows(i).StyleNew.ForeColor = Color.DarkGray
+        Next
+
+    End Sub
 End Class
 

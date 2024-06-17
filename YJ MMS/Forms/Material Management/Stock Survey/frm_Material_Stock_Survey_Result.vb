@@ -87,7 +87,7 @@ Public Class frm_Material_Stock_Survey_Result
             Next
             .Cols(19).DataType = GetType(Double)
             .Cols(19).Format = "#,##0.000"
-            .SelectionMode = SelectionModeEnum.CellRange
+            .SelectionMode = SelectionModeEnum.Default
         End With
 
         With Grid_PlanList
@@ -419,6 +419,10 @@ Public Class frm_Material_Stock_Survey_Result
         strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
         strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
 
+        strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
+        strSQL += " where not order_status = 'Order Confirm'"
+        strSQL += " and clearance_date is null"
+
         Try
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 Grid_MaterialList(i, 0) = i - 1
@@ -437,12 +441,13 @@ Public Class frm_Material_Stock_Survey_Result
                     strSQL += ");"
                 Else
                     strSQL += "insert into tb_mms_material_basic_inventory("
-                    strSQL += "clearance_date, customer_code, part_code, available_qty"
+                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
                     strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
                     strSQL += "," & CDbl(Grid_MaterialList(i, 17)) & ""
+                    strSQL += ", 0"
                     strSQL += ");"
                 End If
 

@@ -138,7 +138,7 @@ Public Class frm_ModelDocument
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 4
+            .Cols.Count = 5
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -146,6 +146,7 @@ Public Class frm_ModelDocument
             Grid_BOM(0, 1) = "Ref( Location )"
             Grid_BOM(0, 2) = "Part No.( Part Code )"
             Grid_BOM(0, 3) = "Material Type"
+            Grid_BOM(0, 4) = "Loader PCB Check"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -190,7 +191,7 @@ Public Class frm_ModelDocument
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 8
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -202,6 +203,7 @@ Public Class frm_ModelDocument
             Grid_BOM_Total(0, 5) = "A"
             Grid_BOM_Total(0, 6) = "Top / Bottom"
             Grid_BOM_Total(0, 7) = "타입"
+            Grid_BOM_Total(0, 8) = "Loader PCB Check"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -387,27 +389,36 @@ Public Class frm_ModelDocument
                     Dim refString As String = Trim(.Cells(i, ref_col).Value)
                     Dim partString As String = Trim(.Cells(i, part_col).Value)
                     Dim typeString As String = String.Empty
+                    Dim isLoaderPCB As String = String.Empty
 
                     If Not type_col = 0 Then
                         typeString = Trim(.Cells(i, type_col).Value)
                     End If
 
                     If typeString.ToUpper = "ASS'Y" Or typeString.ToUpper = "ASS’Y" Then
-                        MessageBox.Show(frm_Main,
-                                        "Loader PCB가 검색 되었습니다. Loader PCB 사용으로 변경됩니다.",
+                        If MessageBox.Show(frm_Main,
+                                        "Loader PCB가 검색 되었습니다." & vbCrLf &
+                                        "Loader PCB 사용으로 변경 하시겠습니까?" & vbCrLf &
+                                        "Part No. : " & partString & " 를 확인 후" & vbCrLf &
+                                        "Loader PCB 사용여부를 확인 하여 주십시오.",
                                         msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Information)
-                        RadioButtonChecked(True, Me, RadioButton4)
+                                        MessageBoxButtons.YesNo,
+                                        MessageBoxIcon.Question
+                                        ) = DialogResult.Yes Then
+                            RadioButtonChecked(True, Me, RadioButton4)
+                            isLoaderPCB = "Yes"
+                        Else
+                            RadioButtonChecked(True, Me, RadioButton3)
+                        End If
                     End If
 
-                    'If partString.Equals("1203020601") Then
-                    '    For j = 0 To refString.Length - 1
-                    '        Console.WriteLine(Asc(refString.Substring(j, 1)))
-                    '    Next
-                    'End If
+                        'If partString.Equals("1203020601") Then
+                        '    For j = 0 To refString.Length - 1
+                        '        Console.WriteLine(Asc(refString.Substring(j, 1)))
+                        '    Next
+                        'End If
 
-                    If Not refString.Equals(String.Empty) Then
+                        If Not refString.Equals(String.Empty) Then
                         'Console.WriteLine(refString)
                         refString = refString.Replace(" ", ",")
                         refString = refString.Replace(vbLf, String.Empty)
@@ -430,13 +441,15 @@ Public Class frm_ModelDocument
                                         GridWriteText(Grid_BOM.Rows.Count & vbTab &
                                                       (lName & jj) & vbTab &
                                                       partString & vbTab &
-                                                      typeString, Me, Grid_BOM, Color.Black)
+                                                      typeString & vbTab &
+                                                      isLoaderPCB, Me, Grid_BOM, Color.Black)
                                     Next
                                 Else
                                     GridWriteText(Grid_BOM.Rows.Count & vbTab &
                                                   split_Ref(j) & vbTab &
                                                   partString & vbTab &
-                                                  typeString, Me, Grid_BOM, Color.Black)
+                                                  typeString & vbTab &
+                                                  isLoaderPCB, Me, Grid_BOM, Color.Black)
                                 End If
                             Next
                         Else
@@ -449,20 +462,23 @@ Public Class frm_ModelDocument
                                     GridWriteText(Grid_BOM.Rows.Count & vbTab &
                                                   (lName & jj) & vbTab &
                                                   partString & vbTab &
-                                                  typeString, Me, Grid_BOM, Color.Black)
+                                                  typeString & vbTab &
+                                                  isLoaderPCB, Me, Grid_BOM, Color.Black)
                                 Next
                             Else
                                 GridWriteText(Grid_BOM.Rows.Count & vbTab &
                                               split_Ref(0) & vbTab &
                                               partString & vbTab &
-                                              typeString, Me, Grid_BOM, Color.Black)
+                                              typeString & vbTab &
+                                              isLoaderPCB, Me, Grid_BOM, Color.Black)
                             End If
                         End If
                     Else
                         GridWriteText(Grid_BOM.Rows.Count & vbTab &
                                       refString & vbTab &
                                       partString & vbTab &
-                                      typeString, Me, Grid_BOM, Color.Black)
+                                      typeString & vbTab &
+                                      isLoaderPCB, Me, Grid_BOM, Color.Black)
                     End If
 
                     Invoke(d_SetPGStatus,
@@ -794,6 +810,12 @@ Public Class frm_ModelDocument
                 RadioButton3.Checked = True
             End If
 
+            If sqlDR("is_loader_pcb") = "Yes" Then
+                RadioButton6.Checked = True
+            Else
+                RadioButton5.Checked = True
+            End If
+
             TextBox1.Text = sqlDR("etc_text")
         Loop
         sqlDR.Close()
@@ -851,6 +873,7 @@ Public Class frm_ModelDocument
             Dim nowRef As String = Grid_BOM(i, 1)
             Dim nowPart As String = Grid_BOM(i, 2)
             Dim nowType As String = Grid_BOM(i, 3)
+            Dim nowIsLoaderPCB As String = Grid_BOM(i, 4)
             Dim coodinatesRow As Integer = Grid_Coordinates.FindRow(nowRef, 1, 1, True)
             Dim nowX As String = String.Empty
             Dim nowY As String = String.Empty
@@ -880,7 +903,9 @@ Public Class frm_ModelDocument
                                    nowY & vbTab &
                                    nowA & vbTab &
                                    nowTB & vbTab &
-                                   nowType)
+                                   nowType & vbTab &
+                                   nowIsLoaderPCB
+                                   )
 
         Next
 
@@ -1019,8 +1044,7 @@ FTP_Control:
         Thread_LoadingFormEnd()
 
         TabControl1.SelectedIndex = 0
-        MessageBox.Show(Me,
-                        "저장 완료.",
+        MessageBox.Show("저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
@@ -1078,13 +1102,14 @@ FTP_Control:
                 strSQL += " and management_no;"
                 For i = 1 To Grid_BOM.Rows.Count - 1
                     strSQL += "insert into tb_model_bom("
-                    strSQL += "customer_code, model_code, management_no, ref, part_no, material_type) values("
+                    strSQL += "customer_code, model_code, management_no, ref, part_no, material_type, is_loader_pcb) values("
                     strSQL += "'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & TB_ModelCode.Text & "'"
                     strSQL += ",'" & CB_ManagementNo.Text & "'"
                     strSQL += ",'" & Grid_BOM(i, 1) & "'"
                     strSQL += ",'" & Grid_BOM(i, 2) & "'"
                     strSQL += ",'" & Replace(Grid_BOM(i, 3), "'", "\'") & "'"
+                    strSQL += ",'" & Grid_BOM(i, 4) & "'"
                     strSQL += ");"
                 Next
             End If
@@ -1111,6 +1136,7 @@ FTP_Control:
 
             Dim useBond As String = RadioButton2.Text
             Dim useLoaderPCB As String = RadioButton3.Text
+            Dim isLoaderPCB As String = "No"
 
             If RadioButton1.Checked = True Then
                 useBond = RadioButton1.Text
@@ -1120,11 +1146,16 @@ FTP_Control:
                 useLoaderPCB = RadioButton4.Text
             End If
 
+            If RadioButton6.Checked = True Then
+                isLoaderPCB = "Yes"
+            End If
+
             '특이사항 기록
             strSQL += "update tb_model_list set use_bond = '" & useBond & "'"
             strSQL += ", etc_text = '" & TextBox1.Text & "'"
             strSQL += ", loader_pcb = '" & useLoaderPCB & "'"
             strSQL += ", barcode_string = '" & TB_BarcodeString.Text & "'"
+            strSQL += ", is_loader_pcb = '" & isLoaderPCB & "'"
             strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
 
@@ -1326,7 +1357,8 @@ FTP_Control:
             GridWriteText(Grid_BOM.Rows.Count & vbTab &
                           sqlDR("ref") & vbTab &
                           sqlDR("part_no") & vbTab &
-                          sqlDR("material_type"),
+                          sqlDR("material_type") & vbTab &
+                          sqlDR("is_loader_pcb"),
                           Me,
                           Grid_BOM,
                           Color.Black)
@@ -1402,7 +1434,8 @@ FTP_Control:
                           sqlDR("y_mm") & vbTab &
                           sqlDR("angle") & vbTab &
                           sqlDR("tb") & vbTab &
-                          sqlDR("part_type"),
+                          sqlDR("part_type") & vbTab &
+                          sqlDR("is_loader_pcb"),
                           Me,
                           Grid_BOM_Total,
                           Color.Black)

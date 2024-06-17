@@ -19,7 +19,7 @@ Public Class frm_Delivery_Register
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 9
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -52,6 +52,7 @@ Public Class frm_Delivery_Register
         Grid_POList(0, 6) = "주문일자"
         Grid_POList(0, 7) = "요청 납품일자"
         Grid_POList(0, 8) = "주문수량"
+        Grid_POList(0, 9) = "Loader PCB 사용여부"
         Grid_POList.AutoSizeCols()
 
     End Sub
@@ -132,6 +133,7 @@ Public Class frm_Delivery_Register
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -147,6 +149,7 @@ Public Class frm_Delivery_Register
             insert_String += vbTab & sqlDR("order_date")
             insert_String += vbTab & sqlDR("date_of_delivery")
             insert_String += vbTab & sqlDR("modify_order_quantity")
+            insert_String += vbTab & sqlDR("loader_pcb")
             Grid_POList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -186,6 +189,7 @@ Public Class frm_Delivery_Register
         a.Visible = False
 
         Dim checkCount As Integer = 0
+        Dim loaderPCB_Add As Boolean = False
 
         For i = 1 To Grid_POList.Rows.Count - 1
             If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
@@ -203,6 +207,29 @@ Public Class frm_Delivery_Register
 
                 a.Grid_POList.AddItem(insertString)
                 checkCount += 1
+
+                'Loader Pcb사용의 경우 해당 PO를 불러와서 추가한다.
+                If Grid_POList(i, 9) = "사용" Then
+                    Dim loaderPCB_OrderIndex As String = Grid_POList(i, 2)
+                    Dim headerString As String = loaderPCB_OrderIndex.Substring(0, 15)
+                    Dim index As String = Format(CInt(loaderPCB_OrderIndex.Substring(15, 4)) + 1, "0000")
+                    loaderPCB_OrderIndex = headerString & index
+                    Dim loadSplit() As String = Load_LoaderPCB_Order(loaderPCB_OrderIndex).Split(vbTab)
+                    insertString = a.Grid_POList.Rows.Count
+                    insertString += vbTab
+                    insertString += vbTab & loadSplit(0)
+                    insertString += vbTab & loadSplit(1)
+                    insertString += vbTab & loadSplit(2)
+                    insertString += vbTab & loadSplit(3)
+                    insertString += vbTab & loadSplit(4)
+                    insertString += vbTab & loadSplit(5)
+                    insertString += vbTab & loadSplit(6)
+                    insertString += vbTab & loadSplit(6)
+
+                    a.Grid_POList.AddItem(insertString)
+                    checkCount += 1
+                    loaderPCB_Add = True
+                End If
             End If
         Next
         a.Grid_POList.AutoSizeCols()
@@ -216,9 +243,55 @@ Public Class frm_Delivery_Register
             a.Dispose()
             MessageBox.Show(Me, "선택된 주문이 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
+            If loaderPCB_Add = True Then
+                MessageBox.Show(Me,
+                                "Loader PCB 주문이 자동 추가되었습니다." & vbCrLf &
+                                "주문번호 일치여부를 확인하여 주십시오." & vbCrLf & vbCrLf &
+                                "예) 선택 : PO202404010002-0005" & vbCrLf &
+                                "자동추가 : PO202404010002-0006",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+            End If
             a.Visible = True
             'a.TopMost = True
         End If
 
     End Sub
+
+    Private Function Load_LoaderPCB_Order(ByVal order_index As String) As String
+
+        DBConnect()
+        Dim insert_String As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_delivery(5"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & order_index & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            insert_String = sqlDR("order_index")
+            insert_String += vbTab & sqlDR("item_code")
+            insert_String += vbTab & sqlDR("item_name")
+            insert_String += vbTab & sqlDR("item_spec")
+            insert_String += vbTab & sqlDR("order_date")
+            insert_String += vbTab & sqlDR("date_of_delivery")
+            insert_String += vbTab & sqlDR("modify_order_quantity")
+            insert_String += vbTab & sqlDR("loader_pcb")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return insert_String
+
+    End Function
 End Class

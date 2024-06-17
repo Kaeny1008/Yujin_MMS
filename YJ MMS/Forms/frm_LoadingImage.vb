@@ -9,6 +9,7 @@
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
         If th_FormClose = True Then
+            frm_Main.Focus()
             DialogResult = DialogResult.OK
             Timer1.Stop()
         End If

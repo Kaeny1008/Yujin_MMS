@@ -111,6 +111,8 @@ Public Class frm_CodeChange
         strSQL += ", '" & lot_no & "'"
         strSQL += ", '" & qty & "'"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -161,6 +163,8 @@ Public Class frm_CodeChange
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

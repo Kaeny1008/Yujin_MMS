@@ -55,6 +55,8 @@ Partial Class frm_DeviceData
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_DataPrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_deleteMachine = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_AllDelete = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -209,7 +211,6 @@ Partial Class frm_DeviceData
         '
         'Cb_modelName
         '
-        Me.Cb_modelName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.Cb_modelName.Font = New System.Drawing.Font("굴림", 9.75!)
         Me.Cb_modelName.FormattingEnabled = True
         Me.Cb_modelName.Location = New System.Drawing.Point(211, 33)
@@ -343,46 +344,58 @@ Partial Class frm_DeviceData
         '
         'CMS_gridMenu
         '
-        Me.CMS_gridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_newLine, Me.BTN_deleteLine, Me.ToolStripSeparator1, Me.BTN_Save, Me.ToolStripSeparator2, Me.BTN_DataPrint})
+        Me.CMS_gridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_newLine, Me.BTN_deleteLine, Me.BTN_deleteMachine, Me.BTN_AllDelete, Me.ToolStripSeparator1, Me.BTN_Save, Me.ToolStripSeparator2, Me.BTN_DataPrint})
         Me.CMS_gridMenu.Name = "CMS_gridMenu"
-        Me.CMS_gridMenu.Size = New System.Drawing.Size(164, 104)
+        Me.CMS_gridMenu.Size = New System.Drawing.Size(197, 148)
         '
         'BTN_newLine
         '
         Me.BTN_newLine.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
         Me.BTN_newLine.Name = "BTN_newLine"
-        Me.BTN_newLine.Size = New System.Drawing.Size(163, 22)
+        Me.BTN_newLine.Size = New System.Drawing.Size(196, 22)
         Me.BTN_newLine.Text = "신규등록"
         '
         'BTN_deleteLine
         '
         Me.BTN_deleteLine.Image = Global.YJ_MMS.My.Resources.Resources.minus_blue
         Me.BTN_deleteLine.Name = "BTN_deleteLine"
-        Me.BTN_deleteLine.Size = New System.Drawing.Size(163, 22)
+        Me.BTN_deleteLine.Size = New System.Drawing.Size(196, 22)
         Me.BTN_deleteLine.Text = "삭제"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(160, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(193, 6)
         '
         'BTN_Save
         '
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(163, 22)
+        Me.BTN_Save.Size = New System.Drawing.Size(196, 22)
         Me.BTN_Save.Text = "저장"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(160, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(193, 6)
         '
         'BTN_DataPrint
         '
         Me.BTN_DataPrint.Name = "BTN_DataPrint"
-        Me.BTN_DataPrint.Size = New System.Drawing.Size(163, 22)
+        Me.BTN_DataPrint.Size = New System.Drawing.Size(196, 22)
         Me.BTN_DataPrint.Text = "DeviceData 출력"
+        '
+        'BTN_deleteMachine
+        '
+        Me.BTN_deleteMachine.Name = "BTN_deleteMachine"
+        Me.BTN_deleteMachine.Size = New System.Drawing.Size(196, 22)
+        Me.BTN_deleteMachine.Text = "동일 Machine No 삭제"
+        '
+        'BTN_AllDelete
+        '
+        Me.BTN_AllDelete.Name = "BTN_AllDelete"
+        Me.BTN_AllDelete.Size = New System.Drawing.Size(196, 22)
+        Me.BTN_AllDelete.Text = "모든 항목 삭제"
         '
         'frm_DeviceData
         '
@@ -438,4 +451,6 @@ Partial Class frm_DeviceData
     Friend WithEvents TB_MakerCheck As ToolStripButton
     Friend WithEvents Label5 As Label
     Friend WithEvents Form_CLose As ToolStripButton
+    Friend WithEvents BTN_deleteMachine As ToolStripMenuItem
+    Friend WithEvents BTN_AllDelete As ToolStripMenuItem
 End Class
