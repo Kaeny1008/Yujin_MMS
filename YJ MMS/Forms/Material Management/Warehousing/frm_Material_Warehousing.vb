@@ -156,6 +156,9 @@ Public Class frm_Material_Warehousing
         strSQL += ", '" & checkResult & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd HH:mm:ss") & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += " , null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -247,6 +250,9 @@ Public Class frm_Material_Warehousing
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += " , null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -301,6 +307,9 @@ Public Class frm_Material_Warehousing
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += " , null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

@@ -351,6 +351,18 @@
     <Compile Include="Forms\Order Management\frm_Order_Registration.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Order Management\Popup\frm_Order_Excel_File_Open.Designer.vb">
+      <DependentUpon>frm_Order_Excel_File_Open.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order Management\Popup\frm_Order_Excel_File_Open.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Order Management\Popup\frm_Order_Split.Designer.vb">
+      <DependentUpon>frm_Order_Split.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Order Management\Popup\frm_Order_Split.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.Designer.vb">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </Compile>
@@ -738,6 +750,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Order Management\frm_Order_Registration.resx">
       <DependentUpon>frm_Order_Registration.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Order Management\Popup\frm_Order_Excel_File_Open.resx">
+      <DependentUpon>frm_Order_Excel_File_Open.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Order Management\Popup\frm_Order_Split.resx">
+      <DependentUpon>frm_Order_Split.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>

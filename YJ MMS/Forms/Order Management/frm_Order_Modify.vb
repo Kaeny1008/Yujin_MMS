@@ -48,7 +48,7 @@ Public Class frm_Order_Modify
             Grid_Excel(0, 14) = "BOM등록"
             Grid_Excel(0, 15) = "상태"
             Grid_Excel(0, 16) = "Order Index"
-            .Cols(16).Visible = False
+            .Cols(16).Visible = True
             .Cols(12).DataType = GetType(Date)
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -69,15 +69,16 @@ Public Class frm_Order_Modify
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 5
+            .Cols.Count = 6
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
             Grid_OrderList(0, 0) = "No"
             Grid_OrderList(0, 1) = "주문번호"
-            Grid_OrderList(0, 2) = "주문일자"
+            Grid_OrderList(0, 2) = "등록일자"
             Grid_OrderList(0, 3) = "고객사"
             Grid_OrderList(0, 4) = "총 모델수"
+            Grid_OrderList(0, 5) = "납품일자"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -103,6 +104,8 @@ Public Class frm_Order_Modify
         Dim strSQL As String = "call sp_mms_order_registration(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", '" & itemCode & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -270,6 +273,8 @@ Public Class frm_Order_Modify
         strSQL += ", '" & TB_OrderNo_Search.Text & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -280,7 +285,8 @@ Public Class frm_Order_Modify
                                           sqlDR("order_no") & vbTab &
                                           sqlDR("order_date") & vbTab &
                                           sqlDR("customer_name") & vbTab &
-                                          sqlDR("total_order")
+                                          sqlDR("total_order") & vbTab &
+                                          Format(sqlDR("date_of_delivery"), "yyyy-MM-dd")
             Grid_OrderList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -346,6 +352,8 @@ Public Class frm_Order_Modify
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & orderNo & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
@@ -515,6 +523,22 @@ Public Class frm_Order_Modify
             Not e.KeyChar = "," Then
             e.Handled = True
         End If
+
+    End Sub
+
+    Private Sub BTN_PO_Split_Click(sender As Object, e As EventArgs) Handles BTN_PO_Split.Click
+
+        Dim selRow As Integer = Grid_Excel.Row
+        Dim showString As String = "품번 : " & Grid_Excel(selRow, 3)
+        showString += vbCrLf & "품명 : " & Grid_Excel(selRow, 4)
+        showString += vbCrLf & "주문번호 : " & Grid_Excel(selRow, 7)
+        showString += vbCrLf & vbCrLf & "를 주문 분리(수량) 또는 관리번호를 지정 하시겠습니까?"
+
+        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        frm_Order_Split.orderIndex = Grid_Excel(selRow, 16)
+        If Not frm_Order_Split.Visible Then frm_Order_Split.Show()
+        frm_Order_Split.Focus()
 
     End Sub
 End Class

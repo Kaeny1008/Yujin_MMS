@@ -210,10 +210,7 @@ Public Class frm_Delivery_Register
 
                 'Loader Pcb사용의 경우 해당 PO를 불러와서 추가한다.
                 If Grid_POList(i, 9) = "사용" Then
-                    Dim loaderPCB_OrderIndex As String = Grid_POList(i, 2)
-                    Dim headerString As String = loaderPCB_OrderIndex.Substring(0, 15)
-                    Dim index As String = Format(CInt(loaderPCB_OrderIndex.Substring(15, 4)) + 1, "0000")
-                    loaderPCB_OrderIndex = headerString & index
+                    Dim loaderPCB_OrderIndex As String = Grid_POList(i, 2) & "-L"
                     Dim loadSplit() As String = Load_LoaderPCB_Order(loaderPCB_OrderIndex).Split(vbTab)
                     insertString = a.Grid_POList.Rows.Count
                     insertString += vbTab

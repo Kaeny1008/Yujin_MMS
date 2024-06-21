@@ -395,7 +395,7 @@ Public Class frm_Model_Document
                         typeString = Trim(.Cells(i, type_col).Value)
                     End If
 
-                    If typeString.ToUpper = "ASS'Y" Or typeString.ToUpper = "ASS’Y" Then
+                    If typeString.ToUpper = "PCB ASS'Y" Or typeString.ToUpper = "PCB ASS’Y" Then
                         If MessageBox.Show(frm_Main,
                                         "Loader PCB가 검색 되었습니다." & vbCrLf &
                                         "Loader PCB 사용으로 변경 하시겠습니까?" & vbCrLf &
@@ -829,8 +829,8 @@ Public Class frm_Model_Document
 
         DBConnect()
 
-        Dim strSQL As String = "call sp_model_document(1"
-        strSQL += ",'" & customerCode & "'"
+        Dim strSQL As String = "call sp_model_document(8"
+        strSQL += ", null"
         strSQL += ",'" & modelCode & "'"
         strSQL += ", null"
         strSQL += ", null"
@@ -981,6 +981,12 @@ Public Class frm_Model_Document
         CB_ManagementNo.Items.Add(newNo)
         CB_ManagementNo.Text = newNo
 
+        TB_Specification_Number.Text = String.Empty
+        DTP_Issue_Date.Value = Now
+        CB_Gubun.SelectedIndex = -1
+        CB_Change_Notification.SelectedIndex = -1
+        TB_Time_Of_Change.Text = String.Empty
+
         BTN_NewManagementNo.Visible = False
 
         For i = 1 To 7
@@ -1044,7 +1050,8 @@ FTP_Control:
         Thread_LoadingFormEnd()
 
         TabControl1.SelectedIndex = 0
-        MessageBox.Show("저장 완료.",
+        MessageBox.Show(Me,
+                        "저장 완료.",
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
@@ -1099,7 +1106,8 @@ FTP_Control:
                 strSQL += "delete from tb_model_bom"
                 strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
                 strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
-                strSQL += " and management_no;"
+                strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
+                strSQL += ";"
                 For i = 1 To Grid_BOM.Rows.Count - 1
                     strSQL += "insert into tb_model_bom("
                     strSQL += "customer_code, model_code, management_no, ref, part_no, material_type, is_loader_pcb) values("
@@ -1118,7 +1126,8 @@ FTP_Control:
                 strSQL += "delete from tb_model_coordinates"
                 strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
                 strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
-                strSQL += " and management_no;"
+                strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
+                strSQL += ";"
                 For i = 1 To Grid_Coordinates.Rows.Count - 1
                     strSQL += "insert into tb_model_coordinates("
                     strSQL += "customer_code, model_code, management_no, ref, x_mm, y_mm, angle, tb) values("
@@ -1174,6 +1183,34 @@ FTP_Control:
                 strSQL += ",'" & Grid_Process(1, i) & "'"
                 strSQL += ");"
             Next
+
+            If BTN_NewManagementNo.Visible = False Then
+                strSQL += "insert into tb_model_management_no("
+                strSQL += "management_no, model_code, specification_number, issue_date, gubun"
+                strSQL += ", time_of_change, change_notification, write_date, write_id"
+                strSQL += ") values("
+                strSQL += "'" & CB_ManagementNo.Text & "'"
+                strSQL += ",'" & TB_ModelCode.Text & "'"
+                strSQL += ",'" & TB_Specification_Number.Text & "'"
+                strSQL += ",'" & Format(DTP_Issue_Date.Value, "yyyy-MM-dd") & "'"
+                strSQL += ",'" & CB_Gubun.Text & "'"
+                strSQL += ",'" & TB_Time_Of_Change.Text & "'"
+                strSQL += ",'" & CB_Change_Notification.Text & "'"
+                strSQL += ",'" & writeDate & "'"
+                strSQL += ",'" & loginID & "'"
+                strSQL += ");"
+            Else
+                strSQL += "update tb_model_management_no set"
+                strSQL += " specification_number = '" & TB_Specification_Number.Text & "'"
+                strSQL += ", issue_date = '" & Format(DTP_Issue_Date.Value, "yyyy-MM-dd") & "'"
+                strSQL += ", gubun = '" & CB_Gubun.Text & "'"
+                strSQL += ", time_of_change = '" & TB_Time_Of_Change.Text & "'"
+                strSQL += ", change_notification = '" & CB_Change_Notification.Text & "'"
+                strSQL += ", write_date = '" & writeDate & "'"
+                strSQL += ", write_id = '" & loginID & "'"
+                strSQL += " where management_no = '" & CB_ManagementNo.Text & "'"
+                strSQL += ";"
+            End If
 
             If strSQL = String.Empty Then
                 DBClose()
@@ -1283,13 +1320,40 @@ FTP_Control:
 
     Private Sub CB_ManagementNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_ManagementNo.SelectedIndexChanged
 
-        'thread_LoadingFormStart()
-
+        Thread_LoadingFormStart()
+        Load_ManagementNo_Information()
         Load_Documents()
         Load_BOM()
         Load_Coodirnates()
         Load_BOM_Total()
-        'thread_LoadingFormEnd()
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_ManagementNo_Information()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(9"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_Specification_Number.Text = sqlDR("specification_number")
+            DTP_Issue_Date.Value = sqlDR("issue_date")
+            CB_Gubun.Text = sqlDR("gubun")
+            CB_Change_Notification.Text = sqlDR("change_notification")
+            TB_Time_Of_Change.Text = sqlDR("time_of_change")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
@@ -1336,10 +1400,10 @@ FTP_Control:
 
     End Sub
 
-
     Private Sub Load_BOM()
 
         Grid_BOM.Redraw = False
+        Grid_BOM.Rows.Count = 1
 
         DBConnect()
 
@@ -1376,6 +1440,7 @@ FTP_Control:
     Private Sub Load_Coodirnates()
 
         Grid_Coordinates.Redraw = False
+        Grid_Coordinates.Rows.Count = 1
 
         DBConnect()
 
@@ -1413,6 +1478,7 @@ FTP_Control:
     Private Sub Load_BOM_Total()
 
         Grid_BOM_Total.Redraw = False
+        Grid_BOM_Total.Rows.Count = 1
 
         DBConnect()
 

@@ -36,6 +36,8 @@ Partial Class frm_ExcelModify
         Me.BTN_Type = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_StartRow = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripTextBox1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_LastRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_ColumnMenu2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Ref2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_X = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,8 +45,6 @@ Partial Class frm_ExcelModify
         Me.BTN_A = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_TB = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid_ExcelLower = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.ToolStripTextBox1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_LastRow = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.Grid_ExcelUpper, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_ColumnMenu1.SuspendLayout()
         Me.CMS_RowMenu.SuspendLayout()
@@ -127,9 +127,9 @@ Partial Class frm_ExcelModify
         '
         'CMS_ColumnMenu1
         '
-        Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Ref1, Me.BTN_PartNo, Me.BTN_Type})
+        Me.CMS_ColumnMenu1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Type, Me.BTN_PartNo, Me.BTN_Ref1})
         Me.CMS_ColumnMenu1.Name = "CMS_Menu"
-        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 70)
+        Me.CMS_ColumnMenu1.Size = New System.Drawing.Size(188, 92)
         '
         'BTN_Ref1
         '
@@ -147,19 +147,30 @@ Partial Class frm_ExcelModify
         '
         Me.BTN_Type.Name = "BTN_Type"
         Me.BTN_Type.Size = New System.Drawing.Size(187, 22)
-        Me.BTN_Type.Text = "Material Type"
+        Me.BTN_Type.Text = "구분"
         '
         'CMS_RowMenu
         '
         Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_StartRow, Me.ToolStripTextBox1, Me.BTN_LastRow})
         Me.CMS_RowMenu.Name = "CMS_Menu"
-        Me.CMS_RowMenu.Size = New System.Drawing.Size(181, 76)
+        Me.CMS_RowMenu.Size = New System.Drawing.Size(123, 54)
         '
         'BTN_StartRow
         '
         Me.BTN_StartRow.Name = "BTN_StartRow"
-        Me.BTN_StartRow.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_StartRow.Size = New System.Drawing.Size(122, 22)
         Me.BTN_StartRow.Text = "시작행"
+        '
+        'ToolStripTextBox1
+        '
+        Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
+        Me.ToolStripTextBox1.Size = New System.Drawing.Size(119, 6)
+        '
+        'BTN_LastRow
+        '
+        Me.BTN_LastRow.Name = "BTN_LastRow"
+        Me.BTN_LastRow.Size = New System.Drawing.Size(122, 22)
+        Me.BTN_LastRow.Text = "마지막행"
         '
         'CMS_ColumnMenu2
         '
@@ -207,17 +218,6 @@ Partial Class frm_ExcelModify
         Me.Grid_ExcelLower.Size = New System.Drawing.Size(871, 261)
         Me.Grid_ExcelLower.StyleInfo = resources.GetString("Grid_ExcelLower.StyleInfo")
         Me.Grid_ExcelLower.TabIndex = 35
-        '
-        'ToolStripTextBox1
-        '
-        Me.ToolStripTextBox1.Name = "ToolStripTextBox1"
-        Me.ToolStripTextBox1.Size = New System.Drawing.Size(177, 6)
-        '
-        'BTN_LastRow
-        '
-        Me.BTN_LastRow.Name = "BTN_LastRow"
-        Me.BTN_LastRow.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_LastRow.Text = "마지막행"
         '
         'frm_ExcelModify
         '

@@ -276,6 +276,23 @@ Module md_ETC
 
     End Sub
 
+    Public Function GridReadText(ByVal formName As Form, ByVal cb As C1FlexGrid, ByVal row As Integer, ByVal col As Integer) As String
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                Return ts.Invoke(New Func(Of String)(Function() GridReadText(formName, cb, row, col)))
+            Else
+                Dim findText As String = cb(row, col)
+                Return findText
+            End If
+        Else
+            Return String.Empty
+        End If
+
+    End Function
+
     Public Function GridFindRow(ByVal formName As Form, ByVal cb As C1FlexGrid, ByVal findText As String, ByVal findCol As Integer) As Integer
 
         Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
@@ -284,7 +301,6 @@ Module md_ETC
             If ts.InvokeRequired Then
                 Return ts.Invoke(New Func(Of Integer)(Function() GridFindRow(formName, cb, findText, findCol)))
             Else
-                'MessageBox.Show(cb.name)
                 Dim findRow As Integer = cb.FindRow(findText, 1, findCol, True)
                 Return findrow
             End If

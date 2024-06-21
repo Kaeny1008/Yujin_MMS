@@ -13,6 +13,9 @@ Public Class frm_Order_Registration
 
         Grid_Setting()
 
+        DateTimePicker1.Value = Format(Now(), "yyyy-MM-01")
+        DateTimePicker2.Value = DateAdd(DateInterval.Day, -1, CDate(Format(DateAdd(DateInterval.Month, 3, Now), "yyyy-MM-01")))
+
     End Sub
 
     Private Sub frm_Order_Registration_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
@@ -62,7 +65,7 @@ Public Class frm_Order_Registration
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 15
+            .Cols.Count = 16
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -81,7 +84,8 @@ Public Class frm_Order_Registration
             Grid_Excel(0, 12) = "모델등록"
             Grid_Excel(0, 13) = "BOM등록"
             Grid_Excel(0, 14) = "Order Index"
-            .Cols(14).Visible = False
+            Grid_Excel(0, 15) = "대조결과"
+            .Cols(14).Visible = True
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -169,6 +173,10 @@ Public Class frm_Order_Registration
 
     Private Sub BTN_FileSelect_Click(sender As Object, e As EventArgs) Handles BTN_FileSelect.Click
 
+        Dim question_Text As String = RadioButton2.Text
+
+        If RadioButton1.Checked = True Then question_Text = RadioButton1.Text
+
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
             excelApp.Quit()
@@ -185,6 +193,24 @@ Public Class frm_Order_Registration
                             MessageBoxDefaultButton.Button1)
             Exit Sub
         End If
+
+        If RadioButton1.Checked = False And RadioButton2.Checked = False Then
+            MessageBox.Show(Me,
+                "자료 유형을 먼저 선택하여 주십시오.",
+                msg_form,
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information,
+                MessageBoxDefaultButton.Button1)
+            Exit Sub
+        End If
+
+        If MessageBox.Show(Me,
+                           "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
+                           "### " & question_Text & " ###" & vbCrLf & vbCrLf &
+                           "계속 진행하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
         If Not CB_CustomerName.Text = "LS Mecapion" Then
             MessageBox.Show(Me,
@@ -256,8 +282,48 @@ Public Class frm_Order_Registration
 
     Private Sub CB_SheetName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_SheetName.SelectionChangeCommitted
 
+        If RadioButton1.Checked = True Then
+            SRM_Excel_Process()
+        Else
+            Etc_Excel_Process()
+        End If
+
+    End Sub
+
+    Private Sub Etc_Excel_Process()
+
+        If Not IsNothing(excelApp) Then
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+        End If
+
+        frm_Order_Excel_File_Open.fileName = TB_File_Path.Text
+        frm_Order_Excel_File_Open.sheetName = CB_SheetName.Text
+        frm_Order_Excel_File_Open.Show()
+
+    End Sub
+
+    Private Sub SRM_Excel_Process()
+
+        Thread_LoadingFormStart("기존 주문 확인중...")
+
+        Grid_Excel.Redraw = False
+        Grid_Excel.Rows.Count = 1
+
+        Load_Basic_PO(Format(DateTimePicker1.Value, "yyyy-MM-dd 00:00:00"),
+                      Format(DateTimePicker2.Value, "yyyy-MM-dd 23:59:59"),
+                      "모터")
+
+        Grid_Excel.Redraw = True
+
+        Thread_LoadingFormEnd()
+
+        Application.DoEvents()
+
         CB_SheetName.Enabled = False
-        thread_ExcelRead = New Thread(AddressOf Load_TempData)
+        thread_ExcelRead = New Thread(AddressOf Load_SRM_Data)
         thread_ExcelRead.IsBackground = True
         thread_ExcelRead.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
         thread_ExcelRead.Name = "ExcelRead Thread"
@@ -265,13 +331,7 @@ Public Class frm_Order_Registration
 
     End Sub
 
-    Private Sub CB_SheetName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_SheetName.SelectedIndexChanged
-
-
-
-    End Sub
-
-    Private Sub Load_TempData()
+    Private Sub Load_SRM_Data()
 
         Thread_LoadingFormStart("Excel Open...")
 
@@ -291,64 +351,89 @@ Public Class frm_Order_Registration
                     Dim itemUnit As String = .Cells(i, 6).Value
                     Dim orderNumber As String = .Cells(i, 7).Value
                     Dim orderDate As Date = Format(.Cells(i, 8).Value, "yyyy-MM-dd")
-                    Dim orderQuantity As Integer = .Cells(i, 9).Value
+                    Dim orderQuantity As Double = .Cells(i, 9).Value
                     Dim deliveryPlace As String = .Cells(i, 14).Value
                     Dim dateOfDelivery As Date = Format(.Cells(i, 15).Value, "yyyy-MM-dd")
-                    'Dim existCheck() As String = Load_ExistCheck(itemCode).Split(",")
-                    'Dim itemRegister As String = existCheck(0)
-                    'Dim itemBOM As String = existCheck(1)
                     Dim aList As New List(Of String)
+                    Dim indexList As New List(Of String)
 
                     For j = 1 To Grid_Excel.Rows.Count - 1
                         aList.Add(Grid_Excel(j, 7))
                     Next
 
-                    GridWriteText("N" & vbTab &
-                                  vbTab &
-                                  itemSPG & vbTab &
-                                  itemCode & vbTab &
-                                  itemName & vbTab &
-                                  itemSpec & vbTab &
-                                  itemUnit & vbTab &
-                                  orderNumber & vbTab &
-                                  orderDate & vbTab &
-                                  orderQuantity & vbTab &
-                                  deliveryPlace & vbTab &
-                                  dateOfDelivery & vbTab &
-                                  vbTab &
-                                  vbTab &
-                                  orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count + 1, "0000"),
-                                  Me,
-                                  Grid_Excel,
-                                  Color.Blue)
-                    Dim loaderPCB As String = RegistrationCheck(itemCode, Grid_Excel.Rows.Count - 1)
-                    If Not loaderPCB = String.Empty Then
-                        'If MessageBox.Show(frm_Main,
-                        '                   "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
-                        '                   "Loader PCB PO를 자동으로 추가 하시겠습니까?",
-                        '                   msg_form,
-                        '                   MessageBoxButtons.YesNo,
-                        '                   MessageBoxIcon.Question) = DialogResult.Yes Then
+                    Dim itemFind As Boolean = False
+                    For x = 1 To Grid_Excel.Rows.Count - 1
+                        If dateOfDelivery = Grid_Excel(x, 11) And itemCode = Grid_Excel(x, 3) Then
+                            Dim registerQty As Double = Grid_Excel(x, 9)
+                            If Not registerQty = orderQuantity Then
+                                Grid_Excel(x, 0) = "M"
+                                Grid_Excel(x, 15) = "수량변경"
+                                Grid_Excel(x, 9) = orderQuantity
+                            Else
+                                Grid_Excel(x, 0) = x
+                                Grid_Excel(x, 15) = String.Empty
+                            End If
+                            itemFind = True
+                            Exit For
+                        End If
+                    Next
+
+                    '동일한 주문번호가 있다면
+                    '저장된 마지막 order_index를 불러 온다.
+                    'For j = 1 To Grid_Excel.Rows.Count - 1
+                    '    If Grid_Excel(j, 7) = orderNumber Then
+                    '        indexList.Add(Grid_Excel(j, 14))
+                    '    End If
+                    'Next
+
+                    'MsgBox(indexList.Max.ToString)
+
+
+                    'If Not Same_PONo_Check(orderNumber) = String.Empty Then
+
+                    'End If
+                    If itemFind = False Then
                         GridWriteText("N" & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          loaderPCB & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          orderNumber & vbTab &
-                                          orderDate & vbTab &
-                                          orderQuantity & vbTab &
-                                          deliveryPlace & vbTab &
-                                          dateOfDelivery & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count + 2, "0000"),
-                                          Me,
-                                          Grid_Excel,
-                                          Color.Blue)
-                        RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
-                        loaderPCB_Add = True
+                                      vbTab &
+                                      itemSPG & vbTab &
+                                      itemCode & vbTab &
+                                      itemName & vbTab &
+                                      itemSpec & vbTab &
+                                      itemUnit & vbTab &
+                                      orderNumber & vbTab &
+                                      orderDate & vbTab &
+                                      orderQuantity & vbTab &
+                                      deliveryPlace & vbTab &
+                                      dateOfDelivery & vbTab &
+                                      vbTab &
+                                      vbTab &
+                                      orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count + 1, "0000") & vbTab &
+                                      "신규",
+                                      Me,
+                                      Grid_Excel,
+                                      Color.Blue)
+                        'Dim loaderPCB As String = RegistrationCheck(itemCode, Grid_Excel.Rows.Count - 1)
+                        'If Not loaderPCB = String.Empty Then
+                        '    GridWriteText("N" & vbTab &
+                        '                  vbTab &
+                        '                  vbTab &
+                        '                  loaderPCB & vbTab &
+                        '                  vbTab &
+                        '                  vbTab &
+                        '                  vbTab &
+                        '                  orderNumber & vbTab &
+                        '                  orderDate & vbTab &
+                        '                  orderQuantity & vbTab &
+                        '                  deliveryPlace & vbTab &
+                        '                  dateOfDelivery & vbTab &
+                        '                  vbTab &
+                        '                  vbTab &
+                        '                  orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count + 2, "0000"),
+                        '                  Me,
+                        '                  Grid_Excel,
+                        '                  Color.Blue)
+                        '    RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
+                        '    loaderPCB_Add = True
                         'End If
                     End If
                 Next
@@ -373,18 +458,51 @@ Public Class frm_Order_Registration
 
         GridRedraw(True, Me, Grid_Excel)
 
-        If loaderPCB_Add = True Then
-            MessageBox.Show(frm_Main,
-                            "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
-                            "Loader PCB PO를 자동으로 추가 하였습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-        End If
+        'If loaderPCB_Add = True Then
+        '    MessageBox.Show(Me,
+        '                    "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
+        '                    "Loader PCB PO를 자동으로 추가 하였습니다.",
+        '                    msg_form,
+        '                    MessageBoxButtons.OK,
+        '                    MessageBoxIcon.Information)
+        'End If
 
         Thread_LoadingFormEnd()
 
+        Application.DoEvents()
+
+        ETC_Excel_Last_Step()
+
     End Sub
+
+    Private Function Same_PONo_Check(ByVal order_number As String) As String
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_order_registration(6"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & order_number & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim returnString As String = String.Empty
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("order_index")
+        Loop
+
+        DBClose()
+
+        Return returnString
+
+    End Function
 
     Private Function RegistrationCheck(ByVal itemCode As String, ByVal rowNum As Integer) As String
 
@@ -398,13 +516,22 @@ Public Class frm_Order_Registration
         Dim itemName As String = existCheck(4)
         Dim loaderPCB As String = existCheck(5)
 
-        GridWriteText(modelCode, rowNum, 1, Me, Grid_Excel, Color.Blue)
-        GridWriteText(itemRegister, rowNum, 12, Me, Grid_Excel, Color.Blue)
-        If itemRegister = "O" Then
-            GridWriteText(itemName, rowNum, 4, Me, Grid_Excel, Color.Blue)
-            GridWriteText(itemSpec, rowNum, 5, Me, Grid_Excel, Color.Blue)
+        Dim foreColor As Color = Color.Black
+
+        If GridReadText(Me, Grid_Excel, rowNum, 15) = "신규" Then
+            foreColor = Color.Blue
+        ElseIf GridReadText(Me, Grid_Excel, rowNum, 15) = "수량변경" Then
+            foreColor = Color.Red
+        ElseIf GridReadText(Me, Grid_Excel, rowNum, 15) = "삭제" Then
+            foreColor = Color.darkgray
         End If
-        GridWriteText(itemBOM, rowNum, 13, Me, Grid_Excel, Color.Blue)
+        GridWriteText(modelCode, rowNum, 1, Me, Grid_Excel, foreColor)
+        GridWriteText(itemRegister, rowNum, 12, Me, Grid_Excel, foreColor)
+        If itemRegister = "O" Then
+            GridWriteText(itemName, rowNum, 4, Me, Grid_Excel, foreColor)
+            GridWriteText(itemSpec, rowNum, 5, Me, Grid_Excel, foreColor)
+        End If
+        GridWriteText(itemBOM, rowNum, 13, Me, Grid_Excel, foreColor)
 
         DBClose()
 
@@ -428,6 +555,8 @@ Public Class frm_Order_Registration
         Dim strSQL As String = "call sp_mms_order_registration(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", '" & itemCode & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -485,13 +614,17 @@ Public Class frm_Order_Registration
 
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
             Dim arrayPO(1, 1) As String
+            Dim itemSection As String = "모터"
+            If RadioButton2.Checked = True Then
+                itemSection = "제어"
+            End If
 
             For i = 1 To Grid_Excel.Rows.Count - 1
                 If Grid_Excel(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_order_register_list("
                     strSQL += "order_index, customer_code, model_code, unit, order_no, order_date"
-                    strSQL += ", order_quantity, modify_order_quantity, delivery_place, date_of_delivery, order_status, write_date, write_id"
-                    strSQL += ") select "
+                    strSQL += ", order_quantity, modify_order_quantity, delivery_place, date_of_delivery, order_status, write_date, write_id, item_section"
+                    strSQL += ") values ("
                     strSQL += "'" & Grid_Excel(i, 14) & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_Excel(i, 1) & "'"
@@ -505,12 +638,22 @@ Public Class frm_Order_Registration
                     strSQL += ",'Order Confirm'"
                     strSQL += ",'" & writeDate & "'"
                     strSQL += ",'" & loginID & "'"
-                    strSQL += " from dual where not exists"
-                    strSQL += " (select * from tb_mms_order_register_list"
-                    strSQL += " where order_no = '" & Grid_Excel(i, 7) & "'"
-                    strSQL += " and model_code = '" & Grid_Excel(i, 1) & "')"
-                    strSQL += ";"
+                    strSQL += ",'" & itemSection & "'"
+                    'strSQL += " from dual where not exists"
+                    'strSQL += " (select * from tb_mms_order_register_list"
+                    'strSQL += " where order_no = '" & Grid_Excel(i, 7) & "'"
+                    'strSQL += " and model_code = '" & Grid_Excel(i, 1) & "')"
+                    strSQL += ");"
                     '위는 중복적으로 저장되는걸 방지 (같은 PO No.와 모델코드)
+                ElseIf Grid_Excel(i, 0).ToString = "D" Then
+                    strSQL += "delete from tb_mms_order_register_list"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 14) & "'"
+                    strSQL += ";"
+                ElseIf Grid_Excel(i, 0).ToString = "M" Then
+                    strSQL += "update tb_mms_order_register_list set"
+                    strSQL += " modify_order_quantity = '" & Grid_Excel(i, 9) & "'"
+                    strSQL += " where order_index = '" & Grid_Excel(i, 14) & "'"
+                    strSQL += ";"
                 End If
             Next
 
@@ -569,6 +712,14 @@ Public Class frm_Order_Registration
         Dim selRow As Integer = Grid_Excel.Row
 
         Grid_Excel(selRow, 1) = Search_NewModelCode()
+        Grid_Excel(selRow, 12) = "O"
+
+        For i = 1 To Grid_Excel.Rows.Count - 1
+            If Grid_Excel(i, 3) = Grid_Excel(selRow, 3) Then
+                Grid_Excel(i, 1) = Grid_Excel(selRow, 1)
+                Grid_Excel(i, 12) = "O"
+            End If
+        Next
 
         If Grid_Excel(selRow, 1) = String.Empty Then
             MessageBox.Show(Me,
@@ -617,6 +768,9 @@ Public Class frm_Order_Registration
 
             DBClose()
 
+            Grid_Excel(selRow, 1) = String.Empty
+            Grid_Excel(selRow, 12) = "X"
+
             Thread_LoadingFormEnd()
             MessageBox.Show(ex.Message,
                             msg_form,
@@ -634,8 +788,6 @@ Public Class frm_Order_Registration
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information,
                         MessageBoxDefaultButton.Button1)
-
-        Grid_Excel(selRow, 12) = "O"
 
     End Sub
 
@@ -747,6 +899,238 @@ Public Class frm_Order_Registration
 
         Grid_Excel.AutoSizeCols()
         Grid_Excel.Redraw = True
+
+    End Sub
+
+    Private Sub CB_SheetName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_SheetName.SelectedIndexChanged
+
+    End Sub
+    Public Sub ETC_Excel_Last_Step()
+
+        Dim loaderPCB_Add As Boolean = False
+
+        Thread_LoadingFormStart("자료 확인 중...")
+
+        If Grid_Excel.InvokeRequired Then
+            Grid_Excel.Invoke(New Action(AddressOf ETC_Excel_Last_Step))
+        Else
+            Grid_Excel.Redraw = False
+
+            For i = 1 To Grid_Excel.Rows.Count - 1
+                Dim loaderPCB As String = RegistrationCheck(Grid_Excel(i, 3), i)
+
+                If Grid_Excel(i, 15) = "신규" Then
+                    Grid_Excel(i, 7) = Load_PONo(Grid_Excel(i, 11))
+
+                    Dim aList As New List(Of String)
+                    For j = 1 To Grid_Excel.Rows.Count - 1
+                        aList.Add(Grid_Excel(j, 7))
+                    Next
+
+                    Dim orderNumber As String = Grid_Excel(i, 7)
+                    Grid_Excel(i, 14) = orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count, "0000")
+
+                    If Not loaderPCB = String.Empty Then
+                        LoaderPCB_Grid_Add(loaderPCB, i)
+                        loaderPCB_Add = True
+                    End If
+                ElseIf Grid_Excel(i, 15) = String.Empty And Not loaderPCB = String.Empty Then
+                    Dim loaderRow As Integer = Grid_Excel.FindRow(Grid_Excel(i, 14) & "-L", 1, 14, True)
+                    If loaderRow > 1 Then
+                        Grid_Excel(loaderRow, 15) = String.Empty
+                        Grid_Excel(loaderRow, 0) = i
+                        Grid_Excel.Rows(loaderRow).StyleNew.ForeColor = Color.Black
+                    Else
+                        LoaderPCB_Grid_Add(loaderPCB, i)
+                        loaderPCB_Add = True
+                    End If
+                ElseIf Grid_Excel(i, 15) = "수량변경" And Not loaderPCB = String.Empty Then
+                    Dim loaderRow As Integer = Grid_Excel.FindRow(Grid_Excel(i, 14) & "-L", 1, 14, True)
+                    If loaderRow > 1 Then
+                        Grid_Excel(loaderRow, 9) = Grid_Excel(i, 9)
+                        Grid_Excel(loaderRow, 15) = "수량변경"
+                        Grid_Excel(loaderRow, 0) = i
+                        Grid_Excel.Rows(loaderRow).StyleNew.ForeColor = Color.Red
+                    Else
+                        LoaderPCB_Grid_Add(loaderPCB, i)
+                        'GridWriteText("N" & vbTab &
+                        '              vbTab &
+                        '              vbTab &
+                        '              loaderPCB & vbTab &
+                        '              vbTab &
+                        '              vbTab &
+                        '              vbTab &
+                        '              Grid_Excel(i, 7) & vbTab &
+                        '              Grid_Excel(i, 8) & vbTab &
+                        '              Grid_Excel(i, 9) & vbTab &
+                        '              vbTab &
+                        '              Grid_Excel(i, 11) & vbTab &
+                        '              vbTab &
+                        '              vbTab &
+                        '              Grid_Excel(i, 14) & "-L" & vbTab &
+                        '              "신규",
+                        '              Me,
+                        '              Grid_Excel,
+                        '              Color.Blue)
+                        'RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
+                        loaderPCB_Add = True
+                    End If
+                End If
+            Next
+            Grid_Excel.AutoSizeCols()
+            Grid_Excel.Redraw = True
+        End If
+
+        Thread_LoadingFormEnd()
+
+        If loaderPCB_Add = True Then
+            MessageBox.Show(Me,
+                            "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
+                            "Loader PCB PO를 자동으로 추가 하였습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+        End If
+
+    End Sub
+
+    Private Sub LoaderPCB_Grid_Add(ByVal loaderPCB As String, ByVal referenceRow As Integer)
+
+        GridWriteText("N" & vbTab &
+                      vbTab &
+                      vbTab &
+                      loaderPCB & vbTab &
+                      vbTab &
+                      vbTab &
+                      vbTab &
+                      Grid_Excel(referenceRow, 7) & vbTab &
+                      Grid_Excel(referenceRow, 8) & vbTab &
+                      Grid_Excel(referenceRow, 9) & vbTab &
+                      vbTab &
+                      Grid_Excel(referenceRow, 11) & vbTab &
+                      vbTab &
+                      vbTab &
+                      Grid_Excel(referenceRow, 14) & "-L" & vbTab &
+                      "신규",
+                      Me,
+                      Grid_Excel,
+                      Color.Blue)
+        RegistrationCheck(loaderPCB, Grid_Excel.Rows.Count - 1)
+
+    End Sub
+
+    Private Function Load_PONo(ByVal nowDate As String) As String
+
+        DBConnect()
+
+        Dim returnString As String = String.Empty
+
+        Dim strSQL As String = "select f_mms_po_no('" & nowDate & "') as po_no"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("po_no")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
+
+    Private Function Load_PO_Check(ByVal modelCode As String, ByVal deliveryDate As Date, ByVal nowRow As Integer) As Integer
+
+        DBConnect()
+
+        Dim orderIndex As String = String.Empty
+        Dim orderQty As Integer = 0
+
+        Dim strSQL As String = "call sp_mms_order_registration(3"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & modelCode & "'"
+        strSQL += ", '" & deliveryDate & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            orderIndex = sqlDR("order_index")
+            orderQty = sqlDR("modify_order_quantity")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return orderQty
+
+    End Function
+
+    Public Sub Load_Basic_PO(ByVal startDate As Date, ByVal endDate As Date, ByVal itemSection As String)
+
+        DBConnect()
+
+        Dim findIndex As Integer = 4
+        If itemSection = "제어" Then
+            findIndex = 4
+        ElseIf itemSection = "모터" Then
+            findIndex = 5
+        End If
+
+        Dim strSQL As String = "call sp_mms_order_registration(" & findIndex
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & Format(startDate, "yyyy-MM-dd 00:00:00") & "'"
+        strSQL += ", '" & Format(endDate, "yyyy-MM-dd 23:59:59") & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            Dim rowName As String = Grid_Excel.Rows.Count
+            Dim rowColor As Color = Color.DarkGray
+            Dim insert_String As String = "D" & vbTab &
+                                          sqlDR("model_code") & vbTab &
+                                          sqlDR("spg") & vbTab &
+                                          sqlDR("item_code") & vbTab &
+                                          sqlDR("item_name") & vbTab &
+                                          sqlDR("item_spec") & vbTab &
+                                          sqlDR("unit") & vbTab &
+                                          sqlDR("order_no") & vbTab &
+                                          sqlDR("order_date") & vbTab &
+                                          sqlDR("order_quantity") & vbTab &
+                                          sqlDR("delivery_place") & vbTab &
+                                          sqlDR("date_of_delivery") & vbTab &
+                                          vbTab &
+                                          vbTab &
+                                          sqlDR("order_index") & vbTab &
+                                          "삭제"
+            GridWriteText(insert_String, Me, Grid_Excel, rowColor)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
+    Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
+
+        If RadioButton1.Checked = True Then
+            Panel2.Enabled = True
+        Else
+            Panel2.Enabled = False
+        End If
 
     End Sub
 End Class

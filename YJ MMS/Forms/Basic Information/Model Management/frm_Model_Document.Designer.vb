@@ -89,6 +89,18 @@ Partial Class frm_Model_Document
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.TB_Time_Of_Change = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.TB_Specification_Number = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.DTP_Issue_Date = New System.Windows.Forms.DateTimePicker()
+        Me.CB_Gubun = New System.Windows.Forms.ComboBox()
+        Me.CB_Change_Notification = New System.Windows.Forms.ComboBox()
+        Me.Label20 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -113,6 +125,7 @@ Partial Class frm_Model_Document
         Me.Panel3.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
+        Me.Panel7.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -273,10 +286,10 @@ Partial Class frm_Model_Document
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControl1.Location = New System.Drawing.Point(0, 234)
+        Me.TabControl1.Location = New System.Drawing.Point(0, 348)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(697, 514)
+        Me.TabControl1.Size = New System.Drawing.Size(697, 400)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
@@ -285,7 +298,7 @@ Partial Class frm_Model_Document
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(689, 488)
+        Me.TabPage1.Size = New System.Drawing.Size(689, 374)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "자료목록"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -298,9 +311,9 @@ Partial Class frm_Model_Document
         Me.Grid_Documents.Name = "Grid_Documents"
         Me.Grid_Documents.Rows.Count = 2
         Me.Grid_Documents.Rows.DefaultSize = 20
-        Me.Grid_Documents.Size = New System.Drawing.Size(683, 482)
+        Me.Grid_Documents.Size = New System.Drawing.Size(683, 368)
         Me.Grid_Documents.StyleInfo = resources.GetString("Grid_Documents.StyleInfo")
-        Me.Grid_Documents.TabIndex = 1
+        Me.Grid_Documents.TabIndex = 0
         '
         'TabPage2
         '
@@ -615,6 +628,7 @@ Partial Class frm_Model_Document
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel3.Controls.Add(Me.Panel7)
         Me.Panel3.Controls.Add(Me.BTN_NewManagementNo)
         Me.Panel3.Controls.Add(Me.CB_ManagementNo)
         Me.Panel3.Controls.Add(Me.Label4)
@@ -623,7 +637,7 @@ Partial Class frm_Model_Document
         Me.Panel3.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel3.Location = New System.Drawing.Point(0, 0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(697, 234)
+        Me.Panel3.Size = New System.Drawing.Size(697, 348)
         Me.Panel3.TabIndex = 0
         '
         'BTN_NewManagementNo
@@ -692,7 +706,7 @@ Partial Class frm_Model_Document
         Me.Label9.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(120, 21)
-        Me.Label9.TabIndex = 9
+        Me.Label9.TabIndex = 10
         Me.Label9.Text = "품목명"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -705,7 +719,7 @@ Partial Class frm_Model_Document
         Me.TB_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ItemName.Name = "TB_ItemName"
         Me.TB_ItemName.Size = New System.Drawing.Size(480, 21)
-        Me.TB_ItemName.TabIndex = 10
+        Me.TB_ItemName.TabIndex = 0
         '
         'Label22
         '
@@ -717,7 +731,7 @@ Partial Class frm_Model_Document
         Me.Label22.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(120, 21)
-        Me.Label22.TabIndex = 7
+        Me.Label22.TabIndex = 8
         Me.Label22.Text = "모델명"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -730,7 +744,7 @@ Partial Class frm_Model_Document
         Me.TB_ModelName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ModelName.Name = "TB_ModelName"
         Me.TB_ModelName.Size = New System.Drawing.Size(180, 21)
-        Me.TB_ModelName.TabIndex = 8
+        Me.TB_ModelName.TabIndex = 9
         '
         'TB_ModelCode
         '
@@ -741,7 +755,7 @@ Partial Class frm_Model_Document
         Me.TB_ModelCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ModelCode.Name = "TB_ModelCode"
         Me.TB_ModelCode.Size = New System.Drawing.Size(180, 21)
-        Me.TB_ModelCode.TabIndex = 6
+        Me.TB_ModelCode.TabIndex = 7
         '
         'Label2
         '
@@ -753,7 +767,7 @@ Partial Class frm_Model_Document
         Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(120, 21)
-        Me.Label2.TabIndex = 5
+        Me.Label2.TabIndex = 6
         Me.Label2.Text = "모델 코드"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -789,7 +803,7 @@ Partial Class frm_Model_Document
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(120, 21)
-        Me.Label7.TabIndex = 3
+        Me.Label7.TabIndex = 4
         Me.Label7.Text = "고객사명"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -816,7 +830,7 @@ Partial Class frm_Model_Document
         Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerName.Name = "TB_CustomerName"
         Me.TB_CustomerName.Size = New System.Drawing.Size(180, 21)
-        Me.TB_CustomerName.TabIndex = 4
+        Me.TB_CustomerName.TabIndex = 5
         '
         'Label8
         '
@@ -849,6 +863,157 @@ Partial Class frm_Model_Document
         Me.BTN_ProcessDelete.Name = "BTN_ProcessDelete"
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
+        '
+        'Panel7
+        '
+        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Controls.Add(Me.CB_Change_Notification)
+        Me.Panel7.Controls.Add(Me.Label20)
+        Me.Panel7.Controls.Add(Me.CB_Gubun)
+        Me.Panel7.Controls.Add(Me.DTP_Issue_Date)
+        Me.Panel7.Controls.Add(Me.Label21)
+        Me.Panel7.Controls.Add(Me.TB_Time_Of_Change)
+        Me.Panel7.Controls.Add(Me.Label23)
+        Me.Panel7.Controls.Add(Me.Label24)
+        Me.Panel7.Controls.Add(Me.TB_Specification_Number)
+        Me.Panel7.Controls.Add(Me.Label25)
+        Me.Panel7.Controls.Add(Me.Label26)
+        Me.Panel7.Location = New System.Drawing.Point(19, 220)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(561, 119)
+        Me.Panel7.TabIndex = 5
+        '
+        'Label21
+        '
+        Me.Label21.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label21.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label21.ForeColor = System.Drawing.Color.White
+        Me.Label21.Location = New System.Drawing.Point(7, 83)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(120, 21)
+        Me.Label21.TabIndex = 9
+        Me.Label21.Text = "변경시점"
+        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Time_Of_Change
+        '
+        Me.TB_Time_Of_Change.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Time_Of_Change.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Time_Of_Change.Location = New System.Drawing.Point(127, 83)
+        Me.TB_Time_Of_Change.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Time_Of_Change.Name = "TB_Time_Of_Change"
+        Me.TB_Time_Of_Change.Size = New System.Drawing.Size(420, 21)
+        Me.TB_Time_Of_Change.TabIndex = 10
+        '
+        'Label23
+        '
+        Me.Label23.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label23.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label23.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label23.ForeColor = System.Drawing.Color.White
+        Me.Label23.Location = New System.Drawing.Point(7, 60)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(120, 21)
+        Me.Label23.TabIndex = 5
+        Me.Label23.Text = "변경구분"
+        Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Font = New System.Drawing.Font("Arial", 15.75!, System.Drawing.FontStyle.Bold)
+        Me.Label24.ForeColor = System.Drawing.Color.White
+        Me.Label24.Location = New System.Drawing.Point(3, 6)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(132, 24)
+        Me.Label24.TabIndex = 0
+        Me.Label24.Text = "[ 시방변경정보 ]"
+        '
+        'TB_Specification_Number
+        '
+        Me.TB_Specification_Number.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Specification_Number.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Specification_Number.Location = New System.Drawing.Point(127, 37)
+        Me.TB_Specification_Number.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Specification_Number.Name = "TB_Specification_Number"
+        Me.TB_Specification_Number.Size = New System.Drawing.Size(150, 21)
+        Me.TB_Specification_Number.TabIndex = 2
+        '
+        'Label25
+        '
+        Me.Label25.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label25.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label25.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label25.ForeColor = System.Drawing.Color.White
+        Me.Label25.Location = New System.Drawing.Point(277, 37)
+        Me.Label25.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(120, 21)
+        Me.Label25.TabIndex = 3
+        Me.Label25.Text = "발행일자"
+        Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label26
+        '
+        Me.Label26.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label26.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label26.ForeColor = System.Drawing.Color.White
+        Me.Label26.Location = New System.Drawing.Point(7, 37)
+        Me.Label26.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(120, 21)
+        Me.Label26.TabIndex = 1
+        Me.Label26.Text = "시방번호"
+        Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'DTP_Issue_Date
+        '
+        Me.DTP_Issue_Date.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DTP_Issue_Date.Location = New System.Drawing.Point(397, 37)
+        Me.DTP_Issue_Date.Margin = New System.Windows.Forms.Padding(0)
+        Me.DTP_Issue_Date.Name = "DTP_Issue_Date"
+        Me.DTP_Issue_Date.Size = New System.Drawing.Size(150, 21)
+        Me.DTP_Issue_Date.TabIndex = 4
+        '
+        'CB_Gubun
+        '
+        Me.CB_Gubun.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Gubun.Font = New System.Drawing.Font("굴림", 9.5!)
+        Me.CB_Gubun.FormattingEnabled = True
+        Me.CB_Gubun.Items.AddRange(New Object() {"정식", "임시"})
+        Me.CB_Gubun.Location = New System.Drawing.Point(127, 60)
+        Me.CB_Gubun.Name = "CB_Gubun"
+        Me.CB_Gubun.Size = New System.Drawing.Size(150, 21)
+        Me.CB_Gubun.TabIndex = 6
+        '
+        'CB_Change_Notification
+        '
+        Me.CB_Change_Notification.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Change_Notification.Font = New System.Drawing.Font("굴림", 9.5!)
+        Me.CB_Change_Notification.FormattingEnabled = True
+        Me.CB_Change_Notification.Items.AddRange(New Object() {"필요", "불필요"})
+        Me.CB_Change_Notification.Location = New System.Drawing.Point(397, 60)
+        Me.CB_Change_Notification.Name = "CB_Change_Notification"
+        Me.CB_Change_Notification.Size = New System.Drawing.Size(150, 21)
+        Me.CB_Change_Notification.TabIndex = 8
+        '
+        'Label20
+        '
+        Me.Label20.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label20.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label20.ForeColor = System.Drawing.Color.White
+        Me.Label20.Location = New System.Drawing.Point(277, 60)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(120, 21)
+        Me.Label20.TabIndex = 7
+        Me.Label20.Text = "4M 변경신고"
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frm_Model_Document
         '
@@ -892,6 +1057,8 @@ Partial Class frm_Model_Document
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
+        Me.Panel7.ResumeLayout(False)
+        Me.Panel7.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -962,4 +1129,16 @@ Partial Class frm_Model_Document
     Friend WithEvents RadioButton5 As RadioButton
     Friend WithEvents RadioButton6 As RadioButton
     Friend WithEvents Label19 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents CB_Change_Notification As ComboBox
+    Friend WithEvents Label20 As Label
+    Friend WithEvents CB_Gubun As ComboBox
+    Friend WithEvents DTP_Issue_Date As DateTimePicker
+    Friend WithEvents Label21 As Label
+    Friend WithEvents TB_Time_Of_Change As TextBox
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label24 As Label
+    Friend WithEvents TB_Specification_Number As TextBox
+    Friend WithEvents Label25 As Label
+    Friend WithEvents Label26 As Label
 End Class

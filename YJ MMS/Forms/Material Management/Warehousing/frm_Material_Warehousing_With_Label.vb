@@ -157,6 +157,9 @@ Public Class frm_Material_Warehousing_With_Label
         strSQL += ", '" & checkResult & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd HH:mm:ss") & "'"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -258,6 +261,9 @@ Public Class frm_Material_Warehousing_With_Label
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -329,6 +335,9 @@ Public Class frm_Material_Warehousing_With_Label
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -472,31 +481,6 @@ Public Class frm_Material_Warehousing_With_Label
                 TB_Qty.Text = String.Empty
                 TB_Vendor.Text = String.Empty
                 Exit Sub
-            Else
-                Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
-                Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
-
-                If find_PartCode > 0 Then
-                    Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
-                    Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
-                    If Grid_MaterialList(find_PartCode, 5) > 0 Then
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
-                    ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
-                    End If
-                Else
-                    Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
-                    Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
-                    If Grid_MaterialList(find_PartNo, 5) > 0 Then
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
-                    ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
-                    End If
-                End If
             End If
 
             If barcode1 = String.Empty Then
@@ -511,6 +495,36 @@ Public Class frm_Material_Warehousing_With_Label
         End If
 
     End Sub
+
+    Private Function Check_Lot_No() As String
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_material_warehousing(3"
+        strSQL += ", null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , '" & TB_CustomerPartCode.Text & "'"
+        strSQL += " , '" & TB_PartNo.Text.Replace("'", "\'") & "'"
+        strSQL += " , '" & TB_LotNo.Text & "'"
+        strSQL += ");"
+
+        Dim returnString As String = "Not Exist"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("exist_same_lot")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
 
     Private Sub SplitBarcode_Supplier()
 
@@ -659,8 +673,23 @@ Public Class frm_Material_Warehousing_With_Label
     Private Sub BTN_ListAdd_Click(sender As Object, e As EventArgs) Handles BTN_ListAdd.Click
 
         If TB_PartNo.Text = String.Empty Or
+                TB_LotNo.Text = String.Empty Or
             TB_Qty.Text = String.Empty Or
             TB_CustomerPartCode.Text = String.Empty Then
+            Exit Sub
+        End If
+
+        If Not Check_Lot_No() = "Not Exist" Then
+            MessageBox.Show(Me,
+                                "중복된 Lot No.입니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error)
+            TB_CustomerPartCode.Text = String.Empty
+            TB_PartNo.Text = String.Empty
+            TB_LotNo.Text = String.Empty
+            TB_Qty.Text = String.Empty
+            TB_Vendor.Text = String.Empty
             Exit Sub
         End If
 
@@ -749,6 +778,31 @@ Public Class frm_Material_Warehousing_With_Label
         End Try
 
         DBClose()
+
+        Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
+        Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
+
+        If find_PartCode > 0 Then
+            Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
+            Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
+            If Grid_MaterialList(find_PartCode, 5) > 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
+            ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
+            End If
+        Else
+            Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
+            Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
+            If Grid_MaterialList(find_PartNo, 5) > 0 Then
+                Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
+                Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
+            ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
+                Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
+                Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
+            End If
+        End If
 
         Material_PrintLabel(TB_CustomerPartCode.Text,
                             TB_PartNo.Text,
