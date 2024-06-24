@@ -416,12 +416,19 @@ Public Class frm_Material_Stock_Survey_Result
         strSQL += " where plan_no = '" & LB_InspectionNo.Text & "'"
         strSQL += ";"
 
-        strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
-        strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
+        'strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
+        'strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
+        '스캔완료된 항목의 출고기록을 되돌린다.
+        strSQL += "call sp_mms_material_stock_survey(8"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & LB_InspectionNo.Text & "'"
+        strSQL += ");"
 
         strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
         strSQL += " where not order_status = 'Order Confirm'"
-        strSQL += " and clearance_date is null"
+        strSQL += " and clearance_date is null;"
 
         Try
             For i = 2 To Grid_MaterialList.Rows.Count - 1
@@ -820,6 +827,10 @@ Public Class frm_Material_Stock_Survey_Result
         '    selectRow = Nothing
         '    selectCol = Nothing
         'End If
+
+    End Sub
+
+    Private Sub Grid_PlanList_Layout(sender As Object, e As LayoutEventArgs) Handles Grid_PlanList.Layout
 
     End Sub
 End Class

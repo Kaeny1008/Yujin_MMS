@@ -27,7 +27,7 @@ Public Class frm_Order_Modify
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 17
+            .Cols.Count = 18
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -48,6 +48,7 @@ Public Class frm_Order_Modify
             Grid_Excel(0, 14) = "BOM등록"
             Grid_Excel(0, 15) = "상태"
             Grid_Excel(0, 16) = "Order Index"
+            Grid_Excel(0, 17) = "지정 관리번호"
             .Cols(16).Visible = True
             .Cols(12).DataType = GetType(Date)
             .AutoClipboard = True
@@ -388,7 +389,8 @@ Public Class frm_Order_Modify
                                           vbTab &
                                           vbTab &
                                           sqlDR("order_status") & vbTab &
-                                          sqlDR("order_index")
+                                          sqlDR("order_index") & vbTab &
+                                          sqlDR("management_no")
 
             GridWriteText(insert_String, Me, Grid_Excel, rowColor)
         Loop
@@ -529,6 +531,13 @@ Public Class frm_Order_Modify
     Private Sub BTN_PO_Split_Click(sender As Object, e As EventArgs) Handles BTN_PO_Split.Click
 
         Dim selRow As Integer = Grid_Excel.Row
+        Dim selPONo As String = Grid_Excel(selRow, 16)
+
+        If selPONo.Substring(selPONo.Length - 2, 2) Like "-#" Then
+            MessageBox.Show(Me, "분할된 주문에서 재 분할 할 수 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
         Dim showString As String = "품번 : " & Grid_Excel(selRow, 3)
         showString += vbCrLf & "품명 : " & Grid_Excel(selRow, 4)
         showString += vbCrLf & "주문번호 : " & Grid_Excel(selRow, 7)

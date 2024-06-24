@@ -32,8 +32,6 @@ Partial Class frm_Assy_Label_Print
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Grid_LabelList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TB_HistoryNo = New System.Windows.Forms.TextBox()
@@ -105,6 +103,17 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Search_CustomerCode = New System.Windows.Forms.TextBox()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
@@ -121,6 +130,7 @@ Partial Class frm_Assy_Label_Print
         CType(Me.Grid_ReprintList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.TS_MainBar.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'C1DockingTab1
@@ -143,6 +153,7 @@ Partial Class frm_Assy_Label_Print
         'C1DockingTabPage1
         '
         Me.C1DockingTabPage1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTabPage1.Controls.Add(Me.Panel4)
         Me.C1DockingTabPage1.Controls.Add(Me.Label12)
         Me.C1DockingTabPage1.Controls.Add(Me.TextBox3)
         Me.C1DockingTabPage1.Controls.Add(Me.BTN_SaveAndPrint)
@@ -150,8 +161,6 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage1.Controls.Add(Me.TextBox2)
         Me.C1DockingTabPage1.Controls.Add(Me.Label6)
         Me.C1DockingTabPage1.Controls.Add(Me.Grid_LabelList)
-        Me.C1DockingTabPage1.Controls.Add(Me.Label5)
-        Me.C1DockingTabPage1.Controls.Add(Me.TextBox1)
         Me.C1DockingTabPage1.Controls.Add(Me.Panel3)
         Me.C1DockingTabPage1.Controls.Add(Me.Label1)
         Me.C1DockingTabPage1.Controls.Add(Me.Label3)
@@ -169,7 +178,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label12.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.White
-        Me.Label12.Location = New System.Drawing.Point(19, 307)
+        Me.Label12.Location = New System.Drawing.Point(19, 280)
         Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(134, 25)
@@ -184,7 +193,7 @@ Partial Class frm_Assy_Label_Print
         Me.TextBox3.Enabled = False
         Me.TextBox3.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.TextBox3.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TextBox3.Location = New System.Drawing.Point(153, 307)
+        Me.TextBox3.Location = New System.Drawing.Point(153, 280)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(625, 25)
@@ -196,7 +205,7 @@ Partial Class frm_Assy_Label_Print
         Me.BTN_SaveAndPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_SaveAndPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
         Me.BTN_SaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 345)
+        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 318)
         Me.BTN_SaveAndPrint.Name = "BTN_SaveAndPrint"
         Me.BTN_SaveAndPrint.Size = New System.Drawing.Size(119, 68)
         Me.BTN_SaveAndPrint.TabIndex = 12
@@ -210,7 +219,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label7.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(339, 345)
+        Me.Label7.Location = New System.Drawing.Point(339, 318)
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(121, 25)
@@ -222,7 +231,7 @@ Partial Class frm_Assy_Label_Print
         '
         Me.TextBox2.BackColor = System.Drawing.SystemColors.Window
         Me.TextBox2.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(460, 345)
+        Me.TextBox2.Location = New System.Drawing.Point(460, 318)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(196, 25)
@@ -257,33 +266,6 @@ Partial Class frm_Assy_Label_Print
         Me.Grid_LabelList.StyleInfo = resources.GetString("Grid_LabelList.StyleInfo")
         Me.Grid_LabelList.TabIndex = 8
         Me.Grid_LabelList.UseCompatibleTextRendering = True
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label5.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(19, 280)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(134, 25)
-        Me.Label5.TabIndex = 6
-        Me.Label5.Text = "품목명"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBox1
-        '
-        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TextBox1.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TextBox1.Location = New System.Drawing.Point(153, 280)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(625, 25)
-        Me.TextBox1.TabIndex = 7
         '
         'Panel3
         '
@@ -1135,6 +1117,114 @@ Partial Class frm_Assy_Label_Print
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
+        'Panel4
+        '
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel4.Controls.Add(Me.CheckBox2)
+        Me.Panel4.Controls.Add(Me.CheckBox1)
+        Me.Panel4.Controls.Add(Me.TB_Label_FPGA)
+        Me.Panel4.Controls.Add(Me.Label32)
+        Me.Panel4.Controls.Add(Me.TB_Label_Boot)
+        Me.Panel4.Controls.Add(Me.Label33)
+        Me.Panel4.Controls.Add(Me.TB_Label_FW)
+        Me.Panel4.Controls.Add(Me.Label34)
+        Me.Panel4.Controls.Add(Me.TB_Label_ItemName)
+        Me.Panel4.Controls.Add(Me.Label35)
+        Me.Panel4.Location = New System.Drawing.Point(19, 405)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(420, 208)
+        Me.Panel4.TabIndex = 15
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Enabled = False
+        Me.CheckBox2.Location = New System.Drawing.Point(18, 80)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
+        Me.CheckBox2.TabIndex = 32
+        Me.CheckBox2.Text = "Software Label 발행"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(18, 27)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
+        Me.CheckBox1.TabIndex = 31
+        Me.CheckBox1.Text = "Ass'y Label 발행"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'TB_Label_FPGA
+        '
+        Me.TB_Label_FPGA.Enabled = False
+        Me.TB_Label_FPGA.Location = New System.Drawing.Point(158, 157)
+        Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
+        Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FPGA.TabIndex = 30
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(36, 161)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(47, 12)
+        Me.Label32.TabIndex = 29
+        Me.Label32.Text = "- FPGA"
+        '
+        'TB_Label_Boot
+        '
+        Me.TB_Label_Boot.Enabled = False
+        Me.TB_Label_Boot.Location = New System.Drawing.Point(158, 130)
+        Me.TB_Label_Boot.Name = "TB_Label_Boot"
+        Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_Boot.TabIndex = 28
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(36, 134)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(40, 12)
+        Me.Label33.TabIndex = 27
+        Me.Label33.Text = "- Boot"
+        '
+        'TB_Label_FW
+        '
+        Me.TB_Label_FW.Enabled = False
+        Me.TB_Label_FW.Location = New System.Drawing.Point(158, 103)
+        Me.TB_Label_FW.Name = "TB_Label_FW"
+        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FW.TabIndex = 26
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(36, 107)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(65, 12)
+        Me.Label34.TabIndex = 25
+        Me.Label34.Text = "- F/W(OS)"
+        '
+        'TB_Label_ItemName
+        '
+        Me.TB_Label_ItemName.Enabled = False
+        Me.TB_Label_ItemName.Location = New System.Drawing.Point(158, 46)
+        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
+        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_ItemName.TabIndex = 24
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(36, 50)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(51, 12)
+        Me.Label35.TabIndex = 23
+        Me.Label35.Text = "- 품목명"
+        '
         'frm_Assy_Label_Print
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1166,6 +1256,8 @@ Partial Class frm_Assy_Label_Print
         Me.Panel2.PerformLayout()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1196,8 +1288,6 @@ Partial Class frm_Assy_Label_Print
     Friend WithEvents Label8 As Label
     Friend WithEvents TB_OrderIndex As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Grid_LabelList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label7 As Label
@@ -1253,4 +1343,15 @@ Partial Class frm_Assy_Label_Print
     Friend WithEvents TB_Reprint_Search_CustomerCode As TextBox
     Friend WithEvents TB_Reprint_ModelCode As TextBox
     Friend WithEvents Label28 As Label
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TB_Label_FPGA As TextBox
+    Friend WithEvents Label32 As Label
+    Friend WithEvents TB_Label_Boot As TextBox
+    Friend WithEvents Label33 As Label
+    Friend WithEvents TB_Label_FW As TextBox
+    Friend WithEvents Label34 As Label
+    Friend WithEvents TB_Label_ItemName As TextBox
+    Friend WithEvents Label35 As Label
 End Class

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frm_Material_CheckRequirements
+Partial Class frm_Material_CheckRequirements_back
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,8 +22,7 @@ Partial Class frm_Material_CheckRequirements
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_CheckRequirements))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_CheckRequirements_back))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
@@ -44,8 +43,6 @@ Partial Class frm_Material_CheckRequirements
         Me.TB_OrderNo = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_AllCheck = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -54,7 +51,6 @@ Partial Class frm_Material_CheckRequirements
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.CMS_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -282,27 +278,15 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
         Me.Grid_MaterialList.TabIndex = 2
         '
-        'CMS_Menu
-        '
-        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck})
-        Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(181, 48)
-        '
-        'BTN_AllCheck
-        '
-        Me.BTN_AllCheck.Name = "BTN_AllCheck"
-        Me.BTN_AllCheck.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_AllCheck.Text = "전체 선택"
-        '
-        'frm_Material_CheckRequirements
+        'frm_Material_CheckRequirements_back
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1264, 773)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_Material_CheckRequirements"
-        Me.Text = "소요량 확인"
+        Me.Name = "frm_Material_CheckRequirements_back"
+        Me.Text = "소요량 확인_백업"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
@@ -313,7 +297,6 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.CMS_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -339,6 +322,4 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_Check As ToolStripButton
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents BTN_Confirm As ToolStripButton
-    Friend WithEvents CMS_Menu As ContextMenuStrip
-    Friend WithEvents BTN_AllCheck As ToolStripMenuItem
 End Class

@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frm_Order_Split
 
     Public orderIndex As String
+    Dim splitCount As Integer
 
     Private Sub frm_Order_Split_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -75,6 +76,8 @@ Public Class frm_Order_Split
             TB_ModelCode.Text = sqlDR("model_code")
             TB_Order_Quantity.Text = Format(sqlDR("modify_order_quantity"), "#,##0")
             TB_Date_Of_Delivery.Text = Format(sqlDR("date_of_delivery"), "yyyy-MM-dd")
+            TB_OrderIndex.Text = sqlDR("order_index")
+            splitCount = sqlDR("split_count")
         Loop
         sqlDR.Close()
 
@@ -153,7 +156,122 @@ Public Class frm_Order_Split
         If CheckBox1.Checked = True Then
             TB_Split_Quantity.Enabled = False
             TB_Split_Quantity.Text = TB_Order_Quantity.Text
+        Else
+            TB_Split_Quantity.Enabled = True
+            TB_Split_Quantity.SelectAll()
+            TB_Split_Quantity.Focus()
         End If
 
     End Sub
+
+    Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+
+        Dim managementNo As String = String.Empty
+        For i = 1 To Grid_ManagementNo.Rows.Count - 1
+            If Grid_ManagementNo.GetCellCheck(i, 6) = CheckEnum.Checked Then
+                managementNo = Grid_ManagementNo(i, 1)
+            End If
+        Next
+
+        If managementNo = String.Empty Then
+            MessageBox.Show(Me, "적용할 관리번호를 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Split_Quantity.Text = String.Empty Then
+            MessageBox.Show(Me, "분할할 수량을 입력하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            TB_Split_Quantity.SelectAll()
+            TB_Split_Quantity.Focus()
+            Exit Sub
+        End If
+
+        If MessageBox.Show(Me,
+                           "변경 내용을 저장 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        If DB_Write(managementNo) = False Then Exit Sub
+
+        MessageBox.Show(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        Me.Dispose()
+
+    End Sub
+
+    Private Function DB_Write(ByVal managementNo As String) As Boolean
+
+        Thread_LoadingFormStart("Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+
+            If CheckBox1.Checked = True Then
+                strSQL += "update tb_mms_order_register_list set management_no = '" & managementNo & "'"
+                strSQL += " where order_index = '" & TB_OrderIndex.Text & "';"
+            Else
+                strSQL = "insert into tb_mms_order_register_list("
+                strSQL += "order_index, customer_code, model_code, unit, order_no, order_date, order_quantity"
+                strSQL += ", delivery_place, date_of_delivery, order_status, write_date"
+                strSQL += ", write_id, modify_order_quantity, management_no, item_section"
+                strSQL += ") "
+                strSQL += "select "
+                strSQL += "'" & TB_OrderIndex.Text & "-" & splitCount & "'"
+                strSQL += ", customer_code"
+                strSQL += ", model_code"
+                strSQL += ", unit"
+                strSQL += ", order_no"
+                strSQL += ", order_date"
+                strSQL += ", " & CInt(TB_Split_Quantity.Text) & ""
+                strSQL += ", delivery_place"
+                strSQL += ", date_of_delivery"
+                strSQL += ", 'Order Confirm'"
+                strSQL += ", '" & writeDate & "'"
+                strSQL += ", '" & loginID & "'"
+                strSQL += ", " & CInt(TB_Split_Quantity.Text) & ""
+                strSQL += ", '" & managementNo & "'"
+                strSQL += ", item_section"
+                strSQL += " from tb_mms_order_register_list"
+                strSQL += " where order_index = '" & TB_OrderIndex.Text & "';"
+
+                strSQL += "update tb_mms_order_register_list set modify_order_quantity = " & CInt(TB_Order_Quantity.Text) - CInt(TB_Split_Quantity.Text) & ""
+                strSQL += " where order_index = '" & TB_OrderIndex.Text & "';"
+            End If
+
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+            MessageBox.Show(Me,
+                            ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK)
+            Return False
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return True
+
+    End Function
 End Class

@@ -46,12 +46,16 @@ Partial Class frm_Order_Split
         Me.Label9 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label10 = New System.Windows.Forms.Label()
+        Me.TB_OrderIndex = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         CType(Me.Grid_ManagementNo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.TB_OrderIndex)
+        Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.TB_Date_Of_Delivery)
         Me.GroupBox1.Controls.Add(Me.Label7)
         Me.GroupBox1.Controls.Add(Me.TB_Order_Quantity)
@@ -70,7 +74,7 @@ Partial Class frm_Order_Split
         Me.GroupBox1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(15, 6)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(678, 206)
+        Me.GroupBox1.Size = New System.Drawing.Size(678, 223)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "주문정보"
@@ -266,7 +270,7 @@ Partial Class frm_Order_Split
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label8.ForeColor = System.Drawing.Color.Tomato
-        Me.Label8.Location = New System.Drawing.Point(24, 438)
+        Me.Label8.Location = New System.Drawing.Point(24, 482)
         Me.Label8.Margin = New System.Windows.Forms.Padding(3)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(276, 15)
@@ -277,7 +281,7 @@ Partial Class frm_Order_Split
         '
         Me.TB_Split_Quantity.BackColor = System.Drawing.SystemColors.Window
         Me.TB_Split_Quantity.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_Split_Quantity.Location = New System.Drawing.Point(27, 457)
+        Me.TB_Split_Quantity.Location = New System.Drawing.Point(27, 501)
         Me.TB_Split_Quantity.Margin = New System.Windows.Forms.Padding(1)
         Me.TB_Split_Quantity.Name = "TB_Split_Quantity"
         Me.TB_Split_Quantity.Size = New System.Drawing.Size(252, 25)
@@ -286,7 +290,7 @@ Partial Class frm_Order_Split
         'BTN_Save
         '
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Save.Location = New System.Drawing.Point(581, 490)
+        Me.BTN_Save.Location = New System.Drawing.Point(581, 534)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(112, 63)
         Me.BTN_Save.TabIndex = 52
@@ -296,7 +300,7 @@ Partial Class frm_Order_Split
         'Grid_ManagementNo
         '
         Me.Grid_ManagementNo.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_ManagementNo.Location = New System.Drawing.Point(27, 239)
+        Me.Grid_ManagementNo.Location = New System.Drawing.Point(27, 283)
         Me.Grid_ManagementNo.Name = "Grid_ManagementNo"
         Me.Grid_ManagementNo.Rows.Count = 2
         Me.Grid_ManagementNo.Rows.DefaultSize = 20
@@ -309,7 +313,7 @@ Partial Class frm_Order_Split
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label9.ForeColor = System.Drawing.Color.Tomato
-        Me.Label9.Location = New System.Drawing.Point(24, 218)
+        Me.Label9.Location = New System.Drawing.Point(24, 262)
         Me.Label9.Margin = New System.Windows.Forms.Padding(3)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(308, 15)
@@ -319,7 +323,7 @@ Partial Class frm_Order_Split
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(27, 490)
+        Me.CheckBox1.Location = New System.Drawing.Point(27, 534)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(100, 16)
         Me.CheckBox1.TabIndex = 55
@@ -331,18 +335,43 @@ Partial Class frm_Order_Split
         Me.Label10.AutoSize = True
         Me.Label10.BackColor = System.Drawing.Color.Yellow
         Me.Label10.ForeColor = System.Drawing.Color.Red
-        Me.Label10.Location = New System.Drawing.Point(492, 435)
+        Me.Label10.Location = New System.Drawing.Point(492, 479)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(201, 12)
         Me.Label10.TabIndex = 56
         Me.Label10.Text = "※ 하위번호가 최신 시방번호입니다."
+        '
+        'TB_OrderIndex
+        '
+        Me.TB_OrderIndex.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_OrderIndex.Enabled = False
+        Me.TB_OrderIndex.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_OrderIndex.Location = New System.Drawing.Point(182, 190)
+        Me.TB_OrderIndex.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_OrderIndex.Name = "TB_OrderIndex"
+        Me.TB_OrderIndex.Size = New System.Drawing.Size(473, 21)
+        Me.TB_OrderIndex.TabIndex = 52
+        '
+        'Label11
+        '
+        Me.Label11.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.White
+        Me.Label11.Location = New System.Drawing.Point(12, 190)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(170, 21)
+        Me.Label11.TabIndex = 51
+        Me.Label11.Text = "Order Index"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frm_Order_Split
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(714, 565)
+        Me.ClientSize = New System.Drawing.Size(714, 609)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.Label9)
@@ -387,4 +416,6 @@ Partial Class frm_Order_Split
     Friend WithEvents Label9 As Label
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents TB_OrderIndex As TextBox
+    Friend WithEvents Label11 As Label
 End Class

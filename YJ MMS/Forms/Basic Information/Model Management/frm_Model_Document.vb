@@ -796,7 +796,6 @@ Public Class frm_Model_Document
             TB_ModelCode.Text = sqlDR("model_code")
             TB_ModelName.Text = sqlDR("item_code")
             TB_ItemName.Text = sqlDR("item_name")
-            TB_BarcodeString.Text = sqlDR("barcode_string")
 
             If sqlDR("use_bond") = "사용" Then
                 RadioButton1.Checked = True
@@ -1163,7 +1162,6 @@ FTP_Control:
             strSQL += "update tb_model_list set use_bond = '" & useBond & "'"
             strSQL += ", etc_text = '" & TextBox1.Text & "'"
             strSQL += ", loader_pcb = '" & useLoaderPCB & "'"
-            strSQL += ", barcode_string = '" & TB_BarcodeString.Text & "'"
             strSQL += ", is_loader_pcb = '" & isLoaderPCB & "'"
             strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             strSQL += " and model_code = '" & TB_ModelCode.Text & "';"
@@ -1184,10 +1182,32 @@ FTP_Control:
                 strSQL += ");"
             Next
 
+            Dim assyLabel As Boolean = False
+            Dim swLabel As Boolean = False
+
+            If CheckBox1.Checked = True Then assyLabel = True
+            If CheckBox2.Checked = True Then swLabel = True
+
+            strSQL += "insert into tb_model_label_information("
+            strSQL += "management_no, model_code, item_name, fw_os_label, boot_label, fpga_label, assy_label_use, sw_label_use"
+            strSQL += ") select "
+            strSQL += "'" & CB_ManagementNo.Text & "'"
+            strSQL += ",'" & TB_ModelCode.Text & "'"
+            strSQL += ",'" & TB_Label_ItemName.Text & "'"
+            strSQL += ",'" & TB_Label_FW.Text & "'"
+            strSQL += ",'" & TB_Label_Boot.Text & "'"
+            strSQL += ",'" & TB_Label_FPGA.Text & "'"
+            strSQL += "," & assyLabel & ""
+            strSQL += "," & swLabel & ""
+            strSQL += " from dual where not exists"
+            strSQL += " (select * from tb_model_label_information"
+            strSQL += " where management_no = '" & CB_ManagementNo.Text & "')"
+            strSQL += ";"
+
             If BTN_NewManagementNo.Visible = False Then
                 strSQL += "insert into tb_model_management_no("
                 strSQL += "management_no, model_code, specification_number, issue_date, gubun"
-                strSQL += ", time_of_change, change_notification, write_date, write_id"
+                strSQL += ", time_of_change, change_notification, write_date, write_id, change_contetn"
                 strSQL += ") values("
                 strSQL += "'" & CB_ManagementNo.Text & "'"
                 strSQL += ",'" & TB_ModelCode.Text & "'"
@@ -1198,6 +1218,7 @@ FTP_Control:
                 strSQL += ",'" & CB_Change_Notification.Text & "'"
                 strSQL += ",'" & writeDate & "'"
                 strSQL += ",'" & loginID & "'"
+                strSQL += ",'" & TB_ChangeContent.Text & "'"
                 strSQL += ");"
             Else
                 strSQL += "update tb_model_management_no set"
@@ -1208,6 +1229,17 @@ FTP_Control:
                 strSQL += ", change_notification = '" & CB_Change_Notification.Text & "'"
                 strSQL += ", write_date = '" & writeDate & "'"
                 strSQL += ", write_id = '" & loginID & "'"
+                strSQL += ", change_content = '" & TB_ChangeContent.Text & "'"
+                strSQL += " where management_no = '" & CB_ManagementNo.Text & "'"
+                strSQL += ";"
+
+                strSQL += "update tb_model_label_information set"
+                strSQL += " item_name = '" & TB_Label_ItemName.Text & "'"
+                strSQL += ", fw_os_label = '" & TB_Label_FW.Text & "'"
+                strSQL += ", boot_label = '" & TB_Label_Boot.Text & "'"
+                strSQL += ", fpga_label = '" & TB_Label_FPGA.Text & "'"
+                strSQL += ", assy_label_use = " & assyLabel & ""
+                strSQL += ", sw_label_use = " & swLabel & ""
                 strSQL += " where management_no = '" & CB_ManagementNo.Text & "'"
                 strSQL += ";"
             End If
@@ -1326,7 +1358,39 @@ FTP_Control:
         Load_BOM()
         Load_Coodirnates()
         Load_BOM_Total()
+        Load_Label_Information()
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_Label_Information()
+
+        CheckBox1.Checked = False
+        CheckBox2.Checked = False
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_model_document(10"
+        strSQL += ", null"
+        strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ",'" & CB_ManagementNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_Label_ItemName.Text = sqlDR("item_name")
+            TB_Label_FW.Text = sqlDR("fw_os_label")
+            TB_Label_Boot.Text = sqlDR("boot_label")
+            TB_Label_FPGA.Text = sqlDR("fpga_label")
+            If sqlDR("assy_label_use") = 1 Then CheckBox1.Checked = True
+            If sqlDR("sw_label_use") = 1 Then CheckBox2.Checked = True
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
@@ -1350,6 +1414,7 @@ FTP_Control:
             CB_Gubun.Text = sqlDR("gubun")
             CB_Change_Notification.Text = sqlDR("change_notification")
             TB_Time_Of_Change.Text = sqlDR("time_of_change")
+            TB_ChangeContent.Text = sqlDR("change_content")
         Loop
         sqlDR.Close()
 
@@ -1513,6 +1578,38 @@ FTP_Control:
         Grid_BOM_Total.AutoSizeCols()
 
         Grid_BOM_Total.Redraw = True
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+
+        If CheckBox1.Checked = True Then
+            TB_Label_ItemName.Enabled = True
+            TB_Label_ItemName.SelectAll()
+            TB_Label_ItemName.Focus()
+        Else
+            TB_Label_ItemName.Enabled = False
+            TB_Label_ItemName.Text = String.Empty
+        End If
+
+    End Sub
+
+    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+
+        If CheckBox2.Checked = True Then
+            TB_Label_FW.Enabled = True
+            TB_Label_Boot.Enabled = True
+            TB_Label_FPGA.Enabled = True
+            TB_Label_FW.SelectAll()
+            TB_Label_FW.Focus()
+        Else
+            TB_Label_FW.Enabled = False
+            TB_Label_Boot.Enabled = False
+            TB_Label_FPGA.Enabled = False
+            TB_Label_FW.Text = String.Empty
+            TB_Label_Boot.Text = String.Empty
+            TB_Label_FPGA.Text = String.Empty
+        End If
 
     End Sub
 

@@ -1,7 +1,7 @@
 ﻿Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-Public Class frm_Material_CheckRequirements
+Public Class frm_Material_CheckRequirements_back
 
     Dim saveOK As Boolean = False
 
@@ -58,49 +58,39 @@ Public Class frm_Material_CheckRequirements
             .Rows.DefaultSize = 20
             .Cols.Count = 17
             .Cols.Fixed = 1
-            .Rows.Count = 3
-            .Rows.Fixed = 3
+            .Rows.Count = 2
+            .Rows.Fixed = 2
             For i = 0 To .Cols.Count - 1
                 .Cols(i).AllowMerging = True
             Next
             .Rows(0).AllowMerging = True
             '.Rows(1).AllowMerging = True
-            '.Rows(2).AllowMerging = True
-            Dim rngM As CellRange = .GetCellRange(0, 0, 2, 0)
+            Dim rngM As CellRange = .GetCellRange(0, 0, 1, 0)
             rngM.Data = "No"
-            rngM = .GetCellRange(0, 1, 2, 1)
+            rngM = .GetCellRange(0, 1, 1, 1)
             rngM.Data = "자재코드"
-            rngM = .GetCellRange(0, 2, 2, 2)
+            rngM = .GetCellRange(0, 2, 1, 2)
             rngM.Data = "타입"
-            rngM = .GetCellRange(0, 3, 2, 3)
+            rngM = .GetCellRange(0, 3, 1, 3)
             rngM.Data = "품명"
-            rngM = .GetCellRange(0, 4, 2, 4)
+            rngM = .GetCellRange(0, 4, 1, 4)
             rngM.Data = "사/도급"
-            rngM = .GetCellRange(0, 5, 2, 5)
+            rngM = .GetCellRange(0, 5, 1, 5)
             rngM.Data = "공급사"
             rngM = .GetCellRange(0, 6, 0, 14)
             rngM.Data = "재고"
-            rngM = .GetCellRange(1, 6, 2, 6)
-            rngM.Data = "기초재고"
-            rngM = .GetCellRange(1, 7, 2, 7)
-            rngM.Data = "입고"
-            rngM = .GetCellRange(1, 8, 2, 8)
-            rngM.Data = "Loss"
-            rngM = .GetCellRange(1, 9, 2, 9)
-            rngM.Data = "납품"
-            rngM = .GetCellRange(1, 10, 2, 10)
-            rngM.Data = "계획대기"
-            rngM = .GetCellRange(1, 11, 2, 11)
-            rngM.Data = "생산 중"
-            rngM = .GetCellRange(1, 12, 2, 12)
-            rngM.Data = "생산 완료"
-            rngM = .GetCellRange(1, 13, 2, 13)
-            rngM.Data = "품번전환"
-            rngM = .GetCellRange(1, 14, 2, 14)
-            rngM.Data = "반출"
-            rngM = .GetCellRange(0, 15, 2, 15)
+            Grid_MaterialList(1, 6) = "기초재고"
+            Grid_MaterialList(1, 7) = "입고"
+            Grid_MaterialList(1, 8) = "Loss"
+            Grid_MaterialList(1, 9) = "납품"
+            Grid_MaterialList(1, 10) = "계획대기"
+            Grid_MaterialList(1, 11) = "생산 중"
+            Grid_MaterialList(1, 12) = "생산 완료"
+            Grid_MaterialList(1, 13) = "품번전환"
+            Grid_MaterialList(1, 14) = "반출"
+            rngM = .GetCellRange(0, 15, 1, 15)
             rngM.Data = "필요수량"
-            rngM = .GetCellRange(0, 16, 2, 16)
+            rngM = .GetCellRange(0, 16, 1, 16)
             rngM.Data = "미과출"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -139,7 +129,6 @@ Public Class frm_Material_CheckRequirements
         DBConnect()
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(0"
-        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_OrderNo.Text & "'"
@@ -181,16 +170,12 @@ Public Class frm_Material_CheckRequirements
 
         If selRow < 1 Then Exit Sub
 
-        Grid_OrderList.Row = selRow
-
-        If e.Button = MouseButtons.Left Then
+        If e.Button = MouseButtons.Left And selCol = 1 Then
             If Grid_OrderList.GetCellCheck(selRow, 1) = CheckEnum.Checked Then
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Unchecked)
             Else
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Checked)
             End If
-        ElseIf e.Button = MouseButtons.Right Then
-            CMS_Menu.Show(Grid_OrderList, New Point(e.X, e.Y))
         End If
 
     End Sub
@@ -246,49 +231,23 @@ Public Class frm_Material_CheckRequirements
 
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
-        Grid_MaterialList.Rows.Count = 3
+        Grid_MaterialList.Rows.Count = 2
         Grid_MaterialList.Cols.Count = 17
 
         Dim checkCount As Integer = 0
         Dim checkModelCode As String = String.Empty
-        Dim checkManagementNo As String = String.Empty
 
         For i = 1 To Grid_OrderList.Rows.Count - 1
             If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
-                'checkCount += 1
-                'If checkModelCode = String.Empty Then
-                '    checkModelCode = Grid_OrderList(i, 5)
-                'Else
-                '    checkModelCode += "|" & Grid_OrderList(i, 5)
-                'End If
-                Dim nowModelCode As String = Grid_OrderList(i, 5)
-                Dim nowManagementNo As String = Grid_OrderList(i, 8)
-                Dim findItem As Boolean = False
-                For j = 17 To Grid_MaterialList.Cols.Count - 1
-                    If Grid_MaterialList(0, j) = nowModelCode And
-                        Grid_MaterialList(1, j) = nowManagementNo Then
-                        Grid_MaterialList(2, j) = CInt(Grid_MaterialList(2, j)) + CInt(Grid_OrderList(i, 7))
-                        findItem = True
-                        Exit For
-                    End If
-                Next
-                If findItem = False Then
-                    Grid_MaterialList.Cols.Add()
-                    Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 5)
-                    Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 8)
-                    Grid_MaterialList(2, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 7)
+                checkCount += 1
+                If checkModelCode = String.Empty Then
+                    checkModelCode = Grid_OrderList(i, 5)
+                Else
+                    checkModelCode += "|" & Grid_OrderList(i, 5)
                 End If
-            End If
-        Next
-
-        For i = 17 To Grid_MaterialList.Cols.Count - 1
-            checkCount += 1
-            If checkModelCode = String.Empty Then
-                checkModelCode = Grid_MaterialList(0, i)
-                checkManagementNo = Grid_MaterialList(1, i)
-            Else
-                checkModelCode += "|" & Grid_MaterialList(0, i)
-                checkManagementNo += "|" & Grid_MaterialList(1, i)
+                Grid_MaterialList.Cols.Add()
+                Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 6)
+                Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 7)
             End If
         Next
 
@@ -297,7 +256,6 @@ Public Class frm_Material_CheckRequirements
         'Exit Sub
 
         Dim nowCode() As String = checkModelCode.Split("|")
-        Dim nowManage() As String = checkManagementNo.Split("|")
 
         If checkCount = 0 Then
             Thread_LoadingFormEnd()
@@ -310,7 +268,6 @@ Public Class frm_Material_CheckRequirements
         Dim strSQL As String = "call sp_mms_material_check_requirements(1"
         strSQL += ", " & checkCount & ""
         strSQL += ", '" & checkModelCode & "'"
-        strSQL += ", '" & checkManagementNo & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -343,7 +300,7 @@ Public Class frm_Material_CheckRequirements
 
             Dim totalAmount As Double = 0
             For i As Integer = 0 To UBound(nowCode)
-                totalAmount += (sqlDR(nowCode(i) & "_" & nowManage(i)) * Grid_MaterialList(2, i + 17)) '총 사용수량
+                totalAmount += (sqlDR(nowCode(i)) * Grid_MaterialList(1, i + 17)) '총 사용수량
             Next
             insert_String += vbTab & Format(totalAmount, "#,##0")
 
@@ -359,7 +316,7 @@ Public Class frm_Material_CheckRequirements
             insert_String += vbTab & Format((stock_qty - totalAmount), "#,##0")
 
             For i As Integer = 0 To UBound(nowCode)
-                insert_String += vbTab & Format(sqlDR(nowCode(i) & "_" & nowManage(i)), "#,##0") '모델별 사용수량
+                insert_String += vbTab & Format(sqlDR(nowCode(i)), "#,##0") '모델별 사용수량
             Next
 
             Grid_MaterialList.AddItem(insert_String)
@@ -368,7 +325,7 @@ Public Class frm_Material_CheckRequirements
             ElseIf stock_qty - totalAmount = 0 Then
                 Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
             ElseIf stock_qty - totalAmount > 0 Then
-                Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.black
+                Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Black
             End If
         Loop
         sqlDR.Close()
@@ -468,14 +425,6 @@ Public Class frm_Material_CheckRequirements
     End Sub
 
     Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub BTN_AllCheck_Click(sender As Object, e As EventArgs) Handles BTN_AllCheck.Click
-
-        For i = 1 To Grid_OrderList.Rows.Count - 1
-            Grid_OrderList.SetCellCheck(i, 1, CheckEnum.Checked)
-        Next
 
     End Sub
 End Class

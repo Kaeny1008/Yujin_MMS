@@ -147,13 +147,19 @@ Public Class frm_Assy_Label_Print
         TB_ItemSpec.Text = String.Empty
         TB_POQty.Text = String.Empty
         TB_ModelCode.Text = String.Empty
-        TextBox1.Text = String.Empty
         TextBox3.Text = String.Empty
         TB_HistoryNo.Text = String.Empty
 
         BTN_SaveAndPrint.Enabled = False
 
         Grid_LabelList.Rows.Count = 1
+
+        CheckBox1.Checked = False
+        CheckBox2.Checked = False
+        TB_Label_ItemName.Text = String.Empty
+        TB_Label_FW.Text = String.Empty
+        TB_Label_Boot.Text = String.Empty
+        TB_Label_FPGA.Text = String.Empty
 
     End Sub
 
@@ -171,10 +177,10 @@ Public Class frm_Assy_Label_Print
                 TB_LastProcess.Text = splitBarcode(2)
             Catch ex As Exception
                 MessageBox.Show(Me,
-                                "유진 공정라벨을 스캔하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                                    "유진 공정라벨을 스캔하여 주십시오.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
                 Exit Sub
@@ -185,10 +191,10 @@ Public Class frm_Assy_Label_Print
             'PO 정보를 불러온다.
             If Load_Po_Information() = False Then
                 MessageBox.Show(Me,
-                                "현재 모델의 품목명을 불러 올 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                                    "현재 모델의 품목명을 불러 올 수 없습니다.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
@@ -196,10 +202,10 @@ Public Class frm_Assy_Label_Print
             Else
                 If TB_ItemCode.Text = String.Empty Then
                     MessageBox.Show(Me,
-                                    "모델 정보를 불러오지 못했습니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
+                                        "모델 정보를 불러오지 못했습니다.",
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Exclamation)
                     Control_Init()
                     TB_MagazineBarcode.SelectAll()
                     TB_MagazineBarcode.Focus()
@@ -209,10 +215,10 @@ Public Class frm_Assy_Label_Print
 
             If Load_PrintTotalQty() = CInt(TB_POQty.Text) Then
                 MessageBox.Show(Me,
-                                "이미 발행을 완료한 주문번호 입니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                                    "이미 발행을 완료한 주문번호 입니다.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
@@ -222,53 +228,53 @@ Public Class frm_Assy_Label_Print
 
             'History를 확인한다(현품표 수량확인)
             Load_History_Information(TB_HistoryNo.Text)
-                If TB_NowQty.Text = String.Empty Then
-                    MessageBox.Show(Me,
-                                "공정현품표를 확인 할 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
-                    Control_Init()
-                    TB_MagazineBarcode.SelectAll()
-                    TB_MagazineBarcode.Focus()
-                    Exit Sub
-                End If
-
-                '중복발행 체크
-                If Check_Print() = False Then
-                    MessageBox.Show(Me,
-                                "이미 발행한 현품표입니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
-                    Control_Init()
-                    TB_MagazineBarcode.SelectAll()
-                    TB_MagazineBarcode.Focus()
-                    Exit Sub
-                End If
-
-                '마지막 발행No를 불러 온다.
-                Load_LastNo()
-                If TextBox3.Text = String.Empty Then
-                    TextBox3.Text = 0
-                End If
-
-                Grid_LabelList.Redraw = False
-                Dim startNo As Integer = CInt(TextBox3.Text)
-                For i = 1 To CInt(TB_NowQty.Text)
-                    startNo += 1
-                    Dim insertString As String = Grid_LabelList.Rows.Count
-                    insertString += vbTab & TextBox1.Text
-                    insertString += vbTab & TB_ItemCode.Text
-                    insertString += vbTab & Format(Now, "yyMMdd")
-                    insertString += vbTab & Format(startNo, "0000")
-                    Grid_LabelList.AddItem(insertString)
-                Next
-                Grid_LabelList.Redraw = True
-                Grid_LabelList.AutoSizeCols()
-
-                BTN_SaveAndPrint.Enabled = True
+            If TB_NowQty.Text = String.Empty Then
+                MessageBox.Show(Me,
+                                    "공정현품표를 확인 할 수 없습니다.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
+                Control_Init()
+                TB_MagazineBarcode.SelectAll()
+                TB_MagazineBarcode.Focus()
+                Exit Sub
             End If
+
+            '중복발행 체크
+            If Check_Print() = False Then
+                MessageBox.Show(Me,
+                                    "이미 발행한 현품표입니다.",
+                                    msg_form,
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Exclamation)
+                Control_Init()
+                TB_MagazineBarcode.SelectAll()
+                TB_MagazineBarcode.Focus()
+                Exit Sub
+            End If
+
+            '마지막 발행No를 불러 온다.
+            Load_LastNo()
+            If TextBox3.Text = String.Empty Then
+                TextBox3.Text = 0
+            End If
+
+            Grid_LabelList.Redraw = False
+            Dim startNo As Integer = CInt(TextBox3.Text)
+            For i = 1 To CInt(TB_NowQty.Text)
+                startNo += 1
+                Dim insertString As String = Grid_LabelList.Rows.Count
+                insertString += vbTab & TB_Label_ItemName.Text
+                insertString += vbTab & TB_ItemCode.Text
+                insertString += vbTab & Format(Now, "yyMMdd")
+                insertString += vbTab & Format(startNo, "0000")
+                Grid_LabelList.AddItem(insertString)
+            Next
+            Grid_LabelList.Redraw = True
+            Grid_LabelList.AutoSizeCols()
+
+            BTN_SaveAndPrint.Enabled = True
+        End If
 
     End Sub
 
@@ -299,7 +305,16 @@ Public Class frm_Assy_Label_Print
             TB_ItemSpec.Text = sqlDR("item_spec")
             TB_POQty.Text = sqlDR("modify_order_quantity")
             TB_ModelCode.Text = sqlDR("model_code")
-            TextBox1.Text = sqlDR("barcode_string")
+            If sqlDR("assy_label_use") = 1 Then
+                CheckBox1.Checked = True
+                TB_Label_ItemName.Text = sqlDR("item_name_label")
+            End If
+            If sqlDR("sw_label_use") = 1 Then
+                CheckBox2.Checked = True
+                TB_Label_FW.Text = sqlDR("fw_os_label")
+                TB_Label_Boot.Text = sqlDR("boot_label")
+                TB_Label_FPGA.Text = sqlDR("fpga_label")
+            End If
         Loop
         sqlDR.Close()
 
@@ -307,7 +322,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormEnd()
 
-        If TextBox1.Text = String.Empty Then
+        If TB_ModelCode.Text = String.Empty Then
             Return False
         Else
             Return True
@@ -581,7 +596,7 @@ Public Class frm_Assy_Label_Print
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
         swFile.WriteLine("^MD25") '진하기
-        swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TextBox1.Text & "^FS")
+        swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
         swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
         swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
         swFile.WriteLine("^FO0150,0000^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")

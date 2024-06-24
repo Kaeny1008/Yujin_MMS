@@ -1109,7 +1109,7 @@ Public Class frm_Order_Registration
                                           sqlDR("unit") & vbTab &
                                           sqlDR("order_no") & vbTab &
                                           sqlDR("order_date") & vbTab &
-                                          sqlDR("order_quantity") & vbTab &
+                                          sqlDR("modify_order_quantity") & vbTab &
                                           sqlDR("delivery_place") & vbTab &
                                           sqlDR("date_of_delivery") & vbTab &
                                           vbTab &
