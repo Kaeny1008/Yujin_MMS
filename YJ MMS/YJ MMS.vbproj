@@ -549,6 +549,12 @@
     <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.Designer.vb">
+      <DependentUpon>frm_asdadsads.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.Designer.vb">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
     </Compile>
@@ -855,6 +861,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.resx">
+      <DependentUpon>frm_asdadsads.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.resx">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>

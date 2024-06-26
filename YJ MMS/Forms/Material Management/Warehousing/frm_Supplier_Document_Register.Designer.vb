@@ -41,9 +41,14 @@ Partial Class frm_Supplier_Document_Register
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
+        Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.BTN_ExcelToGrid = New System.Windows.Forms.Button()
         Me.BTN_FileSelect = New System.Windows.Forms.Button()
+        Me.CB_Supplier = New System.Windows.Forms.ComboBox()
         Me.CB_SheetName = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TB_File_Path = New System.Windows.Forms.TextBox()
@@ -56,11 +61,8 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_PartNo = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Qty = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Vendor = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CB_Supplier = New System.Windows.Forms.ComboBox()
-        Me.Label4 = New System.Windows.Forms.Label()
-        Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
+        Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -76,6 +78,7 @@ Partial Class frm_Supplier_Document_Register
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.CMS_RowMenu.SuspendLayout()
         Me.CMS_ColumnMenu.SuspendLayout()
+        Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -273,6 +276,42 @@ Partial Class frm_Supplier_Document_Register
         Me.SplitContainer2.SplitterDistance = 377
         Me.SplitContainer2.TabIndex = 3
         '
+        'TB_CustomerCode
+        '
+        Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_CustomerCode.Enabled = False
+        Me.TB_CustomerCode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(643, 8)
+        Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_CustomerCode.Name = "TB_CustomerCode"
+        Me.TB_CustomerCode.Size = New System.Drawing.Size(159, 21)
+        Me.TB_CustomerCode.TabIndex = 30
+        '
+        'CB_CustomerName
+        '
+        Me.CB_CustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_CustomerName.Enabled = False
+        Me.CB_CustomerName.FormattingEnabled = True
+        Me.CB_CustomerName.Location = New System.Drawing.Point(176, 8)
+        Me.CB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
+        Me.CB_CustomerName.Name = "CB_CustomerName"
+        Me.CB_CustomerName.Size = New System.Drawing.Size(467, 20)
+        Me.CB_CustomerName.TabIndex = 29
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(6, 8)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(170, 21)
+        Me.Label5.TabIndex = 28
+        Me.Label5.Text = "사용고객사"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'BTN_ExcelToGrid
         '
         Me.BTN_ExcelToGrid.Enabled = False
@@ -298,6 +337,15 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_FileSelect.Text = "파일선택"
         Me.BTN_FileSelect.UseVisualStyleBackColor = True
         '
+        'CB_Supplier
+        '
+        Me.CB_Supplier.Enabled = False
+        Me.CB_Supplier.FormattingEnabled = True
+        Me.CB_Supplier.Location = New System.Drawing.Point(176, 31)
+        Me.CB_Supplier.Name = "CB_Supplier"
+        Me.CB_Supplier.Size = New System.Drawing.Size(626, 20)
+        Me.CB_Supplier.TabIndex = 27
+        '
         'CB_SheetName
         '
         Me.CB_SheetName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -307,6 +355,20 @@ Partial Class frm_Supplier_Document_Register
         Me.CB_SheetName.Name = "CB_SheetName"
         Me.CB_SheetName.Size = New System.Drawing.Size(626, 20)
         Me.CB_SheetName.TabIndex = 25
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(6, 31)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(170, 21)
+        Me.Label4.TabIndex = 26
+        Me.Label4.Text = "공급사"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label6
         '
@@ -412,64 +474,17 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_Vendor.Size = New System.Drawing.Size(122, 22)
         Me.BTN_Vendor.Text = "제조사"
         '
-        'CB_Supplier
+        'Grid_Menu
         '
-        Me.CB_Supplier.Enabled = False
-        Me.CB_Supplier.FormattingEnabled = True
-        Me.CB_Supplier.Location = New System.Drawing.Point(176, 31)
-        Me.CB_Supplier.Name = "CB_Supplier"
-        Me.CB_Supplier.Size = New System.Drawing.Size(626, 20)
-        Me.CB_Supplier.TabIndex = 27
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowDelete})
+        Me.Grid_Menu.Name = "Grid_Menu"
+        Me.Grid_Menu.Size = New System.Drawing.Size(155, 26)
         '
-        'Label4
+        'BTN_RowDelete
         '
-        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label4.ForeColor = System.Drawing.Color.White
-        Me.Label4.Location = New System.Drawing.Point(6, 31)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(170, 21)
-        Me.Label4.TabIndex = 26
-        Me.Label4.Text = "공급사"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'CB_CustomerName
-        '
-        Me.CB_CustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.CB_CustomerName.Enabled = False
-        Me.CB_CustomerName.FormattingEnabled = True
-        Me.CB_CustomerName.Location = New System.Drawing.Point(176, 8)
-        Me.CB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
-        Me.CB_CustomerName.Name = "CB_CustomerName"
-        Me.CB_CustomerName.Size = New System.Drawing.Size(467, 20)
-        Me.CB_CustomerName.TabIndex = 29
-        '
-        'Label5
-        '
-        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label5.ForeColor = System.Drawing.Color.White
-        Me.Label5.Location = New System.Drawing.Point(6, 8)
-        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(170, 21)
-        Me.Label5.TabIndex = 28
-        Me.Label5.Text = "사용고객사"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_CustomerCode
-        '
-        Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_CustomerCode.Enabled = False
-        Me.TB_CustomerCode.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_CustomerCode.Location = New System.Drawing.Point(643, 8)
-        Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_CustomerCode.Name = "TB_CustomerCode"
-        Me.TB_CustomerCode.Size = New System.Drawing.Size(159, 21)
-        Me.TB_CustomerCode.TabIndex = 30
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(154, 22)
+        Me.BTN_RowDelete.Text = "선택 문서 삭제"
         '
         'frm_Supplier_Document_Register
         '
@@ -498,6 +513,7 @@ Partial Class frm_Supplier_Document_Register
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.CMS_RowMenu.ResumeLayout(False)
         Me.CMS_ColumnMenu.ResumeLayout(False)
+        Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -540,4 +556,6 @@ Partial Class frm_Supplier_Document_Register
     Friend WithEvents TB_CustomerCode As TextBox
     Friend WithEvents CB_CustomerName As ComboBox
     Friend WithEvents Label5 As Label
+    Friend WithEvents Grid_Menu As ContextMenuStrip
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
 End Class

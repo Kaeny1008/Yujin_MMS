@@ -42,7 +42,7 @@ Public Class frm_Material_Transfer
             Grid_History(0, 4) = "Lot No."
             Grid_History(0, 5) = "수량"
             Grid_History(0, 6) = "mw_no"
-            .Cols(6).Visible = False
+            .Cols(6).Visible = True
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -188,6 +188,16 @@ Public Class frm_Material_Transfer
             '입고번호를 불러온다.
             '현장에 출고된 자재라고 명시하기 위해.
             mwNo = Load_MW_No()
+
+            If mwNo = String.Empty Then
+                MessageBox.Show(Me,
+                                "자재의 고유번호(MW No.)를 찾을 수 없습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+                Control_Init()
+                Exit Sub
+            End If
 
             If RadioButton1.Checked Then
                 If WorkSite_Move(mwNo) = False Then Exit Sub
@@ -424,7 +434,8 @@ Public Class frm_Material_Transfer
     Private Sub BTN_New_Transfer_Click(sender As Object, e As EventArgs) Handles BTN_New_Transfer.Click
 
         TB_TN_No.Text = String.Empty
-        SplitContainer1.Panel2.Enabled = True
+        Panel1.Enabled = True
+        Panel2.Enabled = True
         RadioButton1.Checked = False
         RadioButton2.Checked = False
 
@@ -435,6 +446,15 @@ Public Class frm_Material_Transfer
     End Sub
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+
+        If Grid_History.Rows.Count = 1 Then
+            MessageBox.Show(Me,
+                            "등록된 목록이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
 
         If MessageBox.Show(Me,
                            "저장 하시겠습니까?",
@@ -708,7 +728,8 @@ Public Class frm_Material_Transfer
             Grid_History.AutoSizeCols()
 
             Control_Init()
-            SplitContainer1.Panel2.Enabled = False
+            Panel1.Enabled = False
+            Panel2.Enabled = False
 
             Thread_LoadingFormEnd()
         End If
@@ -805,7 +826,16 @@ Public Class frm_Material_Transfer
                 Exit Sub
             End If
 
-            Dim newMwNo As String = Load_New_MW_No()
+            Dim newMwNo As String = Load_New_MW_No(newLotNo)
+
+            If newMwNo = String.Empty Then
+                MessageBox.Show(Me,
+                                "자재의 고유번호(MW No.)를 찾을 수 없습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+                Exit Sub
+            End If
 
             '그리드에 임시저장 리스트를 등록한다.
             Dim insertString As String
@@ -924,7 +954,7 @@ Public Class frm_Material_Transfer
 
     End Function
 
-    Private Function Load_New_MW_No() As String
+    Private Function Load_New_MW_No(ByVal newLotNo As String) As String
 
         Dim newMwNo As String = String.Empty
 
@@ -934,7 +964,7 @@ Public Class frm_Material_Transfer
         strSQL += "1"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", '" & TB_CustomerPartCode.Text & "'"
-        strSQL += ", '" & TB_LotNo.Text & "-S" & "'"
+        strSQL += ", '" & newLotNo & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -964,6 +994,38 @@ Public Class frm_Material_Transfer
         Else
             CB_PartsSplit.Enabled = True
         End If
+
+    End Sub
+
+    Private Sub Grid_History_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_History.MouseClick
+
+        Dim selRow As Integer = Grid_History.MouseRow
+
+        If e.Button = MouseButtons.Right And selRow > 0 And Panel1.Enabled = True Then
+            Grid_History.Row = selRow
+            Grid_Menu.Show(Grid_History, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
+
+        Dim selRow As Integer = Grid_History.Row
+
+        Dim showString As String = "행 : " & Grid_History(selRow, 0)
+        showString += vbCrLf & "파트코드 : " & Grid_History(selRow, 1)
+        showString += vbCrLf & "항목을 삭제 하시겠습니까?"
+
+        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        Grid_History.Redraw = False
+        Grid_History.RemoveItem(selRow)
+        Grid_History.AutoSizeCols()
+        Grid_History.Redraw = True
+
+    End Sub
+
+    Private Sub TB_BarcodeScan_MouseCaptureChanged(sender As Object, e As EventArgs) Handles TB_BarcodeScan.MouseCaptureChanged
 
     End Sub
 End Class

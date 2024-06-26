@@ -28,6 +28,8 @@ Partial Class frm_CodeChange
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_Barcode = New System.Windows.Forms.TextBox()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.TB_Qty = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -55,8 +57,8 @@ Partial Class frm_CodeChange
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BTN_Save = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TB_LastStockSuvey = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -133,6 +135,8 @@ Partial Class frm_CodeChange
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSkyBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_LastStockSuvey)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label18)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TextBox1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label9)
@@ -167,6 +171,31 @@ Partial Class frm_CodeChange
         Me.SplitContainer1.Size = New System.Drawing.Size(956, 381)
         Me.SplitContainer1.SplitterDistance = 486
         Me.SplitContainer1.TabIndex = 1
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TextBox1.Location = New System.Drawing.Point(91, 172)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(238, 21)
+        Me.TextBox1.TabIndex = 13
+        '
+        'Label12
+        '
+        Me.Label12.BackColor = System.Drawing.Color.SteelBlue
+        Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(15, 172)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(76, 21)
+        Me.Label12.TabIndex = 12
+        Me.Label12.Text = "입고일자"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label9
         '
@@ -489,30 +518,30 @@ Partial Class frm_CodeChange
         Me.BTN_Save.Text = "변경내용 저장 및 프린트"
         Me.BTN_Save.UseVisualStyleBackColor = True
         '
-        'TextBox1
+        'TB_LastStockSuvey
         '
-        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TextBox1.Location = New System.Drawing.Point(91, 172)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(238, 21)
-        Me.TextBox1.TabIndex = 13
+        Me.TB_LastStockSuvey.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_LastStockSuvey.Enabled = False
+        Me.TB_LastStockSuvey.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_LastStockSuvey.Location = New System.Drawing.Point(15, 338)
+        Me.TB_LastStockSuvey.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_LastStockSuvey.Name = "TB_LastStockSuvey"
+        Me.TB_LastStockSuvey.Size = New System.Drawing.Size(238, 21)
+        Me.TB_LastStockSuvey.TabIndex = 15
         '
-        'Label12
+        'Label18
         '
-        Me.Label12.BackColor = System.Drawing.Color.SteelBlue
-        Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label12.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label12.ForeColor = System.Drawing.Color.White
-        Me.Label12.Location = New System.Drawing.Point(15, 172)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(76, 21)
-        Me.Label12.TabIndex = 12
-        Me.Label12.Text = "입고일자"
-        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Label18.BackColor = System.Drawing.Color.SteelBlue
+        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label18.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.White
+        Me.Label18.Location = New System.Drawing.Point(15, 315)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(238, 21)
+        Me.Label18.TabIndex = 14
+        Me.Label18.Text = "최근 재고조사일자"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frm_CodeChange
         '
@@ -575,4 +604,6 @@ Partial Class frm_CodeChange
     Friend WithEvents Label16 As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Label12 As Label
+    Friend WithEvents TB_LastStockSuvey As TextBox
+    Friend WithEvents Label18 As Label
 End Class

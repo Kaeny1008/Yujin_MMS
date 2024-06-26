@@ -34,6 +34,7 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.TB_DocumentNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TB_BarcodeScan = New System.Windows.Forms.TextBox()
@@ -85,7 +86,8 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TB_CustomerName = New System.Windows.Forms.TextBox()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.Grid_PartList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -257,6 +259,17 @@ Partial Class frm_Material_Warehousing_With_Label
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1025, 297)
         Me.Panel2.TabIndex = 32
+        '
+        'TB_CustomerName
+        '
+        Me.TB_CustomerName.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_CustomerName.Enabled = False
+        Me.TB_CustomerName.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_CustomerName.Location = New System.Drawing.Point(181, 33)
+        Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_CustomerName.Name = "TB_CustomerName"
+        Me.TB_CustomerName.Size = New System.Drawing.Size(160, 25)
+        Me.TB_CustomerName.TabIndex = 31
         '
         'CheckBox1
         '
@@ -790,26 +803,26 @@ Partial Class frm_Material_Warehousing_With_Label
         '
         'Grid_Menu
         '
-        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint})
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint, Me.ToolStripSeparator1, Me.BTN_RowDelete})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(111, 26)
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 76)
         '
         'BTN_RePrint
         '
         Me.BTN_RePrint.Name = "BTN_RePrint"
-        Me.BTN_RePrint.Size = New System.Drawing.Size(110, 22)
+        Me.BTN_RePrint.Size = New System.Drawing.Size(180, 22)
         Me.BTN_RePrint.Text = "재발행"
         '
-        'TB_CustomerName
+        'ToolStripSeparator1
         '
-        Me.TB_CustomerName.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_CustomerName.Enabled = False
-        Me.TB_CustomerName.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TB_CustomerName.Location = New System.Drawing.Point(181, 33)
-        Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_CustomerName.Name = "TB_CustomerName"
-        Me.TB_CustomerName.Size = New System.Drawing.Size(160, 25)
-        Me.TB_CustomerName.TabIndex = 31
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'BTN_RowDelete
+        '
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowDelete.Text = "입고 취소(삭제)"
         '
         'frm_Material_Warehousing_With_Label
         '
@@ -915,4 +928,6 @@ Partial Class frm_Material_Warehousing_With_Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents TB_CustomerName As TextBox
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
 End Class

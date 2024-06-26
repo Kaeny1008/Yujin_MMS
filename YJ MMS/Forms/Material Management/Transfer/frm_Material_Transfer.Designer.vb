@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Material_Transfer
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,8 +20,9 @@ Partial Class frm_Material_Transfer
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Transfer))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
@@ -45,6 +46,8 @@ Partial Class frm_Material_Transfer
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.BTN_ListAdd = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.TB_2ndQty = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
@@ -76,8 +79,8 @@ Partial Class frm_Material_Transfer
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.BTN_ListAdd = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -91,6 +94,7 @@ Partial Class frm_Material_Transfer
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel3.SuspendLayout()
+        Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -151,7 +155,6 @@ Partial Class frm_Material_Transfer
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_History)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Panel2.Enabled = False
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 421
         Me.SplitContainer1.TabIndex = 9
@@ -292,6 +295,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.Controls.Add(Me.TB_TN_No)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel2.Enabled = False
         Me.Panel2.Location = New System.Drawing.Point(0, 360)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(839, 56)
@@ -339,6 +343,7 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Controls.Add(Me.TB_CustomerCode)
         Me.Panel1.Controls.Add(Me.Label5)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Enabled = False
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(839, 360)
@@ -358,6 +363,23 @@ Partial Class frm_Material_Transfer
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(620, 78)
         Me.Panel6.TabIndex = 38
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(512, 11)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(41, 21)
+        Me.TextBox1.TabIndex = 43
+        '
+        'BTN_ListAdd
+        '
+        Me.BTN_ListAdd.Location = New System.Drawing.Point(559, 3)
+        Me.BTN_ListAdd.Name = "BTN_ListAdd"
+        Me.BTN_ListAdd.Size = New System.Drawing.Size(56, 70)
+        Me.BTN_ListAdd.TabIndex = 42
+        Me.BTN_ListAdd.Text = "목록" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "추가"
+        Me.BTN_ListAdd.UseVisualStyleBackColor = True
         '
         'Label17
         '
@@ -683,22 +705,17 @@ Partial Class frm_Material_Transfer
         Me.Label5.Text = "2. 사용고객사"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BTN_ListAdd
+        'Grid_Menu
         '
-        Me.BTN_ListAdd.Location = New System.Drawing.Point(559, 3)
-        Me.BTN_ListAdd.Name = "BTN_ListAdd"
-        Me.BTN_ListAdd.Size = New System.Drawing.Size(56, 70)
-        Me.BTN_ListAdd.TabIndex = 42
-        Me.BTN_ListAdd.Text = "목록" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "추가"
-        Me.BTN_ListAdd.UseVisualStyleBackColor = True
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowDelete})
+        Me.Grid_Menu.Name = "Grid_Menu"
+        Me.Grid_Menu.Size = New System.Drawing.Size(183, 26)
         '
-        'TextBox1
+        'BTN_RowDelete
         '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(512, 11)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(41, 21)
-        Me.TextBox1.TabIndex = 43
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
+        Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
         'frm_Material_Transfer
         '
@@ -729,6 +746,7 @@ Partial Class frm_Material_Transfer
         Me.Panel5.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
+        Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -789,4 +807,6 @@ Partial Class frm_Material_Transfer
     Friend WithEvents CB_AutoAdd As CheckBox
     Friend WithEvents BTN_ListAdd As Button
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Grid_Menu As ContextMenuStrip
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
 End Class

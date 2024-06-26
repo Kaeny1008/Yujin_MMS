@@ -80,6 +80,8 @@ Public Class frm_CodeChange
                 Exit Sub
             End Try
 
+            Last_Stock_Suvery_Date()
+
             If TB_Vendor.Text = String.Empty Then
                 MessageBox.Show("자재 정보를 찾지 못했습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
             Else
@@ -93,6 +95,30 @@ Public Class frm_CodeChange
             TB_AfterItemCode.SelectAll()
             TB_AfterItemCode.Focus()
         End If
+
+    End Sub
+
+    Private Sub Last_Stock_Suvery_Date()
+
+        Thread_LoadingFormStart()
+
+        DBConnect()
+
+        Dim strSQL As String = "select ifnull(max(clearance_date), '2024-01-01') as clearance_date"
+        strSQL += " from tb_mms_material_basic_inventory"
+        strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_LastStockSuvey.Text = sqlDR("clearance_date")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -111,6 +137,7 @@ Public Class frm_CodeChange
         strSQL += ", '" & lot_no & "'"
         strSQL += ", '" & qty & "'"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ");"
@@ -163,6 +190,7 @@ Public Class frm_CodeChange
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ");"
@@ -278,7 +306,43 @@ Public Class frm_CodeChange
             strSQL += ", '" & loginID & "'"
             strSQL += ");"
 
+            '입고일자가 최근 재고조사 일자보다 빠를 경우
+            If CDate(TextBox1.Text) < CDate(TB_LastStockSuvey.Text) Then
+                'strSQL += " select if(("
+                'strSQL += "select 1=1 from tb_mms_material_basic_inventory"
+                'strSQL += " where clearance_date = '" & TB_LastStockSuvey.Text & "'"
+                'strSQL += " and customer_code = '" & TB_CustomerCode.Text & "'"
+                'strSQL += " and part_code = '" & TB_AfterItemCode.Text & "'"
+                'strSQL += "), "
+                'strSQL += "update tb_mms_material_basic_inventory set available_qty = available_qty + " & CDbl(TB_AfterQty.Text)
+                'strSQL += " where clearance_date = '" & TB_LastStockSuvey.Text & "'"
+                'strSQL += " and customer_code = '" & TB_CustomerCode.Text & "'"
+                'strSQL += " and part_code = '" & TB_AfterItemCode.Text & "'"
+                'strSQL += ", "
+                'strSQL += "insert into tb_mms_material_basic_inventory("
+                'strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
+                'strSQL += ") values ("
+                'strSQL += "'" & TB_LastStockSuvey.Text & "'"
+                'strSQL += ",'" & TB_CustomerCode.Text & "'"
+                'strSQL += ",'" & TB_AfterItemCode.Text & "'"
+                'strSQL += "," & CDbl(TB_AfterQty.Text) & ""
+                'strSQL += ",0"
+                'strSQL += ")"
+                'strSQL += ");"
+                strSQL += "call sp_mms_material_code_change(3"
+                strSQL += ", '" & TB_AfterItemCode.Text & "'"
+                strSQL += ", null"
+                strSQL += ", null"
+                strSQL += ", " & CDbl(TB_AfterQty.Text)
+                strSQL += ", '" & TB_CustomerCode.Text & "'"
+                strSQL += ", null"
+                strSQL += ", null"
+                strSQL += ", '" & TB_LastStockSuvey.Text & "'"
+                strSQL += ");"
+            End If
+
             If Not strSQL = String.Empty Then
+                Debug.Print(strSQL)
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
                 sqlCmd.Transaction = sqlTran
                 sqlCmd.ExecuteNonQuery()

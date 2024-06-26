@@ -593,15 +593,63 @@ Public Class frm_Assy_Label_Print
 
         continueChar += "dddd"
 
-        swFile.WriteLine("^XZ~JA^XZ")
-        swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
-        swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
-        swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
-        swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
-        swFile.WriteLine("^FO0150,0000^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")
-        swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
-        swFile.WriteLine("^XZ")
+        If CheckBox1.Checked = True Then
+            swFile.WriteLine("^XZ~JA^XZ")
+            swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
+            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
+            swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
+            swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
+            swFile.WriteLine("^FO0150,0000^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")
+            swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
+            swFile.WriteLine("^XZ")
+        End If
+
+        If CheckBox2.Checked = True Then
+            Dim lineCount As Integer = 0
+            Dim firstLine As String = String.Empty
+            Dim secondLine As String = String.Empty
+            Dim thirdLine As String = String.Empty
+            If Not TB_Label_FW.Text = String.Empty Then
+                lineCount += 1
+                firstLine = "FW : V" & TB_Label_FW.Text
+            End If
+            If Not TB_Label_Boot.Text = String.Empty Then
+                lineCount += 1
+                If firstLine = String.Empty Then
+                    firstLine = "Boot : V" & TB_Label_Boot.Text
+                Else
+                    secondLine = "Boot : V" & TB_Label_Boot.Text
+                End If
+            End If
+            If Not TB_Label_FPGA.Text = String.Empty Then
+                lineCount += 1
+                If firstLine = String.Empty Then
+                    firstLine = "FPGA : V" & TB_Label_FPGA.Text
+                ElseIf secondLine = String.Empty Then
+                    secondLine = "FPGA : V" & TB_Label_FPGA.Text
+                ElseIf thirdLine = String.Empty Then
+                    thirdLine = "FPGA : V" & TB_Label_FPGA.Text
+                End If
+            End If
+
+            swFile.WriteLine("^XZ~JA^XZ")
+            swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
+            swFile.WriteLine("^MD25") '진하기
+            If lineCount = 3 Then
+                swFile.WriteLine("^FO0020,0012^A0,25,25^FD" & firstLine & "^FS")
+                swFile.WriteLine("^FO0020,0041^A0,25,25^FD" & secondLine & "^FS")
+                swFile.WriteLine("^FO0020,0070^A0,25,25^FD" & thirdLine & "^FS")
+            ElseIf lineCount = 2 Then
+                swFile.WriteLine("^FO0020,0025^A0,25,25^FD" & firstLine & "^FS")
+                swFile.WriteLine("^FO0020,0055^A0,25,25^FD" & secondLine & "^FS")
+            ElseIf lineCount = 1 Then
+                swFile.WriteLine("^FO0020,0041^A0,25,25^FD" & firstLine & "^FS")
+            End If
+            swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
+            swFile.WriteLine("^XZ")
+        End If
+
         swFile.Close()
 
         Dim printResult As String = LabelPrint()

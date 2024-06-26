@@ -780,7 +780,7 @@ Public Class frm_Material_Warehousing_With_Label
         DBClose()
 
         Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
-        Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
+        'Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
 
         If find_PartCode > 0 Then
             Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
@@ -792,16 +792,16 @@ Public Class frm_Material_Warehousing_With_Label
                 Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
                 Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
             End If
-        Else
-            Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
-            Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
-            If Grid_MaterialList(find_PartNo, 5) > 0 Then
-                Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
-                Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
-            ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
-                Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
-                Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
-            End If
+            'Else
+            '    Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
+            '    Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
+            '    If Grid_MaterialList(find_PartNo, 5) > 0 Then
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
+            '    ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
+            '    End If
         End If
 
         Material_PrintLabel(TB_CustomerPartCode.Text,
@@ -1053,6 +1053,11 @@ Public Class frm_Material_Warehousing_With_Label
 
         If e.Button = MouseButtons.Right And selRow > 0 Then
             Grid_PartList.Row = selRow
+            If BTN_ListAdd.Enabled = False Then
+                BTN_RowDelete.Enabled = False
+            Else
+                BTN_RowDelete.Enabled = True
+            End If
             Grid_Menu.Show(Grid_PartList, New Point(e.X, e.Y))
         End If
 
@@ -1083,6 +1088,70 @@ Public Class frm_Material_Warehousing_With_Label
     End Sub
 
     Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
+
+        Dim selRow As Integer = Grid_PartList.Row
+        Dim mwNo As String = Grid_PartList(selRow, 1)
+        Dim nowPartCode As String = Grid_PartList(selRow, 5)
+        Dim nowQty As String = Grid_PartList(selRow, 10)
+
+        If MessageBox.Show(Me,
+                           "입고번호(MW No.) : " & mwNo & vbCrLf & "를 삭제 하시겠습니까?",
+                           msg_form,
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            strSQL = "delete from tb_mms_material_warehousing"
+            strSQL += " where mw_no = '" & mwNo & "';"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            Thread_LoadingFormEnd()
+            MessageBox.Show(Me,
+                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        DBClose()
+
+        Dim find_PartCode As Integer = Grid_MaterialList.FindRow(nowPartCode, 1, 1, True)
+
+        If find_PartCode > 0 Then
+            Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(nowQty), "#,##0")
+            Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
+            If Grid_MaterialList(find_PartCode, 5) > 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
+            ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
+            End If
+        End If
+
+        MessageBox.Show(Me, "삭제완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 End Class

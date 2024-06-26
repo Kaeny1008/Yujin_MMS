@@ -739,4 +739,86 @@ Public Class frm_Supplier_Document_Register
         End If
 
     End Sub
+
+    Private Sub Grid_DocumentsList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_DocumentsList.MouseClick
+
+        Dim selRow As Integer = Grid_DocumentsList.MouseRow
+
+        If e.Button = MouseButtons.Right And selRow > 0 Then
+            Grid_DocumentsList.Row = selRow
+            Grid_Menu.Show(Grid_DocumentsList, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
+
+        Dim selRow As Integer = Grid_DocumentsList.Row
+        Dim documentNo As String = Grid_DocumentsList(selRow, 1)
+
+        If Material_Exist_Check(documentNo) = True Then
+            MessageBox.Show(Me, "입고 기록이 존재합니다", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            Exit Sub
+        End If
+
+        Dim showString As String = "문서번호 : " & documentNo
+        showString += vbCrLf & "를 삭제 하시겠습니까?"
+
+        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            strSQL += "delete from tb_mms_material_warehousing_document"
+            strSQL += "where document_no = '" & documentNo & "';"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            MessageBox.Show(Me, ex.Message, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
+
+        DBClose()
+
+        MessageBox.Show(Me, "삭제완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+        BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
+    Private Function Material_Exist_Check(ByVal documentNo As String) As Boolean
+
+        DBConnect()
+
+        Dim returnValue As Boolean = False
+
+        Dim strSQL As String = "select if(count(*)= 0, 'Not Exist', 'Exist') as material_exist"
+        strSQL += " from tb_mms_material_warehousing"
+        strSQL += " where document_no = '" & documentNo & "';"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("material_exist") = "Exist" Then returnValue = True
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnValue
+
+    End Function
 End Class

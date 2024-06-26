@@ -26,6 +26,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.BTN_Reload = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
@@ -95,6 +96,7 @@ Partial Class frm_Wave_Selective_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Button1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Reload)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label14)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_OrderList)
@@ -131,6 +133,16 @@ Partial Class frm_Wave_Selective_Production_End
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 229
         Me.SplitContainer1.TabIndex = 4
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(966, 187)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(63, 34)
+        Me.Button1.TabIndex = 40
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.Visible = False
         '
         'BTN_Reload
         '
@@ -551,4 +563,5 @@ Partial Class frm_Wave_Selective_Production_End
     Friend WithEvents Label3 As Label
     Friend WithEvents Label1 As Label
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Button1 As Button
 End Class

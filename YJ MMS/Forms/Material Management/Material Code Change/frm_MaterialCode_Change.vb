@@ -135,6 +135,7 @@ Public Class frm_MaterialCode_Change
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
+        strSQL += ", null"
         strSQL += ");"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

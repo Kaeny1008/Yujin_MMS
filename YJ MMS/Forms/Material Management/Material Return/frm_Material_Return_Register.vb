@@ -202,6 +202,16 @@ Public Class frm_Material_Return_Register
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
+        If Grid_History.Rows.Count = 1 Then
+            MessageBox.Show(Me,
+                            "등록된 반출 목록이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+
         If (MessageBox.Show("반출 등록을 하시겠습니까?",
                             msg_form,
                             MessageBoxButtons.YesNo,

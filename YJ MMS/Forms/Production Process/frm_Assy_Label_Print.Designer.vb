@@ -27,7 +27,6 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage1 = New C1.Win.C1Command.C1DockingTabPage()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
-        Me.BTN_SaveAndPrint = New System.Windows.Forms.Button()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -59,7 +58,6 @@ Partial Class frm_Assy_Label_Print
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TB_SearchOrderIndex = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
-        Me.BTN_HistorySearch = New System.Windows.Forms.Button()
         Me.DTP_End = New System.Windows.Forms.DateTimePicker()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.DTP_Start = New System.Windows.Forms.DateTimePicker()
@@ -75,7 +73,6 @@ Partial Class frm_Assy_Label_Print
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Unique = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
-        Me.BTN_Reprint = New System.Windows.Forms.Button()
         Me.TB_Reprint_Serial = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Date = New System.Windows.Forms.TextBox()
@@ -93,7 +90,6 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Grid_ReprintList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.BTN_Reprint_List = New System.Windows.Forms.Button()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
@@ -102,7 +98,6 @@ Partial Class frm_Assy_Label_Print
         Me.Label31 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Search_CustomerCode = New System.Windows.Forms.TextBox()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.CheckBox2 = New System.Windows.Forms.CheckBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
@@ -114,6 +109,11 @@ Partial Class frm_Assy_Label_Print
         Me.Label34 = New System.Windows.Forms.Label()
         Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
+        Me.BTN_SaveAndPrint = New System.Windows.Forms.Button()
+        Me.BTN_HistorySearch = New System.Windows.Forms.Button()
+        Me.BTN_Reprint = New System.Windows.Forms.Button()
+        Me.BTN_Reprint_List = New System.Windows.Forms.Button()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
@@ -156,7 +156,6 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage1.Controls.Add(Me.Panel4)
         Me.C1DockingTabPage1.Controls.Add(Me.Label12)
         Me.C1DockingTabPage1.Controls.Add(Me.TextBox3)
-        Me.C1DockingTabPage1.Controls.Add(Me.BTN_SaveAndPrint)
         Me.C1DockingTabPage1.Controls.Add(Me.Label7)
         Me.C1DockingTabPage1.Controls.Add(Me.TextBox2)
         Me.C1DockingTabPage1.Controls.Add(Me.Label6)
@@ -165,6 +164,7 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage1.Controls.Add(Me.Label1)
         Me.C1DockingTabPage1.Controls.Add(Me.Label3)
         Me.C1DockingTabPage1.Controls.Add(Me.TB_MagazineBarcode)
+        Me.C1DockingTabPage1.Controls.Add(Me.BTN_SaveAndPrint)
         Me.C1DockingTabPage1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.C1DockingTabPage1.Location = New System.Drawing.Point(1, 30)
         Me.C1DockingTabPage1.Name = "C1DockingTabPage1"
@@ -198,20 +198,6 @@ Partial Class frm_Assy_Label_Print
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(625, 25)
         Me.TextBox3.TabIndex = 14
-        '
-        'BTN_SaveAndPrint
-        '
-        Me.BTN_SaveAndPrint.Enabled = False
-        Me.BTN_SaveAndPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_SaveAndPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
-        Me.BTN_SaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 318)
-        Me.BTN_SaveAndPrint.Name = "BTN_SaveAndPrint"
-        Me.BTN_SaveAndPrint.Size = New System.Drawing.Size(119, 68)
-        Me.BTN_SaveAndPrint.TabIndex = 12
-        Me.BTN_SaveAndPrint.Text = "발행"
-        Me.BTN_SaveAndPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SaveAndPrint.UseVisualStyleBackColor = True
         '
         'Label7
         '
@@ -556,19 +542,6 @@ Partial Class frm_Assy_Label_Print
         Me.Label19.Text = "주문번호"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BTN_HistorySearch
-        '
-        Me.BTN_HistorySearch.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_HistorySearch.Image = Global.YJ_MMS.My.Resources.Resources.search
-        Me.BTN_HistorySearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_HistorySearch.Location = New System.Drawing.Point(6, 20)
-        Me.BTN_HistorySearch.Name = "BTN_HistorySearch"
-        Me.BTN_HistorySearch.Size = New System.Drawing.Size(95, 52)
-        Me.BTN_HistorySearch.TabIndex = 16
-        Me.BTN_HistorySearch.Text = "검색"
-        Me.BTN_HistorySearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_HistorySearch.UseVisualStyleBackColor = True
-        '
         'DTP_End
         '
         Me.DTP_End.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -656,7 +629,7 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage3.Name = "C1DockingTabPage3"
         Me.C1DockingTabPage3.Size = New System.Drawing.Size(1262, 717)
         Me.C1DockingTabPage3.TabIndex = 2
-        Me.C1DockingTabPage3.Text = "라벨 재발행"
+        Me.C1DockingTabPage3.Text = "라벨 재발행(품명)"
         '
         'SplitContainer1
         '
@@ -773,19 +746,6 @@ Partial Class frm_Assy_Label_Print
         Me.Label26.TabIndex = 34
         Me.Label26.Text = "품목명"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'BTN_Reprint
-        '
-        Me.BTN_Reprint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Reprint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
-        Me.BTN_Reprint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Reprint.Location = New System.Drawing.Point(312, 278)
-        Me.BTN_Reprint.Name = "BTN_Reprint"
-        Me.BTN_Reprint.Size = New System.Drawing.Size(119, 68)
-        Me.BTN_Reprint.TabIndex = 33
-        Me.BTN_Reprint.Text = "재발행"
-        Me.BTN_Reprint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Reprint.UseVisualStyleBackColor = True
         '
         'TB_Reprint_Serial
         '
@@ -1004,19 +964,6 @@ Partial Class frm_Assy_Label_Print
         Me.Panel2.Size = New System.Drawing.Size(815, 100)
         Me.Panel2.TabIndex = 10
         '
-        'BTN_Reprint_List
-        '
-        Me.BTN_Reprint_List.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Reprint_List.Image = Global.YJ_MMS.My.Resources.Resources.search
-        Me.BTN_Reprint_List.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Reprint_List.Location = New System.Drawing.Point(6, 20)
-        Me.BTN_Reprint_List.Name = "BTN_Reprint_List"
-        Me.BTN_Reprint_List.Size = New System.Drawing.Size(95, 52)
-        Me.BTN_Reprint_List.TabIndex = 16
-        Me.BTN_Reprint_List.Text = "검색"
-        Me.BTN_Reprint_List.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Reprint_List.UseVisualStyleBackColor = True
-        '
         'DateTimePicker2
         '
         Me.DateTimePicker2.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -1106,16 +1053,6 @@ Partial Class frm_Assy_Label_Print
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
         Me.TS_MainBar.TabIndex = 3
         Me.TS_MainBar.Text = "ToolStrip1"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
         '
         'Panel4
         '
@@ -1224,6 +1161,69 @@ Partial Class frm_Assy_Label_Print
         Me.Label35.Size = New System.Drawing.Size(51, 12)
         Me.Label35.TabIndex = 23
         Me.Label35.Text = "- 품목명"
+        '
+        'BTN_SaveAndPrint
+        '
+        Me.BTN_SaveAndPrint.Enabled = False
+        Me.BTN_SaveAndPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_SaveAndPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.BTN_SaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 318)
+        Me.BTN_SaveAndPrint.Name = "BTN_SaveAndPrint"
+        Me.BTN_SaveAndPrint.Size = New System.Drawing.Size(119, 68)
+        Me.BTN_SaveAndPrint.TabIndex = 12
+        Me.BTN_SaveAndPrint.Text = "발행"
+        Me.BTN_SaveAndPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SaveAndPrint.UseVisualStyleBackColor = True
+        '
+        'BTN_HistorySearch
+        '
+        Me.BTN_HistorySearch.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_HistorySearch.Image = Global.YJ_MMS.My.Resources.Resources.search
+        Me.BTN_HistorySearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_HistorySearch.Location = New System.Drawing.Point(6, 20)
+        Me.BTN_HistorySearch.Name = "BTN_HistorySearch"
+        Me.BTN_HistorySearch.Size = New System.Drawing.Size(95, 52)
+        Me.BTN_HistorySearch.TabIndex = 16
+        Me.BTN_HistorySearch.Text = "검색"
+        Me.BTN_HistorySearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_HistorySearch.UseVisualStyleBackColor = True
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Reprint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.BTN_Reprint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Reprint.Location = New System.Drawing.Point(312, 278)
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(119, 68)
+        Me.BTN_Reprint.TabIndex = 33
+        Me.BTN_Reprint.Text = "재발행"
+        Me.BTN_Reprint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Reprint.UseVisualStyleBackColor = True
+        '
+        'BTN_Reprint_List
+        '
+        Me.BTN_Reprint_List.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Reprint_List.Image = Global.YJ_MMS.My.Resources.Resources.search
+        Me.BTN_Reprint_List.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Reprint_List.Location = New System.Drawing.Point(6, 20)
+        Me.BTN_Reprint_List.Name = "BTN_Reprint_List"
+        Me.BTN_Reprint_List.Size = New System.Drawing.Size(95, 52)
+        Me.BTN_Reprint_List.TabIndex = 16
+        Me.BTN_Reprint_List.Text = "검색"
+        Me.BTN_Reprint_List.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Reprint_List.UseVisualStyleBackColor = True
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
         '
         'frm_Assy_Label_Print
         '
