@@ -205,10 +205,15 @@ Public Class frm_MetalMaskManagement
         Grid_List.Rows.Count = 1
         DBConnect()
 
+        Dim workSide As String = String.Empty
+        If Not CB_WorkSide.Text = "All" Then
+            workSide = CB_WorkSide.Text
+        End If
+
         Dim strSQL As String = "call sp_mmms_metalmask_list(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
         strSQL += ",'" & TB_ModelCode.Text & "'"
-        strSQL += ",'" & CB_WorkSide.Text & "'"
+        strSQL += ",'" & workSide & "'"
         strSQL += ",'" & TB_MaskSN.Text & "'"
         strSQL += ");"
 
@@ -419,6 +424,12 @@ Public Class frm_MetalMaskManagement
     End Sub
 
     Private Sub Cms_LabelPrinter_Click(sender As Object, e As EventArgs) Handles Cms_LabelPrinter.Click
+
+    End Sub
+
+    Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
+
+        Me.Dispose()
 
     End Sub
 End Class

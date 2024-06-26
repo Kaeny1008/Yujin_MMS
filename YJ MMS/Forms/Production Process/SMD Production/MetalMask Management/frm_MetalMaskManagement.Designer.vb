@@ -52,6 +52,7 @@ Partial Class frm_MetalMaskManagement
         Me.Cms_LabelPrinter = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator6 = New System.Windows.Forms.ToolStripSeparator()
         Me.Cms_History = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -69,7 +70,7 @@ Partial Class frm_MetalMaskManagement
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.ToolStripSeparator3, Me.Btn_NewMask, Me.ToolStripSeparator2, Me.Btn_PrinterSetting})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.ToolStripSeparator3, Me.Btn_NewMask, Me.ToolStripSeparator2, Me.Btn_PrinterSetting, Me.Form_CLose})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1264, 25)
@@ -237,7 +238,7 @@ Partial Class frm_MetalMaskManagement
         Me.CB_WorkSide.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_WorkSide.Font = New System.Drawing.Font("굴림", 9.75!)
         Me.CB_WorkSide.FormattingEnabled = True
-        Me.CB_WorkSide.Items.AddRange(New Object() {"Bottom", "Top"})
+        Me.CB_WorkSide.Items.AddRange(New Object() {"Bottom", "Top", "All"})
         Me.CB_WorkSide.Location = New System.Drawing.Point(655, 10)
         Me.CB_WorkSide.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.CB_WorkSide.Name = "CB_WorkSide"
@@ -260,7 +261,7 @@ Partial Class frm_MetalMaskManagement
         '
         Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Cms_MaskEdit, Me.ToolStripSeparator4, Me.Cms_MaskClose, Me.Cms_MaskClose_Cancel, Me.ToolStripSeparator5, Me.Cms_MaskDelete, Me.ToolStripSeparator1, Me.Cms_LabelPrinter, Me.ToolStripSeparator6, Me.Cms_History})
         Me.Grid_Menu.Name = "ContextMenuStrip1"
-        Me.Grid_Menu.Size = New System.Drawing.Size(181, 182)
+        Me.Grid_Menu.Size = New System.Drawing.Size(155, 160)
         '
         'Cms_MaskEdit
         '
@@ -307,7 +308,7 @@ Partial Class frm_MetalMaskManagement
         'Cms_LabelPrinter
         '
         Me.Cms_LabelPrinter.Name = "Cms_LabelPrinter"
-        Me.Cms_LabelPrinter.Size = New System.Drawing.Size(180, 22)
+        Me.Cms_LabelPrinter.Size = New System.Drawing.Size(154, 22)
         Me.Cms_LabelPrinter.Text = "Label 인쇄"
         '
         'ToolStripSeparator6
@@ -321,6 +322,16 @@ Partial Class frm_MetalMaskManagement
         Me.Cms_History.Name = "Cms_History"
         Me.Cms_History.Size = New System.Drawing.Size(154, 22)
         Me.Cms_History.Text = "이력 보기"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
         '
         'frm_MetalMaskManagement
         '
@@ -372,4 +383,5 @@ Partial Class frm_MetalMaskManagement
     Friend WithEvents Cms_LabelPrinter As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator6 As ToolStripSeparator
     Friend WithEvents Cms_History As ToolStripMenuItem
+    Friend WithEvents Form_CLose As ToolStripButton
 End Class

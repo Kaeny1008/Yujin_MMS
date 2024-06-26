@@ -33,22 +33,22 @@ Public Class frm_Supplier_Document_Register
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
-            Grid_MaterialList(0, 0) = "No"
-            Grid_MaterialList(0, 1) = "자재코드"
-            Grid_MaterialList(0, 2) = "Part No."
-            Grid_MaterialList(0, 3) = "제조사"
-            Grid_MaterialList(0, 4) = "입고수량"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
-            '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
-            '.ExtendLastCol = True
-            .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(4).DataType = GetType(Double)
+            .Cols(4).Format = "#,##0"
         End With
+        Grid_MaterialList(0, 0) = "No"
+        Grid_MaterialList(0, 1) = "자재코드"
+        Grid_MaterialList(0, 2) = "Part No."
+        Grid_MaterialList(0, 3) = "제조사"
+        Grid_MaterialList(0, 4) = "입고수량"
+        Grid_MaterialList.AutoSizeCols()
 
         With Grid_DocumentsList
             .AllowEditing = False
@@ -217,6 +217,22 @@ Public Class frm_Supplier_Document_Register
 
         TB_File_Path.Text = openFile.FileName
 
+        Dim excelSheet() As String = Grid_Excel.LoadExcelSheetNames(openFile.FileName)
+
+        For i = 0 To excelSheet.Length - 1
+            CB_SheetName.Items.Add(excelSheet(i))
+        Next
+
+        MessageBox.Show(Me,
+                        "해당 시트를 선택하여 주십시오.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
+        CB_SheetName.Enabled = True
+
+        Exit Sub
+
         excelApp = CreateObject("Excel.Application")
         excelApp.WorkBooks.Open(TB_File_Path.Text)
         excelApp.Visible = False
@@ -263,6 +279,22 @@ Public Class frm_Supplier_Document_Register
     End Sub
 
     Private Sub CB_SheetName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_SheetName.SelectedIndexChanged
+
+        Grid_Excel.LoadExcel(TB_File_Path.Text, CB_SheetName.Text, FileFlags.None)
+
+        For i = 1 To Grid_Excel.Cols.Count - 1
+            Grid_Excel(0, i) = i
+        Next
+
+        For i = 1 To Grid_Excel.Rows.Count - 1
+            Grid_Excel(i, 0) = i
+        Next
+
+        Grid_Excel.AutoSizeCols()
+
+        BTN_ExcelToGrid.Enabled = True
+
+        Exit Sub
 
         thread_ExcelRead = New Thread(AddressOf Load_TempData)
         thread_ExcelRead.IsBackground = True
@@ -363,6 +395,7 @@ Public Class frm_Supplier_Document_Register
     Dim col_Qty As Integer = 0
     Dim col_vendor As Integer = 0
     Dim row_Start As Integer = 0
+    Dim row_End As Integer = 0
 
     Private Sub Button_Click(sender As Object, e As EventArgs) Handles BTN_PartCode.Click,
         BTN_PartNo.Click,
@@ -394,15 +427,26 @@ Public Class frm_Supplier_Document_Register
 
     End Sub
 
-    Private Sub BTN_RowSelect_Click(sender As Object, e As EventArgs) Handles BTN_RowSelect.Click
+    Private Sub BTN_RowStart_Click(sender As Object, e As EventArgs) Handles BTN_RowStart.Click, BTN_RowEnd.Click
+
+        Dim selName As String = sender.ToString
 
         For i = 1 To Grid_Excel.Rows.Count - 1
-            Grid_Excel(i, 0) = i
+            If Not IsNumeric(Grid_Excel(i, 0)) Then
+                If Grid_Excel(i, 0) = selName Then
+                    Grid_Excel(i, 0) = i
+                End If
+            End If
         Next
 
-        row_Start = Grid_Excel.Row
-        Grid_Excel(Grid_Excel.Row, 0) = BTN_RowSelect.Text
+        Grid_Excel(Grid_Excel.Row, 0) = selName
         Grid_Excel.AutoSizeCols()
+
+        If selName = BTN_RowStart.Text Then
+            row_Start = Grid_Excel.Row
+        ElseIf selName = BTN_Rowend.Text Then
+            row_End = Grid_Excel.Row
+        End If
 
     End Sub
 
@@ -422,6 +466,10 @@ Public Class frm_Supplier_Document_Register
             msgString = "시작 행이 지정되지 않았습니다."
         End If
 
+        If row_End = 0 Then
+            msgString = "종료 행이 지정되지 않았습니다."
+        End If
+
         If Not msgString = String.Empty Then
             MessageBox.Show(Me,
                             msgString,
@@ -431,6 +479,60 @@ Public Class frm_Supplier_Document_Register
                             MessageBoxDefaultButton.Button1)
             Exit Sub
         End If
+
+        Dim totalQty As Double = 0
+
+        Grid_MaterialList.Redraw = False
+        Grid_MaterialList.Rows.Count = 1
+
+        For i = row_Start To row_End
+            Dim partCode As String = String.Empty
+            If Not col_PartCode = 0 Then partCode = Trim(Grid_Excel(i, col_PartCode))
+            Dim partNo As String = String.Empty
+            If Not col_PartNo = 0 Then partNo = Trim(Grid_Excel(i, col_PartNo))
+
+            If Not partCode = String.Empty Or Not partNo = String.Empty Then
+                Dim qty As Double = 0
+                If Not Trim(Grid_Excel(i, col_Qty)) = String.Empty Then qty = Trim(Grid_Excel(i, col_Qty))
+                Dim vendor As String = String.Empty
+                If Not col_vendor = 0 Then vendor = Trim(Grid_Excel(i, col_vendor))
+                If Not qty = 0 Then
+                    '아이템코드나 파트넘버가 비어 있다면 입력하지 않는다.
+                    '수량이 0인것도 입력 X
+                    Dim sameCode As Integer = 0
+                    If Not col_PartCode = 0 And Not col_PartNo = 0 Then
+                        sameCode = Grid_MaterialList.FindRow(partCode, 1, 1, True)
+                    ElseIf Not col_PartCode = 0 And col_PartNo = 0 Then
+                        sameCode = Grid_MaterialList.FindRow(partCode, 1, 1, True)
+                    ElseIf col_PartCode = 0 And Not col_PartNo = 0 Then
+                        sameCode = Grid_MaterialList.FindRow(partCode, 1, 2, True)
+                    End If
+                    If sameCode > 0 Then
+                        Grid_MaterialList(sameCode, 4) += qty
+                    Else
+                        GridWriteText(Grid_MaterialList.Rows.Count & vbTab &
+                                      partCode & vbTab &
+                                      partNo & vbTab &
+                                      vendor & vbTab &
+                                      Format(qty, "#,##0"),
+                                      Me,
+                                      Grid_MaterialList, Color.Black)
+                    End If
+                    totalQty += qty
+                End If
+            End If
+        Next
+
+        Grid_MaterialList.AutoSizeCols()
+        Grid_MaterialList.Redraw = True
+
+        MessageBox.Show(frm_Main,
+                        "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
+        Exit Sub
 
         thread_ExcelToGrid = New Thread(AddressOf ExcelToGrid)
         thread_ExcelToGrid.IsBackground = True

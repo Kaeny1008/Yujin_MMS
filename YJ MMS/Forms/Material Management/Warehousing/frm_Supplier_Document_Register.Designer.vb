@@ -55,7 +55,7 @@ Partial Class frm_Supplier_Document_Register
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_RowMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_RowSelect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_RowStart = New System.Windows.Forms.ToolStripMenuItem()
         Me.CMS_ColumnMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_PartCode = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_PartNo = New System.Windows.Forms.ToolStripMenuItem()
@@ -63,6 +63,7 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_Vendor = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_RowEnd = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -434,15 +435,15 @@ Partial Class frm_Supplier_Document_Register
         '
         'CMS_RowMenu
         '
-        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowSelect})
+        Me.CMS_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowStart, Me.BTN_RowEnd})
         Me.CMS_RowMenu.Name = "CMS_Menu"
-        Me.CMS_RowMenu.Size = New System.Drawing.Size(111, 26)
+        Me.CMS_RowMenu.Size = New System.Drawing.Size(181, 70)
         '
-        'BTN_RowSelect
+        'BTN_RowStart
         '
-        Me.BTN_RowSelect.Name = "BTN_RowSelect"
-        Me.BTN_RowSelect.Size = New System.Drawing.Size(110, 22)
-        Me.BTN_RowSelect.Text = "시작행"
+        Me.BTN_RowStart.Name = "BTN_RowStart"
+        Me.BTN_RowStart.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowStart.Text = "시작행"
         '
         'CMS_ColumnMenu
         '
@@ -485,6 +486,12 @@ Partial Class frm_Supplier_Document_Register
         Me.BTN_RowDelete.Name = "BTN_RowDelete"
         Me.BTN_RowDelete.Size = New System.Drawing.Size(154, 22)
         Me.BTN_RowDelete.Text = "선택 문서 삭제"
+        '
+        'BTN_RowEnd
+        '
+        Me.BTN_RowEnd.Name = "BTN_RowEnd"
+        Me.BTN_RowEnd.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowEnd.Text = "종료행"
         '
         'frm_Supplier_Document_Register
         '
@@ -540,7 +547,7 @@ Partial Class frm_Supplier_Document_Register
     Friend WithEvents TB_File_Path As TextBox
     Friend WithEvents BTN_FileSelect As Button
     Friend WithEvents CMS_RowMenu As ContextMenuStrip
-    Friend WithEvents BTN_RowSelect As ToolStripMenuItem
+    Friend WithEvents BTN_RowStart As ToolStripMenuItem
     Friend WithEvents CMS_ColumnMenu As ContextMenuStrip
     Friend WithEvents BTN_PartCode As ToolStripMenuItem
     Friend WithEvents BTN_PartNo As ToolStripMenuItem
@@ -558,4 +565,5 @@ Partial Class frm_Supplier_Document_Register
     Friend WithEvents Label5 As Label
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_RowDelete As ToolStripMenuItem
+    Friend WithEvents BTN_RowEnd As ToolStripMenuItem
 End Class

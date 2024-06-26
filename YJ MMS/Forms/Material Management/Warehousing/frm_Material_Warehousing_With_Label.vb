@@ -531,17 +531,15 @@ Public Class frm_Material_Warehousing_With_Label
         Thread_LoadingFormStart()
 
         Try
-            If TB_Supplier.Text = "비아이디" Then
-                'P:MSS1P3-M3/89A // L:20240328001 // Q:4,500 // C:140300358 // V:VISHAY
-                Dim splitBarcode() As String = TB_BarcodeScan.Text.Split(" // ")
-                TB_CustomerPartCode.Text = Trim(splitBarcode(6).Replace("C:", String.Empty))
-                TB_PartNo.Text = Trim(splitBarcode(0).Replace("P:", String.Empty))
-                TB_LotNo.Text = Trim(splitBarcode(2).Replace("L:", String.Empty))
-                If CheckBox1.Checked = False Then
-                    TB_Qty.Text = Format(CInt(Trim(splitBarcode(4).Replace("Q:", String.Empty))), "#,##0")
-                End If
-                TB_Vendor.Text = Trim(splitBarcode(8).Replace("V:", String.Empty))
+            '140300358!MSS1P3-M3/89A!20240328001!4,500!VISHAY!2024.03.28
+            Dim splitBarcode() As String = TB_BarcodeScan.Text.Split("!")
+            TB_CustomerPartCode.Text = Trim(splitBarcode(0))
+            TB_PartNo.Text = Trim(splitBarcode(1))
+            TB_LotNo.Text = Trim(splitBarcode(2))
+            If CheckBox1.Checked = False Then
+                TB_Qty.Text = Format(CInt(Trim(splitBarcode(4))), "#,##0")
             End If
+            TB_Vendor.Text = Trim(splitBarcode(4))
         Catch ex As Exception
             MessageBox.Show(Me,
                             ex.Message,
@@ -804,17 +802,19 @@ Public Class frm_Material_Warehousing_With_Label
             '    End If
         End If
 
-        Material_PrintLabel(TB_CustomerPartCode.Text,
-                            TB_PartNo.Text,
-                            TB_LotNo.Text,
-                            CInt(TB_Qty.Text),
-                            TB_Vendor.Text,
-                            NumericUpDown1.Value,
-                            TB_CustomerName.Text,
-                            Format(Now, "yyyy.MM.dd"),
-                            False,
-                            String.Empty,
-                            0)
+        If RB_Vendor.Checked = True Then
+            Material_PrintLabel(TB_CustomerPartCode.Text,
+                                TB_PartNo.Text,
+                                TB_LotNo.Text,
+                                CInt(TB_Qty.Text),
+                                TB_Vendor.Text,
+                                NumericUpDown1.Value,
+                                TB_CustomerName.Text,
+                                Format(Now, "yyyy.MM.dd"),
+                                False,
+                                String.Empty,
+                                0)
+        End If
 
         Load_MaterialList_Detail(TB_DocumentNo.Text)
 

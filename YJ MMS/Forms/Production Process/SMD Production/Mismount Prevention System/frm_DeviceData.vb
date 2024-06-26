@@ -343,6 +343,14 @@ Public Class frm_DeviceData
 
     End Function
 
+    Private Sub Cb_modelName_KeyDown(sender As Object, e As KeyEventArgs) Handles Cb_modelName.KeyDown
+
+        If Not Cb_modelName.Text = String.Empty And e.KeyCode = 13 Then
+            Cb_modelName_SelectedIndexChanged(Nothing, Nothing)
+        End If
+
+    End Sub
+
     Private Sub Cb_modelName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_modelName.SelectedIndexChanged
 
         Tb_modelCode.Text = String.Empty
@@ -1604,7 +1612,7 @@ Public Class frm_DeviceData
                     Dim insert_string As String = "N" & vbTab &
                           DeviceDataCode() & vbTab &
                           machine_no & vbTab &
-                          cdbl(feeder_info.Attributes("ID").Value) + 100 & vbTab &
+                          CDbl(feeder_info.Attributes("ID").Value) + 100 & vbTab &
                           partInfo.Split("@")(0) & vbTab &
                           feeder_info.SelectSingleNode("TRAY").Attributes("PARTNAME").Value & vbTab &
                           partInfo.Split("@")(1) & vbTab &
