@@ -65,7 +65,7 @@ Public Class frm_Order_Registration
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 16
+            .Cols.Count = 17
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -85,6 +85,7 @@ Public Class frm_Order_Registration
             Grid_Excel(0, 13) = "BOM등록"
             Grid_Excel(0, 14) = "Order Index"
             Grid_Excel(0, 15) = "대조결과"
+            Grid_Excel(0, 16) = "주문상태"
             .Cols(14).Visible = True
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -613,7 +614,6 @@ Public Class frm_Order_Registration
         Try
 
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
-            Dim arrayPO(1, 1) As String
             Dim itemSection As String = "모터"
             If RadioButton2.Checked = True Then
                 itemSection = "제어"
@@ -646,10 +646,28 @@ Public Class frm_Order_Registration
                     strSQL += ");"
                     '위는 중복적으로 저장되는걸 방지 (같은 PO No.와 모델코드)
                 ElseIf Grid_Excel(i, 0).ToString = "D" Then
+                    If Not Grid_Excel(i, 16) = "Order Confirm" Then
+                        Thread_LoadingFormEnd()
+                        MessageBox.Show(Me,
+                                        "소요량 산출이상 진행된 주문은 삭제 할 수 없습니다." & vbCrLf & "현재 행번호 : " & Grid_Excel(i, 0),
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
                     strSQL += "delete from tb_mms_order_register_list"
                     strSQL += " where order_index = '" & Grid_Excel(i, 14) & "'"
                     strSQL += ";"
                 ElseIf Grid_Excel(i, 0).ToString = "M" Then
+                    If Not Grid_Excel(i, 16) = "Order Confirm" Then
+                        Thread_LoadingFormEnd()
+                        MessageBox.Show(Me,
+                                        "소요량 산출이상 진행된 주문은 변경 할 수 없습니다." & vbCrLf & "현재 행번호 : " & Grid_Excel(i, 0),
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Error)
+                        Exit Sub
+                    End If
                     strSQL += "update tb_mms_order_register_list set"
                     strSQL += " modify_order_quantity = '" & Grid_Excel(i, 9) & "'"
                     strSQL += " where order_index = '" & Grid_Excel(i, 14) & "'"
@@ -1115,7 +1133,8 @@ Public Class frm_Order_Registration
                                           vbTab &
                                           vbTab &
                                           sqlDR("order_index") & vbTab &
-                                          "삭제"
+                                          "삭제" & vbTab &
+                                          sqlDR("order_status")
             GridWriteText(insert_String, Me, Grid_Excel, rowColor)
         Loop
         sqlDR.Close()
