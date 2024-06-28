@@ -27,6 +27,14 @@ Partial Class frm_Production_Information_SMD
         Me.Grid_MagazineList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.C1FlexGrid1 = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.TB_Bottom_WorkingTime = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.TB_Top_WorkingTime = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TB_Bottom_ppm = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TB_Top_ppm = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         CType(Me.Grid_MagazineList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.C1FlexGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -35,7 +43,7 @@ Partial Class frm_Production_Information_SMD
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label1.Location = New System.Drawing.Point(23, 21)
+        Me.Label1.Location = New System.Drawing.Point(23, 95)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(213, 16)
         Me.Label1.TabIndex = 0
@@ -44,7 +52,7 @@ Partial Class frm_Production_Information_SMD
         'Grid_MagazineList
         '
         Me.Grid_MagazineList.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_MagazineList.Location = New System.Drawing.Point(26, 51)
+        Me.Grid_MagazineList.Location = New System.Drawing.Point(26, 125)
         Me.Grid_MagazineList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_MagazineList.Name = "Grid_MagazineList"
         Me.Grid_MagazineList.Rows.Count = 2
@@ -77,12 +85,116 @@ Partial Class frm_Production_Information_SMD
         Me.Label2.TabIndex = 6
         Me.Label2.Text = "[ 불량내역 ]"
         '
+        'TB_Bottom_WorkingTime
+        '
+        Me.TB_Bottom_WorkingTime.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Bottom_WorkingTime.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Bottom_WorkingTime.Location = New System.Drawing.Point(162, 10)
+        Me.TB_Bottom_WorkingTime.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Bottom_WorkingTime.Name = "TB_Bottom_WorkingTime"
+        Me.TB_Bottom_WorkingTime.Size = New System.Drawing.Size(151, 21)
+        Me.TB_Bottom_WorkingTime.TabIndex = 13
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(26, 10)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(136, 21)
+        Me.Label4.TabIndex = 12
+        Me.Label4.Text = "Bottom 소요시간(H)"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Top_WorkingTime
+        '
+        Me.TB_Top_WorkingTime.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Top_WorkingTime.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Top_WorkingTime.Location = New System.Drawing.Point(162, 33)
+        Me.TB_Top_WorkingTime.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Top_WorkingTime.Name = "TB_Top_WorkingTime"
+        Me.TB_Top_WorkingTime.Size = New System.Drawing.Size(151, 21)
+        Me.TB_Top_WorkingTime.TabIndex = 15
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(26, 33)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(136, 21)
+        Me.Label3.TabIndex = 14
+        Me.Label3.Text = "Top 소요시간(H)"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Bottom_ppm
+        '
+        Me.TB_Bottom_ppm.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Bottom_ppm.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Bottom_ppm.Location = New System.Drawing.Point(449, 10)
+        Me.TB_Bottom_ppm.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Bottom_ppm.Name = "TB_Bottom_ppm"
+        Me.TB_Bottom_ppm.Size = New System.Drawing.Size(151, 21)
+        Me.TB_Bottom_ppm.TabIndex = 17
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label5.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(313, 10)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(136, 21)
+        Me.Label5.TabIndex = 16
+        Me.Label5.Text = "불량율(ppm)"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Top_ppm
+        '
+        Me.TB_Top_ppm.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Top_ppm.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Top_ppm.Location = New System.Drawing.Point(449, 33)
+        Me.TB_Top_ppm.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Top_ppm.Name = "TB_Top_ppm"
+        Me.TB_Top_ppm.Size = New System.Drawing.Size(151, 21)
+        Me.TB_Top_ppm.TabIndex = 19
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.White
+        Me.Label6.Location = New System.Drawing.Point(313, 33)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(136, 21)
+        Me.Label6.TabIndex = 18
+        Me.Label6.Text = "불량율(ppm)"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frm_Production_Information_SMD
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
         Me.ClientSize = New System.Drawing.Size(1070, 623)
+        Me.Controls.Add(Me.TB_Top_ppm)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.TB_Bottom_ppm)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.TB_Top_WorkingTime)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.TB_Bottom_WorkingTime)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.C1FlexGrid1)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Grid_MagazineList)
@@ -105,4 +217,12 @@ Partial Class frm_Production_Information_SMD
     Friend WithEvents Grid_MagazineList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents C1FlexGrid1 As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label2 As Label
+    Friend WithEvents TB_Bottom_WorkingTime As TextBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TB_Top_WorkingTime As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TB_Bottom_ppm As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TB_Top_ppm As TextBox
+    Friend WithEvents Label6 As Label
 End Class

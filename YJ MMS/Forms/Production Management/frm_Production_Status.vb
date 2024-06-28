@@ -21,11 +21,11 @@ Public Class frm_Production_Status
             .AllowEditing = False
             .AllowFiltering = True
             .AllowSorting = AllowSortingEnum.None
-            .AllowFreezing = AllowFreezingEnum.None
+            .AllowFreezing = AllowFreezingEnum.Columns
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 18
+            .Cols.Count = 19
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -57,16 +57,17 @@ Public Class frm_Production_Status
             .Cols(11).Format = "yyyy-MM-dd HH:mm:ss"
             .Cols(12).DataType = GetType(DateTime)
             .Cols(12).Format = "yyyy-MM-dd HH:mm:ss"
-            .Cols(13).DataType = GetType(Integer)
-            .Cols(13).Format = "#,##0"
             .Cols(14).DataType = GetType(Integer)
             .Cols(14).Format = "#,##0"
             .Cols(15).DataType = GetType(Integer)
-            .Cols(15).Format = "#,##0"
-            .Cols(16).DataType = GetType(DateTime)
-            .Cols(16).Format = "yyyy-MM-dd HH:mm:ss"
+            .Cols(16).Format = "#,##0"
+            .Cols(16).DataType = GetType(Integer)
+            .Cols(16).Format = "#,##0"
             .Cols(17).DataType = GetType(DateTime)
             .Cols(17).Format = "yyyy-MM-dd HH:mm:ss"
+            .Cols(18).DataType = GetType(DateTime)
+            .Cols(18).Format = "yyyy-MM-dd HH:mm:ss"
+            .Cols.Frozen = 7
         End With
 
         With Grid_OrderList
@@ -86,9 +87,9 @@ Public Class frm_Production_Status
             rngM.Data = "납품요청일자"
             rngM = .GetCellRange(0, 7, 1, 7)
             rngM.Data = "상태"
-            rngM = .GetCellRange(0, 8, 0, 12)
+            rngM = .GetCellRange(0, 8, 0, 13)
             rngM.Data = "SMD"
-            rngM = .GetCellRange(0, 13, 0, 17)
+            rngM = .GetCellRange(0, 14, 0, 18)
             rngM.Data = "Wave/Selective"
         End With
 
@@ -97,11 +98,12 @@ Public Class frm_Production_Status
         Grid_OrderList(1, 10) = "공정불량 PPM"
         Grid_OrderList(1, 11) = "시작일자"
         Grid_OrderList(1, 12) = "종료일자"
-        Grid_OrderList(1, 13) = "생산수량"
-        Grid_OrderList(1, 14) = "불량수량"
-        Grid_OrderList(1, 15) = "공정불량 PPM"
-        Grid_OrderList(1, 16) = "시작일자"
-        Grid_OrderList(1, 17) = "종료일자"
+        Grid_OrderList(1, 13) = "SMD Line"
+        Grid_OrderList(1, 14) = "생산수량"
+        Grid_OrderList(1, 15) = "불량수량"
+        Grid_OrderList(1, 16) = "공정불량 PPM"
+        Grid_OrderList(1, 17) = "시작일자"
+        Grid_OrderList(1, 18) = "종료일자"
 
         For i = 0 To Grid_OrderList.Cols.Count - 1
             Grid_OrderList.Cols(i).StyleNew.TextAlign = TextAlignEnum.CenterCenter
@@ -208,6 +210,7 @@ Public Class frm_Production_Status
             insert_String += vbTab & (CDbl(sqlDR("smd_fault_qty")) / CDbl(sqlDR("smd_production_qty"))) * 1000000
             insert_String += vbTab & sqlDR("smd_start_date")
             insert_String += vbTab & sqlDR("smd_end_date")
+            insert_String += vbTab & sqlDR("smd_line")
             insert_String += vbTab & sqlDR("ws_production_qty")
             insert_String += vbTab & sqlDR("ws_fault_qty")
             insert_String += vbTab & (CDbl(sqlDR("ws_fault_qty")) / CDbl(sqlDR("ws_production_qty"))) * 1000000
@@ -246,6 +249,10 @@ Public Class frm_Production_Status
         frm_Production_Information_SMD.orderIndex = orderIndex
         If Not frm_Production_Information_SMD.Visible Then frm_Production_Information_SMD.Show()
         frm_Production_Information_SMD.Focus()
+
+    End Sub
+
+    Private Sub TS_MainBar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TS_MainBar.ItemClicked
 
     End Sub
 End Class

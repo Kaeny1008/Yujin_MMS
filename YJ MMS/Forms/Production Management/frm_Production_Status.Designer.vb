@@ -25,8 +25,6 @@ Partial Class frm_Production_Status
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Production_Status))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -41,6 +39,9 @@ Partial Class frm_Production_Status
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_SMD_Information = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Label5 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel5.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,27 +58,10 @@ Partial Class frm_Production_Status
         Me.TS_MainBar.TabIndex = 2
         Me.TS_MainBar.Text = "ToolStrip1"
         '
-        'BTN_Search
-        '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
-        '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.Label5)
         Me.Panel5.Controls.Add(Me.TextBox1)
         Me.Panel5.Controls.Add(Me.Label4)
         Me.Panel5.Controls.Add(Me.DateTimePicker2)
@@ -221,13 +205,40 @@ Partial Class frm_Production_Status
         '
         Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_Information})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(182, 48)
+        Me.Grid_Menu.Size = New System.Drawing.Size(182, 26)
         '
         'BTN_SMD_Information
         '
         Me.BTN_SMD_Information.Name = "BTN_SMD_Information"
         Me.BTN_SMD_Information.Size = New System.Drawing.Size(181, 22)
         Me.BTN_SMD_Information.Text = "SMD 생산정보 보기"
+        '
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(491, 62)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(396, 12)
+        Me.Label5.TabIndex = 12
+        Me.Label5.Text = "※ TOP/Bottom 작업인 모델의 경우 SMD 작업수량이 2배로 표시됩니다."
         '
         'frm_Production_Status
         '
@@ -267,4 +278,5 @@ Partial Class frm_Production_Status
     Friend WithEvents Label4 As Label
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_SMD_Information As ToolStripMenuItem
+    Friend WithEvents Label5 As Label
 End Class

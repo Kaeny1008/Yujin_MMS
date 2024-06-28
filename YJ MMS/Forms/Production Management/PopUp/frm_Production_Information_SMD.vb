@@ -11,6 +11,7 @@ Public Class frm_Production_Information_SMD
 
         Load_Magazine_Information()
         Load_Fault_Information()
+        Load_WorkingTime()
 
     End Sub
 
@@ -193,6 +194,41 @@ Public Class frm_Production_Information_SMD
 
         C1FlexGrid1.AutoSizeCols()
         C1FlexGrid1.Redraw = True
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_WorkingTime()
+
+        Thread_LoadingFormStart()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_order_status(3"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & orderIndex & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("work_side").Equals("Bottom") Then
+                TB_Bottom_WorkingTime.Text = Format(DateDiff(DateInterval.Minute, sqlDR("start_date"), sqlDR("end_date")) / 60, "0.00")
+                TB_Bottom_ppm.Text = Format(sqlDR("fault_quantity") / sqlDR("end_quantity") * 1000000, "#,##0")
+            ElseIf sqlDR("work_side").Equals("Top") Then
+                TB_Top_WorkingTime.Text = Format(DateDiff(DateInterval.Minute, sqlDR("start_date"), sqlDR("end_date")) / 60, "0.00")
+                TB_Top_ppm.Text = Format(sqlDR("fault_quantity") / sqlDR("end_quantity") * 1000000, "#,##0")
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
         Thread_LoadingFormEnd()
 
