@@ -42,6 +42,12 @@ Partial Class frm_Repair_Management
         Me.TB_BoardNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_RepairList = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.TB_ItemCode = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -104,6 +110,12 @@ Partial Class frm_Repair_Management
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_ItemCode)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label6)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.DateTimePicker2)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label5)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.DateTimePicker1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
         Me.SplitContainer1.Panel1.Controls.Add(Me.CB_Process)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label3)
         Me.SplitContainer1.Panel1.Controls.Add(Me.GroupBox1)
@@ -117,7 +129,7 @@ Partial Class frm_Repair_Management
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.White
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_RepairList)
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
-        Me.SplitContainer1.SplitterDistance = 88
+        Me.SplitContainer1.SplitterDistance = 131
         Me.SplitContainer1.TabIndex = 1
         '
         'CB_Process
@@ -125,7 +137,7 @@ Partial Class frm_Repair_Management
         Me.CB_Process.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_Process.FormattingEnabled = True
         Me.CB_Process.Items.AddRange(New Object() {"SMD", "Selective Soldering", "Wave Soldering", "출하검사"})
-        Me.CB_Process.Location = New System.Drawing.Point(109, 35)
+        Me.CB_Process.Location = New System.Drawing.Point(109, 57)
         Me.CB_Process.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_Process.Name = "CB_Process"
         Me.CB_Process.Size = New System.Drawing.Size(272, 20)
@@ -136,7 +148,7 @@ Partial Class frm_Repair_Management
         Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(9, 35)
+        Me.Label3.Location = New System.Drawing.Point(9, 57)
         Me.Label3.Margin = New System.Windows.Forms.Padding(0)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(100, 21)
@@ -234,7 +246,7 @@ Partial Class frm_Repair_Management
         'TB_BoardNo
         '
         Me.TB_BoardNo.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TB_BoardNo.Location = New System.Drawing.Point(109, 57)
+        Me.TB_BoardNo.Location = New System.Drawing.Point(109, 101)
         Me.TB_BoardNo.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_BoardNo.MaxLength = 20
         Me.TB_BoardNo.Name = "TB_BoardNo"
@@ -246,7 +258,7 @@ Partial Class frm_Repair_Management
         Me.Label1.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(9, 57)
+        Me.Label1.Location = New System.Drawing.Point(9, 101)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(100, 21)
@@ -264,10 +276,71 @@ Partial Class frm_Repair_Management
         Me.Grid_RepairList.Name = "Grid_RepairList"
         Me.Grid_RepairList.Rows.Count = 2
         Me.Grid_RepairList.Rows.DefaultSize = 20
-        Me.Grid_RepairList.Size = New System.Drawing.Size(1264, 656)
+        Me.Grid_RepairList.Size = New System.Drawing.Size(1264, 613)
         Me.Grid_RepairList.StyleInfo = resources.GetString("Grid_RepairList.StyleInfo")
         Me.Grid_RepairList.TabIndex = 0
         Me.Grid_RepairList.UseCompatibleTextRendering = True
+        '
+        'Label4
+        '
+        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(9, 35)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(100, 21)
+        Me.Label4.TabIndex = 7
+        Me.Label4.Text = "불량발생 일자"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(109, 35)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(98, 21)
+        Me.DateTimePicker1.TabIndex = 8
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(213, 39)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(14, 12)
+        Me.Label5.TabIndex = 9
+        Me.Label5.Text = "~"
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(233, 35)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(98, 21)
+        Me.DateTimePicker2.TabIndex = 10
+        '
+        'TB_ItemCode
+        '
+        Me.TB_ItemCode.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_ItemCode.Location = New System.Drawing.Point(109, 79)
+        Me.TB_ItemCode.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_ItemCode.MaxLength = 20
+        Me.TB_ItemCode.Name = "TB_ItemCode"
+        Me.TB_ItemCode.Size = New System.Drawing.Size(272, 21)
+        Me.TB_ItemCode.TabIndex = 12
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label6.ForeColor = System.Drawing.Color.White
+        Me.Label6.Location = New System.Drawing.Point(9, 79)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(100, 21)
+        Me.Label6.TabIndex = 11
+        Me.Label6.Text = "품번"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frm_Repair_Management
         '
@@ -314,4 +387,10 @@ Partial Class frm_Repair_Management
     Friend WithEvents Label3 As Label
     Friend WithEvents CB_Process As ComboBox
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents DateTimePicker2 As DateTimePicker
+    Friend WithEvents Label5 As Label
+    Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TB_ItemCode As TextBox
+    Friend WithEvents Label6 As Label
 End Class

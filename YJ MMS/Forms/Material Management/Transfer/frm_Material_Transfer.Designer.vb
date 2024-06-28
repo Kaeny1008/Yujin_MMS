@@ -81,6 +81,7 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -352,6 +353,7 @@ Partial Class frm_Material_Transfer
         'Panel6
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel6.Controls.Add(Me.CheckBox1)
         Me.Panel6.Controls.Add(Me.TextBox1)
         Me.Panel6.Controls.Add(Me.BTN_ListAdd)
         Me.Panel6.Controls.Add(Me.Label17)
@@ -717,6 +719,20 @@ Partial Class frm_Material_Transfer
         Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(118, 17)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox1.TabIndex = 44
+        Me.CheckBox1.Text = "자동계산"
+        Me.CheckBox1.UseVisualStyleBackColor = False
+        '
         'frm_Material_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -809,4 +825,5 @@ Partial Class frm_Material_Transfer
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_RowDelete As ToolStripMenuItem
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

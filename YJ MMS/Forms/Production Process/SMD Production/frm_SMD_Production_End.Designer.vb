@@ -22,8 +22,10 @@ Partial Class frm_SMD_Production_End
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Production_End))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.BTN_Reload = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -58,7 +60,8 @@ Partial Class frm_SMD_Production_End
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Reload = New System.Windows.Forms.Button()
+        Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -66,6 +69,7 @@ Partial Class frm_SMD_Production_End
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
+        Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'SplitContainer1
@@ -119,6 +123,15 @@ Partial Class frm_SMD_Production_End
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 750)
         Me.SplitContainer1.SplitterDistance = 229
         Me.SplitContainer1.TabIndex = 0
+        '
+        'BTN_Reload
+        '
+        Me.BTN_Reload.Location = New System.Drawing.Point(572, 43)
+        Me.BTN_Reload.Name = "BTN_Reload"
+        Me.BTN_Reload.Size = New System.Drawing.Size(75, 23)
+        Me.BTN_Reload.TabIndex = 39
+        Me.BTN_Reload.Text = "재확인"
+        Me.BTN_Reload.UseVisualStyleBackColor = True
         '
         'Label14
         '
@@ -547,14 +560,17 @@ Partial Class frm_SMD_Production_End
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
-        'BTN_Reload
+        'Grid_Menu
         '
-        Me.BTN_Reload.Location = New System.Drawing.Point(572, 43)
-        Me.BTN_Reload.Name = "BTN_Reload"
-        Me.BTN_Reload.Size = New System.Drawing.Size(75, 23)
-        Me.BTN_Reload.TabIndex = 39
-        Me.BTN_Reload.Text = "재확인"
-        Me.BTN_Reload.UseVisualStyleBackColor = True
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint})
+        Me.Grid_Menu.Name = "Grid_Menu"
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 48)
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Reprint.Text = "현품표 재발행"
         '
         'frm_SMD_Production_End
         '
@@ -574,6 +590,7 @@ Partial Class frm_SMD_Production_End
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
+        Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -615,4 +632,6 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents Label14 As Label
     Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents BTN_Reload As Button
+    Friend WithEvents Grid_Menu As ContextMenuStrip
+    Friend WithEvents BTN_Reprint As ToolStripMenuItem
 End Class

@@ -131,8 +131,6 @@ Public Class frm_WS_Fault_Register
                     End If
                 End If
                 If WriteData(i) = False Then Exit Sub
-
-                Exit For
             End If
         Next
 
@@ -272,6 +270,8 @@ Public Class frm_WS_Fault_Register
         '현재는 사용하지 않음
         'PrintLabel(writeDate, rowNum)
 
+        Grid_Fault(rowNum, 0) = rowNum
+
         Return True
 
     End Function
@@ -403,6 +403,31 @@ Public Class frm_WS_Fault_Register
         Grid_Fault.Cols(4).ComboList = comboList
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Grid_Fault_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_Fault.MouseClick
+
+        Dim selRow As Integer = Grid_Fault.MouseRow
+
+        If selRow > 0 And e.Button = MouseButtons.Right Then
+            Grid_Fault.Row = selRow
+            If Grid_Fault(selRow, 0) = "N" Then
+                BTN_RowDelete.Enabled = True
+            Else
+                BTN_RowDelete.Enabled = False
+            End If
+            Grid_Menu.Show(Grid_Fault, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
+
+        If MessageBox.Show(Me, "선택된 행을 삭제 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        Dim selRow As Integer = Grid_Fault.Row
+        Grid_Fault.RemoveItem(selRow)
 
     End Sub
 End Class

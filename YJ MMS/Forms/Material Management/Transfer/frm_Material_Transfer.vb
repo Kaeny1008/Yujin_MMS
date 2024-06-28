@@ -148,6 +148,7 @@ Public Class frm_Material_Transfer
 
     End Sub
 
+    '바코드 스캔
     Private Sub TB_BarcodeScan_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_BarcodeScan.KeyDown
 
         If e.KeyCode = 13 And Not Trim(TB_BarcodeScan.Text) = String.Empty Then
@@ -350,11 +351,20 @@ Public Class frm_Material_Transfer
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            checkResult = "입고일자 : " & Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
-            checkResult += vbCrLf & "Vendor : " & sqlDR("part_vendor")
-            checkResult += vbCrLf & "Part No. : " & sqlDR("part_no")
-            checkResult += vbCrLf & "Lot No. : " & sqlDR("part_lot_no")
-            checkResult += vbCrLf & "수량 : " & sqlDR("part_qty")
+            Dim sameParts As Boolean = False
+            For i = 1 To Grid_History.Rows.Count - 1
+                If Grid_History(i, 6) = sqlDR("mw_no") Then
+                    sameParts = True
+                    Exit For
+                End If
+            Next
+            If sameParts = False Then
+                checkResult = "입고일자 : " & Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
+                checkResult += vbCrLf & "Vendor : " & sqlDR("part_vendor")
+                checkResult += vbCrLf & "Part No. : " & sqlDR("part_no")
+                checkResult += vbCrLf & "Lot No. : " & sqlDR("part_lot_no")
+                checkResult += vbCrLf & "수량 : " & sqlDR("part_qty")
+            End If
         Loop
         sqlDR.Close()
 
@@ -389,7 +399,7 @@ Public Class frm_Material_Transfer
             mwNo = sqlDR("mw_no")
             TB_InDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
             TextBox1.Text = sqlDR("split_count")
-            TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
+            'TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
         Loop
         sqlDR.Close()
 
@@ -480,7 +490,8 @@ Public Class frm_Material_Transfer
         TB_CustomerCode.Text = String.Empty
         CB_CustomerName.SelectedIndex = -1
         TB_TN_No.Text = String.Empty
-        SplitContainer1.Panel2.Enabled = False
+        Panel1.Enabled = False
+        Panel2.Enabled = False
 
         Thread_LoadingFormEnd()
 
@@ -743,9 +754,13 @@ Public Class frm_Material_Transfer
             TB_2ndQty.Enabled = True
             TB_1stQty.SelectAll()
             TB_1stQty.Focus()
+            CheckBox1.Enabled = True
+            CheckBox1.Checked = True
         Else
             TB_1stQty.Enabled = False
             TB_2ndQty.Enabled = False
+            CheckBox1.Enabled = False
+            CheckBox1.Checked = False
         End If
 
     End Sub
@@ -774,8 +789,13 @@ Public Class frm_Material_Transfer
     Private Sub TB_1stQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_1stQty.KeyDown
 
         If Not TB_1stQty.Text = String.Empty And e.KeyCode = 13 Then
-            TB_2ndQty.SelectAll()
-            TB_2ndQty.Focus()
+            If CheckBox1.Checked = True And Not TB_Qty.Text = String.Empty Then
+                TB_2ndQty.Text = CDbl(TB_Qty.Text) - CDbl(TB_1stQty.Text)
+                BTN_ListAdd_Click(Nothing, Nothing)
+            Else
+                TB_2ndQty.SelectAll()
+                TB_2ndQty.Focus()
+            End If
         End If
 
     End Sub

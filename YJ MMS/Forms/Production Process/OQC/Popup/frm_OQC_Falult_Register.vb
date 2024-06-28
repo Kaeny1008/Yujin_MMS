@@ -90,7 +90,7 @@ Public Class frm_OQC_Falult_Register
 
     End Sub
 
-    Private Sub frm_SMD_Fault_Register_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+    Private Sub frm_SMD_Fault_Register_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
 
         Console.WriteLine("KeyValue : " & e.KeyValue & ", KeyCode : " & e.KeyCode)
 
@@ -319,6 +319,26 @@ Public Class frm_OQC_Falult_Register
         Grid_Fault.Cols(4).ComboList = comboList
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Grid_Fault_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_Fault.MouseClick
+
+        Dim selRow As Integer = Grid_Fault.MouseRow
+
+        If selRow > 0 And e.Button = MouseButtons.Right Then
+            Grid_Fault.Row = selRow
+            If Grid_Fault(selRow, 0) = "N" Then
+                BTN_RowDelete.Enabled = True
+            Else
+                BTN_RowDelete.Enabled = False
+            End If
+            Grid_Menu.Show(Grid_Fault, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
 
     End Sub
 End Class

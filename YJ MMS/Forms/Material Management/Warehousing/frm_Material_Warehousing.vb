@@ -503,6 +503,20 @@ Public Class frm_Material_Warehousing
             Exit Sub
         End If
 
+        If Not Check_Lot_No() = "Not Exist" Then
+            MessageBox.Show(Me,
+                            "중복된 Lot No.입니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            TB_CustomerPartCode.Text = String.Empty
+            TB_PartNo.Text = String.Empty
+            TB_LotNo.Text = String.Empty
+            TB_Qty.Text = String.Empty
+            TB_Vendor.Text = String.Empty
+            Exit Sub
+        End If
+
         Thread_LoadingFormStart("Saving...")
 
         DBConnect()
@@ -584,6 +598,36 @@ Public Class frm_Material_Warehousing
         TB_BarcodeScan.SelectAll()
 
     End Sub
+
+    Private Function Check_Lot_No() As String
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_material_warehousing(3"
+        strSQL += ", null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , null"
+        strSQL += " , '" & TB_CustomerPartCode.Text & "'"
+        strSQL += " , '" & TB_PartNo.Text.Replace("'", "\'") & "'"
+        strSQL += " , '" & TB_LotNo.Text & "'"
+        strSQL += ");"
+
+        Dim returnString As String = "Not Exist"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("exist_same_lot")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 

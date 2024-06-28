@@ -76,11 +76,6 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="Interop.bpac, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>bin\Debug\Interop.bpac.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
     </Reference>
@@ -373,6 +368,18 @@
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\frm_Confirm_of_production_plan.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Production_Status.Designer.vb">
+      <DependentUpon>frm_Production_Status.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Production_Status.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.Designer.vb">
+      <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\frm_Assy_Label_Print.Designer.vb">
@@ -774,6 +781,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Confirm_of_production_plan.resx">
       <DependentUpon>frm_Confirm_of_production_plan.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\frm_Production_Status.resx">
+      <DependentUpon>frm_Production_Status.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.resx">
+      <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\frm_Assy_Label_Print.resx">
       <DependentUpon>frm_Assy_Label_Print.vb</DependentUpon>
@@ -1237,6 +1250,16 @@
   <ItemGroup>
     <None Include="Resources\printer-blue.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="bpac">
+      <Guid>{90359D74-B7D9-467F-B938-3883F4CAB582}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

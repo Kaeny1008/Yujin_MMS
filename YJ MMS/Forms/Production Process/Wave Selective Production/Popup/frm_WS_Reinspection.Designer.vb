@@ -22,7 +22,7 @@ Partial Class frm_WS_Reinspection
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_OQC_Reinspection))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_WS_Reinspection))
         Me.TB_BoardNo = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -33,6 +33,7 @@ Partial Class frm_WS_Reinspection
         Me.Label4 = New System.Windows.Forms.Label()
         Me.LB_OrderIndex = New System.Windows.Forms.Label()
         Me.BTN_Save = New System.Windows.Forms.Button()
+        Me.BTN_Load_Reapir_Result = New System.Windows.Forms.Button()
         CType(Me.Grid_Information, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -43,7 +44,7 @@ Partial Class frm_WS_Reinspection
         Me.TB_BoardNo.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_BoardNo.MaxLength = 20
         Me.TB_BoardNo.Name = "TB_BoardNo"
-        Me.TB_BoardNo.Size = New System.Drawing.Size(553, 21)
+        Me.TB_BoardNo.Size = New System.Drawing.Size(432, 21)
         Me.TB_BoardNo.TabIndex = 1
         '
         'Label1
@@ -154,12 +155,22 @@ Partial Class frm_WS_Reinspection
         Me.BTN_Save.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Save.UseVisualStyleBackColor = True
         '
+        'BTN_Load_Reapir_Result
+        '
+        Me.BTN_Load_Reapir_Result.Location = New System.Drawing.Point(544, 142)
+        Me.BTN_Load_Reapir_Result.Name = "BTN_Load_Reapir_Result"
+        Me.BTN_Load_Reapir_Result.Size = New System.Drawing.Size(118, 21)
+        Me.BTN_Load_Reapir_Result.TabIndex = 11
+        Me.BTN_Load_Reapir_Result.Text = "수리결과 불러오기"
+        Me.BTN_Load_Reapir_Result.UseVisualStyleBackColor = True
+        '
         'frm_WS_Reinspection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(915, 224)
+        Me.Controls.Add(Me.BTN_Load_Reapir_Result)
         Me.Controls.Add(Me.BTN_Save)
         Me.Controls.Add(Me.LB_OrderIndex)
         Me.Controls.Add(Me.TB_Inspector)
@@ -192,4 +203,5 @@ Partial Class frm_WS_Reinspection
     Friend WithEvents Label4 As Label
     Friend WithEvents LB_OrderIndex As Label
     Friend WithEvents BTN_Save As Button
+    Friend WithEvents BTN_Load_Reapir_Result As Button
 End Class

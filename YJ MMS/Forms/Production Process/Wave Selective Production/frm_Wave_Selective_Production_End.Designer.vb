@@ -22,6 +22,7 @@ Partial Class frm_Wave_Selective_Production_End
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Wave_Selective_Production_End))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
@@ -56,6 +57,8 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -63,6 +66,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -508,6 +512,18 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Grid_History.TabIndex = 5
         Me.Grid_History.UseCompatibleTextRendering = True
         '
+        'Grid_Menu
+        '
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint})
+        Me.Grid_Menu.Name = "Grid_Menu"
+        Me.Grid_Menu.Size = New System.Drawing.Size(151, 26)
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(150, 22)
+        Me.BTN_Reprint.Text = "현품표 재발행"
+        '
         'frm_Wave_Selective_Production_End
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -526,6 +542,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.SplitContainer1.ResumeLayout(False)
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -564,4 +581,6 @@ Partial Class frm_Wave_Selective_Production_End
     Friend WithEvents Label1 As Label
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Button1 As Button
+    Friend WithEvents Grid_Menu As ContextMenuStrip
+    Friend WithEvents BTN_Reprint As ToolStripMenuItem
 End Class

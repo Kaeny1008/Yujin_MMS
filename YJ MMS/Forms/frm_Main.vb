@@ -435,4 +435,12 @@ Public Class frm_Main
         frm_Model_Process_Documents.Focus()
 
     End Sub
+
+    Private Sub 생산현황ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 생산현황ToolStripMenuItem.Click
+
+        frm_Production_Status.MdiParent = Me
+        If Not frm_Production_Status.Visible Then frm_Production_Status.Show()
+        frm_Production_Status.Focus()
+
+    End Sub
 End Class

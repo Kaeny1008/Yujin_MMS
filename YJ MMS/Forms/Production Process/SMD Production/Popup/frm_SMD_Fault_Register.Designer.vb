@@ -22,20 +22,23 @@ Partial Class frm_SMD_Fault_Register
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_OQC_Falult_Register))
+        Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Fault_Register))
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.LB_WorkSide = New System.Windows.Forms.Label()
+        Me.LB_SMDLine = New System.Windows.Forms.Label()
+        Me.LB_ItemName = New System.Windows.Forms.Label()
+        Me.LB_ItemCode = New System.Windows.Forms.Label()
         Me.LB_HistoryIndex = New System.Windows.Forms.Label()
         Me.LB_OrderIndex = New System.Windows.Forms.Label()
         Me.BTN_Exit = New System.Windows.Forms.Button()
-        Me.BTN_RowDelete = New System.Windows.Forms.Button()
         Me.BTN_RowAdd = New System.Windows.Forms.Button()
         Me.Grid_Fault = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.LB_ItemCode = New System.Windows.Forms.Label()
-        Me.LB_ItemName = New System.Windows.Forms.Label()
-        Me.LB_SMDLine = New System.Windows.Forms.Label()
-        Me.LB_WorkSide = New System.Windows.Forms.Label()
+        Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_Fault, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -48,13 +51,52 @@ Partial Class frm_SMD_Fault_Register
         Me.Panel1.Controls.Add(Me.LB_HistoryIndex)
         Me.Panel1.Controls.Add(Me.LB_OrderIndex)
         Me.Panel1.Controls.Add(Me.BTN_Exit)
-        Me.Panel1.Controls.Add(Me.BTN_RowDelete)
         Me.Panel1.Controls.Add(Me.BTN_RowAdd)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 62)
         Me.Panel1.TabIndex = 0
+        '
+        'LB_WorkSide
+        '
+        Me.LB_WorkSide.AutoSize = True
+        Me.LB_WorkSide.Location = New System.Drawing.Point(276, 37)
+        Me.LB_WorkSide.Name = "LB_WorkSide"
+        Me.LB_WorkSide.Size = New System.Drawing.Size(56, 12)
+        Me.LB_WorkSide.TabIndex = 37
+        Me.LB_WorkSide.Text = "workside"
+        Me.LB_WorkSide.Visible = False
+        '
+        'LB_SMDLine
+        '
+        Me.LB_SMDLine.AutoSize = True
+        Me.LB_SMDLine.Location = New System.Drawing.Point(276, 26)
+        Me.LB_SMDLine.Name = "LB_SMDLine"
+        Me.LB_SMDLine.Size = New System.Drawing.Size(60, 12)
+        Me.LB_SMDLine.TabIndex = 36
+        Me.LB_SMDLine.Text = "SMD Line"
+        Me.LB_SMDLine.Visible = False
+        '
+        'LB_ItemName
+        '
+        Me.LB_ItemName.AutoSize = True
+        Me.LB_ItemName.Location = New System.Drawing.Point(188, 38)
+        Me.LB_ItemName.Name = "LB_ItemName"
+        Me.LB_ItemName.Size = New System.Drawing.Size(63, 12)
+        Me.LB_ItemName.TabIndex = 35
+        Me.LB_ItemName.Text = "itemName"
+        Me.LB_ItemName.Visible = False
+        '
+        'LB_ItemCode
+        '
+        Me.LB_ItemCode.AutoSize = True
+        Me.LB_ItemCode.Location = New System.Drawing.Point(188, 26)
+        Me.LB_ItemCode.Name = "LB_ItemCode"
+        Me.LB_ItemCode.Size = New System.Drawing.Size(59, 12)
+        Me.LB_ItemCode.TabIndex = 34
+        Me.LB_ItemCode.Text = "itemCode"
+        Me.LB_ItemCode.Visible = False
         '
         'LB_HistoryIndex
         '
@@ -89,26 +131,12 @@ Partial Class frm_SMD_Fault_Register
         Me.BTN_Exit.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_Exit.UseVisualStyleBackColor = True
         '
-        'BTN_RowDelete
-        '
-        Me.BTN_RowDelete.Enabled = False
-        Me.BTN_RowDelete.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_RowDelete.Image = Global.YJ_MMS.My.Resources.Resources.minus_blue
-        Me.BTN_RowDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RowDelete.Location = New System.Drawing.Point(526, 12)
-        Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(112, 37)
-        Me.BTN_RowDelete.TabIndex = 31
-        Me.BTN_RowDelete.Text = "행삭제(F3)"
-        Me.BTN_RowDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_RowDelete.UseVisualStyleBackColor = True
-        '
         'BTN_RowAdd
         '
         Me.BTN_RowAdd.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_RowAdd.Image = Global.YJ_MMS.My.Resources.Resources.plus_blue
         Me.BTN_RowAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_RowAdd.Location = New System.Drawing.Point(408, 12)
+        Me.BTN_RowAdd.Location = New System.Drawing.Point(526, 12)
         Me.BTN_RowAdd.Name = "BTN_RowAdd"
         Me.BTN_RowAdd.Size = New System.Drawing.Size(112, 37)
         Me.BTN_RowAdd.TabIndex = 30
@@ -131,45 +159,17 @@ Partial Class frm_SMD_Fault_Register
         Me.Grid_Fault.TabIndex = 6
         Me.Grid_Fault.UseCompatibleTextRendering = True
         '
-        'LB_ItemCode
+        'Grid_Menu
         '
-        Me.LB_ItemCode.AutoSize = True
-        Me.LB_ItemCode.Location = New System.Drawing.Point(188, 26)
-        Me.LB_ItemCode.Name = "LB_ItemCode"
-        Me.LB_ItemCode.Size = New System.Drawing.Size(59, 12)
-        Me.LB_ItemCode.TabIndex = 34
-        Me.LB_ItemCode.Text = "itemCode"
-        Me.LB_ItemCode.Visible = False
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowDelete})
+        Me.Grid_Menu.Name = "Grid_Menu"
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 48)
         '
-        'LB_ItemName
+        'BTN_RowDelete
         '
-        Me.LB_ItemName.AutoSize = True
-        Me.LB_ItemName.Location = New System.Drawing.Point(188, 38)
-        Me.LB_ItemName.Name = "LB_ItemName"
-        Me.LB_ItemName.Size = New System.Drawing.Size(63, 12)
-        Me.LB_ItemName.TabIndex = 35
-        Me.LB_ItemName.Text = "itemName"
-        Me.LB_ItemName.Visible = False
-        '
-        'LB_SMDLine
-        '
-        Me.LB_SMDLine.AutoSize = True
-        Me.LB_SMDLine.Location = New System.Drawing.Point(276, 26)
-        Me.LB_SMDLine.Name = "LB_SMDLine"
-        Me.LB_SMDLine.Size = New System.Drawing.Size(60, 12)
-        Me.LB_SMDLine.TabIndex = 36
-        Me.LB_SMDLine.Text = "SMD Line"
-        Me.LB_SMDLine.Visible = False
-        '
-        'LB_WorkSide
-        '
-        Me.LB_WorkSide.AutoSize = True
-        Me.LB_WorkSide.Location = New System.Drawing.Point(276, 37)
-        Me.LB_WorkSide.Name = "LB_WorkSide"
-        Me.LB_WorkSide.Size = New System.Drawing.Size(56, 12)
-        Me.LB_WorkSide.TabIndex = 37
-        Me.LB_WorkSide.Text = "workside"
-        Me.LB_WorkSide.Visible = False
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowDelete.Text = "행 삭제"
         '
         'frm_SMD_Fault_Register
         '
@@ -188,13 +188,13 @@ Partial Class frm_SMD_Fault_Register
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.Grid_Fault, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
 
     Friend WithEvents Panel1 As Panel
     Friend WithEvents Grid_Fault As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents BTN_RowDelete As Button
     Friend WithEvents BTN_RowAdd As Button
     Friend WithEvents LB_OrderIndex As Label
     Friend WithEvents BTN_Exit As Button
@@ -203,4 +203,6 @@ Partial Class frm_SMD_Fault_Register
     Friend WithEvents LB_ItemCode As Label
     Friend WithEvents LB_SMDLine As Label
     Friend WithEvents LB_WorkSide As Label
+    Friend WithEvents Grid_Menu As ContextMenuStrip
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
 End Class

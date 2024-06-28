@@ -31,6 +31,10 @@ Partial Class frm_Main
         Me.pgbMain = New System.Windows.Forms.ToolStripProgressBar()
         Me.lb_Status = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.btnHome = New System.Windows.Forms.ToolStripButton()
         Me.btnSetting = New System.Windows.Forms.ToolStripDropDownButton()
         Me.btn_SQLConn = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,7 +42,6 @@ Partial Class frm_Main
         Me.btn_UserManager = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_LabelPrinterSetting = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_PGUpdate = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.btn_BasicInformation = New System.Windows.Forms.ToolStripDropDownButton()
         Me.btn_CustomerMNG = New System.Windows.Forms.ToolStripMenuItem()
         Me.btn_CustomerResistration = New System.Windows.Forms.ToolStripMenuItem()
@@ -79,7 +82,7 @@ Partial Class frm_Main
         Me.BTN_Material_Stock_Survay_Result = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripDropDownButton2 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.BTN_ProductionPlan = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.생산현황ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripDropDownButton3 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.SMD생산ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_SMD_ProductionStart = New System.Windows.Forms.ToolStripMenuItem()
@@ -105,11 +108,9 @@ Partial Class frm_Main
         Me.BTN_Repair_Management = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_AssyLabelPrint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator13 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripDropDownButton4 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.BTN_Delivery_Register = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Delivery_History = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -171,6 +172,21 @@ Partial Class frm_Main
         Me.ToolStrip.TabIndex = 13
         Me.ToolStrip.Text = "ToolStrip"
         '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 31)
+        '
+        'ToolStripSeparator13
+        '
+        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
+        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 31)
+        '
         'btnHome
         '
         Me.btnHome.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
@@ -225,11 +241,6 @@ Partial Class frm_Main
         Me.btn_PGUpdate.Name = "btn_PGUpdate"
         Me.btn_PGUpdate.Size = New System.Drawing.Size(206, 22)
         Me.btn_PGUpdate.Text = "프로그램 파일 Upload"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 31)
         '
         'btn_BasicInformation
         '
@@ -311,19 +322,19 @@ Partial Class frm_Main
         '
         Me.BTN_OrderRegistration.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_OrderRegistration.Name = "BTN_OrderRegistration"
-        Me.BTN_OrderRegistration.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_OrderRegistration.Size = New System.Drawing.Size(165, 22)
         Me.BTN_OrderRegistration.Text = "주문 접수"
         '
         'ToolStripSeparator14
         '
         Me.ToolStripSeparator14.Name = "ToolStripSeparator14"
-        Me.ToolStripSeparator14.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator14.Size = New System.Drawing.Size(162, 6)
         '
         'BTN_OrderModify
         '
         Me.BTN_OrderModify.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_OrderModify.Name = "BTN_OrderModify"
-        Me.BTN_OrderModify.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_OrderModify.Size = New System.Drawing.Size(165, 22)
         Me.BTN_OrderModify.Text = "주문 확인 / 변경"
         '
         'ToolStripDropDownButton1
@@ -342,7 +353,7 @@ Partial Class frm_Main
         Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.ToolStripSeparator6, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.ToolStripSeparator7, Me.BTN_MaterialWarehousing_History, Me.ToolStripSeparator11, Me.BTN_Material_Label_Reprint})
         Me.ToolStripComboBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.ToolStripComboBox1.Name = "ToolStripComboBox1"
-        Me.ToolStripComboBox1.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripComboBox1.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripComboBox1.Text = "입고"
         Me.ToolStripComboBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -394,14 +405,14 @@ Partial Class frm_Main
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_Material_Move
         '
         Me.BTN_Material_Move.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Transfer, Me.BTN_Material_Return})
         Me.BTN_Material_Move.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_Move.Name = "BTN_Material_Move"
-        Me.BTN_Material_Move.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Move.Size = New System.Drawing.Size(152, 22)
         Me.BTN_Material_Move.Text = "자재 이동"
         '
         'BTN_Material_Transfer
@@ -419,52 +430,52 @@ Partial Class frm_Main
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_Material_CheckRequirements
         '
         Me.BTN_Material_CheckRequirements.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_CheckRequirements.Name = "BTN_Material_CheckRequirements"
-        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(152, 22)
         Me.BTN_Material_CheckRequirements.Text = "소요량 확인"
         '
         'BTN_MaterialStock
         '
         Me.BTN_MaterialStock.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MaterialStock.Name = "BTN_MaterialStock"
-        Me.BTN_MaterialStock.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MaterialStock.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MaterialStock.Text = "재고 확인"
         '
         'BTN_MRP
         '
         Me.BTN_MRP.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MRP.Name = "BTN_MRP"
-        Me.BTN_MRP.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MRP.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MRP.Text = "소요량 계획"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_MaterialCode_Change
         '
         Me.BTN_MaterialCode_Change.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MaterialCode_Change.Name = "BTN_MaterialCode_Change"
-        Me.BTN_MaterialCode_Change.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MaterialCode_Change.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MaterialCode_Change.Text = "품목코드 변경"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(149, 6)
         '
         '재고조사ToolStripMenuItem
         '
         Me.재고조사ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Stock_Survay_Plan, Me.BTN_Material_Stock_Survay_Input, Me.BTN_Material_Stock_Survay_Result})
         Me.재고조사ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.재고조사ToolStripMenuItem.Name = "재고조사ToolStripMenuItem"
-        Me.재고조사ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.재고조사ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.재고조사ToolStripMenuItem.Text = "재고조사"
         '
         'BTN_Material_Stock_Survay_Plan
@@ -490,7 +501,7 @@ Partial Class frm_Main
         'ToolStripDropDownButton2
         '
         Me.ToolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_ProductionPlan})
+        Me.ToolStripDropDownButton2.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_ProductionPlan, Me.생산현황ToolStripMenuItem})
         Me.ToolStripDropDownButton2.Font = New System.Drawing.Font("맑은 고딕", 11.25!, System.Drawing.FontStyle.Bold)
         Me.ToolStripDropDownButton2.Image = CType(resources.GetObject("ToolStripDropDownButton2.Image"), System.Drawing.Image)
         Me.ToolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta
@@ -502,13 +513,15 @@ Partial Class frm_Main
         '
         Me.BTN_ProductionPlan.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_ProductionPlan.Name = "BTN_ProductionPlan"
-        Me.BTN_ProductionPlan.Size = New System.Drawing.Size(152, 22)
+        Me.BTN_ProductionPlan.Size = New System.Drawing.Size(180, 22)
         Me.BTN_ProductionPlan.Text = "생산계획 수립"
         '
-        'ToolStripSeparator4
+        '생산현황ToolStripMenuItem
         '
-        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(6, 31)
+        Me.생산현황ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
+        Me.생산현황ToolStripMenuItem.Name = "생산현황ToolStripMenuItem"
+        Me.생산현황ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.생산현황ToolStripMenuItem.Text = "생산현황"
         '
         'ToolStripDropDownButton3
         '
@@ -679,11 +692,6 @@ Partial Class frm_Main
         Me.BTN_AssyLabelPrint.Size = New System.Drawing.Size(220, 22)
         Me.BTN_AssyLabelPrint.Text = "PCB Ass'y Label 발행"
         '
-        'ToolStripSeparator13
-        '
-        Me.ToolStripSeparator13.Name = "ToolStripSeparator13"
-        Me.ToolStripSeparator13.Size = New System.Drawing.Size(6, 31)
-        '
         'ToolStripDropDownButton4
         '
         Me.ToolStripDropDownButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
@@ -816,4 +824,5 @@ Partial Class frm_Main
     Friend WithEvents BTN_MRP As ToolStripMenuItem
     Friend WithEvents BTN_Model_Process_Documents As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator14 As ToolStripSeparator
+    Friend WithEvents 생산현황ToolStripMenuItem As ToolStripMenuItem
 End Class

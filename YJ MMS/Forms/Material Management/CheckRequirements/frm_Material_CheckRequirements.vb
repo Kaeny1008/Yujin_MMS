@@ -393,16 +393,21 @@ Public Class frm_Material_CheckRequirements
 
         If saveOK = False Then Exit Sub
 
-        For i = 2 To Grid_MaterialList.Rows.Count - 1
+        Dim lowMaterial As Boolean = False
+        For i = 3 To Grid_MaterialList.Rows.Count - 1
             If Grid_MaterialList(i, 16) < 0 Then
-                MessageBox.Show(Me,
-                                "계획대비 부족한 자재가 존재 합니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning)
-                Exit Sub
+                lowMaterial = True
+                Exit For
             End If
         Next
+
+        If lowMaterial = True Then
+            If MessageBox.Show(Me,
+                               "계획대비 부족한 자재가 존재 합니다." & vbCrLf & "무시 후 확정 하시겠습니까?",
+                               msg_form,
+                               MessageBoxButtons.YesNo,
+                               MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        End If
 
         If MessageBox.Show(Me,
                            "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.",

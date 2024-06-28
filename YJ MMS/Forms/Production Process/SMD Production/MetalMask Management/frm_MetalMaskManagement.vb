@@ -425,6 +425,10 @@ Public Class frm_MetalMaskManagement
 
     Private Sub Cms_LabelPrinter_Click(sender As Object, e As EventArgs) Handles Cms_LabelPrinter.Click
 
+        Dim maskSN As String = Grid_List(Grid_List.Row, 3)
+
+        Brother_Printer(maskSN)
+
     End Sub
 
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click

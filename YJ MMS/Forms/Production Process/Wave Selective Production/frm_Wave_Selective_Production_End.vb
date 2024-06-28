@@ -1,4 +1,5 @@
-﻿Imports C1.Win.C1FlexGrid
+﻿Imports System.IO
+Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Wave_Selective_Production_End
@@ -392,4 +393,133 @@ Public Class frm_Wave_Selective_Production_End
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         frm_asdadsads.Show()
     End Sub
+
+    Private Sub Grid_History_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_History.MouseClick
+
+        Dim selRow As Integer = Grid_History.MouseRow
+
+        If e.Button = MouseButtons.Right And selRow > 0 Then
+            Grid_History.Row = selRow
+            Grid_Menu.Show(Grid_History, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
+
+        If MessageBox.Show(Me, "현품표를 재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        Dim selRow As Integer = Grid_History.Row
+
+        Dim nowWriteDate As String = Grid_History(selRow, 1)
+        Dim nowHistoryNo As String = Grid_History(selRow, 9)
+        Dim nowProductionQty As String = Grid_History(selRow, 7)
+        Dim nowTotalQty As String = CDbl(Grid_History(selRow, 5)) + CDbl(Grid_History(selRow, 7))
+
+        PrintLabel(nowWriteDate, nowHistoryNo, nowProductionQty, nowTotalQty)
+
+    End Sub
+
+    Private Sub PrintLabel(ByVal writeDate As String,
+                           ByVal historyNo As String,
+                           ByVal productionQty As String,
+                           ByVal totalQty As String
+                           )
+
+        If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
+
+        Dim swFile As StreamWriter =
+            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
+
+        swFile.WriteLine("^XZ~JA^XZ")
+        swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
+        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
+        swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
+
+        swFile.WriteLine("^FO0008,0162^GB0694,0302,2,B,1^FS")
+
+        swFile.WriteLine("^FO0008,0200^GB0694,0000,2,B,0^FS")
+        swFile.WriteLine("^FO0008,0238^GB0694,0000,2,B,0^FS")
+        swFile.WriteLine("^FO0008,0276^GB0694,0000,2,B,0^FS")
+        swFile.WriteLine("^FO0008,0314^GB0694,0000,2,B,0^FS")
+
+        swFile.WriteLine("^FO0162,0162^GB0000,0302,2,B,0^FS")
+        swFile.WriteLine("^FO0352,0200^GB0000,0116,2,B,0^FS")
+        swFile.WriteLine("^FO0510,0200^GB0000,0116,2,B,0^FS")
+
+        swFile.WriteLine("^FO0170,0008^A1N,60,40^FD" & CB_Line.Text & " 현품표^FS")
+        swFile.WriteLine("^FO0172,0080^A0,40,20^FDItemCode : ^FS")
+        swFile.WriteLine("^FO0264,0080^A0,40,20^FD" & TB_ItemCode.Text & "^FS")
+        swFile.WriteLine("^FO0172,0120^A0,40,20^FDItemName : ^FS")
+        swFile.WriteLine("^FO0272,0120^A0,40,20^FD" & TB_ItemName.Text & "^FS")
+
+        swFile.WriteLine("^FO0016,0170^A0,30,20^FDPO No.^FS")
+        swFile.WriteLine("^FO0170,0170^A0,30,20^FD" & TB_OrderIndex.Text & " ( " & historyNo & " )^FS")
+
+        swFile.WriteLine("^FO0016,0208^A0,30,20^FDTotal Q'ty^FS")
+        swFile.WriteLine("^FO0170,0208^A0,30,20^FD" & totalQty & " EA^FS")
+        swFile.WriteLine("^FO0360,0208^A0,30,20^FDMagazine Q'ty^FS")
+        swFile.WriteLine("^FO0518,0208^A0,30,20^FD" & productionQty & " EA^FS")
+
+        swFile.WriteLine("^FO0016,0246^A0,30,20^FDLine^FS")
+        swFile.WriteLine("^FO0170,0246^A0,30,20^FD" & CB_Line.Text & "^FS")
+        'swFile.WriteLine("^FO0360,0246^A0,30,20^FDTop / Bottom^FS")
+        'swFile.WriteLine("^FO0518,0246^A0,30,20^FD" & TB_TB.Text & "^FS")
+        swFile.WriteLine("^FO0016,0284^A0,30,20^FDDate^FS")
+        swFile.WriteLine("^FO0170,0284^A0,30,18^FD" & writeDate & "^FS")
+        swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
+        swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & Load_Process() & "^FS")
+
+        swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_OrderIndex.Text & "!" & historyNo & "!" & CB_Line.Text & "^FS")
+
+        swFile.WriteLine("^PQ" & 1 & "^FS") 'PQ : 발행수량
+        swFile.WriteLine("^XZ")
+        swFile.Close()
+
+        Dim printResult As String = LabelPrint()
+
+        If Not printResult = "Success" Then
+            MessageBox.Show(frm_Main,
+                            "라벨 발행에 실패 하였습니다." & vbCrLf &
+                            printResult,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+        End If
+
+    End Sub
+
+    Private Function Load_Process() As String
+
+        DBConnect()
+
+        Dim returnString As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(8"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If returnString = String.Empty Then
+                returnString = sqlDR("process_name")
+            Else
+                returnString += ">" & sqlDR("process_name")
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
 End Class

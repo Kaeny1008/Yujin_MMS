@@ -58,48 +58,50 @@ Public Class frm_Order_Excel_File_Open
 
             For i = startRow To endRow
                 If IsNumeric(Grid_Excel(i, j)) Then
-                    If Not Grid_Excel(i, 0).ToString.Equals("행 제외") Then
-                        Dim nowItemCode As String = Grid_Excel(i, itemCode)
-                        Dim itemFind As Boolean = False
-                        For x = 1 To frm_Order_Registration.Grid_Excel.Rows.Count - 1
-                            If frm_Order_Registration.Grid_Excel(x, 3) = nowItemCode And
-                                frm_Order_Registration.Grid_Excel(x, 11) = nowDate Then
-                                Dim registerQty As Double = frm_Order_Registration.Grid_Excel(x, 9)
-                                If Not registerQty = CDbl(Grid_Excel(i, j)) Then
-                                    frm_Order_Registration.Grid_Excel(x, 0) = "M"
-                                    'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Red
-                                    frm_Order_Registration.Grid_Excel(x, 15) = "수량변경"
-                                    frm_Order_Registration.Grid_Excel(x, 9) = Grid_Excel(i, j)
-                                Else
-                                    frm_Order_Registration.Grid_Excel(x, 0) = x
-                                    'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Black
-                                    frm_Order_Registration.Grid_Excel(x, 15) = String.Empty
+                    If Not Grid_Excel(i, j) = 0 Then
+                        If Not Grid_Excel(i, 0).ToString.Equals("행 제외") Then
+                            Dim nowItemCode As String = Grid_Excel(i, itemCode)
+                            Dim itemFind As Boolean = False
+                            For x = 1 To frm_Order_Registration.Grid_Excel.Rows.Count - 1
+                                If frm_Order_Registration.Grid_Excel(x, 3) = nowItemCode And
+                                    frm_Order_Registration.Grid_Excel(x, 11) = nowDate Then
+                                    Dim registerQty As Double = frm_Order_Registration.Grid_Excel(x, 9)
+                                    If Not registerQty = CDbl(Grid_Excel(i, j)) Then
+                                        frm_Order_Registration.Grid_Excel(x, 0) = "M"
+                                        'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Red
+                                        frm_Order_Registration.Grid_Excel(x, 15) = "수량변경"
+                                        frm_Order_Registration.Grid_Excel(x, 9) = Grid_Excel(i, j)
+                                    Else
+                                        frm_Order_Registration.Grid_Excel(x, 0) = x
+                                        'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Black
+                                        frm_Order_Registration.Grid_Excel(x, 15) = String.Empty
+                                    End If
+                                    itemFind = True
+                                    Exit For
                                 End If
-                                itemFind = True
-                                Exit For
-                            End If
-                        Next
+                            Next
 
-                        If itemFind = False Then
-                            GridWriteText("N" & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          Grid_Excel(i, itemCode) & vbTab &
-                                          Grid_Excel(i, itemName) & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          orderDate & vbTab &
-                                          Grid_Excel(i, j) & vbTab &
-                                          vbTab &
-                                          nowDate & vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          vbTab &
-                                          "신규",
-                                          frm_Order_Registration,
-                                          frm_Order_Registration.Grid_Excel,
-                                          Color.Blue)
+                            If itemFind = False Then
+                                GridWriteText("N" & vbTab &
+                                              vbTab &
+                                              vbTab &
+                                              Grid_Excel(i, itemCode) & vbTab &
+                                              Grid_Excel(i, itemName) & vbTab &
+                                              vbTab &
+                                              vbTab &
+                                              vbTab &
+                                              orderDate & vbTab &
+                                              Grid_Excel(i, j) & vbTab &
+                                              vbTab &
+                                              nowDate & vbTab &
+                                              vbTab &
+                                              vbTab &
+                                              vbTab &
+                                              "신규",
+                                              frm_Order_Registration,
+                                              frm_Order_Registration.Grid_Excel,
+                                              Color.Blue)
+                            End If
                         End If
                     End If
                 End If
