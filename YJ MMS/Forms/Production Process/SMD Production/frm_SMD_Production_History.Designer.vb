@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class frm_Production_Status
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class frm_SMD_Production_History
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()>
+    <System.Diagnostics.DebuggerNonUserCode()> _
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,32 +20,34 @@ Partial Class frm_Production_Status
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()>
+    <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Production_Status))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_SMD_Production_History))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.Grid_HistoryList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_SMD_Information = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_WS_Information = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_FaultHistory = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel5.SuspendLayout()
-        CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Grid_HistoryList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Grid_Menu.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -56,37 +58,20 @@ Partial Class frm_Production_Status
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
-        Me.TS_MainBar.TabIndex = 2
+        Me.TS_MainBar.TabIndex = 3
         Me.TS_MainBar.Text = "ToolStrip1"
-        '
-        'BTN_Search
-        '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
-        '
-        'Form_CLose
-        '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
         '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.ComboBox1)
+        Me.Panel5.Controls.Add(Me.Label6)
         Me.Panel5.Controls.Add(Me.Label5)
         Me.Panel5.Controls.Add(Me.TextBox1)
         Me.Panel5.Controls.Add(Me.Label4)
         Me.Panel5.Controls.Add(Me.DateTimePicker2)
         Me.Panel5.Controls.Add(Me.Label2)
         Me.Panel5.Controls.Add(Me.DateTimePicker1)
-        Me.Panel5.Controls.Add(Me.ComboBox1)
         Me.Panel5.Controls.Add(Me.Label1)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
@@ -94,8 +79,33 @@ Partial Class frm_Production_Status
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 25)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(1264, 87)
-        Me.Panel5.TabIndex = 3
+        Me.Panel5.Size = New System.Drawing.Size(1264, 108)
+        Me.Panel5.TabIndex = 4
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"All", "Bottom", "Top"})
+        Me.ComboBox1.Location = New System.Drawing.Point(85, 76)
+        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(389, 20)
+        Me.ComboBox1.TabIndex = 14
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.White
+        Me.Label6.Location = New System.Drawing.Point(9, 76)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(76, 21)
+        Me.Label6.TabIndex = 13
+        Me.Label6.Text = "작업면"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label5
         '
@@ -133,7 +143,7 @@ Partial Class frm_Production_Status
         'DateTimePicker2
         '
         Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker2.Location = New System.Drawing.Point(351, 32)
+        Me.DateTimePicker2.Location = New System.Drawing.Point(222, 32)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(123, 21)
         Me.DateTimePicker2.TabIndex = 9
@@ -141,7 +151,7 @@ Partial Class frm_Production_Status
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(337, 37)
+        Me.Label2.Location = New System.Drawing.Point(208, 37)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(14, 12)
         Me.Label2.TabIndex = 8
@@ -150,21 +160,10 @@ Partial Class frm_Production_Status
         'DateTimePicker1
         '
         Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(214, 31)
+        Me.DateTimePicker1.Location = New System.Drawing.Point(85, 31)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(123, 21)
         Me.DateTimePicker1.TabIndex = 7
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"납품 요청일자", "SMD 생산", "PBA 생산"})
-        Me.ComboBox1.Location = New System.Drawing.Point(85, 31)
-        Me.ComboBox1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(126, 20)
-        Me.ComboBox1.TabIndex = 6
         '
         'Label1
         '
@@ -215,53 +214,76 @@ Partial Class frm_Production_Status
         Me.Label3.Text = "고객사"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Grid_OrderList
+        'Grid_HistoryList
         '
-        Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
-        Me.Grid_OrderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 112)
-        Me.Grid_OrderList.Margin = New System.Windows.Forms.Padding(0)
-        Me.Grid_OrderList.Name = "Grid_OrderList"
-        Me.Grid_OrderList.Rows.Count = 2
-        Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(1264, 661)
-        Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
-        Me.Grid_OrderList.TabIndex = 4
-        Me.Grid_OrderList.UseCompatibleTextRendering = True
+        Me.Grid_HistoryList.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_HistoryList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Grid_HistoryList.Location = New System.Drawing.Point(0, 133)
+        Me.Grid_HistoryList.Margin = New System.Windows.Forms.Padding(0)
+        Me.Grid_HistoryList.Name = "Grid_HistoryList"
+        Me.Grid_HistoryList.Rows.Count = 2
+        Me.Grid_HistoryList.Rows.DefaultSize = 20
+        Me.Grid_HistoryList.Size = New System.Drawing.Size(1264, 640)
+        Me.Grid_HistoryList.StyleInfo = resources.GetString("Grid_HistoryList.StyleInfo")
+        Me.Grid_HistoryList.TabIndex = 5
+        Me.Grid_HistoryList.UseCompatibleTextRendering = True
         '
         'Grid_Menu
         '
-        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_SMD_Information, Me.BTN_WS_Information})
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_FaultHistory, Me.ToolStripSeparator1, Me.BTN_Reprint})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(216, 48)
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 76)
         '
-        'BTN_SMD_Information
+        'BTN_Reprint
         '
-        Me.BTN_SMD_Information.Name = "BTN_SMD_Information"
-        Me.BTN_SMD_Information.Size = New System.Drawing.Size(215, 22)
-        Me.BTN_SMD_Information.Text = "SMD 생산정보"
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Reprint.Text = "현품표 재발행"
         '
-        'BTN_WS_Information
+        'BTN_FaultHistory
         '
-        Me.BTN_WS_Information.Name = "BTN_WS_Information"
-        Me.BTN_WS_Information.Size = New System.Drawing.Size(215, 22)
-        Me.BTN_WS_Information.Text = "Wave / Selective 생산정보"
+        Me.BTN_FaultHistory.Name = "BTN_FaultHistory"
+        Me.BTN_FaultHistory.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_FaultHistory.Text = "불량내역"
         '
-        'frm_Production_Status
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        '
+        'frm_SMD_Production_History
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1264, 773)
-        Me.Controls.Add(Me.Grid_OrderList)
+        Me.Controls.Add(Me.Grid_HistoryList)
         Me.Controls.Add(Me.Panel5)
         Me.Controls.Add(Me.TS_MainBar)
-        Me.Name = "frm_Production_Status"
-        Me.Text = "생산현황"
+        Me.Name = "frm_SMD_Production_History"
+        Me.Text = "SMD 생산이력"
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
-        CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Grid_HistoryList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Grid_Menu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -272,19 +294,21 @@ Partial Class frm_Production_Status
     Friend WithEvents BTN_Search As ToolStripButton
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents Panel5 As Panel
-    Friend WithEvents CB_CustomerName As ComboBox
-    Friend WithEvents TB_CustomerCode As TextBox
-    Friend WithEvents Label3 As Label
-    Friend WithEvents Grid_OrderList As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label4 As Label
     Friend WithEvents DateTimePicker2 As DateTimePicker
     Friend WithEvents Label2 As Label
     Friend WithEvents DateTimePicker1 As DateTimePicker
-    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents Label4 As Label
+    Friend WithEvents CB_CustomerName As ComboBox
+    Friend WithEvents TB_CustomerCode As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Grid_HistoryList As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label6 As Label
     Friend WithEvents Grid_Menu As ContextMenuStrip
-    Friend WithEvents BTN_SMD_Information As ToolStripMenuItem
-    Friend WithEvents Label5 As Label
-    Friend WithEvents BTN_WS_Information As ToolStripMenuItem
+    Friend WithEvents BTN_Reprint As ToolStripMenuItem
+    Friend WithEvents BTN_FaultHistory As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
 End Class

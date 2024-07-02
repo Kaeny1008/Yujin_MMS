@@ -1207,7 +1207,7 @@ FTP_Control:
             If BTN_NewManagementNo.Visible = False Then
                 strSQL += "insert into tb_model_management_no("
                 strSQL += "management_no, model_code, specification_number, issue_date, gubun"
-                strSQL += ", time_of_change, change_notification, write_date, write_id, change_contetn"
+                strSQL += ", time_of_change, change_notification, write_date, write_id, change_content, array_count"
                 strSQL += ") values("
                 strSQL += "'" & CB_ManagementNo.Text & "'"
                 strSQL += ",'" & TB_ModelCode.Text & "'"
@@ -1219,6 +1219,7 @@ FTP_Control:
                 strSQL += ",'" & writeDate & "'"
                 strSQL += ",'" & loginID & "'"
                 strSQL += ",'" & TB_ChangeContent.Text & "'"
+                strSQL += "," & NUD_Array.Value & ""
                 strSQL += ");"
             Else
                 strSQL += "update tb_model_management_no set"
@@ -1230,6 +1231,7 @@ FTP_Control:
                 strSQL += ", write_date = '" & writeDate & "'"
                 strSQL += ", write_id = '" & loginID & "'"
                 strSQL += ", change_content = '" & TB_ChangeContent.Text & "'"
+                strSQL += ", array_count = " & NUD_Array.Value
                 strSQL += " where management_no = '" & CB_ManagementNo.Text & "'"
                 strSQL += ";"
 
@@ -1415,6 +1417,7 @@ FTP_Control:
             CB_Change_Notification.Text = sqlDR("change_notification")
             TB_Time_Of_Change.Text = sqlDR("time_of_change")
             TB_ChangeContent.Text = sqlDR("change_content")
+            NUD_Array.Value = CInt(sqlDR("array_count"))
         Loop
         sqlDR.Close()
 

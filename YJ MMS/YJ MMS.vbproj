@@ -376,6 +376,12 @@
     <Compile Include="Forms\Production Management\frm_Production_Status.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_WS.Designer.vb">
+      <DependentUpon>frm_Production_Information_WS.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_WS.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.Designer.vb">
       <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
     </Compile>
@@ -404,6 +410,12 @@
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_History.Designer.vb">
+      <DependentUpon>frm_SMD_Production_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_History.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.designer.vb">
@@ -482,6 +494,12 @@
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_Start.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_History.Designer.vb">
+      <DependentUpon>frm_SMD_Fault_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_History.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_Register.Designer.vb">
@@ -658,9 +676,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\Basic Information\Customer Management\frm_CustomerPartCode.resx">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.resx">
       <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Model_Document.resx">
       <DependentUpon>frm_Model_Document.vb</DependentUpon>
@@ -709,6 +729,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Customer Management\frm_CustomerResistration.resx">
       <DependentUpon>frm_CustomerResistration.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements_back.resx">
       <DependentUpon>frm_Material_CheckRequirements_back.vb</DependentUpon>
@@ -785,6 +806,9 @@
     <EmbeddedResource Include="Forms\Production Management\frm_Production_Status.resx">
       <DependentUpon>frm_Production_Status.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Information_WS.resx">
+      <DependentUpon>frm_Production_Information_WS.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.resx">
       <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
     </EmbeddedResource>
@@ -799,6 +823,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.resx">
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\frm_SMD_Production_History.resx">
+      <DependentUpon>frm_SMD_Production_History.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\MetalMask Management\frm_MetalMaskHistory.resx">
       <DependentUpon>frm_MetalMaskHistory.vb</DependentUpon>
@@ -838,6 +865,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\frm_SMD_Production_Start.resx">
       <DependentUpon>frm_SMD_Production_Start.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_History.resx">
+      <DependentUpon>frm_SMD_Fault_History.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\Popup\frm_SMD_Fault_Register.resx">
       <DependentUpon>frm_SMD_Fault_Register.vb</DependentUpon>

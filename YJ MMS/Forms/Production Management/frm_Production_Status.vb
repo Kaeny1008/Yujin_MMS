@@ -11,7 +11,7 @@ Public Class frm_Production_Status
         ComboBox1.SelectedIndex = 0
 
         DateTimePicker1.Value = Format(Now, "yyyy-MM-01")
-        DateTimePicker2.Value = Now
+        DateTimePicker2.Value = DateAdd(DateInterval.Day, -1, CDate(Format(DateAdd(DateInterval.Month, 1, Now), "yyyy-MM-01")))
 
     End Sub
 
@@ -166,14 +166,14 @@ Public Class frm_Production_Status
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-            Exit Sub
-        End If
+        'If TB_CustomerCode.Text = String.Empty Then
+        '    MessageBox.Show(Me,
+        '                    "고객사를 먼저 선택하여 주십시오.",
+        '                    msg_form,
+        '                    MessageBoxButtons.OK,
+        '                    MessageBoxIcon.Information)
+        '    Exit Sub
+        'End If
 
         Thread_LoadingFormStart()
 
@@ -252,7 +252,14 @@ Public Class frm_Production_Status
 
     End Sub
 
-    Private Sub TS_MainBar_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles TS_MainBar.ItemClicked
+    Private Sub BTN_WS_Information_Click(sender As Object, e As EventArgs) Handles BTN_WS_Information.Click
+
+        Dim selRow As Integer = Grid_OrderList.Row
+        Dim orderIndex As String = Grid_OrderList(selRow, 1)
+
+        frm_Production_Information_WS.orderIndex = orderIndex
+        If Not frm_Production_Information_WS.Visible Then frm_Production_Information_WS.Show()
+        frm_Production_Information_WS.Focus()
 
     End Sub
 End Class

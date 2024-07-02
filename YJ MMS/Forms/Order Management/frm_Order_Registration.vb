@@ -929,12 +929,25 @@ Public Class frm_Order_Registration
 
         Thread_LoadingFormStart("자료 확인 중...")
 
+        Dim totalNew As Integer = 0
+        Dim totalDelete As Integer = 0
+        Dim totalModify As Integer = 0
+
         If Grid_Excel.InvokeRequired Then
             Grid_Excel.Invoke(New Action(AddressOf ETC_Excel_Last_Step))
         Else
             Grid_Excel.Redraw = False
 
             For i = 1 To Grid_Excel.Rows.Count - 1
+
+                If Grid_Excel(i, 15) = "신규" Then
+                    totalNew += 1
+                ElseIf Grid_Excel(i, 15) = "수량변경" Then
+                    totalModify += 1
+                ElseIf Grid_Excel(i, 15) = "삭제" Then
+                    totalDelete += 1
+                End If
+
                 Dim loaderPCB As String = RegistrationCheck(Grid_Excel(i, 3), i)
 
                 If Grid_Excel(i, 15) = "신규" Then
@@ -1009,6 +1022,17 @@ Public Class frm_Order_Registration
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
         End If
+
+        Dim showString As String = "신규 : " & totalNew & " 건"
+        showString += vbCrLf & "수량변경 : " & totalModify & " 건"
+        showString += vbCrLf & "삭제 : " & totalDelete & " 건"
+        showString += vbCrLf & "이 확인 되었습니다."
+
+        MessageBox.Show(Me,
+                        showString,
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
 
     End Sub
 

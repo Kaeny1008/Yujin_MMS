@@ -67,8 +67,21 @@ Partial Class frm_Model_Document
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Grid_Process = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.TB_ChangeContent = New System.Windows.Forms.TextBox()
         Me.CB_Change_Notification = New System.Windows.Forms.ComboBox()
         Me.Label20 = New System.Windows.Forms.Label()
         Me.CB_Gubun = New System.Windows.Forms.ComboBox()
@@ -99,19 +112,8 @@ Partial Class frm_Model_Document
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
-        Me.Label28 = New System.Windows.Forms.Label()
-        Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.TB_ChangeContent = New System.Windows.Forms.TextBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.NUD_Array = New System.Windows.Forms.NumericUpDown()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -133,11 +135,12 @@ Partial Class frm_Model_Document
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage6.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
-        Me.TabPage6.SuspendLayout()
+        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -368,7 +371,7 @@ Partial Class frm_Model_Document
         Me.TabPage3.Controls.Add(Me.Label12)
         Me.TabPage3.Location = New System.Drawing.Point(4, 22)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(689, 486)
+        Me.TabPage3.Size = New System.Drawing.Size(689, 437)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "좌표데이터"
         Me.TabPage3.UseVisualStyleBackColor = True
@@ -381,7 +384,7 @@ Partial Class frm_Model_Document
         Me.Grid_Coordinates.Name = "Grid_Coordinates"
         Me.Grid_Coordinates.Rows.Count = 2
         Me.Grid_Coordinates.Rows.DefaultSize = 20
-        Me.Grid_Coordinates.Size = New System.Drawing.Size(689, 474)
+        Me.Grid_Coordinates.Size = New System.Drawing.Size(689, 425)
         Me.Grid_Coordinates.StyleInfo = resources.GetString("Grid_Coordinates.StyleInfo")
         Me.Grid_Coordinates.TabIndex = 3
         '
@@ -401,7 +404,7 @@ Partial Class frm_Model_Document
         Me.TabPage4.Controls.Add(Me.BTN_Result)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(689, 486)
+        Me.TabPage4.Size = New System.Drawing.Size(689, 437)
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "BOM+좌표데이터"
         Me.TabPage4.UseVisualStyleBackColor = True
@@ -414,7 +417,7 @@ Partial Class frm_Model_Document
         Me.Grid_BOM_Total.Name = "Grid_BOM_Total"
         Me.Grid_BOM_Total.Rows.Count = 2
         Me.Grid_BOM_Total.Rows.DefaultSize = 20
-        Me.Grid_BOM_Total.Size = New System.Drawing.Size(689, 436)
+        Me.Grid_BOM_Total.Size = New System.Drawing.Size(689, 387)
         Me.Grid_BOM_Total.StyleInfo = resources.GetString("Grid_BOM_Total.StyleInfo")
         Me.Grid_BOM_Total.TabIndex = 3
         '
@@ -430,6 +433,8 @@ Partial Class frm_Model_Document
         '
         'TabPage5
         '
+        Me.TabPage5.Controls.Add(Me.NUD_Array)
+        Me.TabPage5.Controls.Add(Me.Label31)
         Me.TabPage5.Controls.Add(Me.Panel6)
         Me.TabPage5.Controls.Add(Me.Label19)
         Me.TabPage5.Controls.Add(Me.Panel5)
@@ -443,16 +448,17 @@ Partial Class frm_Model_Document
         Me.TabPage5.Controls.Add(Me.Grid_Process)
         Me.TabPage5.Location = New System.Drawing.Point(4, 22)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(689, 422)
+        Me.TabPage5.Size = New System.Drawing.Size(689, 437)
         Me.TabPage5.TabIndex = 4
         Me.TabPage5.Text = "공정 및 특이사항"
         Me.TabPage5.UseVisualStyleBackColor = True
         '
         'Panel6
         '
+        Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel6.Controls.Add(Me.RadioButton5)
         Me.Panel6.Controls.Add(Me.RadioButton6)
-        Me.Panel6.Location = New System.Drawing.Point(536, 382)
+        Me.Panel6.Location = New System.Drawing.Point(150, 400)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(246, 22)
         Me.Panel6.TabIndex = 14
@@ -481,18 +487,21 @@ Partial Class frm_Model_Document
         '
         'Label19
         '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(412, 387)
+        Me.Label19.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label19.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label19.Location = New System.Drawing.Point(26, 400)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(113, 12)
+        Me.Label19.Size = New System.Drawing.Size(120, 22)
         Me.Label19.TabIndex = 13
         Me.Label19.Text = "- Loader PCB인가?"
+        Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel5
         '
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel5.Controls.Add(Me.RadioButton3)
         Me.Panel5.Controls.Add(Me.RadioButton4)
-        Me.Panel5.Location = New System.Drawing.Point(150, 382)
+        Me.Panel5.Location = New System.Drawing.Point(150, 372)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(246, 22)
         Me.Panel5.TabIndex = 10
@@ -521,12 +530,14 @@ Partial Class frm_Model_Document
         '
         'Label17
         '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(26, 387)
+        Me.Label17.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label17.Location = New System.Drawing.Point(26, 372)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(83, 12)
+        Me.Label17.Size = New System.Drawing.Size(120, 22)
         Me.Label17.TabIndex = 9
         Me.Label17.Text = "- Loader PCB"
+        Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TextBox1
         '
@@ -538,15 +549,18 @@ Partial Class frm_Model_Document
         '
         'Label16
         '
-        Me.Label16.AutoSize = True
+        Me.Label16.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label16.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label16.Location = New System.Drawing.Point(26, 215)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(63, 12)
+        Me.Label16.Size = New System.Drawing.Size(120, 147)
         Me.Label16.TabIndex = 7
         Me.Label16.Text = "- 특이사항"
+        Me.Label16.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel4
         '
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Panel4.Controls.Add(Me.RadioButton2)
         Me.Panel4.Controls.Add(Me.RadioButton1)
         Me.Panel4.Location = New System.Drawing.Point(150, 174)
@@ -578,12 +592,14 @@ Partial Class frm_Model_Document
         '
         'Label15
         '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(26, 179)
+        Me.Label15.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label15.Location = New System.Drawing.Point(26, 174)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(74, 12)
+        Me.Label15.Size = New System.Drawing.Size(120, 22)
         Me.Label15.TabIndex = 5
         Me.Label15.Text = "- Chip Bond"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label14
         '
@@ -620,6 +636,121 @@ Partial Class frm_Model_Document
         Me.Grid_Process.StyleInfo = resources.GetString("Grid_Process.StyleInfo")
         Me.Grid_Process.TabIndex = 2
         '
+        'TabPage6
+        '
+        Me.TabPage6.Controls.Add(Me.CheckBox2)
+        Me.TabPage6.Controls.Add(Me.CheckBox1)
+        Me.TabPage6.Controls.Add(Me.TB_Label_FPGA)
+        Me.TabPage6.Controls.Add(Me.Label29)
+        Me.TabPage6.Controls.Add(Me.TB_Label_Boot)
+        Me.TabPage6.Controls.Add(Me.Label28)
+        Me.TabPage6.Controls.Add(Me.TB_Label_FW)
+        Me.TabPage6.Controls.Add(Me.Label27)
+        Me.TabPage6.Controls.Add(Me.TB_Label_ItemName)
+        Me.TabPage6.Controls.Add(Me.Label18)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Size = New System.Drawing.Size(689, 437)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "라벨관련"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(24, 98)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
+        Me.CheckBox2.TabIndex = 22
+        Me.CheckBox2.Text = "Software Label 발행"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(24, 17)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
+        Me.CheckBox1.TabIndex = 21
+        Me.CheckBox1.Text = "Ass'y Label 발행"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'TB_Label_FPGA
+        '
+        Me.TB_Label_FPGA.Enabled = False
+        Me.TB_Label_FPGA.Location = New System.Drawing.Point(164, 175)
+        Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
+        Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FPGA.TabIndex = 20
+        '
+        'Label29
+        '
+        Me.Label29.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label29.Location = New System.Drawing.Point(42, 175)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(115, 21)
+        Me.Label29.TabIndex = 19
+        Me.Label29.Text = "- FPGA"
+        Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Label_Boot
+        '
+        Me.TB_Label_Boot.Enabled = False
+        Me.TB_Label_Boot.Location = New System.Drawing.Point(164, 148)
+        Me.TB_Label_Boot.Name = "TB_Label_Boot"
+        Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_Boot.TabIndex = 18
+        '
+        'Label28
+        '
+        Me.Label28.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label28.Location = New System.Drawing.Point(42, 148)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(115, 21)
+        Me.Label28.TabIndex = 17
+        Me.Label28.Text = "- Boot"
+        Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Label_FW
+        '
+        Me.TB_Label_FW.Enabled = False
+        Me.TB_Label_FW.Location = New System.Drawing.Point(164, 121)
+        Me.TB_Label_FW.Name = "TB_Label_FW"
+        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FW.TabIndex = 16
+        '
+        'Label27
+        '
+        Me.Label27.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label27.Location = New System.Drawing.Point(42, 121)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(115, 21)
+        Me.Label27.TabIndex = 15
+        Me.Label27.Text = "- F/W(OS)"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Label_ItemName
+        '
+        Me.TB_Label_ItemName.Enabled = False
+        Me.TB_Label_ItemName.Location = New System.Drawing.Point(164, 36)
+        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
+        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_ItemName.TabIndex = 14
+        '
+        'Label18
+        '
+        Me.Label18.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label18.Location = New System.Drawing.Point(42, 36)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(115, 21)
+        Me.Label18.TabIndex = 13
+        Me.Label18.Text = "- 품목명"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
@@ -655,6 +786,30 @@ Partial Class frm_Model_Document
         Me.Panel7.Name = "Panel7"
         Me.Panel7.Size = New System.Drawing.Size(561, 141)
         Me.Panel7.TabIndex = 5
+        '
+        'Label30
+        '
+        Me.Label30.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label30.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label30.ForeColor = System.Drawing.Color.White
+        Me.Label30.Location = New System.Drawing.Point(7, 106)
+        Me.Label30.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(120, 21)
+        Me.Label30.TabIndex = 11
+        Me.Label30.Text = "변경내용"
+        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_ChangeContent
+        '
+        Me.TB_ChangeContent.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_ChangeContent.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_ChangeContent.Location = New System.Drawing.Point(127, 106)
+        Me.TB_ChangeContent.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_ChangeContent.Name = "TB_ChangeContent"
+        Me.TB_ChangeContent.Size = New System.Drawing.Size(420, 21)
+        Me.TB_ChangeContent.TabIndex = 12
         '
         'CB_Change_Notification
         '
@@ -1012,136 +1167,24 @@ Partial Class frm_Model_Document
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
-        'TabPage6
+        'Label31
         '
-        Me.TabPage6.Controls.Add(Me.CheckBox2)
-        Me.TabPage6.Controls.Add(Me.CheckBox1)
-        Me.TabPage6.Controls.Add(Me.TB_Label_FPGA)
-        Me.TabPage6.Controls.Add(Me.Label29)
-        Me.TabPage6.Controls.Add(Me.TB_Label_Boot)
-        Me.TabPage6.Controls.Add(Me.Label28)
-        Me.TabPage6.Controls.Add(Me.TB_Label_FW)
-        Me.TabPage6.Controls.Add(Me.Label27)
-        Me.TabPage6.Controls.Add(Me.TB_Label_ItemName)
-        Me.TabPage6.Controls.Add(Me.Label18)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Size = New System.Drawing.Size(689, 437)
-        Me.TabPage6.TabIndex = 5
-        Me.TabPage6.Text = "라벨관련"
-        Me.TabPage6.UseVisualStyleBackColor = True
+        Me.Label31.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label31.Location = New System.Drawing.Point(412, 174)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(120, 22)
+        Me.Label31.TabIndex = 15
+        Me.Label31.Text = "- Array / PCB"
+        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'TB_Label_ItemName
+        'NUD_Array
         '
-        Me.TB_Label_ItemName.Enabled = False
-        Me.TB_Label_ItemName.Location = New System.Drawing.Point(164, 36)
-        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
-        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_ItemName.TabIndex = 14
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(42, 40)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(51, 12)
-        Me.Label18.TabIndex = 13
-        Me.Label18.Text = "- 품목명"
-        '
-        'TB_Label_FW
-        '
-        Me.TB_Label_FW.Enabled = False
-        Me.TB_Label_FW.Location = New System.Drawing.Point(164, 121)
-        Me.TB_Label_FW.Name = "TB_Label_FW"
-        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_FW.TabIndex = 16
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(42, 125)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(65, 12)
-        Me.Label27.TabIndex = 15
-        Me.Label27.Text = "- F/W(OS)"
-        '
-        'TB_Label_Boot
-        '
-        Me.TB_Label_Boot.Enabled = False
-        Me.TB_Label_Boot.Location = New System.Drawing.Point(164, 148)
-        Me.TB_Label_Boot.Name = "TB_Label_Boot"
-        Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_Boot.TabIndex = 18
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(42, 152)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(40, 12)
-        Me.Label28.TabIndex = 17
-        Me.Label28.Text = "- Boot"
-        '
-        'TB_Label_FPGA
-        '
-        Me.TB_Label_FPGA.Enabled = False
-        Me.TB_Label_FPGA.Location = New System.Drawing.Point(164, 175)
-        Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
-        Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_FPGA.TabIndex = 20
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(42, 179)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(47, 12)
-        Me.Label29.TabIndex = 19
-        Me.Label29.Text = "- FPGA"
-        '
-        'Label30
-        '
-        Me.Label30.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label30.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label30.ForeColor = System.Drawing.Color.White
-        Me.Label30.Location = New System.Drawing.Point(7, 106)
-        Me.Label30.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(120, 21)
-        Me.Label30.TabIndex = 11
-        Me.Label30.Text = "변경내용"
-        Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_ChangeContent
-        '
-        Me.TB_ChangeContent.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_ChangeContent.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_ChangeContent.Location = New System.Drawing.Point(127, 106)
-        Me.TB_ChangeContent.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_ChangeContent.Name = "TB_ChangeContent"
-        Me.TB_ChangeContent.Size = New System.Drawing.Size(420, 21)
-        Me.TB_ChangeContent.TabIndex = 12
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(24, 17)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
-        Me.CheckBox1.TabIndex = 21
-        Me.CheckBox1.Text = "Ass'y Label 발행"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(24, 98)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
-        Me.CheckBox2.TabIndex = 22
-        Me.CheckBox2.Text = "Software Label 발행"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.NUD_Array.Location = New System.Drawing.Point(536, 175)
+        Me.NUD_Array.Name = "NUD_Array"
+        Me.NUD_Array.Size = New System.Drawing.Size(115, 21)
+        Me.NUD_Array.TabIndex = 16
+        Me.NUD_Array.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'frm_Model_Document
         '
@@ -1181,14 +1224,15 @@ Partial Class frm_Model_Document
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage6.ResumeLayout(False)
+        Me.TabPage6.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
-        Me.TabPage6.ResumeLayout(False)
-        Me.TabPage6.PerformLayout()
+        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1282,4 +1326,6 @@ Partial Class frm_Model_Document
     Friend WithEvents TB_ChangeContent As TextBox
     Friend WithEvents CheckBox2 As CheckBox
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents NUD_Array As NumericUpDown
+    Friend WithEvents Label31 As Label
 End Class

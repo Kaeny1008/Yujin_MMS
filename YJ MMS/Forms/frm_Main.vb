@@ -443,4 +443,12 @@ Public Class frm_Main
         frm_Production_Status.Focus()
 
     End Sub
+
+    Private Sub BTN_SMD_Production_History_Click(sender As Object, e As EventArgs) Handles BTN_SMD_Production_History.Click
+
+        frm_SMD_Production_History.MdiParent = Me
+        If Not frm_SMD_Production_History.Visible Then frm_SMD_Production_History.Show()
+        frm_SMD_Production_History.Focus()
+
+    End Sub
 End Class
