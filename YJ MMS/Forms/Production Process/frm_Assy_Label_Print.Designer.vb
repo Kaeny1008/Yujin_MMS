@@ -25,6 +25,18 @@ Partial Class frm_Assy_Label_Print
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Assy_Label_Print))
         Me.C1DockingTab1 = New C1.Win.C1Command.C1DockingTab()
         Me.C1DockingTabPage1 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.CB_Reprint = New System.Windows.Forms.CheckBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -53,11 +65,13 @@ Partial Class frm_Assy_Label_Print
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.TB_MagazineBarcode = New System.Windows.Forms.TextBox()
+        Me.BTN_SaveAndPrint = New System.Windows.Forms.Button()
         Me.C1DockingTabPage2 = New C1.Win.C1Command.C1DockingTabPage()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.TB_SearchOrderIndex = New System.Windows.Forms.TextBox()
         Me.Label19 = New System.Windows.Forms.Label()
+        Me.BTN_HistorySearch = New System.Windows.Forms.Button()
         Me.DTP_End = New System.Windows.Forms.DateTimePicker()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.DTP_Start = New System.Windows.Forms.DateTimePicker()
@@ -73,6 +87,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Unique = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
+        Me.BTN_Reprint = New System.Windows.Forms.Button()
         Me.TB_Reprint_Serial = New System.Windows.Forms.TextBox()
         Me.Label25 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Date = New System.Windows.Forms.TextBox()
@@ -90,6 +105,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Grid_ReprintList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.BTN_Reprint_List = New System.Windows.Forms.Button()
         Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
@@ -98,25 +114,14 @@ Partial Class frm_Assy_Label_Print
         Me.Label31 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Search_CustomerCode = New System.Windows.Forms.TextBox()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
-        Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.BTN_SaveAndPrint = New System.Windows.Forms.Button()
-        Me.BTN_HistorySearch = New System.Windows.Forms.Button()
-        Me.BTN_Reprint = New System.Windows.Forms.Button()
-        Me.BTN_Reprint_List = New System.Windows.Forms.Button()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
+        Me.Panel4.SuspendLayout()
         CType(Me.Grid_LabelList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
         Me.C1DockingTabPage2.SuspendLayout()
@@ -130,7 +135,6 @@ Partial Class frm_Assy_Label_Print
         CType(Me.Grid_ReprintList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.TS_MainBar.SuspendLayout()
-        Me.Panel4.SuspendLayout()
         Me.SuspendLayout()
         '
         'C1DockingTab1
@@ -146,13 +150,14 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTab1.SelectedTabBold = True
         Me.C1DockingTab1.Size = New System.Drawing.Size(1264, 748)
         Me.C1DockingTab1.TabAreaBackColor = System.Drawing.Color.SteelBlue
-        Me.C1DockingTab1.TabIndex = 0
+        Me.C1DockingTab1.TabIndex = 1
         Me.C1DockingTab1.TabsSpacing = -13
         Me.C1DockingTab1.TabStyle = C1.Win.C1Command.TabStyleEnum.Sloping
         '
         'C1DockingTabPage1
         '
         Me.C1DockingTabPage1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.C1DockingTabPage1.Controls.Add(Me.CB_Reprint)
         Me.C1DockingTabPage1.Controls.Add(Me.Panel4)
         Me.C1DockingTabPage1.Controls.Add(Me.Label12)
         Me.C1DockingTabPage1.Controls.Add(Me.TextBox3)
@@ -172,17 +177,135 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage1.TabIndex = 0
         Me.C1DockingTabPage1.Text = "라벨발행"
         '
+        'CB_Reprint
+        '
+        Me.CB_Reprint.AutoSize = True
+        Me.CB_Reprint.Location = New System.Drawing.Point(19, 3)
+        Me.CB_Reprint.Name = "CB_Reprint"
+        Me.CB_Reprint.Size = New System.Drawing.Size(128, 16)
+        Me.CB_Reprint.TabIndex = 0
+        Me.CB_Reprint.Text = "현품표 전부 재발행"
+        Me.CB_Reprint.UseVisualStyleBackColor = True
+        '
+        'Panel4
+        '
+        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel4.Controls.Add(Me.CheckBox2)
+        Me.Panel4.Controls.Add(Me.CheckBox1)
+        Me.Panel4.Controls.Add(Me.TB_Label_FPGA)
+        Me.Panel4.Controls.Add(Me.Label32)
+        Me.Panel4.Controls.Add(Me.TB_Label_Boot)
+        Me.Panel4.Controls.Add(Me.Label33)
+        Me.Panel4.Controls.Add(Me.TB_Label_FW)
+        Me.Panel4.Controls.Add(Me.Label34)
+        Me.Panel4.Controls.Add(Me.TB_Label_ItemName)
+        Me.Panel4.Controls.Add(Me.Label35)
+        Me.Panel4.Location = New System.Drawing.Point(19, 405)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(420, 208)
+        Me.Panel4.TabIndex = 9
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Enabled = False
+        Me.CheckBox2.Location = New System.Drawing.Point(18, 80)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
+        Me.CheckBox2.TabIndex = 3
+        Me.CheckBox2.Text = "Software Label 발행"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(18, 27)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
+        Me.CheckBox1.TabIndex = 0
+        Me.CheckBox1.Text = "Ass'y Label 발행"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'TB_Label_FPGA
+        '
+        Me.TB_Label_FPGA.Enabled = False
+        Me.TB_Label_FPGA.Location = New System.Drawing.Point(158, 157)
+        Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
+        Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FPGA.TabIndex = 9
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(36, 161)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(47, 12)
+        Me.Label32.TabIndex = 8
+        Me.Label32.Text = "- FPGA"
+        '
+        'TB_Label_Boot
+        '
+        Me.TB_Label_Boot.Enabled = False
+        Me.TB_Label_Boot.Location = New System.Drawing.Point(158, 130)
+        Me.TB_Label_Boot.Name = "TB_Label_Boot"
+        Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_Boot.TabIndex = 7
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(36, 134)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(40, 12)
+        Me.Label33.TabIndex = 6
+        Me.Label33.Text = "- Boot"
+        '
+        'TB_Label_FW
+        '
+        Me.TB_Label_FW.Enabled = False
+        Me.TB_Label_FW.Location = New System.Drawing.Point(158, 103)
+        Me.TB_Label_FW.Name = "TB_Label_FW"
+        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FW.TabIndex = 5
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(36, 107)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(65, 12)
+        Me.Label34.TabIndex = 4
+        Me.Label34.Text = "- F/W(OS)"
+        '
+        'TB_Label_ItemName
+        '
+        Me.TB_Label_ItemName.Enabled = False
+        Me.TB_Label_ItemName.Location = New System.Drawing.Point(158, 46)
+        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
+        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_ItemName.TabIndex = 2
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(36, 50)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(51, 12)
+        Me.Label35.TabIndex = 1
+        Me.Label35.Text = "- 품목명"
+        '
         'Label12
         '
         Me.Label12.BackColor = System.Drawing.Color.LightSlateGray
         Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label12.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label12.ForeColor = System.Drawing.Color.White
-        Me.Label12.Location = New System.Drawing.Point(19, 280)
+        Me.Label12.Location = New System.Drawing.Point(19, 311)
         Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(134, 25)
-        Me.Label12.TabIndex = 13
+        Me.Label12.TabIndex = 5
         Me.Label12.Text = "마지막 발행번호"
         Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -193,11 +316,11 @@ Partial Class frm_Assy_Label_Print
         Me.TextBox3.Enabled = False
         Me.TextBox3.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.TextBox3.ImeMode = System.Windows.Forms.ImeMode.Disable
-        Me.TextBox3.Location = New System.Drawing.Point(153, 280)
+        Me.TextBox3.Location = New System.Drawing.Point(153, 311)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(625, 25)
-        Me.TextBox3.TabIndex = 14
+        Me.TextBox3.TabIndex = 6
         '
         'Label7
         '
@@ -205,11 +328,11 @@ Partial Class frm_Assy_Label_Print
         Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label7.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
-        Me.Label7.Location = New System.Drawing.Point(339, 318)
+        Me.Label7.Location = New System.Drawing.Point(339, 349)
         Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(121, 25)
-        Me.Label7.TabIndex = 10
+        Me.Label7.TabIndex = 7
         Me.Label7.Text = "발행자"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -217,11 +340,11 @@ Partial Class frm_Assy_Label_Print
         '
         Me.TextBox2.BackColor = System.Drawing.SystemColors.Window
         Me.TextBox2.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.TextBox2.Location = New System.Drawing.Point(460, 318)
+        Me.TextBox2.Location = New System.Drawing.Point(460, 349)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(196, 25)
-        Me.TextBox2.TabIndex = 11
+        Me.TextBox2.TabIndex = 8
         '
         'Label6
         '
@@ -233,7 +356,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(429, 25)
-        Me.Label6.TabIndex = 9
+        Me.Label6.TabIndex = 11
         Me.Label6.Text = "라벨발행 목록"
         Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -250,13 +373,16 @@ Partial Class frm_Assy_Label_Print
         Me.Grid_LabelList.Rows.DefaultSize = 20
         Me.Grid_LabelList.Size = New System.Drawing.Size(429, 659)
         Me.Grid_LabelList.StyleInfo = resources.GetString("Grid_LabelList.StyleInfo")
-        Me.Grid_LabelList.TabIndex = 8
+        Me.Grid_LabelList.TabIndex = 12
         Me.Grid_LabelList.UseCompatibleTextRendering = True
         '
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.TextBox4)
+        Me.Panel3.Controls.Add(Me.Label5)
+        Me.Panel3.Controls.Add(Me.TextBox1)
         Me.Panel3.Controls.Add(Me.Label14)
         Me.Panel3.Controls.Add(Me.TB_HistoryNo)
         Me.Panel3.Controls.Add(Me.Label15)
@@ -278,8 +404,8 @@ Partial Class frm_Assy_Label_Print
         Me.Panel3.Location = New System.Drawing.Point(153, 50)
         Me.Panel3.Margin = New System.Windows.Forms.Padding(0)
         Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(625, 228)
-        Me.Panel3.TabIndex = 5
+        Me.Panel3.Size = New System.Drawing.Size(625, 259)
+        Me.Panel3.TabIndex = 4
         '
         'Label14
         '
@@ -303,7 +429,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label15.Location = New System.Drawing.Point(325, 145)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(105, 16)
-        Me.Label15.TabIndex = 14
+        Me.Label15.TabIndex = 12
         Me.Label15.Text = "현재 수량 :"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -313,7 +439,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_NowQty.Location = New System.Drawing.Point(436, 143)
         Me.TB_NowQty.Name = "TB_NowQty"
         Me.TB_NowQty.Size = New System.Drawing.Size(184, 21)
-        Me.TB_NowQty.TabIndex = 15
+        Me.TB_NowQty.TabIndex = 13
         '
         'Label4
         '
@@ -337,7 +463,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label2.Location = New System.Drawing.Point(10, 172)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(105, 16)
-        Me.Label2.TabIndex = 12
+        Me.Label2.TabIndex = 14
         Me.Label2.Text = "마지막 공정 :"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -347,7 +473,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_LastProcess.Location = New System.Drawing.Point(121, 170)
         Me.TB_LastProcess.Name = "TB_LastProcess"
         Me.TB_LastProcess.Size = New System.Drawing.Size(499, 21)
-        Me.TB_LastProcess.TabIndex = 13
+        Me.TB_LastProcess.TabIndex = 15
         '
         'Label13
         '
@@ -443,8 +569,8 @@ Partial Class frm_Assy_Label_Print
         Me.Label1.Location = New System.Drawing.Point(19, 50)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(134, 228)
-        Me.Label1.TabIndex = 4
+        Me.Label1.Size = New System.Drawing.Size(134, 259)
+        Me.Label1.TabIndex = 3
         Me.Label1.Text = "생산정보"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -458,7 +584,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(134, 25)
-        Me.Label3.TabIndex = 2
+        Me.Label3.TabIndex = 1
         Me.Label3.Text = "현품표 바코드"
         Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -472,7 +598,21 @@ Partial Class frm_Assy_Label_Print
         Me.TB_MagazineBarcode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_MagazineBarcode.Name = "TB_MagazineBarcode"
         Me.TB_MagazineBarcode.Size = New System.Drawing.Size(625, 25)
-        Me.TB_MagazineBarcode.TabIndex = 3
+        Me.TB_MagazineBarcode.TabIndex = 2
+        '
+        'BTN_SaveAndPrint
+        '
+        Me.BTN_SaveAndPrint.Enabled = False
+        Me.BTN_SaveAndPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_SaveAndPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.BTN_SaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 349)
+        Me.BTN_SaveAndPrint.Name = "BTN_SaveAndPrint"
+        Me.BTN_SaveAndPrint.Size = New System.Drawing.Size(119, 68)
+        Me.BTN_SaveAndPrint.TabIndex = 10
+        Me.BTN_SaveAndPrint.Text = "발행"
+        Me.BTN_SaveAndPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_SaveAndPrint.UseVisualStyleBackColor = True
         '
         'C1DockingTabPage2
         '
@@ -541,6 +681,19 @@ Partial Class frm_Assy_Label_Print
         Me.Label19.TabIndex = 17
         Me.Label19.Text = "주문번호"
         Me.Label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_HistorySearch
+        '
+        Me.BTN_HistorySearch.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_HistorySearch.Image = Global.YJ_MMS.My.Resources.Resources.search
+        Me.BTN_HistorySearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_HistorySearch.Location = New System.Drawing.Point(6, 20)
+        Me.BTN_HistorySearch.Name = "BTN_HistorySearch"
+        Me.BTN_HistorySearch.Size = New System.Drawing.Size(95, 52)
+        Me.BTN_HistorySearch.TabIndex = 16
+        Me.BTN_HistorySearch.Text = "검색"
+        Me.BTN_HistorySearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_HistorySearch.UseVisualStyleBackColor = True
         '
         'DTP_End
         '
@@ -629,7 +782,7 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTabPage3.Name = "C1DockingTabPage3"
         Me.C1DockingTabPage3.Size = New System.Drawing.Size(1262, 717)
         Me.C1DockingTabPage3.TabIndex = 2
-        Me.C1DockingTabPage3.Text = "라벨 재발행(품명)"
+        Me.C1DockingTabPage3.Text = "라벨 재발행(SN)"
         '
         'SplitContainer1
         '
@@ -681,7 +834,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_ModelCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_ModelCode.Name = "TB_Reprint_ModelCode"
         Me.TB_Reprint_ModelCode.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprint_ModelCode.TabIndex = 39
+        Me.TB_Reprint_ModelCode.TabIndex = 11
         '
         'Label28
         '
@@ -693,7 +846,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label28.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(121, 25)
-        Me.Label28.TabIndex = 38
+        Me.Label28.TabIndex = 10
         Me.Label28.Text = "모델코드"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -705,7 +858,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprintor.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprintor.Name = "TB_Reprintor"
         Me.TB_Reprintor.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprintor.TabIndex = 37
+        Me.TB_Reprintor.TabIndex = 20
         '
         'Label27
         '
@@ -717,7 +870,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label27.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(121, 25)
-        Me.Label27.TabIndex = 36
+        Me.Label27.TabIndex = 19
         Me.Label27.Text = "발행자"
         Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -731,7 +884,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Unique.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_Unique.Name = "TB_Reprint_Unique"
         Me.TB_Reprint_Unique.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprint_Unique.TabIndex = 35
+        Me.TB_Reprint_Unique.TabIndex = 13
         '
         'Label26
         '
@@ -743,9 +896,22 @@ Partial Class frm_Assy_Label_Print
         Me.Label26.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(121, 25)
-        Me.Label26.TabIndex = 34
+        Me.Label26.TabIndex = 12
         Me.Label26.Text = "품목명"
         Me.Label26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_Reprint
+        '
+        Me.BTN_Reprint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Reprint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.BTN_Reprint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Reprint.Location = New System.Drawing.Point(312, 278)
+        Me.BTN_Reprint.Name = "BTN_Reprint"
+        Me.BTN_Reprint.Size = New System.Drawing.Size(119, 68)
+        Me.BTN_Reprint.TabIndex = 21
+        Me.BTN_Reprint.Text = "재발행"
+        Me.BTN_Reprint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Reprint.UseVisualStyleBackColor = True
         '
         'TB_Reprint_Serial
         '
@@ -757,7 +923,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Serial.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_Serial.Name = "TB_Reprint_Serial"
         Me.TB_Reprint_Serial.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprint_Serial.TabIndex = 32
+        Me.TB_Reprint_Serial.TabIndex = 18
         '
         'Label25
         '
@@ -769,7 +935,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label25.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(121, 25)
-        Me.Label25.TabIndex = 31
+        Me.Label25.TabIndex = 17
         Me.Label25.Text = "생산순번"
         Me.Label25.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -782,7 +948,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Date.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_Date.Name = "TB_Reprint_Date"
         Me.TB_Reprint_Date.Size = New System.Drawing.Size(120, 25)
-        Me.TB_Reprint_Date.TabIndex = 30
+        Me.TB_Reprint_Date.TabIndex = 16
         '
         'DTP_ReprintDate
         '
@@ -792,7 +958,7 @@ Partial Class frm_Assy_Label_Print
         Me.DTP_ReprintDate.Margin = New System.Windows.Forms.Padding(0)
         Me.DTP_ReprintDate.Name = "DTP_ReprintDate"
         Me.DTP_ReprintDate.Size = New System.Drawing.Size(183, 25)
-        Me.DTP_ReprintDate.TabIndex = 29
+        Me.DTP_ReprintDate.TabIndex = 15
         '
         'Label22
         '
@@ -804,7 +970,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label22.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(121, 25)
-        Me.Label22.TabIndex = 28
+        Me.Label22.TabIndex = 14
         Me.Label22.Text = "생산일자"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -818,7 +984,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_ItemSpec.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_ItemSpec.Name = "TB_Reprint_ItemSpec"
         Me.TB_Reprint_ItemSpec.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprint_ItemSpec.TabIndex = 27
+        Me.TB_Reprint_ItemSpec.TabIndex = 9
         '
         'Label24
         '
@@ -830,7 +996,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label24.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(121, 25)
-        Me.Label24.TabIndex = 26
+        Me.Label24.TabIndex = 8
         Me.Label24.Text = "규격"
         Me.Label24.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -844,7 +1010,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_ItemName.Name = "TB_Reprint_ItemName"
         Me.TB_Reprint_ItemName.Size = New System.Drawing.Size(303, 25)
-        Me.TB_Reprint_ItemName.TabIndex = 25
+        Me.TB_Reprint_ItemName.TabIndex = 7
         '
         'Label23
         '
@@ -856,7 +1022,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label23.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(121, 25)
-        Me.Label23.TabIndex = 24
+        Me.Label23.TabIndex = 6
         Me.Label23.Text = "품명"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -866,7 +1032,7 @@ Partial Class frm_Assy_Label_Print
         Me.BTN_PrintCodeSelect.Location = New System.Drawing.Point(315, 46)
         Me.BTN_PrintCodeSelect.Name = "BTN_PrintCodeSelect"
         Me.BTN_PrintCodeSelect.Size = New System.Drawing.Size(117, 25)
-        Me.BTN_PrintCodeSelect.TabIndex = 23
+        Me.BTN_PrintCodeSelect.TabIndex = 5
         Me.BTN_PrintCodeSelect.Text = "품번선택"
         Me.BTN_PrintCodeSelect.UseVisualStyleBackColor = True
         '
@@ -880,7 +1046,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_ItemCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_ItemCode.Name = "TB_Reprint_ItemCode"
         Me.TB_Reprint_ItemCode.Size = New System.Drawing.Size(183, 25)
-        Me.TB_Reprint_ItemCode.TabIndex = 20
+        Me.TB_Reprint_ItemCode.TabIndex = 4
         '
         'Label21
         '
@@ -892,7 +1058,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label21.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(121, 25)
-        Me.Label21.TabIndex = 19
+        Me.Label21.TabIndex = 3
         Me.Label21.Text = "품번"
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -905,7 +1071,7 @@ Partial Class frm_Assy_Label_Print
         Me.CB_Reprint_CustomerName.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_Reprint_CustomerName.Name = "CB_Reprint_CustomerName"
         Me.CB_Reprint_CustomerName.Size = New System.Drawing.Size(183, 25)
-        Me.CB_Reprint_CustomerName.TabIndex = 14
+        Me.CB_Reprint_CustomerName.TabIndex = 1
         '
         'Label20
         '
@@ -917,7 +1083,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label20.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(121, 25)
-        Me.Label20.TabIndex = 13
+        Me.Label20.TabIndex = 0
         Me.Label20.Text = "고객사명"
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -930,7 +1096,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_CustomerCode.Name = "TB_Reprint_CustomerCode"
         Me.TB_Reprint_CustomerCode.Size = New System.Drawing.Size(120, 25)
-        Me.TB_Reprint_CustomerCode.TabIndex = 12
+        Me.TB_Reprint_CustomerCode.TabIndex = 2
         '
         'Grid_ReprintList
         '
@@ -944,7 +1110,7 @@ Partial Class frm_Assy_Label_Print
         Me.Grid_ReprintList.Rows.DefaultSize = 20
         Me.Grid_ReprintList.Size = New System.Drawing.Size(815, 617)
         Me.Grid_ReprintList.StyleInfo = resources.GetString("Grid_ReprintList.StyleInfo")
-        Me.Grid_ReprintList.TabIndex = 11
+        Me.Grid_ReprintList.TabIndex = 1
         Me.Grid_ReprintList.UseCompatibleTextRendering = True
         '
         'Panel2
@@ -962,7 +1128,20 @@ Partial Class frm_Assy_Label_Print
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(815, 100)
-        Me.Panel2.TabIndex = 10
+        Me.Panel2.TabIndex = 0
+        '
+        'BTN_Reprint_List
+        '
+        Me.BTN_Reprint_List.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Reprint_List.Image = Global.YJ_MMS.My.Resources.Resources.search
+        Me.BTN_Reprint_List.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Reprint_List.Location = New System.Drawing.Point(6, 20)
+        Me.BTN_Reprint_List.Name = "BTN_Reprint_List"
+        Me.BTN_Reprint_List.Size = New System.Drawing.Size(95, 52)
+        Me.BTN_Reprint_List.TabIndex = 0
+        Me.BTN_Reprint_List.Text = "검색"
+        Me.BTN_Reprint_List.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Reprint_List.UseVisualStyleBackColor = True
         '
         'DateTimePicker2
         '
@@ -972,7 +1151,7 @@ Partial Class frm_Assy_Label_Print
         Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(0)
         Me.DateTimePicker2.Name = "DateTimePicker2"
         Me.DateTimePicker2.Size = New System.Drawing.Size(117, 25)
-        Me.DateTimePicker2.TabIndex = 15
+        Me.DateTimePicker2.TabIndex = 4
         '
         'Label29
         '
@@ -981,7 +1160,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label29.Location = New System.Drawing.Point(345, 25)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(19, 15)
-        Me.Label29.TabIndex = 14
+        Me.Label29.TabIndex = 3
         Me.Label29.Text = "~"
         '
         'DateTimePicker1
@@ -992,7 +1171,7 @@ Partial Class frm_Assy_Label_Print
         Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(0)
         Me.DateTimePicker1.Name = "DateTimePicker1"
         Me.DateTimePicker1.Size = New System.Drawing.Size(117, 25)
-        Me.DateTimePicker1.TabIndex = 13
+        Me.DateTimePicker1.TabIndex = 2
         '
         'Label30
         '
@@ -1004,7 +1183,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label30.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(121, 25)
-        Me.Label30.TabIndex = 12
+        Me.Label30.TabIndex = 1
         Me.Label30.Text = "발행일자"
         Me.Label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1017,7 +1196,7 @@ Partial Class frm_Assy_Label_Print
         Me.CB_Reprint_Search_CustomerName.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_Reprint_Search_CustomerName.Name = "CB_Reprint_Search_CustomerName"
         Me.CB_Reprint_Search_CustomerName.Size = New System.Drawing.Size(183, 25)
-        Me.CB_Reprint_Search_CustomerName.TabIndex = 11
+        Me.CB_Reprint_Search_CustomerName.TabIndex = 6
         '
         'Label31
         '
@@ -1029,7 +1208,7 @@ Partial Class frm_Assy_Label_Print
         Me.Label31.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(121, 25)
-        Me.Label31.TabIndex = 10
+        Me.Label31.TabIndex = 5
         Me.Label31.Text = "고객사명"
         Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
@@ -1042,7 +1221,7 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Search_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Reprint_Search_CustomerCode.Name = "TB_Reprint_Search_CustomerCode"
         Me.TB_Reprint_Search_CustomerCode.Size = New System.Drawing.Size(120, 25)
-        Me.TB_Reprint_Search_CustomerCode.TabIndex = 9
+        Me.TB_Reprint_Search_CustomerCode.TabIndex = 7
         '
         'TS_MainBar
         '
@@ -1051,169 +1230,8 @@ Partial Class frm_Assy_Label_Print
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
         Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
-        Me.TS_MainBar.TabIndex = 3
+        Me.TS_MainBar.TabIndex = 0
         Me.TS_MainBar.Text = "ToolStrip1"
-        '
-        'Panel4
-        '
-        Me.Panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel4.Controls.Add(Me.CheckBox2)
-        Me.Panel4.Controls.Add(Me.CheckBox1)
-        Me.Panel4.Controls.Add(Me.TB_Label_FPGA)
-        Me.Panel4.Controls.Add(Me.Label32)
-        Me.Panel4.Controls.Add(Me.TB_Label_Boot)
-        Me.Panel4.Controls.Add(Me.Label33)
-        Me.Panel4.Controls.Add(Me.TB_Label_FW)
-        Me.Panel4.Controls.Add(Me.Label34)
-        Me.Panel4.Controls.Add(Me.TB_Label_ItemName)
-        Me.Panel4.Controls.Add(Me.Label35)
-        Me.Panel4.Location = New System.Drawing.Point(19, 405)
-        Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(420, 208)
-        Me.Panel4.TabIndex = 15
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Enabled = False
-        Me.CheckBox2.Location = New System.Drawing.Point(18, 80)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
-        Me.CheckBox2.TabIndex = 32
-        Me.CheckBox2.Text = "Software Label 발행"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(18, 27)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
-        Me.CheckBox1.TabIndex = 31
-        Me.CheckBox1.Text = "Ass'y Label 발행"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'TB_Label_FPGA
-        '
-        Me.TB_Label_FPGA.Enabled = False
-        Me.TB_Label_FPGA.Location = New System.Drawing.Point(158, 157)
-        Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
-        Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_FPGA.TabIndex = 30
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(36, 161)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(47, 12)
-        Me.Label32.TabIndex = 29
-        Me.Label32.Text = "- FPGA"
-        '
-        'TB_Label_Boot
-        '
-        Me.TB_Label_Boot.Enabled = False
-        Me.TB_Label_Boot.Location = New System.Drawing.Point(158, 130)
-        Me.TB_Label_Boot.Name = "TB_Label_Boot"
-        Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_Boot.TabIndex = 28
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(36, 134)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(40, 12)
-        Me.Label33.TabIndex = 27
-        Me.Label33.Text = "- Boot"
-        '
-        'TB_Label_FW
-        '
-        Me.TB_Label_FW.Enabled = False
-        Me.TB_Label_FW.Location = New System.Drawing.Point(158, 103)
-        Me.TB_Label_FW.Name = "TB_Label_FW"
-        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_FW.TabIndex = 26
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(36, 107)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(65, 12)
-        Me.Label34.TabIndex = 25
-        Me.Label34.Text = "- F/W(OS)"
-        '
-        'TB_Label_ItemName
-        '
-        Me.TB_Label_ItemName.Enabled = False
-        Me.TB_Label_ItemName.Location = New System.Drawing.Point(158, 46)
-        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
-        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_ItemName.TabIndex = 24
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(36, 50)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(51, 12)
-        Me.Label35.TabIndex = 23
-        Me.Label35.Text = "- 품목명"
-        '
-        'BTN_SaveAndPrint
-        '
-        Me.BTN_SaveAndPrint.Enabled = False
-        Me.BTN_SaveAndPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_SaveAndPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
-        Me.BTN_SaveAndPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_SaveAndPrint.Location = New System.Drawing.Point(659, 318)
-        Me.BTN_SaveAndPrint.Name = "BTN_SaveAndPrint"
-        Me.BTN_SaveAndPrint.Size = New System.Drawing.Size(119, 68)
-        Me.BTN_SaveAndPrint.TabIndex = 12
-        Me.BTN_SaveAndPrint.Text = "발행"
-        Me.BTN_SaveAndPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_SaveAndPrint.UseVisualStyleBackColor = True
-        '
-        'BTN_HistorySearch
-        '
-        Me.BTN_HistorySearch.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_HistorySearch.Image = Global.YJ_MMS.My.Resources.Resources.search
-        Me.BTN_HistorySearch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_HistorySearch.Location = New System.Drawing.Point(6, 20)
-        Me.BTN_HistorySearch.Name = "BTN_HistorySearch"
-        Me.BTN_HistorySearch.Size = New System.Drawing.Size(95, 52)
-        Me.BTN_HistorySearch.TabIndex = 16
-        Me.BTN_HistorySearch.Text = "검색"
-        Me.BTN_HistorySearch.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_HistorySearch.UseVisualStyleBackColor = True
-        '
-        'BTN_Reprint
-        '
-        Me.BTN_Reprint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Reprint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
-        Me.BTN_Reprint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Reprint.Location = New System.Drawing.Point(312, 278)
-        Me.BTN_Reprint.Name = "BTN_Reprint"
-        Me.BTN_Reprint.Size = New System.Drawing.Size(119, 68)
-        Me.BTN_Reprint.TabIndex = 33
-        Me.BTN_Reprint.Text = "재발행"
-        Me.BTN_Reprint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Reprint.UseVisualStyleBackColor = True
-        '
-        'BTN_Reprint_List
-        '
-        Me.BTN_Reprint_List.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Reprint_List.Image = Global.YJ_MMS.My.Resources.Resources.search
-        Me.BTN_Reprint_List.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Reprint_List.Location = New System.Drawing.Point(6, 20)
-        Me.BTN_Reprint_List.Name = "BTN_Reprint_List"
-        Me.BTN_Reprint_List.Size = New System.Drawing.Size(95, 52)
-        Me.BTN_Reprint_List.TabIndex = 16
-        Me.BTN_Reprint_List.Text = "검색"
-        Me.BTN_Reprint_List.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Reprint_List.UseVisualStyleBackColor = True
         '
         'Form_CLose
         '
@@ -1224,6 +1242,33 @@ Partial Class frm_Assy_Label_Print
         Me.Form_CLose.Name = "Form_CLose"
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
+        '
+        'Label5
+        '
+        Me.Label5.Location = New System.Drawing.Point(10, 226)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(105, 16)
+        Me.Label5.TabIndex = 18
+        Me.Label5.Text = "고객사 :"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(121, 224)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(346, 21)
+        Me.TextBox1.TabIndex = 19
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Enabled = False
+        Me.TextBox4.Location = New System.Drawing.Point(467, 224)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(153, 21)
+        Me.TextBox4.TabIndex = 20
         '
         'frm_Assy_Label_Print
         '
@@ -1238,6 +1283,8 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTab1.ResumeLayout(False)
         Me.C1DockingTabPage1.ResumeLayout(False)
         Me.C1DockingTabPage1.PerformLayout()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
         CType(Me.Grid_LabelList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
@@ -1256,8 +1303,6 @@ Partial Class frm_Assy_Label_Print
         Me.Panel2.PerformLayout()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
-        Me.Panel4.ResumeLayout(False)
-        Me.Panel4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1354,4 +1399,8 @@ Partial Class frm_Assy_Label_Print
     Friend WithEvents Label34 As Label
     Friend WithEvents TB_Label_ItemName As TextBox
     Friend WithEvents Label35 As Label
+    Friend WithEvents CB_Reprint As CheckBox
+    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

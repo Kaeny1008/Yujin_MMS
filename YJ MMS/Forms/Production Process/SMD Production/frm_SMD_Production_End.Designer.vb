@@ -31,7 +31,7 @@ Partial Class frm_SMD_Production_End
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TB_WorkingQty = New System.Windows.Forms.TextBox()
+        Me.TB_OrderQty = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.BTN_RepairCheck = New System.Windows.Forms.Button()
         Me.BTN_PauseRegister = New System.Windows.Forms.Button()
@@ -62,6 +62,8 @@ Partial Class frm_SMD_Production_End
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.BTN_Discard_Register = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -83,13 +85,15 @@ Partial Class frm_SMD_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label15)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Discard_Register)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Reload)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label14)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Grid_OrderList)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label13)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_WorkingQty)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_OrderQty)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_RepairCheck)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_PauseRegister)
@@ -188,17 +192,17 @@ Partial Class frm_SMD_Production_End
         Me.Label11.TabIndex = 34
         Me.Label11.Text = "(불량기록)"
         '
-        'TB_WorkingQty
+        'TB_OrderQty
         '
-        Me.TB_WorkingQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TB_WorkingQty.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_WorkingQty.Enabled = False
-        Me.TB_WorkingQty.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_WorkingQty.Location = New System.Drawing.Point(1097, 70)
-        Me.TB_WorkingQty.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_WorkingQty.Name = "TB_WorkingQty"
-        Me.TB_WorkingQty.Size = New System.Drawing.Size(158, 26)
-        Me.TB_WorkingQty.TabIndex = 33
+        Me.TB_OrderQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_OrderQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_OrderQty.Enabled = False
+        Me.TB_OrderQty.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.TB_OrderQty.Location = New System.Drawing.Point(1097, 70)
+        Me.TB_OrderQty.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_OrderQty.Name = "TB_OrderQty"
+        Me.TB_OrderQty.Size = New System.Drawing.Size(158, 26)
+        Me.TB_OrderQty.TabIndex = 33
         '
         'Label10
         '
@@ -212,7 +216,7 @@ Partial Class frm_SMD_Production_End
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(89, 26)
         Me.Label10.TabIndex = 32
-        Me.Label10.Text = "작업수량"
+        Me.Label10.Text = "주문수량"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'BTN_RepairCheck
@@ -564,13 +568,37 @@ Partial Class frm_SMD_Production_End
         '
         Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(181, 48)
+        Me.Grid_Menu.Size = New System.Drawing.Size(151, 26)
         '
         'BTN_Reprint
         '
         Me.BTN_Reprint.Name = "BTN_Reprint"
-        Me.BTN_Reprint.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Reprint.Size = New System.Drawing.Size(150, 22)
         Me.BTN_Reprint.Text = "현품표 재발행"
+        '
+        'Label15
+        '
+        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(960, 155)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(103, 12)
+        Me.Label15.TabIndex = 41
+        Me.Label15.Text = "(폐기가 있을경우)"
+        '
+        'BTN_Discard_Register
+        '
+        Me.BTN_Discard_Register.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_Discard_Register.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Discard_Register.Image = Global.YJ_MMS.My.Resources.Resources.delete2
+        Me.BTN_Discard_Register.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Discard_Register.Location = New System.Drawing.Point(955, 169)
+        Me.BTN_Discard_Register.Name = "BTN_Discard_Register"
+        Me.BTN_Discard_Register.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_Discard_Register.TabIndex = 40
+        Me.BTN_Discard_Register.Text = "폐기품" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_Discard_Register.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Discard_Register.UseVisualStyleBackColor = True
         '
         'frm_SMD_Production_End
         '
@@ -624,7 +652,7 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents BTN_PauseRegister As Button
     Friend WithEvents BTN_RepairCheck As Button
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
-    Friend WithEvents TB_WorkingQty As TextBox
+    Friend WithEvents TB_OrderQty As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
@@ -634,4 +662,6 @@ Partial Class frm_SMD_Production_End
     Friend WithEvents BTN_Reload As Button
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_Reprint As ToolStripMenuItem
+    Friend WithEvents Label15 As Label
+    Friend WithEvents BTN_Discard_Register As Button
 End Class

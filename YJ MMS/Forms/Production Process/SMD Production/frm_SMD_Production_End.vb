@@ -29,7 +29,7 @@ Public Class frm_SMD_Production_End
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 10
+            .Cols.Count = 11
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -49,39 +49,38 @@ Public Class frm_SMD_Production_End
             rngM.Data = "Operator"
             rngM = .GetCellRange(0, 4, 1, 4)
             rngM.Data = "Inspector"
-            rngM = .GetCellRange(0, 5, 1, 7)
+            rngM = .GetCellRange(0, 5, 1, 8)
             rngM.Data = "수량"
-            Grid_History(1, 5) = "시작"
-            Grid_History(1, 6) = "불량"
-            Grid_History(1, 7) = "종료"
-            rngM = .GetCellRange(0, 8, 1, 8)
-            rngM.Data = "비고"
             rngM = .GetCellRange(0, 9, 1, 9)
+            rngM.Data = "비고"
+            rngM = .GetCellRange(0, 10, 1, 10)
             rngM.Data = "History No."
-            '.Rows(0).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
-            '.Rows(1).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
-            '.Rows(2).StyleNew.Font = New Font("굴림", 12, FontStyle.Bold)
-            '.Font = New Font("굴림", 12, FontStyle.Regular)
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
-            .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            '.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None
-            '.DragMode = C1.Win.C1FlexGrid.DragModeEnum.Manual
-            '.DropMode = C1.Win.C1FlexGrid.DropModeEnum.Manual
             .SelectionMode = SelectionModeEnum.Default
-            '.Cols(1).DataType = GetType(DateTime)
-            '.Cols(1).Format = "yyyy-MM-dd HH:mm:ss"
-            '.Cols(2).DataType = GetType(DateTime)
-            '.Cols(2).Format = "yyyy-MM-dd HH:mm:ss"
             .Cols(9).Visible = False
+            .Cols(5).DataType = GetType(Double)
+            .Cols(5).Format = "#,##0"
+            .Cols(6).DataType = GetType(Double)
+            .Cols(6).Format = "#,##0"
+            .Cols(7).DataType = GetType(Double)
+            .Cols(7).Format = "#,##0"
+            .Cols(8).DataType = GetType(Double)
+            .Cols(8).Format = "#,##0"
         End With
+
+        Grid_History(1, 5) = "시작"
+        Grid_History(1, 6) = "불량"
+        Grid_History(1, 7) = "종료"
+        Grid_History(1, 8) = "폐기"
+        Grid_History.AutoSizeCols()
 
         With Grid_OrderList
             .AllowEditing = False
@@ -100,10 +99,6 @@ Public Class frm_SMD_Production_End
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = True
             .ShowCursor = True
-            '.ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
-            '.Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
-            '.Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            '.SelectionMode = SelectionModeEnum.Default
             .Cols(2).Visible = False
             .Cols(4).Visible = False
             .Cols(9).Visible = False
@@ -211,7 +206,7 @@ Public Class frm_SMD_Production_End
         TB_ItemCode.Text = String.Empty
         TB_ItemName.Text = String.Empty
         TB_Workside.Text = String.Empty
-        TB_WorkingQty.Text = String.Empty
+        TB_OrderQty.Text = String.Empty
         TB_Operator.Text = String.Empty
         Grid_OrderList.Rows.Count = 1
         Grid_History.Rows.Count = 2
@@ -289,7 +284,7 @@ Public Class frm_SMD_Production_End
             TB_ItemCode.Text = Grid_OrderList(findRow, 5)
             TB_ItemName.Text = Grid_OrderList(findRow, 6)
             TB_Workside.Text = Grid_OrderList(findRow, 7)
-            TB_WorkingQty.Text = Grid_OrderList(findRow, 8)
+            TB_OrderQty.Text = Grid_OrderList(findRow, 8)
             TB_Operator.Text = Grid_OrderList(findRow, 9)
             historyIndex = Grid_OrderList(findRow, 10)
             Load_InspectList()
@@ -308,7 +303,7 @@ Public Class frm_SMD_Production_End
             TB_ItemCode.Text = Grid_OrderList(selRow, 5)
             TB_ItemName.Text = Grid_OrderList(selRow, 6)
             TB_Workside.Text = Grid_OrderList(selRow, 7)
-            TB_WorkingQty.Text = Grid_OrderList(selRow, 8)
+            TB_OrderQty.Text = Grid_OrderList(selRow, 8)
             TB_Operator.Text = Grid_OrderList(selRow, 9)
             historyIndex = Grid_OrderList(selRow, 10)
             Load_InspectList()
@@ -348,6 +343,7 @@ Public Class frm_SMD_Production_End
                 sqlDR("start_quantity") & vbTab &
                 sqlDR("fault_quantity") & vbTab &
                 sqlDR("end_quantity") & vbTab &
+                sqlDR("discard_quantity") & vbTab &
                 sqlDR("history_note") & vbTab &
                 sqlDR("history_index")
 
@@ -419,8 +415,8 @@ Public Class frm_SMD_Production_End
 
         frm_SMD_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 5)
         frm_SMD_Magazine_Kitting.totalDefectCount = totalDefectCount
-        frm_SMD_Magazine_Kitting.workingCount = TB_WorkingQty.Text
-        frm_SMD_Magazine_Kitting.TB_TotalQty.Text = TB_WorkingQty.Text
+        frm_SMD_Magazine_Kitting.workingCount = TB_OrderQty.Text
+        frm_SMD_Magazine_Kitting.TB_TotalQty.Text = TB_OrderQty.Text
         frm_SMD_Magazine_Kitting.TB_ItemCode.Text = TB_ItemCode.Text
         frm_SMD_Magazine_Kitting.TB_ItemName.Text = TB_ItemName.Text
         frm_SMD_Magazine_Kitting.TB_PONo.Text = TB_OrderIndex.Text
@@ -429,6 +425,7 @@ Public Class frm_SMD_Production_End
         frm_SMD_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
         frm_SMD_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
         frm_SMD_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
+        frm_SMD_Magazine_Kitting.orderIndex = TB_OrderIndex.Text
         If Not frm_SMD_Magazine_Kitting.Visible Then frm_SMD_Magazine_Kitting.Show()
         frm_SMD_Magazine_Kitting.Focus()
 
@@ -639,4 +636,46 @@ Public Class frm_SMD_Production_End
         Return returnString
 
     End Function
+
+    Private Sub BTN_Discard_Register_Click(sender As Object, e As EventArgs) Handles BTN_Discard_Register.Click
+
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        With frm_Discard_Register
+            .TB_CustomerCode.Text = TB_CustomerCode.Text
+            .TB_CustomerName.Text = TB_CustomerName.Text
+            .TB_Inspector.Text = TB_Inspector.Text
+            .TB_ItemCode.Text = TB_ItemCode.Text
+            .TB_ItemName.Text = TB_ItemName.Text
+            .TB_OrderIndex.Text = TB_OrderIndex.Text
+            .TB_Workside.Text = TB_Workside.Text
+            .TB_OrderQty.Text = TB_OrderQty.Text
+            .TB_ModelCode.Text = TB_ModelCode.Text
+            .TB_Process.Text = "SMD"
+            .TB_HistoryNo.Text = historyIndex
+
+            If .ShowDialog() = DialogResult.OK Then
+                Load_InspectList()
+            End If
+        End With
+
+    End Sub
+
+    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
+
+    End Sub
 End Class

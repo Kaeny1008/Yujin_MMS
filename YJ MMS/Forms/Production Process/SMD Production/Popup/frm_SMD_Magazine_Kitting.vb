@@ -6,7 +6,9 @@ Public Class frm_SMD_Magazine_Kitting
     Public lastWorkingCount As Integer
     Public totalDefectCount As Integer
     Public workingCount As Integer
+    Public orderIndex As String
     Dim modelTB As String
+    Dim nowDiscardQty As Integer
 
     Private Sub frm_SMD_Magazine_Kitting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -14,6 +16,7 @@ Public Class frm_SMD_Magazine_Kitting
 
         Load_Process()
         Load_TopBottom()
+        Load_Discard_Quantity()
 
     End Sub
 
@@ -81,6 +84,31 @@ Public Class frm_SMD_Magazine_Kitting
 
     End Sub
 
+    Private Sub Load_Discard_Quantity()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_smd_production_end(8"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & orderIndex & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            nowDiscardQty = sqlDR("discard_quantity")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
     Private Sub BTN_Exit_Click(sender As Object, e As EventArgs) Handles BTN_Exit.Click
 
         If CDbl(TB_MagazineQty.Text) = 0 Then
@@ -105,7 +133,7 @@ Public Class frm_SMD_Magazine_Kitting
             Exit Sub
         End If
 
-        If lastWorkingCount + TB_MagazineQty.Text > workingCount Then
+        If lastWorkingCount + TB_MagazineQty.Text + nowDiscardQty > workingCount Then
             MessageBox.Show(Me,
                             "총 생산수량보다 큽니다.",
                             msg_form,
@@ -117,7 +145,7 @@ Public Class frm_SMD_Magazine_Kitting
         End If
 
         Dim workingEnd As Boolean = False
-        If lastWorkingCount + TB_MagazineQty.Text = workingCount Then
+        If lastWorkingCount + TB_MagazineQty.Text + nowDiscardQty = workingCount Then
             If CheckReinspection() = False Then
                 MessageBox.Show(Me,
                                 "수리품 재검사가 완료되지 않았습니다.",

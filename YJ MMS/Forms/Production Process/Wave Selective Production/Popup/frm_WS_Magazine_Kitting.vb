@@ -7,12 +7,15 @@ Public Class frm_WS_Magazine_Kitting
     Public totalDefectCount As Integer
     Public workingCount As Integer
     Dim modelTB As String
+    Public orderIndex As String
+    Dim nowDiscardQty As Integer
 
     Private Sub frm_SMD_Magazine_Kitting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.TopMost = True
 
         Load_Process()
+        Load_Discard_Quantity()
 
     End Sub
 
@@ -45,6 +48,31 @@ Public Class frm_WS_Magazine_Kitting
 
     End Sub
 
+    Private Sub Load_Discard_Quantity()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(14"
+        strSQL += ", '" & orderIndex & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            nowDiscardQty = sqlDR("discard_quantity")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
     Private Sub BTN_Exit_Click(sender As Object, e As EventArgs) Handles BTN_Exit.Click
 
         If CDbl(TB_MagazineQty.Text) = 0 Then
@@ -69,7 +97,7 @@ Public Class frm_WS_Magazine_Kitting
             Exit Sub
         End If
 
-        If lastWorkingCount + CDbl(TB_MagazineQty.Text) > workingCount Then
+        If lastWorkingCount + CDbl(TB_MagazineQty.Text) + nowDiscardQty > workingCount Then
             MessageBox.Show(Me,
                             "총 생산수량보다 큽니다.",
                             msg_form,
@@ -91,7 +119,7 @@ Public Class frm_WS_Magazine_Kitting
         'End If
 
         Dim workingEnd As Boolean = False
-        If lastWorkingCount + CDbl(TB_MagazineQty.Text) = workingCount Then
+        If lastWorkingCount + CDbl(TB_MagazineQty.Text) + nowDiscardQty = workingCount Then
             If CheckReinspection() = False Then
                 MessageBox.Show(Me,
                                 "수리품 재검사가 완료되지 않았습니다.",

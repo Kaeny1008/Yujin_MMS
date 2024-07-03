@@ -603,4 +603,32 @@ Module md_ETC
         End Try
 
     End Sub
+
+    Public Sub MSG_Information(ByVal frm As Form, ByVal showString As String)
+
+        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Public Sub MSG_Exclamation(ByVal frm As Form, ByVal showString As String)
+
+        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+
+    End Sub
+
+    Public Sub MSG_Error(ByVal frm As Form, ByVal showString As String)
+
+        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+    End Sub
+
+    Public Function MSG_Question(ByVal frm As Form, ByVal questionString As String) As Boolean
+
+        If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+            Return True
+        Else
+            Return False
+        End If
+
+    End Function
 End Module

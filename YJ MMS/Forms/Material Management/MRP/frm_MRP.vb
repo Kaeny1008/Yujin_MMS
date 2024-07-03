@@ -332,7 +332,7 @@ Public Class frm_MRP
                 baseQty -= Grid_MaterialList(i, j)
                 If baseQty < 0 Then
                     Dim cs As CellStyle = Grid_MaterialList.Styles.Add("new_style")
-                    cs.BackColor = Color.Red
+                    cs.BackColor = Color.MediumVioletRed
                     cs.ForeColor = Color.Yellow
                     Grid_MaterialList.SetCellStyle(i, j, cs)
                 End If

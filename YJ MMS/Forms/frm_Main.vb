@@ -1,9 +1,11 @@
 ﻿Imports System.ComponentModel
 Imports System.Threading
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Main
 
     Public form_name As Form
+    Public discard_Alarm As Boolean = False
 
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -22,12 +24,29 @@ Public Class frm_Main
 
         UpdatePG_Run()
 
-        'If Not loginID = "ADMIN" Then
-        'menu_Monthly_Production_Report.Visible = False
-        'End If
+        Load_AlarmList()
 
-        Timer1.Interval = 1000
-        Timer1.Enabled = True
+    End Sub
+
+    Private Sub Load_AlarmList()
+
+        Mdbconnect()
+
+        Dim strSQL As String = "select alarm_name, interval_time from tb_alarm_list where use_alarm = true"
+
+        Dim sqlCmd As New OleDb.OleDbCommand(strSQL, mdbConnection1)
+        Dim sqlDR As OleDb.OleDbDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("alarm_name") = "폐기등록 알림" Then
+                discard_Alarm = True
+                Timer1.Interval = sqlDR("interval_time") * 1000
+                Timer1.Start()
+            End If
+        Loop
+        sqlDR.Close()
+
+        MDBClose()
 
     End Sub
 
@@ -110,9 +129,9 @@ Public Class frm_Main
 
     Private Sub btn_CodeManager_Click(sender As Object, e As EventArgs) Handles btn_CodeManager.Click
 
-        frm_code_manager.MdiParent = Me
-        If Not frm_code_manager.Visible Then frm_code_manager.Show()
-        frm_code_manager.Focus()
+        frm_Code_Manager.MdiParent = Me
+        If Not frm_Code_Manager.Visible Then frm_Code_Manager.Show()
+        frm_Code_Manager.Focus()
 
     End Sub
 
@@ -449,6 +468,58 @@ Public Class frm_Main
         frm_SMD_Production_History.MdiParent = Me
         If Not frm_SMD_Production_History.Visible Then frm_SMD_Production_History.Show()
         frm_SMD_Production_History.Focus()
+
+    End Sub
+
+    Private Sub BTN_AlarmSetting_Click(sender As Object, e As EventArgs) Handles BTN_AlarmSetting.Click
+
+        If Not frm_Alarm_Setting.Visible Then frm_Alarm_Setting.Show()
+        frm_Alarm_Setting.Focus()
+
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_discard_register(0"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ");"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If Not sqlDR("not_confirm_count") = 0 Then
+                If Not frm_DiscardAlarm.Visible Then frm_DiscardAlarm.Show()
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+    End Sub
+
+    Private Sub BTN_Production_Discard_Confirm_Click(sender As Object, e As EventArgs) Handles BTN_Production_Discard_Confirm.Click
+
+        frm_Production_Discard_Confirm.MdiParent = Me
+        If Not frm_Production_Discard_Confirm.Visible Then frm_Production_Discard_Confirm.Show()
+        frm_Production_Discard_Confirm.Focus()
+
+    End Sub
+
+    Private Sub BTN_WSProduction_History_Click(sender As Object, e As EventArgs) Handles BTN_WSProduction_History.Click
+
+        frm_Wave_Selective_Production_History.MdiParent = Me
+        If Not frm_Wave_Selective_Production_History.Visible Then frm_Wave_Selective_Production_History.Show()
+        frm_Wave_Selective_Production_History.Focus()
 
     End Sub
 End Class

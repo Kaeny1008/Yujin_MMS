@@ -214,6 +214,18 @@
     <Compile Include="Forms\frm_Main.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\frm_DiscardAlarm.Designer.vb">
+      <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_DiscardAlarm.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Production_Discard_Confirm.Designer.vb">
+      <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Production_Discard_Confirm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\frm_Sub.Designer.vb">
       <DependentUpon>frm_Sub.vb</DependentUpon>
     </Compile>
@@ -376,6 +388,12 @@
     <Compile Include="Forms\Production Management\frm_Production_Status.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Discard_Information.Designer.vb">
+      <DependentUpon>frm_Production_Discard_Information.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Discard_Information.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_WS.Designer.vb">
       <DependentUpon>frm_Production_Information_WS.vb</DependentUpon>
     </Compile>
@@ -394,6 +412,12 @@
     <Compile Include="Forms\Production Process\frm_Assy_Label_Print.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Process\frm_Discard_Register.Designer.vb">
+      <DependentUpon>frm_Discard_Register.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\frm_Discard_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.Designer.vb">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </Compile>
@@ -410,6 +434,18 @@
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_History.Designer.vb">
+      <DependentUpon>frm_WS_Fault_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_History.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_History.Designer.vb">
+      <DependentUpon>frm_Wave_Selective_Production_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_History.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\SMD Production\frm_SMD_Production_History.Designer.vb">
@@ -598,6 +634,12 @@
     <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_Register.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Setting Form\frm_Alarm_Setting.Designer.vb">
+      <DependentUpon>frm_Alarm_Setting.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Setting Form\frm_Alarm_Setting.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Setting Form\frm_Code_Manager.Designer.vb">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>
     </Compile>
@@ -724,6 +766,12 @@
     <EmbeddedResource Include="Forms\frm_Main.resx">
       <DependentUpon>frm_Main.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_DiscardAlarm.resx">
+      <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\frm_Production_Discard_Confirm.resx">
+      <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_Sub.resx">
       <DependentUpon>frm_Sub.vb</DependentUpon>
     </EmbeddedResource>
@@ -806,6 +854,9 @@
     <EmbeddedResource Include="Forms\Production Management\frm_Production_Status.resx">
       <DependentUpon>frm_Production_Status.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Discard_Information.resx">
+      <DependentUpon>frm_Production_Discard_Information.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Information_WS.resx">
       <DependentUpon>frm_Production_Information_WS.vb</DependentUpon>
     </EmbeddedResource>
@@ -815,6 +866,9 @@
     <EmbeddedResource Include="Forms\Production Process\frm_Assy_Label_Print.resx">
       <DependentUpon>frm_Assy_Label_Print.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\frm_Discard_Register.resx">
+      <DependentUpon>frm_Discard_Register.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_Register.resx">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </EmbeddedResource>
@@ -823,6 +877,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.resx">
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_History.resx">
+      <DependentUpon>frm_WS_Fault_History.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_History.resx">
+      <DependentUpon>frm_Wave_Selective_Production_History.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\SMD Production\frm_SMD_Production_History.resx">
       <DependentUpon>frm_SMD_Production_History.vb</DependentUpon>
@@ -916,6 +976,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_Register.resx">
       <DependentUpon>frm_WS_Fault_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Setting Form\frm_Alarm_Setting.resx">
+      <DependentUpon>frm_Alarm_Setting.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Setting Form\frm_Code_Manager.resx">
       <DependentUpon>frm_Code_Manager.vb</DependentUpon>

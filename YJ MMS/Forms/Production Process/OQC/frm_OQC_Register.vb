@@ -2,6 +2,9 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frm_OQC_Register
+
+    Dim nowDiscardQty As Integer
+
     Private Sub frm_OQC_Register_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
@@ -239,6 +242,7 @@ Public Class frm_OQC_Register
             Else
                 RB_NotUseSerial.Checked = True
             End If
+            nowDiscardQty = sqlDR("discard_quantity")
         Loop
         sqlDR.Close()
 
@@ -533,14 +537,14 @@ Public Class frm_OQC_Register
             newRow = CInt(TB_BoxQty.Text)
         End If
 
-        If CDbl(TB_POQty.Text) < (CDbl(TB_InspectedQty.Text) + newRow) Then
+        If CDbl(TB_POQty.Text) < (CDbl(TB_InspectedQty.Text) + newRow + nowDiscardQty) Then
             MessageBox.Show(Me,
                             "주문수량 보다 검사결과 수량이 많습니다." & vbCrLf & "확인하여 주십시오.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Exclamation)
             Exit Sub
-        ElseIf CDbl(TB_POQty.Text) = (CDbl(TB_InspectedQty.Text) + newRow) Then
+        ElseIf CDbl(TB_POQty.Text) = (CDbl(TB_InspectedQty.Text) + newRow + nowDiscardQty) Then
             If CheckReinspection() = False Then
                 MessageBox.Show(Me,
                                 "수리품 재검사가 완료되지 않았습니다.",
@@ -706,6 +710,7 @@ Public Class frm_OQC_Register
 
             If poEnd = True Then
                 strSQL += "update tb_mms_order_register_list set order_status = 'All Process Completed'"
+                strSQL += ", completed_qty = " & CDbl(TB_POQty.Text) - nowDiscardQty
                 strSQL += "where order_index = '" & TB_OrderIndex.Text & "'"
                 strSQL += ";"
             End If
@@ -878,6 +883,10 @@ Public Class frm_OQC_Register
         If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
             e.Handled = True
         End If
+
+    End Sub
+
+    Private Sub TB_MagazineBarcode_MouseCaptureChanged(sender As Object, e As EventArgs) Handles TB_MagazineBarcode.MouseCaptureChanged
 
     End Sub
 End Class

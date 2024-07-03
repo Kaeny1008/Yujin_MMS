@@ -58,49 +58,49 @@ Public Class frm_Material_CheckRequirements
             .Rows.DefaultSize = 20
             .Cols.Count = 17
             .Cols.Fixed = 1
-            .Rows.Count = 3
-            .Rows.Fixed = 3
+            .Rows.Count = 4
+            .Rows.Fixed = 4
             For i = 0 To .Cols.Count - 1
                 .Cols(i).AllowMerging = True
             Next
             .Rows(0).AllowMerging = True
             '.Rows(1).AllowMerging = True
             '.Rows(2).AllowMerging = True
-            Dim rngM As CellRange = .GetCellRange(0, 0, 2, 0)
+            Dim rngM As CellRange = .GetCellRange(0, 0, 3, 0)
             rngM.Data = "No"
-            rngM = .GetCellRange(0, 1, 2, 1)
+            rngM = .GetCellRange(0, 1, 3, 1)
             rngM.Data = "자재코드"
-            rngM = .GetCellRange(0, 2, 2, 2)
+            rngM = .GetCellRange(0, 2, 3, 2)
             rngM.Data = "타입"
-            rngM = .GetCellRange(0, 3, 2, 3)
+            rngM = .GetCellRange(0, 3, 3, 3)
             rngM.Data = "품명"
-            rngM = .GetCellRange(0, 4, 2, 4)
+            rngM = .GetCellRange(0, 4, 3, 4)
             rngM.Data = "사/도급"
-            rngM = .GetCellRange(0, 5, 2, 5)
+            rngM = .GetCellRange(0, 5, 3, 5)
             rngM.Data = "공급사"
             rngM = .GetCellRange(0, 6, 0, 14)
             rngM.Data = "재고"
-            rngM = .GetCellRange(1, 6, 2, 6)
+            rngM = .GetCellRange(1, 6, 3, 6)
             rngM.Data = "기초재고"
-            rngM = .GetCellRange(1, 7, 2, 7)
+            rngM = .GetCellRange(1, 7, 3, 7)
             rngM.Data = "입고"
-            rngM = .GetCellRange(1, 8, 2, 8)
+            rngM = .GetCellRange(1, 8, 3, 8)
             rngM.Data = "Loss"
-            rngM = .GetCellRange(1, 9, 2, 9)
+            rngM = .GetCellRange(1, 9, 3, 9)
             rngM.Data = "납품"
-            rngM = .GetCellRange(1, 10, 2, 10)
+            rngM = .GetCellRange(1, 10, 3, 10)
             rngM.Data = "계획대기"
-            rngM = .GetCellRange(1, 11, 2, 11)
+            rngM = .GetCellRange(1, 11, 3, 11)
             rngM.Data = "생산 중"
-            rngM = .GetCellRange(1, 12, 2, 12)
+            rngM = .GetCellRange(1, 12, 3, 12)
             rngM.Data = "생산 완료"
-            rngM = .GetCellRange(1, 13, 2, 13)
+            rngM = .GetCellRange(1, 13, 3, 13)
             rngM.Data = "품번전환"
-            rngM = .GetCellRange(1, 14, 2, 14)
+            rngM = .GetCellRange(1, 14, 3, 14)
             rngM.Data = "반출"
-            rngM = .GetCellRange(0, 15, 2, 15)
+            rngM = .GetCellRange(0, 15, 3, 15)
             rngM.Data = "필요수량"
-            rngM = .GetCellRange(0, 16, 2, 16)
+            rngM = .GetCellRange(0, 16, 3, 16)
             rngM.Data = "미과출"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -246,7 +246,7 @@ Public Class frm_Material_CheckRequirements
 
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
-        Grid_MaterialList.Rows.Count = 3
+        Grid_MaterialList.Rows.Count = 4
         Grid_MaterialList.Cols.Count = 17
 
         Dim checkCount As Integer = 0
@@ -263,20 +263,23 @@ Public Class frm_Material_CheckRequirements
                 'End If
                 Dim nowModelCode As String = Grid_OrderList(i, 5)
                 Dim nowManagementNo As String = Grid_OrderList(i, 8)
+                Dim nowOrderQty As String = Grid_OrderList(i, 7)
+                Dim nowItemCode As String = Grid_OrderList(i, 6)
                 Dim findItem As Boolean = False
                 For j = 17 To Grid_MaterialList.Cols.Count - 1
                     If Grid_MaterialList(0, j) = nowModelCode And
                         Grid_MaterialList(1, j) = nowManagementNo Then
-                        Grid_MaterialList(2, j) = CInt(Grid_MaterialList(2, j)) + CInt(Grid_OrderList(i, 7))
+                        Grid_MaterialList(2, j) = CInt(Grid_MaterialList(2, j)) + CInt(nowOrderQty)
                         findItem = True
                         Exit For
                     End If
                 Next
                 If findItem = False Then
                     Grid_MaterialList.Cols.Add()
-                    Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 5)
-                    Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 8)
-                    Grid_MaterialList(2, Grid_MaterialList.Cols.Count - 1) = Grid_OrderList(i, 7)
+                    Grid_MaterialList(0, Grid_MaterialList.Cols.Count - 1) = nowModelCode
+                    Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = nowManagementNo
+                    Grid_MaterialList(2, Grid_MaterialList.Cols.Count - 1) = nowItemCode
+                    Grid_MaterialList(3, Grid_MaterialList.Cols.Count - 1) = nowOrderQty
                 End If
             End If
         Next
@@ -325,7 +328,7 @@ Public Class frm_Material_CheckRequirements
             Dim insert_String2 As String = String.Empty
             Dim rowColor As Color = Color.White
 
-            insert_String = Grid_MaterialList.Rows.Count - 1 & vbTab &
+            insert_String = Grid_MaterialList.Rows.Count - 3 & vbTab &
                 sqlDR("part_code") & vbTab &
                 sqlDR("part_type") & vbTab &
                 sqlDR("part_spec") & vbTab &
@@ -343,7 +346,7 @@ Public Class frm_Material_CheckRequirements
 
             Dim totalAmount As Double = 0
             For i As Integer = 0 To UBound(nowCode)
-                totalAmount += (sqlDR(nowCode(i) & "_" & nowManage(i)) * Grid_MaterialList(2, i + 17)) '총 사용수량
+                totalAmount += (sqlDR(nowCode(i) & "_" & nowManage(i)) * Grid_MaterialList(3, i + 17)) '총 사용수량
             Next
             insert_String += vbTab & Format(totalAmount, "#,##0")
 

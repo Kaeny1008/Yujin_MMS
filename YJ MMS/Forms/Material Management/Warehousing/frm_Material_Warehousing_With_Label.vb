@@ -335,9 +335,9 @@ Public Class frm_Material_Warehousing_With_Label
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += " , null"
-        strSQL += " , null"
-        strSQL += " , null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

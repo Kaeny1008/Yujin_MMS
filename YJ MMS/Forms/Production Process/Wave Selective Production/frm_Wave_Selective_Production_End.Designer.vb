@@ -34,7 +34,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TB_TotalQty = New System.Windows.Forms.TextBox()
+        Me.TB_OrderQty = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.BTN_RepairCheck = New System.Windows.Forms.Button()
         Me.BTN_PauseRegister = New System.Windows.Forms.Button()
@@ -59,6 +59,8 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.BTN_Discard_Register = New System.Windows.Forms.Button()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -100,6 +102,8 @@ Partial Class frm_Wave_Selective_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label15)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Discard_Register)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Button1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Reload)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label14)
@@ -107,7 +111,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label13)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label12)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_TotalQty)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.TB_OrderQty)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_RepairCheck)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_PauseRegister)
@@ -140,7 +144,7 @@ Partial Class frm_Wave_Selective_Production_End
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(966, 187)
+        Me.Button1.Location = New System.Drawing.Point(1011, 9)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(63, 34)
         Me.Button1.TabIndex = 40
@@ -212,17 +216,17 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Label11.TabIndex = 34
         Me.Label11.Text = "(불량기록)"
         '
-        'TB_TotalQty
+        'TB_OrderQty
         '
-        Me.TB_TotalQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TB_TotalQty.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_TotalQty.Enabled = False
-        Me.TB_TotalQty.Font = New System.Drawing.Font("굴림", 12.0!)
-        Me.TB_TotalQty.Location = New System.Drawing.Point(1097, 98)
-        Me.TB_TotalQty.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_TotalQty.Name = "TB_TotalQty"
-        Me.TB_TotalQty.Size = New System.Drawing.Size(158, 26)
-        Me.TB_TotalQty.TabIndex = 33
+        Me.TB_OrderQty.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_OrderQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_OrderQty.Enabled = False
+        Me.TB_OrderQty.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.TB_OrderQty.Location = New System.Drawing.Point(1097, 98)
+        Me.TB_OrderQty.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_OrderQty.Name = "TB_OrderQty"
+        Me.TB_OrderQty.Size = New System.Drawing.Size(158, 26)
+        Me.TB_OrderQty.TabIndex = 33
         '
         'Label10
         '
@@ -236,7 +240,7 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(89, 26)
         Me.Label10.TabIndex = 32
-        Me.Label10.Text = "작업수량"
+        Me.Label10.Text = "주문수량"
         Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'BTN_RepairCheck
@@ -524,6 +528,30 @@ Partial Class frm_Wave_Selective_Production_End
         Me.BTN_Reprint.Size = New System.Drawing.Size(150, 22)
         Me.BTN_Reprint.Text = "현품표 재발행"
         '
+        'Label15
+        '
+        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(960, 155)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(103, 12)
+        Me.Label15.TabIndex = 43
+        Me.Label15.Text = "(폐기가 있을경우)"
+        '
+        'BTN_Discard_Register
+        '
+        Me.BTN_Discard_Register.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_Discard_Register.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Discard_Register.Image = Global.YJ_MMS.My.Resources.Resources.delete2
+        Me.BTN_Discard_Register.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Discard_Register.Location = New System.Drawing.Point(955, 169)
+        Me.BTN_Discard_Register.Name = "BTN_Discard_Register"
+        Me.BTN_Discard_Register.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_Discard_Register.TabIndex = 42
+        Me.BTN_Discard_Register.Text = "폐기품" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_Discard_Register.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Discard_Register.UseVisualStyleBackColor = True
+        '
         'frm_Wave_Selective_Production_End
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -557,7 +585,7 @@ Partial Class frm_Wave_Selective_Production_End
     Friend WithEvents Label13 As Label
     Friend WithEvents Label12 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents TB_TotalQty As TextBox
+    Friend WithEvents TB_OrderQty As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents BTN_RepairCheck As Button
     Friend WithEvents BTN_PauseRegister As Button
@@ -583,4 +611,6 @@ Partial Class frm_Wave_Selective_Production_End
     Friend WithEvents Button1 As Button
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_Reprint As ToolStripMenuItem
+    Friend WithEvents Label15 As Label
+    Friend WithEvents BTN_Discard_Register As Button
 End Class

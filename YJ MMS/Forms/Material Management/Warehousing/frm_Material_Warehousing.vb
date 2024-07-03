@@ -1,4 +1,5 @@
-﻿Imports C1.Win.C1FlexGrid
+﻿Imports System.IO
+Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Material_Warehousing
@@ -413,6 +414,19 @@ Public Class frm_Material_Warehousing
                 MsgBox("현재 LS Mecapion외 지원되지 않습니다.")
             End If
 
+            Dim swFile As StreamWriter =
+            New StreamWriter(Application.StartupPath & "\ScanText-" & Format(Now, "yyyyMMdd") & ".txt",
+                             True,
+                             System.Text.Encoding.GetEncoding(949))
+            swFile.WriteLine("[" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "]Before Text : " & TB_BarcodeScan.Text)
+
+            TB_BarcodeScan.Multiline = False
+            TB_BarcodeScan.Text = String.Empty
+            TB_BarcodeScan.Multiline = True
+
+            swFile.WriteLine("[" & Format(Now, "yyyy-MM-dd HH:mm:ss") & "]After Text : " & TB_BarcodeScan.Text)
+            swFile.Close()
+
             If Find_DocumentList() = False Then
                 MessageBox.Show(Me,
                                 "입고 리스트에서 해당 자재를 찾지 못했습니다.",
@@ -427,30 +441,30 @@ Public Class frm_Material_Warehousing
                 TB_BarcodeScan.SelectAll()
                 Exit Sub
             Else
-                Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
-                Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
+                'Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
+                'Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
 
-                If find_PartCode > 0 Then
-                    Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
-                    Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
-                    If Grid_MaterialList(find_PartCode, 5) > 0 Then
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
-                    ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
-                        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
-                    End If
-                Else
-                    Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
-                    Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
-                    If Grid_MaterialList(find_PartNo, 5) > 0 Then
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
-                    ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
-                        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
-                    End If
-                End If
+                'If find_PartCode > 0 Then
+                '    Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
+                '    Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
+                '    If Grid_MaterialList(find_PartCode, 5) > 0 Then
+                '        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
+                '        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
+                '    ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
+                '        Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
+                '        Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
+                '    End If
+                'Else
+                '    Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
+                '    Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
+                '    If Grid_MaterialList(find_PartNo, 5) > 0 Then
+                '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
+                '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
+                '    ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
+                '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
+                '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
+                '    End If
+                'End If
             End If
 
             If barcode1 = String.Empty Then
@@ -581,6 +595,31 @@ Public Class frm_Material_Warehousing
         End Try
 
         DBClose()
+
+        Dim find_PartCode As Integer = Grid_MaterialList.FindRow(TB_CustomerPartCode.Text, 1, 1, True)
+        'Dim find_PartNo As Integer = Grid_MaterialList.FindRow(TB_PartNo.Text, 1, 2, True)
+
+        If find_PartCode > 0 Then
+            Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(TB_Qty.Text), "#,##0")
+            Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
+            If Grid_MaterialList(find_PartCode, 5) > 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
+            ElseIf Grid_MaterialList(find_PartCode, 5) = 0 Then
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Blue
+                Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.White
+            End If
+            'Else
+            '    Grid_MaterialList(find_PartNo, 4) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) + CInt(TB_Qty.Text), "#,##0")
+            '    Grid_MaterialList(find_PartNo, 5) = Format(CInt(Grid_MaterialList(find_PartNo, 4)) - CInt(Grid_MaterialList(find_PartNo, 3)), "#,##0")
+            '    If Grid_MaterialList(find_PartNo, 5) > 0 Then
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Red
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.Yellow
+            '    ElseIf Grid_MaterialList(find_PartNo, 5) = 0 Then
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.ForeColor = Color.Blue
+            '        Grid_MaterialList.Rows(find_PartNo).StyleNew.BackColor = Color.White
+            '    End If
+        End If
 
         Load_MaterialList_Detail(TB_DocumentNo.Text)
 

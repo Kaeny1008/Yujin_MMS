@@ -28,7 +28,7 @@ Public Class frm_Wave_Selective_Production_End
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 8
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -42,29 +42,39 @@ Public Class frm_Wave_Selective_Production_End
             rngM.Data = "No"
             rngM = .GetCellRange(0, 1, 1, 2)
             rngM.Data = "생산일자"
-            Grid_History(1, 1) = "시작"
-            Grid_History(1, 2) = "종료"
             rngM = .GetCellRange(0, 3, 1, 3)
             rngM.Data = "Inspector"
-            rngM = .GetCellRange(0, 4, 1, 6)
+            rngM = .GetCellRange(0, 4, 1, 7)
             rngM.Data = "수량"
-            Grid_History(1, 4) = "시작"
-            Grid_History(1, 5) = "불량"
-            Grid_History(1, 6) = "종료"
-            rngM = .GetCellRange(0, 7, 1, 7)
+            rngM = .GetCellRange(0, 8, 1, 8)
             rngM.Data = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = True
-            .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .SelectionMode = SelectionModeEnum.Default
+            .Cols(4).DataType = GetType(Double)
+            .Cols(4).Format = "#,##0"
+            .Cols(5).DataType = GetType(Double)
+            .Cols(5).Format = "#,##0"
+            .Cols(6).DataType = GetType(Double)
+            .Cols(6).Format = "#,##0"
+            .Cols(7).DataType = GetType(Double)
+            .Cols(7).Format = "#,##0"
         End With
+
+        Grid_History(1, 1) = "시작"
+        Grid_History(1, 2) = "종료"
+        Grid_History(1, 4) = "시작"
+        Grid_History(1, 5) = "불량"
+        Grid_History(1, 6) = "종료"
+        Grid_History(1, 7) = "폐기"
+        Grid_History.AutoSizeCols()
 
         With Grid_OrderList
             .AllowEditing = False
@@ -116,7 +126,7 @@ Public Class frm_Wave_Selective_Production_End
         TB_ModelCode.Text = String.Empty
         TB_ItemCode.Text = String.Empty
         TB_ItemName.Text = String.Empty
-        TB_TotalQty.Text = String.Empty
+        TB_OrderQty.Text = String.Empty
         Grid_OrderList.Rows.Count = 1
         Grid_History.Rows.Count = 2
 
@@ -190,7 +200,7 @@ Public Class frm_Wave_Selective_Production_End
             TB_ModelCode.Text = Grid_OrderList(findRow, 4)
             TB_ItemCode.Text = Grid_OrderList(findRow, 5)
             TB_ItemName.Text = Grid_OrderList(findRow, 6)
-            TB_TotalQty.Text = Grid_OrderList(findRow, 7)
+            TB_OrderQty.Text = Grid_OrderList(findRow, 7)
             historyIndex = Grid_OrderList(findRow, 8)
             Load_InspectList()
         End If
@@ -207,7 +217,7 @@ Public Class frm_Wave_Selective_Production_End
         TB_ModelCode.Text = String.Empty
         TB_ItemCode.Text = String.Empty
         TB_ItemName.Text = String.Empty
-        TB_TotalQty.Text = String.Empty
+        TB_OrderQty.Text = String.Empty
 
     End Sub
 
@@ -243,6 +253,7 @@ Public Class frm_Wave_Selective_Production_End
                 sqlDR("start_quantity") & vbTab &
                 sqlDR("fault_quantity") & vbTab &
                 sqlDR("end_quantity") & vbTab &
+                sqlDR("discard_quantity") & vbTab &
                 sqlDR("history_note")
 
             GridWriteText(insertString, Me, Grid_History, Color.Black)
@@ -261,7 +272,7 @@ Public Class frm_Wave_Selective_Production_End
         Grid_History.AutoSizeRows(2, 0, Grid_History.Rows.Count - 1, Grid_History.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_History.Redraw = True
 
-        If workingCompletedQty = CDbl(TB_TotalQty.Text) Then
+        If workingCompletedQty = CDbl(TB_OrderQty.Text) Then
             MessageBox.Show("생산이 완료된 주문입니다.",
                             msg_form,
                             MessageBoxButtons.OK,
@@ -287,7 +298,7 @@ Public Class frm_Wave_Selective_Production_End
             TB_ModelCode.Text = Grid_OrderList(selRow, 4)
             TB_ItemCode.Text = Grid_OrderList(selRow, 5)
             TB_ItemName.Text = Grid_OrderList(selRow, 6)
-            TB_TotalQty.Text = Grid_OrderList(selRow, 7)
+            TB_OrderQty.Text = Grid_OrderList(selRow, 7)
             historyIndex = Grid_OrderList(selRow, 8)
             Load_InspectList()
         End If
@@ -350,8 +361,8 @@ Public Class frm_Wave_Selective_Production_End
 
         frm_WS_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 4)
         frm_WS_Magazine_Kitting.totalDefectCount = totalDefectCount
-        frm_WS_Magazine_Kitting.workingCount = TB_TotalQty.Text
-        frm_WS_Magazine_Kitting.TB_TotalQty.Text = TB_TotalQty.Text
+        frm_WS_Magazine_Kitting.workingCount = TB_OrderQty.Text
+        frm_WS_Magazine_Kitting.TB_TotalQty.Text = TB_OrderQty.Text
         frm_WS_Magazine_Kitting.TB_ItemCode.Text = TB_ItemCode.Text
         frm_WS_Magazine_Kitting.TB_ItemName.Text = TB_ItemName.Text
         frm_WS_Magazine_Kitting.TB_PONo.Text = TB_OrderIndex.Text
@@ -359,6 +370,7 @@ Public Class frm_Wave_Selective_Production_End
         frm_WS_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
         frm_WS_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
         frm_WS_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
+        frm_WS_Magazine_Kitting.orderIndex = TB_OrderIndex.Text
         If Not frm_WS_Magazine_Kitting.Visible Then frm_WS_Magazine_Kitting.Show()
         frm_WS_Magazine_Kitting.Focus()
 
@@ -522,4 +534,41 @@ Public Class frm_Wave_Selective_Production_End
         Return returnString
 
     End Function
+
+    Private Sub BTN_Discard_Register_Click(sender As Object, e As EventArgs) Handles BTN_Discard_Register.Click
+
+        If TB_OrderIndex.Text = String.Empty Then
+            MessageBox.Show("생산중인 모델이 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        If TB_Inspector.Text = String.Empty Then
+            MessageBox.Show("검사자를 입력하여 주십시오.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        With frm_Discard_Register
+            .TB_CustomerCode.Text = TB_CustomerCode.Text
+            .TB_CustomerName.Text = TB_CustomerName.Text
+            .TB_Inspector.Text = TB_Inspector.Text
+            .TB_ItemCode.Text = TB_ItemCode.Text
+            .TB_ItemName.Text = TB_ItemName.Text
+            .TB_OrderIndex.Text = TB_OrderIndex.Text
+            .TB_OrderQty.Text = TB_OrderQty.Text
+            .TB_ModelCode.Text = TB_ModelCode.Text
+            .TB_Process.Text = CB_Line.Text
+            .TB_HistoryNo.Text = historyIndex
+
+            If .ShowDialog() = DialogResult.OK Then
+                Load_InspectList()
+            End If
+        End With
+
+    End Sub
 End Class

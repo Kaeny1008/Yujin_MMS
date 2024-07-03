@@ -215,16 +215,15 @@ Public Class frm_Assy_Label_Print
 
             If Load_PrintTotalQty() = CInt(TB_POQty.Text) Then
                 MessageBox.Show(Me,
-                                    "이미 발행을 완료한 주문번호 입니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
+                                        "이미 발행을 완료한 주문번호 입니다.",
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Exclamation)
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
                 Exit Sub
             End If
-
 
             'History를 확인한다(현품표 수량확인)
             Load_History_Information(TB_HistoryNo.Text)
@@ -240,23 +239,28 @@ Public Class frm_Assy_Label_Print
                 Exit Sub
             End If
 
-            '중복발행 체크
-            If Check_Print() = False Then
-                MessageBox.Show(Me,
-                                    "이미 발행한 현품표입니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
-                Control_Init()
-                TB_MagazineBarcode.SelectAll()
-                TB_MagazineBarcode.Focus()
-                Exit Sub
-            End If
+            Dim rePrintDate As DateTime = Now
+            If CB_Reprint.Checked = True Then
+                rePrintDate = Load_History_Print_Content()
+            Else
+                '중복발행 체크
+                If Check_Print() = False Then
+                    MessageBox.Show(Me,
+                                        "이미 발행한 현품표입니다.",
+                                        msg_form,
+                                        MessageBoxButtons.OK,
+                                        MessageBoxIcon.Exclamation)
+                    Control_Init()
+                    TB_MagazineBarcode.SelectAll()
+                    TB_MagazineBarcode.Focus()
+                    Exit Sub
+                End If
 
-            '마지막 발행No를 불러 온다.
-            Load_LastNo()
-            If TextBox3.Text = String.Empty Then
-                TextBox3.Text = 0
+                '마지막 발행No를 불러 온다.
+                Load_LastNo()
+                If TextBox3.Text = String.Empty Then
+                    TextBox3.Text = 0
+                End If
             End If
 
             Grid_LabelList.Redraw = False
@@ -266,7 +270,7 @@ Public Class frm_Assy_Label_Print
                 Dim insertString As String = Grid_LabelList.Rows.Count
                 insertString += vbTab & TB_Label_ItemName.Text
                 insertString += vbTab & TB_ItemCode.Text
-                insertString += vbTab & Format(Now, "yyMMdd")
+                insertString += vbTab & Format(rePrintDate, "yyMMdd")
                 insertString += vbTab & Format(startNo, "0000")
                 Grid_LabelList.AddItem(insertString)
             Next
@@ -278,6 +282,44 @@ Public Class frm_Assy_Label_Print
 
     End Sub
 
+    Private Function Load_History_Print_Content() As DateTime
+
+        Thread_LoadingFormStart()
+
+        DBConnect()
+
+        Dim writeDate As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_assy_label_history(11"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", '" & TB_HistoryNo.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TextBox3.Text = CDbl(sqlDR("start_no")) - 1
+            writeDate = sqlDR("write_date")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return writeDate
+
+    End Function
+
     Private Function Load_Po_Information() As Boolean
 
         Thread_LoadingFormStart()
@@ -286,6 +328,7 @@ Public Class frm_Assy_Label_Print
 
         Dim strSQL As String = "call sp_mms_assy_label_history(0"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -315,6 +358,8 @@ Public Class frm_Assy_Label_Print
                 TB_Label_Boot.Text = sqlDR("boot_label")
                 TB_Label_FPGA.Text = sqlDR("fpga_label")
             End If
+            TextBox1.Text = sqlDR("customer_name")
+            TextBox4.Text = sqlDR("customer_code")
         Loop
         sqlDR.Close()
 
@@ -345,6 +390,7 @@ Public Class frm_Assy_Label_Print
         Dim strSQL As String = "call sp_mms_assy_label_history(" & indexSelect
         strSQL += ", null"
         strSQL += ", '" & historyNo & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -384,6 +430,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -412,6 +459,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", '" & TB_OrderIndex.Text & "'"
         strSQL += ", '" & TB_HistoryNo.Text & "'"
         strSQL += ", '" & TB_LastProcess.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -458,6 +506,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -494,13 +543,19 @@ Public Class frm_Assy_Label_Print
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Dim wirteResult As String = DB_Write()
+        Dim wirteResult As String = String.Empty
+        If CB_Reprint.Checked = True Then
+            wirteResult = DB_Write_All_Reprint()
+        Else
+            wirteResult = DB_Write()
+        End If
+
         If Not wirteResult = String.Empty Then
             MessageBox.Show(Me,
-                            wirteResult,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+                                wirteResult,
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error)
             Exit Sub
         End If
 
@@ -511,10 +566,69 @@ Public Class frm_Assy_Label_Print
                         msg_form,
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information)
-
+        CB_Reprint.Checked = False
         Control_Init()
 
     End Sub
+
+    Private Function DB_Write_All_Reprint() As String
+
+        Dim writeResult As String = String.Empty
+
+        Thread_LoadingFormStart("Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Dim nowTime As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+        Dim nowDate As String = Format(Now, "yyyy-MM-dd")
+
+        Try
+            For i = 1 To Grid_LabelList.Rows.Count - 1
+                strSQL += "insert into tb_mms_assy_label_reprint("
+                strSQL += "history_index, customer_code, model_code"
+                strSQL += ", label_date, serial_no, write_date, write_id"
+                strSQL += ") values("
+                strSQL += "f_mms_assy_label_reprint_no('" & nowDate & "')"
+                strSQL += ",'" & TextBox4.Text & "'"
+                strSQL += ",'" & TB_ModelCode.Text & "'"
+                strSQL += ",'" & Grid_LabelList(i, 3) & "'"
+                strSQL += "," & Grid_LabelList(i, 4) & ""
+                strSQL += ",'" & nowTime & "'"
+                strSQL += ",'" & TextBox2.Text & "'"
+                strSQL += ");"
+            Next
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+            writeResult = ex.Message
+
+            Return writeResult
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return writeResult
+
+    End Function
 
     Private Function DB_Write() As String
 
@@ -600,7 +714,7 @@ Public Class frm_Assy_Label_Print
             swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
             swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
             swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
-            swFile.WriteLine("^FO0150,0000^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")
+            swFile.WriteLine("^FO0150,0002^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")
             swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
             swFile.WriteLine("^XZ")
         End If
@@ -789,6 +903,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -838,6 +953,14 @@ Public Class frm_Assy_Label_Print
         TB_Reprint_ItemSpec.Text = String.Empty
         TB_Reprint_Unique.Text = String.Empty
 
+        Load_Reprint_Basic_Information()
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_Reprint_Basic_Information()
+
         DBConnect()
 
         Dim strSQL As String = "call sp_mms_assy_label_history(7"
@@ -850,6 +973,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", '" & TB_Reprint_ItemCode.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -858,14 +982,12 @@ Public Class frm_Assy_Label_Print
         Do While sqlDR.Read
             TB_Reprint_ItemName.Text = sqlDR("item_name")
             TB_Reprint_ItemSpec.Text = sqlDR("item_spec")
-            TB_Reprint_Unique.Text = sqlDR("barcode_string")
+            'TB_Reprint_Unique.Text = sqlDR("barcode_string")
             TB_Reprint_ModelCode.Text = sqlDR("model_code")
         Loop
         sqlDR.Close()
 
         DBClose()
-
-        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -884,17 +1006,6 @@ Public Class frm_Assy_Label_Print
     End Sub
 
     Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
-
-        If TB_Reprint_Unique.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "품목명을 찾을 수 없습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
-            TB_Reprint_ItemCode.SelectAll()
-            TB_Reprint_ItemCode.Focus()
-            Exit Sub
-        End If
 
         If Trim(TB_Reprint_Serial.Text) = String.Empty Then
             MessageBox.Show(Me,
@@ -930,12 +1041,26 @@ Public Class frm_Assy_Label_Print
         End If
 
         '라벨 발행 이력이 있는지 검증
-        If Reprint_IndexCheck() = False Then
+        Dim managementNo As String = Reprint_IndexCheck()
+        If managementNo = String.Empty Then
             MessageBox.Show(Me,
                             "생산이력을 확인 할 수 없습니다.",
                             msg_form,
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information)
+            Exit Sub
+        End If
+
+        Reprint_Load_ItemName(managementNo)
+
+        If TB_Reprint_Unique.Text = String.Empty Then
+            MessageBox.Show(Me,
+                            "품목명을 찾을 수 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
+            TB_Reprint_ItemCode.SelectAll()
+            TB_Reprint_ItemCode.Focus()
             Exit Sub
         End If
 
@@ -975,11 +1100,45 @@ Public Class frm_Assy_Label_Print
 
     End Sub
 
-    Private Function Reprint_IndexCheck() As Boolean
+    Private Sub Reprint_Load_ItemName(ByVal managementNo As String)
+
+        Thread_LoadingFormStart()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_assy_label_history(10"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_Reprint_ModelCode.Text & "'"
+        strSQL += ", '" & managementNo & "'"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_Reprint_Unique.Text = sqlDR("item_name")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Function Reprint_IndexCheck() As String
 
         Thread_LoadingFormStart()
 
         Dim maxSerial As Integer = 0
+        Dim managementNo As String = String.Empty
 
         DBConnect()
 
@@ -993,6 +1152,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", null"
         strSQL += ", '" & Format(DTP_ReprintDate.Value, "yyyy-MM-dd") & "'"
         strSQL += ", '" & TB_Reprint_ModelCode.Text & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -1000,6 +1160,7 @@ Public Class frm_Assy_Label_Print
 
         Do While sqlDR.Read
             maxSerial = sqlDR("end_no")
+            managementNo = sqlDR("management_no")
         Loop
         sqlDR.Close()
 
@@ -1008,9 +1169,9 @@ Public Class frm_Assy_Label_Print
         Thread_LoadingFormEnd()
 
         If CInt(TB_Reprint_Serial.Text) > maxSerial Then
-            Return False
+            Return String.Empty
         Else
-            Return True
+            Return managementNo
         End If
 
     End Function
@@ -1034,12 +1195,12 @@ Public Class frm_Assy_Label_Print
 
         Try
             strSQL += "insert into tb_mms_assy_label_reprint("
-            strSQL += "history_index, customer_code, item_code"
+            strSQL += "history_index, customer_code, model_code"
             strSQL += ", label_date, serial_no, write_date, write_id"
             strSQL += ") values("
             strSQL += "f_mms_assy_label_reprint_no('" & nowDate & "')"
             strSQL += ",'" & TB_Reprint_CustomerCode.Text & "'"
-            strSQL += ",'" & TB_Reprint_ItemCode.Text & "'"
+            strSQL += ",'" & TB_Reprint_ModelCode.Text & "'"
             strSQL += ",'" & TB_Reprint_Date.Text & "'"
             strSQL += "," & TB_Reprint_Serial.Text & ""
             strSQL += ",'" & nowTime & "'"
@@ -1133,6 +1294,7 @@ Public Class frm_Assy_Label_Print
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -1160,6 +1322,10 @@ Public Class frm_Assy_Label_Print
         Grid_ReprintList.Redraw = True
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub TB_MagazineBarcode_LostFocus(sender As Object, e As EventArgs) Handles TB_MagazineBarcode.LostFocus
 
     End Sub
 End Class
