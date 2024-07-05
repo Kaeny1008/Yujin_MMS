@@ -522,4 +522,12 @@ Public Class frm_Main
         frm_Wave_Selective_Production_History.Focus()
 
     End Sub
+
+    Private Sub BTN_OutTransfer_List_Click(sender As Object, e As EventArgs) Handles BTN_OutTransfer_List.Click
+
+        frm_WorkSite_Transfer_Material_List.MdiParent = Me
+        If Not frm_WorkSite_Transfer_Material_List.Visible Then frm_WorkSite_Transfer_Material_List.Show()
+        frm_WorkSite_Transfer_Material_List.Focus()
+
+    End Sub
 End Class

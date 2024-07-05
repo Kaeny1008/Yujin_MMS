@@ -4,6 +4,7 @@ Imports MySql.Data.MySqlClient
 Public Class frm_Material_Transfer
 
     Dim mwNo As String
+    Dim partType As String
 
     Private Sub frm_Material_WorkSite_Transfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -31,7 +32,7 @@ Public Class frm_Material_Transfer
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 7
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -42,6 +43,8 @@ Public Class frm_Material_Transfer
             Grid_History(0, 4) = "Lot No."
             Grid_History(0, 5) = "수량"
             Grid_History(0, 6) = "mw_no"
+            Grid_History(0, 7) = "타입"
+            Grid_History(0, 8) = "비고"
             .Cols(6).Visible = True
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -306,7 +309,7 @@ Public Class frm_Material_Transfer
             TB_CustomerPartCode.Text = Trim(splitBarcode(0))
             TB_PartNo.Text = Trim(splitBarcode(1))
             TB_LotNo.Text = Trim(splitBarcode(2))
-            TB_Qty.Text = Format(CInt(Trim(splitBarcode(3))), "#,##0")
+            TB_Qty.Text = Format(CInt(Trim(splitBarcode(3))), "#,##0") '<--------------- 여기부분 나중에 서버에서 available_qty를 불러오는걸로 변경해야 한다.
             TB_Vendor.Text = Trim(splitBarcode(4))
             'TB_InDate.Text = Trim(splitBarcode(5)) <-서버에서 일자시간까지 불러오는걸로 변경
             TB_BarcodeScan.Clear()
@@ -400,6 +403,7 @@ Public Class frm_Material_Transfer
             TB_InDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
             TextBox1.Text = sqlDR("split_count")
             'TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
+            partType = sqlDR("part_type")
         Loop
         sqlDR.Close()
 
@@ -563,6 +567,12 @@ Public Class frm_Material_Transfer
                     strSQL += ", 'Closed'"
                 End If
                 strSQL += ");"
+
+                If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
+                    Grid_History(i, 7).ToString.ToUpper.Equals("BARE PCB") Then
+                    strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                    strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
+                End If
             Next
 
             If Not strSQL = String.Empty Then
@@ -729,6 +739,7 @@ Public Class frm_Material_Transfer
                 insertString += vbTab & sqlDR("part_lot_no")
                 insertString += vbTab & sqlDR("part_qty")
                 insertString += vbTab & sqlDR("mw_no")
+                insertString += vbTab & sqlDR("part_type")
                 Grid_History.AddItem(insertString)
             Loop
             sqlDR.Close()
@@ -866,6 +877,10 @@ Public Class frm_Material_Transfer
             insertString += vbTab & newLotNo
             insertString += vbTab & TB_1stQty.Text
             insertString += vbTab & newMwNo
+            insertString += vbTab & partType
+            If partType.ToUpper = "PCB" Or partType.ToUpper = "BARE PCB" Then
+                insertString += vbTab & "PCB는 등록 즉시 사용수량으로 차감됩니다."
+            End If
 
             Grid_History.AddItem(insertString)
             Grid_History.AutoSizeCols()
@@ -879,6 +894,10 @@ Public Class frm_Material_Transfer
             insertString += vbTab & TB_LotNo.Text
             insertString += vbTab & TB_Qty.Text
             insertString += vbTab & mwNo
+            insertString += vbTab & partType
+            If partType.ToUpper = "PCB" Or partType.ToUpper = "BARE PCB" Then
+                insertString += vbTab & "PCB는 등록 즉시 사용수량으로 차감됩니다."
+            End If
 
             Grid_History.AddItem(insertString)
             Grid_History.AutoSizeCols()

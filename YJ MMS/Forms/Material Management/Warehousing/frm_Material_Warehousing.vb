@@ -547,7 +547,7 @@ Public Class frm_Material_Warehousing
 
             strSQL = "insert into tb_mms_material_warehousing("
             strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor, part_no, part_lot_no"
-            strSQL += ", part_qty, barcode1,barcode2, barcode3, write_date, write_id"
+            strSQL += ", part_qty, barcode1,barcode2, barcode3, write_date, write_id, available_qty"
             strSQL += ") values("
             strSQL += "f_mms_new_mw_no('" & TB_InNo.Text & "')"
             strSQL += ", '" & TB_InNo.Text & "'"
@@ -562,7 +562,9 @@ Public Class frm_Material_Warehousing
             strSQL += ", '" & barcode2 & "'"
             strSQL += ", '" & barcode3 & "'"
             strSQL += ", '" & writeDate & "'"
-            strSQL += ", '" & loginID & "');"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ", '" & CInt(TB_Qty.Text) & "'"
+            strSQL += ");"
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

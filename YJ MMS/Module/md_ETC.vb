@@ -436,6 +436,7 @@ Module md_ETC
     Public printerDataBits As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "DataBits", 8)
     Public printerParity As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Parity", 0)
     Public printerStopBits As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "StopBits", 1)
+    Public printerMD As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Media Darkness", 25)
 
     Public Function TestPrinter(ByVal testCable As String,
                                 ByVal testName As String,
@@ -461,7 +462,7 @@ Module md_ETC
 
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & testLeftPosition & ",0^LT" & testTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
             swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
             swFile.WriteLine("^FO180,0000^A0,60,40^FDPart Code : 000000000^FS")

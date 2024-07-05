@@ -220,6 +220,12 @@
     <Compile Include="Forms\frm_DiscardAlarm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.Designer.vb">
+      <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\frm_Production_Discard_Confirm.Designer.vb">
       <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>
     </Compile>
@@ -436,6 +442,18 @@
     <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_Documents_Viewer.Designer.vb">
+      <DependentUpon>frm_Documents_Viewer.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_Documents_Viewer.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_Production_BOM.Designer.vb">
+      <DependentUpon>frm_Production_BOM.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_Production_BOM.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_History.Designer.vb">
       <DependentUpon>frm_WS_Fault_History.vb</DependentUpon>
     </Compile>
@@ -610,12 +628,6 @@
     <Compile Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.Designer.vb">
-      <DependentUpon>frm_asdadsads.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.Designer.vb">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>
     </Compile>
@@ -769,6 +781,9 @@
     <EmbeddedResource Include="Forms\frm_DiscardAlarm.resx">
       <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.resx">
+      <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Production_Discard_Confirm.resx">
       <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>
     </EmbeddedResource>
@@ -878,6 +893,12 @@
     <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.resx">
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_Documents_Viewer.resx">
+      <DependentUpon>frm_Documents_Viewer.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_Production_BOM.resx">
+      <DependentUpon>frm_Production_BOM.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Fault_History.resx">
       <DependentUpon>frm_WS_Fault_History.vb</DependentUpon>
     </EmbeddedResource>
@@ -964,9 +985,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\frm_Wave_Selective_Production_Start.resx">
       <DependentUpon>frm_Wave_Selective_Production_Start.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_asdadsads.resx">
-      <DependentUpon>frm_asdadsads.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\Wave Selective Production\Popup\frm_WS_Reinspection.resx">
       <DependentUpon>frm_WS_Reinspection.vb</DependentUpon>

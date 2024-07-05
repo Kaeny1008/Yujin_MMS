@@ -334,7 +334,7 @@ Public Class frm_Model_Document_List
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             If IsNumeric(Grid_Document(selRow, 0)) Then
-                strSQL = "update tb_model_process_document set file_name = '" & Grid_Document(selRow, 5) & "'"
+                strSQL = "update tb_model_process_document set file_name = '" & Grid_Document(selRow, 5).ToString.Replace("'", "\'") & "'"
                 strSQL += " where document_no = '" & Grid_Document(selRow, 1) & "'"
                 strSQL += ";"
             Else
@@ -346,7 +346,7 @@ Public Class frm_Model_Document_List
                 strSQL += ",'" & Grid_Document(selRow, 2) & "'"
                 strSQL += ",'" & Grid_Document(selRow, 3) & "'"
                 strSQL += "," & Grid_Document(selRow, 4) & ""
-                strSQL += ",'" & Grid_Document(selRow, 5) & "'"
+                strSQL += ",'" & Grid_Document(selRow, 5).ToString.Replace("'", "\'") & "'"
                 strSQL += ");"
             End If
 

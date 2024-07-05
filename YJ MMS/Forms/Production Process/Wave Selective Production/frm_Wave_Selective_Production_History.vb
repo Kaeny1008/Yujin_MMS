@@ -272,7 +272,7 @@ Public Class frm_Wave_Selective_Production_History
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^MD" & printerMD) '진하기
         swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
         swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
 

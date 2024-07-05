@@ -26,6 +26,8 @@ Partial Class frm_LabelPrinterSetting
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.CB_PrinterList = New System.Windows.Forms.ComboBox()
         Me.Label23 = New System.Windows.Forms.Label()
+        Me.TB_MediaDarkness = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_StopBits = New System.Windows.Forms.TextBox()
         Me.Label34 = New System.Windows.Forms.Label()
         Me.TB_Parity = New System.Windows.Forms.TextBox()
@@ -66,6 +68,8 @@ Partial Class frm_LabelPrinterSetting
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel5.Controls.Add(Me.CB_PrinterList)
         Me.Panel5.Controls.Add(Me.Label23)
+        Me.Panel5.Controls.Add(Me.TB_MediaDarkness)
+        Me.Panel5.Controls.Add(Me.Label1)
         Me.Panel5.Controls.Add(Me.TB_StopBits)
         Me.Panel5.Controls.Add(Me.Label34)
         Me.Panel5.Controls.Add(Me.TB_Parity)
@@ -84,7 +88,7 @@ Partial Class frm_LabelPrinterSetting
         Me.Panel5.Controls.Add(Me.TB_Port)
         Me.Panel5.Location = New System.Drawing.Point(9, 61)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(482, 270)
+        Me.Panel5.Size = New System.Drawing.Size(482, 300)
         Me.Panel5.TabIndex = 1
         '
         'CB_PrinterList
@@ -111,6 +115,31 @@ Partial Class frm_LabelPrinterSetting
         Me.Label23.TabIndex = 2
         Me.Label23.Text = "Printer 목록"
         Me.Label23.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_MediaDarkness
+        '
+        Me.TB_MediaDarkness.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_MediaDarkness.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_MediaDarkness.Location = New System.Drawing.Point(180, 260)
+        Me.TB_MediaDarkness.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_MediaDarkness.Name = "TB_MediaDarkness"
+        Me.TB_MediaDarkness.Size = New System.Drawing.Size(285, 26)
+        Me.TB_MediaDarkness.TabIndex = 17
+        Me.TB_MediaDarkness.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.SlateGray
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(9, 260)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(171, 26)
+        Me.Label1.TabIndex = 16
+        Me.Label1.Text = "StopBits"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_StopBits
         '
@@ -383,4 +412,6 @@ Partial Class frm_LabelPrinterSetting
     Friend WithEvents Label31 As Label
     Friend WithEvents TB_Port As TextBox
     Friend WithEvents BTN_Save As Button
+    Friend WithEvents TB_MediaDarkness As TextBox
+    Friend WithEvents Label1 As Label
 End Class

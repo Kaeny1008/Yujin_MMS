@@ -213,6 +213,7 @@ Public Class frm_Model_Document
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             '.SelectionMode = SelectionModeEnum.Row
+            .Cols(6).ComboList = "Bottom|Top"
         End With
 
         With Grid_Process
@@ -1049,6 +1050,9 @@ FTP_Control:
         Thread_LoadingFormEnd()
 
         TabControl1.SelectedIndex = 0
+
+        Application.DoEvents()
+
         MessageBox.Show(Me,
                         "저장 완료.",
                         msg_form,
@@ -1107,17 +1111,33 @@ FTP_Control:
                 strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
                 strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
                 strSQL += ";"
-                For i = 1 To Grid_BOM.Rows.Count - 1
+                For i = 1 To Grid_BOM_Total.Rows.Count - 1
+                    If Grid_BOM_Total(i, 6) = String.Empty Then
+                        Return "작업면 구분이 없는 항목이 있습니다."
+                    End If
                     strSQL += "insert into tb_model_bom("
-                    strSQL += "customer_code, model_code, management_no, ref, part_no, material_type, is_loader_pcb) values("
+                    strSQL += "customer_code, model_code, management_no, ref, part_no, material_type, is_loader_pcb, tb) values("
                     strSQL += "'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & TB_ModelCode.Text & "'"
                     strSQL += ",'" & CB_ManagementNo.Text & "'"
-                    strSQL += ",'" & Grid_BOM(i, 1) & "'"
-                    strSQL += ",'" & Grid_BOM(i, 2) & "'"
-                    strSQL += ",'" & Replace(Grid_BOM(i, 3), "'", "\'") & "'"
-                    strSQL += ",'" & Grid_BOM(i, 4) & "'"
+                    strSQL += ",'" & Grid_BOM_Total(i, 1) & "'"
+                    strSQL += ",'" & Grid_BOM_Total(i, 2) & "'"
+                    strSQL += ",'" & Replace(Grid_BOM_Total(i, 7), "'", "\'") & "'"
+                    strSQL += ",'" & Grid_BOM_Total(i, 8) & "'"
+                    strSQL += ",'" & Grid_BOM_Total(i, 6) & "'"
                     strSQL += ");"
+                Next
+            Else
+                For i = 1 To Grid_BOM_Total.Rows.Count - 1
+                    If Grid_BOM_Total(i, 0) = "M" Then
+                        If Grid_BOM_Total(i, 6) = String.Empty Then
+                            Return "작업면 구분이 없는 항목이 있습니다."
+                        End If
+                        strSQL += "update tb_model_bom set tb = '" & Grid_BOM_Total(i, 6) & "'"
+                        strSQL += " where model_code = '" & TB_ModelCode.Text & "'"
+                        strSQL += " and management_no = '" & CB_ManagementNo.Text & "'"
+                        strSQL += " and ref = '" & Grid_BOM_Total(i, 1) & "';"
+                    End If
                 Next
             End If
 
@@ -1716,6 +1736,36 @@ FTP_Control:
                 Grid_Process.Cols(i).ComboList = processList
             Next
         End If
+
+    End Sub
+
+    Private Sub Grid_BOM_Total_RowColChange(sender As Object, e As EventArgs) Handles Grid_BOM_Total.RowColChange
+
+        Select Case Grid_BOM_Total.Col
+            Case 6
+                Grid_BOM_Total.AllowEditing = True
+            Case Else
+                Grid_BOM_Total.AllowEditing = False
+        End Select
+
+    End Sub
+
+    Dim beforeText As String
+
+    Private Sub Grid_BOM_Total_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_BOM_Total.BeforeEdit
+
+        beforeText = Grid_BOM_Total(e.Row, e.Col)
+
+    End Sub
+
+    Private Sub Grid_BOM_Total_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_BOM_Total.AfterEdit
+
+        If e.Row < 1 Then Exit Sub
+
+        If beforeText = Grid_BOM_Total(e.Row, e.Col) Then Exit Sub
+
+        Grid_BOM_Total(e.Row, 0) = "M"
+        Grid_BOM_Total.Rows(e.Row).StyleNew.ForeColor = Color.Red
 
     End Sub
 End Class

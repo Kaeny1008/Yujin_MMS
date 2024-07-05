@@ -31,6 +31,12 @@ Partial Class frm_Order_Registration
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.Grid_Excel = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
@@ -46,18 +52,12 @@ Partial Class frm_Order_Registration
         Me.BTN_NewModelRegistration = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.DateTimePicker2 = New System.Windows.Forms.DateTimePicker()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -134,6 +134,75 @@ Partial Class frm_Order_Registration
         Me.Panel1.Size = New System.Drawing.Size(1264, 98)
         Me.Panel1.TabIndex = 0
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.ForeColor = System.Drawing.Color.Red
+        Me.Label4.Location = New System.Drawing.Point(1039, 72)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(402, 12)
+        Me.Label4.TabIndex = 36
+        Me.Label4.Text = "※ 주문번호는 SRM에 등록된 내용과 다를 수 있습니다.(자사 번호체번됨)"
+        '
+        'Panel2
+        '
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel2.Controls.Add(Me.DateTimePicker2)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.DateTimePicker1)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Enabled = False
+        Me.Panel2.Location = New System.Drawing.Point(162, 17)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(212, 65)
+        Me.Panel2.TabIndex = 35
+        '
+        'DateTimePicker2
+        '
+        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker2.Location = New System.Drawing.Point(91, 35)
+        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(0)
+        Me.DateTimePicker2.Name = "DateTimePicker2"
+        Me.DateTimePicker2.Size = New System.Drawing.Size(112, 21)
+        Me.DateTimePicker2.TabIndex = 35
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(10, 35)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(81, 21)
+        Me.Label3.TabIndex = 34
+        Me.Label3.Text = "납품 종료일"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.DateTimePicker1.Location = New System.Drawing.Point(91, 12)
+        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(0)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(112, 21)
+        Me.DateTimePicker1.TabIndex = 33
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(10, 12)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(81, 21)
+        Me.Label2.TabIndex = 32
+        Me.Label2.Text = "납품 시작일"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.RadioButton2)
@@ -151,10 +220,10 @@ Partial Class frm_Order_Registration
         Me.RadioButton2.Checked = True
         Me.RadioButton2.Location = New System.Drawing.Point(6, 47)
         Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(111, 16)
+        Me.RadioButton2.Size = New System.Drawing.Size(59, 16)
         Me.RadioButton2.TabIndex = 1
         Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "기타 Excel 자료"
+        Me.RadioButton2.Text = "제어부"
         Me.RadioButton2.UseVisualStyleBackColor = True
         '
         'RadioButton1
@@ -162,9 +231,9 @@ Partial Class frm_Order_Registration
         Me.RadioButton1.AutoSize = True
         Me.RadioButton1.Location = New System.Drawing.Point(6, 23)
         Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(130, 16)
+        Me.RadioButton1.Size = New System.Drawing.Size(59, 16)
         Me.RadioButton1.TabIndex = 0
-        Me.RadioButton1.Text = "SRM 다운로드 자료"
+        Me.RadioButton1.Text = "모터부"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'CB_CustomerName
@@ -288,75 +357,6 @@ Partial Class frm_Order_Registration
         Me.BTN_Save2.Size = New System.Drawing.Size(122, 22)
         Me.BTN_Save2.Text = "저장"
         '
-        'Panel2
-        '
-        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel2.Controls.Add(Me.DateTimePicker2)
-        Me.Panel2.Controls.Add(Me.Label3)
-        Me.Panel2.Controls.Add(Me.DateTimePicker1)
-        Me.Panel2.Controls.Add(Me.Label2)
-        Me.Panel2.Enabled = False
-        Me.Panel2.Location = New System.Drawing.Point(162, 17)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(212, 65)
-        Me.Panel2.TabIndex = 35
-        '
-        'Label2
-        '
-        Me.Label2.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label2.ForeColor = System.Drawing.Color.White
-        Me.Label2.Location = New System.Drawing.Point(10, 12)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(81, 21)
-        Me.Label2.TabIndex = 32
-        Me.Label2.Text = "납품 시작일"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker1.Location = New System.Drawing.Point(91, 12)
-        Me.DateTimePicker1.Margin = New System.Windows.Forms.Padding(0)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(112, 21)
-        Me.DateTimePicker1.TabIndex = 33
-        '
-        'DateTimePicker2
-        '
-        Me.DateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.DateTimePicker2.Location = New System.Drawing.Point(91, 35)
-        Me.DateTimePicker2.Margin = New System.Windows.Forms.Padding(0)
-        Me.DateTimePicker2.Name = "DateTimePicker2"
-        Me.DateTimePicker2.Size = New System.Drawing.Size(112, 21)
-        Me.DateTimePicker2.TabIndex = 35
-        '
-        'Label3
-        '
-        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(10, 35)
-        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(81, 21)
-        Me.Label3.TabIndex = 34
-        Me.Label3.Text = "납품 종료일"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.ForeColor = System.Drawing.Color.Red
-        Me.Label4.Location = New System.Drawing.Point(1039, 72)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(402, 12)
-        Me.Label4.TabIndex = 36
-        Me.Label4.Text = "※ 주문번호는 SRM에 등록된 내용과 다를 수 있습니다.(자사 번호체번됨)"
-        '
         'frm_Order_Registration
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -372,10 +372,10 @@ Partial Class frm_Order_Registration
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
-        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

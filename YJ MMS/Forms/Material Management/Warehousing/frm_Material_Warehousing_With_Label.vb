@@ -566,6 +566,7 @@ Public Class frm_Material_Warehousing_With_Label
                                              vendor.ToUpper,
                                              "BarcodeSplitResult",
                                              "returnStr")
+
         Console.WriteLine(splitResult)
         If splitResult.Split("!@")(0) = "Success" Then
             Dim resultSplit() As String = splitResult.Split("!@")
@@ -707,7 +708,7 @@ Public Class frm_Material_Warehousing_With_Label
 
             strSQL = "insert into tb_mms_material_warehousing("
             strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor, part_no, part_lot_no"
-            strSQL += ", part_qty, barcode1,barcode2, barcode3, write_date, write_id"
+            strSQL += ", part_qty, barcode1,barcode2, barcode3, write_date, write_id, available_qty"
             strSQL += ") "
             strSQL += "select f_mms_new_mw_no(f_mms_new_in_no(date_format(now(), '%Y-%m-%d'), '" & TB_DocumentNo.Text & "'))"
             strSQL += ", f_mms_new_in_no(date_format(now(), '%Y-%m-%d'), '" & TB_DocumentNo.Text & "')"
@@ -722,7 +723,9 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += ", '" & Replace(barcode2, "'", "\'") & "'"
             strSQL += ", '" & Replace(barcode3, "'", "\'") & "'"
             strSQL += ", '" & writeDate & "'"
-            strSQL += ", '" & loginID & "';"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ", '" & CInt(TB_Qty.Text) & "'"
+            strSQL += ";"
 
             '맵핑을 자동으로 등록하도록 한다.
             '중복된 값이 있으면 저장X

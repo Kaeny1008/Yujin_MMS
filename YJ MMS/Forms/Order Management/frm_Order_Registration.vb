@@ -284,14 +284,15 @@ Public Class frm_Order_Registration
     Private Sub CB_SheetName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_SheetName.SelectionChangeCommitted
 
         If RadioButton1.Checked = True Then
-            SRM_Excel_Process()
+            'SRM_Excel_Process()
+            Etc_Excel_Process("모터")
         Else
-            Etc_Excel_Process()
+            Etc_Excel_Process("제어")
         End If
 
     End Sub
 
-    Private Sub Etc_Excel_Process()
+    Private Sub Etc_Excel_Process(ByVal item_section As String)
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
@@ -302,6 +303,7 @@ Public Class frm_Order_Registration
 
         frm_Order_Excel_File_Open.fileName = TB_File_Path.Text
         frm_Order_Excel_File_Open.sheetName = CB_SheetName.Text
+        frm_Order_Excel_File_Open.item_section = item_section
         frm_Order_Excel_File_Open.Show()
 
     End Sub
@@ -1169,11 +1171,11 @@ Public Class frm_Order_Registration
 
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
 
-        If RadioButton1.Checked = True Then
-            Panel2.Enabled = True
-        Else
-            Panel2.Enabled = False
-        End If
+        'If RadioButton1.Checked = True Then
+        '    Panel2.Enabled = True
+        'Else
+        '    Panel2.Enabled = False
+        'End If
 
     End Sub
 End Class

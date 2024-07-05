@@ -17,6 +17,7 @@
         TB_DataBits.Text = printerDataBits
         TB_Parity.Text = printerParity
         TB_StopBits.Text = printerStopBits
+        TB_MediaDarkness.Text = printerMD
 
     End Sub
 
@@ -44,6 +45,7 @@
         registryEdit.WriteRegKey("Software\Yujin\MMS\Label Printer", "DataBits", CInt(TB_DataBits.Text))
         registryEdit.WriteRegKey("Software\Yujin\MMS\Label Printer", "Parity", CInt(TB_Parity.Text))
         registryEdit.WriteRegKey("Software\Yujin\MMS\Label Printer", "StopBits", CInt(TB_StopBits.Text))
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Label Printer", "Media Darkness", CInt(TB_MediaDarkness.Text))
 
         '변수에 현재 상태를 저장
         printerCable = CB_Cable.Text
@@ -55,6 +57,7 @@
         printerDataBits = TB_DataBits.Text
         printerParity = TB_Parity.Text
         printerStopBits = TB_StopBits.Text
+        printerMD = TB_MediaDarkness.Text
 
         Me.Dispose()
 
@@ -78,7 +81,8 @@
         TB_TOP_Loc.KeyPress,
         TB_Parity.KeyPress,
         TB_Port.KeyPress,
-        TB_StopBits.KeyPress
+        TB_StopBits.KeyPress,
+        TB_MediaDarkness.KeyPress
 
         If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "." And Not e.KeyChar = "-" Then
             e.Handled = True
@@ -91,7 +95,8 @@
         TB_TOP_Loc.GotFocus,
         TB_Parity.GotFocus,
         TB_Port.GotFocus,
-        TB_StopBits.GotFocus
+        TB_StopBits.GotFocus,
+        TB_MediaDarkness.GotFocus
 
         sender.SelectAll()
 
@@ -103,9 +108,14 @@
         TB_TOP_Loc.MouseClick,
         TB_Parity.MouseClick,
         TB_Port.MouseClick,
-        TB_StopBits.MouseClick
+        TB_StopBits.MouseClick,
+        TB_MediaDarkness.MouseClick
 
         sender.SelectAll()
+
+    End Sub
+
+    Private Sub TB_StopBits_TextChanged(sender As Object, e As EventArgs) Handles TB_StopBits.TextChanged
 
     End Sub
 End Class

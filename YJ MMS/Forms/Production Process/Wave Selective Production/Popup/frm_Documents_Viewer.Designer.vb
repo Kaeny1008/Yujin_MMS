@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frm_asdadsads
+Partial Class frm_Documents_Viewer
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
@@ -22,29 +22,30 @@ Partial Class frm_asdadsads
     '코드 편집기에서는 수정하지 마세요.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.WB_PDF = New System.Windows.Forms.WebBrowser()
         Me.SuspendLayout()
         '
-        'Button1
+        'WB_PDF
         '
-        Me.Button1.Location = New System.Drawing.Point(189, 101)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(134, 75)
-        Me.Button1.TabIndex = 0
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.WB_PDF.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.WB_PDF.Location = New System.Drawing.Point(0, 0)
+        Me.WB_PDF.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.WB_PDF.Name = "WB_PDF"
+        Me.WB_PDF.Size = New System.Drawing.Size(800, 450)
+        Me.WB_PDF.TabIndex = 0
         '
-        'frm_asdadsads
+        'frm_Documents_Viewer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Button1)
-        Me.Name = "frm_asdadsads"
-        Me.Text = "frm_asdadsads"
+        Me.Controls.Add(Me.WB_PDF)
+        Me.Name = "frm_Documents_Viewer"
+        Me.Text = "작업지도서"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents Button1 As Button
+    Friend WithEvents WB_PDF As WebBrowser
 End Class

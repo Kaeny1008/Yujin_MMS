@@ -5,6 +5,7 @@ Public Class frm_Order_Excel_File_Open
 
     Public fileName As String
     Public sheetName As String
+    Public item_section As String
 
     Dim startRow, endRow, dateRow As Integer
     Dim itemCode, itemName, startDate, endDate As Integer
@@ -49,7 +50,7 @@ Public Class frm_Order_Excel_File_Open
 
         frm_Order_Registration.Load_Basic_PO(CDate(Grid_Excel(dateRow, startDate)),
                                              CDate(Grid_Excel(dateRow, endDate)),
-                                             "제어")
+                                             item_section)
 
         Dim orderDate As String = Format(Now, "yyyy-MM-dd")
 

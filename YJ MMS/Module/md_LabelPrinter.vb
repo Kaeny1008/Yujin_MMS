@@ -21,7 +21,7 @@ Module md_LabelPrinter
         swFile.WriteLine("^XZ~JA^XZ")
         If splitLabel = False Then
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             'swFile.WriteLine("^XA")
             'swFile.WriteLine("^BY2,2.0^FS")
             swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
@@ -38,7 +38,7 @@ Module md_LabelPrinter
         Else
             '출고라벨
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             'swFile.WriteLine("^XA")
             'swFile.WriteLine("^BY2,2.0^FS")
             swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
@@ -54,7 +54,7 @@ Module md_LabelPrinter
             swFile.WriteLine("^PQ" & printQty & "^XZ") 'PQ : 발행수량
             '보관라벨
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             'swFile.WriteLine("^XA")
             'swFile.WriteLine("^BY2,2.0^FS")
             swFile.WriteLine("^SEE:UHANGUL.DAT^FS")

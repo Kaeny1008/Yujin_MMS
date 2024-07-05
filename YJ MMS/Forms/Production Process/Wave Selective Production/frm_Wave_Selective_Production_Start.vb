@@ -1,4 +1,5 @@
-﻿Imports C1.Win.C1FlexGrid
+﻿Imports System.IO
+Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Wave_Selective_Production_Start
@@ -124,6 +125,8 @@ Public Class frm_Wave_Selective_Production_Start
         strSQL += ", '" & CB_Line.Text & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -270,6 +273,8 @@ Public Class frm_Wave_Selective_Production_Start
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -293,6 +298,8 @@ Public Class frm_Wave_Selective_Production_Start
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(2"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -405,6 +412,8 @@ Public Class frm_Wave_Selective_Production_Start
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -435,6 +444,8 @@ Public Class frm_Wave_Selective_Production_Start
         strSQL += ", null"
         strSQL += ", '" & TB_ModelCode.Text & "'"
         strSQL += ", '" & CB_Line.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
@@ -494,6 +505,86 @@ Public Class frm_Wave_Selective_Production_Start
     End Sub
 
     Private Sub CB_Process_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Process.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub BTN_DocumentDownload_Click(sender As Object, e As EventArgs) Handles BTN_DocumentDownload.Click
+
+        Thread_LoadingFormStart()
+        Load_Document()
+        Application.DoEvents()
+        Load_BOM()
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_BOM()
+
+        frm_Production_BOM.orderIndex = TB_OrderIndex.Text
+
+        If not frm_Production_BOM.Visible Then frm_Production_BOM.Show()
+        frm_Production_BOM.Focus()
+
+    End Sub
+
+    Private Sub Load_Document()
+
+        DBConnect()
+
+        Dim fineName As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(15"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ", '" & CB_Line.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '투입'"
+        strSQL += ", 1"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            fineName = sqlDR("file_name")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        File_Download(fineName)
+
+    End Sub
+
+    Private Sub File_Download(ByVal fileName As String)
+
+        Dim modelFolder As String = Application.StartupPath & "\Model Documents\" & TB_ModelCode.Text
+
+        '모델폴더 생성(있으면 안만들어짐)
+        Directory.CreateDirectory(modelFolder)
+
+        If Not File.Exists(modelFolder & "\" & fileName) Then
+            Dim downloadResult As String = ftpFileDownload(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text,
+                                               modelFolder,
+                                               fileName)
+
+            If Not downloadResult.Equals("Completed") Then
+                MSG_Exclamation(Me, "Download 실패" & vbCrLf & downloadResult)
+                Exit Sub
+            End If
+        End If
+
+        '화면 옮기기 나중에 활용
+        'Dim scr() As Screen = Screen.AllScreens
+        'If scr.Length > 1 Then
+        '    Dim screen2 As Screen = If((scr(0).WorkingArea.Contains(Me.Location)), scr(1), scr(0))
+        '    Me.Location = screen2.Bounds.Location
+        'End If
+
+        frm_Documents_Viewer.WB_PDF.Navigate(modelFolder & "\" & fileName)
+        frm_Documents_Viewer.Show()
 
     End Sub
 End Class

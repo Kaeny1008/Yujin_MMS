@@ -27,6 +27,7 @@ Partial Class frm_Wave_Selective_Production_Start
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.BTN_DocumentDownload = New System.Windows.Forms.Button()
         Me.TB_Worker = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TB_SMD_HistoryNo = New System.Windows.Forms.TextBox()
@@ -101,6 +102,7 @@ Partial Class frm_Wave_Selective_Production_Start
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_DocumentDownload)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Worker)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label11)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_SMD_HistoryNo)
@@ -135,6 +137,15 @@ Partial Class frm_Wave_Selective_Production_Start
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 221
         Me.SplitContainer1.TabIndex = 1
+        '
+        'BTN_DocumentDownload
+        '
+        Me.BTN_DocumentDownload.Location = New System.Drawing.Point(584, 169)
+        Me.BTN_DocumentDownload.Name = "BTN_DocumentDownload"
+        Me.BTN_DocumentDownload.Size = New System.Drawing.Size(99, 39)
+        Me.BTN_DocumentDownload.TabIndex = 26
+        Me.BTN_DocumentDownload.Text = "모델 자료보기"
+        Me.BTN_DocumentDownload.UseVisualStyleBackColor = True
         '
         'TB_Worker
         '
@@ -602,4 +613,5 @@ Partial Class frm_Wave_Selective_Production_Start
     Friend WithEvents Timer1 As Timer
     Friend WithEvents TB_Worker As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents BTN_DocumentDownload As Button
 End Class

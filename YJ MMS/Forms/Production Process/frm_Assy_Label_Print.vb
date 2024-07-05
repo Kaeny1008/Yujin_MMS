@@ -710,7 +710,7 @@ Public Class frm_Assy_Label_Print
         If CheckBox1.Checked = True Then
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
             swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
             swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
@@ -749,7 +749,7 @@ Public Class frm_Assy_Label_Print
 
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD25") '진하기
+            swFile.WriteLine("^MD" & printerMD) '진하기
             If lineCount = 3 Then
                 swFile.WriteLine("^FO0020,0012^A0,25,25^FD" & firstLine & "^FS")
                 swFile.WriteLine("^FO0020,0041^A0,25,25^FD" & secondLine & "^FS")
@@ -1253,7 +1253,7 @@ Public Class frm_Assy_Label_Print
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^MD" & printerMD) '진하기
         swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Reprint_Unique.Text & "^FS")
         swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_Reprint_ItemCode.Text & "^FS")
         swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")

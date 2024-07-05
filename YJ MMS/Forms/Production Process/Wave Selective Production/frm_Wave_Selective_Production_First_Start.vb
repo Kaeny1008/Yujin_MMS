@@ -105,6 +105,8 @@ Public Class frm_Wave_Selective_Production_First_Start
         strSQL += ", '" & CB_Line.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

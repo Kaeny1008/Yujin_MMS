@@ -445,7 +445,7 @@ Public Class frm_Material_Warehousing_List
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^MD" & printerMD) '진하기
         'swFile.WriteLine("^XA")
         'swFile.WriteLine("^BY2,2.0^FS")
         swFile.WriteLine("^SEE:UHANGUL.DAT^FS")

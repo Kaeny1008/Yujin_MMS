@@ -157,6 +157,19 @@ Public Class frm_SMD_Magazine_Kitting
             workingEnd = True
         End If
 
+        If workingEnd = True Then
+            If Material_Use_Cal_Check() = False Then
+                Dim errorPartNo As String = Material_Use_Update()
+                If Not errorPartNo = String.Empty Then
+                    MSG_Exclamation(Me,
+                                    "Part No. : " & errorPartNo & "의" & vbCrLf &
+                                    "자재 투입이력이 부족합니다." & vbCrLf &
+                                    "SMD Operator에게 보고하십시오.")
+                    Exit Sub
+                End If
+            End If
+        End If
+
         If MessageBox.Show(Me,
                            "생산내역을 등록 하시겠습니까?",
                            msg_form,
@@ -237,6 +250,60 @@ Public Class frm_SMD_Magazine_Kitting
 
     End Sub
 
+    Private Function Material_Use_Cal_Check() As Boolean
+
+        Dim checkResult As Boolean = False
+
+        DBConnect()
+
+        Dim strSQL As String = "select smd_" & TB_TB.Text & "_material_use_cal"
+        strSQL += " from tb_mms_order_register_list"
+        strSQL += " where order_index = '" & TB_PONo.Text & "';"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("smd_" & TB_TB.Text & "_material_use_cal") = True Then
+                checkResult = True
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return checkResult
+
+    End Function
+
+    Private Function Material_Use_Update() As String
+
+        Dim errorPartNo As String = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_material_use_information("
+        strSQL += "'" & TB_PONo.Text & "'"
+        strSQL += ",'SMD'"
+        strSQL += ",'" & TB_TB.Text & "'"
+        strSQL += ");"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If Not sqlDR("result") = "Success" Then
+                errorPartNo = sqlDR("result")
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return errorPartNo
+
+    End Function
+
     Private Function CheckReinspection() As Boolean
 
         Dim not_inspect As Integer = 0
@@ -287,7 +354,7 @@ Public Class frm_SMD_Magazine_Kitting
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^MD" & printerMD) '진하기
         swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
         swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
 

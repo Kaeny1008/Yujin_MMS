@@ -159,6 +159,8 @@ Public Class frm_Wave_Selective_Production_End
         strSQL += ", '" & CB_Line.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -230,6 +232,8 @@ Public Class frm_Wave_Selective_Production_End
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(13"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -403,7 +407,7 @@ Public Class frm_Wave_Selective_Production_End
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        frm_asdadsads.Show()
+        frm_PDF_Viewer.Show()
     End Sub
 
     Private Sub Grid_History_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_History.MouseClick
@@ -445,7 +449,7 @@ Public Class frm_Wave_Selective_Production_End
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-        swFile.WriteLine("^MD25") '진하기
+        swFile.WriteLine("^MD" & printerMD) '진하기
         swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
         swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
 
@@ -512,6 +516,8 @@ Public Class frm_Wave_Selective_Production_End
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
