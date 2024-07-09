@@ -123,10 +123,7 @@ Public Class frm_Material_Stock_Information
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show("고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 

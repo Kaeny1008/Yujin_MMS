@@ -30,6 +30,8 @@ Public Class frm_WS_Magazine_Kitting
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -54,6 +56,8 @@ Public Class frm_WS_Magazine_Kitting
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(14"
         strSQL += ", '" & orderIndex & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -225,6 +229,8 @@ Public Class frm_WS_Magazine_Kitting
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(9"
         strSQL += ", '" & TB_PONo.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"

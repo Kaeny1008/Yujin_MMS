@@ -220,6 +220,12 @@
     <Compile Include="Forms\frm_DiscardAlarm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Each_Item.Designer.vb">
+      <DependentUpon>frm_Material_Stock_Survey_Each_Item.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Each_Item.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.Designer.vb">
       <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
     </Compile>
@@ -780,6 +786,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_DiscardAlarm.resx">
       <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Each_Item.resx">
+      <DependentUpon>frm_Material_Stock_Survey_Each_Item.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.resx">
       <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>

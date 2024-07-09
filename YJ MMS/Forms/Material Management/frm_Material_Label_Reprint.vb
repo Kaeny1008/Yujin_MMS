@@ -155,9 +155,7 @@ Public Class frm_Material_Label_Reprint
             "로트넘버 : " & Grid_History(selRow, 5) & vbCrLf &
             "수량 : " & Grid_History(selRow, 6)
 
-        If MessageBox.Show(msgString & vbCrLf & vbCrLf & "재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
-
-
+        If MSG_Question(Me, msgString & vbCrLf & vbCrLf & "재발행 하시겠습니까?") = False Then Exit Sub
 
         Material_PrintLabel(Grid_History(selRow, 2),
                             Grid_History(selRow, 4),

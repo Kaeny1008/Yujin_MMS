@@ -157,20 +157,12 @@ Public Class frm_Material_Transfer
         If e.KeyCode = 13 And Not Trim(TB_BarcodeScan.Text) = String.Empty Then
 
             If RadioButton1.Checked = False And RadioButton2.Checked = False Then
-                MessageBox.Show(Me,
-                                "구분(입, 출고)를 먼저 선택하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "구분(입, 출고)를 먼저 선택하여 주십시오.")
                 Exit Sub
             End If
 
             If TB_CustomerCode.Text = String.Empty Then
-                MessageBox.Show(Me,
-                                "고객사를 먼저 선택하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
                 Exit Sub
             End If
 
@@ -194,11 +186,7 @@ Public Class frm_Material_Transfer
             mwNo = Load_MW_No()
 
             If mwNo = String.Empty Then
-                MessageBox.Show(Me,
-                                "자재의 고유번호(MW No.)를 찾을 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "자재의 고유번호(MW No.)를 찾을 수 없습니다.")
                 Control_Init()
                 Exit Sub
             End If
@@ -316,11 +304,7 @@ Public Class frm_Material_Transfer
             splitResult = True
         Catch ex As Exception
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
             Control_Init()
             TB_BarcodeScan.Clear()
             TB_BarcodeScan.Focus()
@@ -462,19 +446,11 @@ Public Class frm_Material_Transfer
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If Grid_History.Rows.Count = 1 Then
-            MessageBox.Show(Me,
-                            "등록된 목록이 없습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "등록된 목록이 없습니다.")
             Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -499,11 +475,7 @@ Public Class frm_Material_Transfer
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장완료",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료")
 
         BTN_Search_Click(Nothing, Nothing)
 
@@ -816,11 +788,7 @@ Public Class frm_Material_Transfer
         If Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
 
             If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
-                MessageBox.Show(Me,
-                                "출고+보관 수량이 입고 수량보다 큽니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
+                MSG_Error(Me, "출고+보관 수량이 입고 수량보다 큽니다.")
                 Exit Sub
             End If
         End If
@@ -830,11 +798,10 @@ Public Class frm_Material_Transfer
     Private Sub BTN_ListAdd_Click(sender As Object, e As EventArgs) Handles BTN_ListAdd.Click
 
         If CB_PartsSplit.Checked = True Then
-            If MessageBox.Show(Me,
-                               "출고, 보관수량을 확인하여 주십시오." & vbCrLf & "분할작업은 즉시 데이터가 저장됩니다." & vbCrLf & "출고목록에 등록하시겠습니까?",
-                               msg_form,
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+            If MSG_Question(Me,
+                            "출고, 보관수량을 확인하여 주십시오." & vbCrLf &
+                            "분할작업은 즉시 데이터가 저장됩니다." & vbCrLf &
+                            "출고목록에 등록하시겠습니까?") = False Then Exit Sub
 
             Dim splitCount As Integer = CInt(TextBox1.Text)
             Dim newLotNo As String = TB_LotNo.Text & "-S" & (splitCount + 1)
@@ -860,11 +827,7 @@ Public Class frm_Material_Transfer
             Dim newMwNo As String = Load_New_MW_No(newLotNo)
 
             If newMwNo = String.Empty Then
-                MessageBox.Show(Me,
-                                "자재의 고유번호(MW No.)를 찾을 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Error(Me, "자재의 고유번호(MW No.)를 찾을 수 없습니다.")
                 Exit Sub
             End If
 
@@ -974,12 +937,7 @@ Public Class frm_Material_Transfer
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Return False
         Finally
 
@@ -1055,7 +1013,7 @@ Public Class frm_Material_Transfer
         showString += vbCrLf & "파트코드 : " & Grid_History(selRow, 1)
         showString += vbCrLf & "항목을 삭제 하시겠습니까?"
 
-        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, showString) = False Then Exit Sub
 
         Grid_History.Redraw = False
         Grid_History.RemoveItem(selRow)

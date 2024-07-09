@@ -380,11 +380,7 @@ Public Class frm_Material_Warehousing
         If (e.KeyCode = 13) And
             (Not TB_BarcodeScan.Text = String.Empty) Then
             If CB_CustomerName.Text = String.Empty Then
-                MessageBox.Show(Me,
-                                "사용 고객사를 먼저 선택하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
+                MSG_Information(Me, "사용 고객사를 먼저 선택하여 주십시오.")
                 TB_BarcodeScan.SelectAll()
                 Exit Sub
             End If
@@ -398,11 +394,7 @@ Public Class frm_Material_Warehousing
                     TB_Qty.Text = Format(CInt(splitBarcode(3)), "#,##0")
                     TB_Vendor.Text = splitBarcode(4)
                 Catch ex As Exception
-                    MessageBox.Show(Me,
-                                    ex.Message,
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error)
+                    MSG_Error(Me, ex.Message)
                     TB_CustomerPartCode.Text = String.Empty
                     TB_PartNo.Text = String.Empty
                     TB_LotNo.Text = String.Empty
@@ -411,7 +403,7 @@ Public Class frm_Material_Warehousing
                     Exit Sub
                 End Try
             Else
-                MsgBox("현재 LS Mecapion외 지원되지 않습니다.")
+                MSG_Information(Me, "현재 LS Mecapion외 지원되지 않습니다.")
             End If
 
             Dim swFile As StreamWriter =
@@ -428,11 +420,7 @@ Public Class frm_Material_Warehousing
             swFile.Close()
 
             If Find_DocumentList() = False Then
-                MessageBox.Show(Me,
-                                "입고 리스트에서 해당 자재를 찾지 못했습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
+                MSG_Error(Me, "입고 리스트에서 해당 자재를 찾지 못했습니다.")
                 TB_CustomerPartCode.Text = String.Empty
                 TB_PartNo.Text = String.Empty
                 TB_LotNo.Text = String.Empty
@@ -518,11 +506,7 @@ Public Class frm_Material_Warehousing
         End If
 
         If Not Check_Lot_No() = "Not Exist" Then
-            MessageBox.Show(Me,
-                            "중복된 Lot No.입니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, "중복된 Lot No.입니다.")
             TB_CustomerPartCode.Text = String.Empty
             TB_PartNo.Text = String.Empty
             TB_LotNo.Text = String.Empty
@@ -577,11 +561,7 @@ Public Class frm_Material_Warehousing
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Timer1.Start()
             Label14.Visible = True
             Label14.Text = "등록실패"
@@ -723,18 +703,10 @@ Public Class frm_Material_Warehousing
                     msgString += vbCrLf & vbCrLf & "과출인 항목이 존재합니다." & vbCrLf & "행번호 : " & overinput
                 End If
             End If
-            MessageBox.Show(Me,
-                            msgString,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, msgString)
             Exit Sub
         Else
-            If MessageBox.Show(Me,
-                   "저장 하시겠습니까?",
-                   msg_form,
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+            If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
         End If
 
         Thread_LoadingFormStart("Saving...")
@@ -766,11 +738,7 @@ Public Class frm_Material_Warehousing
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
@@ -778,11 +746,7 @@ Public Class frm_Material_Warehousing
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료.")
 
         BTN_Save.Enabled = False
         BTN_ListAdd.Enabled = False

@@ -165,18 +165,12 @@ Public Class frm_Order_Modify
 
         For i = 1 To Grid_Excel.Rows.Count - 1
             If Grid_Excel(i, 13) = "X" Then
-                MessageBox.Show(Me,
-                                "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.")
                 Exit Sub
             End If
         Next
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -230,10 +224,8 @@ Public Class frm_Order_Modify
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
@@ -242,11 +234,8 @@ Public Class frm_Order_Modify
         BTN_Save.Enabled = False
 
         Thread_LoadingFormEnd()
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "저장완료.")
 
         Load_OrderNo(TB_OrderNo.Text)
         RegistrationCheck()
@@ -407,14 +396,12 @@ Public Class frm_Order_Modify
 
         Dim selRow As Integer = Grid_Excel.Row
 
-        If MessageBox.Show(Me,
-                   "주문 취소 하시겠습니까?" & vbCrLf &
-                   "품번 : " & Grid_Excel(selRow, 3) & vbCrLf &
-                   "품명 : " & Grid_Excel(selRow, 4) & vbCrLf &
-                   "주문량 : " & Grid_Excel(selRow, 9) & " " & Grid_Excel(selRow, 6),
-                   msg_form,
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me,
+                        "주문 취소 하시겠습니까?" & vbCrLf &
+                        "품번 : " & Grid_Excel(selRow, 3) & vbCrLf &
+                        "품명 : " & Grid_Excel(selRow, 4) & vbCrLf &
+                        "주문량 : " & Grid_Excel(selRow, 9) & " " & Grid_Excel(selRow, 6)
+                        ) = False Then Exit Sub
 
         Grid_Excel(selRow, 0) = "X"
         Grid_Excel.Rows(selRow).StyleNew.ForeColor = Color.Coral
@@ -425,14 +412,12 @@ Public Class frm_Order_Modify
 
         Dim selRow As Integer = Grid_Excel.Row
 
-        If MessageBox.Show(Me,
-                   "재등록 하시겠습니까?" & vbCrLf &
-                   "품번 : " & Grid_Excel(selRow, 3) & vbCrLf &
-                   "품명 : " & Grid_Excel(selRow, 4) & vbCrLf &
-                   "주문량 : " & Grid_Excel(selRow, 9) & " " & Grid_Excel(selRow, 6),
-                   msg_form,
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me,
+                        "재등록 하시겠습니까?" & vbCrLf &
+                        "품번 : " & Grid_Excel(selRow, 3) & vbCrLf &
+                        "품명 : " & Grid_Excel(selRow, 4) & vbCrLf &
+                        "주문량 : " & Grid_Excel(selRow, 9) & " " & Grid_Excel(selRow, 6)
+                        ) = False Then Exit Sub
 
         Grid_Excel(selRow, 0) = "R"
         Grid_Excel.Rows(selRow).StyleNew.ForeColor = Color.Black
@@ -473,11 +458,7 @@ Public Class frm_Order_Modify
                 If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
                     '주문접수된 상태가 아닐때
                     Grid_Excel(e.Row, e.Col) = before_griddata
-                    MessageBox.Show(Me,
-                                    "주문접수 상태가 아니므로 변경 할 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
+                    MSG_Exclamation(Me, "주문접수 상태가 아니므로 변경 할 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.")
                     Exit Sub
                 End If
 
@@ -534,7 +515,7 @@ Public Class frm_Order_Modify
         Dim selPONo As String = Grid_Excel(selRow, 16)
 
         If selPONo.Substring(selPONo.Length - 2, 2) Like "-#" Then
-            MessageBox.Show(Me, "분할된 주문에서 재 분할 할 수 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "분할된 주문에서 재 분할 할 수 없습니다.")
             Exit Sub
         End If
 
@@ -543,7 +524,7 @@ Public Class frm_Order_Modify
         showString += vbCrLf & "주문번호 : " & Grid_Excel(selRow, 7)
         showString += vbCrLf & vbCrLf & "를 주문 분리(수량) 또는 관리번호를 지정 하시겠습니까?"
 
-        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, showString) = False Then Exit Sub
 
         frm_Order_Split.orderIndex = Grid_Excel(selRow, 16)
         If Not frm_Order_Split.Visible Then frm_Order_Split.Show()

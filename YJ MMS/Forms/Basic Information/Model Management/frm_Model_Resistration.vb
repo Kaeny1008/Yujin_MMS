@@ -163,11 +163,7 @@ Public Class frm_Model_Resistration
 
     Private Sub btn_RowDelete_Click(sender As Object, e As EventArgs) Handles btn_RowDelete.Click
 
-        MessageBox.Show(Me,
-                        "현재 삭제 기능을 사용할 수 없습니다." & vbCrLf & "(모델 자료 삭제 기능 제작필요)",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Error)
+        MSG_Error(Me, "현재 삭제 기능을 사용할 수 없습니다." & vbCrLf & "(모델 자료 삭제 기능 제작필요)")
         Exit Sub
 
         Dim sel_Row As Integer = grid_ModelList.Row
@@ -184,9 +180,7 @@ Public Class frm_Model_Resistration
     Private Sub grid_ModelList_KeyDown(sender As Object, e As KeyEventArgs) Handles grid_ModelList.KeyDown
 
         If grid_ModelList(grid_ModelList.Row, 0).Equals("D") Then
-            MsgBox("삭제 대기중인 모델 내용은 수정 할 수 없습니다.",
-                   MsgBoxStyle.Information,
-                   msg_form)
+            MSG_Information(Me, "삭제 대기중인 모델 내용은 수정 할 수 없습니다.")
         End If
 
     End Sub
@@ -348,21 +342,15 @@ Public Class frm_Model_Resistration
 
         For i = 1 To grid_ModelList.Rows.Count - 1
             If grid_ModelList(i, 2) = String.Empty Then
-                MsgBox("고객사명이 입력력되지 않은 항목이 있습니다.",
-                       vbInformation,
-                       msg_form)
+                MSG_Information(Me, "고객사명이 입력력되지 않은 항목이 있습니다.")
                 Exit Sub
             ElseIf grid_ModelList(i, 5) = String.Empty Then
-                MsgBox("모델명이 입력력되지 않은 항목이 있습니다.",
-                       vbInformation,
-                       msg_form)
+                MSG_Information(Me, "모델명이 입력력되지 않은 항목이 있습니다.")
                 Exit Sub
             End If
         Next
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -421,24 +409,16 @@ Public Class frm_Model_Resistration
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+
+        MSG_Information(Me, "저장완료.")
 
         btn_Search_Click(Nothing, Nothing)
 

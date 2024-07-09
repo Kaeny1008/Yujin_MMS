@@ -186,32 +186,19 @@ Public Class frm_Order_Registration
         End If
 
         If Trim(CB_CustomerName.Text) = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
         If RadioButton1.Checked = False And RadioButton2.Checked = False Then
-            MessageBox.Show(Me,
-                "자료 유형을 먼저 선택하여 주십시오.",
-                msg_form,
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information,
-                MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, "자료 유형을 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
-                           "### " & question_Text & " ###" & vbCrLf & vbCrLf &
-                           "계속 진행하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        Dim showString As String = "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
+            "### " & question_Text & " ###" & vbCrLf & vbCrLf &
+            "계속 진행하시겠습니까?"
+        If MSG_Question(Me, showString) = False Then Exit Sub
 
         If Not CB_CustomerName.Text = "LS Mecapion" Then
             MessageBox.Show(Me,
@@ -270,12 +257,7 @@ Public Class frm_Order_Registration
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show("해당 시트를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+        MSG_Information(Me, "해당 시트를 선택하여 주십시오.")
 
         ComboBoxEnabled(True, Me, CB_SheetName)
 
@@ -442,11 +424,7 @@ Public Class frm_Order_Registration
                 Next
             End With
         Catch ex As Exception
-            MessageBox.Show(New Form With {.TopMost = True},
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
         End Try
 
         If Not IsNothing(excelApp) Then
@@ -589,19 +567,12 @@ Public Class frm_Order_Registration
 
         For i = 1 To Grid_Excel.Rows.Count - 1
             If Grid_Excel(i, 12) = "X" Then
-                MessageBox.Show(Me,
-                                "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information,
-                                MessageBoxDefaultButton.Button1)
+                MSG_Information(Me, "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.")
                 Exit Sub
             End If
         Next
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -690,21 +661,16 @@ Public Class frm_Order_Registration
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show("저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "저장완료.")
 
         BTN_Save.Enabled = False
         BTN_FileSelect.Enabled = False
@@ -723,11 +689,7 @@ Public Class frm_Order_Registration
 
     Private Sub BTN_NewModelRegistration_Click(sender As Object, e As EventArgs) Handles BTN_NewModelRegistration.Click
 
-        If MessageBox.Show(Me,
-                           "신규 모델을 등록 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "신규 모델을 등록 하시겠습니까?") = False Then Exit Sub
 
         Dim selRow As Integer = Grid_Excel.Row
 
@@ -742,11 +704,7 @@ Public Class frm_Order_Registration
         Next
 
         If Grid_Excel(selRow, 1) = String.Empty Then
-            MessageBox.Show(Me,
-                           "신규 모델코드를 찾지 못했습니다.",
-                           msg_form,
-                           MessageBoxButtons.OK,
-                           MessageBoxIcon.Exclamation)
+            MSG_Information(Me, "신규 모델코드를 찾지 못했습니다.")
             Exit Sub
         End If
 
@@ -792,22 +750,16 @@ Public Class frm_Order_Registration
             Grid_Excel(selRow, 12) = "X"
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show("신규모델을 저장하였습니다.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+
+        MSG_Information(Me, "신규모델을 저장하였습니다.")
 
     End Sub
 
@@ -1017,12 +969,9 @@ Public Class frm_Order_Registration
         Thread_LoadingFormEnd()
 
         If loaderPCB_Add = True Then
-            MessageBox.Show(Me,
+            MSG_Information(Me,
                             "Loader PCB를 사용하는 주문이 있습니다." & vbCrLf &
-                            "Loader PCB PO를 자동으로 추가 하였습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+                            "Loader PCB PO를 자동으로 추가 하였습니다.")
         End If
 
         Dim showString As String = "신규 : " & totalNew & " 건"
@@ -1030,11 +979,7 @@ Public Class frm_Order_Registration
         showString += vbCrLf & "삭제 : " & totalDelete & " 건"
         showString += vbCrLf & "이 확인 되었습니다."
 
-        MessageBox.Show(Me,
-                        showString,
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, showString)
 
     End Sub
 

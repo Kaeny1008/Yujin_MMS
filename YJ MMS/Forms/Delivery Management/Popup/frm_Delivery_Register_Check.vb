@@ -138,47 +138,27 @@ Public Class frm_Delivery_Register_Check
 
         For i = 1 To Grid_POList.Rows.Count - 1
             If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
-                MessageBox.Show(Me,
-                                "현재 분할납품을 할 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                MSG_Exclamation(Me, "현재 분할 납품을 할 수 없습니다.")
                 Exit Sub
             End If
         Next
 
-        If MessageBox.Show(Me,
-                           "저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
         Dim saveResult As String = Save_Data()
 
         If Not saveResult = String.Empty Then
-            MessageBox.Show(Me,
-                            saveResult,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Exclamation)
+            MSG_Exclamation(Me, saveResult)
             Exit Sub
         End If
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장완료",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료.")
 
-        If MessageBox.Show(frm_Main,
-                           "전표를 인쇄 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then
+        If MSG_Question(Me, "전표를 인쇄 하시겠습니까?") = False Then
             frm_Delivery_Register.BTN_Search_Click(Nothing, Nothing)
             Me.Dispose()
         End If

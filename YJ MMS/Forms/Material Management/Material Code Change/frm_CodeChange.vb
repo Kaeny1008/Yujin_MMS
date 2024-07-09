@@ -62,7 +62,7 @@ Public Class frm_CodeChange
 
         If Not Trim(TB_Barcode.Text) = String.Empty And e.KeyCode = 13 Then
             If TB_CustomerCode.Text = String.Empty Then
-                MessageBox.Show("고객사를 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
                 TB_Barcode.Text = String.Empty
                 Exit Sub
             End If
@@ -75,7 +75,7 @@ Public Class frm_CodeChange
                                  CInt(splitBarcode(3))
                                  )
             Catch ex As Exception
-                MessageBox.Show("Barcode를 정상적으로 인식하지 못하였습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MSG_Error(Me, "Barcode를 정상적으로 인식하지 못하였습니다.")
                 TB_Barcode.Text = String.Empty
                 Exit Sub
             End Try
@@ -83,7 +83,7 @@ Public Class frm_CodeChange
             Last_Stock_Suvery_Date()
 
             If TB_Vendor.Text = String.Empty Then
-                MessageBox.Show("자재 정보를 찾지 못했습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                MSG_Exclamation(Me, "자재 정보를 찾지 못했습니다.")
             Else
                 TB_ItemCode.Text = splitBarcode(0)
                 TB_PartNo.Text = splitBarcode(1)
@@ -160,7 +160,7 @@ Public Class frm_CodeChange
     Private Sub BTN_Check_Click(sender As Object, e As EventArgs) Handles BTN_Check.Click
 
         If Trim(TB_AfterItemCode.Text) = String.Empty Then
-            MessageBox.Show("변경하려는 Item Code를 입력하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "변경하려는 Item Code를 입력하여 주십시오.")
             TB_AfterItemCode.SelectAll()
             TB_AfterItemCode.Focus()
             Exit Sub
@@ -169,7 +169,7 @@ Public Class frm_CodeChange
         Load_AfterInformation(TB_AfterItemCode.Text)
 
         If Trim(TB_AfterSpec.Text) = String.Empty Then
-            MessageBox.Show("변경하려는 Item Code의 정보를 찾지 못하였습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+            MSG_Exclamation(Me, "변경하려는 Item Code의 정보를 찾지 못하였습니다.")
             TB_AfterItemCode.SelectAll()
             TB_AfterItemCode.Focus()
         Else
@@ -232,7 +232,7 @@ Public Class frm_CodeChange
             Not TB_AfterSpec.Text = String.Empty And
             Not Trim(TB_Reason.Text) = String.Empty Then
 
-            If (MessageBox.Show("품번 전환을 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question)) = DialogResult.No Then Exit Sub
+            If MSG_Question(Me, "품번 전환을 하시겠습니까?") = False Then Exit Sub
 
             Dim dbResult As Boolean = DB_Write()
 
@@ -248,7 +248,7 @@ Public Class frm_CodeChange
                                     False,
                                     String.Empty,
                                     0)
-                MessageBox.Show("저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MSG_Information(Me, "저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.")
                 Me.Dispose()
             End If
         End If
@@ -291,7 +291,7 @@ Public Class frm_CodeChange
 
             strSQL += "insert into tb_mms_material_warehousing("
             strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor"
-            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id"
+            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id, available_qty"
             strSQL += ") values ("
             strSQL += "f_mms_new_mw_no(f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'))"
             strSQL += ", f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX')"
@@ -304,7 +304,15 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ", '" & TextBox1.Text & "'"
             strSQL += ", '" & loginID & "'"
+            strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ");"
+
+            strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(TB_AfterQty.Text)
+            strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            strSQL += " and part_code = '" & TB_ItemCode.Text & "'"
+            strSQL += " and part_no = '" & TB_PartNo.Text & "'"
+            strSQL += " and part_lot_no = '" & TB_LotNo.Text & "'"
+            strSQL += ";"
 
             '입고일자가 최근 재고조사 일자보다 빠를 경우
             If CDate(TextBox1.Text) < CDate(TB_LastStockSuvey.Text) Then
@@ -353,12 +361,8 @@ Public Class frm_CodeChange
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Return False
         Finally
 

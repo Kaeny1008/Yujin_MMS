@@ -503,20 +503,23 @@ Module md_ETC
                 ComPort.Close()
             ElseIf testCable = "USB" Then
                 Dim p As New md_RawPrinterHelper
-                Dim s As New StringBuilder
-                Dim fs As System.IO.FileStream
-                Dim sr As System.IO.StreamReader
-                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
-                sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
-                Dim str As String = String.Empty
+                'Dim s As New StringBuilder
+                'Dim fs As System.IO.FileStream
+                'Dim sr As System.IO.StreamReader
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                'sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
+                'Dim str As String = String.Empty
 
-                While sr.Peek() >= 0
-                    str = sr.ReadLine() ' 한줄씩 읽기
-                    s.AppendLine(str)
-                End While
+                'While sr.Peek() >= 0
+                '    str = sr.ReadLine() ' 한줄씩 읽기
+                '    s.AppendLine(str)
+                'End While
 
-                sr.Close()
-                If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                'sr.Close()
+                'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                '    TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
+                'End If
+                If Not p.SendFileToPrinter(printerName, Application.StartupPath & "\print.txt") = True Then
                     TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
@@ -563,26 +566,29 @@ Module md_ETC
                 ComPort.Close()
             ElseIf printerCable = "USB" Then
                 Dim p As New md_RawPrinterHelper
-                Dim s As New StringBuilder
-                Dim fs As System.IO.FileStream
-                Dim sr As System.IO.StreamReader
-                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
-                sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
-                Dim str As String = String.Empty
+                'Dim s As New StringBuilder
+                'Dim fs As System.IO.FileStream
+                'Dim sr As System.IO.StreamReader
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                'sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
+                'Dim str As String = String.Empty
 
-                While sr.Peek() >= 0
-                    str = sr.ReadLine() ' 한줄씩 읽기
-                    s.AppendLine(str)
-                End While
+                'While sr.Peek() >= 0
+                '    str = sr.ReadLine() ' 한줄씩 읽기
+                '    s.AppendLine(str)
+                'End While
 
-                sr.Close()
+                'sr.Close()
 
-                If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                '    printResult = "프린터가 정상적으로 작동하지 않았습니다."
+                'End If
+                If Not p.SendFileToPrinter(printerName, Application.StartupPath & "\print.txt") = True Then
                     printResult = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
-            'File.Delete(Application.StartupPath & "\print.txt")
-            printResult = "Success"
+                'File.Delete(Application.StartupPath & "\print.txt")
+                printResult = "Success"
         Catch ex As Exception
             'File.Delete(Application.StartupPath & "\print.txt")
             printResult = ex.Message
@@ -605,30 +611,73 @@ Module md_ETC
 
     End Sub
 
+    Public Sub PrinterListLoad111111111111111111111(ByVal formName As Form, ByVal cb As ComboBox)
+
+        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
+            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of Form, ComboBox)(AddressOf PrinterListLoad), formName, cb)
+            Else
+                cb.Items.Clear()
+                For i = 0 To Printing.PrinterSettings.InstalledPrinters.Count - 1
+                    Dim printers As String = Printing.PrinterSettings.InstalledPrinters.Item(i)
+                    cb.Items.Add(printers)
+                Next
+                cb.Sorted = True
+            End If
+        End If
+
+    End Sub
+
     Public Sub MSG_Information(ByVal frm As Form, ByVal showString As String)
 
-        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If frm.InvokeRequired Then
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
+        Else
+            Application.DoEvents()
+            MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End If
 
     End Sub
 
     Public Sub MSG_Exclamation(ByVal frm As Form, ByVal showString As String)
 
-        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If frm.InvokeRequired Then
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
+        Else
+            Application.DoEvents()
+            MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
 
     End Sub
 
     Public Sub MSG_Error(ByVal frm As Form, ByVal showString As String)
 
-        MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Application.DoEvents()
+
+        If frm.InvokeRequired Then
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
+        Else
+            Application.DoEvents()
+            MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
 
     End Sub
 
     Public Function MSG_Question(ByVal frm As Form, ByVal questionString As String) As Boolean
 
-        If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-            Return True
+        Application.DoEvents()
+
+        If frm.InvokeRequired Then
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, questionString)
         Else
-            Return False
+            Application.DoEvents()
+            If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                Return True
+            Else
+                Return False
+            End If
         End If
 
     End Function

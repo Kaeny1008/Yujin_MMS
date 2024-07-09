@@ -188,12 +188,7 @@ Public Class frm_Supplier_Document_Register
     Private Sub BTN_FileSelect_Click(sender As Object, e As EventArgs) Handles BTN_FileSelect.Click
 
         If Trim(CB_Supplier.Text) = String.Empty Then
-            MessageBox.Show(Me,
-                            "거래처를 먼저 선택(입력)하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, "거래처를 먼저 선택(입력)하여 주십시오.")
             Exit Sub
         End If
 
@@ -223,11 +218,7 @@ Public Class frm_Supplier_Document_Register
             CB_SheetName.Items.Add(excelSheet(i))
         Next
 
-        MessageBox.Show(Me,
-                        "해당 시트를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "해당 시트를 선택하여 주십시오.")
 
         CB_SheetName.Enabled = True
 
@@ -261,18 +252,7 @@ Public Class frm_Supplier_Document_Register
 
         Thread_LoadingFormEnd()
 
-        'MessageBox.Show(New Form With {.TopMost = True},
-        '                "해당 시트를 선택하여 주십시오.",
-        '                msg_form,
-        '                MessageBoxButtons.OK,
-        '                MessageBoxIcon.Information)
-
-        MessageBox.Show("해당 시트를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+        MSG_Information(Me, "해당 시트를 선택하여 주십시오.")
 
         ComboBoxEnabled(True, Me, CB_SheetName)
 
@@ -321,11 +301,7 @@ Public Class frm_Supplier_Document_Register
                 Next
             End With
         Catch ex As Exception
-            MessageBox.Show(New Form With {.TopMost = True},
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
         End Try
 
         GridColsAutoSize(Me, Grid_Excel)
@@ -336,12 +312,7 @@ Public Class frm_Supplier_Document_Register
         Thread_LoadingFormEnd()
         ButtonEnabled(True, Me, BTN_ExcelToGrid)
 
-        MessageBox.Show("각 항목의 위치를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+        MSG_Information(Me, "각 항목의 위치를 선택하여 주십시오.")
 
     End Sub
 
@@ -471,12 +442,7 @@ Public Class frm_Supplier_Document_Register
         End If
 
         If Not msgString = String.Empty Then
-            MessageBox.Show(Me,
-                            msgString,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, msgString)
             Exit Sub
         End If
 
@@ -526,11 +492,7 @@ Public Class frm_Supplier_Document_Register
         Grid_MaterialList.AutoSizeCols()
         Grid_MaterialList.Redraw = True
 
-        MessageBox.Show(frm_Main,
-                        "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.")
 
         Exit Sub
 
@@ -578,18 +540,10 @@ Public Class frm_Supplier_Document_Register
                         End If
                     End If
                 Next
-                MessageBox.Show(frm_Main,
-                                "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "총 입고수량 : " & Format(totalQty, "#,##0") & " EA입니다." & vbCrLf & "입고수량을 확인하여 주십시오.")
             End With
         Catch ex As Exception
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
         End Try
 
         GridColsAutoSize(Me, Grid_MaterialList)
@@ -655,20 +609,11 @@ Public Class frm_Supplier_Document_Register
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 선택하여 주십시오.")
             Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question,
-                           MessageBoxDefaultButton.Button1) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -720,12 +665,7 @@ Public Class frm_Supplier_Document_Register
             DBClose()
             Thread_LoadingFormEnd()
 
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
@@ -751,12 +691,7 @@ Public Class frm_Supplier_Document_Register
 
         BTN_Search_Click(Nothing, Nothing)
 
-        MessageBox.Show("저장 완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+        MSG_Information(Me, "저장 완료.")
 
     End Sub
 
@@ -859,14 +794,14 @@ Public Class frm_Supplier_Document_Register
         Dim documentNo As String = Grid_DocumentsList(selRow, 1)
 
         If Material_Exist_Check(documentNo) = True Then
-            MessageBox.Show(Me, "입고 기록이 존재합니다", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MSG_Exclamation(Me, "입고 기록이 존재합니다")
             Exit Sub
         End If
 
         Dim showString As String = "문서번호 : " & documentNo
         showString += vbCrLf & "를 삭제 하시겠습니까?"
 
-        If MessageBox.Show(Me, showString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, showString) = False Then Exit Sub
 
         DBConnect()
 
@@ -889,12 +824,12 @@ Public Class frm_Supplier_Document_Register
             End If
         Catch ex As MySqlException
             sqlTran.Rollback()
-            MessageBox.Show(Me, ex.Message, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MSG_Exclamation(Me, ex.Message)
         End Try
 
         DBClose()
 
-        MessageBox.Show(Me, "삭제완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MSG_Information(Me, "삭제완료.")
 
         BTN_Search_Click(Nothing, Nothing)
 

@@ -35,6 +35,7 @@ Public Class frm_OQC_Falult_Register
             .Cols(1).Visible = False
             .Cols(3).ComboList = "공정불량|원자재불량"
             .Cols(5).DataType = GetType(Integer)
+            .Cols(5).Visible = False
         End With
 
         Grid_Fault(0, 0) = "No"
@@ -110,7 +111,6 @@ Public Class frm_OQC_Falult_Register
                     Grid_Fault(i, 2) = String.Empty Or
                     Grid_Fault(i, 3) = String.Empty Or
                     Grid_Fault(i, 4) = String.Empty Or
-                    CStr(Grid_Fault(i, 5)) = String.Empty Or
                     Grid_Fault(i, 6) = String.Empty Then
                     If MessageBox.Show("필수 입력값이 누락되었습니다." &
                                        vbCrLf &
@@ -230,6 +230,8 @@ Public Class frm_OQC_Falult_Register
                     Grid_Fault(e.Row, 4) = String.Empty
                     Load_ComboList_Material_Fault()
                 End If
+            Case 2
+                Grid_Fault(e.Row, 5) = Grid_Fault(e.Row, 2).ToString.Substring(Grid_Fault(e.Row, 2).ToString.Length - 2, 2)
         End Select
 
         Grid_Fault.AutoSizeCols()

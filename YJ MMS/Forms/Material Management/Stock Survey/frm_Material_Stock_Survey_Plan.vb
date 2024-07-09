@@ -197,10 +197,7 @@ Public Class frm_Material_Stock_Survey_Plan
     Private Sub BTN_MaterialSearch_Click(sender As Object, e As EventArgs) Handles BTN_MaterialSearch.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show("고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -301,7 +298,7 @@ Public Class frm_Material_Stock_Survey_Plan
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "재고조사 계획을 확정 하시겠습니까?"
 
-        If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, msg_form) = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -368,11 +365,7 @@ Public Class frm_Material_Stock_Survey_Plan
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
@@ -386,11 +379,7 @@ Public Class frm_Material_Stock_Survey_Plan
         Panel2.Enabled = False
         CB_CustomerName.Enabled = False
 
-        MessageBox.Show(frm_Main,
-                        "계획 확정완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "계획 확정완료.")
 
     End Sub
 
@@ -551,7 +540,7 @@ Public Class frm_Material_Stock_Survey_Plan
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "재고조사 계획을 취소 하시겠습니까?"
 
-        If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, msg_form) = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -597,11 +586,7 @@ Public Class frm_Material_Stock_Survey_Plan
 
         Control_Init()
 
-        MessageBox.Show(frm_Main,
-                        "계획 취소완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "계획 취소완료.")
 
         BTN_Search_Click(Nothing, Nothing)
 

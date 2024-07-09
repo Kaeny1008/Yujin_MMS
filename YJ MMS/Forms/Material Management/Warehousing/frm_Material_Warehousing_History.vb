@@ -113,11 +113,7 @@ Public Class frm_Material_Warehousing_History
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If CB_CustomerName.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 

@@ -320,7 +320,7 @@ Public Class frm_Material_Stock_Survey_Result
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "임시저장 하시겠습니까?"
 
-        If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, msg_form) = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -358,23 +358,16 @@ Public Class frm_Material_Stock_Survey_Result
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        Me.Focus()
-        MessageBox.Show(me,
-                        "임시 저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "임시 저장완료.")
 
     End Sub
 
@@ -396,7 +389,7 @@ Public Class frm_Material_Stock_Survey_Result
 
         msgString += vbCrLf & vbCrLf & "결과를 확정 하시겠습니까?"
 
-        If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, msg_form) = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -421,6 +414,14 @@ Public Class frm_Material_Stock_Survey_Result
         '스캔완료된 항목의 출고기록을 되돌린다.
         strSQL += "call sp_mms_material_stock_survey(8"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & LB_InspectionNo.Text & "'"
+        strSQL += ");"
+
+        '스캔된 데이터를 warehousing의 available_qty로 업데이트한다.
+        strSQL += "call sp_mms_material_stock_survey(9"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & LB_InspectionNo.Text & "'"
@@ -481,11 +482,8 @@ Public Class frm_Material_Stock_Survey_Result
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
@@ -499,12 +497,7 @@ Public Class frm_Material_Stock_Survey_Result
 
         Label4.Text = dateTime
 
-        Me.Focus()
-        MessageBox.Show(Me,
-                        "결과 확정완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "결과 확정완료.")
 
         BTN_Search_Click(Nothing, Nothing)
 
@@ -525,7 +518,7 @@ Public Class frm_Material_Stock_Survey_Result
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "확정을 취소 하시겠습니까?"
 
-        If MessageBox.Show(msgString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, msg_form) = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -572,11 +565,8 @@ Public Class frm_Material_Stock_Survey_Result
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
@@ -587,12 +577,8 @@ Public Class frm_Material_Stock_Survey_Result
         BTN_CompletedCancel.Enabled = False
 
         Thread_LoadingFormEnd()
-        Me.Focus()
-        MessageBox.Show(Me,
-                        "결과 확정이 취소 되었습니다..",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "결과 확정이 취소 되었습니다..")
 
         BTN_Search_Click(Nothing, Nothing)
 
@@ -728,7 +714,9 @@ Public Class frm_Material_Stock_Survey_Result
         selCol = Grid_MaterialList.Col
 
         Select Case Grid_MaterialList.Col
-            Case 17, 20
+            Case 17
+                MSG_Information(Me, "임의 수정금지로 변경함." & vbCrLf & "스캔 데이터가 자재 창고로 업데이트 되므로 스캔데이터를 수정해야함.")
+            Case 20
                 Grid_MaterialList.AllowEditing = True
             Case Else
                 Grid_MaterialList.AllowEditing = False

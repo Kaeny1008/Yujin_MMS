@@ -174,26 +174,22 @@ Public Class frm_Order_Split
         Next
 
         If managementNo = String.Empty Then
-            MessageBox.Show(Me, "적용할 관리번호를 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "적용할 관리번호를 선택하여 주십시오.")
             Exit Sub
         End If
 
         If TB_Split_Quantity.Text = String.Empty Then
-            MessageBox.Show(Me, "분할할 수량을 입력하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "분할할 수량을 입력하여 주십시오.")
             TB_Split_Quantity.SelectAll()
             TB_Split_Quantity.Focus()
             Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "변경 내용을 저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "변경 내용을 저장 하시겠습니까?") = False Then Exit Sub
 
         If DB_Write(managementNo) = False Then Exit Sub
 
-        MessageBox.Show(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MSG_Information(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.")
 
         Me.Dispose()
 
@@ -260,10 +256,7 @@ Public Class frm_Order_Split
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK)
+            MSG_Error(Me, ex.Message)
             Return False
         End Try
 

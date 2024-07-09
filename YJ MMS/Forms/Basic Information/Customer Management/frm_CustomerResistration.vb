@@ -174,21 +174,12 @@ Public Class frm_CustomerResistration
 
         For i = 1 To grid_CustomerList.Rows.Count - 1
             If grid_CustomerList(i, 2) = String.Empty Then
-                MsgBox("고객사명이 입력되지 않은 항목이 있습니다.",
-                       vbInformation,
-                       msg_form)
+                MSG_Information(Me, "고객사명이 입력되지 않은 항목이 있습니다.")
                 Exit Sub
             End If
         Next
 
-        'If MsgBox("저장 하시겠습니까?",
-        '          MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-        '          msg_form) = MsgBoxResult.No Then Exit Sub
-        If MessageBox.Show("저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question,
-                           MessageBoxDefaultButton.Button1) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -242,17 +233,9 @@ Public Class frm_CustomerResistration
             DBClose()
             Thread_LoadingFormEnd()
             If ex.Number = 1062 Then
-                MessageBox.Show("중복된 고객사명이 있습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1)
+                MSG_Error(Me, "중복된 고객사명이 있습니다.")
             Else
-                MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error,
-                                MessageBoxDefaultButton.Button1)
+                MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             End If
             Exit Sub
         End Try
@@ -260,11 +243,7 @@ Public Class frm_CustomerResistration
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show("저장 완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+        MSG_Information(Me, "저장 완료.")
 
         btn_Search_Click(Nothing, Nothing)
 
@@ -341,9 +320,7 @@ Public Class frm_CustomerResistration
     Private Sub grid_CustomerList_KeyDown(sender As Object, e As KeyEventArgs) Handles grid_CustomerList.KeyDown
 
         If grid_CustomerList(grid_CustomerList.Row, 0).Equals("D") Then
-            MsgBox("삭제 대기중인 고객사 내용은 수정 할 수 없습니다.",
-                   MsgBoxStyle.Information,
-                   msg_form)
+            MSG_Information(Me, "삭제 대기중인 고객사 내용은 수정 할 수 없습니다.")
         End If
 
     End Sub

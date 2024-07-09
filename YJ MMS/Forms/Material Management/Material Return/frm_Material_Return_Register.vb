@@ -130,7 +130,7 @@ Public Class frm_Material_Return_Register
 
         If Not Trim(TB_Barcode.Text) = String.Empty And e.KeyCode = 13 Then
             If TB_CustomerCode.Text = String.Empty Then
-                MessageBox.Show("고객사를 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
                 TB_Barcode.Text = String.Empty
                 Exit Sub
             End If
@@ -145,13 +145,13 @@ Public Class frm_Material_Return_Register
                                  CInt(splitBarcode(3))
                                  )
             Catch ex As Exception
-                MessageBox.Show("Barcode를 정상적으로 인식하지 못하였습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MSG_Error(Me, "Barcode를 정상적으로 인식하지 못하였습니다.")
                 TB_Barcode.Text = String.Empty
                 Exit Sub
             End Try
 
             If TB_Vendor.Text = String.Empty Then
-                MessageBox.Show("자재 정보를 찾지 못했습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
+                MSG_Exclamation(Me, "자재 정보를 찾지 못했습니다.")
             Else
                 TB_ItemCode.Text = splitBarcode(0)
                 TB_PartNo.Text = splitBarcode(1)
@@ -203,34 +203,22 @@ Public Class frm_Material_Return_Register
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If Grid_History.Rows.Count = 1 Then
-            MessageBox.Show(Me,
-                            "등록된 반출 목록이 없습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "등록된 반출 목록이 없습니다.")
             Exit Sub
         End If
 
-
-        If (MessageBox.Show("반출 등록을 하시겠습니까?",
-                            msg_form,
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question)) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "반출 등록을 하시겠습니까?") = False Then Exit Sub
 
         Dim dbResult As Boolean = DB_Write()
 
         If dbResult = True Then
-            If MessageBox.Show("저장완료." & vbCrLf & "자재반납 전표를 출력 하시겠습니까?",
-                                msg_form,
-                                MessageBoxButtons.YesNo,
-                                MessageBoxIcon.Question) = DialogResult.Yes Then
+            If MSG_Question(Me, "저장완료." & vbCrLf & "자재반납 전표를 출력 하시겠습니까?") = True Then
                 '반납전표 출력
                 Material_Return_Report_Print(Label14.Text)
-                Me.Dispose()
-            Else
-                Me.Dispose()
             End If
         End If
+
+        Me.Dispose()
 
     End Sub
 
@@ -276,6 +264,13 @@ Public Class frm_Material_Return_Register
                 strSQL += ", '" & Grid_History(i, 6) & "'"
                 strSQL += ", '" & Label14.Text & "'"
                 strSQL += ");"
+
+                strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                strSQL += " and part_code = '" & Grid_History(i, 1) & "'"
+                strSQL += " and part_no = '" & Grid_History(i, 3) & "'"
+                strSQL += " and part_lot_no = '" & Grid_History(i, 4) & "'"
+                strSQL += ";"
             Next
 
             If Not strSQL = String.Empty Then
@@ -289,12 +284,7 @@ Public Class frm_Material_Return_Register
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Return False
         Finally
 
@@ -311,28 +301,19 @@ Public Class frm_Material_Return_Register
     Private Sub BTN_Grid_Add_Click(sender As Object, e As EventArgs) Handles BTN_Grid_Add.Click
 
         If TB_Vendor.Text = String.Empty Then
-            MessageBox.Show("등록할 자재를 먼저 스캔하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "등록할 자재를 먼저 스캔하여 주십시오.")
             TB_Barcode.Focus()
             Exit Sub
         End If
 
         If TB_ReturnQty.Text = String.Empty Then
-            MessageBox.Show("반납수량을 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "반납수량을 입력하여 주십시오.")
             TB_ReturnQty.Focus()
             Exit Sub
         End If
 
         If TB_Reason.Text = String.Empty Then
-            MessageBox.Show("반출사유를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "반출사유를 입력하여 주십시오.")
             TB_Reason.Focus()
             Exit Sub
         End If
@@ -373,7 +354,7 @@ Public Class frm_Material_Return_Register
 
         If Not Trim(TB_ReturnQty.Text) = String.Empty And e.KeyCode = 13 Then
             If Not IsNumeric(TB_ReturnQty.Text) Then
-                MessageBox.Show("반출수량은 숫자만 입력하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MSG_Information(Me, "반출수량은 숫자만 입력하여 주십시오.")
                 Exit Sub
             End If
 

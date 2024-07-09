@@ -246,7 +246,7 @@ Public Class frm_Model_Document
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         If CB_ManagementNo.Text = String.Empty Then
-            MessageBox.Show(Me, "관리번호를 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "관리번호를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -292,9 +292,9 @@ Public Class frm_Model_Document
                                                        Grid_Documents(d_row, 2))
 
         If Not downloadResult.Equals("Completed") Then
-            MsgBox("Download 실패" & vbCrLf & downloadResult, MsgBoxStyle.Critical, msg_form)
+            MSG_Exclamation(Me, "Download 실패" & vbCrLf & downloadResult)
         Else
-            MsgBox("File Download.", MsgBoxStyle.Information, msg_form)
+            MSG_Information(Me, "File Download.")
         End If
 
     End Sub
@@ -341,13 +341,10 @@ Public Class frm_Model_Document
 
     Private Sub BOM_Modify()
 
-        MessageBox.Show(frm_Main,
+        MSG_Exclamation(Me,
                         "해당 첨부자료(BOM)는 자료가공이 필요합니다." & vbCrLf &
                         "Ref 구분은 ','로만 되어있어야 합니다." & vbCrLf &
-                        "','구분이 아닐 경우 결과값이 상이할 수 있습니다.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning)
+                        "','구분이 아닐 경우 결과값이 상이할 수 있습니다.")
 
         TabControl1.SelectedIndex = 1
         Grid_BOM.Redraw = False
@@ -397,15 +394,10 @@ Public Class frm_Model_Document
                     End If
 
                     If typeString.ToUpper = "PCB ASS'Y" Or typeString.ToUpper = "PCB ASS’Y" Then
-                        If MessageBox.Show(frm_Main,
-                                        "Loader PCB가 검색 되었습니다." & vbCrLf &
+                        If MSG_Question(Me, "Loader PCB가 검색 되었습니다." & vbCrLf &
                                         "Loader PCB 사용으로 변경 하시겠습니까?" & vbCrLf &
                                         "Part No. : " & partString & " 를 확인 후" & vbCrLf &
-                                        "Loader PCB 사용여부를 확인 하여 주십시오.",
-                                        msg_form,
-                                        MessageBoxButtons.YesNo,
-                                        MessageBoxIcon.Question
-                                        ) = DialogResult.Yes Then
+                                        "Loader PCB 사용여부를 확인 하여 주십시오.") = True Then
                             RadioButtonChecked(True, Me, RadioButton4)
                             isLoaderPCB = "Yes"
                         Else
@@ -489,11 +481,7 @@ Public Class frm_Model_Document
                 Next
             End With
         Catch ex As Exception
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
         Finally
             excelApp.WorkBooks(1).Close()
             excelApp.Quit()
@@ -514,11 +502,7 @@ Public Class frm_Model_Document
 
     Private Sub Coordinate_Modify()
 
-        MessageBox.Show(frm_Main,
-                        "해당 첨부자료(좌표데이터)는 자료가공이 필요합니다.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning)
+        MSG_Exclamation(Me, "해당 첨부자료(좌표데이터)는 자료가공이 필요합니다.")
 
         TabControl1.SelectedIndex = 2
         Grid_Coordinates.Redraw = False
@@ -578,11 +562,7 @@ Public Class frm_Model_Document
                 Next
             End With
         Catch ex As Exception
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
         Finally
             excelApp.WorkBooks(1).Close()
             excelApp.Quit()
@@ -854,12 +834,12 @@ Public Class frm_Model_Document
     Private Sub BTN_Result_Click(sender As Object, e As EventArgs) Handles BTN_Result.Click
 
         If Grid_BOM.Rows.Count = 1 Then
-            MessageBox.Show(frm_Main, "BOM을 먼저 불러 오십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "BOM을 먼저 불러 오십시오.")
             Exit Sub
         End If
 
         If Grid_Coordinates.Rows.Count = 1 Then
-            MessageBox.Show(frm_Main, "좌표데이터를 먼저 불러 오십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "좌표데이터를 먼저 불러 오십시오.")
             Exit Sub
         End If
 
@@ -928,11 +908,7 @@ Public Class frm_Model_Document
             frm_Coordinate_Find_Fault.Grid_Coordinates.AutoSizeCols()
             frm_Coordinate_Find_Fault.Grid_Coordinates.Redraw = True
 
-            MessageBox.Show(frm_Main,
-                            "좌표를 찾지 못한 Ref가 존재합니다." & vbCrLf & "확인하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "좌표를 찾지 못한 Ref가 존재합니다." & vbCrLf & "확인하여 주십시오.")
             frm_Coordinate_Find_Fault.Focus()
         Else
             frm_Coordinate_Find_Fault.Close()
@@ -1006,16 +982,11 @@ Public Class frm_Model_Document
         If TB_ModelCode.Text.Equals(String.Empty) Then Exit Sub
 
         If Grid_Process.Cols.Count = 1 Then
-            MessageBox.Show("공정 흐름을 등록하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "공정 흐름을 등록하여 주십시오.")
             Exit Sub
         End If
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -1024,23 +995,13 @@ Public Class frm_Model_Document
 
         If dbWrite_Result.Equals("No Change") Then
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            "변경사항이 없습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, "변경사항이 없습니다.")
             Exit Sub
         ElseIf dbWrite_Result.Equals("Completed") Then
             GoTo FTP_Control
         Else
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            dbWrite_Result,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Error(Me, dbWrite_Result)
             Exit Sub
         End If
 
@@ -1051,14 +1012,7 @@ FTP_Control:
 
         TabControl1.SelectedIndex = 0
 
-        Application.DoEvents()
-
-        MessageBox.Show(Me,
-                        "저장 완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1)
+        MSG_Information(Me, "저장 완료.")
 
     End Sub
 

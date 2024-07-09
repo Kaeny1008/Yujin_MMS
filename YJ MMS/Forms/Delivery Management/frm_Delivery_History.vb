@@ -252,13 +252,7 @@ Public Class frm_Delivery_History
 
     Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
 
-        If MessageBox.Show(frm_Main,
-                           "전표를 재발행 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then
-            Exit Sub
-        End If
+        If MSG_Question(Me, "전표를 재발행 하시겠습니까?") = False Then Exit Sub
 
         Ship_Report_Print(selDeliveryNo)
 

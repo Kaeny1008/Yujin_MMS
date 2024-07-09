@@ -119,11 +119,7 @@ Public Class frm_Material_CheckRequirements
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "고객사를 먼저 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -304,7 +300,7 @@ Public Class frm_Material_CheckRequirements
 
         If checkCount = 0 Then
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me, "산출하려는 모델을 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "산출하려는 모델을 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -397,7 +393,7 @@ Public Class frm_Material_CheckRequirements
         If saveOK = False Then Exit Sub
 
         Dim lowMaterial As Boolean = False
-        For i = 3 To Grid_MaterialList.Rows.Count - 1
+        For i = 4 To Grid_MaterialList.Rows.Count - 1
             If Grid_MaterialList(i, 16) < 0 Then
                 lowMaterial = True
                 Exit For
@@ -405,18 +401,10 @@ Public Class frm_Material_CheckRequirements
         Next
 
         If lowMaterial = True Then
-            If MessageBox.Show(Me,
-                               "계획대비 부족한 자재가 존재 합니다." & vbCrLf & "무시 후 확정 하시겠습니까?",
-                               msg_form,
-                               MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+            If MSG_Question(Me, "계획대비 부족한 자재가 존재 합니다." & vbCrLf & "무시 후 확정 하시겠습니까?") = False Then Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.") = False Then Exit Sub
 
 
         Thread_LoadingFormStart("Saving...")
@@ -450,11 +438,7 @@ Public Class frm_Material_CheckRequirements
             DBClose()
             BTN_Confirm.Enabled = False
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
@@ -465,11 +449,7 @@ Public Class frm_Material_CheckRequirements
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료.")
 
         BTN_Search_Click(Nothing, Nothing)
 

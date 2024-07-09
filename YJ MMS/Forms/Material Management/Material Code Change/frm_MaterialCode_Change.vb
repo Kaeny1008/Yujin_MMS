@@ -116,7 +116,7 @@ Public Class frm_MaterialCode_Change
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show("고객사를 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -182,7 +182,7 @@ Public Class frm_MaterialCode_Change
 
     Private Sub BTN_RePrint_Click(sender As Object, e As EventArgs) Handles BTN_RePrint.Click
 
-        If MessageBox.Show("재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "재발행 하시겠습니까?") = False Then Exit Sub
 
         Dim selRow As Integer = Grid_History.Row
         Material_PrintLabel(Grid_History(selRow, 10),

@@ -187,13 +187,15 @@ Public Class frm_WS_Reinspection
 
         Try
 
-            strSQL = "update tb_mms_ws_defect"
-            strSQL += " set"
-            strSQL += " reinspect_date = '" & writeDate & "'"
-            strSQL += ", reinspect_result = '" & CB_Result.Text & "'"
-            strSQL += ", reinspect_inspector = '" & TB_Inspector.Text & "'"
-            strSQL += " where defect_index = '" & Grid_Information(2, 1) & "'"
-            strSQL += ";"
+            For i = 2 To Grid_Information.Rows.Count - 1
+                strSQL += "update tb_mms_ws_defect"
+                strSQL += " set"
+                strSQL += " reinspect_date = '" & writeDate & "'"
+                strSQL += ", reinspect_result = '" & CB_Result.Text & "'"
+                strSQL += ", reinspect_inspector = '" & TB_Inspector.Text & "'"
+                strSQL += " where defect_index = '" & Grid_Information(i, 1) & "'"
+                strSQL += ";"
+            Next
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

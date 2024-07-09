@@ -412,46 +412,23 @@ Public Class frm_Material_Warehousing_With_Label
     End Sub
 
     Private Sub TB_BarcodeScan_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_BarcodeScan.KeyDown
-        'If (e.KeyCode = 13) Then
-        '    For i = 0 To TB_BarcodeScan.Text.Length - 1
-        '        Console.WriteLine("Key : " & TB_BarcodeScan.Text.Substring(i, 1) & " , ascii : " & Asc(TB_BarcodeScan.Text.Substring(i, 1)))
-        '    Next
-        '    'TB_BarcodeScan.Text = TB_BarcodeScan.Text.Replace(Asc(29), "!")
-        '    'TB_BarcodeScan.Text = TB_BarcodeScan.Text.Replace(Asc(30), "!")
-        '    'Console.WriteLine(TB_BarcodeScan.Text)
-        'End If
-
-        'Exit Sub
 
         If (e.KeyCode = 13) And
             (Not TB_BarcodeScan.Text = String.Empty) Then
-            'If CB_CustomerName.Text = String.Empty Then
-            '    MessageBox.Show(Me,
-            '                    "사용 고객사를 먼저 선택하여 주십시오.",
-            '                    msg_form,
-            '                    MessageBoxButtons.OK,
-            '                    MessageBoxIcon.Error)
-            '    TB_BarcodeScan.SelectAll()
-            '    Exit Sub
-            'End If
 
             If TB_CustomerName.Text = "LS Mecapion" Then
                 If RB_Supplier.Checked Then
                     SplitBarcode_Supplier()
                 ElseIf RB_Vendor.Checked Then
                     If CB_Vendor.Text = String.Empty Then
-                        MessageBox.Show(Me,
-                                        "제조사를 먼저 선택하여 주십시오.",
-                                        msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Information)
+                        MSG_Information(Me, "제조사를 먼저 선택하여 주십시오.")
                         Exit Sub
                     End If
                     Dim replaceBarcode As String = TB_BarcodeScan.Text.Replace(vbCrLf, "!")
                     SplitBarcode_Vendor(replaceBarcode, CB_Vendor.Text)
                 End If
             Else
-                MsgBox("현재 LS Mecapion외 지원되지 않습니다.")
+                MSG_Information(Me, "현재 LS Mecapion외 지원되지 않습니다.")
                 Exit Sub
             End If
 
@@ -470,11 +447,7 @@ Public Class frm_Material_Warehousing_With_Label
             End If
 
             If Find_DocumentList() = False Then
-                MessageBox.Show(Me,
-                                "입고 리스트에서 해당 자재를 찾지 못했습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
+                MSG_Error(Me, "입고 리스트에서 해당 자재를 찾지 못했습니다.")
                 TB_CustomerPartCode.Text = String.Empty
                 TB_PartNo.Text = String.Empty
                 TB_LotNo.Text = String.Empty
@@ -541,11 +514,7 @@ Public Class frm_Material_Warehousing_With_Label
             End If
             TB_Vendor.Text = Trim(splitBarcode(4))
         Catch ex As Exception
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
             TB_CustomerPartCode.Text = String.Empty
             TB_PartNo.Text = String.Empty
             TB_LotNo.Text = String.Empty
@@ -559,6 +528,7 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Sub SplitBarcode_Vendor(ByVal barcode As String, ByVal vendor As String)
 
+        Console.WriteLine(barcode)
         Dim splitResult As String = Load_PHP(phpUrl & phpRootFolder &
                                              "/barcodesplit.php?barcode=" &
                                              barcode &
@@ -599,26 +569,14 @@ Public Class frm_Material_Warehousing_With_Label
                 End If
             Else
                 If resultSplit(1).Replace("@", String.Empty).Equals("Not found vendor") Then
-                    MessageBox.Show(Me,
-                                    "Vendor를 찾을 수 없습니다.",
-                                    msg_form & "1",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error)
+                    MSG_Error(Me, "Vendor를 찾을 수 없습니다.")
                 Else
-                    MessageBox.Show(Me,
-                                    resultSplit(1).Replace("@", String.Empty),
-                                    msg_form & "1",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error)
+                    MSG_Error(Me, resultSplit(1).Replace("@", String.Empty))
                 End If
             End If
         Else
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            splitResult.Split("!@")(1).Replace("@", String.Empty),
-                            msg_form & "2",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, splitResult.Split("!@")(1).Replace("@", String.Empty))
             TB_BarcodeScan.Focus()
             TB_BarcodeScan.SelectAll()
             Exit Sub
@@ -679,17 +637,27 @@ Public Class frm_Material_Warehousing_With_Label
         End If
 
         If Not Check_Lot_No() = "Not Exist" Then
-            MessageBox.Show(Me,
-                                "중복된 Lot No.입니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
-            TB_CustomerPartCode.Text = String.Empty
-            TB_PartNo.Text = String.Empty
-            TB_LotNo.Text = String.Empty
-            TB_Qty.Text = String.Empty
-            TB_Vendor.Text = String.Empty
+            'If CB_Vendor.Text = "KEC" Or CB_Vendor.Text = "NEXPERIA" Then
+            Dim reelIndex As String = InputBox("Lot No.가 중복 되었습니다." & vbCrLf &
+                                               "Reel 번호를 입력하십시오." & vbCrLf & vbCrLf &
+                                               "※주의 : 실제 저장된 데이터 일 수 있습니다.(라벨 미부착으로)" & vbCrLf &
+                                               "정확히 확인하여 구분되는 Reel 번호를 입력하여 주십시오.",
+                                               msg_form, String.Empty)
+            If reelIndex = String.Empty Then
+                Exit Sub
+            End If
+            TB_LotNo.Text += "-" & reelIndex
+            BTN_ListAdd_Click(Nothing, Nothing)
             Exit Sub
+            'Else
+            '    MSG_Error(Me, "중복된 Lot No.입니다.")
+            '    TB_CustomerPartCode.Text = String.Empty
+            '    TB_PartNo.Text = String.Empty
+            '    TB_LotNo.Text = String.Empty
+            '    TB_Qty.Text = String.Empty
+            '    TB_Vendor.Text = String.Empty
+            '    Exit Sub
+            'End If
         End If
 
         Thread_LoadingFormStart("Saving...")
@@ -759,11 +727,8 @@ Public Class frm_Material_Warehousing_With_Label
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1)
+
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Timer1.Start()
             Label14.Visible = True
             Label14.Text = "등록실패"
@@ -899,18 +864,10 @@ Public Class frm_Material_Warehousing_With_Label
                     msgString += vbCrLf & vbCrLf & "과출인 항목이 존재합니다." & vbCrLf & "행번호 : " & overinput
                 End If
             End If
-            MessageBox.Show(Me,
-                            msgString,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, msgString)
             Exit Sub
         Else
-            If MessageBox.Show(Me,
-                   "저장 하시겠습니까?",
-                   msg_form,
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+            If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
         End If
 
         Thread_LoadingFormStart("Saving...")
@@ -942,11 +899,7 @@ Public Class frm_Material_Warehousing_With_Label
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
@@ -954,11 +907,7 @@ Public Class frm_Material_Warehousing_With_Label
 
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료.")
 
         BTN_Save.Enabled = False
         BTN_ListAdd.Enabled = False
@@ -1001,30 +950,12 @@ Public Class frm_Material_Warehousing_With_Label
             Thread_LoadingFormEnd()
 
             If CB_Vendor.Items.Count = 0 Then
-                MessageBox.Show(Me,
-                        "고객사 코드를 찾을 수 없습니다..",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information, MessageBoxDefaultButton.Button1)
+                MSG_Information(Me, "고객사 코드를 찾을 수 없습니다..")
+            ElseIf CB_Vendor.Items.Count = 1 Then
+                CB_Vendor.SelectedIndex = 0
             End If
 
         End If
-
-    End Sub
-
-    Private Sub CB_Vendor_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Vendor.SelectionChangeCommitted
-
-        Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(CB_Vendor.Text)
-        Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(CB_Vendor.Text)
-
-        If asciiTest <> unicodeTest Then
-            MessageBox.Show(Me, "Vendor명에 한글을 입력할 수 없습니다.(Barcode)", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Asterisk)
-            CB_Vendor.SelectedIndex = -1
-            Exit Sub
-        End If
-
-        TB_BarcodeScan.SelectAll()
-        TB_BarcodeScan.Focus()
 
     End Sub
 
@@ -1068,7 +999,7 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Sub BTN_RePrint_Click(sender As Object, e As EventArgs) Handles BTN_RePrint.Click
 
-        If MessageBox.Show(Me, "재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "재발행 하시겠습니까?") = False Then Exit Sub
 
         Dim selRow As Integer = Grid_PartList.Row
 
@@ -1088,9 +1019,33 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Sub CB_Vendor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Vendor.SelectedIndexChanged
 
+        Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(CB_Vendor.Text)
+        Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(CB_Vendor.Text)
+
+        If asciiTest <> unicodeTest Then
+            MSG_Exclamation(Me, "Vendor명에 한글을 입력할 수 없습니다.(Barcode)")
+            CB_Vendor.SelectedIndex = -1
+            Exit Sub
+        End If
+
+        TB_BarcodeScan.SelectAll()
+        TB_BarcodeScan.Focus()
+
     End Sub
 
-    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs)
+    Private Sub CB_Vendor_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Vendor.SelectionChangeCommitted
+
+        Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(CB_Vendor.Text)
+        Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(CB_Vendor.Text)
+
+        If asciiTest <> unicodeTest Then
+            MSG_Exclamation(Me, "Vendor명에 한글을 입력할 수 없습니다.(Barcode)")
+            CB_Vendor.SelectedIndex = -1
+            Exit Sub
+        End If
+
+        TB_BarcodeScan.SelectAll()
+        TB_BarcodeScan.Focus()
 
     End Sub
 
@@ -1101,11 +1056,7 @@ Public Class frm_Material_Warehousing_With_Label
         Dim nowPartCode As String = Grid_PartList(selRow, 5)
         Dim nowQty As String = Grid_PartList(selRow, 10)
 
-        If MessageBox.Show(Me,
-                           "입고번호(MW No.) : " & mwNo & vbCrLf & "를 삭제 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "입고번호(MW No.) : " & mwNo & vbCrLf & "를 삭제 하시겠습니까?") = False Then Exit Sub
 
         DBConnect()
 
@@ -1130,11 +1081,7 @@ Public Class frm_Material_Warehousing_With_Label
             sqlTran.Rollback()
             DBClose()
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
@@ -1143,8 +1090,8 @@ Public Class frm_Material_Warehousing_With_Label
         Dim find_PartCode As Integer = Grid_MaterialList.FindRow(nowPartCode, 1, 1, True)
 
         If find_PartCode > 0 Then
-            Grid_MaterialList(find_PartCode, 4) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) + CInt(nowQty), "#,##0")
-            Grid_MaterialList(find_PartCode, 5) = Format(CInt(Grid_MaterialList(find_PartCode, 4)) - CInt(Grid_MaterialList(find_PartCode, 3)), "#,##0")
+            Grid_MaterialList(find_PartCode, 4) = Format(CDbl(Grid_MaterialList(find_PartCode, 4)) + CDbl(nowQty), "#,##0")
+            Grid_MaterialList(find_PartCode, 5) = Format(CDbl(Grid_MaterialList(find_PartCode, 4)) - CDbl(Grid_MaterialList(find_PartCode, 3)), "#,##0")
             If Grid_MaterialList(find_PartCode, 5) > 0 Then
                 Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
                 Grid_MaterialList.Rows(find_PartCode).StyleNew.BackColor = Color.Yellow
@@ -1154,7 +1101,9 @@ Public Class frm_Material_Warehousing_With_Label
             End If
         End If
 
-        MessageBox.Show(Me, "삭제완료.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Grid_PartList.RemoveItem(selRow)
+
+        MSG_Information(Me, "삭제완료.")
 
     End Sub
 End Class

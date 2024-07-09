@@ -37,7 +37,7 @@ Public Class frm_Order_Excel_File_Open
     Private Sub BTN_POChange_Click(sender As Object, e As EventArgs) Handles BTN_POChange.Click
 
         If startRow = 0 Or endRow = 0 Or itemCode = 0 Or itemName = 0 Or startDate = 0 Or endDate = 0 Or dateRow = 0 Then
-            MessageBox.Show(Me, "필수 항목이 모두 선택되지 않았습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "필수 항목이 모두 선택되지 않았습니다.")
             Exit Sub
         End If
 

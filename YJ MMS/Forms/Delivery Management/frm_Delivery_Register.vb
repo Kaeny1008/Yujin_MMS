@@ -111,11 +111,7 @@ Public Class frm_Delivery_Register
     Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show("고객사를 먼저 선택 하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
             Exit Sub
         End If
 
@@ -233,22 +229,18 @@ Public Class frm_Delivery_Register
 
         If checkCount > 99 Then
             a.Dispose()
-            MessageBox.Show(Me, "총 주문 선택은 99개를 넘을수 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "총 주문 선택은 99개를 넘을수 없습니다.")
         End If
 
         If a.Grid_POList.Rows.Count = 1 Then
             a.Dispose()
-            MessageBox.Show(Me, "선택된 주문이 없습니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "선택된 주문이 없습니다.")
         Else
             If loaderPCB_Add = True Then
-                MessageBox.Show(Me,
-                                "Loader PCB 주문이 자동 추가되었습니다." & vbCrLf &
+                MSG_Information(Me, "Loader PCB 주문이 자동 추가되었습니다." & vbCrLf &
                                 "주문번호 일치여부를 확인하여 주십시오." & vbCrLf & vbCrLf &
                                 "예) 선택 : PO202404010002-0005" & vbCrLf &
-                                "자동추가 : PO202404010002-0006",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                                "자동추가 : PO202404010002-0005-L")
             End If
             a.Visible = True
             'a.TopMost = True

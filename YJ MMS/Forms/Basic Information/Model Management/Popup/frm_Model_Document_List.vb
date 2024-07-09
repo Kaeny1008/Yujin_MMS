@@ -237,11 +237,7 @@ Public Class frm_Model_Document_List
                 Select Case bt.Text
                     Case "Upload"
                         If Grid_Document(i, 2) = String.Empty Or Grid_Document(i, 3) = String.Empty Or CStr(Grid_Document(i, 4)) = String.Empty Then
-                            MessageBox.Show(Me,
-                                            "필수항목을 먼저 입력하여 주십시오.",
-                                            msg_form,
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Information)
+                            MSG_Information(Me, "필수항목을 먼저 입력하여 주십시오.")
                         Else
                             File_Upload_Process(i)
                         End If
@@ -296,11 +292,7 @@ Public Class frm_Model_Document_List
         Dim dbWrite_Result As String = Process_DB_Write(selRow)
 
         If Not dbWrite_Result.Equals("Completed") Then
-            MessageBox.Show(Me,
-                            dbWrite_Result,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, dbWrite_Result)
             Grid_Document(selRow, 5) = String.Empty
             Exit Sub
         End If
@@ -312,11 +304,12 @@ Public Class frm_Model_Document_List
         Grid_Document.Rows(selRow).StyleNew.ForeColor = Color.Black
         Thread_LoadingFormEnd()
 
-        MessageBox.Show(Me,
-                        "저장 완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        'MessageBox.Show(Me,
+        '                "저장 완료.",
+        '                msg_form,
+        '                MessageBoxButtons.OK,
+        '                MessageBoxIcon.Information)
+        MSG_Information(Me, "저장완료.")
 
     End Sub
 
@@ -423,22 +416,14 @@ Public Class frm_Model_Document_List
 
     Private Sub File_Delete_Process(ByVal selRow As Integer)
 
-        If MessageBox.Show(Me,
-                           "삭제 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "삭제 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Deleting...")
 
         Dim dbWrite_Result As String = Process_DB_Delete(selRow)
 
         If Not dbWrite_Result.Equals("Completed") Then
-            MessageBox.Show(Me,
-                            dbWrite_Result,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, dbWrite_Result)
             Exit Sub
         End If
 
@@ -529,9 +514,9 @@ Public Class frm_Model_Document_List
                                                        Grid_Document(d_row, 5))
 
         If Not downloadResult.Equals("Completed") Then
-            MsgBox("Download 실패" & vbCrLf & downloadResult, MsgBoxStyle.Critical, msg_form)
+            MSG_Exclamation(Me, "Download 실패")
         Else
-            MsgBox("File Download.", MsgBoxStyle.Information, msg_form)
+            MSG_Information(Me, "File Download.")
         End If
 
     End Sub

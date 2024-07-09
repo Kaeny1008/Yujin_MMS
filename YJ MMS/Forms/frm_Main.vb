@@ -530,4 +530,12 @@ Public Class frm_Main
         frm_WorkSite_Transfer_Material_List.Focus()
 
     End Sub
+
+    Private Sub BTN_Material_Stock_Survay_EachItem_Click(sender As Object, e As EventArgs) Handles BTN_Material_Stock_Survay_EachItem.Click
+
+        frm_Material_Stock_Survey_Each_Item.MdiParent = Me
+        If Not frm_Material_Stock_Survey_Each_Item.Visible Then frm_Material_Stock_Survey_Each_Item.Show()
+        frm_Material_Stock_Survey_Each_Item.Focus()
+
+    End Sub
 End Class

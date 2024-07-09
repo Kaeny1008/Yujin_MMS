@@ -129,11 +129,7 @@ Public Class frm_CustomerPartCode
         DBClose()
 
         If Not usePartCode = "사용" Then
-            MessageBox.Show(Me,
-                            "선택된 고객사는 고객사 코드를 사용하지 않습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "선택된 고객사는 고객사 코드를 사용하지 않습니다.")
             CB_CustomerName.Text = String.Empty
             TB_CustomerCode.Text = String.Empty
         End If
@@ -301,14 +297,10 @@ Public Class frm_CustomerPartCode
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        If TB_CustomerCode.Text = String.Empty Then
-            MessageBox.Show("고객사를 먼저 선택 하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information,
-                            MessageBoxDefaultButton.Button1)
-            Exit Sub
-        End If
+        'If TB_CustomerCode.Text = String.Empty Then
+        '    MSG_Information(Me, "고객사를 먼저 선택 하여 주십시오.")
+        '    Exit Sub
+        'End If
 
         Thread_LoadingFormStart()
 
@@ -354,11 +346,9 @@ Public Class frm_CustomerPartCode
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click,
         btn_Save2.Click
 
-        If MsgBox("저장 하시겠습니까?",
-                  MsgBoxStyle.Question + MsgBoxStyle.YesNo,
-                  msg_form) = MsgBoxResult.No Then Exit Sub
+        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart("Saving...")
 
         DBConnect()
 
@@ -418,25 +408,15 @@ Public Class frm_CustomerPartCode
         Catch ex As MySqlException
             sqlTran.Rollback()
             DBClose()
-            thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message & vbCrLf & "Error No. : " & ex.Number,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            Thread_LoadingFormEnd()
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
             Exit Sub
         End Try
 
         DBClose()
 
-        thread_LoadingFormEnd()
-        MessageBox.Show(Me,
-                        "저장 완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
-
-
+        Thread_LoadingFormEnd()
+        MSG_Information(Me, "저장완료.")
 
         BTN_Search_Click(Nothing, Nothing)
 
@@ -555,7 +535,7 @@ Public Class frm_CustomerPartCode
     Private Sub BTN_Part_Update_Click(sender As Object, e As EventArgs) Handles BTN_Part_Update.Click
 
         If Grid_PartList.Rows.Count = 1 Then
-            MessageBox.Show(Me, "자료 검색을 먼저 하십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "자료 검색을 먼저 하십시오.")
             Exit Sub
         End If
 
@@ -608,12 +588,7 @@ Public Class frm_CustomerPartCode
                 Next
             End With
         Catch ex As Exception
-            MessageBox.Show(ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
+            MSG_Error(Me, ex.Message)
         End Try
 
         If Not IsNothing(excelApp) Then

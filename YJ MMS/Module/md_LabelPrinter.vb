@@ -18,7 +18,7 @@ Module md_LabelPrinter
         Dim swFile As StreamWriter =
             New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
 
-        swFile.WriteLine("^XZ~JA^XZ")
+        'swFile.WriteLine("^XZ~JA^XZ")
         If splitLabel = False Then
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
             swFile.WriteLine("^MD" & printerMD) '진하기

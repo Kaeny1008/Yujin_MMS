@@ -237,7 +237,7 @@ Public Class frm_OQC_Register
             TB_ItemSpec.Text = sqlDR("item_spec")
             TB_POQty.Text = sqlDR("modify_order_quantity")
             TB_ModelCode.Text = sqlDR("model_code")
-            If Not sqlDR("barcode_string").ToString.Equals("") Then
+            If sqlDR("barcode_string").ToString.Equals("Use") Then
                 RB_UseSerial.Checked = True
             Else
                 RB_NotUseSerial.Checked = True
@@ -710,8 +710,8 @@ Public Class frm_OQC_Register
 
             If poEnd = True Then
                 strSQL += "update tb_mms_order_register_list set order_status = 'All Process Completed'"
-                strSQL += ", completed_qty = " & CDbl(TB_POQty.Text) - nowDiscardQty
-                strSQL += "where order_index = '" & TB_OrderIndex.Text & "'"
+                strSQL += ", completed_quantity = " & CDbl(TB_POQty.Text) - nowDiscardQty
+                strSQL += " where order_index = '" & TB_OrderIndex.Text & "'"
                 strSQL += ";"
             End If
 

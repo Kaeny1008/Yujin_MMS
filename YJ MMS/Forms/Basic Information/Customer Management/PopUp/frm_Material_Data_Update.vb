@@ -133,13 +133,7 @@ Public Class frm_Material_Data_Update
 
         Thread_LoadingFormEnd()
 
-
-        MessageBox.Show("해당 시트를 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information,
-                        MessageBoxDefaultButton.Button1,
-                        MessageBoxOptions.DefaultDesktopOnly)
+        MSG_Information(Me, "해당 시트를 선택하여 주십시오.")
 
     End Sub
 
@@ -208,12 +202,8 @@ Public Class frm_Material_Data_Update
 
             'TextBoxTextUpdate(excelApp.ActiveWorkbook.Sheets(sheetName).UsedRange.Rows.Count, Me, TB_LastRow)
         Catch ex As Exception
-            MessageBox.Show(ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error,
-                            MessageBoxDefaultButton.Button1,
-                            MessageBoxOptions.DefaultDesktopOnly)
+            Thread_LoadingFormEnd()
+            MSG_Error(Me, ex.Message)
         End Try
 
         Thread_LoadingFormEnd()
@@ -223,20 +213,12 @@ Public Class frm_Material_Data_Update
     Private Sub BTN_Start_Click(sender As Object, e As EventArgs) Handles BTN_Start.Click
 
         If partCodeCol = 0 Or start_row = 0 Or last_row = 0 Then
-            MessageBox.Show(Me,
-                            "필수 위치가 선택되지 않았습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "필수 위치가 선택되지 않았습니다.")
             Exit Sub
         End If
 
         If priceCol = 0 And supplierCol = 0 And categoryCol = 0 Then
-            MessageBox.Show(Me,
-                            "Update 위치가 선택되지 않았습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "Update 위치가 선택되지 않았습니다.")
             Exit Sub
         End If
 

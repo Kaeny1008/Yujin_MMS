@@ -68,6 +68,8 @@ Partial Class frm_Main
         Me.BTN_Material_Move = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Transfer = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Return = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_OutTransfer_List = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator12 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Material_CheckRequirements = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_MaterialStock = New System.Windows.Forms.ToolStripMenuItem()
@@ -117,8 +119,7 @@ Partial Class frm_Main
         Me.BTN_Delivery_Register = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Delivery_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.ToolStripSeparator17 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_OutTransfer_List = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Material_Stock_Survay_EachItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -428,14 +429,25 @@ Partial Class frm_Main
         'BTN_Material_Transfer
         '
         Me.BTN_Material_Transfer.Name = "BTN_Material_Transfer"
-        Me.BTN_Material_Transfer.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Transfer.Size = New System.Drawing.Size(150, 22)
         Me.BTN_Material_Transfer.Text = "현장 입,출고"
         '
         'BTN_Material_Return
         '
         Me.BTN_Material_Return.Name = "BTN_Material_Return"
-        Me.BTN_Material_Return.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Return.Size = New System.Drawing.Size(150, 22)
         Me.BTN_Material_Return.Text = "반출"
+        '
+        'ToolStripSeparator17
+        '
+        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
+        Me.ToolStripSeparator17.Size = New System.Drawing.Size(147, 6)
+        '
+        'BTN_OutTransfer_List
+        '
+        Me.BTN_OutTransfer_List.Name = "BTN_OutTransfer_List"
+        Me.BTN_OutTransfer_List.Size = New System.Drawing.Size(150, 22)
+        Me.BTN_OutTransfer_List.Text = "현장출고 자재"
         '
         'ToolStripSeparator12
         '
@@ -482,7 +494,7 @@ Partial Class frm_Main
         '
         '재고조사ToolStripMenuItem
         '
-        Me.재고조사ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Stock_Survay_Plan, Me.BTN_Material_Stock_Survay_Input, Me.BTN_Material_Stock_Survay_Result})
+        Me.재고조사ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Stock_Survay_Plan, Me.BTN_Material_Stock_Survay_Input, Me.BTN_Material_Stock_Survay_EachItem, Me.BTN_Material_Stock_Survay_Result})
         Me.재고조사ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.재고조사ToolStripMenuItem.Name = "재고조사ToolStripMenuItem"
         Me.재고조사ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
@@ -764,16 +776,11 @@ Partial Class frm_Main
         'Timer1
         '
         '
-        'ToolStripSeparator17
+        'BTN_Material_Stock_Survay_EachItem
         '
-        Me.ToolStripSeparator17.Name = "ToolStripSeparator17"
-        Me.ToolStripSeparator17.Size = New System.Drawing.Size(177, 6)
-        '
-        'BTN_OutTransfer_List
-        '
-        Me.BTN_OutTransfer_List.Name = "BTN_OutTransfer_List"
-        Me.BTN_OutTransfer_List.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_OutTransfer_List.Text = "현장출고 자재"
+        Me.BTN_Material_Stock_Survay_EachItem.Name = "BTN_Material_Stock_Survay_EachItem"
+        Me.BTN_Material_Stock_Survay_EachItem.Size = New System.Drawing.Size(241, 22)
+        Me.BTN_Material_Stock_Survay_EachItem.Text = "진행 목록 확인"
         '
         'frm_Main
         '
@@ -891,4 +898,5 @@ Partial Class frm_Main
     Friend WithEvents BTN_WSProduction_History As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
     Friend WithEvents BTN_OutTransfer_List As ToolStripMenuItem
+    Friend WithEvents BTN_Material_Stock_Survay_EachItem As ToolStripMenuItem
 End Class
