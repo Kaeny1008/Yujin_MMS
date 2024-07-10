@@ -61,9 +61,14 @@ Public Class frm_Material_Stock_Information
             Grid_MaterialList(1, 15) = "반출"
             rngM = .GetCellRange(0, 16, 1, 16)
             rngM.Data = "미과출(재고)"
-            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            For i = 6 To 16
+                .Cols(i).DataType = GetType(Double)
+                .Cols(i).Format = "#,##0"
+                .Cols(i).TextAlign = TextAlignEnum.CenterCenter
+            Next
+            .AutoClipboard = True
             '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = False
             .AutoSizeCols()

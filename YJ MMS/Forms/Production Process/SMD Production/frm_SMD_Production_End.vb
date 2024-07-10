@@ -65,7 +65,7 @@ Public Class frm_SMD_Production_End
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .SelectionMode = SelectionModeEnum.Default
-            .Cols(9).Visible = False
+            .Cols(10).Visible = False
             .Cols(5).DataType = GetType(Double)
             .Cols(5).Format = "#,##0"
             .Cols(6).DataType = GetType(Double)
@@ -496,10 +496,17 @@ Public Class frm_SMD_Production_End
             End If
         End If
 
-        If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
+        'If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
+
+        If Directory.Exists(Application.StartupPath & "\Print Text") = False Then
+            Directory.CreateDirectory(Application.StartupPath & "\Print Text")
+        End If
+
+        Dim folderName As String = Application.StartupPath & "\Print Text"
+        Dim fileName As String = folderName & "\SMD Label Print_" & Format(Now, "yyMMddHHmmssfff") & ".txt"
 
         Dim swFile As StreamWriter =
-            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
+            New StreamWriter(fileName, True, System.Text.Encoding.GetEncoding(949))
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
@@ -552,7 +559,7 @@ Public Class frm_SMD_Production_End
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint()
+        Dim printResult As String = LabelPrint(fileName)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,

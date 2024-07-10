@@ -80,6 +80,7 @@ Partial Class frm_Main
         Me.재고조사ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Stock_Survay_Plan = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Stock_Survay_Input = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_Material_Stock_Survay_EachItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Material_Stock_Survay_Result = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripDropDownButton2 = New System.Windows.Forms.ToolStripDropDownButton()
         Me.BTN_ProductionPlan = New System.Windows.Forms.ToolStripMenuItem()
@@ -110,6 +111,7 @@ Partial Class frm_Main
         Me.BTN_WSProduction_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.출하ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_OQC = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_OQC_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Repair_Management = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator10 = New System.Windows.Forms.ToolStripSeparator()
@@ -119,7 +121,7 @@ Partial Class frm_Main
         Me.BTN_Delivery_Register = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Delivery_History = New System.Windows.Forms.ToolStripMenuItem()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.BTN_Material_Stock_Survay_EachItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.StatusStrip.SuspendLayout()
         Me.ToolStrip.SuspendLayout()
         Me.SuspendLayout()
@@ -364,7 +366,7 @@ Partial Class frm_Main
         Me.ToolStripComboBox1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Warehousing_Document, Me.ToolStripSeparator6, Me.BTN_Material_Warehousing_List, Me.BTN_Material_Warehousing, Me.ToolStripSeparator7, Me.BTN_MaterialWarehousing_History, Me.ToolStripSeparator11, Me.BTN_Material_Label_Reprint})
         Me.ToolStripComboBox1.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.ToolStripComboBox1.Name = "ToolStripComboBox1"
-        Me.ToolStripComboBox1.Size = New System.Drawing.Size(180, 22)
+        Me.ToolStripComboBox1.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripComboBox1.Text = "입고"
         Me.ToolStripComboBox1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -416,14 +418,14 @@ Partial Class frm_Main
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_Material_Move
         '
         Me.BTN_Material_Move.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Transfer, Me.BTN_Material_Return, Me.ToolStripSeparator17, Me.BTN_OutTransfer_List})
         Me.BTN_Material_Move.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_Move.Name = "BTN_Material_Move"
-        Me.BTN_Material_Move.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_Move.Size = New System.Drawing.Size(152, 22)
         Me.BTN_Material_Move.Text = "자재 이동"
         '
         'BTN_Material_Transfer
@@ -452,52 +454,52 @@ Partial Class frm_Main
         'ToolStripSeparator12
         '
         Me.ToolStripSeparator12.Name = "ToolStripSeparator12"
-        Me.ToolStripSeparator12.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator12.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_Material_CheckRequirements
         '
         Me.BTN_Material_CheckRequirements.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_Material_CheckRequirements.Name = "BTN_Material_CheckRequirements"
-        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Material_CheckRequirements.Size = New System.Drawing.Size(152, 22)
         Me.BTN_Material_CheckRequirements.Text = "소요량 확인"
         '
         'BTN_MaterialStock
         '
         Me.BTN_MaterialStock.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MaterialStock.Name = "BTN_MaterialStock"
-        Me.BTN_MaterialStock.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MaterialStock.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MaterialStock.Text = "재고 확인"
         '
         'BTN_MRP
         '
         Me.BTN_MRP.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MRP.Name = "BTN_MRP"
-        Me.BTN_MRP.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MRP.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MRP.Text = "소요량 계획"
         '
         'ToolStripSeparator8
         '
         Me.ToolStripSeparator8.Name = "ToolStripSeparator8"
-        Me.ToolStripSeparator8.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator8.Size = New System.Drawing.Size(149, 6)
         '
         'BTN_MaterialCode_Change
         '
         Me.BTN_MaterialCode_Change.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.BTN_MaterialCode_Change.Name = "BTN_MaterialCode_Change"
-        Me.BTN_MaterialCode_Change.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_MaterialCode_Change.Size = New System.Drawing.Size(152, 22)
         Me.BTN_MaterialCode_Change.Text = "품목코드 변경"
         '
         'ToolStripSeparator9
         '
         Me.ToolStripSeparator9.Name = "ToolStripSeparator9"
-        Me.ToolStripSeparator9.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator9.Size = New System.Drawing.Size(149, 6)
         '
         '재고조사ToolStripMenuItem
         '
         Me.재고조사ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Material_Stock_Survay_Plan, Me.BTN_Material_Stock_Survay_Input, Me.BTN_Material_Stock_Survay_EachItem, Me.BTN_Material_Stock_Survay_Result})
         Me.재고조사ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.재고조사ToolStripMenuItem.Name = "재고조사ToolStripMenuItem"
-        Me.재고조사ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.재고조사ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.재고조사ToolStripMenuItem.Text = "재고조사"
         '
         'BTN_Material_Stock_Survay_Plan
@@ -513,6 +515,12 @@ Partial Class frm_Main
         Me.BTN_Material_Stock_Survay_Input.Size = New System.Drawing.Size(241, 22)
         Me.BTN_Material_Stock_Survay_Input.Text = "조사결과 입력(사용X PDA활용)"
         Me.BTN_Material_Stock_Survay_Input.Visible = False
+        '
+        'BTN_Material_Stock_Survay_EachItem
+        '
+        Me.BTN_Material_Stock_Survay_EachItem.Name = "BTN_Material_Stock_Survay_EachItem"
+        Me.BTN_Material_Stock_Survay_EachItem.Size = New System.Drawing.Size(241, 22)
+        Me.BTN_Material_Stock_Survay_EachItem.Text = "진행 목록 확인"
         '
         'BTN_Material_Stock_Survay_Result
         '
@@ -707,7 +715,7 @@ Partial Class frm_Main
         '
         '출하ToolStripMenuItem
         '
-        Me.출하ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_OQC})
+        Me.출하ToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_OQC, Me.BTN_OQC_History})
         Me.출하ToolStripMenuItem.Font = New System.Drawing.Font("맑은 고딕", 9.0!)
         Me.출하ToolStripMenuItem.Name = "출하ToolStripMenuItem"
         Me.출하ToolStripMenuItem.Size = New System.Drawing.Size(220, 22)
@@ -718,6 +726,12 @@ Partial Class frm_Main
         Me.BTN_OQC.Name = "BTN_OQC"
         Me.BTN_OQC.Size = New System.Drawing.Size(150, 22)
         Me.BTN_OQC.Text = "출하검사 등록"
+        '
+        'BTN_OQC_History
+        '
+        Me.BTN_OQC_History.Name = "BTN_OQC_History"
+        Me.BTN_OQC_History.Size = New System.Drawing.Size(150, 22)
+        Me.BTN_OQC_History.Text = "검사이력"
         '
         'ToolStripSeparator3
         '
@@ -776,11 +790,8 @@ Partial Class frm_Main
         'Timer1
         '
         '
-        'BTN_Material_Stock_Survay_EachItem
+        'Timer2
         '
-        Me.BTN_Material_Stock_Survay_EachItem.Name = "BTN_Material_Stock_Survay_EachItem"
-        Me.BTN_Material_Stock_Survay_EachItem.Size = New System.Drawing.Size(241, 22)
-        Me.BTN_Material_Stock_Survay_EachItem.Text = "진행 목록 확인"
         '
         'frm_Main
         '
@@ -899,4 +910,6 @@ Partial Class frm_Main
     Friend WithEvents ToolStripSeparator17 As ToolStripSeparator
     Friend WithEvents BTN_OutTransfer_List As ToolStripMenuItem
     Friend WithEvents BTN_Material_Stock_Survay_EachItem As ToolStripMenuItem
+    Friend WithEvents BTN_OQC_History As ToolStripMenuItem
+    Friend WithEvents Timer2 As Timer
 End Class

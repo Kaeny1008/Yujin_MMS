@@ -430,6 +430,12 @@
     <Compile Include="Forms\Production Process\frm_Discard_Register.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Process\OQC\frm_OQC_History.Designer.vb">
+      <DependentUpon>frm_OQC_History.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\frm_OQC_History.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Process\OQC\frm_OQC_Register.Designer.vb">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </Compile>
@@ -440,6 +446,12 @@
       <DependentUpon>frm_OQC_Falult_Register.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Falult_Register.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_History_Box.Designer.vb">
+      <DependentUpon>frm_OQC_History_Box.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_History_Box.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.Designer.vb">
@@ -893,11 +905,17 @@
     <EmbeddedResource Include="Forms\Production Process\frm_Discard_Register.resx">
       <DependentUpon>frm_Discard_Register.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_History.resx">
+      <DependentUpon>frm_OQC_History.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\frm_OQC_Register.resx">
       <DependentUpon>frm_OQC_Register.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Falult_Register.resx">
       <DependentUpon>frm_OQC_Falult_Register.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_History_Box.resx">
+      <DependentUpon>frm_OQC_History_Box.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\OQC\Popup\frm_OQC_Reinspection.resx">
       <DependentUpon>frm_OQC_Reinspection.vb</DependentUpon>

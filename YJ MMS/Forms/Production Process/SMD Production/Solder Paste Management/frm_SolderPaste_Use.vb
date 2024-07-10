@@ -432,11 +432,7 @@ Public Class frm_SolderPaste_Use
             Dim findRow As Integer = Grid_StockList.FindRow(TB_Aging_LotNo.Text, 1, 7, True)
             If findRow < 1 Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show(frm_Main,
-                                "재고목록중 해당 Lot No.를 찾을 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "재고목록중 해당 Lot No.를 찾을 수 없습니다.")
                 TB_Aging_LotNo.SelectAll()
                 TB_Aging_LotNo.Focus()
                 Exit Sub
@@ -446,14 +442,11 @@ Public Class frm_SolderPaste_Use
 
             If Not fastLotNo = String.Empty Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show(frm_Main,
+                MSG_Exclamation(Me,
                                 "********* 선입선출 *********" & vbCrLf & vbCrLf &
                                 "우선 입고된 Lot No.가 있습니다." & vbCrLf &
                                 "Lot No. : " & fastLotNo & vbCrLf & vbCrLf &
-                                "********* 선입선출 *********",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                                "********* 선입선출 *********")
                 TB_Aging_LotNo.SelectAll()
                 TB_Aging_LotNo.Focus()
                 Exit Sub
@@ -468,11 +461,7 @@ Public Class frm_SolderPaste_Use
 
             Thread_LoadingFormEnd()
 
-            MessageBox.Show(frm_Main,
-                            "상온방치 시작등록 완료.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "상온방치 시작등록 완료.")
 
             BTN_Search_Click(Nothing, Nothing)
 
@@ -480,18 +469,10 @@ Public Class frm_SolderPaste_Use
             TB_Aging_LotNo.Text = String.Empty
             TB_Aging_LotNo.Focus()
         ElseIf Trim(TB_Aging_Worker.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "작업자를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "작업자를 입력하여 주십시오.")
             TB_Aging_Worker.Focus()
         ElseIf Trim(TB_Aging_LotNo.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "Lot No.를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "Lot No.를 입력하여 주십시오.")
             TB_Aging_LotNo.Focus()
         End If
 
@@ -536,11 +517,8 @@ Public Class frm_SolderPaste_Use
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Return False
         End Try
 
@@ -668,32 +646,21 @@ Public Class frm_SolderPaste_Use
                 BTN_Search_Click(Nothing, Nothing)
             End If
 
-            MessageBox.Show("교반시간 : " & LB_Mixing_Time.Text & "초 입니다." & vbCrLf & "교반시간을 준수 하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "교반시간 : " & LB_Mixing_Time.Text & "초 입니다." & vbCrLf & "교반시간을 준수 하여 주십시오.")
 
             Thread_LoadingFormStart("Saving...")
 
             Dim findRow As Integer = Grid_AgingList.FindRow(TB_Use_LotNo.Text, 1, 5, True)
             If findRow < 1 Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show(frm_Main,
-                                "상온 방치 목록중 해당 Lot No.를 찾을 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "상온 방치 목록중 해당 Lot No.를 찾을 수 없습니다.")
                 TB_Use_LotNo.SelectAll()
                 TB_Use_LotNo.Focus()
                 Exit Sub
             Else
                 If CDate(Grid_AgingList(findRow, 8)) > Now Then
                     Thread_LoadingFormEnd()
-                    MessageBox.Show(frm_Main,
-                                    "상온 방치 시간이 충족되지 않은 솔더 입니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information)
+                    MSG_Information(Me, "상온 방치 시간이 충족되지 않은 솔더 입니다.")
                     TB_Use_LotNo.SelectAll()
                     TB_Use_LotNo.Focus()
                     Exit Sub
@@ -704,14 +671,11 @@ Public Class frm_SolderPaste_Use
 
             If Not fastLotNo = String.Empty Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show(frm_Main,
+                MSG_Exclamation(Me,
                                 "********* 선입선출 *********" & vbCrLf & vbCrLf &
                                 "우선 입고된 Lot No.가 있습니다." & vbCrLf &
                                 "Lot No. : " & fastLotNo & vbCrLf & vbCrLf &
-                                "********* 선입선출 *********",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
+                                "********* 선입선출 *********")
                 TB_Use_LotNo.SelectAll()
                 TB_Use_LotNo.Focus()
                 Exit Sub
@@ -726,11 +690,7 @@ Public Class frm_SolderPaste_Use
 
             Thread_LoadingFormEnd()
 
-            MessageBox.Show(frm_Main,
-                            "사용등록 완료.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "사용등록 완료.")
 
             BTN_Search_Click(Nothing, Nothing)
 
@@ -738,30 +698,14 @@ Public Class frm_SolderPaste_Use
             TB_Use_LotNo.Text = String.Empty
             TB_Use_LotNo.Focus()
         ElseIf Trim(CB_Department.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "작업 동을 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "작업 동을 선택하여 주십시오.")
         ElseIf Trim(CB_Line.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "작업 라인을 선택하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "작업 라인을 선택하여 주십시오.")
         ElseIf Trim(TB_Use_LotNo.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "Lot No.를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "Lot No.를 입력하여 주십시오.")
             TB_Use_LotNo.Focus()
         ElseIf Trim(TB_Use_Worker.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "작업자를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "작업자를 입력하여 주십시오.")
             TB_Use_Worker.Focus()
         End If
 
@@ -808,11 +752,7 @@ Public Class frm_SolderPaste_Use
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
             Return False
         End Try
 
@@ -860,11 +800,7 @@ Public Class frm_SolderPaste_Use
             Dim findRow As Integer = Grid_UseList.FindRow(TB_Scrap_LotNo.Text, 1, 5, True)
             If findRow < 1 Then
                 Thread_LoadingFormEnd()
-                MessageBox.Show(frm_Main,
-                                "사용목록중 해당 Lot No.를 찾을 수 없습니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Information)
+                MSG_Information(Me, "사용목록중 해당 Lot No.를 찾을 수 없습니다.")
                 TB_Scrap_LotNo.SelectAll()
                 TB_Scrap_LotNo.Focus()
                 Exit Sub
@@ -879,11 +815,7 @@ Public Class frm_SolderPaste_Use
 
             Thread_LoadingFormEnd()
 
-            MessageBox.Show(frm_Main,
-                            "폐기등록 완료.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "폐기등록 완료.")
 
             BTN_Search_Click(Nothing, Nothing)
 
@@ -891,18 +823,10 @@ Public Class frm_SolderPaste_Use
             TB_Scrap_LotNo.Text = String.Empty
             TB_Scrap_LotNo.Focus()
         ElseIf Trim(TB_scrap_LotNo.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "Lot No.를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "Lot No.를 입력하여 주십시오.")
             TB_Scrap_LotNo.Focus()
         ElseIf Trim(TB_scrap_Worker.Text) = String.Empty Then
-            MessageBox.Show(frm_Main,
-                            "작업자를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "작업자를 입력하여 주십시오.")
             TB_Scrap_Worker.Focus()
         End If
 
@@ -945,11 +869,7 @@ Public Class frm_SolderPaste_Use
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(frm_Main,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, ex.Message)
             Return False
         End Try
 

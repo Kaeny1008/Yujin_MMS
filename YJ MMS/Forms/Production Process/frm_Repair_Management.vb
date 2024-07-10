@@ -339,15 +339,15 @@ Public Class frm_Repair_Management
 
     End Sub
 
-    Private Sub TB_Repairman_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_Repairman.KeyDown
-
-        registryEdit.WriteRegKey("Software\Yujin\MMS\Repair", "Repairman", TB_Repairman.Text)
-
-    End Sub
-
     Private Sub CB_Process_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Process.SelectionChangeCommitted
 
         registryEdit.WriteRegKey("Software\Yujin\MMS\Repair", "Process", CB_Process.Text)
+
+    End Sub
+
+    Private Sub frm_Repair_Management_Deactivate(sender As Object, e As EventArgs) Handles Me.Deactivate
+
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Repair", "Repairman", TB_Repairman.Text)
 
     End Sub
 End Class

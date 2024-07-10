@@ -923,6 +923,7 @@ Public Class frm_Material_Transfer
             strSQL += ");"
             '기존자재수량에 현재 분할된 자재수량을 차감
             strSQL += "update tb_mms_material_warehousing set part_qty = " & CDbl(TB_Qty.Text) - CDbl(TB_1stQty.Text) & ""
+            strSQL += ", available_qty = available_qty - " & CDbl(TB_1stQty.Text) & ""
             strSQL += ", split_count = " & CInt(TextBox1.Text) + 1 & ""
             strSQL += " where mw_no = '" & mwNo & "';"
 

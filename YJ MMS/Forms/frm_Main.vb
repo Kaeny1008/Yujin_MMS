@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.IO
 Imports System.Threading
 Imports MySql.Data.MySqlClient
 
@@ -6,6 +7,7 @@ Public Class frm_Main
 
     Public form_name As Form
     Public discard_Alarm As Boolean = False
+    Dim thread_FileDelete As Thread
 
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -28,6 +30,25 @@ Public Class frm_Main
 
     End Sub
 
+    Private Sub Print_RawFile_Delete()
+
+        Dim path As String = Application.StartupPath & "\Print Text"
+        If Directory.Exists(path) Then
+            Dim directory As DirectoryInfo = New DirectoryInfo(path)
+
+            Dim file As FileInfo
+            For Each file In directory.GetFiles()
+                file.Delete()
+            Next
+
+            'Dim dir As DirectoryInfo
+            'For Each dir In directory.GetDirectories()
+            '    dir.Delete(True)
+            'Next
+        End If
+
+    End Sub
+
     Private Sub Load_AlarmList()
 
         Mdbconnect()
@@ -42,6 +63,9 @@ Public Class frm_Main
                 discard_Alarm = True
                 Timer1.Interval = sqlDR("interval_time") * 1000
                 Timer1.Start()
+            ElseIf sqlDR("alarm_name") = "프린터 텍스트 삭제" Then
+                Timer2.Interval = sqlDR("interval_time") * 1000
+                Timer2.Start()
             End If
         Loop
         sqlDR.Close()
@@ -536,6 +560,25 @@ Public Class frm_Main
         frm_Material_Stock_Survey_Each_Item.MdiParent = Me
         If Not frm_Material_Stock_Survey_Each_Item.Visible Then frm_Material_Stock_Survey_Each_Item.Show()
         frm_Material_Stock_Survey_Each_Item.Focus()
+
+    End Sub
+
+    Private Sub BTN_OQC_History_Click(sender As Object, e As EventArgs) Handles BTN_OQC_History.Click
+
+        frm_OQC_History.MdiParent = Me
+        If Not frm_OQC_History.Visible Then frm_OQC_History.Show()
+        frm_OQC_History.Focus()
+
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+
+        '너무 지져분해지니까 Print Text File들을 삭제 하자.
+        thread_FileDelete = New Thread(AddressOf Print_RawFile_Delete)
+        thread_FileDelete.IsBackground = True
+        thread_FileDelete.SetApartmentState(ApartmentState.STA) 'OpenFileDialog를 사용하기위해선 STA로 해야되던데...
+        thread_FileDelete.Name = "FileDelete Thread"
+        thread_FileDelete.Start()
 
     End Sub
 End Class

@@ -139,7 +139,13 @@ Public Class frm_Alarm_Setting
                     Else
                         frm_Main.Timer1.Stop()
                     End If
-
+                ElseIf Grid_AlarmList(i, 1).Equals("프린터 텍스트 삭제") Then
+                    If Grid_AlarmList(i, 3) = True Then
+                        frm_Main.Timer2.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
+                        frm_Main.Timer2.Start()
+                    Else
+                        frm_Main.Timer2.Stop()
+                    End If
                 End If
             Next
 

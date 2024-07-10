@@ -36,7 +36,7 @@ Partial Class frm_SMD_Fault_History
         Me.Grid_HistoryList.Name = "Grid_HistoryList"
         Me.Grid_HistoryList.Rows.Count = 2
         Me.Grid_HistoryList.Rows.DefaultSize = 20
-        Me.Grid_HistoryList.Size = New System.Drawing.Size(1064, 450)
+        Me.Grid_HistoryList.Size = New System.Drawing.Size(1264, 450)
         Me.Grid_HistoryList.StyleInfo = resources.GetString("Grid_HistoryList.StyleInfo")
         Me.Grid_HistoryList.TabIndex = 6
         Me.Grid_HistoryList.UseCompatibleTextRendering = True
@@ -45,7 +45,7 @@ Partial Class frm_SMD_Fault_History
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1064, 450)
+        Me.ClientSize = New System.Drawing.Size(1264, 450)
         Me.Controls.Add(Me.Grid_HistoryList)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

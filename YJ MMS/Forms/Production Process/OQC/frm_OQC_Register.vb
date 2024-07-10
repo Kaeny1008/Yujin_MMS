@@ -696,13 +696,14 @@ Public Class frm_OQC_Register
                 For i = 1 To Grid_BoxList.Rows.Count - 1
                     If CStr(Grid_BoxList(i, 0)).ToString.Equals("N") Then
                         strSQL += "insert into tb_mms_oqc_list_content("
-                        strSQL += "content_no, oqc_no, serial_no, register_date, content_note"
+                        strSQL += "content_no, oqc_no, serial_no, register_date, content_note, order_index"
                         strSQL += ") values("
                         strSQL += "'" & TB_OQC_No.Text & "-" & Format(i, "000") & "'"
                         strSQL += ",'" & TB_OQC_No.Text & "'"
                         strSQL += ",'" & Grid_BoxList(i, 1) & "'"
                         strSQL += ",'" & Grid_BoxList(i, 2) & "'"
                         strSQL += ",'" & Grid_BoxList(i, 3) & "'"
+                        strSQL += ",'" & TB_OrderIndex.Text & "'"
                         strSQL += ");"
                     End If
                 Next

@@ -138,7 +138,7 @@ Partial Class frm_LabelPrinterSetting
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(171, 26)
         Me.Label1.TabIndex = 16
-        Me.Label1.Text = "StopBits"
+        Me.Label1.Text = "Darkness"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_StopBits

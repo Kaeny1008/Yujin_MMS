@@ -451,14 +451,22 @@ Module md_ETC
         TestPrinter = String.Empty
 
         '##### 프린터로 전송하는 부분
+
+        If Directory.Exists(Application.StartupPath & "\Print Text") = False Then
+            Directory.CreateDirectory(Application.StartupPath & "\Print Text")
+        End If
+
+        Dim folderName As String = Application.StartupPath & "\Print Text"
+        Dim fileName As String = folderName & "\Test Label Print_" & Format(Now, "yyMMddHHmmssfff") & ".txt"
+
+        Dim swFile As StreamWriter =
+            New StreamWriter(fileName, True, System.Text.Encoding.GetEncoding(949))
+
         Try
 
-            If File.Exists(Application.StartupPath & "\print.txt") Then
-                File.Delete(Application.StartupPath & "\print.txt")
-            End If
-
-            Dim swFile As StreamWriter =
-            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
+            'If File.Exists(Application.StartupPath & "\print.txt") Then
+            '    File.Delete(Application.StartupPath & "\print.txt")
+            'End If
 
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & testLeftPosition & ",0^LT" & testTopPosition) 'LH : 가로위치, LT : 세로위치
@@ -477,7 +485,8 @@ Module md_ETC
             swFile.Close()
 
             If testCable = "LPT" Then
-                File.Copy(Application.StartupPath & "\print.txt", "LPT" & testPort)
+                'File.Copy(Application.StartupPath & "\print.txt", "LPT" & testPort)
+                File.Copy(fileName, "LPT" & testPort)
             ElseIf testCable = "COM" Then
                 ComPort.PortName = "COM" & testPort
                 ComPort.BaudRate = testBaudRate
@@ -490,7 +499,8 @@ Module md_ETC
                 Call ComPort.Open()
                 Dim fs As System.IO.FileStream
                 Dim sr As System.IO.StreamReader
-                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                fs = System.IO.File.Open(fileName, IO.FileMode.Open) ' 파일 열기
                 sr = New System.IO.StreamReader(fs) ' 스트림리더에 연결
                 Dim str As String = String.Empty
 
@@ -519,14 +529,15 @@ Module md_ETC
                 'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
                 '    TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 'End If
-                If Not p.SendFileToPrinter(printerName, Application.StartupPath & "\print.txt") = True Then
+                If Not p.SendFileToPrinter(printerName, fileName) = True Then
                     TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
-            File.Delete(Application.StartupPath & "\print.txt")
+            'File.Delete(fileName)
             TestPrinter = "Success"
         Catch ex As Exception
-            File.Delete(Application.StartupPath & "\print.txt")
+            swFile.Close()
+            'File.Delete(filename)
             TestPrinter = ex.Message
         End Try
 
@@ -534,13 +545,14 @@ Module md_ETC
 
     End Function
 
-    Public Function LabelPrint() As String
+    Public Function LabelPrint(ByVal fileName As String) As String
 
         Dim printResult As String = String.Empty
 
         Try
             If printerCable = "LPT" Then
-                File.Copy(Application.StartupPath & "\print.txt", "LPT" & printerPort)
+                'File.Copy(Application.StartupPath & "\print.txt", "LPT" & printerPort)
+                File.Copy(fileName, "LPT" & printerPort)
             ElseIf printerCable = "COM" Then
                 ComPort.PortName = "COM" & printerPort
                 ComPort.BaudRate = printerBaudRate
@@ -553,7 +565,8 @@ Module md_ETC
                 Call ComPort.Open()
                 Dim fs As System.IO.FileStream
                 Dim sr As System.IO.StreamReader
-                fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                fs = System.IO.File.Open(fileName, IO.FileMode.Open) ' 파일 열기
                 sr = New System.IO.StreamReader(fs) ' 스트림리더에 연결
                 Dim str As String = String.Empty
 
@@ -583,14 +596,14 @@ Module md_ETC
                 'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
                 '    printResult = "프린터가 정상적으로 작동하지 않았습니다."
                 'End If
-                If Not p.SendFileToPrinter(printerName, Application.StartupPath & "\print.txt") = True Then
+                If Not p.SendFileToPrinter(printerName, fileName) = True Then
                     printResult = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
-                'File.Delete(Application.StartupPath & "\print.txt")
-                printResult = "Success"
+            'File.Delete(fileName)
+            printResult = "Success"
         Catch ex As Exception
-            'File.Delete(Application.StartupPath & "\print.txt")
+            'File.Delete(fileName)
             printResult = ex.Message
         End Try
 
@@ -611,31 +624,11 @@ Module md_ETC
 
     End Sub
 
-    Public Sub PrinterListLoad111111111111111111111(ByVal formName As Form, ByVal cb As ComboBox)
-
-        Dim ctls() As Control = formName.Controls.Find(cb.Name, True)
-        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is ComboBox Then
-            Dim ts As ComboBox = DirectCast(ctls(0), ComboBox)
-            If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of Form, ComboBox)(AddressOf PrinterListLoad), formName, cb)
-            Else
-                cb.Items.Clear()
-                For i = 0 To Printing.PrinterSettings.InstalledPrinters.Count - 1
-                    Dim printers As String = Printing.PrinterSettings.InstalledPrinters.Item(i)
-                    cb.Items.Add(printers)
-                Next
-                cb.Sorted = True
-            End If
-        End If
-
-    End Sub
-
     Public Sub MSG_Information(ByVal frm As Form, ByVal showString As String)
 
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
-            Application.DoEvents()
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
@@ -646,7 +639,6 @@ Module md_ETC
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
-            Application.DoEvents()
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
@@ -659,7 +651,6 @@ Module md_ETC
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
-            Application.DoEvents()
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
@@ -669,16 +660,17 @@ Module md_ETC
 
         Application.DoEvents()
 
+        Dim returnValue As Boolean = False
+
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, questionString)
         Else
-            Application.DoEvents()
             If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                Return True
-            Else
-                Return False
+                returnValue = True
             End If
         End If
+
+        Return returnValue
 
     End Function
 End Module

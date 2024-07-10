@@ -8,6 +8,9 @@ Public Class frm_Material_Warehousing_With_Label
     Dim barcode2 As String
     Dim barcode3 As String
 
+    Dim beforeVendor As String
+    Dim beforePartCode As String
+
     Private Sub frm_Material_Warehousing_With_Label_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
@@ -951,8 +954,18 @@ Public Class frm_Material_Warehousing_With_Label
 
             If CB_Vendor.Items.Count = 0 Then
                 MSG_Information(Me, "고객사 코드를 찾을 수 없습니다..")
+                TB_ItemCode.SelectAll()
+                TB_ItemCode.Focus()
             ElseIf CB_Vendor.Items.Count = 1 Then
                 CB_Vendor.SelectedIndex = 0
+            End If
+
+            If beforePartCode = TB_ItemCode.Text Then
+                CB_Vendor.Text = beforeVendor
+                TB_BarcodeScan.SelectAll()
+                TB_BarcodeScan.Focus()
+            Else
+                beforePartCode = TB_ItemCode.Text
             End If
 
         End If
@@ -1046,6 +1059,9 @@ Public Class frm_Material_Warehousing_With_Label
 
         TB_BarcodeScan.SelectAll()
         TB_BarcodeScan.Focus()
+
+        '이건 여기에서만 자동으로 변경될때 기록되면 안됨.
+        beforeVendor = CB_Vendor.Text
 
     End Sub
 

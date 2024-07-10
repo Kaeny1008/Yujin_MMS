@@ -442,10 +442,17 @@ Public Class frm_Wave_Selective_Production_End
                            ByVal totalQty As String
                            )
 
-        If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
+        'If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
+
+        If Directory.Exists(Application.StartupPath & "\Print Text") = False Then
+            Directory.CreateDirectory(Application.StartupPath & "\Print Text")
+        End If
+
+        Dim folderName As String = Application.StartupPath & "\Print Text"
+        Dim fileName As String = folderName & "\WS Label Print_" & Format(Now, "yyMMddHHmmssfff") & ".txt"
 
         Dim swFile As StreamWriter =
-            New StreamWriter(Application.StartupPath & "\print.txt", True, System.Text.Encoding.GetEncoding(949))
+            New StreamWriter(fileName, True, System.Text.Encoding.GetEncoding(949))
 
         swFile.WriteLine("^XZ~JA^XZ")
         swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
@@ -493,7 +500,7 @@ Public Class frm_Wave_Selective_Production_End
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint()
+        Dim printResult As String = LabelPrint(fileName)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,

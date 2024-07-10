@@ -149,7 +149,7 @@ Public Class frm_SolderPaste_Warehousing
 
         If CB_Vendor.Text = String.Empty Or CB_Product.Text = String.Empty Or CB_Weight.Text = String.Empty Then
             e.KeyChar = Nothing
-            MessageBox.Show("필수 사항을 먼저 선택하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MSG_Information(Me, "필수 사항을 먼저 선택하여 주십시오.")
         End If
 
     End Sub
@@ -168,7 +168,7 @@ Public Class frm_SolderPaste_Warehousing
             Next
 
             If existSolder = True Then
-                MessageBox.Show("이미 등록된 Lot No.(Serial) 입니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MSG_Information(Me, "이미 등록된 Lot No.(Serial) 입니다.")
                 TB_Barcode.SelectAll()
                 TB_Barcode.Focus()
                 Exit Sub
@@ -201,11 +201,7 @@ Public Class frm_SolderPaste_Warehousing
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
-        If MessageBox.Show(Me,
-                           "유효기간을 필히 확인하여 주십시오." &vbCrLf & "저장 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If MSG_Question(Me, "유효기간을 필히 확인하여 주십시오." & vbCrLf & "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart("Saving...")
 
@@ -250,20 +246,16 @@ Public Class frm_SolderPaste_Warehousing
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Exclamation(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show("저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "저장완료.")
 
         Grid_SolderList.Redraw = False
         Grid_SolderList.Rows.Count = 1
