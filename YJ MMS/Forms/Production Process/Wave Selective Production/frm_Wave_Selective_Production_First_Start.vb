@@ -71,7 +71,7 @@ Public Class frm_Wave_Selective_Production_First_Start
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
@@ -241,7 +241,7 @@ Public Class frm_Wave_Selective_Production_First_Start
 
         Dim writeSuccess As Boolean = True
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -341,7 +341,7 @@ Public Class frm_Wave_Selective_Production_First_Start
 
         Dim writeSuccess As Boolean = True
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

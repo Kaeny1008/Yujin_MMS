@@ -134,7 +134,7 @@ Public Class frm_Wave_Selective_Production_Backup
                 Exit Sub
             End If
 
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Control_Initialize()
 

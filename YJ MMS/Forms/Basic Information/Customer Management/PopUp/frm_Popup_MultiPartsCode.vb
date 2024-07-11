@@ -100,7 +100,7 @@ Public Class frm_Popup_MultiPartsCode
 
     Private Sub File_Open()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         Dim excelApp As Object
 
@@ -150,7 +150,7 @@ Public Class frm_Popup_MultiPartsCode
 
     Private Sub Load_TempData()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         Invoke(d_GridRedraw, False)
 

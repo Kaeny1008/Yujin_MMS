@@ -278,7 +278,7 @@ Public Class frm_DeviceData_PartsMapping
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

@@ -89,7 +89,7 @@ Public Class frm_Material_Transfer
 
     Private Sub Load_CustomerList()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         CB_CustomerName.Items.Clear()
 
@@ -281,7 +281,7 @@ Public Class frm_Material_Transfer
 
     Private Function Barcode_Split() As Boolean
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Dim splitResult As Boolean = False
 
@@ -452,7 +452,7 @@ Public Class frm_Material_Transfer
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         TempCode_Making()
         Dim saveResult As String = Save_Data()
@@ -621,7 +621,7 @@ Public Class frm_Material_Transfer
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_TNList.Redraw = False
         Grid_TNList.Rows.Count = 1
@@ -670,7 +670,7 @@ Public Class frm_Material_Transfer
 
         Dim selRow As Integer = Grid_TNList.MouseRow
         If e.Button = MouseButtons.Left And selRow > 0 Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             'Delete_TempCode()
 
@@ -800,13 +800,13 @@ Public Class frm_Material_Transfer
         If CB_PartsSplit.Checked = True Then
             If MSG_Question(Me,
                             "출고, 보관수량을 확인하여 주십시오." & vbCrLf &
-                            "분할작업은 즉시 데이터가 저장됩니다." & vbCrLf &
+                            "분할작업은 즉시 데이터(분할내용)가 저장됩니다." & vbCrLf &
                             "출고목록에 등록하시겠습니까?") = False Then Exit Sub
 
             Dim splitCount As Integer = CInt(TextBox1.Text)
             Dim newLotNo As String = TB_LotNo.Text & "-S" & (splitCount + 1)
             '분할내용 서버저장
-            Dim dbResult As Boolean = DB_Write(newLotNo)
+            Dim dbResult As Boolean = SplitData_DB_Write(newLotNo)
 
             If dbResult = True Then
                 Material_PrintLabel(TB_CustomerPartCode.Text,
@@ -871,9 +871,9 @@ Public Class frm_Material_Transfer
 
     End Sub
 
-    Private Function DB_Write(ByVal newLotNo As String) As Boolean
+    Private Function SplitData_DB_Write(ByVal newLotNo As String) As Boolean
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -907,7 +907,7 @@ Public Class frm_Material_Transfer
             '입고등록
             strSQL += "insert into tb_mms_material_warehousing("
             strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor"
-            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id"
+            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id, available_qty"
             strSQL += ") values ("
             strSQL += "f_mms_new_mw_no(f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'))"
             strSQL += ", f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX')"
@@ -920,6 +920,7 @@ Public Class frm_Material_Transfer
             strSQL += ", " & CDbl(TB_1stQty.Text) & ""
             strSQL += ", '" & TB_InDate.Text & "'"
             strSQL += ", '" & loginID & "'"
+            strSQL += ", " & CDbl(TB_1stQty.Text) & ""
             strSQL += ");"
             '기존자재수량에 현재 분할된 자재수량을 차감
             strSQL += "update tb_mms_material_warehousing set part_qty = " & CDbl(TB_Qty.Text) - CDbl(TB_1stQty.Text) & ""

@@ -149,7 +149,7 @@ Public Class frm_Delivery_History
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_ShipList.Redraw = False
         Grid_ShipList.Rows.Count = 1
@@ -193,7 +193,7 @@ Public Class frm_Delivery_History
 
         If e.Button = MouseButtons.Left And selRow > 0 Then
             selDeliveryNo = Grid_ShipList(selRow, 1)
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Grid_POList.Redraw = False
             Grid_POList.Rows.Count = 1

@@ -175,7 +175,7 @@ Public Class frm_Production_Status
         '    Exit Sub
         'End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Setting()
 

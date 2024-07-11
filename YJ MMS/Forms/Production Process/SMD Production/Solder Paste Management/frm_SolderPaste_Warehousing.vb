@@ -203,7 +203,7 @@ Public Class frm_SolderPaste_Warehousing
 
         If MSG_Question(Me, "유효기간을 필히 확인하여 주십시오." & vbCrLf & "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

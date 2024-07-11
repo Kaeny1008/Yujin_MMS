@@ -117,7 +117,7 @@ Public Class frm_Material_CheckRequirements_back
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Setting()
 
@@ -227,7 +227,7 @@ Public Class frm_Material_CheckRequirements_back
 
     Private Sub BTN_Check_Click(sender As Object, e As EventArgs) Handles BTN_Check.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
@@ -368,7 +368,7 @@ Public Class frm_Material_CheckRequirements_back
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

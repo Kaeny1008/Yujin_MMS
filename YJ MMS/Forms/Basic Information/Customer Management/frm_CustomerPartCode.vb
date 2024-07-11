@@ -158,7 +158,7 @@ Public Class frm_CustomerPartCode
 
     'Private Sub Load_List()
 
-    '    thread_LoadingFormStart("Excel Load...")
+    '    Thread_LoadingFormStart(Me, "Excel Load...")
 
     '    GridRedraw(False, Me, Grid_PartList)
 
@@ -302,7 +302,7 @@ Public Class frm_CustomerPartCode
         '    Exit Sub
         'End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
@@ -348,7 +348,7 @@ Public Class frm_CustomerPartCode
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -551,7 +551,7 @@ Public Class frm_CustomerPartCode
 
     Private Sub Load_ExcelData()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()

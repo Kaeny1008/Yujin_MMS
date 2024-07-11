@@ -52,7 +52,7 @@ Public Class frm_Model_Process_Documents
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         'Control_Initiallize()
 

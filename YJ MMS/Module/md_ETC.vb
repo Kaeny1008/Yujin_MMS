@@ -66,34 +66,34 @@ Module md_ETC
     Dim th_LoadingWindow As Thread
     ReadOnly thread_SleepTime As Integer = 0
 
-    Public Sub Thread_LoadingFormStart()
+    Public Sub Thread_LoadingFormStart(ByVal frm As Form)
 
         th_FormClose = False
         th_LoadingWindow = New Thread(AddressOf Load_LoadWindow)
         th_LoadingWindow.IsBackground = True
         th_LoadingWindow.SetApartmentState(ApartmentState.STA)
         th_LoadingWindow.Name = "Normal Thread"
-        th_LoadingWindow.Start()
+        th_LoadingWindow.Start(frm)
 
     End Sub
 
-    Public Sub Thread_LoadingFormStart(ByVal showText As String)
+    Public Sub Thread_LoadingFormStart(ByVal frm As Form, ByVal showText As String)
 
         th_FormClose = False
         th_LoadingWindow = New Thread(AddressOf Load_LoadWindow2)
         th_LoadingWindow.IsBackground = True
         th_LoadingWindow.SetApartmentState(ApartmentState.STA)
         th_LoadingWindow.Name = "ShowText Thread"
-        th_LoadingWindow.Start(showText)
+        th_LoadingWindow.Start({frm, showText})
 
     End Sub
 
-    Private Sub Load_LoadWindow()
+    Private Sub Load_LoadWindow(ByVal frm As Form)
 
         Try
             Console.WriteLine("(Loading Form) '{0}' Staring thread...",
                               Thread.CurrentThread.Name)
-            If (frm_LoadingImage.ShowDialog(frm_Main) = DialogResult.OK) Then
+            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
                 Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
                                   Thread.CurrentThread.Name)
                 'th_LoadingWindow.Abort() '강제종료는 프로그램 종료시나 써야할듯.. abortexception이 생김
@@ -114,13 +114,13 @@ Module md_ETC
 
     End Sub
 
-    Private Sub Load_LoadWindow2(ByVal showText As String)
+    Private Sub Load_LoadWindow2(Parameters As Object)
 
         Try
             Console.WriteLine("(Loading Form) '{0}' Staring thread...",
                               Thread.CurrentThread.Name)
-            frm_LoadingImage.Label1.Text = showText
-            If (frm_LoadingImage.ShowDialog(frm_Main) = DialogResult.OK) Then
+            frm_LoadingImage.Label1.Text = Parameters(1)
+            If (frm_LoadingImage.ShowDialog() = DialogResult.OK) Then
                 Console.WriteLine("(Loading Form) '{0}' Aborting thread...",
                                   Thread.CurrentThread.Name)
                 Console.WriteLine("(Loading Form) '{0}' Finished...",
@@ -629,6 +629,8 @@ Module md_ETC
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
+            Application.DoEvents()
+
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
         End If
 
@@ -639,6 +641,8 @@ Module md_ETC
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
+            Application.DoEvents()
+
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
@@ -646,11 +650,11 @@ Module md_ETC
 
     Public Sub MSG_Error(ByVal frm As Form, ByVal showString As String)
 
-        Application.DoEvents()
-
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
         Else
+            Application.DoEvents()
+
             MessageBox.Show(frm, showString, msg_form, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
@@ -658,13 +662,13 @@ Module md_ETC
 
     Public Function MSG_Question(ByVal frm As Form, ByVal questionString As String) As Boolean
 
-        Application.DoEvents()
-
         Dim returnValue As Boolean = False
 
         If frm.InvokeRequired Then
             frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, questionString)
         Else
+            Application.DoEvents()
+
             If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
                 returnValue = True
             End If

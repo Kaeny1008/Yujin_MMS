@@ -115,7 +115,7 @@ Public Class frm_Material_Stock_Survey_Input
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_PlanList.Redraw = False
         Grid_PlanList.Rows.Count = 1
@@ -157,7 +157,7 @@ Public Class frm_Material_Stock_Survey_Input
         Dim selRow As Integer = Grid_PlanList.MouseRow
 
         If e.Button = MouseButtons.Left And selRow > 0 Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
             LB_InspectionNo.Text = Grid_PlanList(selRow, 3)
             Load_Plan_Content(Grid_PlanList(selRow, 3))
             BTN_Save.Enabled = True
@@ -317,7 +317,7 @@ Public Class frm_Material_Stock_Survey_Input
 
         If MessageBox.Show("저장 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

@@ -88,7 +88,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_PlanList.Redraw = False
         Grid_PlanList.Rows.Count = 1
@@ -143,7 +143,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
 
     Private Sub Load_Action_Data(ByVal plan_no As String)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 1
@@ -248,7 +248,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

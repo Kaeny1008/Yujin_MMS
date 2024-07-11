@@ -284,7 +284,7 @@ Public Class frm_Assy_Label_Print
 
     Private Function Load_History_Print_Content() As DateTime
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -322,7 +322,7 @@ Public Class frm_Assy_Label_Print
 
     Private Function Load_Po_Information() As Boolean
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -377,7 +377,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub Load_History_Information(ByVal historyNo As String)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -416,7 +416,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub Load_LastNo()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -451,7 +451,7 @@ Public Class frm_Assy_Label_Print
 
         Dim existHistory As String = String.Empty
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -492,7 +492,7 @@ Public Class frm_Assy_Label_Print
 
         Dim printQty As Integer = 0
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -575,7 +575,7 @@ Public Class frm_Assy_Label_Print
 
         Dim writeResult As String = String.Empty
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -634,7 +634,7 @@ Public Class frm_Assy_Label_Print
 
         Dim writeResult As String = String.Empty
 
-        Thread_LoadingFormStart("Writing...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -893,7 +893,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub BTN_HistorySearch_Click(sender As Object, e As EventArgs) Handles BTN_HistorySearch.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
@@ -954,7 +954,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub BTN_PrintCodeSelect_Click(sender As Object, e As EventArgs) Handles BTN_PrintCodeSelect.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         TB_Reprint_ItemName.Text = String.Empty
         TB_Reprint_ItemSpec.Text = String.Empty
@@ -1109,7 +1109,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub Reprint_Load_ItemName(ByVal managementNo As String)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -1142,7 +1142,7 @@ Public Class frm_Assy_Label_Print
 
     Private Function Reprint_IndexCheck() As String
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Dim maxSerial As Integer = 0
         Dim managementNo As String = String.Empty
@@ -1187,7 +1187,7 @@ Public Class frm_Assy_Label_Print
 
         Dim writeResult As String = String.Empty
 
-        Thread_LoadingFormStart("Writing...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -1291,7 +1291,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub BTN_Reprint_List_Click(sender As Object, e As EventArgs) Handles BTN_Reprint_List.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_ReprintList.Redraw = False
         Grid_ReprintList.Rows.Count = 1

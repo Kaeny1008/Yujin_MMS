@@ -130,7 +130,7 @@ Public Class frm_Wave_Selective_Production_History
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_HistoryList.Redraw = False
         Grid_HistoryList.Rows.Count = 1

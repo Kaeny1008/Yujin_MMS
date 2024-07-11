@@ -188,7 +188,7 @@ Public Class frm_Material_Warehousing_List
 
         If e.KeyCode = 13 Then
 
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Dim splitResult As String = Load_PHP(phpUrl & phpRootFolder &
                                                  "/barcodesplit.php?barcode=" &
@@ -354,7 +354,7 @@ Public Class frm_Material_Warehousing_List
             Exit Sub
         End If
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -546,7 +546,7 @@ Public Class frm_Material_Warehousing_List
                    MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Release_Control()
         Initiallize_Control()
@@ -582,7 +582,7 @@ Public Class frm_Material_Warehousing_List
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1

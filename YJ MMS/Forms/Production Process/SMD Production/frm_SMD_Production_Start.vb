@@ -163,7 +163,7 @@ Public Class frm_SMD_Production_Start
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 3
@@ -475,7 +475,7 @@ Public Class frm_SMD_Production_Start
 
         Dim writeSuccess As Boolean = True
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -544,7 +544,7 @@ Public Class frm_SMD_Production_Start
 
         Dim writeSuccess As Boolean = True
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

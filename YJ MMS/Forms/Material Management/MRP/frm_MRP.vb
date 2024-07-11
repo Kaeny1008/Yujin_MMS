@@ -159,7 +159,7 @@ Public Class frm_MRP
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
         Grid_MaterialList.Cols.Count = 15

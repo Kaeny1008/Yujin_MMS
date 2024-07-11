@@ -194,7 +194,7 @@ Public Class frm_SolderPaste_Use
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Load_Status()
         Load_Standards()
@@ -427,7 +427,7 @@ Public Class frm_SolderPaste_Use
                 BTN_Search_Click(Nothing, Nothing)
             End If
 
-            Thread_LoadingFormStart("Saving...")
+            Thread_LoadingFormStart(Me, "Saving...")
 
             Dim findRow As Integer = Grid_StockList.FindRow(TB_Aging_LotNo.Text, 1, 7, True)
             If findRow < 1 Then
@@ -648,7 +648,7 @@ Public Class frm_SolderPaste_Use
 
             MSG_Information(Me, "교반시간 : " & LB_Mixing_Time.Text & "초 입니다." & vbCrLf & "교반시간을 준수 하여 주십시오.")
 
-            Thread_LoadingFormStart("Saving...")
+            Thread_LoadingFormStart(Me, "Saving...")
 
             Dim findRow As Integer = Grid_AgingList.FindRow(TB_Use_LotNo.Text, 1, 5, True)
             If findRow < 1 Then
@@ -795,7 +795,7 @@ Public Class frm_SolderPaste_Use
                 BTN_Search_Click(Nothing, Nothing)
             End If
 
-            Thread_LoadingFormStart("Saving...")
+            Thread_LoadingFormStart(Me, "Saving...")
 
             Dim findRow As Integer = Grid_UseList.FindRow(TB_Scrap_LotNo.Text, 1, 5, True)
             If findRow < 1 Then

@@ -111,7 +111,7 @@ Public Class frm_Wave_Selective_Production_Start
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
@@ -181,7 +181,7 @@ Public Class frm_Wave_Selective_Production_Start
                 Exit Sub
             End If
 
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Control_Initialize()
 
@@ -324,7 +324,7 @@ Public Class frm_Wave_Selective_Production_Start
 
     Private Sub Production_Start_Register()
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -510,7 +510,7 @@ Public Class frm_Wave_Selective_Production_Start
 
     Private Sub BTN_DocumentDownload_Click(sender As Object, e As EventArgs) Handles BTN_DocumentDownload.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         Load_Document()
         Application.DoEvents()
         Load_BOM()

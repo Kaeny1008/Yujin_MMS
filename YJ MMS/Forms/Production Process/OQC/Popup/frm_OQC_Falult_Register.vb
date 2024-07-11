@@ -252,7 +252,7 @@ Public Class frm_OQC_Falult_Register
 
     Private Sub Load_ComboList_SMD_Fault()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -289,7 +289,7 @@ Public Class frm_OQC_Falult_Register
 
     Private Sub Load_ComboList_Material_Fault()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 

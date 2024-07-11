@@ -117,7 +117,7 @@ Public Class frm_Material_Warehousing_History
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Setting()
 

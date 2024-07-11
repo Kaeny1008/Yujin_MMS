@@ -107,7 +107,7 @@ Public Class frm_Production_Information_WS
 
     Private Sub Load_Magazine_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_MagazineList.Redraw = False
         Grid_MagazineList.Rows.Count = 1
@@ -151,7 +151,7 @@ Public Class frm_Production_Information_WS
 
     Private Sub Load_Fault_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         C1FlexGrid1.Redraw = False
         C1FlexGrid1.Rows.Count = 1
@@ -195,7 +195,7 @@ Public Class frm_Production_Information_WS
 
     Private Sub Load_WorkingTime()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 

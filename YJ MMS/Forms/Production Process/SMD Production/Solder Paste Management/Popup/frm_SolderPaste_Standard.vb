@@ -32,7 +32,7 @@ Public Class frm_SolderPaste_Standard
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

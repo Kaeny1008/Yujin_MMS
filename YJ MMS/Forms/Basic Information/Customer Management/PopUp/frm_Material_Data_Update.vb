@@ -125,7 +125,7 @@ Public Class frm_Material_Data_Update
 
     Private Sub File_Open()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         For i = 1 To excelApp.ActiveWorkbook.Sheets.Count
             ComboBoxItemAdd(excelApp.ActiveWorkbook.Sheets(i).Name, Me, CB_SheetName)
@@ -149,7 +149,7 @@ Public Class frm_Material_Data_Update
 
     Private Sub Load_TempData()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         '상위 표시
         GridRedraw(False, Me, Grid_ExcelUpper)

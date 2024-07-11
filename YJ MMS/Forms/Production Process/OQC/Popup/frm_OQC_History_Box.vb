@@ -97,7 +97,7 @@ Public Class frm_OQC_History_Box
 
     Private Sub Load_Basic_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -130,7 +130,7 @@ Public Class frm_OQC_History_Box
 
     Private Sub Load_Box_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_BoxList.Redraw = False
         Grid_BoxList.Rows.Count = 1
@@ -172,7 +172,7 @@ Public Class frm_OQC_History_Box
 
     Private Sub Load_SerialNo_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         C1FlexGrid1.Redraw = False
         C1FlexGrid1.Rows.Count = 1

@@ -2,6 +2,9 @@
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Material_Return_Register
+
+    Dim mwNo As String
+
     Private Sub frm_Material_Return_Register_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Load_CustomerList()
@@ -171,7 +174,7 @@ Public Class frm_Material_Return_Register
                                  ByVal lot_no As String,
                                  ByVal qty As Integer)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -191,6 +194,9 @@ Public Class frm_Material_Return_Register
 
         Do While sqlDR.Read
             TB_Vendor.Text = sqlDR("part_vendor")
+            TextBox1.Text = sqlDR("split_count")
+            TB_InDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
+            mwNo = sqlDR("mw_no")
         Loop
         sqlDR.Close()
 
@@ -224,7 +230,7 @@ Public Class frm_Material_Return_Register
 
     Private Function DB_Write() As Boolean
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -318,12 +324,52 @@ Public Class frm_Material_Return_Register
             Exit Sub
         End If
 
+        Dim newLotNo As String = TB_LotNo.Text
+
+        If Not CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text) = 0 Then
+            '모든수량 반출이 아닐경우
+            If MSG_Question(Me,
+                            "모든수량 반출이 아닙니다." & vbCrLf &
+                            "즉시 데이터(분할내용)가 저장되므로" & vbCrLf &
+                            "반출수량을 확인하여 주십시오." & vbCrLf &
+                            "반출목록에 등록하시겠습니까?") = False Then Exit Sub
+
+            Dim splitCount As Integer = CInt(TextBox1.Text)
+            newLotNo = TB_LotNo.Text & "-S" & (splitCount + 1)
+
+            '분할내용 서버저장
+            Dim dbResult As Boolean = SplitData_DB_Write(newLotNo)
+
+            If dbResult = True Then
+                Material_PrintLabel(TB_ItemCode.Text,
+                                        TB_PartNo.Text,
+                                        TB_LotNo.Text,
+                                        CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text),
+                                        TB_Vendor.Text,
+                                        1,
+                                        CB_CustomerName.Text,
+                                        Format(CDate(TB_InDate.Text), "yyyy.MM.dd"),
+                                        True,
+                                        newLotNo,
+                                        CDbl(TB_ReturnQty.Text))
+            Else
+                Exit Sub
+            End If
+
+            Dim newMwNo As String = Load_New_MW_No(newLotNo)
+
+            If newMwNo = String.Empty Then
+                MSG_Error(Me, "자재의 고유번호(MW No.)를 찾을 수 없습니다.")
+                Exit Sub
+            End If
+        End If
+
         Dim insertString As String
         insertString = Grid_History.Rows.Count
         insertString += vbTab & TB_ItemCode.Text
         insertString += vbTab & TB_Vendor.Text
         insertString += vbTab & TB_PartNo.Text
-        insertString += vbTab & TB_LotNo.Text
+        insertString += vbTab & newLotNo
         insertString += vbTab & TB_ReturnQty.Text
         insertString += vbTab & TB_Reason.Text
 
@@ -337,6 +383,121 @@ Public Class frm_Material_Return_Register
 
     End Sub
 
+    Private Function Load_New_MW_No(ByVal newLotNo As String) As String
+
+        Dim newMwNo As String = String.Empty
+
+        DBConnect()
+
+        '같이쓰자 (따로 작성하지말고)
+        Dim strSQL As String = "call sp_mms_material_transfer("
+        strSQL += "1"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ", '" & TB_ItemCode.Text & "'"
+        strSQL += ", '" & newLotNo & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            newMwNo = sqlDR("mw_no")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return newMwNo
+
+    End Function
+
+    Private Function SplitData_DB_Write(ByVal newLotNo As String) As Boolean
+
+        Thread_LoadingFormStart(Me, "Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+            'History에 등록
+            strSQL = "insert into tb_mms_material_history("
+            strSQL += "history_index, category, write_date, writer, customer_code, part_code"
+            strSQL += ", part_vendor, part_no, part_lot_no, history_qty, split_1stqty, split_2ndqty, org_in_date"
+            strSQL += ") values ("
+            strSQL += "f_mms_material_history_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "')"
+            strSQL += ", '자재분할'"
+            strSQL += ", '" & writeDate & "'"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_ItemCode.Text & "'"
+            strSQL += ", '" & TB_Vendor.Text & "'"
+            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & TB_LotNo.Text & "'"
+            strSQL += ", " & CDbl(TB_Qty.Text) & ""
+            strSQL += ", " & CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ", " & CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ", '" & TB_InDate.Text & "'"
+            strSQL += ");"
+            '입고등록
+            strSQL += "insert into tb_mms_material_warehousing("
+            strSQL += "mw_no, in_no, document_no, customer_code, part_code, part_vendor"
+            strSQL += ", part_no, part_lot_no, part_qty, write_date, write_id, available_qty"
+            strSQL += ") values ("
+            strSQL += "f_mms_new_mw_no(f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'))"
+            strSQL += ", f_mms_new_in_no('" & Format(CDate(writeDate), "yyyy-MM-dd") & "', 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX')"
+            strSQL += ", 'WD" & Format(CDate(writeDate), "yyMMdd") & "-XX'"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_ItemCode.Text & "'"
+            strSQL += ", '" & TB_Vendor.Text & "'"
+            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & newLotNo & "'"
+            strSQL += ", " & CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ", '" & TB_InDate.Text & "'"
+            strSQL += ", '" & loginID & "'"
+            strSQL += ", " & CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ");"
+            '기존자재수량에 현재 분할된 자재수량을 차감
+            strSQL += "update tb_mms_material_warehousing set part_qty = " & CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ", available_qty = available_qty - " & CDbl(TB_ReturnQty.Text) & ""
+            strSQL += ", split_count = " & CInt(TextBox1.Text) + 1 & ""
+            strSQL += " where mw_no = '" & mwNo & "';"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            Thread_LoadingFormEnd()
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
+            Return False
+        Finally
+
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return True
+
+    End Function
+
     Private Sub ControlReset()
 
         TB_Barcode.Text = String.Empty
@@ -347,6 +508,8 @@ Public Class frm_Material_Return_Register
         TB_ReturnQty.Text = String.Empty
         'TB_Reason.Text = String.Empty
         TB_Qty.Text = String.Empty
+        TextBox1.Text = String.Empty
+        TB_InDate.Text = String.Empty
 
     End Sub
 

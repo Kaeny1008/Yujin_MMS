@@ -118,7 +118,7 @@ Public Class frm_Wave_Selective_Production_End
 
     Public Sub CB_Line_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Line.SelectionChangeCommitted
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         TB_OrderIndex.Text = String.Empty
         TB_CustomerCode.Text = String.Empty

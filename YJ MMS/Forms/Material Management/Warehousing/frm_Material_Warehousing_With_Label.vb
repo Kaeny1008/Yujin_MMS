@@ -139,7 +139,7 @@ Public Class frm_Material_Warehousing_With_Label
         TB_Qty.Text = String.Empty
         TB_Vendor.Text = String.Empty
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
@@ -192,7 +192,7 @@ Public Class frm_Material_Warehousing_With_Label
         Dim gridRow As Integer = Grid_DocumentsList.MouseRow
 
         If gridRow > 0 And e.Button = MouseButtons.Left Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             TB_ItemCode.Text = String.Empty
             CB_Vendor.SelectedIndex = -1
@@ -504,7 +504,7 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Sub SplitBarcode_Supplier()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Try
             '140300358!MSS1P3-M3/89A!20240328001!4,500!VISHAY!2024.03.28
@@ -513,7 +513,7 @@ Public Class frm_Material_Warehousing_With_Label
             TB_PartNo.Text = Trim(splitBarcode(1))
             TB_LotNo.Text = Trim(splitBarcode(2))
             If CheckBox1.Checked = False Then
-                TB_Qty.Text = Format(CInt(Trim(splitBarcode(4))), "#,##0")
+                TB_Qty.Text = Format(CInt(Trim(splitBarcode(3))), "#,##0")
             End If
             TB_Vendor.Text = Trim(splitBarcode(4))
         Catch ex As Exception
@@ -663,7 +663,7 @@ Public Class frm_Material_Warehousing_With_Label
             'End If
         End If
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -867,13 +867,14 @@ Public Class frm_Material_Warehousing_With_Label
                     msgString += vbCrLf & vbCrLf & "과출인 항목이 존재합니다." & vbCrLf & "행번호 : " & overinput
                 End If
             End If
-            MSG_Error(Me, msgString)
-            Exit Sub
+            'MSG_Error(Me, msgString)
+            If MSG_Question(Me, msgString & vbCrLf & vbCrLf & "무시후 저장 하시겠습니까?") = False Then Exit Sub
+            'Exit Sub
         Else
             If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
         End If
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -923,7 +924,7 @@ Public Class frm_Material_Warehousing_With_Label
 
         If Not TB_ItemCode.Text = String.Empty And e.KeyCode = 13 Then
 
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             CB_Vendor.Items.Clear()
 

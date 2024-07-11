@@ -249,7 +249,7 @@ Public Class frm_Order_Registration
 
     Private Sub File_Open()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         For i = 1 To excelApp.ActiveWorkbook.Sheets.Count
             ComboBoxItemAdd(excelApp.ActiveWorkbook.Sheets(i).Name, Me, CB_SheetName)
@@ -292,7 +292,7 @@ Public Class frm_Order_Registration
 
     Private Sub SRM_Excel_Process()
 
-        Thread_LoadingFormStart("기존 주문 확인중...")
+        Thread_LoadingFormStart(Me, "기존 주문 확인중...")
 
         Grid_Excel.Redraw = False
         Grid_Excel.Rows.Count = 1
@@ -318,7 +318,7 @@ Public Class frm_Order_Registration
 
     Private Sub Load_SRM_Data()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         GridRedraw(False, Me, Grid_Excel)
 
@@ -574,7 +574,7 @@ Public Class frm_Order_Registration
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -881,7 +881,7 @@ Public Class frm_Order_Registration
 
         Dim loaderPCB_Add As Boolean = False
 
-        Thread_LoadingFormStart("자료 확인 중...")
+        Thread_LoadingFormStart(Me, "자료 확인 중...")
 
         Dim totalNew As Integer = 0
         Dim totalDelete As Integer = 0

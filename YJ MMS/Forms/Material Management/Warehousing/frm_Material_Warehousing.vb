@@ -136,7 +136,7 @@ Public Class frm_Material_Warehousing
         TB_Qty.Text = String.Empty
         TB_Vendor.Text = String.Empty
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
@@ -189,7 +189,7 @@ Public Class frm_Material_Warehousing
         Dim gridRow As Integer = Grid_DocumentsList.MouseRow
 
         If gridRow > 0 And e.Button = MouseButtons.Left Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Grid_MaterialList.Redraw = False
             Grid_MaterialList.Rows.Count = 1
@@ -515,7 +515,7 @@ Public Class frm_Material_Warehousing
             Exit Sub
         End If
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -703,13 +703,14 @@ Public Class frm_Material_Warehousing
                     msgString += vbCrLf & vbCrLf & "과출인 항목이 존재합니다." & vbCrLf & "행번호 : " & overinput
                 End If
             End If
-            MSG_Error(Me, msgString)
-            Exit Sub
+            If MSG_Question(Me, msgString & vbCrLf & vbCrLf & "무시후 저장 하시겠습니까?") = False Then Exit Sub
+            'MSG_Error(Me, msgString)
+            'Exit Sub
         Else
             If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
         End If
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

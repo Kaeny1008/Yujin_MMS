@@ -145,7 +145,7 @@ Public Class frm_Production_plan
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Setting()
 
@@ -438,7 +438,7 @@ Public Class frm_Production_plan
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

@@ -1512,7 +1512,7 @@ Public Class frm_DeviceData
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1

@@ -352,7 +352,7 @@ Public Class frm_Model_Resistration
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -426,7 +426,7 @@ Public Class frm_Model_Resistration
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles btn_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         grid_ModelList.Redraw = False
         grid_ModelList.Rows.Count = 1

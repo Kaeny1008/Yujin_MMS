@@ -367,7 +367,7 @@ Public Class frm_Model_Document
 
         Dim selectFile As String = Application.StartupPath & "\Temp\"
 
-        Thread_LoadingFormStart("Excel Load...")
+        Thread_LoadingFormStart(Me, "Excel Load...")
 
         GridRedraw(False, Me, Grid_BOM)
 
@@ -525,7 +525,7 @@ Public Class frm_Model_Document
 
         Dim selectFile As String = Application.StartupPath & "\Temp\"
 
-        Thread_LoadingFormStart("Excel Load...")
+        Thread_LoadingFormStart(Me, "Excel Load...")
 
         GridRedraw(False, Me, Grid_Coordinates)
 
@@ -654,7 +654,7 @@ Public Class frm_Model_Document
 
     Private Sub btn_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Control_Initiallize()
 
@@ -710,7 +710,7 @@ Public Class frm_Model_Document
 
         If Grid_ModelList.MouseRow < 1 Then Exit Sub
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Control_Initiallize()
 
@@ -988,7 +988,7 @@ Public Class frm_Model_Document
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         Dim dbWrite_Result As String = Process_DB_Write()
         Dim result_Message As String = String.Empty
@@ -1328,7 +1328,7 @@ FTP_Control:
 
     Private Sub CB_ManagementNo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_ManagementNo.SelectedIndexChanged
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         Load_ManagementNo_Information()
         Load_Documents()
         Load_BOM()

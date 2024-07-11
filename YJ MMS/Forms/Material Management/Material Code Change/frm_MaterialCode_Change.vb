@@ -120,7 +120,7 @@ Public Class frm_MaterialCode_Change
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1

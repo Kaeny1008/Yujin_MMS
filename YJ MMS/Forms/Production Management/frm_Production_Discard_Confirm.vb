@@ -122,7 +122,7 @@ Public Class frm_Production_Discard_Confirm
 
     Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_ConfirmList.Redraw = False
         Grid_ConfirmList.Rows.Count = 1

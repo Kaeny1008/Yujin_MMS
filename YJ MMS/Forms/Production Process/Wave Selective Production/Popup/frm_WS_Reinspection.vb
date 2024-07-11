@@ -75,7 +75,7 @@ Public Class frm_WS_Reinspection
 
     Private Sub Load_Repair_Result()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Information.Redraw = False
         Grid_Information.Rows.Count = 2
@@ -173,7 +173,7 @@ Public Class frm_WS_Reinspection
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

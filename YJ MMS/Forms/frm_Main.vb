@@ -28,6 +28,8 @@ Public Class frm_Main
 
         Load_AlarmList()
 
+        'Thread_LoadingFormStart(Me)
+
     End Sub
 
     Private Sub Print_RawFile_Delete()
@@ -38,7 +40,11 @@ Public Class frm_Main
 
             Dim file As FileInfo
             For Each file In directory.GetFiles()
-                file.Delete()
+                Debug.Print(file.Name & ", " & file.CreationTime)
+                If file.CreationTime < DateAdd(DateInterval.Minute, -30, Now()) Then
+                    file.Delete()
+                    Debug.Print(file.Name & ", 삭제")
+                End If
             Next
 
             'Dim dir As DirectoryInfo

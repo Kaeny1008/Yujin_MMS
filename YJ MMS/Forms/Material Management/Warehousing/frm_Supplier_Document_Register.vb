@@ -244,7 +244,7 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub File_Open()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         For i = 1 To excelApp.ActiveWorkbook.Sheets.Count
             ComboBoxItemAdd(excelApp.ActiveWorkbook.Sheets(i).Name, Me, CB_SheetName)
@@ -286,7 +286,7 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub Load_TempData()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         GridRedraw(False, Me, Grid_Excel)
 
@@ -506,7 +506,7 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub ExcelToGrid()
 
-        Thread_LoadingFormStart("Excel Load...")
+        Thread_LoadingFormStart(Me, "Excel Load...")
 
         GridRedraw(False, Me, Grid_MaterialList)
         GridRowReset(1, Me, Grid_MaterialList)
@@ -615,7 +615,7 @@ Public Class frm_Supplier_Document_Register
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -697,7 +697,7 @@ Public Class frm_Supplier_Document_Register
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
@@ -737,7 +737,7 @@ Public Class frm_Supplier_Document_Register
         Dim gridRow As Integer = Grid_DocumentsList.MouseRow
 
         If gridRow > 0 And e.Button = MouseButtons.Left Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             NewControlSetting()
             CB_Supplier.Enabled = False

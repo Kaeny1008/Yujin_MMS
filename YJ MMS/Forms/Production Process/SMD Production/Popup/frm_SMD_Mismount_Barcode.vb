@@ -59,7 +59,7 @@ Public Class frm_SMD_Mismount_Barcode
 
     Private Sub LoadBarcode()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1

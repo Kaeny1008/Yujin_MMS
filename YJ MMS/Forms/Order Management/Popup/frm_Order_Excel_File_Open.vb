@@ -41,7 +41,7 @@ Public Class frm_Order_Excel_File_Open
             Exit Sub
         End If
 
-        Thread_LoadingFormStart("변환중...")
+        Thread_LoadingFormStart(Me, "변환중...")
 
         With frm_Order_Registration.Grid_Excel
             .Redraw = False

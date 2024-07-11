@@ -132,7 +132,7 @@ Public Class frm_Material_Stock_Information
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2

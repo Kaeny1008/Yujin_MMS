@@ -239,7 +239,7 @@ Public Class frm_PG_Upload
 
     Private Sub BTN_REFRESH_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BTN_REFRESH.Click
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         '최신 버전체크 파일을 다운로드 및 그리드에 표시
         load_FileList()
 
@@ -256,7 +256,7 @@ Public Class frm_PG_Upload
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "Repair System - 프로그램 파일 Upload") = MsgBoxResult.No Then Exit Sub
 
-        thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -384,7 +384,7 @@ Public Class frm_PG_Upload
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         '최신 버전체크 파일을 다운로드 및 그리드에 표시
         load_FileList()
 

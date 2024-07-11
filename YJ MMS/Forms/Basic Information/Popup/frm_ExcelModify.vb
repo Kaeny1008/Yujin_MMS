@@ -94,7 +94,7 @@ Public Class frm_ExcelModify
 
     Private Sub File_Open()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         'Dim excelApp As Object
         'Dim selectFile As String = Application.StartupPath & "\Temp\" & TB_File_Path.Text
@@ -133,7 +133,7 @@ Public Class frm_ExcelModify
 
     Private Sub Load_TempData()
 
-        Thread_LoadingFormStart("Excel Open...")
+        Thread_LoadingFormStart(Me, "Excel Open...")
 
         GridRedraw(False, Me, Grid_ExcelUpper)
 

@@ -123,7 +123,7 @@ Public Class frm_Material_CheckRequirements
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Setting()
 
@@ -238,7 +238,7 @@ Public Class frm_Material_CheckRequirements
 
     Private Sub BTN_Check_Click(sender As Object, e As EventArgs) Handles BTN_Check.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
@@ -265,7 +265,7 @@ Public Class frm_Material_CheckRequirements
                 For j = 17 To Grid_MaterialList.Cols.Count - 1
                     If Grid_MaterialList(0, j) = nowModelCode And
                         Grid_MaterialList(1, j) = nowManagementNo Then
-                        Grid_MaterialList(2, j) = CInt(Grid_MaterialList(2, j)) + CInt(nowOrderQty)
+                        Grid_MaterialList(3, j) = CInt(Grid_MaterialList(3, j)) + CInt(nowOrderQty)
                         findItem = True
                         Exit For
                     End If
@@ -407,7 +407,7 @@ Public Class frm_Material_CheckRequirements
         If MSG_Question(Me, "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.") = False Then Exit Sub
 
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

@@ -115,7 +115,7 @@ Public Class frm_Delivery_Register
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_POList.Redraw = False
         Grid_POList.Rows.Count = 1

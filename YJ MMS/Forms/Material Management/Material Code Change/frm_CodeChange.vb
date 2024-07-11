@@ -100,7 +100,7 @@ Public Class frm_CodeChange
 
     Private Sub Last_Stock_Suvery_Date()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -127,7 +127,7 @@ Public Class frm_CodeChange
                                  ByVal lot_no As String,
                                  ByVal qty As Integer)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -180,7 +180,7 @@ Public Class frm_CodeChange
 
     Private Sub Load_AfterInformation(ByVal part_code As String)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -257,7 +257,7 @@ Public Class frm_CodeChange
 
     Private Function DB_Write() As Boolean
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

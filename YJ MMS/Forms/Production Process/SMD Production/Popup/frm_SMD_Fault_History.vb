@@ -68,7 +68,7 @@ Public Class frm_SMD_Fault_History
 
     Private Sub Load_FaultList()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_HistoryList.Redraw = False
         Grid_HistoryList.Rows.Count = 1

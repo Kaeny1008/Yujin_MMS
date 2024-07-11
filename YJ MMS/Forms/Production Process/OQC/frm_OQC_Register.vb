@@ -172,7 +172,7 @@ Public Class frm_OQC_Register
 
     Private Sub Load_OQCList()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
@@ -217,7 +217,7 @@ Public Class frm_OQC_Register
 
     Private Sub Load_Po_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -254,7 +254,7 @@ Public Class frm_OQC_Register
 
     Private Function Load_LastPorcess() As Boolean
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -392,7 +392,7 @@ Public Class frm_OQC_Register
 
     Private Function Load_ExistCheck() As Boolean
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -436,7 +436,7 @@ Public Class frm_OQC_Register
 
         TB_OQC_No.Text = String.Empty
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -645,7 +645,7 @@ Public Class frm_OQC_Register
 
         Dim writeSuccess As String = String.Empty
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -772,7 +772,7 @@ Public Class frm_OQC_Register
 
     Private Sub Load_BoxList(ByVal sel_OQCNo As String)
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_BoxList.Redraw = False
         Grid_BoxList.Rows.Count = 1

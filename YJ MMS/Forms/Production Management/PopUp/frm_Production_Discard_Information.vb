@@ -146,7 +146,7 @@ Public Class frm_Production_Discard_Information
 
     Private Sub Load_Basic_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -189,7 +189,7 @@ Public Class frm_Production_Discard_Information
 
     Private Sub Load_Material_Information()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_SMD_Bottom.Redraw = False
         Grid_SMD_Top.Redraw = False
@@ -420,7 +420,7 @@ Public Class frm_Production_Discard_Information
 
         If MSG_Question(Me, "폐기 승인 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -506,7 +506,7 @@ Public Class frm_Production_Discard_Information
 
         If MSG_Question(Me, "폐기 거절 하시겠습니까?" & vbCrLf & "등록 내용이 사라지므로 양품으로 인계하십시오.") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

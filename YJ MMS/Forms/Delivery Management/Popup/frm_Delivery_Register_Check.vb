@@ -145,7 +145,7 @@ Public Class frm_Delivery_Register_Check
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         Dim saveResult As String = Save_Data()
 

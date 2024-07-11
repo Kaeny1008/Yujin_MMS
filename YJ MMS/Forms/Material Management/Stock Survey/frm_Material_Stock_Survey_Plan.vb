@@ -126,7 +126,7 @@ Public Class frm_Material_Stock_Survey_Plan
 
     Private Function Load_PlanNo() As String
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -201,7 +201,7 @@ Public Class frm_Material_Stock_Survey_Plan
             Exit Sub
         End If
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
@@ -300,7 +300,7 @@ Public Class frm_Material_Stock_Survey_Plan
 
         If MSG_Question(Me, msg_form) = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -385,7 +385,7 @@ Public Class frm_Material_Stock_Survey_Plan
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_PlanList.Redraw = False
         Grid_PlanList.Rows.Count = 1
@@ -427,7 +427,7 @@ Public Class frm_Material_Stock_Survey_Plan
         Dim selRow As Integer = Grid_PlanList.MouseRow
 
         If e.Button = MouseButtons.Left And selRow > 0 Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
             Load_Plan(Grid_PlanList(selRow, 3))
             Load_Plan_Content(Grid_PlanList(selRow, 3))
 
@@ -542,7 +542,7 @@ Public Class frm_Material_Stock_Survey_Plan
 
         If MSG_Question(Me, msg_form) = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

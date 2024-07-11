@@ -80,7 +80,7 @@ Public Class frm_Model_Document_List
 
     Private Sub Load_DocumentList()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_Document.Redraw = False
         Grid_Document.Rows.Count = 1
@@ -273,7 +273,7 @@ Public Class frm_Model_Document_List
 
         If openFile.FileName = "" Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         Dim tempFileFolder As String = Application.StartupPath & "\Temp"
 
@@ -418,7 +418,7 @@ Public Class frm_Model_Document_List
 
         If MSG_Question(Me, "삭제 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Deleting...")
+        Thread_LoadingFormStart(Me, "Deleting...")
 
         Dim dbWrite_Result As String = Process_DB_Delete(selRow)
 

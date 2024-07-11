@@ -54,7 +54,7 @@ Public Class frm_Discard_Register
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

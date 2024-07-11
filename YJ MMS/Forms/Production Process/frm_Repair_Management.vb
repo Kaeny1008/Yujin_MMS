@@ -31,7 +31,7 @@ Public Class frm_Repair_Management
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 14
+            .Cols.Count = 15
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -59,20 +59,21 @@ Public Class frm_Repair_Management
             rngM.Data = "고객사"
             rngM = .GetCellRange(0, 3, 1, 3)
             rngM.Data = "모델명"
-            rngM = .GetCellRange(0, 4, 1, 9)
+            rngM = .GetCellRange(0, 4, 1, 10)
             rngM.Data = "검사내역"
             Grid_RepairList(1, 4) = "Board No."
-            Grid_RepairList(1, 5) = "불량구분"
-            Grid_RepairList(1, 6) = "불량명"
-            Grid_RepairList(1, 7) = "Array No."
-            Grid_RepairList(1, 8) = "Ref"
-            Grid_RepairList(1, 9) = "비고"
-            rngM = .GetCellRange(0, 10, 1, 13)
+            Grid_RepairList(1, 5) = "작업면"
+            Grid_RepairList(1, 6) = "불량구분"
+            Grid_RepairList(1, 7) = "불량명"
+            Grid_RepairList(1, 8) = "Array No."
+            Grid_RepairList(1, 9) = "Ref"
+            Grid_RepairList(1, 10) = "비고"
+            rngM = .GetCellRange(0, 11, 1, 14)
             rngM.Data = "수리내역"
-            Grid_RepairList(1, 10) = "수리일자"
-            Grid_RepairList(1, 11) = "작업내역"
-            Grid_RepairList(1, 12) = "수리사"
-            Grid_RepairList(1, 13) = "비고"
+            Grid_RepairList(1, 11) = "수리일자"
+            Grid_RepairList(1, 12) = "작업내역"
+            Grid_RepairList(1, 13) = "수리사"
+            Grid_RepairList(1, 14) = "비고"
         End With
 
         Grid_RepairList.AutoSizeCols()
@@ -81,7 +82,7 @@ Public Class frm_Repair_Management
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_RepairList.Redraw = False
         Grid_RepairList.Rows.Count = 2
@@ -129,6 +130,7 @@ Public Class frm_Repair_Management
                 sqlDR("customer_name") & vbTab &
                 sqlDR("item_code") & vbTab &
                 sqlDR("board_no") & vbTab &
+                sqlDR("work_side") & vbTab &
                 sqlDR("defect_classification") & vbTab &
                 sqlDR("defect_name") & vbTab &
                 sqlDR("board_array") & vbTab &
@@ -156,7 +158,7 @@ Public Class frm_Repair_Management
     Private Sub Grid_RepairList_RowColChange(sender As Object, e As EventArgs) Handles Grid_RepairList.RowColChange
 
         Select Case Grid_RepairList.Col
-            Case 11, 12, 13
+            Case 12, 13, 14
                 Grid_RepairList.AllowEditing = True
             Case Else
                 Grid_RepairList.AllowEditing = False
@@ -168,7 +170,7 @@ Public Class frm_Repair_Management
 
     Private Sub Grid_RepairList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_RepairList.BeforeEdit
 
-        If e.Row < 2 Or e.Col < 11 Then Exit Sub
+        If e.Row < 2 Or e.Col < 12 Then Exit Sub
 
         If CheckBox1.Checked Then
             If TB_Repairman.Text = String.Empty Then
@@ -183,7 +185,7 @@ Public Class frm_Repair_Management
 
     Private Sub Grid_RepairList_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_RepairList.AfterEdit
 
-        If e.Row < 2 Or e.Col < 11 Then Exit Sub
+        If e.Row < 2 Or e.Col < 12 Then Exit Sub
         If IsNothing(Grid_RepairList(e.Row, e.Col)) Then Exit Sub
         If Grid_RepairList(e.Row, e.Col).Equals(beforeText) Then Exit Sub
 
@@ -194,8 +196,8 @@ Public Class frm_Repair_Management
             Grid_RepairList.Rows(e.Row).StyleNew.ForeColor = Color.Blue
         End If
 
-        If Not e.Col = 12 Then
-            If CheckBox1.Checked Then Grid_RepairList(e.Row, 12) = TB_Repairman.Text
+        If Not e.Col = 13 Then
+            If CheckBox1.Checked Then Grid_RepairList(e.Row, 13) = TB_Repairman.Text
         End If
 
         Grid_RepairList.AutoSizeCols()
@@ -205,7 +207,7 @@ Public Class frm_Repair_Management
 
     Private Sub Load_RepairAction()
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -234,7 +236,7 @@ Public Class frm_Repair_Management
 
         DBClose()
 
-        Grid_RepairList.Cols(11).ComboList = comboList
+        Grid_RepairList.Cols(12).ComboList = comboList
 
         Thread_LoadingFormEnd()
 
@@ -249,8 +251,8 @@ Public Class frm_Repair_Management
 
         For i = 2 To Grid_RepairList.Rows.Count - 1
             If Grid_RepairList(i, 0) = "M" Then
-                If Grid_RepairList(i, 11) = String.Empty Or
-                    Grid_RepairList(i, 12) = String.Empty Then
+                If Grid_RepairList(i, 12) = String.Empty Or
+                    Grid_RepairList(i, 13) = String.Empty Then
                     MessageBox.Show("필수 입력항목이 누락되었습니다." & vbCrLf & "번호 : " & i - 1,
                                     msg_form,
                                     MessageBoxButtons.OK,
@@ -260,7 +262,7 @@ Public Class frm_Repair_Management
             End If
         Next
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -288,9 +290,9 @@ Public Class frm_Repair_Management
                     strSQL += "update " & updateTable
                     strSQL += " set"
                     strSQL += " repair_date = '" & writeDate & "'"
-                    strSQL += ", repair_action = '" & Grid_RepairList(i, 11) & "'"
-                    strSQL += ", repairman = '" & Grid_RepairList(i, 12) & "'"
-                    strSQL += ", repair_note = '" & Grid_RepairList(i, 13) & "'"
+                    strSQL += ", repair_action = '" & Grid_RepairList(i, 12) & "'"
+                    strSQL += ", repairman = '" & Grid_RepairList(i, 13) & "'"
+                    strSQL += ", repair_note = '" & Grid_RepairList(i, 14) & "'"
                     strSQL += " where defect_index = '" & Grid_RepairList(i, 1) & "'"
                     strSQL += ";"
                 End If

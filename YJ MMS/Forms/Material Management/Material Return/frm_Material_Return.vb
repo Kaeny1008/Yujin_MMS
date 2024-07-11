@@ -144,7 +144,7 @@ Public Class frm_Material_Return
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_ReturnList.Redraw = False
         Grid_ReturnList.Rows.Count = 1
@@ -189,7 +189,7 @@ Public Class frm_Material_Return
 
         If e.Button = MouseButtons.Left And selRow > 0 Then
             selReturnNo = Grid_ReturnList(selRow, 1)
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Grid_History.Redraw = False
             Grid_History.Rows.Count = 1

@@ -134,7 +134,7 @@ Public Class frm_Order_Modify
 
     Private Sub RegistrationCheck()
 
-        'Thread_LoadingFormStart()
+        'Thread_LoadingFormStart(Me)
 
         DBConnect()
 
@@ -172,7 +172,7 @@ Public Class frm_Order_Modify
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
@@ -244,7 +244,7 @@ Public Class frm_Order_Modify
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         BTN_Save.Enabled = False
 
@@ -318,7 +318,7 @@ Public Class frm_Order_Modify
 
         If Not e.Button = MouseButtons.Left Or selRow < 0 Then Exit Sub
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
         
         Load_OrderNo(Grid_OrderList(selRow, 1))
         TB_OrderNo.Text = Grid_OrderList(selRow, 1)

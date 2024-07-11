@@ -52,6 +52,9 @@ Partial Class frm_Material_Return_Register
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.BTN_Grid_Add = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.TB_InDate = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -100,7 +103,9 @@ Partial Class frm_Material_Return_Register
         'TB_Barcode
         '
         Me.TB_Barcode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_Barcode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TB_Barcode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_Barcode.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_Barcode.Location = New System.Drawing.Point(91, 33)
         Me.TB_Barcode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_Barcode.Name = "TB_Barcode"
@@ -147,7 +152,7 @@ Partial Class frm_Material_Return_Register
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(13, 245)
+        Me.Label9.Location = New System.Drawing.Point(13, 259)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(273, 12)
         Me.Label9.TabIndex = 23
@@ -399,12 +404,51 @@ Partial Class frm_Material_Return_Register
         Me.Label14.Text = "Label14"
         Me.Label14.Visible = False
         '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TextBox1.Location = New System.Drawing.Point(285, 256)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(44, 21)
+        Me.TextBox1.TabIndex = 33
+        '
+        'TB_InDate
+        '
+        Me.TB_InDate.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_InDate.Enabled = False
+        Me.TB_InDate.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_InDate.Location = New System.Drawing.Point(91, 233)
+        Me.TB_InDate.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_InDate.Name = "TB_InDate"
+        Me.TB_InDate.Size = New System.Drawing.Size(238, 21)
+        Me.TB_InDate.TabIndex = 35
+        '
+        'Label15
+        '
+        Me.Label15.BackColor = System.Drawing.Color.SteelBlue
+        Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label15.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label15.ForeColor = System.Drawing.Color.White
+        Me.Label15.Location = New System.Drawing.Point(15, 233)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(76, 21)
+        Me.Label15.TabIndex = 34
+        Me.Label15.Text = "입고일자"
+        Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frm_Material_Return_Register
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(786, 599)
+        Me.Controls.Add(Me.TB_InDate)
+        Me.Controls.Add(Me.Label15)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.BTN_Save)
         Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.BTN_Grid_Add)
@@ -469,4 +513,7 @@ Partial Class frm_Material_Return_Register
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents BTN_Grid_Add As Button
     Friend WithEvents Label14 As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TB_InDate As TextBox
+    Friend WithEvents Label15 As Label
 End Class

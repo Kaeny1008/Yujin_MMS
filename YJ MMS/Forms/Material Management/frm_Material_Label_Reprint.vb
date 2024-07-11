@@ -98,7 +98,7 @@ Public Class frm_Material_Label_Reprint
 
     Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        Thread_LoadingFormStart()
+        Thread_LoadingFormStart(Me)
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1

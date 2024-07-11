@@ -68,7 +68,7 @@ Public Class frm_OQC_Reinspection
     Private Sub TB_BoardNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_BoardNo.KeyDown
 
         If Not TB_BoardNo.Text = String.Empty And e.KeyCode = 13 Then
-            Thread_LoadingFormStart()
+            Thread_LoadingFormStart(Me)
 
             Grid_Information.Redraw = False
             Grid_Information.Rows.Count = 2
@@ -167,7 +167,7 @@ Public Class frm_OQC_Reinspection
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 

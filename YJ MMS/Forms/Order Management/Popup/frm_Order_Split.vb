@@ -197,7 +197,7 @@ Public Class frm_Order_Split
 
     Private Function DB_Write(ByVal managementNo As String) As Boolean
 
-        Thread_LoadingFormStart("Saving...")
+        Thread_LoadingFormStart(Me, "Saving...")
 
         DBConnect()
 
