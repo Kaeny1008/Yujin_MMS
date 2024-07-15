@@ -44,6 +44,9 @@ Partial Class frm_Assy_Label_Print
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Grid_LabelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.TB_HistoryNo = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
@@ -113,11 +116,42 @@ Partial Class frm_Assy_Label_Print
         Me.CB_Reprint_Search_CustomerName = New System.Windows.Forms.ComboBox()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.TB_Reprint_Search_CustomerCode = New System.Windows.Forms.TextBox()
+        Me.C1DockingTabPage4 = New C1.Win.C1Command.C1DockingTabPage()
+        Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.TB_NonePO_Label_FPGA = New System.Windows.Forms.TextBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_Label_Boot = New System.Windows.Forms.TextBox()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_Label_FW = New System.Windows.Forms.TextBox()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_Label_ItemName = New System.Windows.Forms.TextBox()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TB_NonePO_ModelCode = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_Printor = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.BTN_NonePO_Save = New System.Windows.Forms.Button()
+        Me.TB_NonePO_PrintQty = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_ItemSpec = New System.Windows.Forms.TextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_ItemName = New System.Windows.Forms.TextBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.BTN_NonePO_PrintCodeSelect = New System.Windows.Forms.Button()
+        Me.TB_NonePO_ItemCode = New System.Windows.Forms.TextBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.CB_NonePO_CustomerName = New System.Windows.Forms.ComboBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.TB_NonePO_CustomerCode = New System.Windows.Forms.TextBox()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.Grid_NonePO_LabelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
@@ -134,6 +168,13 @@ Partial Class frm_Assy_Label_Print
         Me.SplitContainer1.SuspendLayout()
         CType(Me.Grid_ReprintList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
+        Me.C1DockingTabPage4.SuspendLayout()
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer2.Panel1.SuspendLayout()
+        Me.SplitContainer2.Panel2.SuspendLayout()
+        Me.SplitContainer2.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        CType(Me.Grid_NonePO_LabelList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -143,6 +184,7 @@ Partial Class frm_Assy_Label_Print
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage1)
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage2)
         Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage3)
+        Me.C1DockingTab1.Controls.Add(Me.C1DockingTabPage4)
         Me.C1DockingTab1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.C1DockingTab1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.C1DockingTab1.Location = New System.Drawing.Point(0, 25)
@@ -406,6 +448,33 @@ Partial Class frm_Assy_Label_Print
         Me.Panel3.Name = "Panel3"
         Me.Panel3.Size = New System.Drawing.Size(625, 259)
         Me.Panel3.TabIndex = 4
+        '
+        'TextBox4
+        '
+        Me.TextBox4.Enabled = False
+        Me.TextBox4.Location = New System.Drawing.Point(467, 224)
+        Me.TextBox4.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(153, 21)
+        Me.TextBox4.TabIndex = 20
+        '
+        'Label5
+        '
+        Me.Label5.Location = New System.Drawing.Point(10, 226)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(105, 16)
+        Me.Label5.TabIndex = 18
+        Me.Label5.Text = "고객사 :"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TextBox1
+        '
+        Me.TextBox1.Enabled = False
+        Me.TextBox1.Location = New System.Drawing.Point(121, 224)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(346, 21)
+        Me.TextBox1.TabIndex = 19
         '
         'Label14
         '
@@ -1033,7 +1102,7 @@ Partial Class frm_Assy_Label_Print
         Me.BTN_PrintCodeSelect.Name = "BTN_PrintCodeSelect"
         Me.BTN_PrintCodeSelect.Size = New System.Drawing.Size(117, 25)
         Me.BTN_PrintCodeSelect.TabIndex = 5
-        Me.BTN_PrintCodeSelect.Text = "품번선택"
+        Me.BTN_PrintCodeSelect.Text = "품번선택(Enter)"
         Me.BTN_PrintCodeSelect.UseVisualStyleBackColor = True
         '
         'TB_Reprint_ItemCode
@@ -1223,6 +1292,431 @@ Partial Class frm_Assy_Label_Print
         Me.TB_Reprint_Search_CustomerCode.Size = New System.Drawing.Size(120, 25)
         Me.TB_Reprint_Search_CustomerCode.TabIndex = 7
         '
+        'C1DockingTabPage4
+        '
+        Me.C1DockingTabPage4.Controls.Add(Me.SplitContainer2)
+        Me.C1DockingTabPage4.Location = New System.Drawing.Point(1, 30)
+        Me.C1DockingTabPage4.Name = "C1DockingTabPage4"
+        Me.C1DockingTabPage4.Size = New System.Drawing.Size(1262, 717)
+        Me.C1DockingTabPage4.TabIndex = 3
+        Me.C1DockingTabPage4.Text = "발주외 라벨발행"
+        '
+        'SplitContainer2
+        '
+        Me.SplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
+        Me.SplitContainer2.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer2.Name = "SplitContainer2"
+        '
+        'SplitContainer2.Panel1
+        '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Panel5)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label46)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TextBox5)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_ModelCode)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label36)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_Printor)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label37)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_NonePO_Save)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_PrintQty)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label39)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_ItemSpec)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label41)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_ItemName)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label42)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.BTN_NonePO_PrintCodeSelect)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_ItemCode)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label43)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.CB_NonePO_CustomerName)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Label44)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.TB_NonePO_CustomerCode)
+        '
+        'SplitContainer2.Panel2
+        '
+        Me.SplitContainer2.Panel2.Controls.Add(Me.Label45)
+        Me.SplitContainer2.Panel2.Controls.Add(Me.Grid_NonePO_LabelList)
+        Me.SplitContainer2.Size = New System.Drawing.Size(1262, 717)
+        Me.SplitContainer2.SplitterDistance = 795
+        Me.SplitContainer2.TabIndex = 1
+        '
+        'Panel5
+        '
+        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel5.Controls.Add(Me.CheckBox3)
+        Me.Panel5.Controls.Add(Me.CheckBox4)
+        Me.Panel5.Controls.Add(Me.TB_NonePO_Label_FPGA)
+        Me.Panel5.Controls.Add(Me.Label47)
+        Me.Panel5.Controls.Add(Me.TB_NonePO_Label_Boot)
+        Me.Panel5.Controls.Add(Me.Label48)
+        Me.Panel5.Controls.Add(Me.TB_NonePO_Label_FW)
+        Me.Panel5.Controls.Add(Me.Label49)
+        Me.Panel5.Controls.Add(Me.TB_NonePO_Label_ItemName)
+        Me.Panel5.Controls.Add(Me.Label50)
+        Me.Panel5.Location = New System.Drawing.Point(11, 307)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(420, 208)
+        Me.Panel5.TabIndex = 24
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Enabled = False
+        Me.CheckBox3.Location = New System.Drawing.Point(18, 80)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(171, 20)
+        Me.CheckBox3.TabIndex = 3
+        Me.CheckBox3.Text = "Software Label 발행"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Enabled = False
+        Me.CheckBox4.Location = New System.Drawing.Point(18, 27)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(149, 20)
+        Me.CheckBox4.TabIndex = 0
+        Me.CheckBox4.Text = "Ass'y Label 발행"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
+        'TB_NonePO_Label_FPGA
+        '
+        Me.TB_NonePO_Label_FPGA.Enabled = False
+        Me.TB_NonePO_Label_FPGA.Location = New System.Drawing.Point(158, 157)
+        Me.TB_NonePO_Label_FPGA.Name = "TB_NonePO_Label_FPGA"
+        Me.TB_NonePO_Label_FPGA.Size = New System.Drawing.Size(246, 26)
+        Me.TB_NonePO_Label_FPGA.TabIndex = 9
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(36, 161)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(61, 16)
+        Me.Label47.TabIndex = 8
+        Me.Label47.Text = "- FPGA"
+        '
+        'TB_NonePO_Label_Boot
+        '
+        Me.TB_NonePO_Label_Boot.Enabled = False
+        Me.TB_NonePO_Label_Boot.Location = New System.Drawing.Point(158, 130)
+        Me.TB_NonePO_Label_Boot.Name = "TB_NonePO_Label_Boot"
+        Me.TB_NonePO_Label_Boot.Size = New System.Drawing.Size(246, 26)
+        Me.TB_NonePO_Label_Boot.TabIndex = 7
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(36, 134)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(56, 16)
+        Me.Label48.TabIndex = 6
+        Me.Label48.Text = "- Boot"
+        '
+        'TB_NonePO_Label_FW
+        '
+        Me.TB_NonePO_Label_FW.Enabled = False
+        Me.TB_NonePO_Label_FW.Location = New System.Drawing.Point(158, 103)
+        Me.TB_NonePO_Label_FW.Name = "TB_NonePO_Label_FW"
+        Me.TB_NonePO_Label_FW.Size = New System.Drawing.Size(246, 26)
+        Me.TB_NonePO_Label_FW.TabIndex = 5
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(36, 107)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(84, 16)
+        Me.Label49.TabIndex = 4
+        Me.Label49.Text = "- F/W(OS)"
+        '
+        'TB_NonePO_Label_ItemName
+        '
+        Me.TB_NonePO_Label_ItemName.Enabled = False
+        Me.TB_NonePO_Label_ItemName.Location = New System.Drawing.Point(158, 46)
+        Me.TB_NonePO_Label_ItemName.Name = "TB_NonePO_Label_ItemName"
+        Me.TB_NonePO_Label_ItemName.Size = New System.Drawing.Size(246, 26)
+        Me.TB_NonePO_Label_ItemName.TabIndex = 2
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.Location = New System.Drawing.Point(36, 50)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(69, 16)
+        Me.Label50.TabIndex = 1
+        Me.Label50.Text = "- 품목명"
+        '
+        'Label46
+        '
+        Me.Label46.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label46.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label46.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label46.ForeColor = System.Drawing.Color.White
+        Me.Label46.Location = New System.Drawing.Point(8, 154)
+        Me.Label46.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(134, 25)
+        Me.Label46.TabIndex = 22
+        Me.Label46.Text = "마지막 발행번호"
+        Me.Label46.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBox5
+        '
+        Me.TextBox5.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TextBox5.Enabled = False
+        Me.TextBox5.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TextBox5.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TextBox5.Location = New System.Drawing.Point(142, 154)
+        Me.TextBox5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(625, 25)
+        Me.TextBox5.TabIndex = 23
+        '
+        'TB_NonePO_ModelCode
+        '
+        Me.TB_NonePO_ModelCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_ModelCode.Enabled = False
+        Me.TB_NonePO_ModelCode.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_ModelCode.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_NonePO_ModelCode.Location = New System.Drawing.Point(142, 127)
+        Me.TB_NonePO_ModelCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_ModelCode.Name = "TB_NonePO_ModelCode"
+        Me.TB_NonePO_ModelCode.Size = New System.Drawing.Size(625, 25)
+        Me.TB_NonePO_ModelCode.TabIndex = 11
+        '
+        'Label36
+        '
+        Me.Label36.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label36.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label36.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label36.ForeColor = System.Drawing.Color.White
+        Me.Label36.Location = New System.Drawing.Point(8, 127)
+        Me.Label36.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(134, 25)
+        Me.Label36.TabIndex = 10
+        Me.Label36.Text = "모델코드"
+        Me.Label36.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_NonePO_Printor
+        '
+        Me.TB_NonePO_Printor.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_Printor.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_Printor.Location = New System.Drawing.Point(600, 383)
+        Me.TB_NonePO_Printor.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_Printor.Name = "TB_NonePO_Printor"
+        Me.TB_NonePO_Printor.Size = New System.Drawing.Size(167, 25)
+        Me.TB_NonePO_Printor.TabIndex = 20
+        '
+        'Label37
+        '
+        Me.Label37.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label37.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label37.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label37.ForeColor = System.Drawing.Color.White
+        Me.Label37.Location = New System.Drawing.Point(466, 383)
+        Me.Label37.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(134, 25)
+        Me.Label37.TabIndex = 19
+        Me.Label37.Text = "발행자"
+        Me.Label37.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_NonePO_Save
+        '
+        Me.BTN_NonePO_Save.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_NonePO_Save.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.BTN_NonePO_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_NonePO_Save.Location = New System.Drawing.Point(648, 442)
+        Me.BTN_NonePO_Save.Name = "BTN_NonePO_Save"
+        Me.BTN_NonePO_Save.Size = New System.Drawing.Size(119, 68)
+        Me.BTN_NonePO_Save.TabIndex = 21
+        Me.BTN_NonePO_Save.Text = "발행"
+        Me.BTN_NonePO_Save.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_NonePO_Save.UseVisualStyleBackColor = True
+        '
+        'TB_NonePO_PrintQty
+        '
+        Me.TB_NonePO_PrintQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_PrintQty.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TB_NonePO_PrintQty.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_PrintQty.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_NonePO_PrintQty.Location = New System.Drawing.Point(600, 356)
+        Me.TB_NonePO_PrintQty.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_PrintQty.Name = "TB_NonePO_PrintQty"
+        Me.TB_NonePO_PrintQty.Size = New System.Drawing.Size(167, 25)
+        Me.TB_NonePO_PrintQty.TabIndex = 18
+        '
+        'Label39
+        '
+        Me.Label39.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label39.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label39.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label39.ForeColor = System.Drawing.Color.White
+        Me.Label39.Location = New System.Drawing.Point(466, 356)
+        Me.Label39.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label39.Name = "Label39"
+        Me.Label39.Size = New System.Drawing.Size(134, 25)
+        Me.Label39.TabIndex = 17
+        Me.Label39.Text = "발행수량"
+        Me.Label39.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_NonePO_ItemSpec
+        '
+        Me.TB_NonePO_ItemSpec.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_ItemSpec.Enabled = False
+        Me.TB_NonePO_ItemSpec.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_ItemSpec.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_NonePO_ItemSpec.Location = New System.Drawing.Point(142, 100)
+        Me.TB_NonePO_ItemSpec.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_ItemSpec.Name = "TB_NonePO_ItemSpec"
+        Me.TB_NonePO_ItemSpec.Size = New System.Drawing.Size(625, 25)
+        Me.TB_NonePO_ItemSpec.TabIndex = 9
+        '
+        'Label41
+        '
+        Me.Label41.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label41.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label41.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label41.ForeColor = System.Drawing.Color.White
+        Me.Label41.Location = New System.Drawing.Point(8, 100)
+        Me.Label41.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label41.Name = "Label41"
+        Me.Label41.Size = New System.Drawing.Size(134, 25)
+        Me.Label41.TabIndex = 8
+        Me.Label41.Text = "규격"
+        Me.Label41.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_NonePO_ItemName
+        '
+        Me.TB_NonePO_ItemName.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_ItemName.Enabled = False
+        Me.TB_NonePO_ItemName.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_ItemName.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_NonePO_ItemName.Location = New System.Drawing.Point(142, 73)
+        Me.TB_NonePO_ItemName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_ItemName.Name = "TB_NonePO_ItemName"
+        Me.TB_NonePO_ItemName.Size = New System.Drawing.Size(625, 25)
+        Me.TB_NonePO_ItemName.TabIndex = 7
+        '
+        'Label42
+        '
+        Me.Label42.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label42.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label42.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label42.ForeColor = System.Drawing.Color.White
+        Me.Label42.Location = New System.Drawing.Point(8, 73)
+        Me.Label42.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label42.Name = "Label42"
+        Me.Label42.Size = New System.Drawing.Size(134, 25)
+        Me.Label42.TabIndex = 6
+        Me.Label42.Text = "품명"
+        Me.Label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'BTN_NonePO_PrintCodeSelect
+        '
+        Me.BTN_NonePO_PrintCodeSelect.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_NonePO_PrintCodeSelect.Location = New System.Drawing.Point(650, 46)
+        Me.BTN_NonePO_PrintCodeSelect.Name = "BTN_NonePO_PrintCodeSelect"
+        Me.BTN_NonePO_PrintCodeSelect.Size = New System.Drawing.Size(117, 25)
+        Me.BTN_NonePO_PrintCodeSelect.TabIndex = 5
+        Me.BTN_NonePO_PrintCodeSelect.Text = "품번선택(Enter)"
+        Me.BTN_NonePO_PrintCodeSelect.UseVisualStyleBackColor = True
+        '
+        'TB_NonePO_ItemCode
+        '
+        Me.TB_NonePO_ItemCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_ItemCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.TB_NonePO_ItemCode.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_ItemCode.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_NonePO_ItemCode.Location = New System.Drawing.Point(142, 46)
+        Me.TB_NonePO_ItemCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_ItemCode.Name = "TB_NonePO_ItemCode"
+        Me.TB_NonePO_ItemCode.Size = New System.Drawing.Size(505, 25)
+        Me.TB_NonePO_ItemCode.TabIndex = 4
+        '
+        'Label43
+        '
+        Me.Label43.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label43.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label43.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label43.ForeColor = System.Drawing.Color.White
+        Me.Label43.Location = New System.Drawing.Point(8, 46)
+        Me.Label43.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(134, 25)
+        Me.Label43.TabIndex = 3
+        Me.Label43.Text = "품번"
+        Me.Label43.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'CB_NonePO_CustomerName
+        '
+        Me.CB_NonePO_CustomerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_NonePO_CustomerName.Font = New System.Drawing.Font("굴림", 12.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.CB_NonePO_CustomerName.FormattingEnabled = True
+        Me.CB_NonePO_CustomerName.Location = New System.Drawing.Point(142, 19)
+        Me.CB_NonePO_CustomerName.Margin = New System.Windows.Forms.Padding(0)
+        Me.CB_NonePO_CustomerName.Name = "CB_NonePO_CustomerName"
+        Me.CB_NonePO_CustomerName.Size = New System.Drawing.Size(183, 25)
+        Me.CB_NonePO_CustomerName.TabIndex = 1
+        '
+        'Label44
+        '
+        Me.Label44.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label44.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label44.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label44.ForeColor = System.Drawing.Color.White
+        Me.Label44.Location = New System.Drawing.Point(8, 19)
+        Me.Label44.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(134, 25)
+        Me.Label44.TabIndex = 0
+        Me.Label44.Text = "고객사명"
+        Me.Label44.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_NonePO_CustomerCode
+        '
+        Me.TB_NonePO_CustomerCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_NonePO_CustomerCode.Enabled = False
+        Me.TB_NonePO_CustomerCode.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_NonePO_CustomerCode.Location = New System.Drawing.Point(325, 19)
+        Me.TB_NonePO_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_NonePO_CustomerCode.Name = "TB_NonePO_CustomerCode"
+        Me.TB_NonePO_CustomerCode.Size = New System.Drawing.Size(442, 25)
+        Me.TB_NonePO_CustomerCode.TabIndex = 2
+        '
+        'Label45
+        '
+        Me.Label45.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label45.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label45.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label45.ForeColor = System.Drawing.Color.White
+        Me.Label45.Location = New System.Drawing.Point(10, 23)
+        Me.Label45.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(429, 25)
+        Me.Label45.TabIndex = 13
+        Me.Label45.Text = "라벨발행 목록"
+        Me.Label45.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Grid_NonePO_LabelList
+        '
+        Me.Grid_NonePO_LabelList.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Grid_NonePO_LabelList.ColumnInfo = "2,1,0,0,0,100,Columns:"
+        Me.Grid_NonePO_LabelList.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Grid_NonePO_LabelList.Location = New System.Drawing.Point(10, 50)
+        Me.Grid_NonePO_LabelList.Margin = New System.Windows.Forms.Padding(0)
+        Me.Grid_NonePO_LabelList.Name = "Grid_NonePO_LabelList"
+        Me.Grid_NonePO_LabelList.Rows.Count = 2
+        Me.Grid_NonePO_LabelList.Rows.DefaultSize = 20
+        Me.Grid_NonePO_LabelList.Size = New System.Drawing.Size(429, 659)
+        Me.Grid_NonePO_LabelList.StyleInfo = resources.GetString("Grid_NonePO_LabelList.StyleInfo")
+        Me.Grid_NonePO_LabelList.TabIndex = 14
+        Me.Grid_NonePO_LabelList.UseCompatibleTextRendering = True
+        '
         'TS_MainBar
         '
         Me.TS_MainBar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
@@ -1242,33 +1736,6 @@ Partial Class frm_Assy_Label_Print
         Me.Form_CLose.Name = "Form_CLose"
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
-        '
-        'Label5
-        '
-        Me.Label5.Location = New System.Drawing.Point(10, 226)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(105, 16)
-        Me.Label5.TabIndex = 18
-        Me.Label5.Text = "고객사 :"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Enabled = False
-        Me.TextBox1.Location = New System.Drawing.Point(121, 224)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(346, 21)
-        Me.TextBox1.TabIndex = 19
-        '
-        'TextBox4
-        '
-        Me.TextBox4.Enabled = False
-        Me.TextBox4.Location = New System.Drawing.Point(467, 224)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(0)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(153, 21)
-        Me.TextBox4.TabIndex = 20
         '
         'frm_Assy_Label_Print
         '
@@ -1301,6 +1768,15 @@ Partial Class frm_Assy_Label_Print
         CType(Me.Grid_ReprintList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.C1DockingTabPage4.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.ResumeLayout(False)
+        Me.SplitContainer2.Panel1.PerformLayout()
+        Me.SplitContainer2.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer2.ResumeLayout(False)
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
+        CType(Me.Grid_NonePO_LabelList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
         Me.ResumeLayout(False)
@@ -1403,4 +1879,38 @@ Partial Class frm_Assy_Label_Print
     Friend WithEvents TextBox4 As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents C1DockingTabPage4 As C1.Win.C1Command.C1DockingTabPage
+    Friend WithEvents SplitContainer2 As SplitContainer
+    Friend WithEvents TB_NonePO_ModelCode As TextBox
+    Friend WithEvents Label36 As Label
+    Friend WithEvents TB_NonePO_Printor As TextBox
+    Friend WithEvents Label37 As Label
+    Friend WithEvents BTN_NonePO_Save As Button
+    Friend WithEvents TB_NonePO_PrintQty As TextBox
+    Friend WithEvents Label39 As Label
+    Friend WithEvents TB_NonePO_ItemSpec As TextBox
+    Friend WithEvents Label41 As Label
+    Friend WithEvents TB_NonePO_ItemName As TextBox
+    Friend WithEvents Label42 As Label
+    Friend WithEvents BTN_NonePO_PrintCodeSelect As Button
+    Friend WithEvents TB_NonePO_ItemCode As TextBox
+    Friend WithEvents Label43 As Label
+    Friend WithEvents CB_NonePO_CustomerName As ComboBox
+    Friend WithEvents Label44 As Label
+    Friend WithEvents TB_NonePO_CustomerCode As TextBox
+    Friend WithEvents Label45 As Label
+    Friend WithEvents Grid_NonePO_LabelList As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents CheckBox4 As CheckBox
+    Friend WithEvents TB_NonePO_Label_FPGA As TextBox
+    Friend WithEvents Label47 As Label
+    Friend WithEvents TB_NonePO_Label_Boot As TextBox
+    Friend WithEvents Label48 As Label
+    Friend WithEvents TB_NonePO_Label_FW As TextBox
+    Friend WithEvents Label49 As Label
+    Friend WithEvents TB_NonePO_Label_ItemName As TextBox
+    Friend WithEvents Label50 As Label
+    Friend WithEvents Label46 As Label
+    Friend WithEvents TextBox5 As TextBox
 End Class

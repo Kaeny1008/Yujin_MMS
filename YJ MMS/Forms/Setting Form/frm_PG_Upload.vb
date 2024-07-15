@@ -104,17 +104,17 @@ Public Class frm_PG_Upload
         Dim find_col_name As String = String.Empty
         Select Case e.Col
             Case 1
-                find_col_name = "FILE_CODE"
+                find_col_name = "file_code"
             Case 2
-                find_col_name = "FILE_NAME"
+                find_col_name = "file_name"
             Case 3
-                find_col_name = "FOLDER_NAME"
+                find_col_name = "folder_name"
             Case 4
-                find_col_name = "UPLOAD_DATE"
+                find_col_name = "upload_date"
             Case 5
-                find_col_name = "WRITE_ID"
+                find_col_name = "write_id"
             Case 6
-                find_col_name = "UPLOAD_NOTE"
+                find_col_name = "upload_note"
         End Select
 
         If FILE_LIST_BEFORE_LOAD(find_col_name, grid_FileList(e.Row, 1)) = grid_FileList(e.Row, e.Col) = False Then
@@ -143,6 +143,7 @@ Public Class frm_PG_Upload
         With openFile
             .Filter = "ALL Files (*.*)|*.*"
             .AddExtension() = True
+            .InitialDirectory = Application.StartupPath
         End With
 
         openFile.ShowDialog()

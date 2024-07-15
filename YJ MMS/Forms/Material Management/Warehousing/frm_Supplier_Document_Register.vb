@@ -813,7 +813,7 @@ Public Class frm_Supplier_Document_Register
 
         Try
             strSQL += "delete from tb_mms_material_warehousing_document"
-            strSQL += "where document_no = '" & documentNo & "';"
+            strSQL += " where document_no = '" & documentNo & "';"
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

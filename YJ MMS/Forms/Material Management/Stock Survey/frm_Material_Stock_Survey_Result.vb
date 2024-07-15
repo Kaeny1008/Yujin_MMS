@@ -27,7 +27,7 @@ Public Class frm_Material_Stock_Survey_Result
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 21
+            .Cols.Count = 22
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -50,26 +50,17 @@ Public Class frm_Material_Stock_Survey_Result
             rngM.Data = "단가(\)"
             rngM = .GetCellRange(0, 6, 1, 6)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 7, 0, 15)
+            rngM = .GetCellRange(0, 7, 0, 16)
             rngM.Data = "재고"
-            Grid_MaterialList(1, 7) = "기초재고"
-            Grid_MaterialList(1, 8) = "입고"
-            Grid_MaterialList(1, 9) = "Loss"
-            Grid_MaterialList(1, 10) = "납품"
-            Grid_MaterialList(1, 11) = "계획대기"
-            Grid_MaterialList(1, 12) = "생산 중"
-            Grid_MaterialList(1, 13) = "생산 완료"
-            Grid_MaterialList(1, 14) = "품번전환"
-            Grid_MaterialList(1, 15) = "반출"
-            rngM = .GetCellRange(0, 16, 1, 16)
-            rngM.Data = "전산재고"
             rngM = .GetCellRange(0, 17, 1, 17)
-            rngM.Data = "결과"
+            rngM.Data = "전산재고"
             rngM = .GetCellRange(0, 18, 1, 18)
-            rngM.Data = "차이"
+            rngM.Data = "결과"
             rngM = .GetCellRange(0, 19, 1, 19)
-            rngM.Data = "Loss금액"
+            rngM.Data = "차이"
             rngM = .GetCellRange(0, 20, 1, 20)
+            rngM.Data = "Loss금액"
+            rngM = .GetCellRange(0, 21, 1, 21)
             rngM.Data = "사유"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -81,14 +72,25 @@ Public Class frm_Material_Stock_Survey_Result
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            For i = 7 To 18
+            For i = 7 To 19
                 .Cols(i).DataType = GetType(Double)
                 .Cols(i).Format = "#,##0"
             Next
-            .Cols(19).DataType = GetType(Double)
-            .Cols(19).Format = "#,##0.000"
+            .Cols(20).DataType = GetType(Double)
+            .Cols(20).Format = "#,##0.000"
             .SelectionMode = SelectionModeEnum.Default
         End With
+        Grid_MaterialList(1, 7) = "기초재고"
+        Grid_MaterialList(1, 8) = "입고"
+        Grid_MaterialList(1, 9) = "Loss"
+        Grid_MaterialList(1, 10) = "납품"
+        Grid_MaterialList(1, 11) = "계획대기"
+        Grid_MaterialList(1, 12) = "생산 중"
+        Grid_MaterialList(1, 13) = "생산 완료"
+        Grid_MaterialList(1, 14) = "품번전환"
+        Grid_MaterialList(1, 15) = "반출"
+        Grid_MaterialList(1, 16) = "폐기"
+        Grid_MaterialList.AutoSizeCols()
 
         With Grid_PlanList
             .AllowEditing = False
@@ -260,6 +262,7 @@ Public Class frm_Material_Stock_Survey_Result
                 vbTab & sqlDR("production_completed_qty") &
                 vbTab & sqlDR("code_change_qty") &
                 vbTab & sqlDR("return_qty") &
+                vbTab & sqlDR("discard_qty") &
                 vbTab & sqlDR("stock_qty") &
                 vbTab & sqlDR("check_qty") &
                 vbTab & diff_Qty &
@@ -292,8 +295,8 @@ Public Class frm_Material_Stock_Survey_Result
         If e.Row < 2 Then Exit Sub
 
         Select Case e.Col
-            Case 17
-                Grid_MaterialList(e.Row, 18) = Format(CDbl(Grid_MaterialList(e.Row, 17)) - CDbl(Grid_MaterialList(e.Row, 16)), "#,##0")
+            Case 18
+                Grid_MaterialList(e.Row, 19) = Format(CDbl(Grid_MaterialList(e.Row, 18)) - CDbl(Grid_MaterialList(e.Row, 17)), "#,##0")
         End Select
 
         Grid_MaterialList.Redraw = False
@@ -337,8 +340,8 @@ Public Class frm_Material_Stock_Survey_Result
                 If Grid_MaterialList(i, 0).ToString.Equals("M") Then
                     Grid_MaterialList(i, 0) = i - 1
                     strSQL += "update tb_mms_material_stock_survey_plan_content set"
-                    strSQL += " check_reason = '" & Grid_MaterialList(i, 20) & "'"
-                    strSQL += ", temp_qty = '" & Grid_MaterialList(i, 17) & "'"
+                    strSQL += " check_reason = '" & Grid_MaterialList(i, 21) & "'"
+                    strSQL += ", temp_qty = '" & Grid_MaterialList(i, 18) & "'"
                     strSQL += " where content_no like concat('" & LB_InspectionNo.Text & "', '%')"
                     strSQL += " and part_code = '" & Grid_MaterialList(i, 1) & "'"
                     strSQL += ";"
@@ -444,8 +447,8 @@ Public Class frm_Material_Stock_Survey_Result
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
-                    strSQL += "," & CDbl(Grid_MaterialList(i, 16)) & ""
-                    strSQL += "," & CDbl(Grid_MaterialList(i, 18)) & ""
+                    strSQL += "," & CDbl(Grid_MaterialList(i, 17)) & ""
+                    strSQL += "," & CDbl(Grid_MaterialList(i, 19)) & ""
                     strSQL += ");"
                 Else
                     strSQL += "insert into tb_mms_material_basic_inventory("
@@ -454,15 +457,15 @@ Public Class frm_Material_Stock_Survey_Result
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
-                    strSQL += "," & CDbl(Grid_MaterialList(i, 17)) & ""
+                    strSQL += "," & CDbl(Grid_MaterialList(i, 18)) & ""
                     strSQL += ", 0"
                     strSQL += ");"
                 End If
 
                 '재고조사 각항목을 업데이트 한다.
                 strSQL += "update tb_mms_material_stock_survey_plan_content set"
-                strSQL += " check_reason = '" & Grid_MaterialList(i, 20) & "'"
-                strSQL += ", check_qty = " & CDbl(Grid_MaterialList(i, 17)) & ""
+                strSQL += " check_reason = '" & Grid_MaterialList(i, 21) & "'"
+                strSQL += ", check_qty = " & CDbl(Grid_MaterialList(i, 18)) & ""
                 strSQL += " where content_no like concat('" & LB_InspectionNo.Text & "', '%')"
                 strSQL += " and part_code = '" & Grid_MaterialList(i, 1) & "'"
                 strSQL += ";"

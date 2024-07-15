@@ -69,25 +69,7 @@ Public Class frm_Order_Registration
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
-            Grid_Excel(0, 0) = "No"
-            Grid_Excel(0, 1) = "모델코드"
-            Grid_Excel(0, 2) = "SPG"
-            Grid_Excel(0, 3) = "품번"
-            Grid_Excel(0, 4) = "품명"
-            Grid_Excel(0, 5) = "규격"
-            Grid_Excel(0, 6) = "단위"
-            Grid_Excel(0, 7) = "주문번호"
-            Grid_Excel(0, 8) = "주문일자"
-            Grid_Excel(0, 9) = "주문량"
-            Grid_Excel(0, 10) = "납입장소"
-            Grid_Excel(0, 11) = "납기일자"
-            Grid_Excel(0, 12) = "모델등록"
-            Grid_Excel(0, 13) = "BOM등록"
-            Grid_Excel(0, 14) = "Order Index"
-            Grid_Excel(0, 15) = "대조결과"
-            Grid_Excel(0, 16) = "주문상태"
             .Cols(14).Visible = True
-            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
@@ -97,11 +79,45 @@ Public Class frm_Order_Registration
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(8).DataType = GetType(Date)
+            .Cols(8).Format = "yyyy-MM-dd"
+            .Cols(9).DataType = GetType(Integer)
+            .Cols(9).Format = "#,##0"
+            .Cols(11).DataType = GetType(Date)
+            .Cols(11).Format = "yyyy-MM-dd"
         End With
+
+        Grid_Excel(0, 0) = "No"
+        Grid_Excel(0, 1) = "모델코드"
+        Grid_Excel(0, 2) = "SPG"
+        Grid_Excel(0, 3) = "품번"
+        Grid_Excel(0, 4) = "품명"
+        Grid_Excel(0, 5) = "규격"
+        Grid_Excel(0, 6) = "단위"
+        Grid_Excel(0, 7) = "주문번호"
+        Grid_Excel(0, 8) = "주문일자"
+        Grid_Excel(0, 9) = "주문량"
+        Grid_Excel(0, 10) = "납입장소"
+        Grid_Excel(0, 11) = "납기일자"
+        Grid_Excel(0, 12) = "모델등록"
+        Grid_Excel(0, 13) = "BOM등록"
+        Grid_Excel(0, 14) = "Order Index"
+        Grid_Excel(0, 15) = "대조결과"
+        Grid_Excel(0, 16) = "주문상태"
+
+        Grid_Excel.AutoSizeCols()
 
     End Sub
 
     Private Sub BTN_NewOrder_Click(sender As Object, e As EventArgs) Handles BTN_NewOrder.Click
+
+        Dim question_Text As String = RadioButton2.Text
+        If RadioButton1.Checked = True Then question_Text = RadioButton1.Text
+        If RadioButton3.Checked = True Then question_Text = RadioButton3.Text
+        Dim showString As String = "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
+            "### " & question_Text & " ###" & vbCrLf & vbCrLf &
+            "계속 진행하시겠습니까?"
+        If MSG_Question(Me, showString) = False Then Exit Sub
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
@@ -111,7 +127,6 @@ Public Class frm_Order_Registration
         End If
 
         BTN_Save.Enabled = True
-        BTN_FileSelect.Enabled = True
         CB_CustomerName.Enabled = True
 
         CB_CustomerName.SelectedIndex = -1
@@ -124,6 +139,15 @@ Public Class frm_Order_Registration
         Grid_Excel.Redraw = True
 
         Load_CustomerList()
+
+        If RadioButton3.Checked = True Then
+            BTN_FileSelect.Enabled = False
+        Else
+            BTN_FileSelect.Enabled = True
+        End If
+
+        BTN_RowAdd.Enabled = False
+        BTN_RowDelete.Enabled = False
 
     End Sub
 
@@ -170,13 +194,22 @@ Public Class frm_Order_Registration
 
         DBClose()
 
+        Load_Basic_PO(DateTimePicker1.Value,
+                      DateTimePicker2.Value,
+                      "개발")
+
+        If RadioButton3.Checked = True Then
+            BTN_RowAdd.Enabled = True
+            BTN_RowDelete.Enabled = True
+        End If
+
     End Sub
 
     Private Sub BTN_FileSelect_Click(sender As Object, e As EventArgs) Handles BTN_FileSelect.Click
 
-        Dim question_Text As String = RadioButton2.Text
+        'Dim question_Text As String = RadioButton2.Text
 
-        If RadioButton1.Checked = True Then question_Text = RadioButton1.Text
+        'If RadioButton1.Checked = True Then question_Text = RadioButton1.Text
 
         If Not IsNothing(excelApp) Then
             excelApp.WorkBooks(1).Close()
@@ -195,10 +228,10 @@ Public Class frm_Order_Registration
             Exit Sub
         End If
 
-        Dim showString As String = "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
-            "### " & question_Text & " ###" & vbCrLf & vbCrLf &
-            "계속 진행하시겠습니까?"
-        If MSG_Question(Me, showString) = False Then Exit Sub
+        'Dim showString As String = "선택된 자료 유형을 확인하여 주십시오." & vbCrLf & vbCrLf &
+        '    "### " & question_Text & " ###" & vbCrLf & vbCrLf &
+        '    "계속 진행하시겠습니까?"
+        'If MSG_Question(Me, showString) = False Then Exit Sub
 
         If Not CB_CustomerName.Text = "LS Mecapion" Then
             MessageBox.Show(Me,
@@ -468,6 +501,7 @@ Public Class frm_Order_Registration
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim returnString As String = String.Empty
@@ -541,6 +575,7 @@ Public Class frm_Order_Registration
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -569,6 +604,15 @@ Public Class frm_Order_Registration
             If Grid_Excel(i, 12) = "X" Then
                 MSG_Information(Me, "모델 등록되지 않은 항목이 존재합니다." & vbCrLf & "모델등록을 먼저 해주십시오.")
                 Exit Sub
+            ElseIf Grid_Excel(i, 3).Equals("") Then
+                MSG_Information(Me, "품번이 입력되지 않은 항목이 존재합니다.")
+                Exit Sub
+            ElseIf IsNothing(Grid_Excel(i, 9)) Then
+                MSG_Information(Me, "주문수량이 입력되지 않은 항목이 존재 합니다.")
+                Exit Sub
+            ElseIf IsNothing(Grid_Excel(i, 11)) Then
+                MSG_Information(Me, "납기일자가 입력되지 않은 항목이 존재 합니다.")
+                Exit Sub
             End If
         Next
 
@@ -590,6 +634,8 @@ Public Class frm_Order_Registration
             Dim itemSection As String = "모터"
             If RadioButton2.Checked = True Then
                 itemSection = "제어"
+            ElseIf RadioButton3.Checked = True Then
+                itemSection = "개발"
             End If
 
             For i = 1 To Grid_Excel.Rows.Count - 1
@@ -796,14 +842,21 @@ Public Class frm_Order_Registration
 
         Dim selRow As Integer = Grid_Excel.MouseRow
 
-        If e.Button = MouseButtons.Right And selRow > 0 Then
+        If e.Button = MouseButtons.Right And selRow > -1 Then
             Grid_Excel.Row = selRow
-            If Grid_Excel(selRow, 12) = "X" Then
-                BTN_NewModelRegistration.Enabled = True
-            Else
+            If selRow = 0 Then
                 BTN_NewModelRegistration.Enabled = False
+                BTN_Save2.Enabled = False
+                BTN_RowDelete.Enabled = False
+            Else
+                If Grid_Excel(selRow, 12) = "X" Then
+                    BTN_NewModelRegistration.Enabled = True
+                Else
+                    BTN_NewModelRegistration.Enabled = False
+                End If
+                BTN_Save2.Enabled = True
+                BTN_RowDelete.Enabled = True
             End If
-
             CMS_GridMenu.Show(Grid_Excel, New Point(e.X, e.Y))
         End If
 
@@ -828,6 +881,9 @@ Public Class frm_Order_Registration
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & orderNo & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
@@ -1045,6 +1101,7 @@ Public Class frm_Order_Registration
         strSQL += ", null"
         strSQL += ", '" & modelCode & "'"
         strSQL += ", '" & deliveryDate & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -1066,14 +1123,21 @@ Public Class frm_Order_Registration
 
         DBConnect()
 
-        Dim findIndex As Integer = 4
-        If itemSection = "제어" Then
-            findIndex = 4
-        ElseIf itemSection = "모터" Then
-            findIndex = 5
+        'Dim findIndex As Integer = 4
+        'If itemSection = "제어" Then
+        '    findIndex = 4
+        'ElseIf itemSection = "모터" Then
+        '    findIndex = 5
+        'End If
+
+        Dim basicCheckString As String = "삭제"
+        Dim rowColor As Color = Color.DarkGray
+        If itemSection.Equals("개발") Then
+            basicCheckString = String.Empty
+            rowColor = Color.Black
         End If
 
-        Dim strSQL As String = "call sp_mms_order_registration(" & findIndex
+        Dim strSQL As String = "call sp_mms_order_registration(4"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
@@ -1081,14 +1145,14 @@ Public Class frm_Order_Registration
         strSQL += ", '" & Format(endDate, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ",'" & itemSection & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Dim rowName As String = Grid_Excel.Rows.Count
-            Dim rowColor As Color = Color.DarkGray
+            'Dim rowName As String = Grid_Excel.Rows.Count
             Dim insert_String As String = "D" & vbTab &
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("spg") & vbTab &
@@ -1104,7 +1168,7 @@ Public Class frm_Order_Registration
                                           vbTab &
                                           vbTab &
                                           sqlDR("order_index") & vbTab &
-                                          "삭제" & vbTab &
+                                          basicCheckString & vbTab &
                                           sqlDR("order_status")
             GridWriteText(insert_String, Me, Grid_Excel, rowColor)
         Loop
@@ -1114,13 +1178,143 @@ Public Class frm_Order_Registration
 
     End Sub
 
+    Private Sub RadioButton3_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton3.CheckedChanged
+
+        If RadioButton3.Checked = True Then
+            Panel2.Enabled = True
+            Grid_Excel.AllowEditing = True
+        Else
+            Panel2.Enabled = False
+            Grid_Excel.AllowEditing = False
+        End If
+
+        Grid_Excel.Rows.Count = 1
+        CB_CustomerName.SelectedIndex = -1
+        TB_CustomerCode.Text = String.Empty
+        TB_File_Path.Text = String.Empty
+        CB_SheetName.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub CB_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_CustomerName.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub BTN_RowAdd_Click(sender As Object, e As EventArgs) Handles BTN_RowAdd.Click
+
+        Dim selRow As Integer = Grid_Excel.Row
+
+        Grid_Excel.AddItem("N" & vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           Now & vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           vbTab &
+                           "신규",
+                           selRow + 1)
+        Grid_Excel.Rows(selRow + 1).StyleNew.ForeColor = Color.Blue
+
+        Grid_Excel.AutoSizeCols()
+
+    End Sub
+
     Private Sub RadioButton1_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton1.CheckedChanged
 
-        'If RadioButton1.Checked = True Then
-        '    Panel2.Enabled = True
-        'Else
-        '    Panel2.Enabled = False
-        'End If
+        Grid_Excel.Rows.Count = 1
+        CB_CustomerName.SelectedIndex = -1
+        TB_CustomerCode.Text = String.Empty
+        TB_File_Path.Text = String.Empty
+        CB_SheetName.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub RadioButton2_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton2.CheckedChanged
+
+        Grid_Excel.Rows.Count = 1
+        CB_CustomerName.SelectedIndex = -1
+        TB_CustomerCode.Text = String.Empty
+        TB_File_Path.Text = String.Empty
+        CB_SheetName.SelectedIndex = -1
+
+    End Sub
+
+    Private Sub Grid_Excel_RowColChange(sender As Object, e As EventArgs) Handles Grid_Excel.RowColChange
+
+        Select Case Grid_Excel.Col
+            Case 3, 9, 11
+                If Grid_Excel(Grid_Excel.Row, 0).ToString = "D" Then
+                    Grid_Excel.AllowEditing = False
+                Else
+                    If RadioButton3.Checked = True Then
+                        Grid_Excel.AllowEditing = True
+                    Else
+                        Grid_Excel.AllowEditing = False
+                    End If
+                End If
+            Case Else
+                Grid_Excel.AllowEditing = False
+        End Select
+
+    End Sub
+
+    Dim beforeString As String
+
+    Private Sub Grid_Excel_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_Excel.BeforeEdit
+
+        beforeString = Grid_Excel(e.Row, e.Col)
+
+    End Sub
+
+    Private Sub Grid_Excel_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_Excel.AfterEdit
+
+        If e.Row < 0 Or e.Col < 0 Then Exit Sub
+
+        If beforeString = Grid_Excel(e.Row, e.Col) Then Exit Sub
+
+        Grid_Excel.Redraw = False
+
+        Select Case e.Col
+            Case 3
+                Dim loaderPCB_Add As Boolean = False
+                Dim loaderPCB As String = RegistrationCheck(Grid_Excel(e.Row, 3), e.Row)
+
+                If Not loaderPCB = String.Empty Then
+                    LoaderPCB_Grid_Add(loaderPCB, e.Row)
+                    loaderPCB_Add = True
+                End If
+
+                If loaderPCB_Add = True Then
+                    MSG_Information(Me,
+                                    "Loader PCB PO를 자동으로 추가 하였습니다.")
+                End If
+            Case 11
+                Grid_Excel(e.Row, 7) = Load_PONo(Grid_Excel(e.Row, 11))
+
+                Dim aList As New List(Of String)
+                For j = 1 To Grid_Excel.Rows.Count - 1
+                    aList.Add(Grid_Excel(j, 7))
+                Next
+
+                Dim orderNumber As String = Grid_Excel(e.Row, 7)
+                Grid_Excel(e.Row, 14) = orderNumber & "-" & Format(aList.FindAll(Function(x) x.Equals(orderNumber)).Count, "0000")
+        End Select
+
+        If IsNumeric(Grid_Excel(e.Row, 0)) Then
+            Grid_Excel(e.Row, 0) = "M"
+            Grid_Excel.Rows(e.Row).StyleNew.ForeColor = Color.Red
+        End If
+
+        Grid_Excel.AutoSizeCols()
+        Grid_Excel.Redraw = True
 
     End Sub
 End Class

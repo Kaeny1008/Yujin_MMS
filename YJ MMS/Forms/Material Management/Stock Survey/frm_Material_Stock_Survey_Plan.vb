@@ -27,7 +27,7 @@ Public Class frm_Material_Stock_Survey_Plan
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 17
+            .Cols.Count = 18
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -50,30 +50,36 @@ Public Class frm_Material_Stock_Survey_Plan
             rngM.Data = "단가(\)"
             rngM = .GetCellRange(0, 6, 1, 6)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 7, 0, 15)
+            rngM = .GetCellRange(0, 7, 0, 16)
             rngM.Data = "재고"
-            Grid_MaterialList(1, 7) = "기초재고"
-            Grid_MaterialList(1, 8) = "입고"
-            Grid_MaterialList(1, 9) = "Loss"
-            Grid_MaterialList(1, 10) = "납품"
-            Grid_MaterialList(1, 11) = "계획대기"
-            Grid_MaterialList(1, 12) = "생산 중"
-            Grid_MaterialList(1, 13) = "생산 완료"
-            Grid_MaterialList(1, 14) = "품번전환"
-            Grid_MaterialList(1, 15) = "반출"
-            rngM = .GetCellRange(0, 16, 1, 16)
+            rngM = .GetCellRange(0, 17, 1, 17)
             rngM.Data = "전산재고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
             .ExtendLastCol = False
-            .AutoSizeCols()
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            For i = 7 To 16
+                .Cols(i).DataType = GetType(Double)
+                .Cols(i).Format = "#,##0"
+                .Cols(i).TextAlign = TextAlignEnum.CenterCenter
+            Next
         End With
+        Grid_MaterialList(1, 7) = "기초재고"
+        Grid_MaterialList(1, 8) = "입고"
+        Grid_MaterialList(1, 9) = "Loss"
+        Grid_MaterialList(1, 10) = "납품"
+        Grid_MaterialList(1, 11) = "계획대기"
+        Grid_MaterialList(1, 12) = "생산 중"
+        Grid_MaterialList(1, 13) = "생산 완료"
+        Grid_MaterialList(1, 14) = "품번전환"
+        Grid_MaterialList(1, 15) = "반출"
+        Grid_MaterialList(1, 16) = "폐기"
+        Grid_MaterialList.AutoSizeCols()
 
         With Grid_PlanList
             .AllowEditing = False
@@ -238,7 +244,8 @@ Public Class frm_Material_Stock_Survey_Plan
                 Format(sqlDR("run_qty"), "#,##0") & vbTab &
                 Format(sqlDR("completed_qty"), "#,##0") & vbTab &
                 Format(sqlDR("code_change_qty"), "#,##0") & vbTab &
-                Format(sqlDR("return_qty"), "#,##0")
+                Format(sqlDR("return_qty"), "#,##0") & vbTab &
+                Format(sqlDR("discard_qty"), "#,##0")
 
             Dim stock_qty As Double = sqlDR("basic_stock") +
                 sqlDR("in_qty") -
@@ -248,7 +255,8 @@ Public Class frm_Material_Stock_Survey_Plan
                 sqlDR("run_qty") -
                 sqlDR("completed_qty") -
                 sqlDR("code_change_qty") -
-                sqlDR("return_qty")
+                sqlDR("return_qty") -
+                sqlDR("discard_qty")
             insert_String += vbTab & Format((stock_qty), "#,##0")
 
             If Not stock_qty = 0 Then
@@ -334,7 +342,7 @@ Public Class frm_Material_Stock_Survey_Plan
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_stock_survey_plan_content("
                 strSQL += "content_no, part_code, unit_price, basic_qty, in_qty, loss_qty, delivery_qty, plan_ready_qty"
-                strSQL += ", production_qty, production_completed_qty, code_change_qty, return_qty, stock_qty"
+                strSQL += ", production_qty, production_completed_qty, code_change_qty, return_qty, discard_qty, stock_qty"
                 strSQL += ") values ("
                 strSQL += "'" & LB_InspectionNo.Text & Format(CDbl(Grid_MaterialList(i, 0)), "0000") & "'"
                 strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
@@ -349,6 +357,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 strSQL += "," & CDbl(Grid_MaterialList(i, 14)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 15)) & ""
                 strSQL += "," & CDbl(Grid_MaterialList(i, 16)) & ""
+                strSQL += "," & CDbl(Grid_MaterialList(i, 17)) & ""
                 strSQL += ");"
             Next
 
@@ -511,6 +520,7 @@ Public Class frm_Material_Stock_Survey_Plan
                 vbTab & Format(sqlDR("production_completed_qty"), "#,##0") &
                 vbTab & Format(sqlDR("code_change_qty"), "#,##0") &
                 vbTab & Format(sqlDR("return_qty"), "#,##0") &
+                vbTab & Format(sqlDR("discard_qty"), "#,##0") &
                 vbTab & Format(sqlDR("stock_qty"), "#,##0")
             Grid_MaterialList.AddItem(insertString)
         Loop

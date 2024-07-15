@@ -50,6 +50,33 @@ Public Class frm_Assy_Label_Print
 
         Grid_LabelList.AutoSizeCols()
 
+        With Grid_NonePO_LabelList
+            .AllowEditing = False
+            .AllowFiltering = False
+            .AllowSorting = AllowSortingEnum.None
+            .AllowFreezing = AllowFreezingEnum.None
+            .AllowMergingFixed = AllowMergingEnum.None
+            .Rows(0).Height = 40
+            .Rows.DefaultSize = 20
+            .Cols.Count = 5
+            .Cols.Fixed = 1
+            .Rows.Count = 1
+            .Rows.Fixed = 1
+            .AutoClipboard = True
+            .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
+            .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
+            .ExtendLastCol = False
+            .ShowCursor = True
+        End With
+
+        Grid_NonePO_LabelList(0, 0) = "No"
+        Grid_NonePO_LabelList(0, 1) = "품목명"
+        Grid_NonePO_LabelList(0, 2) = "품목코드"
+        Grid_NonePO_LabelList(0, 3) = "제조년월일"
+        Grid_NonePO_LabelList(0, 4) = "Serial No."
+
+        Grid_NonePO_LabelList.AutoSizeCols()
+
         With Grid_History
             .AllowEditing = False
             .AllowFiltering = False
@@ -190,22 +217,14 @@ Public Class frm_Assy_Label_Print
 
             'PO 정보를 불러온다.
             If Load_Po_Information() = False Then
-                MessageBox.Show(Me,
-                                    "현재 모델의 품목명을 불러 올 수 없습니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
+                MSG_Information(Me, "현재 모델의 품목명을 불러 올 수 없습니다.")
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
                 Exit Sub
             Else
                 If TB_ItemCode.Text = String.Empty Then
-                    MessageBox.Show(Me,
-                                        "모델 정보를 불러오지 못했습니다.",
-                                        msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Exclamation)
+                    MSG_Information(Me, "모델 정보를 불러오지 못했습니다.")
                     Control_Init()
                     TB_MagazineBarcode.SelectAll()
                     TB_MagazineBarcode.Focus()
@@ -214,11 +233,7 @@ Public Class frm_Assy_Label_Print
             End If
 
             If Load_PrintTotalQty() = CInt(TB_POQty.Text) Then
-                MessageBox.Show(Me,
-                                        "이미 발행을 완료한 주문번호 입니다.",
-                                        msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Exclamation)
+                MSG_Information(Me, "이미 발행을 완료한 주문번호 입니다.")
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
@@ -228,11 +243,7 @@ Public Class frm_Assy_Label_Print
             'History를 확인한다(현품표 수량확인)
             Load_History_Information(TB_HistoryNo.Text)
             If TB_NowQty.Text = String.Empty Then
-                MessageBox.Show(Me,
-                                    "공정현품표를 확인 할 수 없습니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Exclamation)
+                MSG_Information(Me, "공정현품표를 확인 할 수 없습니다.")
                 Control_Init()
                 TB_MagazineBarcode.SelectAll()
                 TB_MagazineBarcode.Focus()
@@ -245,11 +256,7 @@ Public Class frm_Assy_Label_Print
             Else
                 '중복발행 체크
                 If Check_Print() = False Then
-                    MessageBox.Show(Me,
-                                        "이미 발행한 현품표입니다.",
-                                        msg_form,
-                                        MessageBoxButtons.OK,
-                                        MessageBoxIcon.Exclamation)
+                    MSG_Information(Me, "이미 발행한 현품표입니다.")
                     Control_Init()
                     TB_MagazineBarcode.SelectAll()
                     TB_MagazineBarcode.Focus()
@@ -528,20 +535,17 @@ Public Class frm_Assy_Label_Print
     Private Sub BTN_SaveAndPrint_Click(sender As Object, e As EventArgs) Handles BTN_SaveAndPrint.Click
 
         If TextBox2.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "발행자를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "발행자를 입력하여 주십시오.")
             TextBox2.Focus()
             Exit Sub
         End If
 
-        If MessageBox.Show(Me,
-                           "라벨을 발행 하시겠습니까?",
-                           msg_form,
-                           MessageBoxButtons.YesNo,
-                           MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+        If Grid_LabelList.Rows.Count = 1 Then
+            MSG_Information(Me, "라벨 발행내용이 없습니다.")
+            Exit Sub
+        End If
+
+        If MSG_Question(Me, "라벨을 발행 하시겠습니까?") = False Then Exit Sub
 
         Dim wirteResult As String = String.Empty
         If CB_Reprint.Checked = True Then
@@ -551,21 +555,21 @@ Public Class frm_Assy_Label_Print
         End If
 
         If Not wirteResult = String.Empty Then
-            MessageBox.Show(Me,
-                                wirteResult,
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error)
+            MSG_Error(Me, wirteResult)
             Exit Sub
         End If
 
-        PrintLabel()
+        PrintLabel(TB_Label_ItemName.Text,
+                   TB_ItemCode.Text,
+                   CInt(TextBox3.Text),
+                   CInt(TB_NowQty.Text),
+                   CheckBox1.Checked,
+                   CheckBox2.Checked,
+                   TB_Label_FW.Text,
+                   TB_Label_Boot.Text,
+                   TB_Label_FPGA.Text)
 
-        MessageBox.Show(Me,
-                        "발행 및 저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "발행 및 저장완료.")
         CB_Reprint.Checked = False
         Control_Init()
 
@@ -689,7 +693,15 @@ Public Class frm_Assy_Label_Print
 
     End Function
 
-    Private Sub PrintLabel()
+    Private Sub PrintLabel(ByVal label_ItemName As String,
+                           ByVal label_ItemCode As String,
+                           ByVal label_FirstSerial As Integer,
+                           ByVal printQty As Integer,
+                           ByVal serialLabel As Boolean,
+                           ByVal fwLabel As Boolean,
+                           ByVal fwString As String,
+                           ByVal bootString As String,
+                           ByVal fpgaString As String)
 
         'If File.Exists(Application.StartupPath & "\print.txt") Then File.Delete(Application.StartupPath & "\print.txt")
 
@@ -703,9 +715,9 @@ Public Class frm_Assy_Label_Print
         Dim swFile As StreamWriter =
             New StreamWriter(fileName, True, System.Text.Encoding.GetEncoding(949))
 
-        Dim serialNo As String = Format(Now, "yyMMdd") & Format(CInt(TextBox3.Text) + 1, "0000")
-        Dim barcodeString As String = TB_ItemCode.Text & serialNo
-        Dim itemCodeLength As Integer = TB_ItemCode.Text.Length
+        Dim serialNo As String = Format(Now, "yyMMdd") & Format(label_FirstSerial + 1, "0000")
+        Dim barcodeString As String = label_ItemCode & serialNo
+        Dim itemCodeLength As Integer = label_ItemCode.Length
         Dim continueChar As String = String.Empty
 
         For i = 1 To itemCodeLength + 9 '제조년월일 + QR에 필요한 문자 3자리 추가
@@ -714,43 +726,43 @@ Public Class frm_Assy_Label_Print
 
         continueChar += "dddd"
 
-        If CheckBox1.Checked = True Then
+        If serialLabel = True Then
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
             swFile.WriteLine("^MD" & printerMD) '진하기
-            swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & TB_Label_ItemName.Text & "^FS")
-            swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & TB_ItemCode.Text & "^FS")
+            swFile.WriteLine("^FO0004,0012^A0,25,18^FD" & label_ItemName & "^FS")
+            swFile.WriteLine("^FO0004,0041^A0,25,18^FD" & label_ItemCode & "^FS")
             swFile.WriteLine("^FO0004,0070^A0,25,18^FD" & serialNo & "^SF%%%%%%dddd,1^FS")
             swFile.WriteLine("^FO0150,0002^BQN,2,3^FDHA," & barcodeString & "^SF" & continueChar & ",1^FS")
-            swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
+            swFile.WriteLine("^PQ" & printQty & "^FS") 'PQ : 발행수량
             swFile.WriteLine("^XZ")
         End If
 
-        If CheckBox2.Checked = True Then
+        If fwLabel = True Then
             Dim lineCount As Integer = 0
             Dim firstLine As String = String.Empty
             Dim secondLine As String = String.Empty
             Dim thirdLine As String = String.Empty
-            If Not TB_Label_FW.Text = String.Empty Then
+            If Not fwString = String.Empty Then
                 lineCount += 1
-                firstLine = "FW : V" & TB_Label_FW.Text
+                firstLine = "FW : V" & fwString
             End If
-            If Not TB_Label_Boot.Text = String.Empty Then
+            If Not bootString = String.Empty Then
                 lineCount += 1
                 If firstLine = String.Empty Then
-                    firstLine = "Boot : V" & TB_Label_Boot.Text
+                    firstLine = "Boot : V" & bootString
                 Else
-                    secondLine = "Boot : V" & TB_Label_Boot.Text
+                    secondLine = "Boot : V" & bootString
                 End If
             End If
-            If Not TB_Label_FPGA.Text = String.Empty Then
+            If Not fpgaString = String.Empty Then
                 lineCount += 1
                 If firstLine = String.Empty Then
-                    firstLine = "FPGA : V" & TB_Label_FPGA.Text
+                    firstLine = "FPGA : V" & fpgaString
                 ElseIf secondLine = String.Empty Then
-                    secondLine = "FPGA : V" & TB_Label_FPGA.Text
+                    secondLine = "FPGA : V" & fpgaString
                 ElseIf thirdLine = String.Empty Then
-                    thirdLine = "FPGA : V" & TB_Label_FPGA.Text
+                    thirdLine = "FPGA : V" & fpgaString
                 End If
             End If
 
@@ -767,7 +779,7 @@ Public Class frm_Assy_Label_Print
             ElseIf lineCount = 1 Then
                 swFile.WriteLine("^FO0020,0041^A0,25,25^FD" & firstLine & "^FS")
             End If
-            swFile.WriteLine("^PQ" & CInt(TB_NowQty.Text) & "^FS") 'PQ : 발행수량
+            swFile.WriteLine("^PQ" & printQty & "^FS") 'PQ : 발행수량
             swFile.WriteLine("^XZ")
         End If
 
@@ -776,12 +788,7 @@ Public Class frm_Assy_Label_Print
         Dim printResult As String = LabelPrint(fileName)
 
         If Not printResult = "Success" Then
-            MessageBox.Show(frm_Main,
-                            "라벨 발행에 실패 하였습니다." & vbCrLf &
-                            printResult,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+            MSG_Error(Me, "라벨 발행에 실패 하였습니다.")
         End If
 
     End Sub
@@ -793,6 +800,8 @@ Public Class frm_Assy_Label_Print
         ElseIf C1DockingTab1.SelectedIndex = 2 Then
             Load_CustomerList(CB_Reprint_CustomerName)
             Load_CustomerList(CB_Reprint_Search_CustomerName)
+        ElseIf C1DockingTab1.SelectedIndex = 3 Then
+            Load_CustomerList(CB_NonePO_CustomerName)
         End If
 
     End Sub
@@ -959,25 +968,33 @@ Public Class frm_Assy_Label_Print
         TB_Reprint_ItemName.Text = String.Empty
         TB_Reprint_ItemSpec.Text = String.Empty
         TB_Reprint_Unique.Text = String.Empty
+        TB_Reprint_ModelCode.Text = String.Empty
 
-        Load_Reprint_Basic_Information()
+        Load_Reprint_Basic_Information("Reprint")
 
         Thread_LoadingFormEnd()
 
     End Sub
 
-    Private Sub Load_Reprint_Basic_Information()
+    Private Sub Load_Reprint_Basic_Information(ByVal section As String)
 
         DBConnect()
+        Dim customerCode As String = TB_Reprint_CustomerCode.Text
+        Dim itemCode As String = TB_Reprint_ItemCode.Text
+
+        If section = "NonePO" Then
+            customerCode = TB_NonePO_CustomerCode.Text
+            itemCode = TB_NonePO_ItemCode.Text
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(7"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", '" & TB_Reprint_CustomerCode.Text & "'"
+        strSQL += ", '" & customerCode & "'"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", '" & TB_Reprint_ItemCode.Text & "'"
+        strSQL += ", '" & itemCode & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -987,10 +1004,17 @@ Public Class frm_Assy_Label_Print
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            TB_Reprint_ItemName.Text = sqlDR("item_name")
-            TB_Reprint_ItemSpec.Text = sqlDR("item_spec")
-            'TB_Reprint_Unique.Text = sqlDR("barcode_string")
-            TB_Reprint_ModelCode.Text = sqlDR("model_code")
+            If section = "Reprint" Then
+                TB_Reprint_ItemName.Text = sqlDR("item_name")
+                TB_Reprint_ItemSpec.Text = sqlDR("item_spec")
+                'TB_Reprint_Unique.Text = sqlDR("barcode_string")
+                TB_Reprint_ModelCode.Text = sqlDR("model_code")
+            ElseIf section = "NonePO" Then
+                TB_NonePO_ItemName.Text = sqlDR("item_name")
+                TB_NonePO_ItemSpec.Text = sqlDR("item_spec")
+                'TB_Reprint_Unique.Text = sqlDR("barcode_string")
+                TB_NonePO_ModelCode.Text = sqlDR("model_code")
+            End If
         Loop
         sqlDR.Close()
 
@@ -1183,6 +1207,15 @@ Public Class frm_Assy_Label_Print
 
     End Function
 
+    Private Sub TB_Reprint_Unique_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_Reprint_Unique.KeyDown
+
+        If e.KeyCode = 13 And Not TB_Reprint_Unique.Text.Equals("") Then
+            TB_Reprintor.SelectAll()
+            TB_Reprintor.Focus()
+        End If
+
+    End Sub
+
     Private Function DB_Reprint_Write() As String
 
         Dim writeResult As String = String.Empty
@@ -1339,7 +1372,304 @@ Public Class frm_Assy_Label_Print
 
     End Sub
 
-    Private Sub TB_MagazineBarcode_LostFocus(sender As Object, e As EventArgs) Handles TB_MagazineBarcode.LostFocus
+    Private Sub CB_Reprint_CustomerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Reprint_CustomerName.SelectedIndexChanged
 
     End Sub
+
+    Private Sub CB_NonePO_CustomerName_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_NonePO_CustomerName.SelectionChangeCommitted
+
+        TB_NonePO_CustomerCode.Text = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "select customer_code"
+        strSQL += " from tb_customer_list"
+        strSQL += " where customer_name = '" & CB_NonePO_CustomerName.Text & "'"
+        strSQL += " order by customer_name"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_NonePO_CustomerCode.Text = sqlDR("customer_code")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        TB_NonePO_ItemCode.SelectAll()
+        TB_NonePO_ItemCode.Focus()
+
+    End Sub
+
+    Private Sub TB_NonePO_ItemCode_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_NonePO_ItemCode.KeyDown
+
+        If e.KeyCode = 13 And Not Trim(TB_NonePO_ItemCode.Text) = String.Empty Then
+            BTN_NonePO_PrintCodeSelect_Click(Nothing, Nothing)
+        End If
+
+    End Sub
+
+    Private Sub NonePO_Control_Initialize()
+
+        TB_NonePO_ItemName.Text = String.Empty
+        TB_NonePO_ItemSpec.Text = String.Empty
+        TB_NonePO_ModelCode.Text = String.Empty
+        TextBox5.Text = String.Empty
+        TB_NonePO_Label_FPGA.Text = String.Empty
+        TB_NonePO_Label_Boot.Text = String.Empty
+        TB_NonePO_Label_FW.Text = String.Empty
+        TB_NonePO_Label_ItemName.Text = String.Empty
+        CheckBox3.Checked = False
+        CheckBox4.Checked = False
+
+        Grid_NonePO_LabelList.Rows.Count = 1
+
+    End Sub
+
+    Private Sub BTN_NonePO_PrintCodeSelect_Click(sender As Object, e As EventArgs) Handles BTN_NonePO_PrintCodeSelect.Click
+
+        Thread_LoadingFormStart(Me)
+
+        NonePO_Control_Initialize()
+
+        Load_Reprint_Basic_Information("NonePO")
+
+        If TB_NonePO_ItemCode.Text = String.Empty Then
+            MSG_Information(Me, "정보를 불러 오지 못했습니다.")
+            NonePO_Control_Initialize()
+            TB_NonePO_ItemCode.SelectAll()
+            TB_NonePO_ItemCode.Focus()
+            Exit Sub
+        End If
+
+        Load_NonePO_LastNo()
+        If TextBox5.Text = String.Empty Then
+            TextBox5.Text = 0
+        End If
+
+        Load_NonePO_Label_Information()
+        If CheckBox3.Checked = False And CheckBox4.Checked = False Then
+            MSG_Information(Me, "라벨 발행 정보가 없습니다.")
+            NonePO_Control_Initialize()
+            TB_NonePO_ItemCode.SelectAll()
+            TB_NonePO_ItemCode.Focus()
+            Exit Sub
+        End If
+
+        MSG_Information(Me, "라벨 발행 수량을 입력하여 주십시오.")
+
+        TB_NonePO_PrintQty.SelectAll()
+        TB_NonePO_PrintQty.Focus()
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_NonePO_LastNo()
+
+        Thread_LoadingFormStart(Me)
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_assy_label_history(12"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_NonePO_ModelCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TextBox5.Text = sqlDR("end_no")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Load_NonePO_Label_Information()
+
+        Thread_LoadingFormStart(Me)
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_assy_label_history(13"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_NonePO_ModelCode.Text & "'"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("assy_label_use") = 1 Then
+                CheckBox4.Checked = True
+                TB_NonePO_Label_ItemName.Text = sqlDR("item_name")
+            End If
+            If sqlDR("sw_label_use") = 1 Then
+                CheckBox3.Checked = True
+                TB_NonePO_Label_FW.Text = sqlDR("fw_os_label")
+                TB_NonePO_Label_Boot.Text = sqlDR("boot_label")
+                TB_NonePO_Label_FPGA.Text = sqlDR("fpga_label")
+            End If
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub TB_NonePO_PrintQty_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TB_NonePO_PrintQty.KeyPress
+
+        If Not Char.IsDigit(e.KeyChar) And Not Char.IsControl(e.KeyChar) And Not e.KeyChar = "," Then
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Sub TB_NonePO_PrintQty_LostFocus(sender As Object, e As EventArgs) Handles TB_NonePO_PrintQty.LostFocus
+
+        If Not TB_NonePO_PrintQty.Text = String.Empty Then
+            Grid_NonePO_LabelList.Redraw = False
+            Grid_NonePO_LabelList.Rows.Count = 1
+            Dim startNo As Integer = CInt(TextBox5.Text)
+            For i = 1 To CInt(TB_NonePO_PrintQty.Text)
+                startNo += 1
+                Dim insertString As String = Grid_NonePO_LabelList.Rows.Count
+                insertString += vbTab & TB_NonePO_Label_ItemName.Text
+                insertString += vbTab & TB_NonePO_ItemCode.Text
+                insertString += vbTab & Format(Now, "yyMMdd")
+                insertString += vbTab & Format(startNo, "0000")
+                Grid_NonePO_LabelList.AddItem(insertString)
+            Next
+            Grid_NonePO_LabelList.Redraw = True
+            Grid_NonePO_LabelList.AutoSizeCols()
+        End If
+
+    End Sub
+
+    Private Sub TB_NonePO_PrintQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_NonePO_PrintQty.KeyDown
+
+        If Not TB_NonePO_PrintQty.Text = String.Empty And e.KeyCode = 13 Then
+            TB_NonePO_Printor.SelectAll()
+            TB_NonePO_Printor.Focus()
+        End If
+
+    End Sub
+
+    Private Sub BTN_NonePO_Save_Click(sender As Object, e As EventArgs) Handles BTN_NonePO_Save.Click
+
+        If TB_NonePO_Printor.Text = String.Empty Then
+            MSG_Information(Me, "발행자를 입력하여 주십시오.")
+            TB_NonePO_Printor.Focus()
+            Exit Sub
+        End If
+
+        If Grid_NonePO_LabelList.Rows.Count = 1 Then
+            MSG_Information(Me, "라벨 발행 내용이 없습니다.")
+            Exit Sub
+        End If
+
+        If MSG_Question(Me, "라벨을 발행 하시겠습니까?") = False Then Exit Sub
+
+        Dim wirteResult As String = NonePO_DB_Write()
+
+        If Not wirteResult = String.Empty Then
+            MSG_Error(Me, wirteResult)
+            Exit Sub
+        End If
+
+        PrintLabel(TB_NonePO_Label_ItemName.Text,
+                   TB_NonePO_ItemCode.Text,
+                   CInt(TextBox5.Text),
+                   CInt(TB_NonePO_PrintQty.Text),
+                   CheckBox4.Checked,
+                   CheckBox3.Checked,
+                   TB_NonePO_Label_FW.Text,
+                   TB_NonePO_Label_Boot.Text,
+                   TB_NonePO_Label_FPGA.Text)
+
+        MSG_Information(Me, "발행 및 저장완료.")
+        CB_Reprint.Checked = False
+        NonePO_Control_Initialize()
+
+    End Sub
+
+    Private Function NonePO_DB_Write() As String
+
+        Dim writeResult As String = String.Empty
+
+        Thread_LoadingFormStart(Me, "Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Dim nowTime As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+        Dim nowDate As String = Format(Now, "yyyy-MM-dd")
+
+        Try
+            strSQL += "insert into tb_mms_assy_label_history_none_po("
+            strSQL += "history_no, model_code, print_qty, start_no, end_no, write_date, write_id"
+            strSQL += ") values("
+            strSQL += "f_mms_assy_label_none_po_history_no('" & nowDate & "')"
+            strSQL += ",'" & TB_NonePO_ModelCode.Text & "'"
+            strSQL += ",'" & TB_NonePO_PrintQty.Text & "'"
+            strSQL += "," & CInt(TextBox5.Text) + 1 & ""
+            strSQL += "," & CInt(TextBox5.Text) + CInt(TB_NonePO_PrintQty.Text) & ""
+            strSQL += ",'" & nowTime & "'"
+            strSQL += ",'" & TB_NonePO_Printor.Text & "'"
+            strSQL += ");"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+            writeResult = ex.Message
+
+            Return writeResult
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        Return writeResult
+
+    End Function
 End Class

@@ -30,14 +30,14 @@ Public Class frm_WorkSite_Transfer_Material_List
             .AllowDragging = AllowDraggingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 9
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
-            .ExtendLastCol = False
+            .ExtendLastCol = True
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
@@ -45,14 +45,15 @@ Public Class frm_WorkSite_Transfer_Material_List
         End With
 
         Grid_MaterialList(0, 0) = "No"
-        Grid_MaterialList(0, 1) = "출고일자"
-        Grid_MaterialList(0, 2) = "입고일자"
+        Grid_MaterialList(0, 1) = "현장 출고일자"
+        Grid_MaterialList(0, 2) = "자재 입고일자"
         Grid_MaterialList(0, 3) = "고객사"
         Grid_MaterialList(0, 4) = "제조사"
         Grid_MaterialList(0, 5) = "Part Code."
         Grid_MaterialList(0, 6) = "Part No."
         Grid_MaterialList(0, 7) = "Lot No."
         Grid_MaterialList(0, 8) = "Specification"
+        Grid_MaterialList(0, 9) = "비고"
         Grid_MaterialList.AutoSizeCols()
 
     End Sub
@@ -142,6 +143,7 @@ Public Class frm_WorkSite_Transfer_Material_List
             insertString += vbTab & sqlDR("part_no")
             insertString += vbTab & sqlDR("part_lot_no")
             insertString += vbTab & sqlDR("part_specification")
+            insertString += vbTab & sqlDR("tn_note")
             Grid_MaterialList.AddItem(insertString)
 
             If Not sqlDR("part_code") = beforePartNo Then

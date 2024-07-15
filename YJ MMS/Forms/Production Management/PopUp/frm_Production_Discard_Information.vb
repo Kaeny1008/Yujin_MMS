@@ -496,6 +496,11 @@ Public Class frm_Production_Discard_Information
             strSQL += ",'" & writeDate & "'"
             strSQL += ",'" & loginID & "'"
             strSQL += ";"
+
+            'Lot No.구분을 하지 못해 여기서 업데이트는 불가할듯 
+            'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & c1(i, 3)
+            'strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            'strSQL += " and part_code = '" & 
         Next
 
         Return strSQL

@@ -38,6 +38,7 @@ Partial Class frm_Order_Registration
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
@@ -51,6 +52,9 @@ Partial Class frm_Order_Registration
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_NewModelRegistration = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_RowAdd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -106,11 +110,11 @@ Partial Class frm_Order_Registration
         '
         Me.Grid_Excel.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_Excel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_Excel.Location = New System.Drawing.Point(0, 123)
+        Me.Grid_Excel.Location = New System.Drawing.Point(0, 136)
         Me.Grid_Excel.Name = "Grid_Excel"
         Me.Grid_Excel.Rows.Count = 2
         Me.Grid_Excel.Rows.DefaultSize = 20
-        Me.Grid_Excel.Size = New System.Drawing.Size(1264, 650)
+        Me.Grid_Excel.Size = New System.Drawing.Size(1264, 637)
         Me.Grid_Excel.StyleInfo = resources.GetString("Grid_Excel.StyleInfo")
         Me.Grid_Excel.TabIndex = 24
         '
@@ -131,14 +135,14 @@ Partial Class frm_Order_Registration
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 25)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1264, 98)
+        Me.Panel1.Size = New System.Drawing.Size(1264, 111)
         Me.Panel1.TabIndex = 0
         '
         'Label4
         '
         Me.Label4.AutoSize = True
         Me.Label4.ForeColor = System.Drawing.Color.Red
-        Me.Label4.Location = New System.Drawing.Point(1039, 72)
+        Me.Label4.Location = New System.Drawing.Point(1039, 86)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(402, 12)
         Me.Label4.TabIndex = 36
@@ -152,7 +156,7 @@ Partial Class frm_Order_Registration
         Me.Panel2.Controls.Add(Me.DateTimePicker1)
         Me.Panel2.Controls.Add(Me.Label2)
         Me.Panel2.Enabled = False
-        Me.Panel2.Location = New System.Drawing.Point(162, 17)
+        Me.Panel2.Location = New System.Drawing.Point(162, 31)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(212, 65)
         Me.Panel2.TabIndex = 35
@@ -205,20 +209,31 @@ Partial Class frm_Order_Registration
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.RadioButton3)
         Me.GroupBox1.Controls.Add(Me.RadioButton2)
         Me.GroupBox1.Controls.Add(Me.RadioButton1)
         Me.GroupBox1.Location = New System.Drawing.Point(12, 9)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(144, 75)
+        Me.GroupBox1.Size = New System.Drawing.Size(144, 89)
         Me.GroupBox1.TabIndex = 34
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "자료 선택"
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(6, 65)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(105, 16)
+        Me.RadioButton3.TabIndex = 2
+        Me.RadioButton3.Text = "개발(직접입력)"
+        Me.RadioButton3.UseVisualStyleBackColor = True
         '
         'RadioButton2
         '
         Me.RadioButton2.AutoSize = True
         Me.RadioButton2.Checked = True
-        Me.RadioButton2.Location = New System.Drawing.Point(6, 47)
+        Me.RadioButton2.Location = New System.Drawing.Point(6, 44)
         Me.RadioButton2.Name = "RadioButton2"
         Me.RadioButton2.Size = New System.Drawing.Size(59, 16)
         Me.RadioButton2.TabIndex = 1
@@ -242,7 +257,7 @@ Partial Class frm_Order_Registration
         Me.CB_CustomerName.Enabled = False
         Me.CB_CustomerName.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.CB_CustomerName.FormattingEnabled = True
-        Me.CB_CustomerName.Location = New System.Drawing.Point(547, 17)
+        Me.CB_CustomerName.Location = New System.Drawing.Point(547, 31)
         Me.CB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
         Me.CB_CustomerName.Name = "CB_CustomerName"
         Me.CB_CustomerName.Size = New System.Drawing.Size(311, 20)
@@ -253,7 +268,7 @@ Partial Class frm_Order_Registration
         Me.TB_CustomerCode.BackColor = System.Drawing.SystemColors.Window
         Me.TB_CustomerCode.Enabled = False
         Me.TB_CustomerCode.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_CustomerCode.Location = New System.Drawing.Point(858, 17)
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(858, 31)
         Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_CustomerCode.Name = "TB_CustomerCode"
         Me.TB_CustomerCode.Size = New System.Drawing.Size(162, 21)
@@ -265,7 +280,7 @@ Partial Class frm_Order_Registration
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(377, 16)
+        Me.Label1.Location = New System.Drawing.Point(377, 30)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(170, 21)
@@ -278,7 +293,7 @@ Partial Class frm_Order_Registration
         Me.CB_SheetName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.CB_SheetName.Enabled = False
         Me.CB_SheetName.FormattingEnabled = True
-        Me.CB_SheetName.Location = New System.Drawing.Point(547, 62)
+        Me.CB_SheetName.Location = New System.Drawing.Point(547, 76)
         Me.CB_SheetName.Name = "CB_SheetName"
         Me.CB_SheetName.Size = New System.Drawing.Size(473, 20)
         Me.CB_SheetName.TabIndex = 30
@@ -289,7 +304,7 @@ Partial Class frm_Order_Registration
         Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label6.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
-        Me.Label6.Location = New System.Drawing.Point(377, 62)
+        Me.Label6.Location = New System.Drawing.Point(377, 76)
         Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(170, 21)
@@ -302,7 +317,7 @@ Partial Class frm_Order_Registration
         Me.TB_File_Path.BackColor = System.Drawing.SystemColors.Window
         Me.TB_File_Path.Enabled = False
         Me.TB_File_Path.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_File_Path.Location = New System.Drawing.Point(547, 39)
+        Me.TB_File_Path.Location = New System.Drawing.Point(547, 53)
         Me.TB_File_Path.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_File_Path.Name = "TB_File_Path"
         Me.TB_File_Path.Size = New System.Drawing.Size(398, 21)
@@ -311,7 +326,7 @@ Partial Class frm_Order_Registration
         'BTN_FileSelect
         '
         Me.BTN_FileSelect.Enabled = False
-        Me.BTN_FileSelect.Location = New System.Drawing.Point(945, 38)
+        Me.BTN_FileSelect.Location = New System.Drawing.Point(945, 52)
         Me.BTN_FileSelect.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.BTN_FileSelect.Name = "BTN_FileSelect"
         Me.BTN_FileSelect.Size = New System.Drawing.Size(75, 23)
@@ -325,7 +340,7 @@ Partial Class frm_Order_Registration
         Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label10.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label10.ForeColor = System.Drawing.Color.White
-        Me.Label10.Location = New System.Drawing.Point(377, 39)
+        Me.Label10.Location = New System.Drawing.Point(377, 53)
         Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(170, 21)
@@ -335,9 +350,9 @@ Partial Class frm_Order_Registration
         '
         'CMS_GridMenu
         '
-        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewModelRegistration, Me.ToolStripSeparator4, Me.BTN_Save2})
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewModelRegistration, Me.ToolStripSeparator4, Me.BTN_RowAdd, Me.BTN_RowDelete, Me.ToolStripSeparator1, Me.BTN_Save2})
         Me.CMS_GridMenu.Name = "CMS_GridMenu"
-        Me.CMS_GridMenu.Size = New System.Drawing.Size(123, 54)
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(123, 104)
         '
         'BTN_NewModelRegistration
         '
@@ -349,6 +364,25 @@ Partial Class frm_Order_Registration
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         Me.ToolStripSeparator4.Size = New System.Drawing.Size(119, 6)
+        '
+        'BTN_RowAdd
+        '
+        Me.BTN_RowAdd.Enabled = False
+        Me.BTN_RowAdd.Name = "BTN_RowAdd"
+        Me.BTN_RowAdd.Size = New System.Drawing.Size(122, 22)
+        Me.BTN_RowAdd.Text = "행 추가"
+        '
+        'BTN_RowDelete
+        '
+        Me.BTN_RowDelete.Enabled = False
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(122, 22)
+        Me.BTN_RowDelete.Text = "행 삭제"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(119, 6)
         '
         'BTN_Save2
         '
@@ -409,4 +443,8 @@ Partial Class frm_Order_Registration
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
+    Friend WithEvents BTN_RowAdd As ToolStripMenuItem
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents RadioButton3 As RadioButton
 End Class

@@ -45,7 +45,7 @@ Public Class frm_Material_Transfer
             Grid_History(0, 6) = "mw_no"
             Grid_History(0, 7) = "타입"
             Grid_History(0, 8) = "비고"
-            .Cols(6).Visible = True
+            .Cols(6).Visible = False
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -529,7 +529,7 @@ Public Class frm_Material_Transfer
             For i = 1 To Grid_History.Rows.Count - 1
 
                 strSQL += "insert into tb_mms_material_transfer_out_content("
-                strSQL += "mw_no, tn_no, part_status"
+                strSQL += "mw_no, tn_no, part_status, tn_note"
                 strSQL += ") values("
                 strSQL += "'" & Grid_History(i, 6) & "'"
                 strSQL += ",'" & TB_TN_No.Text & "'"
@@ -538,6 +538,7 @@ Public Class frm_Material_Transfer
                 Else
                     strSQL += ", 'Closed'"
                 End If
+                strSQL += ",'" & TextBox2.Text & "'"
                 strSQL += ");"
 
                 If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
@@ -841,6 +842,7 @@ Public Class frm_Material_Transfer
             insertString += vbTab & TB_1stQty.Text
             insertString += vbTab & newMwNo
             insertString += vbTab & partType
+            insertString += vbTab & TextBox2.Text
             If partType.ToUpper = "PCB" Or partType.ToUpper = "BARE PCB" Then
                 insertString += vbTab & "PCB는 등록 즉시 사용수량으로 차감됩니다."
             End If
@@ -858,6 +860,7 @@ Public Class frm_Material_Transfer
             insertString += vbTab & TB_Qty.Text
             insertString += vbTab & mwNo
             insertString += vbTab & partType
+            insertString += vbTab & TextBox2.Text
             If partType.ToUpper = "PCB" Or partType.ToUpper = "BARE PCB" Then
                 insertString += vbTab & "PCB는 등록 즉시 사용수량으로 차감됩니다."
             End If

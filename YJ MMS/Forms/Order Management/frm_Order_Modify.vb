@@ -110,6 +110,7 @@ Public Class frm_Order_Modify
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -265,6 +266,7 @@ Public Class frm_Order_Modify
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -342,6 +344,7 @@ Public Class frm_Order_Modify
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & orderNo & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"

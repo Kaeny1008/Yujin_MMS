@@ -30,7 +30,7 @@ Public Class frm_MRP
             .AllowDragging = AllowDraggingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 15
+            .Cols.Count = 16
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -51,7 +51,7 @@ Public Class frm_MRP
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 1, 5)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 13)
+            rngM = .GetCellRange(0, 6, 0, 14)
             rngM.Data = "재고"
             Grid_MaterialList(1, 6) = "기초재고"
             Grid_MaterialList(1, 7) = "잉여재고"
@@ -61,9 +61,10 @@ Public Class frm_MRP
             Grid_MaterialList(1, 11) = "반출"
             Grid_MaterialList(1, 12) = "생산 완료"
             Grid_MaterialList(1, 13) = "납품"
-            rngM = .GetCellRange(0, 14, 1, 14)
+            Grid_MaterialList(1, 14) = "폐기"
+            rngM = .GetCellRange(0, 15, 1, 15)
             rngM.Data = "미과출(재고)"
-            For i = 6 To 14
+            For i = 6 To 15
                 .Cols(i).DataType = GetType(Double)
                 .Cols(i).Format = "#,##0"
             Next
@@ -77,7 +78,7 @@ Public Class frm_MRP
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            .Cols.Frozen() = 14
+            .Cols.Frozen() = 15
         End With
 
     End Sub
@@ -162,7 +163,7 @@ Public Class frm_MRP
         Thread_LoadingFormStart(Me)
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
-        Grid_MaterialList.Cols.Count = 15
+        Grid_MaterialList.Cols.Count = 16
 
         '######### 1. 그리드를 초기화한다.
         Dim cols_Count As Integer = 0
@@ -174,7 +175,7 @@ Public Class frm_MRP
             Grid_MaterialList(1, Grid_MaterialList.Cols.Count - 1) = Format(DateAdd(DateInterval.Day, i, baseDate), "yyyy-MM-dd")
         Next
 
-        For i = 15 To Grid_MaterialList.Cols.Count - 1
+        For i = 16 To Grid_MaterialList.Cols.Count - 1
             Grid_MaterialList.Cols(i).AllowMerging = True
             Grid_MaterialList.Cols(i).DataType = GetType(Double)
             Grid_MaterialList.Cols(i).Format = "#,##0"
@@ -227,7 +228,8 @@ Public Class frm_MRP
                 Format(sqlDR("code_change_qty"), "#,##0") & vbTab &
                 Format(sqlDR("return_qty"), "#,##0") & vbTab &
                 Format(sqlDR("completed_qty"), "#,##0") & vbTab &
-                Format(sqlDR("delivery_qty"), "#,##0")
+                Format(sqlDR("delivery_qty"), "#,##0") & vbTab &
+                Format(sqlDR("discard_qty"), "#,##0")
 
             Dim stock_qty As Double = sqlDR("basic_stock") +
                 sqlDR("over_cut") +
@@ -238,7 +240,8 @@ Public Class frm_MRP
                 sqlDR("run_qty") -
                 sqlDR("completed_qty") -
                 sqlDR("code_change_qty") -
-                sqlDR("return_qty")
+                sqlDR("return_qty") -
+                sqlDR("discard_qty")
             insert_String += vbTab & Format((stock_qty), "#,##0")
 
             Grid_MaterialList.AddItem(insert_String)
@@ -260,7 +263,7 @@ Public Class frm_MRP
 
         DBConnect()
 
-        For j = 15 To Grid_MaterialList.Cols.Count - 1
+        For j = 16 To Grid_MaterialList.Cols.Count - 1
             Dim strSQL As String = "call sp_mms_material_requirements_planning(1"
             strSQL += ", null"
             strSQL += ", '" & Grid_MaterialList(0, j) & "'"
@@ -292,7 +295,7 @@ Public Class frm_MRP
 
         DBConnect()
 
-        For j = 15 To Grid_MaterialList.Cols.Count - 1
+        For j = 16 To Grid_MaterialList.Cols.Count - 1
             Dim strSQL As String = "call sp_mms_material_requirements_planning(2"
             strSQL += ", null"
             strSQL += ", '" & Grid_MaterialList(0, j) & "'"
@@ -323,9 +326,9 @@ Public Class frm_MRP
     Private Sub Load_4st()
 
         For i = 2 To Grid_MaterialList.Rows.Count - 1
-            Dim baseQty As Double = CDbl(Grid_MaterialList(i, 14))
-            For j = 15 To Grid_MaterialList.Cols.Count - 1
-                If IsNothing (Grid_MaterialList(i, j)) Then Grid_MaterialList(i, j) = 0
+            Dim baseQty As Double = CDbl(Grid_MaterialList(i, 15))
+            For j = 16 To Grid_MaterialList.Cols.Count - 1
+                If IsNothing(Grid_MaterialList(i, j)) Then Grid_MaterialList(i, j) = 0
                 baseQty -= Grid_MaterialList(i, j)
                 If baseQty < 0 Then
                     Dim cs As CellStyle = Grid_MaterialList.Styles.Add("new_style")

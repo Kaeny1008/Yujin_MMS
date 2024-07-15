@@ -46,6 +46,7 @@ Partial Class frm_Material_Transfer
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.BTN_ListAdd = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -81,7 +82,8 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -281,12 +283,12 @@ Partial Class frm_Material_Transfer
         '
         Me.Grid_History.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_History.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_History.Location = New System.Drawing.Point(0, 416)
+        Me.Grid_History.Location = New System.Drawing.Point(0, 469)
         Me.Grid_History.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(839, 332)
+        Me.Grid_History.Size = New System.Drawing.Size(839, 279)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 10
         '
@@ -297,7 +299,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Enabled = False
-        Me.Panel2.Location = New System.Drawing.Point(0, 360)
+        Me.Panel2.Location = New System.Drawing.Point(0, 413)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(839, 56)
         Me.Panel2.TabIndex = 11
@@ -331,6 +333,8 @@ Partial Class frm_Material_Transfer
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.TextBox2)
+        Me.Panel1.Controls.Add(Me.Label18)
         Me.Panel1.Controls.Add(Me.Panel6)
         Me.Panel1.Controls.Add(Me.Label15)
         Me.Panel1.Controls.Add(Me.Panel5)
@@ -347,7 +351,7 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Enabled = False
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(839, 360)
+        Me.Panel1.Size = New System.Drawing.Size(839, 413)
         Me.Panel1.TabIndex = 0
         '
         'Panel6
@@ -365,6 +369,20 @@ Partial Class frm_Material_Transfer
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(620, 78)
         Me.Panel6.TabIndex = 38
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CheckBox1.Checked = True
+        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox1.Enabled = False
+        Me.CheckBox1.Location = New System.Drawing.Point(118, 17)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(72, 16)
+        Me.CheckBox1.TabIndex = 44
+        Me.CheckBox1.Text = "자동계산"
+        Me.CheckBox1.UseVisualStyleBackColor = False
         '
         'TextBox1
         '
@@ -502,7 +520,7 @@ Partial Class frm_Material_Transfer
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(735, 290)
+        Me.BTN_Save.Location = New System.Drawing.Point(735, 341)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(98, 66)
         Me.BTN_Save.TabIndex = 33
@@ -719,19 +737,26 @@ Partial Class frm_Material_Transfer
         Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
-        'CheckBox1
+        'Label18
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(118, 17)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox1.TabIndex = 44
-        Me.CheckBox1.Text = "자동계산"
-        Me.CheckBox1.UseVisualStyleBackColor = False
+        Me.Label18.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label18.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.White
+        Me.Label18.Location = New System.Drawing.Point(10, 358)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(165, 49)
+        Me.Label18.TabIndex = 39
+        Me.Label18.Text = "6. 비고"
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(175, 358)
+        Me.TextBox2.Multiline = True
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(554, 49)
+        Me.TextBox2.TabIndex = 40
         '
         'frm_Material_Transfer
         '
@@ -826,4 +851,6 @@ Partial Class frm_Material_Transfer
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_RowDelete As ToolStripMenuItem
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label18 As Label
 End Class

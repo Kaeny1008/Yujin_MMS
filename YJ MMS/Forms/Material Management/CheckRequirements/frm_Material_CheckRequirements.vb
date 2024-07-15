@@ -56,7 +56,7 @@ Public Class frm_Material_CheckRequirements
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 17
+            .Cols.Count = 18
             .Cols.Fixed = 1
             .Rows.Count = 4
             .Rows.Fixed = 4
@@ -78,7 +78,7 @@ Public Class frm_Material_CheckRequirements
             rngM.Data = "사/도급"
             rngM = .GetCellRange(0, 5, 3, 5)
             rngM.Data = "공급사"
-            rngM = .GetCellRange(0, 6, 0, 14)
+            rngM = .GetCellRange(0, 6, 0, 15)
             rngM.Data = "재고"
             rngM = .GetCellRange(1, 6, 3, 6)
             rngM.Data = "기초재고"
@@ -98,9 +98,11 @@ Public Class frm_Material_CheckRequirements
             rngM.Data = "품번전환"
             rngM = .GetCellRange(1, 14, 3, 14)
             rngM.Data = "반출"
-            rngM = .GetCellRange(0, 15, 3, 15)
-            rngM.Data = "필요수량"
+            rngM = .GetCellRange(1, 15, 3, 15)
+            rngM.Data = "폐기"
             rngM = .GetCellRange(0, 16, 3, 16)
+            rngM.Data = "필요수량"
+            rngM = .GetCellRange(0, 17, 3, 17)
             rngM.Data = "미과출"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -243,7 +245,7 @@ Public Class frm_Material_CheckRequirements
         BTN_Confirm.Enabled = True
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 4
-        Grid_MaterialList.Cols.Count = 17
+        Grid_MaterialList.Cols.Count = 18
 
         Dim checkCount As Integer = 0
         Dim checkModelCode As String = String.Empty
@@ -280,7 +282,7 @@ Public Class frm_Material_CheckRequirements
             End If
         Next
 
-        For i = 17 To Grid_MaterialList.Cols.Count - 1
+        For i = 18 To Grid_MaterialList.Cols.Count - 1
             checkCount += 1
             If checkModelCode = String.Empty Then
                 checkModelCode = Grid_MaterialList(0, i)
@@ -338,11 +340,12 @@ Public Class frm_Material_CheckRequirements
                 Format(sqlDR("run_qty"), "#,##0") & vbTab &
                 Format(sqlDR("completed_qty"), "#,##0") & vbTab &
                 Format(sqlDR("code_change_qty"), "#,##0") & vbTab &
-                Format(sqlDR("return_qty"), "#,##0")
+                Format(sqlDR("return_qty"), "#,##0") & vbTab &
+                Format(sqlDR("discard_qty"), "#,##0")
 
             Dim totalAmount As Double = 0
             For i As Integer = 0 To UBound(nowCode)
-                totalAmount += (sqlDR(nowCode(i) & "_" & nowManage(i)) * Grid_MaterialList(3, i + 17)) '총 사용수량
+                totalAmount += (sqlDR(nowCode(i) & "_" & nowManage(i)) * Grid_MaterialList(3, i + 18)) '총 사용수량
             Next
             insert_String += vbTab & Format(totalAmount, "#,##0")
 
@@ -354,7 +357,8 @@ Public Class frm_Material_CheckRequirements
                 sqlDR("run_qty") -
                 sqlDR("completed_qty") -
                 sqlDR("code_change_qty") -
-                sqlDR("return_qty")
+                sqlDR("return_qty") -
+                sqlDR("discard_qty")
             insert_String += vbTab & Format((stock_qty - totalAmount), "#,##0")
 
             For i As Integer = 0 To UBound(nowCode)
