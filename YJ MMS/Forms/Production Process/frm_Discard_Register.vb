@@ -72,7 +72,7 @@ Public Class frm_Discard_Register
             strSQL += "discard_index, order_index, process_name, work_side"
             strSQL += ", board_no, discard_reason, write_date, write_id, history_index"
             strSQL += ") "
-            strSQL += "select f_mms_production_discard_no('2024-07-02')"
+            strSQL += "select f_mms_production_discard_no('" & Format(Now, "yyyy-MM-dd") & "')"
             strSQL += ",'" & TB_OrderIndex.Text & "'"
             strSQL += ",'" & TB_Process.Text & "'"
             strSQL += ",'" & TB_Workside.Text & "'"
@@ -87,15 +87,20 @@ Public Class frm_Discard_Register
             strSQL += " where order_index = '" & TB_OrderIndex.Text & "'"
             strSQL += ";"
 
-            Dim updateTable As String = "tb_mms_smd_production_history"
+            Dim updateTable As String = String.Empty
 
-            If Not TB_Process.Text.Equals("SMD") Then
+            If TB_Process.Text.Equals("SMD") Then
+                updateTable = "tb_mms_smd_production_history"
+            ElseIf TB_Process.Text.Equals("Wave Soldering") Or TB_Process.Text.Equals("Selective Soldering") Then
                 updateTable = "tb_mms_ws_output_history"
             End If
+            '현재 OQC 폐기불량 기록하는 곳이 없다.
 
-            strSQL += "update " & updateTable & " set discard_quantity = discard_quantity + 1"
-            strSQL += " where history_index = '" & TB_HistoryNo.Text & "'"
-            strSQL += ";"
+            If Not updateTable = String.Empty Then
+                strSQL += "update " & updateTable & " set discard_quantity = discard_quantity + 1"
+                strSQL += " where history_index = '" & TB_HistoryNo.Text & "'"
+                strSQL += ";"
+            End If
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

@@ -284,7 +284,9 @@ Partial Class frm_Discard_Register
         'TB_BoardNo
         '
         Me.TB_BoardNo.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_BoardNo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TB_BoardNo.Font = New System.Drawing.Font("굴림", 12.0!)
+        Me.TB_BoardNo.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_BoardNo.Location = New System.Drawing.Point(100, 149)
         Me.TB_BoardNo.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_BoardNo.Name = "TB_BoardNo"

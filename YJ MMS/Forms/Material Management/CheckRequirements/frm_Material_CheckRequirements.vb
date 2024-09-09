@@ -21,21 +21,10 @@ Public Class frm_Material_CheckRequirements
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 9
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
-            Grid_OrderList(0, 0) = "No"
-            Grid_OrderList(0, 1) = "선택"
-            Grid_OrderList(0, 2) = "Order Index"
-            Grid_OrderList(0, 3) = "납기일자"
-            Grid_OrderList(0, 4) = "고객사"
-            Grid_OrderList(0, 5) = "모델코드"
-            Grid_OrderList(0, 6) = "품번"
-            Grid_OrderList(0, 7) = "주문수량"
-            Grid_OrderList(0, 8) = "관리번호"
-            .Cols(1).DataType = GetType(Boolean)
-            .Cols(2).Visible = False
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -46,7 +35,20 @@ Public Class frm_Material_CheckRequirements
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(1).DataType = GetType(Boolean)
+            .Cols(2).Visible = False
         End With
+
+        Grid_OrderList(0, 0) = "No"
+        Grid_OrderList(0, 1) = "선택"
+        Grid_OrderList(0, 2) = "Order Index"
+        Grid_OrderList(0, 3) = "납기일자"
+        Grid_OrderList(0, 4) = "고객사"
+        Grid_OrderList(0, 5) = "모델코드"
+        Grid_OrderList(0, 6) = "품번"
+        Grid_OrderList(0, 7) = "주문수량"
+        Grid_OrderList(0, 8) = "관리번호"
+        Grid_OrderList(0, 9) = "상위모델"
 
         With Grid_MaterialList
             .AllowEditing = False
@@ -158,7 +160,8 @@ Public Class frm_Material_CheckRequirements
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("item_code") & vbTab &
                                           Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
-                                          sqlDR("management_no")
+                                          sqlDR("management_no") & vbTab &
+                                          sqlDR("main_item_code")
             Grid_OrderList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -184,8 +187,10 @@ Public Class frm_Material_CheckRequirements
         If e.Button = MouseButtons.Left Then
             If Grid_OrderList.GetCellCheck(selRow, 1) = CheckEnum.Checked Then
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Unchecked)
+                Grid_OrderList.Rows(selRow).StyleNew.BackColor = Color.White
             Else
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Checked)
+                Grid_OrderList.Rows(selRow).StyleNew.BackColor = Color.LightSkyBlue
             End If
         ElseIf e.Button = MouseButtons.Right Then
             CMS_Menu.Show(Grid_OrderList, New Point(e.X, e.Y))

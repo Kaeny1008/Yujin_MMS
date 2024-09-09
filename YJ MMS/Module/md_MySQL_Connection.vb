@@ -17,13 +17,20 @@ Module md_MySQL_Connection
     Public Sub DBConnect()
 
         dbConnection1 = New MySqlConnection
+        'dbConnection1.ConnectionString = "Database=" & dbName &
+        '                                 ";Data Source=" & serverIP &
+        '                                 ";PORT=" & serverPORT &
+        '                                 ";User Id=" & serverID &
+        '                                 ";Password=" & serverPSWD &
+        '                                 ";Connection Timeout=" & connectionTimeOut &
+        '                                 ";allow user variables=true"
         dbConnection1.ConnectionString = "Database=" & dbName &
                                          ";Data Source=" & serverIP &
                                          ";PORT=" & serverPORT &
                                          ";User Id=" & serverID &
                                          ";Password=" & serverPSWD &
                                          ";Connection Timeout=" & connectionTimeOut &
-                                         ";allow user variables=true"
+                                         ";CharSet=utf8"
 
         Try
             dbConnection1.Open()
@@ -34,7 +41,7 @@ Module md_MySQL_Connection
             Dim strSql As String = "SET Names euckr;"
             Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
     End Sub

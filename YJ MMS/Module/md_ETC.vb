@@ -63,7 +63,7 @@ Module md_ETC
 
     End Sub
 
-    Dim th_LoadingWindow As Thread
+    Public th_LoadingWindow As Thread
     ReadOnly thread_SleepTime As Integer = 0
 
     Public Sub Thread_LoadingFormStart(ByVal frm As Form)
@@ -438,6 +438,132 @@ Module md_ETC
     Public printerStopBits As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "StopBits", 1)
     Public printerMD As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer", "Media Darkness", 25)
 
+    Public printerCable2 As String = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "COM/LPT", "COM")
+    Public printerName2 As String = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Printer Name", "")
+    Public printerPort2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Port", 1)
+    Public printerLeftPosition2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Width", 0)
+    Public printerTopPosition2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Height", 0)
+    Public printerBaudRate2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "BaudRate", 9600)
+    Public printerDataBits2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "DataBits", 8)
+    Public printerParity2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Parity", 0)
+    Public printerStopBits2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "StopBits", 1)
+    Public printerMD2 As Integer = registryEdit.ReadRegKey("Software\Yujin\MMS\Label Printer2", "Media Darkness", 25)
+
+    Public Function TestPrinter2(ByVal testCable As String,
+                                 ByVal testName As String,
+                                 ByVal testPort As Integer,
+                                 ByVal testLeftPosition As Integer,
+                                 ByVal testTopPosition As Integer,
+                                 ByVal testBaudRate As Integer,
+                                 ByVal testDataBits As Integer,
+                                 ByVal testParity As Integer,
+                                 ByVal testStopBits As Integer,
+                                 ByVal testDarkness As Integer) As String
+
+        TestPrinter2 = String.Empty
+
+        '##### 프린터로 전송하는 부분
+
+        If Directory.Exists(Application.StartupPath & "\Print Text") = False Then
+            Directory.CreateDirectory(Application.StartupPath & "\Print Text")
+        End If
+
+        Dim folderName As String = Application.StartupPath & "\Print Text"
+        Dim fileName As String = folderName & "\Test Label Print_" & Format(Now, "yyMMddHHmmssfff") & ".txt"
+
+        Dim swFile As StreamWriter =
+            New StreamWriter(fileName, True, System.Text.Encoding.GetEncoding(949))
+
+        Try
+
+            'If File.Exists(Application.StartupPath & "\print.txt") Then
+            '    File.Delete(Application.StartupPath & "\print.txt")
+            'End If
+
+            swFile.WriteLine("^XZ~JA^XZ")
+            swFile.WriteLine("^XA^LH" & testLeftPosition & ",0^LT" & testTopPosition) 'LH : 가로위치, LT : 세로위치
+            swFile.WriteLine("^MD" & testDarkness) '진하기
+
+            swFile.WriteLine("^FO0000,0000^A0,16,20^FDTESTITEMCODE^FS")
+            swFile.WriteLine("^FO0000,0016^A0,16,20^FD2408230001^FS")
+            swFile.WriteLine("^FO0012,0025^BQN,2,3^FDAAATESTITEMCODE2408230001^FS")
+
+            swFile.WriteLine("^FO0176,0000^A0,16,20^FDTESTITEMCODE^FS")
+            swFile.WriteLine("^FO0176,0016^A0,16,20^FD2408230002^FS")
+            swFile.WriteLine("^FO0188,0025^BQN,2,3^FDAAATESTITEMCODE2408230002^FS")
+
+            swFile.WriteLine("^FO0352,0000^A0,16,20^FDTESTITEMCODE^FS")
+            swFile.WriteLine("^FO0352,0016^A0,16,20^FD2408230003^FS")
+            swFile.WriteLine("^FO0364,0025^BQN,2,3^FDAAATESTITEMCODE2408230003^FS")
+
+            swFile.WriteLine("^FO0528,0000^A0,16,20^FDTESTITEMCODE^FS")
+            swFile.WriteLine("^FO0528,0016^A0,16,20^FD2408230004^FS")
+            swFile.WriteLine("^FO0540,0025^BQN,2,3^FDAAATESTITEMCODE2408230004^FS")
+            swFile.WriteLine("^PQ1^FS") 'PQ : 발행수량
+            swFile.WriteLine("^XZ")
+            swFile.Close()
+
+            If testCable = "LPT" Then
+                'File.Copy(Application.StartupPath & "\print.txt", "LPT" & testPort)
+                File.Copy(fileName, "LPT" & testPort)
+            ElseIf testCable = "COM" Then
+                ComPort.PortName = "COM" & testPort
+                ComPort.BaudRate = testBaudRate
+                ComPort.Parity = testParity
+                ComPort.DataBits = testDataBits
+                ComPort.StopBits = testStopBits
+                ComPort.Encoding = System.Text.Encoding.Default
+                'ComPort.Handshake = 
+
+                Call ComPort.Open()
+                Dim fs As System.IO.FileStream
+                Dim sr As System.IO.StreamReader
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                fs = System.IO.File.Open(fileName, IO.FileMode.Open) ' 파일 열기
+                sr = New System.IO.StreamReader(fs) ' 스트림리더에 연결
+                Dim str As String = String.Empty
+
+                While sr.Peek() >= 0
+                    str = sr.ReadLine() ' 한줄씩 읽기
+                    ComPort.WriteLine(str)
+                End While
+
+                sr.Close()
+                ComPort.Close()
+            ElseIf testCable = "USB" Then
+                Dim p As New md_RawPrinterHelper
+                'Dim s As New StringBuilder
+                'Dim fs As System.IO.FileStream
+                'Dim sr As System.IO.StreamReader
+                'fs = System.IO.File.Open(Application.StartupPath & "\print.txt", IO.FileMode.Open) ' 파일 열기
+                'sr = New System.IO.StreamReader(fs, System.Text.Encoding.GetEncoding(949)) ' 스트림리더에 연결
+                'Dim str As String = String.Empty
+
+                'While sr.Peek() >= 0
+                '    str = sr.ReadLine() ' 한줄씩 읽기
+                '    s.AppendLine(str)
+                'End While
+
+                'sr.Close()
+                'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
+                '    TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
+                'End If
+                If Not p.SendFileToPrinter(testName, fileName) = True Then
+                    TestPrinter2 = "프린터가 정상적으로 작동하지 않았습니다."
+                End If
+            End If
+            'File.Delete(fileName)
+            TestPrinter2 = "Success"
+        Catch ex As Exception
+            swFile.Close()
+            'File.Delete(filename)
+            TestPrinter2 = ex.Message
+        End Try
+
+        Return TestPrinter2
+
+    End Function
+
     Public Function TestPrinter(ByVal testCable As String,
                                 ByVal testName As String,
                                 ByVal testPort As Integer,
@@ -446,7 +572,8 @@ Module md_ETC
                                 ByVal testBaudRate As Integer,
                                 ByVal testDataBits As Integer,
                                 ByVal testParity As Integer,
-                                ByVal testStopBits As Integer) As String
+                                ByVal testStopBits As Integer,
+                                ByVal testDarkness As Integer) As String
 
         TestPrinter = String.Empty
 
@@ -470,7 +597,7 @@ Module md_ETC
 
             swFile.WriteLine("^XZ~JA^XZ")
             swFile.WriteLine("^XA^LH" & testLeftPosition & ",0^LT" & testTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD" & printerMD) '진하기
+            swFile.WriteLine("^MD" & testDarkness) '진하기
             swFile.WriteLine("^SEE:UHANGUL.DAT^FS")
             swFile.WriteLine("^CW1,E:KFONT3.FNT^CI26^FS")
             swFile.WriteLine("^FO180,0000^A0,60,40^FDPart Code : 000000000^FS")
@@ -529,7 +656,7 @@ Module md_ETC
                 'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
                 '    TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 'End If
-                If Not p.SendFileToPrinter(printerName, fileName) = True Then
+                If Not p.SendFileToPrinter(testName, fileName) = True Then
                     TestPrinter = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
@@ -545,20 +672,36 @@ Module md_ETC
 
     End Function
 
-    Public Function LabelPrint(ByVal fileName As String) As String
+    Public Function LabelPrint(ByVal fileName As String, ByVal print12 As Integer) As String
 
         Dim printResult As String = String.Empty
+
+        Dim selectPrint As String = printerName
+        Dim selPort As Integer = printerPort
+        Dim selBaudRate As Integer = printerBaudRate
+        Dim selParity As Integer = printerParity
+        Dim selDataBits As Integer = printerDataBits
+        Dim selStopBits As Integer = printerStopBits
+
+        If print12 = 2 Then
+            selectPrint = printerName2
+            selPort = printerPort
+            selBaudRate = printerBaudRate2
+            selParity = printerParity2
+            selDataBits = printerDataBits2
+            selStopBits = printerStopBits2
+        End If
 
         Try
             If printerCable = "LPT" Then
                 'File.Copy(Application.StartupPath & "\print.txt", "LPT" & printerPort)
-                File.Copy(fileName, "LPT" & printerPort)
+                File.Copy(fileName, "LPT" & selPort)
             ElseIf printerCable = "COM" Then
-                ComPort.PortName = "COM" & printerPort
-                ComPort.BaudRate = printerBaudRate
-                ComPort.Parity = printerParity
-                ComPort.DataBits = printerDataBits
-                ComPort.StopBits = printerStopBits
+                ComPort.PortName = "COM" & selPort
+                ComPort.BaudRate = selBaudRate
+                ComPort.Parity = selParity
+                ComPort.DataBits = selDataBits
+                ComPort.StopBits = selStopBits
                 ComPort.Encoding = System.Text.Encoding.Default
                 'ComPort.Handshake = 
 
@@ -596,7 +739,7 @@ Module md_ETC
                 'If Not p.SendStringToPrinter(printerName, s.ToString) = True Then
                 '    printResult = "프린터가 정상적으로 작동하지 않았습니다."
                 'End If
-                If Not p.SendFileToPrinter(printerName, fileName) = True Then
+                If Not p.SendFileToPrinter(selectPrint, fileName) = True Then
                     printResult = "프린터가 정상적으로 작동하지 않았습니다."
                 End If
             End If
@@ -639,7 +782,7 @@ Module md_ETC
     Public Sub MSG_Exclamation(ByVal frm As Form, ByVal showString As String)
 
         If frm.InvokeRequired Then
-            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Exclamation), frm, showString)
         Else
             Application.DoEvents()
 
@@ -651,7 +794,7 @@ Module md_ETC
     Public Sub MSG_Error(ByVal frm As Form, ByVal showString As String)
 
         If frm.InvokeRequired Then
-            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, showString)
+            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Error), frm, showString)
         Else
             Application.DoEvents()
 
@@ -665,16 +808,25 @@ Module md_ETC
         Dim returnValue As Boolean = False
 
         If frm.InvokeRequired Then
-            frm.Invoke(New Action(Of Form, String)(AddressOf MSG_Information), frm, questionString)
+            Return CBool(frm.Invoke(New Func(Of Boolean)(Function() MSG_Question(frm, questionString))))
         Else
+            Dim lodingForm As Boolean = False
+            If Not IsNothing(th_LoadingWindow) Then
+                If th_LoadingWindow.IsAlive = True Then
+                    Thread_LoadingFormEnd()
+                    lodingForm = True
+                End If
+            End If
+
             Application.DoEvents()
 
-            If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                returnValue = True
+                If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                    Return True
+                Else
+                    Return False
+                End If
+                If lodingForm = True Then Thread_LoadingFormStart(frm)
             End If
-        End If
-
-        Return returnValue
 
     End Function
 End Module

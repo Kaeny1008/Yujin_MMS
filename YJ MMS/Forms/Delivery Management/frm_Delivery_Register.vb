@@ -19,7 +19,7 @@ Public Class frm_Delivery_Register
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 10
+            .Cols.Count = 12
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -41,6 +41,10 @@ Public Class frm_Delivery_Register
             .Cols(7).StyleNew.TextAlign = TextAlignEnum.CenterCenter
             .Cols(8).DataType = GetType(Integer)
             .Cols(8).Format = "#,##0"
+            .Cols(9).DataType = GetType(Integer)
+            .Cols(9).Format = "#,##0"
+            .Cols(10).DataType = GetType(Integer)
+            .Cols(9).Format = "#,##0"
         End With
 
         Grid_POList(0, 0) = "No"
@@ -52,7 +56,9 @@ Public Class frm_Delivery_Register
         Grid_POList(0, 6) = "주문일자"
         Grid_POList(0, 7) = "요청 납품일자"
         Grid_POList(0, 8) = "주문수량"
-        Grid_POList(0, 9) = "Loader PCB 사용여부"
+        Grid_POList(0, 9) = "출하검사 완료수량"
+        Grid_POList(0, 10) = "납품잔량"
+        Grid_POList(0, 11) = "Loader PCB 사용여부"
         Grid_POList.AutoSizeCols()
 
     End Sub
@@ -145,6 +151,8 @@ Public Class frm_Delivery_Register
             insert_String += vbTab & sqlDR("order_date")
             insert_String += vbTab & sqlDR("date_of_delivery")
             insert_String += vbTab & sqlDR("modify_order_quantity")
+            insert_String += vbTab & sqlDR("completed_quantity")
+            insert_String += vbTab & sqlDR("remaining_qty")
             insert_String += vbTab & sqlDR("loader_pcb")
             Grid_POList.AddItem(insert_String)
         Loop
@@ -199,13 +207,15 @@ Public Class frm_Delivery_Register
                 insertString += vbTab & Grid_POList(i, 6)
                 insertString += vbTab & Grid_POList(i, 7)
                 insertString += vbTab & Grid_POList(i, 8)
-                insertString += vbTab & Grid_POList(i, 8)
+                insertString += vbTab & Grid_POList(i, 10)
+                insertString += vbTab & Grid_POList(i, 10)
+                insertString += vbTab & 0
 
                 a.Grid_POList.AddItem(insertString)
                 checkCount += 1
 
                 'Loader Pcb사용의 경우 해당 PO를 불러와서 추가한다.
-                If Grid_POList(i, 9) = "사용" Then
+                If Grid_POList(i, 11) = "사용" Then
                     Dim loaderPCB_OrderIndex As String = Grid_POList(i, 2) & "-L"
                     Dim loadSplit() As String = Load_LoaderPCB_Order(loaderPCB_OrderIndex).Split(vbTab)
                     insertString = a.Grid_POList.Rows.Count
@@ -217,7 +227,9 @@ Public Class frm_Delivery_Register
                     insertString += vbTab & loadSplit(4)
                     insertString += vbTab & loadSplit(5)
                     insertString += vbTab & loadSplit(6)
-                    insertString += vbTab & loadSplit(6)
+                    insertString += vbTab & loadSplit(9)
+                    insertString += vbTab & loadSplit(9)
+                    insertString += vbTab & 0
 
                     a.Grid_POList.AddItem(insertString)
                     checkCount += 1
@@ -274,7 +286,9 @@ Public Class frm_Delivery_Register
             insert_String += vbTab & sqlDR("order_date")
             insert_String += vbTab & sqlDR("date_of_delivery")
             insert_String += vbTab & sqlDR("modify_order_quantity")
+            insert_String += vbTab & sqlDR("completed_quantity")
             insert_String += vbTab & sqlDR("loader_pcb")
+            insert_String += vbTab & sqlDR("remaining_qty")
         Loop
         sqlDR.Close()
 

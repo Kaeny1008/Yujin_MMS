@@ -77,6 +77,11 @@ Partial Class frm_OQC_Register
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.BTN_Discard_Register = New System.Windows.Forms.ToolStripButton()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
+        Me.TB_CustomerName = New System.Windows.Forms.TextBox()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -168,7 +173,10 @@ Partial Class frm_OQC_Register
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel3.Controls.Add(Me.TB_CustomerName)
         Me.Panel3.Controls.Add(Me.Label15)
+        Me.Panel3.Controls.Add(Me.Label18)
+        Me.Panel3.Controls.Add(Me.TB_CustomerCode)
         Me.Panel3.Controls.Add(Me.TB_InspectedQty)
         Me.Panel3.Controls.Add(Me.Label4)
         Me.Panel3.Controls.Add(Me.TB_ModelCode)
@@ -192,7 +200,7 @@ Partial Class frm_OQC_Register
         '
         'Label15
         '
-        Me.Label15.Location = New System.Drawing.Point(325, 145)
+        Me.Label15.Location = New System.Drawing.Point(325, 149)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(105, 16)
         Me.Label15.TabIndex = 14
@@ -202,14 +210,14 @@ Partial Class frm_OQC_Register
         'TB_InspectedQty
         '
         Me.TB_InspectedQty.Enabled = False
-        Me.TB_InspectedQty.Location = New System.Drawing.Point(436, 143)
+        Me.TB_InspectedQty.Location = New System.Drawing.Point(436, 147)
         Me.TB_InspectedQty.Name = "TB_InspectedQty"
         Me.TB_InspectedQty.Size = New System.Drawing.Size(184, 21)
         Me.TB_InspectedQty.TabIndex = 15
         '
         'Label4
         '
-        Me.Label4.Location = New System.Drawing.Point(10, 37)
+        Me.Label4.Location = New System.Drawing.Point(10, 57)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(105, 16)
         Me.Label4.TabIndex = 2
@@ -219,7 +227,7 @@ Partial Class frm_OQC_Register
         'TB_ModelCode
         '
         Me.TB_ModelCode.Enabled = False
-        Me.TB_ModelCode.Location = New System.Drawing.Point(121, 35)
+        Me.TB_ModelCode.Location = New System.Drawing.Point(121, 55)
         Me.TB_ModelCode.Name = "TB_ModelCode"
         Me.TB_ModelCode.Size = New System.Drawing.Size(499, 21)
         Me.TB_ModelCode.TabIndex = 3
@@ -243,7 +251,7 @@ Partial Class frm_OQC_Register
         '
         'Label13
         '
-        Me.Label13.Location = New System.Drawing.Point(10, 145)
+        Me.Label13.Location = New System.Drawing.Point(10, 149)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(105, 16)
         Me.Label13.TabIndex = 10
@@ -253,14 +261,14 @@ Partial Class frm_OQC_Register
         'TB_POQty
         '
         Me.TB_POQty.Enabled = False
-        Me.TB_POQty.Location = New System.Drawing.Point(121, 143)
+        Me.TB_POQty.Location = New System.Drawing.Point(121, 147)
         Me.TB_POQty.Name = "TB_POQty"
         Me.TB_POQty.Size = New System.Drawing.Size(184, 21)
         Me.TB_POQty.TabIndex = 11
         '
         'Label11
         '
-        Me.Label11.Location = New System.Drawing.Point(10, 118)
+        Me.Label11.Location = New System.Drawing.Point(10, 126)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(105, 16)
         Me.Label11.TabIndex = 8
@@ -270,14 +278,14 @@ Partial Class frm_OQC_Register
         'TB_ItemSpec
         '
         Me.TB_ItemSpec.Enabled = False
-        Me.TB_ItemSpec.Location = New System.Drawing.Point(121, 116)
+        Me.TB_ItemSpec.Location = New System.Drawing.Point(121, 124)
         Me.TB_ItemSpec.Name = "TB_ItemSpec"
         Me.TB_ItemSpec.Size = New System.Drawing.Size(499, 21)
         Me.TB_ItemSpec.TabIndex = 9
         '
         'Label10
         '
-        Me.Label10.Location = New System.Drawing.Point(10, 91)
+        Me.Label10.Location = New System.Drawing.Point(10, 103)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(105, 16)
         Me.Label10.TabIndex = 6
@@ -287,14 +295,14 @@ Partial Class frm_OQC_Register
         'TB_ItemName
         '
         Me.TB_ItemName.Enabled = False
-        Me.TB_ItemName.Location = New System.Drawing.Point(121, 89)
+        Me.TB_ItemName.Location = New System.Drawing.Point(121, 101)
         Me.TB_ItemName.Name = "TB_ItemName"
         Me.TB_ItemName.Size = New System.Drawing.Size(499, 21)
         Me.TB_ItemName.TabIndex = 7
         '
         'Label9
         '
-        Me.Label9.Location = New System.Drawing.Point(10, 64)
+        Me.Label9.Location = New System.Drawing.Point(10, 80)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(105, 16)
         Me.Label9.TabIndex = 4
@@ -304,7 +312,7 @@ Partial Class frm_OQC_Register
         'TB_ItemCode
         '
         Me.TB_ItemCode.Enabled = False
-        Me.TB_ItemCode.Location = New System.Drawing.Point(121, 62)
+        Me.TB_ItemCode.Location = New System.Drawing.Point(121, 78)
         Me.TB_ItemCode.Name = "TB_ItemCode"
         Me.TB_ItemCode.Size = New System.Drawing.Size(499, 21)
         Me.TB_ItemCode.TabIndex = 5
@@ -407,6 +415,7 @@ Partial Class frm_OQC_Register
         '
         'C1DockingTabPage1
         '
+        Me.C1DockingTabPage1.Controls.Add(Me.Label17)
         Me.C1DockingTabPage1.Controls.Add(Me.Grid_BoxList)
         Me.C1DockingTabPage1.Enabled = False
         Me.C1DockingTabPage1.Location = New System.Drawing.Point(1, 25)
@@ -422,12 +431,12 @@ Partial Class frm_OQC_Register
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Grid_BoxList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_BoxList.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Grid_BoxList.Location = New System.Drawing.Point(10, 8)
+        Me.Grid_BoxList.Location = New System.Drawing.Point(10, 28)
         Me.Grid_BoxList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_BoxList.Name = "Grid_BoxList"
         Me.Grid_BoxList.Rows.Count = 2
         Me.Grid_BoxList.Rows.DefaultSize = 20
-        Me.Grid_BoxList.Size = New System.Drawing.Size(719, 280)
+        Me.Grid_BoxList.Size = New System.Drawing.Size(719, 260)
         Me.Grid_BoxList.StyleInfo = resources.GetString("Grid_BoxList.StyleInfo")
         Me.Grid_BoxList.TabIndex = 0
         Me.Grid_BoxList.UseCompatibleTextRendering = True
@@ -480,7 +489,7 @@ Partial Class frm_OQC_Register
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewBox, Me.BTN_Save, Me.ToolStripSeparator1, Me.BTN_Fault_Register, Me.BTN_Reinspector})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_NewBox, Me.BTN_Save, Me.ToolStripSeparator1, Me.BTN_Fault_Register, Me.BTN_Reinspector, Me.BTN_Discard_Register})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(767, 25)
@@ -724,6 +733,51 @@ Partial Class frm_OQC_Register
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(15, 16)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(95, 12)
+        Me.Label17.TabIndex = 1
+        Me.Label17.Text = "현재 수량 : 0 EA"
+        '
+        'BTN_Discard_Register
+        '
+        Me.BTN_Discard_Register.Enabled = False
+        Me.BTN_Discard_Register.Image = Global.YJ_MMS.My.Resources.Resources.delete2
+        Me.BTN_Discard_Register.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Discard_Register.Name = "BTN_Discard_Register"
+        Me.BTN_Discard_Register.Size = New System.Drawing.Size(91, 22)
+        Me.BTN_Discard_Register.Text = "폐기품 등록"
+        '
+        'Label18
+        '
+        Me.Label18.Location = New System.Drawing.Point(10, 34)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(105, 16)
+        Me.Label18.TabIndex = 16
+        Me.Label18.Text = "고객사 :"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TB_CustomerCode
+        '
+        Me.TB_CustomerCode.Enabled = False
+        Me.TB_CustomerCode.Location = New System.Drawing.Point(121, 32)
+        Me.TB_CustomerCode.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_CustomerCode.Name = "TB_CustomerCode"
+        Me.TB_CustomerCode.Size = New System.Drawing.Size(98, 21)
+        Me.TB_CustomerCode.TabIndex = 17
+        '
+        'TB_CustomerName
+        '
+        Me.TB_CustomerName.Enabled = False
+        Me.TB_CustomerName.Location = New System.Drawing.Point(219, 32)
+        Me.TB_CustomerName.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_CustomerName.Name = "TB_CustomerName"
+        Me.TB_CustomerName.Size = New System.Drawing.Size(401, 21)
+        Me.TB_CustomerName.TabIndex = 18
+        '
         'frm_OQC_Register
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -750,6 +804,7 @@ Partial Class frm_OQC_Register
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1DockingTab1.ResumeLayout(False)
         Me.C1DockingTabPage1.ResumeLayout(False)
+        Me.C1DockingTabPage1.PerformLayout()
         CType(Me.Grid_BoxList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.C1DockingTabPage2.ResumeLayout(False)
         Me.C1DockingTabPage2.PerformLayout()
@@ -823,4 +878,9 @@ Partial Class frm_OQC_Register
     Friend WithEvents RB_UseSerial As RadioButton
     Friend WithEvents TB_BoxQty As TextBox
     Friend WithEvents Label16 As Label
+    Friend WithEvents Label17 As Label
+    Friend WithEvents BTN_Discard_Register As ToolStripButton
+    Friend WithEvents TB_CustomerName As TextBox
+    Friend WithEvents Label18 As Label
+    Friend WithEvents TB_CustomerCode As TextBox
 End Class

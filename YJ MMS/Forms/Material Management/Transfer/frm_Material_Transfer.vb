@@ -293,12 +293,12 @@ Public Class frm_Material_Transfer
             '    End If
             'Next
             TB_BarcodeScan.Text = TB_BarcodeScan.Text.Replace(vbCrLf, String.Empty)
-            Dim splitBarcode() As String = Trim(TB_BarcodeScan.Text).Split("!")
-            TB_CustomerPartCode.Text = Trim(splitBarcode(0))
-            TB_PartNo.Text = Trim(splitBarcode(1))
-            TB_LotNo.Text = Trim(splitBarcode(2))
-            TB_Qty.Text = Format(CInt(Trim(splitBarcode(3))), "#,##0") '<--------------- 여기부분 나중에 서버에서 available_qty를 불러오는걸로 변경해야 한다.
-            TB_Vendor.Text = Trim(splitBarcode(4))
+            Dim splitBarcode() As String = TB_BarcodeScan.Text.Split("!")
+            TB_CustomerPartCode.Text = splitBarcode(0)
+            TB_PartNo.Text = splitBarcode(1)
+            TB_LotNo.Text = splitBarcode(2)
+            TB_Qty.Text = Format(CInt(splitBarcode(3)), "#,##0") '<--------------- 여기부분 나중에 서버에서 available_qty를 불러오는걸로 변경해야 한다.
+            TB_Vendor.Text = splitBarcode(4)
             'TB_InDate.Text = Trim(splitBarcode(5)) <-서버에서 일자시간까지 불러오는걸로 변경
             TB_BarcodeScan.Clear()
             splitResult = True
@@ -332,6 +332,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -377,6 +378,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -413,6 +415,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & status & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -541,9 +544,15 @@ Public Class frm_Material_Transfer
                 strSQL += ",'" & TextBox2.Text & "'"
                 strSQL += ");"
 
-                If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
-                    Grid_History(i, 7).ToString.ToUpper.Equals("BARE PCB") Then
-                    strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                If RadioButton1.Checked = True Then
+                    If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
+                        Grid_History(i, 7).ToString.ToUpper.Equals("BARE PCB") Then
+                        strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                        strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
+                    End If
+                ElseIf RadioButton2.Checked = True Then
+                    strSQL += "update tb_mms_material_warehousing"
+                    strSQL += " set available_qty = available_qty + " & CDbl(Grid_History(i, 5))
                     strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
                 End If
             Next
@@ -643,6 +652,7 @@ Public Class frm_Material_Transfer
         strSQL += ",'" & Format(DateTimePicker3.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ", null"
         strSQL += ", '" & section & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -697,6 +707,7 @@ Public Class frm_Material_Transfer
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ", '" & Grid_TNList(selRow, 1) & "'"
+            strSQL += ", null"
             strSQL += ", null"
             strSQL += ")"
 
@@ -807,6 +818,7 @@ Public Class frm_Material_Transfer
             Dim splitCount As Integer = CInt(TextBox1.Text)
             Dim newLotNo As String = TB_LotNo.Text & "-S" & (splitCount + 1)
             '분할내용 서버저장
+
             Dim dbResult As Boolean = SplitData_DB_Write(newLotNo)
 
             If dbResult = True Then
@@ -869,6 +881,8 @@ Public Class frm_Material_Transfer
             Grid_History.AutoSizeCols()
         End If
 
+        Grid_History.TopRow = Grid_History.Rows.Count - 1
+
         Control_Init()
         TB_BarcodeScan.Focus()
 
@@ -900,7 +914,7 @@ Public Class frm_Material_Transfer
             strSQL += ", '" & TB_CustomerCode.Text & "'"
             strSQL += ", '" & TB_CustomerPartCode.Text & "'"
             strSQL += ", '" & TB_Vendor.Text & "'"
-            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
             strSQL += ", " & CDbl(TB_Qty.Text) & ""
             strSQL += ", " & CDbl(TB_1stQty.Text) & ""
@@ -918,7 +932,7 @@ Public Class frm_Material_Transfer
             strSQL += ", '" & TB_CustomerCode.Text & "'"
             strSQL += ", '" & TB_CustomerPartCode.Text & "'"
             strSQL += ", '" & TB_Vendor.Text & "'"
-            strSQL += ", '" & TB_PartNo.Text & "'"
+            strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
             strSQL += ", '" & newLotNo & "'"
             strSQL += ", " & CDbl(TB_1stQty.Text) & ""
             strSQL += ", '" & TB_InDate.Text & "'"
@@ -972,6 +986,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

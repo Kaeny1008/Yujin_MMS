@@ -170,7 +170,7 @@ Public Class frm_Repair_Management
 
     Private Sub Grid_RepairList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_RepairList.BeforeEdit
 
-        If e.Row < 2 Or e.Col < 12 Then Exit Sub
+        If e.Row < 2 Or e.Col < 11 Then Exit Sub
 
         If CheckBox1.Checked Then
             If TB_Repairman.Text = String.Empty Then
@@ -185,7 +185,7 @@ Public Class frm_Repair_Management
 
     Private Sub Grid_RepairList_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_RepairList.AfterEdit
 
-        If e.Row < 2 Or e.Col < 12 Then Exit Sub
+        If e.Row < 2 Or e.Col < 11 Then Exit Sub
         If IsNothing(Grid_RepairList(e.Row, e.Col)) Then Exit Sub
         If Grid_RepairList(e.Row, e.Col).Equals(beforeText) Then Exit Sub
 
@@ -196,7 +196,7 @@ Public Class frm_Repair_Management
             Grid_RepairList.Rows(e.Row).StyleNew.ForeColor = Color.Blue
         End If
 
-        If Not e.Col = 13 Then
+        If Not e.Col = 11 Then
             If CheckBox1.Checked Then Grid_RepairList(e.Row, 13) = TB_Repairman.Text
         End If
 

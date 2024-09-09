@@ -32,8 +32,10 @@ Partial Class frm_Model_Document
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_ModelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TB_SearchName = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TB_SearchModel = New System.Windows.Forms.TextBox()
+        Me.TB_SearchCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_SearchCustomer = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -50,6 +52,8 @@ Partial Class frm_Model_Document
         Me.Grid_BOM_Total = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.BTN_Result = New System.Windows.Forms.Button()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.NUD_Array = New System.Windows.Forms.NumericUpDown()
+        Me.Label31 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.RadioButton5 = New System.Windows.Forms.RadioButton()
         Me.RadioButton6 = New System.Windows.Forms.RadioButton()
@@ -112,8 +116,11 @@ Partial Class frm_Model_Document
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.NUD_Array = New System.Windows.Forms.NumericUpDown()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -131,6 +138,7 @@ Partial Class frm_Model_Document
         Me.TabPage4.SuspendLayout()
         CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage5.SuspendLayout()
+        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
@@ -140,7 +148,8 @@ Partial Class frm_Model_Document
         Me.Panel7.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
-        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -210,48 +219,76 @@ Partial Class frm_Model_Document
         '
         Me.Grid_ModelList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_ModelList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_ModelList.Location = New System.Drawing.Point(0, 81)
+        Me.Grid_ModelList.Location = New System.Drawing.Point(0, 125)
         Me.Grid_ModelList.Name = "Grid_ModelList"
         Me.Grid_ModelList.Rows.Count = 2
         Me.Grid_ModelList.Rows.DefaultSize = 20
-        Me.Grid_ModelList.Size = New System.Drawing.Size(663, 755)
+        Me.Grid_ModelList.Size = New System.Drawing.Size(663, 711)
         Me.Grid_ModelList.StyleInfo = resources.GetString("Grid_ModelList.StyleInfo")
         Me.Grid_ModelList.TabIndex = 1
         '
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.TB_SearchName)
+        Me.Panel1.Controls.Add(Me.Label32)
         Me.Panel1.Controls.Add(Me.Label5)
-        Me.Panel1.Controls.Add(Me.TB_SearchModel)
+        Me.Panel1.Controls.Add(Me.TB_SearchCode)
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.TB_SearchCustomer)
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(663, 81)
+        Me.Panel1.Size = New System.Drawing.Size(663, 125)
         Me.Panel1.TabIndex = 0
+        '
+        'TB_SearchName
+        '
+        Me.TB_SearchName.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TB_SearchName.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_SearchName.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_SearchName.Location = New System.Drawing.Point(121, 52)
+        Me.TB_SearchName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_SearchName.Name = "TB_SearchName"
+        Me.TB_SearchName.Size = New System.Drawing.Size(541, 21)
+        Me.TB_SearchName.TabIndex = 6
+        '
+        'Label32
+        '
+        Me.Label32.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label32.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label32.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label32.ForeColor = System.Drawing.Color.White
+        Me.Label32.Location = New System.Drawing.Point(0, 52)
+        Me.Label32.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(121, 21)
+        Me.Label32.TabIndex = 5
+        Me.Label32.Text = "품명"
+        Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 65)
+        Me.Label5.Location = New System.Drawing.Point(12, 104)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(323, 12)
         Me.Label5.TabIndex = 4
         Me.Label5.Text = "해당 모델을 더블클릭(왼쪽) 하시면 자료를 볼 수 있습니다."
         '
-        'TB_SearchModel
+        'TB_SearchCode
         '
-        Me.TB_SearchModel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.TB_SearchCode.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TB_SearchModel.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_SearchModel.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_SearchModel.Location = New System.Drawing.Point(122, 29)
-        Me.TB_SearchModel.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TB_SearchModel.Name = "TB_SearchModel"
-        Me.TB_SearchModel.Size = New System.Drawing.Size(541, 21)
-        Me.TB_SearchModel.TabIndex = 3
+        Me.TB_SearchCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_SearchCode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_SearchCode.Location = New System.Drawing.Point(122, 29)
+        Me.TB_SearchCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_SearchCode.Name = "TB_SearchCode"
+        Me.TB_SearchCode.Size = New System.Drawing.Size(541, 21)
+        Me.TB_SearchCode.TabIndex = 3
         '
         'Label1
         '
@@ -264,7 +301,7 @@ Partial Class frm_Model_Document
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(121, 21)
         Me.Label1.TabIndex = 2
-        Me.Label1.Text = "모델명"
+        Me.Label1.Text = "품번"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_SearchCustomer
@@ -453,6 +490,25 @@ Partial Class frm_Model_Document
         Me.TabPage5.Text = "공정 및 특이사항"
         Me.TabPage5.UseVisualStyleBackColor = True
         '
+        'NUD_Array
+        '
+        Me.NUD_Array.Location = New System.Drawing.Point(536, 175)
+        Me.NUD_Array.Name = "NUD_Array"
+        Me.NUD_Array.Size = New System.Drawing.Size(115, 21)
+        Me.NUD_Array.TabIndex = 16
+        Me.NUD_Array.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label31
+        '
+        Me.Label31.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label31.Location = New System.Drawing.Point(412, 174)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(120, 22)
+        Me.Label31.TabIndex = 15
+        Me.Label31.Text = "- Array / PCB"
+        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'Panel6
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -638,16 +694,8 @@ Partial Class frm_Model_Document
         '
         'TabPage6
         '
-        Me.TabPage6.Controls.Add(Me.CheckBox2)
-        Me.TabPage6.Controls.Add(Me.CheckBox1)
-        Me.TabPage6.Controls.Add(Me.TB_Label_FPGA)
-        Me.TabPage6.Controls.Add(Me.Label29)
-        Me.TabPage6.Controls.Add(Me.TB_Label_Boot)
-        Me.TabPage6.Controls.Add(Me.Label28)
-        Me.TabPage6.Controls.Add(Me.TB_Label_FW)
-        Me.TabPage6.Controls.Add(Me.Label27)
-        Me.TabPage6.Controls.Add(Me.TB_Label_ItemName)
-        Me.TabPage6.Controls.Add(Me.Label18)
+        Me.TabPage6.Controls.Add(Me.GroupBox2)
+        Me.TabPage6.Controls.Add(Me.GroupBox1)
         Me.TabPage6.Location = New System.Drawing.Point(4, 22)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Size = New System.Drawing.Size(689, 437)
@@ -658,7 +706,7 @@ Partial Class frm_Model_Document
         'CheckBox2
         '
         Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(24, 98)
+        Me.CheckBox2.Location = New System.Drawing.Point(13, 101)
         Me.CheckBox2.Name = "CheckBox2"
         Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
         Me.CheckBox2.TabIndex = 22
@@ -668,7 +716,7 @@ Partial Class frm_Model_Document
         'CheckBox1
         '
         Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(24, 17)
+        Me.CheckBox1.Location = New System.Drawing.Point(13, 20)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(120, 16)
         Me.CheckBox1.TabIndex = 21
@@ -678,7 +726,8 @@ Partial Class frm_Model_Document
         'TB_Label_FPGA
         '
         Me.TB_Label_FPGA.Enabled = False
-        Me.TB_Label_FPGA.Location = New System.Drawing.Point(164, 175)
+        Me.TB_Label_FPGA.Location = New System.Drawing.Point(146, 178)
+        Me.TB_Label_FPGA.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
         Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
         Me.TB_Label_FPGA.TabIndex = 20
@@ -687,7 +736,8 @@ Partial Class frm_Model_Document
         '
         Me.Label29.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Label29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label29.Location = New System.Drawing.Point(42, 175)
+        Me.Label29.Location = New System.Drawing.Point(31, 178)
+        Me.Label29.Margin = New System.Windows.Forms.Padding(0)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(115, 21)
         Me.Label29.TabIndex = 19
@@ -697,7 +747,8 @@ Partial Class frm_Model_Document
         'TB_Label_Boot
         '
         Me.TB_Label_Boot.Enabled = False
-        Me.TB_Label_Boot.Location = New System.Drawing.Point(164, 148)
+        Me.TB_Label_Boot.Location = New System.Drawing.Point(146, 151)
+        Me.TB_Label_Boot.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Label_Boot.Name = "TB_Label_Boot"
         Me.TB_Label_Boot.Size = New System.Drawing.Size(246, 21)
         Me.TB_Label_Boot.TabIndex = 18
@@ -706,7 +757,8 @@ Partial Class frm_Model_Document
         '
         Me.Label28.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Label28.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label28.Location = New System.Drawing.Point(42, 148)
+        Me.Label28.Location = New System.Drawing.Point(31, 151)
+        Me.Label28.Margin = New System.Windows.Forms.Padding(0)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(115, 21)
         Me.Label28.TabIndex = 17
@@ -716,7 +768,8 @@ Partial Class frm_Model_Document
         'TB_Label_FW
         '
         Me.TB_Label_FW.Enabled = False
-        Me.TB_Label_FW.Location = New System.Drawing.Point(164, 121)
+        Me.TB_Label_FW.Location = New System.Drawing.Point(146, 124)
+        Me.TB_Label_FW.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Label_FW.Name = "TB_Label_FW"
         Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
         Me.TB_Label_FW.TabIndex = 16
@@ -725,7 +778,8 @@ Partial Class frm_Model_Document
         '
         Me.Label27.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label27.Location = New System.Drawing.Point(42, 121)
+        Me.Label27.Location = New System.Drawing.Point(31, 124)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(0)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(115, 21)
         Me.Label27.TabIndex = 15
@@ -735,7 +789,8 @@ Partial Class frm_Model_Document
         'TB_Label_ItemName
         '
         Me.TB_Label_ItemName.Enabled = False
-        Me.TB_Label_ItemName.Location = New System.Drawing.Point(164, 36)
+        Me.TB_Label_ItemName.Location = New System.Drawing.Point(146, 39)
+        Me.TB_Label_ItemName.Margin = New System.Windows.Forms.Padding(0)
         Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
         Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
         Me.TB_Label_ItemName.TabIndex = 14
@@ -744,7 +799,8 @@ Partial Class frm_Model_Document
         '
         Me.Label18.BackColor = System.Drawing.Color.LightSteelBlue
         Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label18.Location = New System.Drawing.Point(42, 36)
+        Me.Label18.Location = New System.Drawing.Point(31, 39)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(0)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(115, 21)
         Me.Label18.TabIndex = 13
@@ -1010,7 +1066,7 @@ Partial Class frm_Model_Document
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(120, 21)
         Me.Label9.TabIndex = 10
-        Me.Label9.Text = "품목명"
+        Me.Label9.Text = "품명"
         Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_ItemName
@@ -1035,7 +1091,7 @@ Partial Class frm_Model_Document
         Me.Label22.Name = "Label22"
         Me.Label22.Size = New System.Drawing.Size(120, 21)
         Me.Label22.TabIndex = 8
-        Me.Label22.Text = "모델명"
+        Me.Label22.Text = "품번"
         Me.Label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'TB_ModelName
@@ -1167,24 +1223,67 @@ Partial Class frm_Model_Document
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
-        'Label31
+        'GroupBox1
         '
-        Me.Label31.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Label31.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label31.Location = New System.Drawing.Point(412, 174)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(120, 22)
-        Me.Label31.TabIndex = 15
-        Me.Label31.Text = "- Array / PCB"
-        Me.Label31.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.GroupBox1.Controls.Add(Me.CheckBox1)
+        Me.GroupBox1.Controls.Add(Me.CheckBox2)
+        Me.GroupBox1.Controls.Add(Me.Label18)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_ItemName)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_FPGA)
+        Me.GroupBox1.Controls.Add(Me.Label27)
+        Me.GroupBox1.Controls.Add(Me.Label29)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_FW)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_Boot)
+        Me.GroupBox1.Controls.Add(Me.Label28)
+        Me.GroupBox1.Location = New System.Drawing.Point(15, 15)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(410, 212)
+        Me.GroupBox1.TabIndex = 23
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "20 x 8 mm"
         '
-        'NUD_Array
+        'GroupBox2
         '
-        Me.NUD_Array.Location = New System.Drawing.Point(536, 175)
-        Me.NUD_Array.Name = "NUD_Array"
-        Me.NUD_Array.Size = New System.Drawing.Size(115, 21)
-        Me.NUD_Array.TabIndex = 16
-        Me.NUD_Array.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.GroupBox2.Controls.Add(Me.CheckBox3)
+        Me.GroupBox2.Controls.Add(Me.Label33)
+        Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 233)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(410, 77)
+        Me.GroupBox2.TabIndex = 24
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "12 x 10 mm"
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(13, 20)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(120, 16)
+        Me.CheckBox3.TabIndex = 24
+        Me.CheckBox3.Text = "Ass'y Label 발행"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        Me.Label33.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label33.Location = New System.Drawing.Point(31, 39)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(115, 21)
+        Me.Label33.TabIndex = 22
+        Me.Label33.Text = "- 품목명"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Enabled = False
+        Me.TextBox2.Location = New System.Drawing.Point(146, 39)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(246, 21)
+        Me.TextBox2.TabIndex = 23
         '
         'frm_Model_Document
         '
@@ -1217,6 +1316,7 @@ Partial Class frm_Model_Document
         CType(Me.Grid_BOM_Total, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
+        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -1225,14 +1325,16 @@ Partial Class frm_Model_Document
         Me.Panel4.PerformLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage6.ResumeLayout(False)
-        Me.TabPage6.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
-        CType(Me.NUD_Array, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1245,7 +1347,7 @@ Partial Class frm_Model_Document
     Friend WithEvents Form_CLose As ToolStripButton
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents TB_SearchModel As TextBox
+    Friend WithEvents TB_SearchCode As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents TB_SearchCustomer As TextBox
     Friend WithEvents Label3 As Label
@@ -1328,4 +1430,11 @@ Partial Class frm_Model_Document
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents NUD_Array As NumericUpDown
     Friend WithEvents Label31 As Label
+    Friend WithEvents TB_SearchName As TextBox
+    Friend WithEvents Label32 As Label
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents CheckBox3 As CheckBox
+    Friend WithEvents Label33 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

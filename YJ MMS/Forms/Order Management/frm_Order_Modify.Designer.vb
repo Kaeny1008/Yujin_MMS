@@ -25,7 +25,10 @@ Partial Class frm_Order_Modify
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Order_Modify))
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
+        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel5 = New System.Windows.Forms.Panel()
@@ -47,12 +50,13 @@ Partial Class frm_Order_Modify
         Me.BTN_OrderCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Resume = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_PO_Split = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
-        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
-        Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -75,10 +79,37 @@ Partial Class frm_Order_Modify
         Me.TS_MainBar.TabIndex = 30
         Me.TS_MainBar.Text = "ToolStrip1"
         '
+        'BTN_Search
+        '
+        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
+        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Search.Name = "BTN_Search"
+        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Search.Text = "검색"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'BTN_Save
+        '
+        Me.BTN_Save.Enabled = False
+        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_Save.Name = "BTN_Save"
+        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
+        Me.BTN_Save.Text = "저장"
         '
         'SplitContainer1
         '
@@ -104,17 +135,21 @@ Partial Class frm_Order_Modify
         '
         Me.Grid_OrderList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_OrderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 85)
+        Me.Grid_OrderList.Location = New System.Drawing.Point(0, 132)
         Me.Grid_OrderList.Name = "Grid_OrderList"
         Me.Grid_OrderList.Rows.Count = 2
         Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(442, 663)
+        Me.Grid_OrderList.Size = New System.Drawing.Size(442, 616)
         Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
         Me.Grid_OrderList.TabIndex = 32
         '
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.ComboBox1)
+        Me.Panel5.Controls.Add(Me.Label4)
+        Me.Panel5.Controls.Add(Me.TextBox1)
+        Me.Panel5.Controls.Add(Me.Label3)
         Me.Panel5.Controls.Add(Me.TB_OrderNo_Search)
         Me.Panel5.Controls.Add(Me.Label17)
         Me.Panel5.Controls.Add(Me.DTP_End)
@@ -124,14 +159,14 @@ Partial Class frm_Order_Modify
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(442, 85)
+        Me.Panel5.Size = New System.Drawing.Size(442, 132)
         Me.Panel5.TabIndex = 31
         '
         'TB_OrderNo_Search
         '
         Me.TB_OrderNo_Search.BackColor = System.Drawing.SystemColors.Window
         Me.TB_OrderNo_Search.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TB_OrderNo_Search.Location = New System.Drawing.Point(85, 47)
+        Me.TB_OrderNo_Search.Location = New System.Drawing.Point(85, 72)
         Me.TB_OrderNo_Search.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_OrderNo_Search.Name = "TB_OrderNo_Search"
         Me.TB_OrderNo_Search.Size = New System.Drawing.Size(242, 21)
@@ -143,7 +178,7 @@ Partial Class frm_Order_Modify
         Me.Label17.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label17.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label17.ForeColor = System.Drawing.Color.White
-        Me.Label17.Location = New System.Drawing.Point(9, 47)
+        Me.Label17.Location = New System.Drawing.Point(9, 72)
         Me.Label17.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(76, 21)
@@ -294,7 +329,7 @@ Partial Class frm_Order_Modify
         '
         Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_OrderCancel, Me.BTN_Resume, Me.ToolStripSeparator4, Me.BTN_Save2, Me.ToolStripSeparator2, Me.BTN_PO_Split})
         Me.CMS_GridMenu.Name = "CMS_GridMenu"
-        Me.CMS_GridMenu.Size = New System.Drawing.Size(240, 126)
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(240, 104)
         '
         'BTN_OrderCancel
         '
@@ -313,6 +348,13 @@ Partial Class frm_Order_Modify
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
         Me.ToolStripSeparator4.Size = New System.Drawing.Size(236, 6)
         '
+        'BTN_Save2
+        '
+        Me.BTN_Save2.Image = Global.YJ_MMS.My.Resources.Resources.save_5
+        Me.BTN_Save2.Name = "BTN_Save2"
+        Me.BTN_Save2.Size = New System.Drawing.Size(239, 22)
+        Me.BTN_Save2.Text = "저장"
+        '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
@@ -324,39 +366,53 @@ Partial Class frm_Order_Modify
         Me.BTN_PO_Split.Size = New System.Drawing.Size(239, 22)
         Me.BTN_PO_Split.Text = "주문 분리하기 / 관리번호 지정"
         '
-        'BTN_Search
+        'TextBox1
         '
-        Me.BTN_Search.Image = Global.YJ_MMS.My.Resources.Resources.search_121
-        Me.BTN_Search.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Search.Name = "BTN_Search"
-        Me.BTN_Search.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Search.Text = "검색"
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TextBox1.Location = New System.Drawing.Point(85, 95)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(242, 21)
+        Me.TextBox1.TabIndex = 25
         '
-        'Form_CLose
+        'Label3
         '
-        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
-        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.Form_CLose.Name = "Form_CLose"
-        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
-        Me.Form_CLose.Text = "폼 닫기"
+        Me.Label3.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(9, 95)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(76, 21)
+        Me.Label3.TabIndex = 24
+        Me.Label3.Text = "품번"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BTN_Save
+        'Label4
         '
-        Me.BTN_Save.Enabled = False
-        Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
-        Me.BTN_Save.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(51, 22)
-        Me.BTN_Save.Text = "저장"
+        Me.Label4.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(9, 47)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(76, 21)
+        Me.Label4.TabIndex = 26
+        Me.Label4.Text = "주문상태"
+        Me.Label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'BTN_Save2
+        'ComboBox1
         '
-        Me.BTN_Save2.Image = Global.YJ_MMS.My.Resources.Resources.save_5
-        Me.BTN_Save2.Name = "BTN_Save2"
-        Me.BTN_Save2.Size = New System.Drawing.Size(239, 22)
-        Me.BTN_Save2.Text = "저장"
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"전체", "접수"})
+        Me.ComboBox1.Location = New System.Drawing.Point(85, 48)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(242, 20)
+        Me.ComboBox1.TabIndex = 27
         '
         'frm_Order_Modify
         '
@@ -414,4 +470,8 @@ Partial Class frm_Order_Modify
     Friend WithEvents Label2 As Label
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents BTN_PO_Split As ToolStripMenuItem
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents Label4 As Label
 End Class

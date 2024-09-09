@@ -419,6 +419,16 @@ Public Class frm_Material_Warehousing_With_Label
         If (e.KeyCode = 13) And
             (Not TB_BarcodeScan.Text = String.Empty) Then
 
+            Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(TB_BarcodeScan.Text)
+            Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(TB_BarcodeScan.Text)
+
+            If asciiTest <> unicodeTest Then
+                MSG_Exclamation(Me, "특수문자를 입력할 수 없습니다.")
+                TB_BarcodeScan.SelectAll()
+                TB_BarcodeScan.Focus()
+                Exit Sub
+            End If
+
             If TB_CustomerName.Text = "LS Mecapion" Then
                 If RB_Supplier.Checked Then
                     SplitBarcode_Supplier()
@@ -811,6 +821,8 @@ Public Class frm_Material_Warehousing_With_Label
             TB_ItemCode.SelectAll()
         End If
 
+        Grid_PartList.TopRow = Grid_PartList.Rows.Count - 1
+
 
     End Sub
 
@@ -1121,6 +1133,22 @@ Public Class frm_Material_Warehousing_With_Label
         Grid_PartList.RemoveItem(selRow)
 
         MSG_Information(Me, "삭제완료.")
+
+    End Sub
+
+    Private Sub TextBox1_KeyDown(sender As Object, e As KeyEventArgs) Handles TextBox1.KeyDown
+
+        'If e.KeyCode = 13 Then
+        '    Dim asciiTest As Integer = System.Text.Encoding.ASCII.GetByteCount(TextBox1.Text)
+        '    Dim unicodeTest As Integer = System.Text.Encoding.UTF8.GetByteCount(TextBox1.Text)
+
+        '    If asciiTest <> unicodeTest Then
+        '        MSG_Exclamation(Me, "특수문자를 입력할 수 없습니다.")
+        '        TextBox1.SelectAll()
+        '        TextBox1.Focus()
+        '        Exit Sub
+        '    End If
+        'End If
 
     End Sub
 End Class

@@ -169,7 +169,6 @@ Partial Class frm_WS_Magazine_Kitting
         Me.LB_HistoryIndex.Size = New System.Drawing.Size(80, 12)
         Me.LB_HistoryIndex.TabIndex = 19
         Me.LB_HistoryIndex.Text = "history_index"
-        Me.LB_HistoryIndex.Visible = False
         '
         'TB_ItemCode
         '
@@ -329,7 +328,6 @@ Partial Class frm_WS_Magazine_Kitting
         Me.LB_ModelCode.Size = New System.Drawing.Size(74, 12)
         Me.LB_ModelCode.TabIndex = 20
         Me.LB_ModelCode.Text = "model_code"
-        Me.LB_ModelCode.Visible = False
         '
         'LB_CustomerCode
         '
@@ -339,7 +337,6 @@ Partial Class frm_WS_Magazine_Kitting
         Me.LB_CustomerCode.Size = New System.Drawing.Size(88, 12)
         Me.LB_CustomerCode.TabIndex = 21
         Me.LB_CustomerCode.Text = "customerCode"
-        Me.LB_CustomerCode.Visible = False
         '
         'frm_WS_Magazine_Kitting
         '

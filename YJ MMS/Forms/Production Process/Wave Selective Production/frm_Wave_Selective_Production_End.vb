@@ -28,7 +28,7 @@ Public Class frm_Wave_Selective_Production_End
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 9
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Count = 2
             .Rows.Fixed = 2
@@ -40,13 +40,15 @@ Public Class frm_Wave_Selective_Production_End
             Next
             Dim rngM As CellRange = .GetCellRange(0, 0, 1, 0)
             rngM.Data = "No"
-            rngM = .GetCellRange(0, 1, 1, 2)
+            rngM = .GetCellRange(0, 1, 1, 1)
+            rngM.Data = "History No."
+            rngM = .GetCellRange(0, 2, 1, 3)
             rngM.Data = "생산일자"
-            rngM = .GetCellRange(0, 3, 1, 3)
+            rngM = .GetCellRange(0, 4, 1, 4)
             rngM.Data = "Inspector"
-            rngM = .GetCellRange(0, 4, 1, 7)
+            rngM = .GetCellRange(0, 5, 1, 8)
             rngM.Data = "수량"
-            rngM = .GetCellRange(0, 8, 1, 8)
+            rngM = .GetCellRange(0, 9, 1, 9)
             rngM.Data = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -58,22 +60,22 @@ Public Class frm_Wave_Selective_Production_End
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .SelectionMode = SelectionModeEnum.Default
-            .Cols(4).DataType = GetType(Double)
-            .Cols(4).Format = "#,##0"
             .Cols(5).DataType = GetType(Double)
             .Cols(5).Format = "#,##0"
             .Cols(6).DataType = GetType(Double)
             .Cols(6).Format = "#,##0"
             .Cols(7).DataType = GetType(Double)
             .Cols(7).Format = "#,##0"
+            .Cols(8).DataType = GetType(Double)
+            .Cols(8).Format = "#,##0"
         End With
 
-        Grid_History(1, 1) = "시작"
-        Grid_History(1, 2) = "종료"
-        Grid_History(1, 4) = "시작"
-        Grid_History(1, 5) = "불량"
-        Grid_History(1, 6) = "종료"
-        Grid_History(1, 7) = "폐기"
+        Grid_History(1, 2) = "시작"
+        Grid_History(1, 3) = "종료"
+        Grid_History(1, 5) = "시작"
+        Grid_History(1, 6) = "불량"
+        Grid_History(1, 7) = "종료"
+        Grid_History(1, 8) = "폐기"
         Grid_History.AutoSizeCols()
 
         With Grid_OrderList
@@ -99,7 +101,7 @@ Public Class frm_Wave_Selective_Production_End
             '.SelectionMode = SelectionModeEnum.Default
             .Cols(2).Visible = False
             .Cols(4).Visible = False
-            .Cols(8).Visible = False
+            .Cols(8).Visible = True
         End With
 
         Grid_OrderList(0, 0) = "No"
@@ -143,6 +145,14 @@ Public Class frm_Wave_Selective_Production_End
 
         Thread_LoadingFormEnd()
 
+        'MSG_Information(Me, "해당 주문을 더블클릭으로 선택하여 주십시오.")
+
+        '왠지 Application.DoEvents() 이거때문에 멈추는거 같다.
+        MessageBox.Show("해당 주문을 더블클릭으로 선택하여 주십시오.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
     End Sub
 
     Private Sub Load_OrderInformation()
@@ -185,26 +195,23 @@ Public Class frm_Wave_Selective_Production_End
 
         Grid_OrderList.Redraw = True
 
-        If Grid_OrderList.Rows.Count > 1 Then
-            Dim findRow As Integer = 1
-            If Not historyIndex = String.Empty Then
-                findRow = Grid_OrderList.FindRow(historyIndex, 1, 8, False)
-                'For i = 1 To Grid_OrderList.Rows.Count - 1
-                '    Console.WriteLine(historyIndex & ", " & Grid_OrderList(i, 10) & ", " & Grid_OrderList(i, 10).Equals(CStr(historyIndex)))
-                'Next
-                If findRow = -1 Then
-                    findRow = 1
-                End If
-            End If
-            TB_OrderIndex.Text = Grid_OrderList(findRow, 1)
-            TB_CustomerCode.Text = Grid_OrderList(findRow, 2)
-            TB_CustomerName.Text = Grid_OrderList(findRow, 3)
-            TB_ModelCode.Text = Grid_OrderList(findRow, 4)
-            TB_ItemCode.Text = Grid_OrderList(findRow, 5)
-            TB_ItemName.Text = Grid_OrderList(findRow, 6)
-            TB_OrderQty.Text = Grid_OrderList(findRow, 7)
-            historyIndex = Grid_OrderList(findRow, 8)
-            Load_InspectList()
+        If Grid_OrderList.Rows.Count > 2 Then
+            'Dim findRow As Integer = 1
+            'If Not historyIndex = String.Empty Then
+            '    findRow = Grid_OrderList.FindRow(CStr(historyIndex), 1, 8, False)
+            '    If findRow = -1 Then
+            '        findRow = 1
+            '    End If
+            'End If
+            'TB_OrderIndex.Text = Grid_OrderList(findRow, 1)
+            'TB_CustomerCode.Text = Grid_OrderList(findRow, 2)
+            'TB_CustomerName.Text = Grid_OrderList(findRow, 3)
+            'TB_ModelCode.Text = Grid_OrderList(findRow, 4)
+            'TB_ItemCode.Text = Grid_OrderList(findRow, 5)
+            'TB_ItemName.Text = Grid_OrderList(findRow, 6)
+            'TB_OrderQty.Text = Grid_OrderList(findRow, 7)
+            'historyIndex = Grid_OrderList(findRow, 8)
+            'Load_InspectList()
         End If
 
     End Sub
@@ -251,6 +258,7 @@ Public Class frm_Wave_Selective_Production_End
                 endDate = Format(sqlDR("ws_end_date"), "yyyy-MM-dd HH:mm:ss")
             End If
             Dim insertString As String = Grid_History.Rows.Count - 1 & vbTab &
+                sqlDR("history_index") & vbTab &
                 Format(sqlDR("ws_start_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
                 endDate & vbTab &
                 sqlDR("ws_inspector") & vbTab &
@@ -284,6 +292,10 @@ Public Class frm_Wave_Selective_Production_End
             Control_Initialize()
         End If
 
+        If Grid_History.Rows.Count > 2 Then
+            historyIndex = Grid_History(Grid_History.Rows.Count - 1, 1)
+        End If
+
     End Sub
 
     Private Sub BTN_Reload_Click(sender As Object, e As EventArgs) Handles BTN_Reload.Click
@@ -303,11 +315,44 @@ Public Class frm_Wave_Selective_Production_End
             TB_ItemCode.Text = Grid_OrderList(selRow, 5)
             TB_ItemName.Text = Grid_OrderList(selRow, 6)
             TB_OrderQty.Text = Grid_OrderList(selRow, 7)
-            historyIndex = Grid_OrderList(selRow, 8)
+            'historyIndex = Grid_OrderList(selRow, 8) '이부분이 잘못되었다. 최신화가 안되고 예전걸 선택되게 만든다.
+            'historyIndex = Lastest_History()
             Load_InspectList()
+            MSG_Information(Me, "주문을 변경하였습니다.")
         End If
 
     End Sub
+
+    Private Function Lastest_History() As String
+
+        DBConnect()
+
+        Dim lastest_historyIndex As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(17"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            lastest_historyIndex = sqlDR("history_index")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return lastest_historyIndex
+
+    End Function
 
     Private Sub BTN_FaultRegister_Click(sender As Object, e As EventArgs) Handles BTN_FaultRegister.Click
 
@@ -360,10 +405,10 @@ Public Class frm_Wave_Selective_Production_End
         Dim totalDefectCount As Integer = 0
 
         For i = 2 To Grid_History.Rows.Count - 1
-            totalDefectCount += Grid_History(i, 5)
+            totalDefectCount += Grid_History(i, 6)
         Next
 
-        frm_WS_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 4)
+        frm_WS_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 5)
         frm_WS_Magazine_Kitting.totalDefectCount = totalDefectCount
         frm_WS_Magazine_Kitting.workingCount = TB_OrderQty.Text
         frm_WS_Magazine_Kitting.TB_TotalQty.Text = TB_OrderQty.Text
@@ -423,12 +468,12 @@ Public Class frm_Wave_Selective_Production_End
 
     Private Sub BTN_Reprint_Click(sender As Object, e As EventArgs) Handles BTN_Reprint.Click
 
-        If MessageBox.Show(Me, "현품표를 재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
-
         Dim selRow As Integer = Grid_History.Row
 
-        Dim nowWriteDate As String = Grid_History(selRow, 1)
-        Dim nowHistoryNo As String = Grid_History(selRow, 9)
+        If MessageBox.Show(Me, "현품표를 재발행 하시겠습니까?", msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
+
+        Dim nowWriteDate As String = Grid_History(selRow, 3)
+        Dim nowHistoryNo As String = Grid_History(selRow, 1)
         Dim nowProductionQty As String = Grid_History(selRow, 7)
         Dim nowTotalQty As String = CDbl(Grid_History(selRow, 5)) + CDbl(Grid_History(selRow, 7))
 
@@ -481,7 +526,7 @@ Public Class frm_Wave_Selective_Production_End
         swFile.WriteLine("^FO0170,0170^A0,30,20^FD" & TB_OrderIndex.Text & " ( " & historyNo & " )^FS")
 
         swFile.WriteLine("^FO0016,0208^A0,30,20^FDTotal Q'ty^FS")
-        swFile.WriteLine("^FO0170,0208^A0,30,20^FD" & totalQty & " EA^FS")
+        swFile.WriteLine("^FO0170,0208^A0,30,20^FD" & CDbl(TB_OrderQty.Text) & " EA^FS")
         swFile.WriteLine("^FO0360,0208^A0,30,20^FDMagazine Q'ty^FS")
         swFile.WriteLine("^FO0518,0208^A0,30,20^FD" & productionQty & " EA^FS")
 
@@ -500,7 +545,7 @@ Public Class frm_Wave_Selective_Production_End
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint(fileName)
+        Dim printResult As String = LabelPrint(fileName, 1)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,

@@ -27,8 +27,8 @@ Partial Class frm_Delivery_Register_Check
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.BTN_Save = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
+        Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         CType(Me.Grid_POList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
         Me.SuspendLayout()
@@ -41,7 +41,7 @@ Partial Class frm_Delivery_Register_Check
         Me.Grid_POList.Name = "Grid_POList"
         Me.Grid_POList.Rows.Count = 2
         Me.Grid_POList.Rows.DefaultSize = 20
-        Me.Grid_POList.Size = New System.Drawing.Size(987, 514)
+        Me.Grid_POList.Size = New System.Drawing.Size(1206, 514)
         Me.Grid_POList.StyleInfo = resources.GetString("Grid_POList.StyleInfo")
         Me.Grid_POList.TabIndex = 10
         '
@@ -51,7 +51,7 @@ Partial Class frm_Delivery_Register_Check
         Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Save, Me.ToolStripSeparator1, Me.ToolStripLabel2, Me.ToolStripLabel1})
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
-        Me.TS_MainBar.Size = New System.Drawing.Size(987, 25)
+        Me.TS_MainBar.Size = New System.Drawing.Size(1206, 25)
         Me.TS_MainBar.TabIndex = 11
         Me.TS_MainBar.Text = "ToolStrip1"
         '
@@ -68,23 +68,23 @@ Partial Class frm_Delivery_Register_Check
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'ToolStripLabel1
-        '
-        Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(95, 22)
-        Me.ToolStripLabel1.Text = "DN2406040001"
-        '
         'ToolStripLabel2
         '
         Me.ToolStripLabel2.Name = "ToolStripLabel2"
         Me.ToolStripLabel2.Size = New System.Drawing.Size(62, 22)
         Me.ToolStripLabel2.Text = "전표번호 :"
         '
+        'ToolStripLabel1
+        '
+        Me.ToolStripLabel1.Name = "ToolStripLabel1"
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(95, 22)
+        Me.ToolStripLabel1.Text = "DN2406040001"
+        '
         'frm_Delivery_Register_Check
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(987, 539)
+        Me.ClientSize = New System.Drawing.Size(1206, 539)
         Me.Controls.Add(Me.Grid_POList)
         Me.Controls.Add(Me.TS_MainBar)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog

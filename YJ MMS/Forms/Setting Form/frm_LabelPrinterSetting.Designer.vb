@@ -46,7 +46,32 @@ Partial Class frm_LabelPrinterSetting
         Me.TB_Port = New System.Windows.Forms.TextBox()
         Me.BTN_Save = New System.Windows.Forms.Button()
         Me.BTN_TestLabelPrint = New System.Windows.Forms.Button()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.CB_PrinterList2 = New System.Windows.Forms.ComboBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.TB_MediaDarkness2 = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TB_StopBits2 = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.TB_Parity2 = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.CB_Cable2 = New System.Windows.Forms.ComboBox()
+        Me.TB_DataBits2 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.TB_TOP_Loc2 = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.TB_BaudRate2 = New System.Windows.Forms.TextBox()
+        Me.TB_LEFT_Loc2 = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TB_Port2 = New System.Windows.Forms.TextBox()
         Me.Panel5.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label32
@@ -58,7 +83,7 @@ Partial Class frm_LabelPrinterSetting
         Me.Label32.Location = New System.Drawing.Point(9, 10)
         Me.Label32.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(482, 47)
+        Me.Label32.Size = New System.Drawing.Size(971, 47)
         Me.Label32.TabIndex = 0
         Me.Label32.Text = "프린터 설정"
         Me.Label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -66,6 +91,7 @@ Partial Class frm_LabelPrinterSetting
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel5.Controls.Add(Me.Panel1)
         Me.Panel5.Controls.Add(Me.CB_PrinterList)
         Me.Panel5.Controls.Add(Me.Label23)
         Me.Panel5.Controls.Add(Me.TB_MediaDarkness)
@@ -86,7 +112,7 @@ Partial Class frm_LabelPrinterSetting
         Me.Panel5.Controls.Add(Me.Label30)
         Me.Panel5.Controls.Add(Me.Label31)
         Me.Panel5.Controls.Add(Me.TB_Port)
-        Me.Panel5.Location = New System.Drawing.Point(9, 61)
+        Me.Panel5.Location = New System.Drawing.Point(9, 87)
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(482, 300)
         Me.Panel5.TabIndex = 1
@@ -348,7 +374,7 @@ Partial Class frm_LabelPrinterSetting
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(323, 384)
+        Me.BTN_Save.Location = New System.Drawing.Point(811, 392)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(168, 87)
         Me.BTN_Save.TabIndex = 3
@@ -362,7 +388,7 @@ Partial Class frm_LabelPrinterSetting
         Me.BTN_TestLabelPrint.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_TestLabelPrint.Image = Global.YJ_MMS.My.Resources.Resources.barcode
         Me.BTN_TestLabelPrint.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_TestLabelPrint.Location = New System.Drawing.Point(95, 384)
+        Me.BTN_TestLabelPrint.Location = New System.Drawing.Point(138, 392)
         Me.BTN_TestLabelPrint.Name = "BTN_TestLabelPrint"
         Me.BTN_TestLabelPrint.Size = New System.Drawing.Size(222, 87)
         Me.BTN_TestLabelPrint.TabIndex = 2
@@ -370,11 +396,323 @@ Partial Class frm_LabelPrinterSetting
         Me.BTN_TestLabelPrint.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.BTN_TestLabelPrint.UseVisualStyleBackColor = True
         '
+        'Panel1
+        '
+        Me.Panel1.Location = New System.Drawing.Point(478, 7)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(170, 182)
+        Me.Panel1.TabIndex = 18
+        '
+        'Panel2
+        '
+        Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel2.Controls.Add(Me.CB_PrinterList2)
+        Me.Panel2.Controls.Add(Me.Label2)
+        Me.Panel2.Controls.Add(Me.TB_MediaDarkness2)
+        Me.Panel2.Controls.Add(Me.Label3)
+        Me.Panel2.Controls.Add(Me.TB_StopBits2)
+        Me.Panel2.Controls.Add(Me.Label5)
+        Me.Panel2.Controls.Add(Me.TB_Parity2)
+        Me.Panel2.Controls.Add(Me.Label6)
+        Me.Panel2.Controls.Add(Me.CB_Cable2)
+        Me.Panel2.Controls.Add(Me.TB_DataBits2)
+        Me.Panel2.Controls.Add(Me.Label7)
+        Me.Panel2.Controls.Add(Me.Label8)
+        Me.Panel2.Controls.Add(Me.Label9)
+        Me.Panel2.Controls.Add(Me.TB_TOP_Loc2)
+        Me.Panel2.Controls.Add(Me.Label10)
+        Me.Panel2.Controls.Add(Me.TB_BaudRate2)
+        Me.Panel2.Controls.Add(Me.TB_LEFT_Loc2)
+        Me.Panel2.Controls.Add(Me.Label11)
+        Me.Panel2.Controls.Add(Me.Label12)
+        Me.Panel2.Controls.Add(Me.TB_Port2)
+        Me.Panel2.Location = New System.Drawing.Point(497, 87)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(483, 300)
+        Me.Panel2.TabIndex = 4
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(495, 72)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(154, 12)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "※ 12 x 10 mm 전용 프린터"
+        '
+        'Button1
+        '
+        Me.Button1.BackColor = System.Drawing.Color.Red
+        Me.Button1.Font = New System.Drawing.Font("굴림", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Button1.Image = Global.YJ_MMS.My.Resources.Resources.barcode
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(497, 392)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(222, 87)
+        Me.Button1.TabIndex = 5
+        Me.Button1.Text = "12 x 10 mm" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "테스트 라벨 발행"
+        Me.Button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'CB_PrinterList2
+        '
+        Me.CB_PrinterList2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_PrinterList2.Font = New System.Drawing.Font("굴림", 13.75!, System.Drawing.FontStyle.Bold)
+        Me.CB_PrinterList2.FormattingEnabled = True
+        Me.CB_PrinterList2.Location = New System.Drawing.Point(182, 37)
+        Me.CB_PrinterList2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.CB_PrinterList2.Name = "CB_PrinterList2"
+        Me.CB_PrinterList2.Size = New System.Drawing.Size(285, 26)
+        Me.CB_PrinterList2.TabIndex = 21
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.SlateGray
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(11, 37)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(171, 26)
+        Me.Label2.TabIndex = 20
+        Me.Label2.Text = "Printer 목록"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_MediaDarkness2
+        '
+        Me.TB_MediaDarkness2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_MediaDarkness2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_MediaDarkness2.Location = New System.Drawing.Point(182, 261)
+        Me.TB_MediaDarkness2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_MediaDarkness2.Name = "TB_MediaDarkness2"
+        Me.TB_MediaDarkness2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_MediaDarkness2.TabIndex = 37
+        Me.TB_MediaDarkness2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.SlateGray
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label3.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(11, 261)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(171, 26)
+        Me.Label3.TabIndex = 34
+        Me.Label3.Text = "Darkness"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_StopBits2
+        '
+        Me.TB_StopBits2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_StopBits2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_StopBits2.Location = New System.Drawing.Point(182, 233)
+        Me.TB_StopBits2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_StopBits2.Name = "TB_StopBits2"
+        Me.TB_StopBits2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_StopBits2.TabIndex = 36
+        Me.TB_StopBits2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label5
+        '
+        Me.Label5.BackColor = System.Drawing.Color.SlateGray
+        Me.Label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label5.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label5.ForeColor = System.Drawing.Color.White
+        Me.Label5.Location = New System.Drawing.Point(11, 233)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(171, 26)
+        Me.Label5.TabIndex = 35
+        Me.Label5.Text = "StopBits"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Parity2
+        '
+        Me.TB_Parity2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_Parity2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_Parity2.Location = New System.Drawing.Point(182, 205)
+        Me.TB_Parity2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Parity2.Name = "TB_Parity2"
+        Me.TB_Parity2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_Parity2.TabIndex = 33
+        Me.TB_Parity2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label6
+        '
+        Me.Label6.BackColor = System.Drawing.Color.SlateGray
+        Me.Label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label6.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label6.ForeColor = System.Drawing.Color.White
+        Me.Label6.Location = New System.Drawing.Point(11, 205)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(171, 26)
+        Me.Label6.TabIndex = 32
+        Me.Label6.Text = "Parity"
+        Me.Label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'CB_Cable2
+        '
+        Me.CB_Cable2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.CB_Cable2.Font = New System.Drawing.Font("굴림", 13.75!, System.Drawing.FontStyle.Bold)
+        Me.CB_Cable2.FormattingEnabled = True
+        Me.CB_Cable2.Items.AddRange(New Object() {"COM", "LPT", "USB"})
+        Me.CB_Cable2.Location = New System.Drawing.Point(182, 9)
+        Me.CB_Cable2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.CB_Cable2.Name = "CB_Cable2"
+        Me.CB_Cable2.Size = New System.Drawing.Size(285, 26)
+        Me.CB_Cable2.TabIndex = 19
+        '
+        'TB_DataBits2
+        '
+        Me.TB_DataBits2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_DataBits2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_DataBits2.Location = New System.Drawing.Point(182, 177)
+        Me.TB_DataBits2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_DataBits2.Name = "TB_DataBits2"
+        Me.TB_DataBits2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_DataBits2.TabIndex = 31
+        Me.TB_DataBits2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label7
+        '
+        Me.Label7.BackColor = System.Drawing.Color.SlateGray
+        Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label7.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(11, 9)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(171, 26)
+        Me.Label7.TabIndex = 18
+        Me.Label7.Text = "COM / LPT / USB"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label8
+        '
+        Me.Label8.BackColor = System.Drawing.Color.SlateGray
+        Me.Label8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label8.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label8.ForeColor = System.Drawing.Color.White
+        Me.Label8.Location = New System.Drawing.Point(11, 177)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(171, 26)
+        Me.Label8.TabIndex = 30
+        Me.Label8.Text = "DataBits"
+        Me.Label8.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label9
+        '
+        Me.Label9.BackColor = System.Drawing.Color.SlateGray
+        Me.Label9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label9.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label9.ForeColor = System.Drawing.Color.White
+        Me.Label9.Location = New System.Drawing.Point(11, 121)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(171, 26)
+        Me.Label9.TabIndex = 26
+        Me.Label9.Text = "인쇄위치(세로)"
+        Me.Label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_TOP_Loc2
+        '
+        Me.TB_TOP_Loc2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_TOP_Loc2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_TOP_Loc2.Location = New System.Drawing.Point(182, 121)
+        Me.TB_TOP_Loc2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_TOP_Loc2.Name = "TB_TOP_Loc2"
+        Me.TB_TOP_Loc2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_TOP_Loc2.TabIndex = 27
+        Me.TB_TOP_Loc2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label10
+        '
+        Me.Label10.BackColor = System.Drawing.Color.SlateGray
+        Me.Label10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label10.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label10.ForeColor = System.Drawing.Color.White
+        Me.Label10.Location = New System.Drawing.Point(11, 149)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(171, 26)
+        Me.Label10.TabIndex = 28
+        Me.Label10.Text = "BaudRate"
+        Me.Label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_BaudRate2
+        '
+        Me.TB_BaudRate2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_BaudRate2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_BaudRate2.Location = New System.Drawing.Point(182, 149)
+        Me.TB_BaudRate2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_BaudRate2.Name = "TB_BaudRate2"
+        Me.TB_BaudRate2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_BaudRate2.TabIndex = 29
+        Me.TB_BaudRate2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TB_LEFT_Loc2
+        '
+        Me.TB_LEFT_Loc2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_LEFT_Loc2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_LEFT_Loc2.Location = New System.Drawing.Point(182, 93)
+        Me.TB_LEFT_Loc2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_LEFT_Loc2.Name = "TB_LEFT_Loc2"
+        Me.TB_LEFT_Loc2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_LEFT_Loc2.TabIndex = 25
+        Me.TB_LEFT_Loc2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label11
+        '
+        Me.Label11.BackColor = System.Drawing.Color.SlateGray
+        Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label11.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label11.ForeColor = System.Drawing.Color.White
+        Me.Label11.Location = New System.Drawing.Point(11, 65)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(171, 26)
+        Me.Label11.TabIndex = 22
+        Me.Label11.Text = "Port"
+        Me.Label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label12
+        '
+        Me.Label12.BackColor = System.Drawing.Color.SlateGray
+        Me.Label12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label12.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label12.ForeColor = System.Drawing.Color.White
+        Me.Label12.Location = New System.Drawing.Point(11, 93)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(171, 26)
+        Me.Label12.TabIndex = 24
+        Me.Label12.Text = "인쇄위치(가로)"
+        Me.Label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Port2
+        '
+        Me.TB_Port2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_Port2.ImeMode = System.Windows.Forms.ImeMode.Disable
+        Me.TB_Port2.Location = New System.Drawing.Point(182, 65)
+        Me.TB_Port2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_Port2.Name = "TB_Port2"
+        Me.TB_Port2.Size = New System.Drawing.Size(285, 26)
+        Me.TB_Port2.TabIndex = 23
+        Me.TB_Port2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'frm_LabelPrinterSetting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(503, 483)
+        Me.ClientSize = New System.Drawing.Size(991, 483)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.BTN_Save)
         Me.Controls.Add(Me.BTN_TestLabelPrint)
         Me.Controls.Add(Me.Label32)
@@ -386,7 +724,10 @@ Partial Class frm_LabelPrinterSetting
         Me.Text = "라벨 프린터 설정"
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
+        Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -414,4 +755,28 @@ Partial Class frm_LabelPrinterSetting
     Friend WithEvents BTN_Save As Button
     Friend WithEvents TB_MediaDarkness As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Button1 As Button
+    Friend WithEvents CB_PrinterList2 As ComboBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents TB_MediaDarkness2 As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TB_StopBits2 As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents TB_Parity2 As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents CB_Cable2 As ComboBox
+    Friend WithEvents TB_DataBits2 As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label9 As Label
+    Friend WithEvents TB_TOP_Loc2 As TextBox
+    Friend WithEvents Label10 As Label
+    Friend WithEvents TB_BaudRate2 As TextBox
+    Friend WithEvents TB_LEFT_Loc2 As TextBox
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
+    Friend WithEvents TB_Port2 As TextBox
 End Class

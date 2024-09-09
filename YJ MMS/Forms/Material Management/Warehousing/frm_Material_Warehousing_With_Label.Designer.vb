@@ -805,23 +805,23 @@ Partial Class frm_Material_Warehousing_With_Label
         '
         Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint, Me.ToolStripSeparator1, Me.BTN_RowDelete})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(181, 76)
+        Me.Grid_Menu.Size = New System.Drawing.Size(159, 54)
         '
         'BTN_RePrint
         '
         Me.BTN_RePrint.Name = "BTN_RePrint"
-        Me.BTN_RePrint.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RePrint.Size = New System.Drawing.Size(158, 22)
         Me.BTN_RePrint.Text = "재발행"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(155, 6)
         '
         'BTN_RowDelete
         '
         Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(158, 22)
         Me.BTN_RowDelete.Text = "입고 취소(삭제)"
         '
         'frm_Material_Warehousing_With_Label

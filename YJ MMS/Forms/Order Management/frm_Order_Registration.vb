@@ -73,6 +73,7 @@ Public Class frm_Order_Registration
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             '.Cols(.Cols.Count - 1).StyleNew.TextAlign = TextAlignEnum.LeftCenter
+            .AutoClipboard = True
             .ExtendLastCol = False
             .AutoSizeCols()
             .ShowCursor = True
@@ -258,10 +259,19 @@ Public Class frm_Order_Registration
         Grid_Excel.Rows.Count = 1
         Grid_Excel.Redraw = True
 
-        excelApp = CreateObject("Excel.Application")
-        excelApp.DisplayAlerts = False
-        excelApp.WorkBooks.Open(TB_File_Path.Text)
-        excelApp.Visible = False
+        Try
+            excelApp = CreateObject("Excel.Application")
+            excelApp.DisplayAlerts = False
+            excelApp.WorkBooks.Open(TB_File_Path.Text)
+            excelApp.Visible = False
+        Catch ex As Exception
+            excelApp.WorkBooks().Close()
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+            MSG_Error(Me, ex.Message)
+            Exit Sub
+        End Try
 
         Load_SheetList()
 
@@ -1248,6 +1258,8 @@ Public Class frm_Order_Registration
     End Sub
 
     Private Sub Grid_Excel_RowColChange(sender As Object, e As EventArgs) Handles Grid_Excel.RowColChange
+
+        If Grid_Excel.Row > 1 Or Grid_Excel.Col > 1 Then Exit Sub
 
         Select Case Grid_Excel.Col
             Case 3, 9, 11

@@ -62,6 +62,7 @@ Public Class frm_Order_Split
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -101,6 +102,7 @@ Public Class frm_Order_Split
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
 

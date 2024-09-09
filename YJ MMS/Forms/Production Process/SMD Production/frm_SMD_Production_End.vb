@@ -41,20 +41,20 @@ Public Class frm_SMD_Production_End
             Next
             Dim rngM As CellRange = .GetCellRange(0, 0, 1, 0)
             rngM.Data = "No"
-            rngM = .GetCellRange(0, 1, 1, 2)
-            rngM.Data = "생산일자"
-            Grid_History(1, 1) = "시작"
-            Grid_History(1, 2) = "종료"
-            rngM = .GetCellRange(0, 3, 1, 3)
-            rngM.Data = "Operator"
-            rngM = .GetCellRange(0, 4, 1, 4)
-            rngM.Data = "Inspector"
-            rngM = .GetCellRange(0, 5, 1, 8)
-            rngM.Data = "수량"
-            rngM = .GetCellRange(0, 9, 1, 9)
-            rngM.Data = "비고"
-            rngM = .GetCellRange(0, 10, 1, 10)
+            rngM = .GetCellRange(0, 1, 1, 1)
             rngM.Data = "History No."
+            rngM = .GetCellRange(0, 2, 1, 3)
+            rngM.Data = "생산일자"
+            Grid_History(1, 2) = "시작"
+            Grid_History(1, 3) = "종료"
+            rngM = .GetCellRange(0, 4, 1, 4)
+            rngM.Data = "Operator"
+            rngM = .GetCellRange(0, 5, 1, 5)
+            rngM.Data = "Inspector"
+            rngM = .GetCellRange(0, 6, 1, 9)
+            rngM.Data = "수량"
+            rngM = .GetCellRange(0, 10, 1, 10)
+            rngM.Data = "비고"
             .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
@@ -65,21 +65,20 @@ Public Class frm_SMD_Production_End
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .SelectionMode = SelectionModeEnum.Default
-            .Cols(10).Visible = False
-            .Cols(5).DataType = GetType(Double)
-            .Cols(5).Format = "#,##0"
             .Cols(6).DataType = GetType(Double)
             .Cols(6).Format = "#,##0"
             .Cols(7).DataType = GetType(Double)
             .Cols(7).Format = "#,##0"
             .Cols(8).DataType = GetType(Double)
             .Cols(8).Format = "#,##0"
+            .Cols(9).DataType = GetType(Double)
+            .Cols(9).Format = "#,##0"
         End With
 
-        Grid_History(1, 5) = "시작"
-        Grid_History(1, 6) = "불량"
-        Grid_History(1, 7) = "종료"
-        Grid_History(1, 8) = "폐기"
+        Grid_History(1, 6) = "시작"
+        Grid_History(1, 7) = "불량"
+        Grid_History(1, 8) = "종료"
+        Grid_History(1, 9) = "폐기"
         Grid_History.AutoSizeCols()
 
         With Grid_OrderList
@@ -99,23 +98,22 @@ Public Class frm_SMD_Production_End
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = True
             .ShowCursor = True
-            .Cols(2).Visible = False
-            .Cols(4).Visible = False
-            .Cols(9).Visible = False
+            .Cols(3).Visible = False
+            .Cols(5).Visible = False
             .Cols(10).Visible = False
         End With
 
         Grid_OrderList(0, 0) = "No"
-        Grid_OrderList(0, 1) = "주문번호"
-        Grid_OrderList(0, 2) = "고객사 코드"
-        Grid_OrderList(0, 3) = "고객사"
-        Grid_OrderList(0, 4) = "모델코드"
-        Grid_OrderList(0, 5) = "품번"
-        Grid_OrderList(0, 6) = "품명"
-        Grid_OrderList(0, 7) = "작업면"
-        Grid_OrderList(0, 8) = "작업수량"
-        Grid_OrderList(0, 9) = "Operator"
-        Grid_OrderList(0, 10) = "history_index"
+        Grid_OrderList(0, 1) = "history_index"
+        Grid_OrderList(0, 2) = "주문번호"
+        Grid_OrderList(0, 3) = "고객사 코드"
+        Grid_OrderList(0, 4) = "고객사"
+        Grid_OrderList(0, 5) = "모델코드"
+        Grid_OrderList(0, 6) = "품번"
+        Grid_OrderList(0, 7) = "품명"
+        Grid_OrderList(0, 8) = "작업면"
+        Grid_OrderList(0, 9) = "작업수량"
+        Grid_OrderList(0, 10) = "Operator"
 
         Grid_OrderList.AutoSizeCols()
 
@@ -224,6 +222,14 @@ Public Class frm_SMD_Production_End
 
         Thread_LoadingFormEnd()
 
+        'MSG_Information(Me, "해당 주문을 더블클릭으로 선택하여 주십시오.")
+
+        '왠지 Application.DoEvents() 이거때문에 멈추는거 같다.
+        MessageBox.Show("해당 주문을 더블클릭으로 선택하여 주십시오.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
     End Sub
 
     Private Sub Load_OrderInformation()
@@ -247,6 +253,7 @@ Public Class frm_SMD_Production_End
 
         Do While sqlDR.Read
             Dim insertString As String = Grid_OrderList.Rows.Count & vbTab &
+                sqlDR("history_index") & vbTab &
                 sqlDR("order_index") & vbTab &
                 sqlDR("customer_code") & vbTab &
                 sqlDR("customer_name") & vbTab &
@@ -255,8 +262,7 @@ Public Class frm_SMD_Production_End
                 sqlDR("item_name") & vbTab &
                 sqlDR("work_side") & vbTab &
                 Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
-                sqlDR("smd_operater") & vbTab &
-                sqlDR("history_index")
+                sqlDR("smd_operater")
             GridWriteText(insertString, Me, Grid_OrderList, Color.Black)
             GridColsAutoSize(Me, Grid_OrderList)
         Loop
@@ -264,30 +270,28 @@ Public Class frm_SMD_Production_End
 
         DBClose()
 
+        Grid_OrderList.AutoSizeCols()
         Grid_OrderList.Redraw = True
 
         If Grid_OrderList.Rows.Count > 1 Then
-            Dim findRow As Integer = 1
-            If Not historyIndex = 0 Then
-                findRow = Grid_OrderList.FindRow(CStr(historyIndex), 1, 10, False)
-                'For i = 1 To Grid_OrderList.Rows.Count - 1
-                '    Console.WriteLine(historyIndex & ", " & Grid_OrderList(i, 10) & ", " & Grid_OrderList(i, 10).Equals(CStr(historyIndex)))
-                'Next
-                If findRow = -1 Then
-                    findRow = 1
-                End If
-            End If
-            TB_OrderIndex.Text = Grid_OrderList(findRow, 1)
-            TB_CustomerCode.Text = Grid_OrderList(findRow, 2)
-            TB_CustomerName.Text = Grid_OrderList(findRow, 3)
-            TB_ModelCode.Text = Grid_OrderList(findRow, 4)
-            TB_ItemCode.Text = Grid_OrderList(findRow, 5)
-            TB_ItemName.Text = Grid_OrderList(findRow, 6)
-            TB_Workside.Text = Grid_OrderList(findRow, 7)
-            TB_OrderQty.Text = Grid_OrderList(findRow, 8)
-            TB_Operator.Text = Grid_OrderList(findRow, 9)
-            historyIndex = Grid_OrderList(findRow, 10)
-            Load_InspectList()
+            'Dim findRow As Integer = 1
+            'If Not historyIndex = 0 Then
+            '    findRow = Grid_OrderList.FindRow(CStr(historyIndex), 1, 10, False)
+            '    If findRow = -1 Then
+            '        findRow = 1
+            '    End If
+            'End If
+            'TB_OrderIndex.Text = Grid_OrderList(findRow, 1)
+            'TB_CustomerCode.Text = Grid_OrderList(findRow, 2)
+            'TB_CustomerName.Text = Grid_OrderList(findRow, 3)
+            'TB_ModelCode.Text = Grid_OrderList(findRow, 4)
+            'TB_ItemCode.Text = Grid_OrderList(findRow, 5)
+            'TB_ItemName.Text = Grid_OrderList(findRow, 6)
+            'TB_Workside.Text = Grid_OrderList(findRow, 7)
+            'TB_OrderQty.Text = Grid_OrderList(findRow, 8)
+            'TB_Operator.Text = Grid_OrderList(findRow, 9)
+            'historyIndex = Grid_OrderList(findRow, 10)
+            'Load_InspectList()
         End If
 
     End Sub
@@ -296,22 +300,53 @@ Public Class frm_SMD_Production_End
 
         Dim selRow As Integer = Grid_OrderList.MouseRow
         If e.Button = MouseButtons.Left And selRow > 0 Then
-            TB_OrderIndex.Text = Grid_OrderList(selRow, 1)
-            TB_CustomerCode.Text = Grid_OrderList(selRow, 2)
-            TB_CustomerName.Text = Grid_OrderList(selRow, 3)
-            TB_ModelCode.Text = Grid_OrderList(selRow, 4)
-            TB_ItemCode.Text = Grid_OrderList(selRow, 5)
-            TB_ItemName.Text = Grid_OrderList(selRow, 6)
-            TB_Workside.Text = Grid_OrderList(selRow, 7)
-            TB_OrderQty.Text = Grid_OrderList(selRow, 8)
-            TB_Operator.Text = Grid_OrderList(selRow, 9)
-            historyIndex = Grid_OrderList(selRow, 10)
+            TB_OrderIndex.Text = Grid_OrderList(selRow, 2)
+            TB_CustomerCode.Text = Grid_OrderList(selRow, 3)
+            TB_CustomerName.Text = Grid_OrderList(selRow, 4)
+            TB_ModelCode.Text = Grid_OrderList(selRow, 5)
+            TB_ItemCode.Text = Grid_OrderList(selRow, 6)
+            TB_ItemName.Text = Grid_OrderList(selRow, 7)
+            TB_Workside.Text = Grid_OrderList(selRow, 8)
+            TB_OrderQty.Text = Grid_OrderList(selRow, 9)
+            TB_Operator.Text = Grid_OrderList(selRow, 10)
+            'historyIndex = Grid_OrderList(selRow, 10)
+            'historyIndex = Lastest_HistoryIndex()
             Load_InspectList()
+            MSG_Information(Me, "주문을 변경하였습니다.")
         End If
 
     End Sub
 
-    Private Sub Load_InspectList()
+    Private Function Lastest_HistoryIndex() As String
+
+        DBConnect()
+
+        Dim returnString As String = String.Empty
+
+        Dim strSQL As String = "call sp_mms_smd_production_end(9"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("history_index")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
+
+    Public Sub Load_InspectList()
 
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 2
@@ -336,6 +371,7 @@ Public Class frm_SMD_Production_End
                 endDate = Format(CDate(sqlDR("smd_end_date")), "yyyy-MM-dd HH:mm:ss")
             End If
             Dim insertString As String = Grid_History.Rows.Count - 1 & vbTab &
+                sqlDR("history_index") & vbTab &
                 Format(sqlDR("smd_start_date"), "yyyy-MM-dd HH:mm:ss") & vbTab &
                 endDate & vbTab &
                 sqlDR("smd_operater") & vbTab &
@@ -344,8 +380,7 @@ Public Class frm_SMD_Production_End
                 sqlDR("fault_quantity") & vbTab &
                 sqlDR("end_quantity") & vbTab &
                 sqlDR("discard_quantity") & vbTab &
-                sqlDR("history_note") & vbTab &
-                sqlDR("history_index")
+                sqlDR("history_note")
 
             GridWriteText(insertString, Me, Grid_History, Color.Black)
             TB_Inspector.Text = sqlDR("smd_inspecter")
@@ -357,6 +392,12 @@ Public Class frm_SMD_Production_End
         Grid_History.AutoSizeCols()
         Grid_History.AutoSizeRows(2, 0, Grid_History.Rows.Count - 1, Grid_History.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_History.Redraw = True
+
+        If Grid_History.Rows.Count > 2 Then
+            historyIndex = Grid_History(Grid_History.Rows.Count - 1, 1)
+        End If
+
+        'MSG_Information(Me, historyIndex)
 
     End Sub
 
@@ -410,10 +451,10 @@ Public Class frm_SMD_Production_End
         Dim totalDefectCount As Integer = 0
 
         For i = 2 To Grid_History.Rows.Count - 1
-            totalDefectCount += Grid_History(i, 6)
+            totalDefectCount += Grid_History(i, 7)
         Next
 
-        frm_SMD_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 5)
+        frm_SMD_Magazine_Kitting.lastWorkingCount = Grid_History(Grid_History.Rows.Count - 1, 6)
         frm_SMD_Magazine_Kitting.totalDefectCount = totalDefectCount
         frm_SMD_Magazine_Kitting.workingCount = TB_OrderQty.Text
         frm_SMD_Magazine_Kitting.TB_TotalQty.Text = TB_OrderQty.Text
@@ -451,6 +492,7 @@ Public Class frm_SMD_Production_End
 
         frm_SMD_Reinspection.LB_OrderIndex.Text = TB_OrderIndex.Text
         frm_SMD_Reinspection.TB_Inspector.Text = TB_Inspector.Text
+        frm_SMD_Reinspection.LB_WorkSide.Text = TB_Workside.Text
         If Not frm_SMD_Reinspection.Visible Then frm_SMD_Reinspection.Show()
         frm_SMD_Reinspection.Focus()
 
@@ -559,7 +601,7 @@ Public Class frm_SMD_Production_End
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint(fileName)
+        Dim printResult As String = LabelPrint(fileName, 1)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,
@@ -682,7 +724,21 @@ Public Class frm_SMD_Production_End
 
     End Sub
 
-    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
+    Public Sub Control_Initialize()
+
+        TB_OrderIndex.Text = String.Empty
+        TB_Workside.Text = String.Empty
+        TB_CustomerCode.Text = String.Empty
+        TB_CustomerName.Text = String.Empty
+        TB_OrderQty.Text = String.Empty
+        TB_ModelCode.Text = String.Empty
+        TB_ItemCode.Text = String.Empty
+        TB_Operator.Text = String.Empty
+        TB_ItemName.Text = String.Empty
+        TB_Inspector.Text = String.Empty
+
+
+        Grid_History.Rows.Count = 2
 
     End Sub
 End Class

@@ -394,10 +394,12 @@ Public Class frm_Model_Document
                     End If
 
                     If typeString.ToUpper = "PCB ASS'Y" Or typeString.ToUpper = "PCB ASS’Y" Then
-                        If MSG_Question(Me, "Loader PCB가 검색 되었습니다." & vbCrLf &
-                                        "Loader PCB 사용으로 변경 하시겠습니까?" & vbCrLf &
-                                        "Part No. : " & partString & " 를 확인 후" & vbCrLf &
-                                        "Loader PCB 사용여부를 확인 하여 주십시오.") = True Then
+                        Dim qustionString As String = "Loader PCB가 검색 되었습니다." & vbCrLf &
+                            "Loader PCB 사용으로 변경 하시겠습니까?" & vbCrLf &
+                            "Part No. : " & partString & " 를 확인 후" & vbCrLf &
+                            "Loader PCB 사용여부를 확인 하여 주십시오."
+                        Dim qResult As Boolean = MSG_Question(Me, qustionString)
+                        If qResult = True Then
                             RadioButtonChecked(True, Me, RadioButton4)
                             isLoaderPCB = "Yes"
                         Else
@@ -481,12 +483,12 @@ Public Class frm_Model_Document
                 Next
             End With
         Catch ex As Exception
-            MSG_Error(Me, ex.Message)
+        MSG_Error(Me, ex.Message)
         Finally
-            excelApp.WorkBooks(1).Close()
-            excelApp.Quit()
-            excelApp = Nothing
-            Invoke(d_SetPGStatus, String.Empty)
+        excelApp.WorkBooks(1).Close()
+        excelApp.Quit()
+        excelApp = Nothing
+        Invoke(d_SetPGStatus, String.Empty)
         End Try
 
         'FormDispose(frm_ExcelModify)
@@ -666,10 +668,13 @@ Public Class frm_Model_Document
         Dim strSQL As String = "select a.model_code, a.customer_code, a.spg, a.item_code, a.item_name, a.item_note, b.customer_name"
         strSQL += " from tb_model_list a"
         strSQL += " left join tb_customer_list b on a.customer_code = b.customer_code"
-        strSQL += " where (a.customer_code like concat('%', '" & TB_SearchCustomer.Text & "', '%')"
-        strSQL += " or b.customer_name like concat('%', '" & TB_SearchCustomer.Text & "', '%'))"
-        strSQL += " and (a.model_code like concat('%', '" & TB_SearchModel.Text & "', '%')"
-        strSQL += " or a.item_code like concat('%', '" & TB_SearchModel.Text & "', '%'))"
+        'strSQL += " where (a.customer_code like concat('%', '" & TB_SearchCustomer.Text & "', '%')"
+        'strSQL += " or b.customer_name like concat('%', '" & TB_SearchCustomer.Text & "', '%'))"
+        'strSQL += " and (a.model_code like concat('%', '" & TB_SearchCode.Text & "', '%')"
+        'strSQL += " or a.item_code like concat('%', '" & TB_SearchCode.Text & "', '%'))"
+        strSQL += " where b.customer_name like concat('%', '" & TB_SearchCustomer.Text & "', '%')"
+        strSQL += " and a.item_code like concat('%', '" & TB_SearchCode.Text & "', '%')"
+        strSQL += " and a.item_name like concat('%', '" & TB_SearchName.Text & "', '%')"
         strSQL += " order by a.item_code"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -698,7 +703,7 @@ Public Class frm_Model_Document
     End Sub
 
     Private Sub TB_SearchText_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_SearchCustomer.KeyDown,
-            TB_SearchModel.KeyDown
+            TB_SearchCode.KeyDown, TB_SearchName.KeyDown
 
         If e.KeyCode = 13 Then
             btn_Search_Click(Nothing, Nothing)
@@ -986,6 +991,11 @@ Public Class frm_Model_Document
             Exit Sub
         End If
 
+        If CheckBox1.Checked = True And CheckBox3.Checked = True Then
+            MSG_Information(Me, "서로 다른 사이즈의 라벨을 동시에 출력할 수 없습니다.")
+            Exit Sub
+        End If
+
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
@@ -1158,12 +1168,20 @@ FTP_Control:
 
             Dim assyLabel As Boolean = False
             Dim swLabel As Boolean = False
+            Dim assyLabel2 As Boolean = False
 
             If CheckBox1.Checked = True Then assyLabel = True
             If CheckBox2.Checked = True Then swLabel = True
+            If CheckBox3.Checked = True Then assyLabel2 = True
+
+            strSQL += "delete from tb_model_label_information"
+            strSQL += " where management_no = '" & CB_ManagementNo.Text & "'"
+            strSQL += " and model_code = '" & TB_ModelCode.Text & "'"
+            strSQL += ";"
 
             strSQL += "insert into tb_model_label_information("
             strSQL += "management_no, model_code, item_name, fw_os_label, boot_label, fpga_label, assy_label_use, sw_label_use"
+            strSQL += ", assy_label_use2"
             strSQL += ") select "
             strSQL += "'" & CB_ManagementNo.Text & "'"
             strSQL += ",'" & TB_ModelCode.Text & "'"
@@ -1173,9 +1191,10 @@ FTP_Control:
             strSQL += ",'" & TB_Label_FPGA.Text & "'"
             strSQL += "," & assyLabel & ""
             strSQL += "," & swLabel & ""
-            strSQL += " from dual where not exists"
-            strSQL += " (select * from tb_model_label_information"
-            strSQL += " where management_no = '" & CB_ManagementNo.Text & "')"
+            strSQL += "," & assyLabel2 & ""
+            'strSQL += " from dual where not exists"
+            'strSQL += " (select * from tb_model_label_information"
+            'strSQL += " where management_no = '" & CB_ManagementNo.Text & "')"
             strSQL += ";"
 
             If BTN_NewManagementNo.Visible = False Then
@@ -1363,6 +1382,7 @@ FTP_Control:
             TB_Label_FPGA.Text = sqlDR("fpga_label")
             If sqlDR("assy_label_use") = 1 Then CheckBox1.Checked = True
             If sqlDR("sw_label_use") = 1 Then CheckBox2.Checked = True
+            If sqlDR("assy_label_use2") = 1 Then CheckBox3.checked = True
         Loop
         sqlDR.Close()
 
@@ -1639,6 +1659,16 @@ FTP_Control:
     End Sub
 
     Dim processList As String
+
+    Private Sub CheckBox3_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox3.CheckedChanged
+
+        If CheckBox3.Checked = True Then
+            TextBox2.Text = TB_ModelName.Text
+        Else
+            TextBox2.Text = String.Empty
+        End If
+
+    End Sub
 
     Private Sub Grid_ComboList_Process()
 

@@ -20,7 +20,7 @@ Public Class frm_Delivery_Register_Check
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 11
+            .Cols.Count = 13
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 1
@@ -44,6 +44,10 @@ Public Class frm_Delivery_Register_Check
             .Cols(8).Format = "#,##0"
             .Cols(9).DataType = GetType(Integer)
             .Cols(9).Format = "#,##0"
+            .Cols(10).DataType = GetType(Integer)
+            .Cols(10).Format = "#,##0"
+            .Cols(11).DataType = GetType(Integer)
+            .Cols(11).Format = "#,##0"
         End With
 
         Grid_POList(0, 0) = "No"
@@ -55,8 +59,10 @@ Public Class frm_Delivery_Register_Check
         Grid_POList(0, 6) = "주문일자"
         Grid_POList(0, 7) = "요청 납품일자"
         Grid_POList(0, 8) = "주문수량"
-        Grid_POList(0, 9) = "납품수량"
-        Grid_POList(0, 10) = "비고"
+        Grid_POList(0, 9) = "납품잔량"
+        Grid_POList(0, 10) = "납품수량"
+        Grid_POList(0, 11) = "납품후 잔량"
+        Grid_POList(0, 12) = "비고"
         Grid_POList.AutoSizeCols()
 
     End Sub
@@ -102,9 +108,9 @@ Public Class frm_Delivery_Register_Check
         Dim selRow As Integer = Grid_POList.Row
 
         Select Case selCol
-            Case 10
+            Case 12
                 Grid_POList.AllowEditing = True
-            Case 9
+            Case 10
                 If Grid_POList.GetCellCheck(selRow, 1) = CheckEnum.Checked Then
                     Grid_POList.AllowEditing = True
                 Else
@@ -130,18 +136,31 @@ Public Class frm_Delivery_Register_Check
 
         If beforeText = Grid_POList(e.Row, e.Col) Then Exit Sub
 
+        Select Case e.Col
+            Case 10
+                If Grid_POList(e.Row, 10) = 0 Then
+                    Grid_POList(e.Row, 10) = CDbl(beforeText)
+                    MSG_Information(Me, "납품수량은 0이 될 수 없습니다.")
+                ElseIf Grid_POList(e.Row, 10) < 0 Then
+                    Grid_POList(e.Row, 10) = CDbl(beforeText)
+                    MSG_Information(Me, "납품수량은 음수값이 될 수 없습니다.")
+                Else
+                    Grid_POList(e.Row, 11) = Grid_POList(e.Row, 9) - Grid_POList(e.Row, 10)
+                End If
+        End Select
+
         Grid_POList.AutoSizeCols()
 
     End Sub
 
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
-        For i = 1 To Grid_POList.Rows.Count - 1
-            If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
-                MSG_Exclamation(Me, "현재 분할 납품을 할 수 없습니다.")
-                Exit Sub
-            End If
-        Next
+        'For i = 1 To Grid_POList.Rows.Count - 1
+        '    If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
+        '        MSG_Exclamation(Me, "현재 분할 납품을 할 수 없습니다.")
+        '        Exit Sub
+        '    End If
+        'Next
 
         If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
 
@@ -161,6 +180,7 @@ Public Class frm_Delivery_Register_Check
         If MSG_Question(Me, "전표를 인쇄 하시겠습니까?") = False Then
             frm_Delivery_Register.BTN_Search_Click(Nothing, Nothing)
             Me.Dispose()
+            Exit Sub
         End If
 
         DeliveryItem_Print()
@@ -193,8 +213,11 @@ Public Class frm_Delivery_Register_Check
             strSQL += ");"
 
             For i = 1 To Grid_POList.Rows.Count - 1
-                strSQL += "update tb_mms_order_register_list set order_status = 'Delivery Completed'"
-                strSQL += " where order_index = '" & Grid_POList(i, 2) & "';"
+                If Grid_POList(i, 11) = 0 Then
+                    '납품이 완료되었을 경우만...
+                    strSQL += "update tb_mms_order_register_list set order_status = 'Delivery Completed'"
+                    strSQL += " where order_index = '" & Grid_POList(i, 2) & "';"
+                End If
                 Dim splitPO As String = "No"
                 If Grid_POList.GetCellCheck(i, 1) = CheckEnum.Checked Then
                     splitPO = "Yes"
@@ -206,8 +229,8 @@ Public Class frm_Delivery_Register_Check
                 strSQL += ",'" & ToolStripLabel1.Text & "'"
                 strSQL += ",'" & splitPO & "'"
                 strSQL += ",'" & Grid_POList(i, 2) & "'"
-                strSQL += "," & Grid_POList(i, 9) & ""
-                strSQL += ",'" & Grid_POList(i, 10) & "'"
+                strSQL += "," & Grid_POList(i, 10) & ""
+                strSQL += ",'" & Grid_POList(i, 12) & "'"
                 strSQL += ",'" & nowTime & "'"
                 strSQL += ",'" & loginID & "'"
                 strSQL += ");"

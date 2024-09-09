@@ -323,7 +323,7 @@ Public Class frm_Wave_Selective_Production_History
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint(fileName)
+        Dim printResult As String = LabelPrint(fileName, 1)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,

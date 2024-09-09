@@ -260,13 +260,13 @@ Public Class frm_Order_Modify
 
         Dim strSQL As String = "call sp_mms_order_registration(1"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & TextBox1.Text & "'"
         strSQL += ", '" & TB_OrderNo_Search.Text & "'"
         strSQL += ", '" & Format(DTP_Start.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ", '" & Format(DTP_End.Value, "yyyy-MM-dd 23:59:59") & "'"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & ComboBox1.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -348,7 +348,7 @@ Public Class frm_Order_Modify
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & ComboBox1.Text & "'"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

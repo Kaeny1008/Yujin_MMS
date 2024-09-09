@@ -244,7 +244,16 @@ Public Class frm_SMD_Magazine_Kitting
             PrintLabel(writeDate, modelTB)
         End If
 
-        frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
+        'frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
+
+        If workingEnd = True Then
+            'frm_SMD_Production_End.historyIndex = String.Empty
+            frm_SMD_Production_End.Control_Initialize()
+            frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
+        Else
+            'frm_SMD_Production_End.historyIndex = new_history_index
+            frm_SMD_Production_End.Load_InspectList()
+        End If
 
         Me.Dispose()
 
@@ -422,7 +431,7 @@ Public Class frm_SMD_Magazine_Kitting
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint(fileName)
+        Dim printResult As String = LabelPrint(fileName, 1)
 
         If Not printResult = "Success" Then
             MessageBox.Show(frm_Main,

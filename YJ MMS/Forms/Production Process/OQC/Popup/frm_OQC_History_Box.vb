@@ -32,7 +32,7 @@ Public Class frm_OQC_History_Box
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
-            .AutoClipboard = False
+            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = False
@@ -71,7 +71,7 @@ Public Class frm_OQC_History_Box
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
-            .AutoClipboard = False
+            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = False

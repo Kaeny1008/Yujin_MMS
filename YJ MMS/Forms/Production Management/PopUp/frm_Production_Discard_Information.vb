@@ -418,6 +418,10 @@ Public Class frm_Production_Discard_Information
             Exit Sub
         End If
 
+        If Grid_Etc.Rows.Count > 1 Then
+            If MSG_Question(Me, "자동으로 찾지 못한 항목이 있습니다." & vbCrLf & "계속 진행 하시겠습니까?") = False Then Exit Sub
+        End If
+
         If MSG_Question(Me, "폐기 승인 하시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
@@ -484,18 +488,20 @@ Public Class frm_Production_Discard_Information
         Dim strSQL As String = String.Empty
 
         For i = 1 To c1.Rows.Count - 1
-            strSQL += "insert into tb_mms_material_discard("
-            strSQL += "m_discard_index, discard_index, customer_code"
-            strSQL += ", part_code, discard_quantity, write_date, write_id"
-            strSQL += ")"
-            strSQL += " select f_mms_material_discard_no('" & Format(Now, "yyyy-MM-dd") & "')"
-            strSQL += ",'" & discardIndex & "'"
-            strSQL += ",'" & TB_CustomerCode.Text & "'"
-            strSQL += ",'" & c1(i, 2) & "'"
-            strSQL += "," & c1(i, 3)
-            strSQL += ",'" & writeDate & "'"
-            strSQL += ",'" & loginID & "'"
-            strSQL += ";"
+            If c1.GetCellCheck(i, 1) = CheckEnum.Checked Then
+                strSQL += "insert into tb_mms_material_discard("
+                strSQL += "m_discard_index, discard_index, customer_code"
+                strSQL += ", part_code, discard_quantity, write_date, write_id"
+                strSQL += ")"
+                strSQL += " select f_mms_material_discard_no('" & Format(Now, "yyyy-MM-dd") & "')"
+                strSQL += ",'" & discardIndex & "'"
+                strSQL += ",'" & TB_CustomerCode.Text & "'"
+                strSQL += ",'" & c1(i, 2) & "'"
+                strSQL += "," & c1(i, 3)
+                strSQL += ",'" & writeDate & "'"
+                strSQL += ",'" & loginID & "'"
+                strSQL += ";"
+            End If
 
             'Lot No.구분을 하지 못해 여기서 업데이트는 불가할듯 
             'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & c1(i, 3)
@@ -569,6 +575,54 @@ Public Class frm_Production_Discard_Information
         MSG_Information(Me, "거절 되었습니다." & vbCrLf & "창이 닫힙니다.")
 
         Me.Dispose()
+
+    End Sub
+
+    Private Sub CB_SMD_Bottom_CheckedChanged(sender As Object, e As EventArgs) Handles CB_SMD_Bottom.CheckedChanged
+
+        Dim checkEnum As CheckEnum = CheckEnum.Checked
+
+        If CB_SMD_Bottom.Checked = True Then
+            checkEnum = CheckEnum.Checked
+        Else
+            checkEnum = CheckEnum.Unchecked
+        End If
+
+        For i = 1 To Grid_SMD_Bottom.Rows.Count - 1
+            Grid_SMD_Bottom.SetCellCheck(i, 1, checkEnum)
+        Next
+
+    End Sub
+
+    Private Sub CB_SMD_Top_CheckedChanged(sender As Object, e As EventArgs) Handles CB_SMD_Top.CheckedChanged
+
+        Dim checkEnum As CheckEnum = CheckEnum.Checked
+
+        If CB_SMD_Top.Checked = True Then
+            checkEnum = CheckEnum.Checked
+        Else
+            checkEnum = CheckEnum.Unchecked
+        End If
+
+        For i = 1 To Grid_SMD_Top.Rows.Count - 1
+            Grid_SMD_Top.SetCellCheck(i, 1, checkEnum)
+        Next
+
+    End Sub
+
+    Private Sub CB_Dip_CheckedChanged(sender As Object, e As EventArgs) Handles CB_Dip.CheckedChanged
+
+        Dim checkEnum As CheckEnum = CheckEnum.Checked
+
+        If CB_Dip.Checked = True Then
+            checkEnum = CheckEnum.Checked
+        Else
+            checkEnum = CheckEnum.Unchecked
+        End If
+
+        For i = 1 To Grid_Dip.Rows.Count - 1
+            Grid_Dip.SetCellCheck(i, 1, checkEnum)
+        Next
 
     End Sub
 End Class

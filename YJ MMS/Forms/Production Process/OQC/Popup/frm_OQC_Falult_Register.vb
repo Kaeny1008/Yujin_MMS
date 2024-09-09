@@ -124,11 +124,12 @@ Public Class frm_OQC_Falult_Register
                         Exit Sub
                     End If
                 End If
-                If WriteData(i) = False Then Exit Sub
-
-                Exit For
+                'If WriteData(i) = False Then Exit Sub
+                'Exit For
             End If
         Next
+
+        If WriteData() = False Then Exit Sub
 
         'frm_SMD_Production_End.CB_Line_SelectionChangeCommitted(Nothing, Nothing)
 
@@ -136,7 +137,7 @@ Public Class frm_OQC_Falult_Register
 
     End Sub
 
-    Private Function WriteData(ByVal rowNum As Integer) As Boolean
+    Private Function WriteData() As Boolean
 
         DBConnect()
 
@@ -148,23 +149,27 @@ Public Class frm_OQC_Falult_Register
 
         Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
         Try
-            strSQL = "insert into tb_mms_oqc_defect("
-            strSQL += "defect_index, order_index, defect_classification, defect_name, board_array, ref, defect_note"
-            strSQL += ", write_date, write_id, history_index, oqc_inspector, board_no"
-            strSQL += ") values ("
-            strSQL += "'" & Grid_Fault(rowNum, 1) & "'"
-            strSQL += ",'" & LB_OrderIndex.Text & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 3) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 4) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 5) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 6) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 8) & "'"
-            strSQL += ",'" & writeDate & "'"
-            strSQL += ",'" & loginID & "'"
-            strSQL += ",'" & LB_HistoryIndex.Text & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 7) & "'"
-            strSQL += ",'" & Grid_Fault(rowNum, 2) & "'"
-            strSQL += ");"
+            For i = 1 To Grid_Fault.Rows.Count - 1
+                If Grid_Fault(i, 0) = "N" Then
+                    strSQL += "insert into tb_mms_oqc_defect("
+                    strSQL += "defect_index, order_index, defect_classification, defect_name, board_array, ref, defect_note"
+                    strSQL += ", write_date, write_id, history_index, oqc_inspector, board_no"
+                    strSQL += ") values ("
+                    strSQL += "'" & Grid_Fault(i, 1) & "'"
+                    strSQL += ",'" & LB_OrderIndex.Text & "'"
+                    strSQL += ",'" & Grid_Fault(i, 3) & "'"
+                    strSQL += ",'" & Grid_Fault(i, 4) & "'"
+                    strSQL += ",'" & Grid_Fault(i, 5) & "'"
+                    strSQL += ",'" & Grid_Fault(i, 6) & "'"
+                    strSQL += ",'" & Grid_Fault(i, 8) & "'"
+                    strSQL += ",'" & writeDate & "'"
+                    strSQL += ",'" & loginID & "'"
+                    strSQL += ",'" & LB_HistoryIndex.Text & "'"
+                    strSQL += ",'" & Grid_Fault(i, 7) & "'"
+                    strSQL += ",'" & Grid_Fault(i, 2) & "'"
+                    strSQL += ");"
+                End If
+            Next
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

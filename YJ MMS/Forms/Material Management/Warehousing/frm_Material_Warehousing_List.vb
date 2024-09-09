@@ -469,7 +469,7 @@ Public Class frm_Material_Warehousing_List
         swFile.WriteLine("^XZ")
         swFile.Close()
 
-        Dim printResult As String = LabelPrint(fileName)
+        Dim printResult As String = LabelPrint(fileName, 1)
 
         If Not printResult = "Success" Then
             MessageBox.Show("라벨 발행에 실패 하였습니다. 재 발행하여 주십시오." & vbCrLf &

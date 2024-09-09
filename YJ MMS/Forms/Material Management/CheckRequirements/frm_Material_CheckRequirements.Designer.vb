@@ -128,7 +128,7 @@ Partial Class frm_Material_CheckRequirements
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_MaterialList)
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
-        Me.SplitContainer1.SplitterDistance = 587
+        Me.SplitContainer1.SplitterDistance = 669
         Me.SplitContainer1.TabIndex = 1
         '
         'Grid_OrderList
@@ -140,7 +140,7 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_OrderList.Name = "Grid_OrderList"
         Me.Grid_OrderList.Rows.Count = 2
         Me.Grid_OrderList.Rows.DefaultSize = 20
-        Me.Grid_OrderList.Size = New System.Drawing.Size(587, 642)
+        Me.Grid_OrderList.Size = New System.Drawing.Size(669, 642)
         Me.Grid_OrderList.StyleInfo = resources.GetString("Grid_OrderList.StyleInfo")
         Me.Grid_OrderList.TabIndex = 1
         '
@@ -159,7 +159,7 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(587, 106)
+        Me.Panel5.Size = New System.Drawing.Size(669, 106)
         Me.Panel5.TabIndex = 0
         '
         'CB_CustomerName
@@ -278,7 +278,7 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_MaterialList.Name = "Grid_MaterialList"
         Me.Grid_MaterialList.Rows.Count = 2
         Me.Grid_MaterialList.Rows.DefaultSize = 20
-        Me.Grid_MaterialList.Size = New System.Drawing.Size(673, 748)
+        Me.Grid_MaterialList.Size = New System.Drawing.Size(591, 748)
         Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
         Me.Grid_MaterialList.TabIndex = 2
         '
@@ -286,12 +286,12 @@ Partial Class frm_Material_CheckRequirements
         '
         Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck})
         Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(181, 48)
+        Me.CMS_Menu.Size = New System.Drawing.Size(127, 26)
         '
         'BTN_AllCheck
         '
         Me.BTN_AllCheck.Name = "BTN_AllCheck"
-        Me.BTN_AllCheck.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_AllCheck.Size = New System.Drawing.Size(126, 22)
         Me.BTN_AllCheck.Text = "전체 선택"
         '
         'frm_Material_CheckRequirements

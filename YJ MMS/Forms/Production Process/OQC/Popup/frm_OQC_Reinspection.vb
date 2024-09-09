@@ -65,81 +65,93 @@ Public Class frm_OQC_Reinspection
 
     End Sub
 
+    Private Sub BTN_Load_Reapir_Result_Click(sender As Object, e As EventArgs) Handles BTN_Load_Reapir_Result.Click
+
+        Load_Repair_Result()
+
+    End Sub
+
     Private Sub TB_BoardNo_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_BoardNo.KeyDown
 
         If Not TB_BoardNo.Text = String.Empty And e.KeyCode = 13 Then
-            Thread_LoadingFormStart(Me)
+            Load_Repair_Result()
+        End If
 
-            Grid_Information.Redraw = False
-            Grid_Information.Rows.Count = 2
+    End Sub
 
-            DBConnect()
+    Private Sub Load_Repair_Result()
 
-            Dim strSQL As String = "call sp_mms_oqc_reinspection("
-            strSQL += "'" & TB_BoardNo.Text & "'"
-            strSQL += ",'" & LB_OrderIndex.Text & "'"
-            strSQL += ")"
+        Thread_LoadingFormStart(Me)
 
-            Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+        Grid_Information.Redraw = False
+        Grid_Information.Rows.Count = 2
 
-            Dim repair_action As String = String.Empty
-            Dim reinspect_date As String = String.Empty
-            Dim ngCheck As Boolean = False
+        DBConnect()
 
-            Do While sqlDR.Read
-                Dim repair_date As String = String.Empty
-                If Not IsDBNull(sqlDR("repair_date")) Then
-                    repair_date = Format(sqlDR("repair_date"), "yyyy-MM-dd HH:mm:ss")
-                End If
-                Dim insertString As String = Grid_Information.Rows.Count - 1 & vbTab &
-                    sqlDR("defect_index") & vbTab &
-                    sqlDR("board_no") & vbTab &
-                    sqlDR("defect_classification") & vbTab &
-                    sqlDR("defect_name") & vbTab &
-                    sqlDR("board_array") & vbTab &
-                    sqlDR("ref") & vbTab &
-                    sqlDR("defect_note") & vbTab &
-                    repair_date & vbTab &
-                    sqlDR("repair_action") & vbTab &
-                    sqlDR("repairman") & vbTab &
-                    sqlDR("repair_note")
+        Dim strSQL As String = "call sp_mms_oqc_reinspection("
+        strSQL += "'" & TB_BoardNo.Text & "'"
+        strSQL += ",'" & LB_OrderIndex.Text & "'"
+        strSQL += ")"
 
-                If IsDBNull(sqlDR("repair_action")) Then
-                    Thread_LoadingFormEnd()
-                    ngCheck = True
-                    MessageBox.Show("수리기록이 확인되지 않습니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information)
-                    Exit Do
-                End If
-                If Not IsDBNull(sqlDR("reinspect_date")) Then
-                    Thread_LoadingFormEnd()
-                    ngCheck = True
-                    MessageBox.Show("이미 재검사 기록이 등록 되었습니다.",
-                                    msg_form,
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Information)
-                    Exit Do
-                End If
-                GridWriteText(insertString, Me, Grid_Information, Color.Black)
-                GridColsAutoSize(Me, Grid_Information)
-            Loop
-            sqlDR.Close()
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-            DBClose()
+        Dim repair_action As String = String.Empty
+        Dim reinspect_date As String = String.Empty
+        Dim ngCheck As Boolean = False
 
-            Grid_Information.Redraw = True
+        Do While sqlDR.Read
+            Dim repair_date As String = String.Empty
+            If Not IsDBNull(sqlDR("repair_date")) Then
+                repair_date = Format(sqlDR("repair_date"), "yyyy-MM-dd HH:mm:ss")
+            End If
+            Dim insertString As String = Grid_Information.Rows.Count - 1 & vbTab &
+                sqlDR("defect_index") & vbTab &
+                sqlDR("board_no") & vbTab &
+                sqlDR("defect_classification") & vbTab &
+                sqlDR("defect_name") & vbTab &
+                sqlDR("board_array") & vbTab &
+                sqlDR("ref") & vbTab &
+                sqlDR("defect_note") & vbTab &
+                repair_date & vbTab &
+                sqlDR("repair_action") & vbTab &
+                sqlDR("repairman") & vbTab &
+                sqlDR("repair_note")
 
-            Thread_LoadingFormEnd()
-
-            If Grid_Information.Rows.Count = 2 And ngCheck = False Then
-                MessageBox.Show("불량 기록을 확인 할 수 없습니다.",
+            If IsDBNull(sqlDR("repair_action")) Then
+                Thread_LoadingFormEnd()
+                ngCheck = True
+                MessageBox.Show("수리기록이 확인되지 않습니다.",
                                 msg_form,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information)
+                Exit Do
             End If
+            If Not IsDBNull(sqlDR("reinspect_date")) Then
+                Thread_LoadingFormEnd()
+                ngCheck = True
+                MessageBox.Show("이미 재검사 기록이 등록 되었습니다.",
+                                msg_form,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information)
+                Exit Do
+            End If
+            GridWriteText(insertString, Me, Grid_Information, Color.Black)
+            GridColsAutoSize(Me, Grid_Information)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Grid_Information.Redraw = True
+
+        Thread_LoadingFormEnd()
+
+        If Grid_Information.Rows.Count = 2 And ngCheck = False Then
+            MessageBox.Show("불량 기록을 확인 할 수 없습니다.",
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information)
         End If
 
     End Sub

@@ -34,6 +34,7 @@ Partial Class frm_SMD_Reinspection
         Me.LB_OrderIndex = New System.Windows.Forms.Label()
         Me.BTN_Save = New System.Windows.Forms.Button()
         Me.BTN_Load_Reapir_Result = New System.Windows.Forms.Button()
+        Me.LB_WorkSide = New System.Windows.Forms.Label()
         CType(Me.Grid_Information, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -164,12 +165,23 @@ Partial Class frm_SMD_Reinspection
         Me.BTN_Load_Reapir_Result.Text = "수리결과 불러오기"
         Me.BTN_Load_Reapir_Result.UseVisualStyleBackColor = True
         '
+        'LB_WorkSide
+        '
+        Me.LB_WorkSide.AutoSize = True
+        Me.LB_WorkSide.Location = New System.Drawing.Point(181, 210)
+        Me.LB_WorkSide.Name = "LB_WorkSide"
+        Me.LB_WorkSide.Size = New System.Drawing.Size(62, 12)
+        Me.LB_WorkSide.TabIndex = 11
+        Me.LB_WorkSide.Text = "work_side"
+        Me.LB_WorkSide.Visible = False
+        '
         'frm_SMD_Reinspection
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(915, 231)
+        Me.Controls.Add(Me.LB_WorkSide)
         Me.Controls.Add(Me.BTN_Load_Reapir_Result)
         Me.Controls.Add(Me.BTN_Save)
         Me.Controls.Add(Me.LB_OrderIndex)
@@ -204,4 +216,5 @@ Partial Class frm_SMD_Reinspection
     Friend WithEvents LB_OrderIndex As Label
     Friend WithEvents BTN_Save As Button
     Friend WithEvents BTN_Load_Reapir_Result As Button
+    Friend WithEvents LB_WorkSide As Label
 End Class

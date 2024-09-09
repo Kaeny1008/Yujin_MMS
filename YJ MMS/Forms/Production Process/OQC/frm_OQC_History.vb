@@ -8,7 +8,7 @@ Public Class frm_OQC_History
 
         Load_CustomerList()
 
-        DateTimePicker1.Value = Format(Now, "yyyy-MM-01")
+        DateTimePicker1.Value = Now
         DateTimePicker2.Value = Now
 
     End Sub
@@ -23,33 +23,39 @@ Public Class frm_OQC_History
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 8
+            .Cols.Count = 10
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
-            .AutoClipboard = False
+            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = False
             .ShowCursor = True
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
-            .Cols(5).DataType = GetType(Integer)
-            .Cols(5).Format = "#,##0"
+            .Cols(1).DataType = GetType(Date)
+            .Cols(1).Format = "yyyy-MM-dd"
             .Cols(6).DataType = GetType(Integer)
             .Cols(6).Format = "#,##0"
             .Cols(7).DataType = GetType(Integer)
             .Cols(7).Format = "#,##0"
+            .Cols(8).DataType = GetType(Integer)
+            .Cols(8).Format = "#,##0"
+            .Cols(9).DataType = GetType(Integer)
+            .Cols(9).Format = "#,##0"
         End With
 
         Grid_HistoryList(0, 0) = "No."
-        Grid_HistoryList(0, 1) = "주문번호"
-        Grid_HistoryList(0, 2) = "고객사"
-        Grid_HistoryList(0, 3) = "품번"
-        Grid_HistoryList(0, 4) = "품명"
-        Grid_HistoryList(0, 5) = "주문수량"
-        Grid_HistoryList(0, 6) = "검사수량"
-        Grid_HistoryList(0, 7) = "폐기수량"
+        Grid_HistoryList(0, 1) = "검사일자"
+        Grid_HistoryList(0, 2) = "주문번호"
+        Grid_HistoryList(0, 3) = "고객사"
+        Grid_HistoryList(0, 4) = "품번"
+        Grid_HistoryList(0, 5) = "품명"
+        Grid_HistoryList(0, 6) = "주문수량"
+        Grid_HistoryList(0, 7) = "누적 검사수량"
+        Grid_HistoryList(0, 8) = "당일 검사수량"
+        Grid_HistoryList(0, 9) = "폐기수량"
 
         For i = 0 To Grid_HistoryList.Cols.Count - 1
             Grid_HistoryList.Cols(i).StyleNew.TextAlign = TextAlignEnum.CenterCenter
@@ -132,12 +138,14 @@ Public Class frm_OQC_History
 
         Do While sqlDR.Read
             Dim insert_String As String = Grid_HistoryList.Rows.Count
+            insert_String += vbTab & sqlDR("write_date")
             insert_String += vbTab & sqlDR("order_index")
             insert_String += vbTab & sqlDR("customer_name")
             insert_String += vbTab & sqlDR("item_code")
             insert_String += vbTab & sqlDR("item_name")
             insert_String += vbTab & sqlDR("modify_order_quantity")
             insert_String += vbTab & sqlDR("completed_quantity")
+            insert_String += vbTab & sqlDR("total_qty")
             insert_String += vbTab & sqlDR("discard_quantity")
             insert_String += vbTab & sqlDR("inspector")
 
@@ -167,7 +175,7 @@ Public Class frm_OQC_History
 
     Private Sub BTN_BoxInformation_Click(sender As Object, e As EventArgs) Handles BTN_BoxInformation.Click
 
-        Dim orderIndex As String = Grid_HistoryList(Grid_HistoryList.Row, 1)
+        Dim orderIndex As String = Grid_HistoryList(Grid_HistoryList.Row, 2)
         frm_OQC_History_Box.orderIndex = orderIndex
         frm_OQC_History_Box.Show()
 
