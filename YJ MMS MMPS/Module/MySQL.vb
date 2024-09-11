@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports MySqlConnector
 
 Module MySQL
 
@@ -23,7 +23,8 @@ Module MySQL
                                        ";User Id=" & serverID &
                                        ";Password=" & serverPSWD &
                                        ";Connection Timeout=" & connectionTimeOut &
-                                       ";allow user variables=true"
+                                       ";CharSet=utf8" &
+                                       ";SslMode=none"
 
         Try
             DBConnect1.Open()

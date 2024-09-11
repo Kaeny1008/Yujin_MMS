@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Imports System.Threading
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_Main
 

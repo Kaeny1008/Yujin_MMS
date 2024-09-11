@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_Model_Process_Documents
     Private Sub frm_Model_Process_Documents_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_SMD_Mismount_Barcode
 
@@ -72,6 +72,7 @@ Public Class frm_SMD_Mismount_Barcode
         strSQL += ", '" & modelCode & "'"
         strSQL += ", null"
         strSQL += ", '" & workSide & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

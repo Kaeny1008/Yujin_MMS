@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class BLULabelPrint
 

@@ -72,16 +72,21 @@ Partial Class frm_Model_Document
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Grid_Process = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
         Me.TB_Label_FPGA = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
         Me.Label29 = New System.Windows.Forms.Label()
+        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
         Me.TB_Label_Boot = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
-        Me.TB_Label_FW = New System.Windows.Forms.TextBox()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.TB_Label_ItemName = New System.Windows.Forms.TextBox()
-        Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.Label30 = New System.Windows.Forms.Label()
@@ -116,11 +121,6 @@ Partial Class frm_Model_Document
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -144,12 +144,12 @@ Partial Class frm_Model_Document
         Me.Panel4.SuspendLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage6.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Panel7.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.CMS_GridMenu.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -703,15 +703,67 @@ Partial Class frm_Model_Document
         Me.TabPage6.Text = "라벨관련"
         Me.TabPage6.UseVisualStyleBackColor = True
         '
-        'CheckBox2
+        'GroupBox2
         '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.Location = New System.Drawing.Point(13, 101)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
-        Me.CheckBox2.TabIndex = 22
-        Me.CheckBox2.Text = "Software Label 발행"
-        Me.CheckBox2.UseVisualStyleBackColor = True
+        Me.GroupBox2.Controls.Add(Me.CheckBox3)
+        Me.GroupBox2.Controls.Add(Me.Label33)
+        Me.GroupBox2.Controls.Add(Me.TextBox2)
+        Me.GroupBox2.Location = New System.Drawing.Point(15, 233)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(410, 77)
+        Me.GroupBox2.TabIndex = 24
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "12 x 10 mm"
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.Location = New System.Drawing.Point(13, 20)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(120, 16)
+        Me.CheckBox3.TabIndex = 24
+        Me.CheckBox3.Text = "Ass'y Label 발행"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'Label33
+        '
+        Me.Label33.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label33.Location = New System.Drawing.Point(31, 39)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(115, 21)
+        Me.Label33.TabIndex = 22
+        Me.Label33.Text = "- 품목명"
+        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Enabled = False
+        Me.TextBox2.Location = New System.Drawing.Point(146, 39)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(246, 21)
+        Me.TextBox2.TabIndex = 23
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.CheckBox1)
+        Me.GroupBox1.Controls.Add(Me.CheckBox2)
+        Me.GroupBox1.Controls.Add(Me.Label18)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_ItemName)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_FPGA)
+        Me.GroupBox1.Controls.Add(Me.Label27)
+        Me.GroupBox1.Controls.Add(Me.Label29)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_FW)
+        Me.GroupBox1.Controls.Add(Me.TB_Label_Boot)
+        Me.GroupBox1.Controls.Add(Me.Label28)
+        Me.GroupBox1.Location = New System.Drawing.Point(15, 15)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(410, 212)
+        Me.GroupBox1.TabIndex = 23
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "20 x 8 mm"
         '
         'CheckBox1
         '
@@ -723,6 +775,37 @@ Partial Class frm_Model_Document
         Me.CheckBox1.Text = "Ass'y Label 발행"
         Me.CheckBox1.UseVisualStyleBackColor = True
         '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(13, 101)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(136, 16)
+        Me.CheckBox2.TabIndex = 22
+        Me.CheckBox2.Text = "Software Label 발행"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'Label18
+        '
+        Me.Label18.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label18.Location = New System.Drawing.Point(31, 39)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(115, 21)
+        Me.Label18.TabIndex = 13
+        Me.Label18.Text = "- 품목명"
+        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Label_ItemName
+        '
+        Me.TB_Label_ItemName.Enabled = False
+        Me.TB_Label_ItemName.Location = New System.Drawing.Point(146, 39)
+        Me.TB_Label_ItemName.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
+        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_ItemName.TabIndex = 14
+        '
         'TB_Label_FPGA
         '
         Me.TB_Label_FPGA.Enabled = False
@@ -731,6 +814,18 @@ Partial Class frm_Model_Document
         Me.TB_Label_FPGA.Name = "TB_Label_FPGA"
         Me.TB_Label_FPGA.Size = New System.Drawing.Size(246, 21)
         Me.TB_Label_FPGA.TabIndex = 20
+        '
+        'Label27
+        '
+        Me.Label27.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label27.Location = New System.Drawing.Point(31, 124)
+        Me.Label27.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(115, 21)
+        Me.Label27.TabIndex = 15
+        Me.Label27.Text = "- F/W(OS)"
+        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Label29
         '
@@ -743,6 +838,15 @@ Partial Class frm_Model_Document
         Me.Label29.TabIndex = 19
         Me.Label29.Text = "- FPGA"
         Me.Label29.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'TB_Label_FW
+        '
+        Me.TB_Label_FW.Enabled = False
+        Me.TB_Label_FW.Location = New System.Drawing.Point(146, 124)
+        Me.TB_Label_FW.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_Label_FW.Name = "TB_Label_FW"
+        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
+        Me.TB_Label_FW.TabIndex = 16
         '
         'TB_Label_Boot
         '
@@ -764,48 +868,6 @@ Partial Class frm_Model_Document
         Me.Label28.TabIndex = 17
         Me.Label28.Text = "- Boot"
         Me.Label28.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_Label_FW
-        '
-        Me.TB_Label_FW.Enabled = False
-        Me.TB_Label_FW.Location = New System.Drawing.Point(146, 124)
-        Me.TB_Label_FW.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_Label_FW.Name = "TB_Label_FW"
-        Me.TB_Label_FW.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_FW.TabIndex = 16
-        '
-        'Label27
-        '
-        Me.Label27.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Label27.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label27.Location = New System.Drawing.Point(31, 124)
-        Me.Label27.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(115, 21)
-        Me.Label27.TabIndex = 15
-        Me.Label27.Text = "- F/W(OS)"
-        Me.Label27.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TB_Label_ItemName
-        '
-        Me.TB_Label_ItemName.Enabled = False
-        Me.TB_Label_ItemName.Location = New System.Drawing.Point(146, 39)
-        Me.TB_Label_ItemName.Margin = New System.Windows.Forms.Padding(0)
-        Me.TB_Label_ItemName.Name = "TB_Label_ItemName"
-        Me.TB_Label_ItemName.Size = New System.Drawing.Size(246, 21)
-        Me.TB_Label_ItemName.TabIndex = 14
-        '
-        'Label18
-        '
-        Me.Label18.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label18.Location = New System.Drawing.Point(31, 39)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(115, 21)
-        Me.Label18.TabIndex = 13
-        Me.Label18.Text = "- 품목명"
-        Me.Label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'Panel3
         '
@@ -1223,68 +1285,6 @@ Partial Class frm_Model_Document
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.CheckBox1)
-        Me.GroupBox1.Controls.Add(Me.CheckBox2)
-        Me.GroupBox1.Controls.Add(Me.Label18)
-        Me.GroupBox1.Controls.Add(Me.TB_Label_ItemName)
-        Me.GroupBox1.Controls.Add(Me.TB_Label_FPGA)
-        Me.GroupBox1.Controls.Add(Me.Label27)
-        Me.GroupBox1.Controls.Add(Me.Label29)
-        Me.GroupBox1.Controls.Add(Me.TB_Label_FW)
-        Me.GroupBox1.Controls.Add(Me.TB_Label_Boot)
-        Me.GroupBox1.Controls.Add(Me.Label28)
-        Me.GroupBox1.Location = New System.Drawing.Point(15, 15)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(410, 212)
-        Me.GroupBox1.TabIndex = 23
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "20 x 8 mm"
-        '
-        'GroupBox2
-        '
-        Me.GroupBox2.Controls.Add(Me.CheckBox3)
-        Me.GroupBox2.Controls.Add(Me.Label33)
-        Me.GroupBox2.Controls.Add(Me.TextBox2)
-        Me.GroupBox2.Location = New System.Drawing.Point(15, 233)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(410, 77)
-        Me.GroupBox2.TabIndex = 24
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "12 x 10 mm"
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.Location = New System.Drawing.Point(13, 20)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(120, 16)
-        Me.CheckBox3.TabIndex = 24
-        Me.CheckBox3.Text = "Ass'y Label 발행"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'Label33
-        '
-        Me.Label33.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.Label33.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label33.Location = New System.Drawing.Point(31, 39)
-        Me.Label33.Margin = New System.Windows.Forms.Padding(0)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(115, 21)
-        Me.Label33.TabIndex = 22
-        Me.Label33.Text = "- 품목명"
-        Me.Label33.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Enabled = False
-        Me.TextBox2.Location = New System.Drawing.Point(146, 39)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(246, 21)
-        Me.TextBox2.TabIndex = 23
-        '
         'frm_Model_Document
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1325,16 +1325,16 @@ Partial Class frm_Model_Document
         Me.Panel4.PerformLayout()
         CType(Me.Grid_Process, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage6.ResumeLayout(False)
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.CMS_GridMenu.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
-        Me.GroupBox2.ResumeLayout(False)
-        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_Assy_Label_Print
     Private Sub frm_Assy_Label_Print_Load(sender As Object, e As EventArgs) Handles MyBase.Load

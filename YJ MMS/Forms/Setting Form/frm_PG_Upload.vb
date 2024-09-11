@@ -1,6 +1,6 @@
 ﻿Imports System.Threading
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_PG_Upload
     Private Sub frm_PG_Upload_Load(sender As Object, e As EventArgs) Handles MyBase.Load

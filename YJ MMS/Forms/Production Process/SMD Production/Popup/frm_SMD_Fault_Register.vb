@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_SMD_Fault_Register
     Private Sub frm_SMD_Fault_Register_Load(sender As Object, e As EventArgs) Handles MyBase.Load

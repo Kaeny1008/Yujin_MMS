@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports MySqlConnector
 
 Module MySQL
 
@@ -9,6 +9,7 @@ Module MySQL
     Public serverID As String = registryEdit.ReadRegKey("Software\Yujin", "server.ID", "yujin_MySQL")
     Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "server.PSWD", "Dbwlswjswk1!")
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
+    Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
 
     'DB 연결 함수
     Public Sub DBConnect()
@@ -19,7 +20,9 @@ Module MySQL
                                        ";PORT=" & serverPORT &
                                        ";User Id=" & serverID &
                                        ";Password=" & serverPSWD &
-                                       ";allow user variables=true"
+                                       ";Connection Timeout=" & connectionTimeOut &
+                                       ";CharSet=utf8" &
+                                       ";SslMode=none"
 
         Try
             DBConnect1.Open()

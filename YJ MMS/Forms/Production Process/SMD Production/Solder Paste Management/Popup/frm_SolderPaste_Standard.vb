@@ -1,4 +1,4 @@
-﻿Imports MySql.Data.MySqlClient
+﻿Imports MySqlConnector
 
 Public Class frm_SolderPaste_Standard
     Private Sub frm_SolderPaste_Standard_Load(sender As Object, e As EventArgs) Handles MyBase.Load

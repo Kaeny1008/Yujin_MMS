@@ -1,5 +1,5 @@
 ﻿Imports System.ComponentModel
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class Mainform
 

@@ -11,7 +11,7 @@
 '############################################################################################################
 
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_IQC_Standby_List
 

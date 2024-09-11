@@ -11,7 +11,7 @@
 '############################################################################################################
 
 Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_Baking_History
     Private Sub frm_Baking_History_Load(sender As Object, e As EventArgs) Handles MyBase.Load

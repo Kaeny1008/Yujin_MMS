@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_SMD_Production_Start
 
@@ -196,6 +196,7 @@ Public Class frm_SMD_Production_Start
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -238,23 +239,25 @@ Public Class frm_SMD_Production_Start
             strSQL += ", '" & Grid_OrderList(i, 5) & "'"
             strSQL += ", '" & Grid_OrderList(i, 3) & "'"
             strSQL += ", null"
+            strSQL += ", '" & Grid_OrderList(i, 1) & "'"
             strSQL += ")"
 
             Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
             Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
             Do While sqlDR.Read
-                Dim workSite As String = "Bottom / Top"
+                'Dim workSite As String = "Bottom / Top"
 
-                If IsDBNull(sqlDR("Bottom")) And
-                    Not IsDBNull(sqlDR("Top")) Then
-                    workSite = "Top"
-                ElseIf Not IsDBNull(sqlDR("Bottom")) And
-                    IsDBNull(sqlDR("Top")) Then
-                    workSite = "Bottom"
-                End If
+                'If IsDBNull(sqlDR("Bottom")) And
+                '    Not IsDBNull(sqlDR("Top")) Then
+                '    workSite = "Top"
+                'ElseIf Not IsDBNull(sqlDR("Bottom")) And
+                '    IsDBNull(sqlDR("Top")) Then
+                '    workSite = "Bottom"
+                'End If
 
-                Grid_OrderList(i, 12) = workSite
+                'Grid_OrderList(i, 12) = workSite
+                Grid_OrderList(i, 12) = sqlDR("work_side")
             Loop
             sqlDR.Close()
         Next

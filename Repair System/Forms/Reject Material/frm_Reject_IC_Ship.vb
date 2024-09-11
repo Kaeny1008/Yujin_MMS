@@ -13,7 +13,7 @@
 Imports System.Threading
 Imports C1.Win.C1FlexGrid
 Imports CrystalDecisions.CrystalReports.Engine
-Imports MySql.Data.MySqlClient
+Imports MySqlConnector
 
 Public Class frm_Reject_IC_Ship
 
