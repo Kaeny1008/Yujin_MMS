@@ -310,7 +310,8 @@ Public Class frm_Order_Registration
 
         If RadioButton1.Checked = True Then
             'SRM_Excel_Process()
-            Etc_Excel_Process("모터")
+            'Etc_Excel_Process("모터")
+            SRM_Excel_Process()
         Else
             Etc_Excel_Process("제어")
         End If
@@ -1244,6 +1245,12 @@ Public Class frm_Order_Registration
         TB_CustomerCode.Text = String.Empty
         TB_File_Path.Text = String.Empty
         CB_SheetName.SelectedIndex = -1
+
+        If RadioButton1.Checked = True Then
+            Panel2.Enabled = True
+        Else
+            Panel2.Enabled = False
+        End If
 
     End Sub
 

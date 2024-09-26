@@ -1499,8 +1499,8 @@ Public Class frm_Assy_Label_Print
         swFile.WriteLine("^MD" & printerMD2) '진하기
 
         swFile.WriteLine("^FO0000,0000^A0,16,20^FD" & TB_Reprint_Unique.Text & "^FS")
-        swFile.WriteLine("^FO0000,0016^A0,16,20^FD" & TB_Reprint_Date.Text & Format(TB_Reprint_Serial.Text, "0000") & "^FS")
-        swFile.WriteLine("^FO0012,0025^BQN,2,3^FDAAA" & TB_Reprint_Unique.Text & TB_Reprint_Date.Text & Format(TB_Reprint_Serial.Text, "0000") & "^FS")
+        swFile.WriteLine("^FO0000,0016^A0,16,20^FD" & TB_Reprint_Date.Text & Format(CInt(TB_Reprint_Serial.Text), "0000") & "^FS")
+        swFile.WriteLine("^FO0012,0025^BQN,2,3^FDAAA" & TB_Reprint_Unique.Text & TB_Reprint_Date.Text & Format(CInt(TB_Reprint_Serial.Text), "0000") & "^FS")
 
         swFile.WriteLine("^PQ" & 1 & "^FS") 'PQ : 발행수량
         swFile.WriteLine("^XZ")
