@@ -45,6 +45,8 @@ Partial Class frm_Material_Transfer
         Me.TB_TN_No = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -82,8 +84,8 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -98,6 +100,7 @@ Partial Class frm_Material_Transfer
         Me.Panel5.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Grid_Menu.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -106,7 +109,7 @@ Partial Class frm_Material_Transfer
         Me.TS_MainBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Search, Me.Form_CLose, Me.ToolStripSeparator1, Me.BTN_New_Transfer})
         Me.TS_MainBar.Location = New System.Drawing.Point(0, 0)
         Me.TS_MainBar.Name = "TS_MainBar"
-        Me.TS_MainBar.Size = New System.Drawing.Size(1264, 25)
+        Me.TS_MainBar.Size = New System.Drawing.Size(1564, 25)
         Me.TS_MainBar.TabIndex = 8
         Me.TS_MainBar.Text = "ToolStrip1"
         '
@@ -158,7 +161,7 @@ Partial Class frm_Material_Transfer
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_History)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel2)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1564, 748)
         Me.SplitContainer1.SplitterDistance = 421
         Me.SplitContainer1.TabIndex = 9
         '
@@ -288,7 +291,7 @@ Partial Class frm_Material_Transfer
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(839, 279)
+        Me.Grid_History.Size = New System.Drawing.Size(1139, 279)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 10
         '
@@ -301,7 +304,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.Enabled = False
         Me.Panel2.Location = New System.Drawing.Point(0, 413)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(839, 56)
+        Me.Panel2.Size = New System.Drawing.Size(1139, 56)
         Me.Panel2.TabIndex = 11
         '
         'TB_TN_No
@@ -333,6 +336,8 @@ Partial Class frm_Material_Transfer
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.Label19)
+        Me.Panel1.Controls.Add(Me.NumericUpDown1)
         Me.Panel1.Controls.Add(Me.TextBox2)
         Me.Panel1.Controls.Add(Me.Label18)
         Me.Panel1.Controls.Add(Me.Panel6)
@@ -351,8 +356,29 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Enabled = False
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(839, 413)
+        Me.Panel1.Size = New System.Drawing.Size(1139, 413)
         Me.Panel1.TabIndex = 0
+        '
+        'TextBox2
+        '
+        Me.TextBox2.Location = New System.Drawing.Point(175, 358)
+        Me.TextBox2.Multiline = True
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(363, 49)
+        Me.TextBox2.TabIndex = 40
+        '
+        'Label18
+        '
+        Me.Label18.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label18.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label18.ForeColor = System.Drawing.Color.White
+        Me.Label18.Location = New System.Drawing.Point(10, 358)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(165, 49)
+        Me.Label18.TabIndex = 39
+        Me.Label18.Text = "6. 비고"
         '
         'Panel6
         '
@@ -520,7 +546,7 @@ Partial Class frm_Material_Transfer
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(735, 341)
+        Me.BTN_Save.Location = New System.Drawing.Point(1035, 341)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(98, 66)
         Me.BTN_Save.TabIndex = 33
@@ -737,32 +763,29 @@ Partial Class frm_Material_Transfer
         Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
-        'Label18
+        'NumericUpDown1
         '
-        Me.Label18.BackColor = System.Drawing.Color.LightSlateGray
-        Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label18.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.Label18.ForeColor = System.Drawing.Color.White
-        Me.Label18.Location = New System.Drawing.Point(10, 358)
-        Me.Label18.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(165, 49)
-        Me.Label18.TabIndex = 39
-        Me.Label18.Text = "6. 비고"
+        Me.NumericUpDown1.Location = New System.Drawing.Point(671, 386)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 21)
+        Me.NumericUpDown1.TabIndex = 41
+        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'TextBox2
+        'Label19
         '
-        Me.TextBox2.Location = New System.Drawing.Point(175, 358)
-        Me.TextBox2.Multiline = True
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(554, 49)
-        Me.TextBox2.TabIndex = 40
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(608, 370)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(183, 12)
+        Me.Label19.TabIndex = 42
+        Me.Label19.Text = "※ 선입선출 유예기간(최대 30일)"
         '
         'frm_Material_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1264, 773)
+        Me.ClientSize = New System.Drawing.Size(1564, 773)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.TS_MainBar)
         Me.Name = "frm_Material_Transfer"
@@ -788,6 +811,7 @@ Partial Class frm_Material_Transfer
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Grid_Menu.ResumeLayout(False)
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -853,4 +877,6 @@ Partial Class frm_Material_Transfer
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
+    Friend WithEvents NumericUpDown1 As NumericUpDown
 End Class

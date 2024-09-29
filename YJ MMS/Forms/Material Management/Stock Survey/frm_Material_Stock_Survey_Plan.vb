@@ -63,7 +63,7 @@ Public Class frm_Material_Stock_Survey_Plan
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
-            For i = 7 To 16
+            For i = 7 To 17
                 .Cols(i).DataType = GetType(Double)
                 .Cols(i).Format = "#,##0"
                 .Cols(i).TextAlign = TextAlignEnum.CenterCenter
@@ -260,8 +260,12 @@ Public Class frm_Material_Stock_Survey_Plan
             insert_String += vbTab & Format((stock_qty), "#,##0")
 
             If Not stock_qty = 0 Then
+                If stock_qty < 0 Then
+                    Console.WriteLine(sqlDR("part_code") & " 0보다 작다.")
+                End If
                 Grid_MaterialList.AddItem(insert_String)
             End If
+
 
             'If stock_qty < 0 Then
             '    Grid_MaterialList.Rows(Grid_MaterialList.Rows.Count - 1).StyleNew.ForeColor = Color.Red
@@ -306,7 +310,7 @@ Public Class frm_Material_Stock_Survey_Plan
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "재고조사 계획을 확정 하시겠습니까?"
 
-        If MSG_Question(Me, msg_form) = False Then Exit Sub
+        If MSG_Question(Me, msgString) = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
 

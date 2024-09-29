@@ -123,6 +123,7 @@ Public Class frm_WorkSite_Transfer_Material_List
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

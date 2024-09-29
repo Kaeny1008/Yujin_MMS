@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Material_Stock_Survey_Each_Item
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frm_Material_Stock_Survey_Each_Item
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Material_Stock_Survey_Each_Item))
@@ -38,13 +38,18 @@ Partial Class frm_Material_Stock_Survey_Each_Item
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.BTN_PartSearch = New System.Windows.Forms.Button()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TB_SearchPartCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Delete = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_SamePart = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -202,46 +207,78 @@ Partial Class frm_Material_Stock_Survey_Each_Item
         '
         Me.Grid_MaterialList.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_MaterialList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_MaterialList.Location = New System.Drawing.Point(0, 74)
+        Me.Grid_MaterialList.Location = New System.Drawing.Point(0, 112)
         Me.Grid_MaterialList.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_MaterialList.Name = "Grid_MaterialList"
         Me.Grid_MaterialList.Rows.Count = 2
         Me.Grid_MaterialList.Rows.DefaultSize = 20
-        Me.Grid_MaterialList.Size = New System.Drawing.Size(839, 674)
+        Me.Grid_MaterialList.Size = New System.Drawing.Size(839, 636)
         Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
         Me.Grid_MaterialList.TabIndex = 39
         '
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel2.Controls.Add(Me.BTN_PartSearch)
+        Me.Panel2.Controls.Add(Me.CheckBox2)
+        Me.Panel2.Controls.Add(Me.CheckBox1)
         Me.Panel2.Controls.Add(Me.Label2)
-        Me.Panel2.Controls.Add(Me.TextBox2)
+        Me.Panel2.Controls.Add(Me.TB_SearchPartCode)
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Location = New System.Drawing.Point(0, 0)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(839, 74)
+        Me.Panel2.Size = New System.Drawing.Size(839, 112)
         Me.Panel2.TabIndex = 40
+        '
+        'BTN_PartSearch
+        '
+        Me.BTN_PartSearch.Location = New System.Drawing.Point(449, 45)
+        Me.BTN_PartSearch.Name = "BTN_PartSearch"
+        Me.BTN_PartSearch.Size = New System.Drawing.Size(51, 34)
+        Me.BTN_PartSearch.TabIndex = 44
+        Me.BTN_PartSearch.Text = "검색"
+        Me.BTN_PartSearch.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.Location = New System.Drawing.Point(214, 33)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(122, 16)
+        Me.CheckBox2.TabIndex = 43
+        Me.CheckBox2.Text = "Code별 합계 보기"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(18, 34)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(190, 16)
+        Me.CheckBox1.TabIndex = 42
+        Me.CheckBox1.Text = "클릭시 해당 Code의 자재 보기"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(16, 47)
+        Me.Label2.Location = New System.Drawing.Point(16, 98)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(281, 12)
         Me.Label2.TabIndex = 41
         Me.Label2.Text = "※ 재고조사 완료된 항목이므로 수정이 불가합니다."
         Me.Label2.Visible = False
         '
-        'TextBox2
+        'TB_SearchPartCode
         '
-        Me.TextBox2.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox2.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.TextBox2.Location = New System.Drawing.Point(145, 13)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(672, 21)
-        Me.TextBox2.TabIndex = 40
+        Me.TB_SearchPartCode.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_SearchPartCode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TB_SearchPartCode.Location = New System.Drawing.Point(145, 53)
+        Me.TB_SearchPartCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_SearchPartCode.Name = "TB_SearchPartCode"
+        Me.TB_SearchPartCode.Size = New System.Drawing.Size(301, 21)
+        Me.TB_SearchPartCode.TabIndex = 40
         '
         'Label1
         '
@@ -249,36 +286,47 @@ Partial Class frm_Material_Stock_Survey_Each_Item
         Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label1.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(18, 13)
+        Me.Label1.Location = New System.Drawing.Point(18, 53)
         Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(127, 21)
         Me.Label1.TabIndex = 39
-        Me.Label1.Text = "Barcode Scan"
+        Me.Label1.Text = "Part Code 검색"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Grid_Menu
         '
-        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Delete, Me.ToolStripSeparator1, Me.BTN_Save})
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Delete, Me.ToolStripSeparator1, Me.BTN_SamePart, Me.ToolStripSeparator2, Me.BTN_Save})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(99, 54)
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 104)
         '
         'BTN_Delete
         '
         Me.BTN_Delete.Name = "BTN_Delete"
-        Me.BTN_Delete.Size = New System.Drawing.Size(98, 22)
+        Me.BTN_Delete.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Delete.Text = "삭제"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(95, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'BTN_Save
         '
         Me.BTN_Save.Name = "BTN_Save"
-        Me.BTN_Save.Size = New System.Drawing.Size(98, 22)
+        Me.BTN_Save.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Save.Text = "저장"
+        '
+        'BTN_SamePart
+        '
+        Me.BTN_SamePart.Name = "BTN_SamePart"
+        Me.BTN_SamePart.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_SamePart.Text = "중복데이터 찾기"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
         'frm_Material_Stock_Survey_Each_Item
         '
@@ -321,11 +369,16 @@ Partial Class frm_Material_Stock_Survey_Each_Item
     Friend WithEvents Grid_PlanList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Grid_MaterialList As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Panel2 As Panel
-    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents TB_SearchPartCode As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_Delete As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents BTN_Save As ToolStripMenuItem
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents CheckBox2 As CheckBox
+    Friend WithEvents BTN_PartSearch As Button
+    Friend WithEvents BTN_SamePart As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
 End Class

@@ -717,9 +717,9 @@ Public Class frm_Material_Stock_Survey_Result
         selCol = Grid_MaterialList.Col
 
         Select Case Grid_MaterialList.Col
-            Case 17
+            Case 18
                 MSG_Information(Me, "임의 수정금지로 변경함." & vbCrLf & "스캔 데이터가 자재 창고로 업데이트 되므로 스캔데이터를 수정해야함.")
-            Case 20
+            Case 21
                 Grid_MaterialList.AllowEditing = True
             Case Else
                 Grid_MaterialList.AllowEditing = False

@@ -400,6 +400,7 @@ Public Class frm_Material_Return_Register
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)

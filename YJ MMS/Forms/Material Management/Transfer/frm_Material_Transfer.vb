@@ -9,6 +9,7 @@ Public Class frm_Material_Transfer
     Private Sub frm_Material_WorkSite_Transfer_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
+        NumericUpDown1.Value = registryEdit.ReadRegKey("Software\Yujin\MMS\Material FIFO", "Date", 0)
 
         DateTimePicker2.Value = Format(Now, "yyyy-MM-01")
         DateTimePicker3.Value = Format(Now, "yyyy-MM-dd")
@@ -333,6 +334,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -379,6 +381,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -411,10 +414,11 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & mw_no & "'"
-            strSQL += ", null"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & status & "'"
+        strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
 
@@ -653,6 +657,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", '" & section & "'"
         strSQL += ", null"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -707,6 +712,7 @@ Public Class frm_Material_Transfer
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ", '" & Grid_TNList(selRow, 1) & "'"
+            strSQL += ", null"
             strSQL += ", null"
             strSQL += ", null"
             strSQL += ")"
@@ -987,6 +993,7 @@ Public Class frm_Material_Transfer
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", '" & Replace(TB_PartNo.Text, "'", "\'") & "'"
+        strSQL += ", null"
         strSQL += ")"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
@@ -1043,6 +1050,12 @@ Public Class frm_Material_Transfer
     End Sub
 
     Private Sub TB_BarcodeScan_MouseCaptureChanged(sender As Object, e As EventArgs) Handles TB_BarcodeScan.MouseCaptureChanged
+
+    End Sub
+
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+
+        registryEdit.WriteRegKey("Software\Yujin\MMS\Material FIFO", "Date", NumericUpDown1.Value)
 
     End Sub
 End Class
