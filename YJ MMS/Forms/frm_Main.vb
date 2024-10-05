@@ -510,30 +510,35 @@ Public Class frm_Main
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
-        DBConnect()
+        Try
+            DBConnect()
 
-        Dim strSQL As String = "call sp_mms_discard_register(0"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ");"
+            Dim strSQL As String = "call sp_mms_discard_register(0"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ");"
 
-        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
-        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+            Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        Do While sqlDR.Read
-            If Not sqlDR("not_confirm_count") = 0 Then
-                If Not frm_DiscardAlarm.Visible Then frm_DiscardAlarm.Show()
-            End If
-        Loop
-        sqlDR.Close()
+            Do While sqlDR.Read
+                If Not sqlDR("not_confirm_count") = 0 Then
+                    If Not frm_DiscardAlarm.Visible Then frm_DiscardAlarm.Show()
+                End If
+            Loop
+            sqlDR.Close()
 
-        DBClose()
+            DBClose()
+
+        Catch ex As Exception
+            MSG_Error(Me, ex.Message)
+        End Try
 
     End Sub
 

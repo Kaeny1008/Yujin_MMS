@@ -392,9 +392,28 @@ Public Class frm_Material_Stock_Survey_Result
 
         msgString += vbCrLf & vbCrLf & "결과를 확정 하시겠습니까?"
 
-        If MSG_Question(Me, msg_form) = False Then Exit Sub
+        If MSG_Question(Me, msgString) = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
+
+        'strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
+        'strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
+        '스캔완료된 항목의 출고기록을 되돌린다.
+        Dim writeResult As String = Return_PartsOutData()
+
+        If Not writeResult = "Success" Then
+            Thread_LoadingFormEnd()
+            MSG_Error(Me, writeResult)
+            Exit Sub
+        End If
+
+        '스캔된 데이터를 warehousing의 available_qty로 업데이트한다.
+        'writeResult = Replace_PartsQty()
+        'If Not writeResult = "Success" Then
+        '    Thread_LoadingFormEnd()
+        '    MSG_Error(Me, writeResult)
+        '    Exit Sub
+        'End If
 
         DBConnect()
 
@@ -406,39 +425,22 @@ Public Class frm_Material_Stock_Survey_Result
 
         Dim dateTime As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
+        strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
+        strSQL += " where not order_status = 'Order Confirm'"
+        strSQL += " and clearance_date is null"
+        strSQL += ";"
+
         strSQL += "update tb_mms_material_stock_survey_plan set plan_status = 'Completed'"
         strSQL += ", completed_date = '" & dateTime & "'"
         strSQL += ", completed_id = '" & loginID & "'"
         strSQL += " where plan_no = '" & LB_InspectionNo.Text & "'"
         strSQL += ";"
 
-        'strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
-        'strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
-        '스캔완료된 항목의 출고기록을 되돌린다.
-        strSQL += "call sp_mms_material_stock_survey(8"
-        strSQL += ", '" & TB_CustomerCode.Text & "'"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", '" & LB_InspectionNo.Text & "'"
-        strSQL += ");"
-
-        '스캔된 데이터를 warehousing의 available_qty로 업데이트한다.
-        strSQL += "call sp_mms_material_stock_survey(9"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", null"
-        strSQL += ", '" & LB_InspectionNo.Text & "'"
-        strSQL += ");"
-
-        strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
-        strSQL += " where not order_status = 'Order Confirm'"
-        strSQL += " and clearance_date is null;"
-
         Try
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 Grid_MaterialList(i, 0) = i - 1
                 '기초재고를 입력한다.
-                If CDbl(Grid_MaterialList(i, 18)) > 0 Then
+                If CDbl(Grid_MaterialList(i, 19)) > 0 Then
                     '결과값이 + 인경우 재고수량보다 많으니까
                     '전산수량을 기초재고로 잡고 나머지수량을 기록한다.
                     strSQL += "insert into tb_mms_material_basic_inventory("
@@ -506,6 +508,91 @@ Public Class frm_Material_Stock_Survey_Result
 
     End Sub
 
+    Private Function Return_PartsOutData() As String
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            strSQL += "call sp_mms_material_stock_survey(8"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", '" & LB_InspectionNo.Text & "'"
+            strSQL += ");"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+
+            'MSG_Error(Me, ex.Message)
+            DBClose()
+            Return ex.Message
+        End Try
+
+        DBClose()
+
+        Return "Success"
+
+    End Function
+
+    Private Function Replace_PartsQty() As String
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            strSQL += "call sp_mms_material_stock_survey(9"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", null"
+            strSQL += ", '" & LB_InspectionNo.Text & "'"
+            strSQL += ");"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+
+            DBClose()
+            Return ex.Message
+        End Try
+
+        DBClose()
+
+        Return "Success"
+
+    End Function
+
     Private Sub BTN_CompletedCancel_Click(sender As Object, e As EventArgs) Handles BTN_CompletedCancel.Click
 
         Dim msgString As String
@@ -521,7 +608,7 @@ Public Class frm_Material_Stock_Survey_Result
         msgString += vbCrLf & "고객사 : " & CB_CustomerName.Text
         msgString += vbCrLf & vbCrLf & "확정을 취소 하시겠습니까?"
 
-        If MSG_Question(Me, msg_form) = False Then Exit Sub
+        If MSG_Question(Me, msgString) = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
 

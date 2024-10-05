@@ -400,6 +400,7 @@ Public Class frm_Material_Return_Register
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
+        strSQL += ", '" & TB_PartNo.Text & "'"
         strSQL += ", null"
         strSQL += ")"
 

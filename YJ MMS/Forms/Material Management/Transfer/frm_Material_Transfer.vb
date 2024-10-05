@@ -536,7 +536,7 @@ Public Class frm_Material_Transfer
             For i = 1 To Grid_History.Rows.Count - 1
 
                 strSQL += "insert into tb_mms_material_transfer_out_content("
-                strSQL += "mw_no, tn_no, part_status, tn_note"
+                strSQL += "mw_no, tn_no, part_status, tn_note, part_qty"
                 strSQL += ") values("
                 strSQL += "'" & Grid_History(i, 6) & "'"
                 strSQL += ",'" & TB_TN_No.Text & "'"
@@ -546,6 +546,7 @@ Public Class frm_Material_Transfer
                     strSQL += ", 'Closed'"
                 End If
                 strSQL += ",'" & TextBox2.Text & "'"
+                strSQL += "," & CDbl(Grid_History(i, 5))
                 strSQL += ");"
 
                 If RadioButton1.Checked = True Then
