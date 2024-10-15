@@ -195,13 +195,13 @@ Public Class frm_Order_Registration
 
         DBClose()
 
-        Load_Basic_PO(DateTimePicker1.Value,
-                      DateTimePicker2.Value,
-                      "개발")
-
         If RadioButton3.Checked = True Then
             BTN_RowAdd.Enabled = True
             BTN_RowDelete.Enabled = True
+
+            Load_Basic_PO(DateTimePicker1.Value,
+                          DateTimePicker2.Value,
+                          "개발")
         End If
 
     End Sub
@@ -660,7 +660,7 @@ Public Class frm_Order_Registration
                     strSQL += ",'" & Grid_Excel(i, 1) & "'"
                     strSQL += ",'" & Grid_Excel(i, 6) & "'"
                     strSQL += ",'" & Grid_Excel(i, 7) & "'"
-                    strSQL += ",'" & Grid_Excel(i, 8) & "'"
+                    strSQL += ",'" & format(Grid_Excel(i, 8), "yyyy-MM-dd HH:mm:ss") & "'"
                     strSQL += ",'" & Grid_Excel(i, 9) & "'"
                     strSQL += ",'" & Grid_Excel(i, 9) & "'"
                     strSQL += ",'" & Grid_Excel(i, 10) & "'"
@@ -1266,7 +1266,7 @@ Public Class frm_Order_Registration
 
     Private Sub Grid_Excel_RowColChange(sender As Object, e As EventArgs) Handles Grid_Excel.RowColChange
 
-        If Grid_Excel.Row > 1 Or Grid_Excel.Col > 1 Then Exit Sub
+        If Grid_Excel.Row < 1 Or Grid_Excel.Col < 1 Then Exit Sub
 
         Select Case Grid_Excel.Col
             Case 3, 9, 11

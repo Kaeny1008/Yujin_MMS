@@ -116,6 +116,10 @@ Public Class frm_Material_CheckRequirements
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            For i = 6 To .Cols.Count - 1
+                .Cols(i).DataType = GetType(Double)
+                .Cols(i).Format = "#,##0"
+            Next
         End With
 
     End Sub
