@@ -1270,6 +1270,7 @@ Public Class frm_Order_Registration
 
         Select Case Grid_Excel.Col
             Case 3, 9, 11
+                If IsNothing(Grid_Excel(Grid_Excel.Row, 0)) Then Exit Sub
                 If Grid_Excel(Grid_Excel.Row, 0).ToString = "D" Then
                     Grid_Excel.AllowEditing = False
                 Else

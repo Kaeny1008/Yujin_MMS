@@ -16,6 +16,34 @@ Public Class frm_WS_Magazine_Kitting
 
         Load_Process()
         Load_Discard_Quantity()
+        Load_Note()
+
+    End Sub
+
+    Private Sub Load_Note()
+
+        DBConnect()
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(18"
+        strSQL += ", '" & orderIndex & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TB_Note.Text = sqlDR("order_note")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
@@ -339,8 +367,9 @@ Public Class frm_WS_Magazine_Kitting
         'swFile.WriteLine("^FO0518,0246^A0,30,20^FD" & TB_TB.Text & "^FS")
         swFile.WriteLine("^FO0016,0284^A0,30,20^FDDate^FS")
         swFile.WriteLine("^FO0170,0284^A0,30,18^FD" & writeDate & "^FS")
-        swFile.WriteLine("^FO0016,0324^A0,30,20^FDProcess^FS")
+        swFile.WriteLine("^FO0016,0324^A1N,30,20^FD비고^FS")
         swFile.WriteLine("^FO0170,0324^A1N,30,20^FD" & TB_Process.Text & "^FS")
+        swFile.WriteLine("^FO0170,0364^A1N,30,20^FD" & TB_Note.Text & "^FS")
 
         swFile.WriteLine("^FO020,0020^BXN,3,200,44,44^FD" & TB_PONo.Text & "!" & LB_HistoryIndex.Text & "!" & TB_SMDLine.Text & "^FS")
 

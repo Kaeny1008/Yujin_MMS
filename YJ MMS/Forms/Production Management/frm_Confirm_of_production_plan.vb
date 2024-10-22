@@ -23,7 +23,7 @@ Public Class frm_Production_plan
             .AllowMergingFixed = AllowMergingEnum.FixedOnly
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 13
+            .Cols.Count = 14
             .Cols.Fixed = 1
             .Rows.Count = 3
             .Rows.Fixed = 3
@@ -61,8 +61,12 @@ Public Class frm_Production_plan
             rngM.Data = "SMD"
             Grid_OrderList(2, 11) = "동"
             Grid_OrderList(2, 12) = "Line"
+            rngM = .GetCellRange(0, 13, 2, 13)
+            rngM.Data = "비고(라벨 인쇄됨)"
             .Cols(1).Visible = True
             .Cols(3).Visible = True
+            .Cols(8).DataType = GetType(Double)
+            .Cols(8).Format = "#,##0"
             .Cols(10).DataType = GetType(Date)
             .AutoClipboard = False
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
@@ -170,19 +174,20 @@ Public Class frm_Production_plan
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Dim insert_String As String = Grid_OrderList.Rows.Count - 2 & vbTab &
-                                          sqlDR("order_index") & vbTab &
-                                          sqlDR("date_of_delivery") & vbTab &
-                                          sqlDR("customer_code") & vbTab &
-                                          sqlDR("customer_name") & vbTab &
-                                          sqlDR("model_code") & vbTab &
-                                          sqlDR("item_code") & vbTab &
-                                          sqlDR("item_name") & vbTab &
-                                          Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
-                                          sqlDR("process_list") & vbTab &
-                                          sqlDR("start_date") & vbTab &
-                                          sqlDR("smd_department") & vbTab &
-                                          sqlDR("smd_line")
+            Dim insert_String As String = Grid_OrderList.Rows.Count - 2
+            insert_String += vbTab & sqlDR("order_index")
+            insert_String += vbTab & sqlDR("date_of_delivery")
+            insert_String += vbTab & sqlDR("customer_code")
+            insert_String += vbTab & sqlDR("customer_name")
+            insert_String += vbTab & sqlDR("model_code")
+            insert_String += vbTab & sqlDR("item_code")
+            insert_String += vbTab & sqlDR("item_name")
+            insert_String += vbTab & sqlDR("modify_order_quantity")
+            insert_String += vbTab & sqlDR("process_list")
+            insert_String += vbTab & sqlDR("start_date")
+            insert_String += vbTab & sqlDR("smd_department")
+            insert_String += vbTab & sqlDR("smd_line")
+            insert_String += vbTab & sqlDR("order_note")
             Grid_OrderList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -201,7 +206,7 @@ Public Class frm_Production_plan
         If Grid_OrderList.Row < 3 Or Grid_OrderList.Col < 1 Then Exit Sub
 
         Select Case Grid_OrderList.Col
-            Case 10
+            Case 10, 13
                 Grid_OrderList.AllowEditing = True
             Case 11
                 Grid_OrderList.AllowEditing = True
@@ -455,13 +460,14 @@ Public Class frm_Production_plan
             For i = 1 To Grid_OrderList.Rows.Count - 1
                 If Grid_OrderList(i, 0).ToString = "N" Then
                     strSQL += "insert into tb_mms_production_plan("
-                    strSQL += "order_index, start_date, smd_department, smd_line, start_process, write_date, write_id"
+                    strSQL += "order_index, start_date, smd_department, smd_line, start_process, order_note, write_date, write_id"
                     strSQL += ") values("
                     strSQL += "'" & Grid_OrderList(i, 1) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 10) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 11) & "'"
                     strSQL += ",'" & Grid_OrderList(i, 12) & "'"
-                    strSQL += ",'" & trim(Grid_OrderList(i, 9).ToString.Split(">")(0)) & "'"
+                    strSQL += ",'" & Trim(Grid_OrderList(i, 9).ToString.Split(">")(0)) & "'"
+                    strSQL += ",'" & Grid_OrderList(i, 13) & "'"
                     strSQL += ",'" & writeDate & "'"
                     strSQL += ",'" & loginID & "');"
                     strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation of production plan'"
@@ -471,6 +477,7 @@ Public Class frm_Production_plan
                     strSQL += " start_date = '" & Format(Grid_OrderList(i, 10), "yyyy-MM-dd") & "'"
                     strSQL += ", smd_department = '" & Grid_OrderList(i, 11) & "'"
                     strSQL += ", smd_line = '" & Grid_OrderList(i, 12) & "'"
+                    strSQL += ", order_note = '" & Grid_OrderList(i, 13) & "'"
                     strSQL += ", write_date = '" & writeDate & "'"
                     strSQL += ", write_id = '" & loginID & "'"
                     strSQL += " where order_index = '" & Grid_OrderList(i, 1) & "';"

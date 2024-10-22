@@ -460,9 +460,10 @@ Public Class frm_Order_Modify
             Case 10
                 If Not Grid_Excel(e.Row, 15) = "Order Confirm" Then
                     '주문접수된 상태가 아닐때
-                    Grid_Excel(e.Row, e.Col) = before_griddata
-                    MSG_Exclamation(Me, "주문접수 상태가 아니므로 변경 할 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.")
-                    Exit Sub
+                    '접수상태가 아니라도 수정할 필요가 있으므로 주석처리
+                    'Grid_Excel(e.Row, e.Col) = before_griddata
+                    'MSG_Exclamation(Me, "주문접수 상태가 아니므로 변경 할 수 없습니다." & vbCrLf & "기존 주문수량으로 변경됩니다.")
+                    'Exit Sub
                 End If
 
                 'If CDbl(before_griddata) < CDbl(Grid_Excel(e.Row, e.Col)) Then
