@@ -199,9 +199,14 @@ Public Class frm_Order_Registration
             BTN_RowAdd.Enabled = True
             BTN_RowDelete.Enabled = True
 
+            Grid_Excel.Redraw = False
+            Grid_Excel.Rows.Count = 1
+
             Load_Basic_PO(DateTimePicker1.Value,
                           DateTimePicker2.Value,
                           "개발")
+            Grid_Excel.AutoSizeCols()
+            Grid_Excel.Redraw = True
         End If
 
     End Sub
@@ -1164,7 +1169,11 @@ Public Class frm_Order_Registration
 
         Do While sqlDR.Read
             'Dim rowName As String = Grid_Excel.Rows.Count
-            Dim insert_String As String = "D" & vbTab &
+            Dim basicHeader As String = "D"
+            If itemSection.Equals("개발") Then
+                basicHeader = Grid_Excel.Rows.Count
+            End If
+            Dim insert_String As String = basicHeader & vbTab &
                                           sqlDR("model_code") & vbTab &
                                           sqlDR("spg") & vbTab &
                                           sqlDR("item_code") & vbTab &

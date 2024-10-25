@@ -79,6 +79,8 @@ Public Class frm_MRP
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .Cols.Frozen() = 15
+            .Cols(12).Visible = False
+            .Cols(13).Visible = False
         End With
 
     End Sub

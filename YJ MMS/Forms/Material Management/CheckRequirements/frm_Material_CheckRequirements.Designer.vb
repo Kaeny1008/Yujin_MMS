@@ -34,6 +34,7 @@ Partial Class frm_Material_CheckRequirements
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_OrderList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.CB_CustomerName = New System.Windows.Forms.ComboBox()
         Me.TB_CustomerCode = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -46,6 +47,9 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_AllCheck = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_RowAdd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -147,6 +151,7 @@ Partial Class frm_Material_CheckRequirements
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.CheckBox1)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
         Me.Panel5.Controls.Add(Me.Label3)
@@ -161,6 +166,16 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(669, 106)
         Me.Panel5.TabIndex = 0
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(530, 81)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(88, 16)
+        Me.CheckBox1.TabIndex = 9
+        Me.CheckBox1.Text = "주문등록 외"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'CB_CustomerName
         '
@@ -284,15 +299,34 @@ Partial Class frm_Material_CheckRequirements
         '
         'CMS_Menu
         '
-        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck})
+        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck, Me.ToolStripSeparator3, Me.BTN_RowAdd, Me.BTN_RowDelete})
         Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(127, 26)
+        Me.CMS_Menu.Size = New System.Drawing.Size(127, 76)
         '
         'BTN_AllCheck
         '
         Me.BTN_AllCheck.Name = "BTN_AllCheck"
         Me.BTN_AllCheck.Size = New System.Drawing.Size(126, 22)
         Me.BTN_AllCheck.Text = "전체 선택"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(123, 6)
+        '
+        'BTN_RowAdd
+        '
+        Me.BTN_RowAdd.Enabled = False
+        Me.BTN_RowAdd.Name = "BTN_RowAdd"
+        Me.BTN_RowAdd.Size = New System.Drawing.Size(126, 22)
+        Me.BTN_RowAdd.Text = "추가"
+        '
+        'BTN_RowDelete
+        '
+        Me.BTN_RowDelete.Enabled = False
+        Me.BTN_RowDelete.Name = "BTN_RowDelete"
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(126, 22)
+        Me.BTN_RowDelete.Text = "삭제"
         '
         'frm_Material_CheckRequirements
         '
@@ -341,4 +375,8 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_Confirm As ToolStripButton
     Friend WithEvents CMS_Menu As ContextMenuStrip
     Friend WithEvents BTN_AllCheck As ToolStripMenuItem
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
+    Friend WithEvents BTN_RowAdd As ToolStripMenuItem
+    Friend WithEvents BTN_RowDelete As ToolStripMenuItem
 End Class

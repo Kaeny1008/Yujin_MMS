@@ -184,7 +184,7 @@ Public Class frm_Material_CheckRequirements
         Dim selRow As Integer = Grid_OrderList.MouseRow
         Dim selCol As Integer = Grid_OrderList.MouseCol
 
-        If selRow < 1 Then Exit Sub
+        If selRow < 0 Then Exit Sub
 
         Grid_OrderList.Row = selRow
 
@@ -315,6 +315,17 @@ Public Class frm_Material_CheckRequirements
             Exit Sub
         End If
 
+        For i = 1 To Grid_OrderList.Rows.Count - 1
+            If Trim(Grid_OrderList(i, 4)) = String.Empty Or
+                Trim(Grid_OrderList(i, 5)) = String.Empty Or
+                Trim(Grid_OrderList(i, 6)) = String.Empty Or
+                Trim(Grid_OrderList(i, 7)) = String.Empty Then
+                Thread_LoadingFormEnd()
+                MSG_Information(Me, "입력되지 않은 항목이 존재 합니다.")
+                Exit Sub
+            End If
+        Next
+
         DBConnect()
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(1"
@@ -417,6 +428,13 @@ Public Class frm_Material_CheckRequirements
             If MSG_Question(Me, "계획대비 부족한 자재가 존재 합니다." & vbCrLf & "무시 후 확정 하시겠습니까?") = False Then Exit Sub
         End If
 
+        For i = 1 To Grid_OrderList.Rows.Count - 1
+            If Grid_OrderList(i, 0) = "T" Then
+                MSG_Information(Me, "주문외 데이터가 존재하므로 저장 할 수 없습니다.")
+                Exit Sub
+            End If
+        Next
+
         If MSG_Question(Me, "확인 완료로 등록 하시겠습니까?." & vbCrLf & "확인 완료로 변경시 생산계획 수립을 할 수 있습니다.") = False Then Exit Sub
 
 
@@ -479,4 +497,91 @@ Public Class frm_Material_CheckRequirements
         Next
 
     End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+
+        If CheckBox1.Checked = True Then
+            BTN_RowAdd.Enabled = True
+            BTN_RowDelete.Enabled = True
+        Else
+            BTN_RowAdd.Enabled = False
+            BTN_RowDelete.Enabled = False
+
+            For i = Grid_OrderList.Rows.Count - 1 To 1 Step -1
+                If Grid_OrderList(i, 0).ToString.Equals("T") Then
+                    Grid_OrderList.RemoveItem(i)
+                End If
+            Next
+        End If
+
+    End Sub
+
+    Private Sub BTN_RowAdd_Click(sender As Object, e As EventArgs) Handles BTN_RowAdd.Click
+
+        Grid_OrderList.AddItem("T")
+
+    End Sub
+
+    Private Sub Grid_OrderList_RowColChange(sender As Object, e As EventArgs) Handles Grid_OrderList.RowColChange
+
+        If CheckBox1.Checked = True Then
+            Select Case Grid_OrderList.Col
+                Case 6, 7
+                    Grid_OrderList.AllowEditing = True
+                Case Else
+                    Grid_OrderList.AllowEditing = False
+            End Select
+        End If
+
+    End Sub
+
+    Dim beforeText As String
+
+    Private Sub Grid_OrderList_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_OrderList.BeforeEdit
+
+        If e.Row < 0 Or e.Col < 0 Then Exit Sub
+        beforeText = Grid_OrderList(e.Row, e.Col)
+
+    End Sub
+
+    Private Sub Grid_OrderList_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_OrderList.AfterEdit
+
+        If e.Row < 0 Or e.Col < 0 Then Exit Sub
+
+        If beforeText = Grid_OrderList(e.Row, e.Col) Then Exit Sub
+
+        Select Case e.Col
+            Case 6
+                Grid_OrderList(e.Row, 4) = CB_CustomerName.Text
+                Grid_OrderList(e.Row, 5) = Load_ItemCode(Grid_OrderList(e.Row, 6))
+                Grid_OrderList(e.Row, 8) = "미지정"
+        End Select
+
+    End Sub
+
+    Private Function Load_ItemCode(ByVal itemCode As String) As String
+
+        Dim returnString As String = String.Empty
+
+        DBConnect()
+
+        Dim strSQL As String = "SELECT model_code"
+        strSQL += " FROM tb_model_list"
+        strSQL += " WHERE customer_code = '" & TB_CustomerCode.Text & "'"
+        strSQL += " AND item_code = '" & itemCode & "'"
+        strSQL += ";"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            returnString = sqlDR("model_code")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return returnString
+
+    End Function
 End Class
