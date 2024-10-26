@@ -569,6 +569,65 @@ Public Class frm_Production_plan
 
     End Sub
 
+    Private Sub BTN_POCancel_Click(sender As Object, e As EventArgs) Handles BTN_POCancel.Click
+
+        Dim rowSel As Integer = Grid_OrderList.Row
+        Dim orderIndex As String = Grid_OrderList(rowSel, 1)
+
+        If MSG_Question(Me, orderIndex & " 을 취소(소요량 산출) 하시겠습니까?") = False Then Exit Sub
+
+        Thread_LoadingFormStart(Me, "Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+
+            strSQL += "update tb_mms_order_register_list"
+            strSQL += " set management_no = null"
+            strSQL += " , order_status = 'Order Confirm'"
+            strSQL += " where order_index = '" & orderIndex & "'"
+            strSQL += ";"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+
+            DBClose()
+
+            Thread_LoadingFormEnd()
+            MessageBox.Show(Me,
+                            ex.Message,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error)
+            Exit Sub
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+        MessageBox.Show(Me,
+                        "저장완료.",
+                        msg_form,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information)
+
+        BTN_Search_Click(Nothing, Nothing)
+
+    End Sub
+
     'Dim _ptDown As Point
     'Dim _cellDrag As C1.Win.C1FlexGrid.CellRange
     'Dim _cellRow As C1.Win.C1FlexGrid.CellRange

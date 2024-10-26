@@ -46,6 +46,8 @@ Partial Class frm_Production_plan
         Me.BTN_CellPaste = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_POCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -228,9 +230,9 @@ Partial Class frm_Production_plan
         '
         'CMS_GridMenu
         '
-        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste, Me.ToolStripSeparator3, Me.BTN_Save2})
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste, Me.ToolStripSeparator3, Me.BTN_Save2, Me.ToolStripSeparator4, Me.BTN_POCancel})
         Me.CMS_GridMenu.Name = "CMS_GridMenu"
-        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 82)
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 132)
         '
         'BTN_CellCopy
         '
@@ -260,6 +262,17 @@ Partial Class frm_Production_plan
         Me.BTN_Save2.Name = "BTN_Save2"
         Me.BTN_Save2.Size = New System.Drawing.Size(248, 22)
         Me.BTN_Save2.Text = "저장"
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(245, 6)
+        '
+        'BTN_POCancel
+        '
+        Me.BTN_POCancel.Name = "BTN_POCancel"
+        Me.BTN_POCancel.Size = New System.Drawing.Size(248, 22)
+        Me.BTN_POCancel.Text = "취소(소요량 산출로 되돌리기)"
         '
         'frm_Production_plan
         '
@@ -307,4 +320,6 @@ Partial Class frm_Production_plan
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents BTN_Save2 As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents BTN_POCancel As ToolStripMenuItem
 End Class
