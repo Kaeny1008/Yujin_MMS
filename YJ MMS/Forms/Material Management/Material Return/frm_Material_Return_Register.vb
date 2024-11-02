@@ -25,7 +25,7 @@ Public Class frm_Material_Return_Register
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 7
+            .Cols.Count = 8
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -49,6 +49,7 @@ Public Class frm_Material_Return_Register
         Grid_History(0, 4) = "Lot No."
         Grid_History(0, 5) = "수량"
         Grid_History(0, 6) = "반출 사유"
+        Grid_History(0, 7) = "MW No"
 
     End Sub
 
@@ -215,6 +216,7 @@ Public Class frm_Material_Return_Register
 
         If MSG_Question(Me, "반출 등록을 하시겠습니까?") = False Then Exit Sub
 
+        TempCode_Making()
         Dim dbResult As Boolean = DB_Write()
 
         If dbResult = True Then
@@ -225,6 +227,29 @@ Public Class frm_Material_Return_Register
         End If
 
         Me.Dispose()
+
+    End Sub
+
+    Dim tnNo As String
+
+    Private Sub TempCode_Making()
+
+        DBConnect()
+
+        Dim strSQL As String = "select f_mms_material_transfer_no("
+        strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
+        strSQL += ",'Out'"
+        strSQL += ") as tn_no"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            tnNo = sqlDR("tn_no")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
 
     End Sub
 
@@ -252,6 +277,11 @@ Public Class frm_Material_Return_Register
             strSQL += ",'" & loginID & "'"
             strSQL += ");"
 
+            strSQL = "update tb_mms_material_transfer set"
+            strSQL += " write_date = '" & writeDate & "'"
+            strSQL += ", write_id = '" & loginID & "'"
+            strSQL += " where tn_no = '" & tnNo & "';"
+
             For i = 1 To Grid_History.Rows.Count - 1
                 strSQL += "insert into tb_mms_material_history("
                 strSQL += "history_index, category, write_date, writer, customer_code, part_code"
@@ -271,12 +301,27 @@ Public Class frm_Material_Return_Register
                 strSQL += ", '" & Label14.Text & "'"
                 strSQL += ");"
 
-                strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
-                strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
-                strSQL += " and part_code = '" & Grid_History(i, 1) & "'"
-                strSQL += " and part_no = '" & Grid_History(i, 3) & "'"
-                strSQL += " and part_lot_no = '" & Grid_History(i, 4) & "'"
-                strSQL += ";"
+                strSQL += "insert into tb_mms_material_transfer_out_content("
+                strSQL += "mw_no, tn_no, part_status, tn_note, part_qty"
+                strSQL += ") values("
+                strSQL += "'" & Grid_History(i, 7) & "'"
+                strSQL += ",'" & tnNo & "'"
+                strSQL += ", 'Run'"
+                strSQL += ",'반출등록에서 등록됨'"
+                strSQL += "," & CDbl(Grid_History(i, 5))
+                strSQL += ");"
+
+                'Grid_History(0, 1) = "자재코드"
+                'Grid_History(0, 2) = "Vendor"
+                'Grid_History(0, 3) = "Vendor Code"
+                'Grid_History(0, 4) = "Lot No."
+
+                'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                'strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+                'strSQL += " and part_code = '" & Grid_History(i, 1) & "'"
+                'strSQL += " and part_no = '" & Grid_History(i, 3) & "'"
+                'strSQL += " and part_lot_no = '" & Grid_History(i, 4) & "'"
+                'strSQL += ";"
             Next
 
             If Not strSQL = String.Empty Then
@@ -325,6 +370,7 @@ Public Class frm_Material_Return_Register
         End If
 
         Dim newLotNo As String = TB_LotNo.Text
+        Dim newMwNo As String = String.Empty
 
         If Not CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text) = 0 Then
             '모든수량 반출이 아닐경우
@@ -356,7 +402,7 @@ Public Class frm_Material_Return_Register
                 Exit Sub
             End If
 
-            Dim newMwNo As String = Load_New_MW_No(newLotNo)
+            newMwNo = Load_New_MW_No(newLotNo)
 
             If newMwNo = String.Empty Then
                 MSG_Error(Me, "자재의 고유번호(MW No.)를 찾을 수 없습니다.")
@@ -372,6 +418,11 @@ Public Class frm_Material_Return_Register
         insertString += vbTab & newLotNo
         insertString += vbTab & TB_ReturnQty.Text
         insertString += vbTab & TB_Reason.Text
+        If Not newMwNo = String.Empty Then
+            insertString += vbTab & newMwNo
+        Else
+            insertString += vbTab & mwNo
+        End If
 
         Grid_History.AddItem(insertString)
         Grid_History.AutoSizeCols()
@@ -471,7 +522,7 @@ Public Class frm_Material_Return_Register
             strSQL += ");"
             '기존자재수량에 현재 분할된 자재수량을 차감
             strSQL += "update tb_mms_material_warehousing set part_qty = " & CDbl(TB_Qty.Text) - CDbl(TB_ReturnQty.Text) & ""
-            strSQL += ", available_qty = available_qty - " & CDbl(TB_ReturnQty.Text) & ""
+            'strSQL += ", available_qty = available_qty - " & CDbl(TB_ReturnQty.Text) & ""
             strSQL += ", split_count = " & CInt(TextBox1.Text) + 1 & ""
             strSQL += " where mw_no = '" & mwNo & "';"
 

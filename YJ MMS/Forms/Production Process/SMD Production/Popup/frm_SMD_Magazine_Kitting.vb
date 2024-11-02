@@ -82,7 +82,7 @@ Public Class frm_SMD_Magazine_Kitting
         Dim strSQL As String = "call sp_mms_smd_production_end(6"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & TB_PONo.Text & "'"
         strSQL += ", '" & LB_ModelCode.Text & "'"
         strSQL += ", '" & LB_CustomerCode.Text & "'"
         strSQL += ", null"
@@ -94,15 +94,15 @@ Public Class frm_SMD_Magazine_Kitting
         Do While sqlDR.Read
             Dim workSite As String = "Bottom / Top"
 
-            If IsDBNull(sqlDR("Bottom")) And
-                Not IsDBNull(sqlDR("Top")) Then
-                workSite = "Top"
-            ElseIf Not IsDBNull(sqlDR("Bottom")) And
-                IsDBNull(sqlDR("Top")) Then
-                workSite = "Bottom"
-            End If
+            'If IsDBNull(sqlDR("Bottom")) And
+            '    Not IsDBNull(sqlDR("Top")) Then
+            '    workSite = "Top"
+            'ElseIf Not IsDBNull(sqlDR("Bottom")) And
+            '    IsDBNull(sqlDR("Top")) Then
+            '    workSite = "Bottom"
+            'End If
 
-            modelTB = workSite
+            modelTB = sqlDR("work_side")
         Loop
         sqlDR.Close()
 
@@ -225,10 +225,10 @@ Public Class frm_SMD_Magazine_Kitting
                 strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
                 strSQL += ";"
             Else
-                If modelTB = "Bottom / Top" And TB_TB.Text = "Top" Then
+                If modelTB.ToUpper.Equals("BOTTOM / TOP") And TB_TB.Text.ToUpper.Equals("TOP") Then
                     strSQL += "update tb_mms_order_register_list set order_status = 'SMD Process Completed'"
                     strSQL += " where order_index = '" & TB_PONo.Text & "';"
-                ElseIf modelTB = "Bottom" Or modelTB = "Top" Then
+                ElseIf modelTB.ToUpper.Equals("BOTTOM") Or modelTB.ToUpper.Equals("TOP") Then
                     strSQL += "update tb_mms_order_register_list set order_status = 'SMD Process Completed'"
                     strSQL += " where order_index = '" & TB_PONo.Text & "';"
                 End If

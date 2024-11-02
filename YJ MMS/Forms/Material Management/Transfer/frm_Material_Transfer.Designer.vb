@@ -45,6 +45,8 @@ Partial Class frm_Material_Transfer
         Me.TB_TN_No = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -84,8 +86,6 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.Label19 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -96,11 +96,11 @@ Partial Class frm_Material_Transfer
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
         Me.Panel1.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel3.SuspendLayout()
         Me.Grid_Menu.SuspendLayout()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -358,6 +358,24 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1139, 413)
         Me.Panel1.TabIndex = 0
+        '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(608, 370)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(183, 12)
+        Me.Label19.TabIndex = 42
+        Me.Label19.Text = "※ 선입선출 유예기간(최대 30일)"
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(671, 386)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 21)
+        Me.NumericUpDown1.TabIndex = 41
+        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'TextBox2
         '
@@ -692,7 +710,6 @@ Partial Class frm_Material_Transfer
         '
         'TB_BarcodeScan
         '
-        Me.TB_BarcodeScan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TB_BarcodeScan.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TB_BarcodeScan.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_BarcodeScan.Location = New System.Drawing.Point(175, 70)
@@ -763,24 +780,6 @@ Partial Class frm_Material_Transfer
         Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(671, 386)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(120, 21)
-        Me.NumericUpDown1.TabIndex = 41
-        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(608, 370)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(183, 12)
-        Me.Label19.TabIndex = 42
-        Me.Label19.Text = "※ 선입선출 유예기간(최대 30일)"
-        '
         'frm_Material_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -804,6 +803,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
         Me.Panel5.ResumeLayout(False)
@@ -811,7 +811,6 @@ Partial Class frm_Material_Transfer
         Me.Panel3.ResumeLayout(False)
         Me.Panel3.PerformLayout()
         Me.Grid_Menu.ResumeLayout(False)
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

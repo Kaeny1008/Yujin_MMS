@@ -135,16 +135,16 @@ Public Class frm_OQC_Register
             End If
 
             '모델 공정상 마지막 공정 라벨인지 확인
-            If Load_LastPorcess() = False Then
-                MessageBox.Show(Me,
-                                "공정이 완료되지 않은 라벨입니다.",
-                                msg_form,
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Exclamation)
-                Control_Init()
-                TB_MagazineBarcode.SelectAll()
-                TB_MagazineBarcode.Focus()
-            End If
+            'If Load_LastPorcess() = False Then
+            '    MessageBox.Show(Me,
+            '                    "공정이 완료되지 않은 라벨입니다.",
+            '                    msg_form,
+            '                    MessageBoxButtons.OK,
+            '                    MessageBoxIcon.Exclamation)
+            '    Control_Init()
+            '    TB_MagazineBarcode.SelectAll()
+            '    TB_MagazineBarcode.Focus()
+            'End If
 
             TB_SerialNo.SelectAll()
             TB_SerialNo.Focus()

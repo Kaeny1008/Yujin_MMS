@@ -1507,10 +1507,15 @@ Public Class frm_DeviceData
 
         Dim pcb_Dir As New IO.DirectoryInfo(DialogFolderBrowser.SelectedPath)
 
-        If pcb_Dir.GetFiles("*.eoj").Count = 0 Then
-            MessageBox.Show(Me, "PCB 폴더를 확인하여 주십시오.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Try
+            If pcb_Dir.GetFiles("*.eoj").Count = 0 Then
+                MSG_Information(Me, "PCB 폴더를 확인하여 주십시오.")
+                Exit Sub
+            End If
+        Catch ex As Exception
+            MSG_Information(Me, "취소 되었습니다." & vbCrLf & ex.Message)
             Exit Sub
-        End If
+        End Try
 
         Thread_LoadingFormStart(Me)
 

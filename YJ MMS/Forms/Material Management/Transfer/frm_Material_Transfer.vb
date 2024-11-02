@@ -549,17 +549,17 @@ Public Class frm_Material_Transfer
                 strSQL += "," & CDbl(Grid_History(i, 5))
                 strSQL += ");"
 
-                If RadioButton1.Checked = True Then
-                    If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
-                        Grid_History(i, 7).ToString.ToUpper.Equals("BARE PCB") Then
-                        strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
-                        strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
-                    End If
-                ElseIf RadioButton2.Checked = True Then
-                    strSQL += "update tb_mms_material_warehousing"
-                    strSQL += " set available_qty = available_qty + " & CDbl(Grid_History(i, 5))
-                    strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
-                End If
+                'If RadioButton1.Checked = True Then
+                '    If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
+                '        Grid_History(i, 7).ToString.ToUpper.Equals("BARE PCB") Then
+                '        strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(Grid_History(i, 5))
+                '        strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
+                '    End If
+                'ElseIf RadioButton2.Checked = True Then
+                '    strSQL += "update tb_mms_material_warehousing"
+                '    strSQL += " set available_qty = available_qty + " & CDbl(Grid_History(i, 5))
+                '    strSQL += " where mw_no = '" & Grid_History(i, 6) & "';"
+                'End If
             Next
 
             If Not strSQL = String.Empty Then
@@ -1047,10 +1047,6 @@ Public Class frm_Material_Transfer
         Grid_History.RemoveItem(selRow)
         Grid_History.AutoSizeCols()
         Grid_History.Redraw = True
-
-    End Sub
-
-    Private Sub TB_BarcodeScan_MouseCaptureChanged(sender As Object, e As EventArgs) Handles TB_BarcodeScan.MouseCaptureChanged
 
     End Sub
 

@@ -4,6 +4,7 @@ Imports MySqlConnector
 Public Class frm_Order_Split
 
     Public orderIndex As String
+    Public formName As String
     Dim splitCount As Integer
 
     Private Sub frm_Order_Split_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -192,6 +193,10 @@ Public Class frm_Order_Split
         If DB_Write(managementNo) = False Then Exit Sub
 
         MSG_Information(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.")
+
+        If formName = "소요량 산출" Then
+            frm_Material_CheckRequirements.BTN_Search_Click(Nothing, Nothing)
+        End If
 
         Me.Dispose()
 

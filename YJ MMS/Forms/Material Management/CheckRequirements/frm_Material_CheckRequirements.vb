@@ -124,7 +124,7 @@ Public Class frm_Material_CheckRequirements
 
     End Sub
 
-    Private Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
+    Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
         If TB_CustomerCode.Text = String.Empty Then
             MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
@@ -584,4 +584,24 @@ Public Class frm_Material_CheckRequirements
         Return returnString
 
     End Function
+
+    Private Sub BTN_ManagementNoSelect_Click(sender As Object, e As EventArgs) Handles BTN_ManagementNoSelect.Click
+
+        Dim selRow As Integer = Grid_OrderList.Row
+        Dim selPONo As String = Grid_OrderList(selRow, 2)
+
+        Dim showString As String = "품번 : " & Grid_OrderList(selRow, 6)
+        showString += vbCrLf & "주문수량 : " & Grid_OrderList(selRow, 7)
+        showString += vbCrLf & "납기일자 : " & Grid_OrderList(selRow, 3)
+        showString += vbCrLf & vbCrLf & "를 관리번호를 지정 하시겠습니까?"
+
+        If MSG_Question(Me, showString) = False Then Exit Sub
+
+        frm_Order_Split.orderIndex = Grid_OrderList(selRow, 2)
+        frm_Order_Split.formName = "소요량 산출"
+        If Not frm_Order_Split.Visible Then frm_Order_Split.Show()
+        frm_Order_Split.CheckBox1.Checked = True
+        frm_Order_Split.Focus()
+
+    End Sub
 End Class
