@@ -402,7 +402,6 @@ Partial Class frm_Material_Return_Register
         Me.Label14.Size = New System.Drawing.Size(48, 12)
         Me.Label14.TabIndex = 32
         Me.Label14.Text = "Label14"
-        Me.Label14.Visible = False
         '
         'TextBox1
         '

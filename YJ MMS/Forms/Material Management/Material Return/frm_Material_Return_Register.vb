@@ -277,7 +277,7 @@ Public Class frm_Material_Return_Register
             strSQL += ",'" & loginID & "'"
             strSQL += ");"
 
-            strSQL = "update tb_mms_material_transfer set"
+            strSQL += "update tb_mms_material_transfer set"
             strSQL += " write_date = '" & writeDate & "'"
             strSQL += ", write_id = '" & loginID & "'"
             strSQL += " where tn_no = '" & tnNo & "';"
@@ -410,6 +410,13 @@ Public Class frm_Material_Return_Register
             End If
         End If
 
+        '이미 반출된 자재인지 검증
+        If Load_ExistData(newLotNo) > 0 Then
+            MSG_Error(Me, "이미 반출된 자재입니다.")
+            ControlReset()
+            Exit Sub
+        End If
+
         Dim insertString As String
         insertString = Grid_History.Rows.Count
         insertString += vbTab & TB_ItemCode.Text
@@ -433,6 +440,38 @@ Public Class frm_Material_Return_Register
         TB_Barcode.Focus()
 
     End Sub
+
+    Private Function Load_ExistData(ByVal newLotNo As String) As Integer
+
+        Dim exitData As Integer = 0
+
+        DBConnect()
+
+        '같이쓰자 (따로 작성하지말고)
+        Dim strSQL As String = "call sp_mms_material_return(7"
+        strSQL += ", '" & TB_ItemCode.Text & "'"
+        strSQL += ", '" & TB_PartNo.Text & "'"
+        strSQL += ", '" & newLotNo & "'"
+        strSQL += ", null"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
+        strSQL += ",  null"
+        strSQL += ",  null"
+        strSQL += ",  null"
+        strSQL += ");"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            exitData = sqlDR("exist_data")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return exitData
+
+    End Function
 
     Private Function Load_New_MW_No(ByVal newLotNo As String) As String
 
@@ -571,6 +610,13 @@ Public Class frm_Material_Return_Register
         If Not Trim(TB_ReturnQty.Text) = String.Empty And e.KeyCode = 13 Then
             If Not IsNumeric(TB_ReturnQty.Text) Then
                 MSG_Information(Me, "반출수량은 숫자만 입력하여 주십시오.")
+                Exit Sub
+            End If
+
+            If CDbl(TB_ReturnQty.Text).Equals(0) Then
+                MSG_Information(Me, "1이상 숫자를 입력하여 주십시오.")
+                TB_ReturnQty.SelectAll()
+                TB_ReturnQty.Focus()
                 Exit Sub
             End If
 

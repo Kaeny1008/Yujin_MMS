@@ -195,9 +195,8 @@ Public Class frm_WS_Magazine_Kitting
                 strSQL += " where history_index = '" & LB_HistoryIndex.Text & "'"
                 strSQL += ";"
             Else
-                '투입쪽에서 업데이트하는걸로 변경
-                'strSQL += "update tb_mms_order_register_list set order_status = '" & frm_Wave_Selective_Production_End.CB_Line.Text & " Process Completed'"
-                'strSQL += " where order_index = '" & TB_PONo.Text & "';"
+                strSQL += "update tb_mms_order_register_list set order_status = '" & TB_SMDLine.Text & " Process Completed'"
+                strSQL += " where order_index = '" & TB_PONo.Text & "';"
             End If
 
             strSQL += "update tb_mms_ws_output_history set"

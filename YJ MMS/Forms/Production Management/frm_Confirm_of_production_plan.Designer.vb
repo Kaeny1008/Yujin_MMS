@@ -272,7 +272,7 @@ Partial Class frm_Production_plan
         '
         Me.BTN_POCancel.Name = "BTN_POCancel"
         Me.BTN_POCancel.Size = New System.Drawing.Size(248, 22)
-        Me.BTN_POCancel.Text = "취소(소요량 산출로 되돌리기)"
+        Me.BTN_POCancel.Text = "취소(주문접수로 되돌리기)"
         '
         'frm_Production_plan
         '

@@ -592,4 +592,12 @@ Public Class frm_Main
         thread_FileDelete.Start()
 
     End Sub
+
+    Private Sub BTN_OrderStatus_Click(sender As Object, e As EventArgs) Handles BTN_OrderStatus.Click
+
+        frm_Order_Status.MdiParent = Me
+        If Not frm_Order_Status.Visible Then frm_Order_Status.Show()
+        frm_Order_Status.Focus()
+
+    End Sub
 End Class

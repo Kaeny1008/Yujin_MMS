@@ -26,7 +26,7 @@ Public Class frm_Material_Label_Reprint
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 7
+            .Cols.Count = 8
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -39,6 +39,7 @@ Public Class frm_Material_Label_Reprint
             .ShowCellLabels = True '마우스 커서가 셀 위로 올라가면 셀 내용을 라벨로 보여준다.(Trimming일 때)
             .Styles.Normal.Trimming = StringTrimming.EllipsisCharacter '글자 수가 넓이보다 크면 ...으로 표시
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
+            .Cols(7).Visible = False
         End With
 
         Grid_History(0, 0) = "No."
@@ -48,6 +49,7 @@ Public Class frm_Material_Label_Reprint
         Grid_History(0, 4) = "품명"
         Grid_History(0, 5) = "로트넘버"
         Grid_History(0, 6) = "수량"
+        Grid_History(0, 7) = "Mw No"
 
     End Sub
 
@@ -120,7 +122,8 @@ Public Class frm_Material_Label_Reprint
                 sqlDR("part_vendor") & vbTab &
                 sqlDR("part_no") & vbTab &
                 sqlDR("part_lot_no") & vbTab &
-                Format(sqlDR("part_qty"), "#,##0")
+                Format(sqlDR("part_qty"), "#,##0") & vbTab &
+                sqlDR("mw_no")
             Grid_History.AddItem(insertString)
         Loop
         sqlDR.Close()
@@ -176,6 +179,90 @@ Public Class frm_Material_Label_Reprint
         If e.KeyCode = 13 And Not Trim(TB_PartCode.Text) = String.Empty Then
             BTN_Search_Click(Nothing, Nothing)
         End If
+
+    End Sub
+
+    Private Sub Grid_History_RowColChange(sender As Object, e As EventArgs) Handles Grid_History.RowColChange
+
+        If Grid_History.Row < 1 Or Grid_History.Col < 1 Then Exit Sub
+
+        Select Case Grid_History.Col
+            Case 4
+                Grid_History.AllowEditing = True
+            Case Else
+                Grid_History.AllowEditing = False
+        End Select
+
+    End Sub
+
+    Dim beforeText As String
+
+    Private Sub Grid_History_BeforeEdit(sender As Object, e As RowColEventArgs) Handles Grid_History.BeforeEdit
+
+        If e.Row < 1 Or e.Col < 1 Then Exit Sub
+
+        beforeText = Grid_History(e.Row, e.Col)
+
+    End Sub
+
+    Private Sub Grid_History_AfterEdit(sender As Object, e As RowColEventArgs) Handles Grid_History.AfterEdit
+
+        If e.Row < 1 Or e.Col < 1 Then Exit Sub
+
+        If e.Col = 4 Then
+            Grid_History(e.Row, 0) = "M"
+            Grid_History.Rows(e.Row).StyleNew.ForeColor = Color.Red
+        End If
+
+    End Sub
+
+    Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
+
+        Thread_LoadingFormStart(Me, "Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
+
+            For i = 1 To Grid_History.Rows.Count - 1
+                If Grid_History(i, 0) = "M" Then
+                    strSQL = "update tb_mms_material_warehousing"
+                    strSQL += " set part_no = '" & Grid_History(i, 4) & "'"
+                    strSQL += " where mw_no = '" & Grid_History(i, 7) & "'"
+                    strSQL += ";"
+                End If
+            Next
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            Thread_LoadingFormEnd()
+            MessageBox.Show(ex.Message & vbCrLf & "Error No. : " & ex.Number,
+                            msg_form,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error,
+                            MessageBoxDefaultButton.Button1)
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        BTN_Search_Click(Nothing, Nothing)
 
     End Sub
 End Class

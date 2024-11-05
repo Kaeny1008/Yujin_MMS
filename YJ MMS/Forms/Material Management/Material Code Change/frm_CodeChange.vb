@@ -307,12 +307,12 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ");"
 
-            strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(TB_AfterQty.Text)
-            strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
-            strSQL += " and part_code = '" & TB_ItemCode.Text & "'"
-            strSQL += " and part_no = '" & TB_PartNo.Text & "'"
-            strSQL += " and part_lot_no = '" & TB_LotNo.Text & "'"
-            strSQL += ";"
+            'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(TB_AfterQty.Text)
+            'strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
+            'strSQL += " and part_code = '" & TB_ItemCode.Text & "'"
+            'strSQL += " and part_no = '" & TB_PartNo.Text & "'"
+            'strSQL += " and part_lot_no = '" & TB_LotNo.Text & "'"
+            'strSQL += ";"
 
             '입고일자가 최근 재고조사 일자보다 빠를 경우
             If CDate(TextBox1.Text) < CDate(TB_LastStockSuvey.Text) Then

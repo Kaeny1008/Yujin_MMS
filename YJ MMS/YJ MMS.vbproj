@@ -263,6 +263,12 @@
     <Compile Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Production Management\frm_Order_Status.Designer.vb">
+      <DependentUpon>frm_Order_Status.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\frm_Order_Status.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Production Management\frm_Production_Discard_Confirm.Designer.vb">
       <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>
     </Compile>
@@ -838,6 +844,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.resx">
       <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\frm_Order_Status.resx">
+      <DependentUpon>frm_Order_Status.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Production_Discard_Confirm.resx">
       <DependentUpon>frm_Production_Discard_Confirm.vb</DependentUpon>

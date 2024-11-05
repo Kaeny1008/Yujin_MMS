@@ -63,7 +63,7 @@ Public Class frm_Material_Return
             .AllowMergingFixed = AllowMergingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 7
+            .Cols.Count = 9
             .Cols.Fixed = 1
             .Rows.Count = 1
             .Rows.Fixed = 1
@@ -78,6 +78,8 @@ Public Class frm_Material_Return
             .Styles.Fixed.Trimming = StringTrimming.None '위 기능을 사용하지 않도록 한다.
             .Cols(5).DataType = GetType(Integer)
             .Cols(5).Format = "#,##0"
+            .Cols(7).Visible = False
+            .Cols(8).Visible = False
         End With
 
         Grid_History(0, 0) = "No."
@@ -87,6 +89,8 @@ Public Class frm_Material_Return
         Grid_History(0, 4) = "Lot No."
         Grid_History(0, 5) = "수량"
         Grid_History(0, 6) = "반출 사유"
+        Grid_History(0, 7) = "History Index"
+        Grid_History(0, 8) = "MW No."
 
     End Sub
 
@@ -218,7 +222,8 @@ Public Class frm_Material_Return
                 insert_String += vbTab & sqlDR("part_lot_no")
                 insert_String += vbTab & sqlDR("history_qty")
                 insert_String += vbTab & sqlDR("return_reason")
-
+                insert_String += vbTab & sqlDR("history_index")
+                insert_String += vbTab & sqlDR("mw_no")
                 Grid_History.AddItem(insert_String)
             Loop
             sqlDR.Close()
@@ -238,6 +243,7 @@ Public Class frm_Material_Return
         Dim selRow As Integer = Grid_History.MouseRow
 
         If e.Button = MouseButtons.Right Then
+            Grid_History.Row = selRow
             Grid_Menu.Show(Grid_History, New Point(e.X, e.Y))
         End If
 
@@ -247,6 +253,68 @@ Public Class frm_Material_Return
     Private Sub BTN_RePrint_Click(sender As Object, e As EventArgs) Handles BTN_RePrint.Click
 
         Material_Return_Report_Print(selReturnNo)
+
+    End Sub
+
+    Private Sub BTN_ReturnCancel_Click(sender As Object, e As EventArgs) Handles BTN_ReturnCancel.Click
+
+        Dim selRow As Integer = Grid_History.Row
+        Dim partCode As String = Grid_History(selRow, 1)
+        Dim partNo As String = Grid_History(selRow, 3)
+        Dim lotNo As String = Grid_History(selRow, 4)
+        Dim qty As Double = Grid_History(selRow, 5)
+
+        If MSG_Question(Me, "Part Code : " & partCode & vbCrLf &
+                        "Part No. : " & partNo & vbCrLf &
+                        "Lot No. : " & lotNo & vbCrLf &
+                        "Qty : " & Format(qty, "#,##0") & vbCrLf &
+                        vbCrLf & "반출등록을 취소 하시겠습니까?") = False Then Exit Sub
+
+        Dim historyIndex As String = Grid_History(selRow, 7)
+        Dim mwNo As String = Grid_History(selRow, 8)
+
+        Thread_LoadingFormStart(Me, "Saving...")
+
+        DBConnect()
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            strSQL = "delete from tb_mms_material_history"
+            strSQL += " where history_index = '" & historyIndex & "'"
+            strSQL += ";"
+
+            strSQL += "delete from tb_mms_material_transfer_out_content"
+            strSQL += " where mw_no = '" & mwNo & "'"
+            strSQL += " order by table_index desc limit 1"
+            strSQL += ";"
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+            Thread_LoadingFormEnd()
+            MSG_Error(Me, ex.Message & vbCrLf & "Error No. : " & ex.Number)
+            Exit Sub
+        Finally
+
+        End Try
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
+
+        MSG_Information(Me, "반출등록 취소 완료." & vbCrLf & "해당 자재를 자재창고로 이동하여 주십시오.")
 
     End Sub
 End Class

@@ -101,7 +101,7 @@ Public Class frm_Wave_Selective_Production_End
             '.SelectionMode = SelectionModeEnum.Default
             .Cols(2).Visible = False
             .Cols(4).Visible = False
-            .Cols(8).Visible = True
+            .Cols(8).Visible = False
         End With
 
         Grid_OrderList(0, 0) = "No"
@@ -292,9 +292,9 @@ Public Class frm_Wave_Selective_Production_End
             Control_Initialize()
         End If
 
-        If Grid_History.Rows.Count > 2 Then
-            historyIndex = Grid_History(Grid_History.Rows.Count - 1, 1)
-        End If
+        'If Grid_History.Rows.Count > 2 Then
+        '    historyIndex = Grid_History(Grid_History.Rows.Count - 1, 1)
+        'End If
 
     End Sub
 
@@ -316,6 +316,7 @@ Public Class frm_Wave_Selective_Production_End
             TB_ItemName.Text = Grid_OrderList(selRow, 6)
             TB_OrderQty.Text = Grid_OrderList(selRow, 7)
             'historyIndex = Grid_OrderList(selRow, 8) '이부분이 잘못되었다. 최신화가 안되고 예전걸 선택되게 만든다.
+            '생산내역 클릭시 히스토리 젤 아래쪽의 히스토리 넘버를 선택하게 변경
             'historyIndex = Lastest_History()
             Load_InspectList()
             MSG_Information(Me, "주문을 변경하였습니다.")
@@ -416,7 +417,7 @@ Public Class frm_Wave_Selective_Production_End
         frm_WS_Magazine_Kitting.TB_ItemName.Text = TB_ItemName.Text
         frm_WS_Magazine_Kitting.TB_PONo.Text = TB_OrderIndex.Text
         frm_WS_Magazine_Kitting.TB_SMDLine.Text = CB_Line.Text
-        frm_WS_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
+        frm_WS_Magazine_Kitting.LB_HistoryIndex.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
         frm_WS_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
         frm_WS_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
         frm_WS_Magazine_Kitting.orderIndex = TB_OrderIndex.Text

@@ -42,6 +42,8 @@ Partial Class frm_Material_Return
         Me.BTN_RePrint = New System.Windows.Forms.ToolStripMenuItem()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_ReturnCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_ReturnList, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -204,9 +206,9 @@ Partial Class frm_Material_Return
         '
         'Grid_Menu
         '
-        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint})
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RePrint, Me.ToolStripSeparator2, Me.BTN_ReturnCancel})
         Me.Grid_Menu.Name = "CMS_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(181, 48)
+        Me.Grid_Menu.Size = New System.Drawing.Size(181, 76)
         '
         'BTN_RePrint
         '
@@ -245,6 +247,17 @@ Partial Class frm_Material_Return
         Me.Grid_History.Size = New System.Drawing.Size(714, 748)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 10
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
+        'BTN_ReturnCancel
+        '
+        Me.BTN_ReturnCancel.Name = "BTN_ReturnCancel"
+        Me.BTN_ReturnCancel.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_ReturnCancel.Text = "반출등록 취소"
         '
         'frm_Material_Return
         '
@@ -289,4 +302,6 @@ Partial Class frm_Material_Return
     Friend WithEvents DateTimePicker1 As DateTimePicker
     Friend WithEvents Label1 As Label
     Friend WithEvents Grid_History As C1.Win.C1FlexGrid.C1FlexGrid
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents BTN_ReturnCancel As ToolStripMenuItem
 End Class

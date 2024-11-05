@@ -574,7 +574,7 @@ Public Class frm_Production_plan
         Dim rowSel As Integer = Grid_OrderList.Row
         Dim orderIndex As String = Grid_OrderList(rowSel, 1)
 
-        If MSG_Question(Me, orderIndex & " 을 취소(소요량 산출) 하시겠습니까?") = False Then Exit Sub
+        If MSG_Question(Me, orderIndex & " 을 주문접수 상태로 되돌리시겠습니까?") = False Then Exit Sub
 
         Thread_LoadingFormStart(Me, "Saving...")
 
@@ -588,9 +588,13 @@ Public Class frm_Production_plan
 
         Try
 
-            strSQL += "update tb_mms_order_register_list"
+            strSQL = "update tb_mms_order_register_list"
             strSQL += " set management_no = null"
             strSQL += " , order_status = 'Order Confirm'"
+            strSQL += " where order_index = '" & orderIndex & "'"
+            strSQL += ";"
+
+            strSQL += "delete from tb_mms_production_plan"
             strSQL += " where order_index = '" & orderIndex & "'"
             strSQL += ";"
 

@@ -37,6 +37,8 @@ Partial Class frm_Material_Label_Reprint
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         Me.Panel1.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -164,15 +166,26 @@ Partial Class frm_Material_Label_Reprint
         '
         'CMS_Menu
         '
-        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint})
+        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Reprint, Me.ToolStripSeparator2, Me.BTN_Save})
         Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(181, 48)
+        Me.CMS_Menu.Size = New System.Drawing.Size(181, 76)
         '
         'BTN_Reprint
         '
         Me.BTN_Reprint.Name = "BTN_Reprint"
         Me.BTN_Reprint.Size = New System.Drawing.Size(180, 22)
         Me.BTN_Reprint.Text = "라벨 재발행"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
+        'BTN_Save
+        '
+        Me.BTN_Save.Name = "BTN_Save"
+        Me.BTN_Save.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_Save.Text = "저장"
         '
         'frm_Material_Label_Reprint
         '
@@ -208,4 +221,6 @@ Partial Class frm_Material_Label_Reprint
     Friend WithEvents Label1 As Label
     Friend WithEvents CMS_Menu As ContextMenuStrip
     Friend WithEvents BTN_Reprint As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents BTN_Save As ToolStripMenuItem
 End Class

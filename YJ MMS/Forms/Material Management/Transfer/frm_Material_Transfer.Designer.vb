@@ -86,6 +86,7 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RadioButton6 = New System.Windows.Forms.RadioButton()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -505,6 +506,7 @@ Partial Class frm_Material_Transfer
         '
         'Panel5
         '
+        Me.Panel5.Controls.Add(Me.RadioButton6)
         Me.Panel5.Controls.Add(Me.CB_AutoAdd)
         Me.Panel5.Controls.Add(Me.RadioButton2)
         Me.Panel5.Controls.Add(Me.RadioButton1)
@@ -517,7 +519,7 @@ Partial Class frm_Material_Transfer
         '
         Me.CB_AutoAdd.AutoSize = True
         Me.CB_AutoAdd.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.CB_AutoAdd.Location = New System.Drawing.Point(119, 4)
+        Me.CB_AutoAdd.Location = New System.Drawing.Point(263, 4)
         Me.CB_AutoAdd.Name = "CB_AutoAdd"
         Me.CB_AutoAdd.Size = New System.Drawing.Size(100, 16)
         Me.CB_AutoAdd.TabIndex = 38
@@ -780,6 +782,16 @@ Partial Class frm_Material_Transfer
         Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
+        'RadioButton6
+        '
+        Me.RadioButton6.AutoSize = True
+        Me.RadioButton6.Location = New System.Drawing.Point(119, 4)
+        Me.RadioButton6.Name = "RadioButton6"
+        Me.RadioButton6.Size = New System.Drawing.Size(91, 16)
+        Me.RadioButton6.TabIndex = 39
+        Me.RadioButton6.Text = "Loss분 출고"
+        Me.RadioButton6.UseVisualStyleBackColor = True
+        '
         'frm_Material_Transfer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -878,4 +890,5 @@ Partial Class frm_Material_Transfer
     Friend WithEvents Label18 As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents RadioButton6 As RadioButton
 End Class

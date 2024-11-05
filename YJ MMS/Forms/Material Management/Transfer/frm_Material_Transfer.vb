@@ -157,7 +157,7 @@ Public Class frm_Material_Transfer
 
         If e.KeyCode = 13 And Not Trim(TB_BarcodeScan.Text) = String.Empty Then
 
-            If RadioButton1.Checked = False And RadioButton2.Checked = False Then
+            If RadioButton1.Checked = False And RadioButton2.Checked = False And RadioButton6.Checked = False Then
                 MSG_Information(Me, "구분(입, 출고)를 먼저 선택하여 주십시오.")
                 Exit Sub
             End If
@@ -457,7 +457,11 @@ Public Class frm_Material_Transfer
             Exit Sub
         End If
 
-        If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
+        If RadioButton6.Checked = True Then
+            If MSG_Question(Me, "Loss분 출고가 선택되어 있습니다." & vbCrLf & "저장 하시겠습니까?") = False Then Exit Sub
+        Else
+            If MSG_Question(Me, "저장 하시겠습니까?") = False Then Exit Sub
+        End If
 
         Thread_LoadingFormStart(Me, "Saving...")
 
@@ -548,6 +552,25 @@ Public Class frm_Material_Transfer
                 strSQL += ",'" & TextBox2.Text & "'"
                 strSQL += "," & CDbl(Grid_History(i, 5))
                 strSQL += ");"
+
+                If RadioButton6.Checked = True Then
+                    strSQL += "insert into tb_mms_material_history("
+                    strSQL += "history_index, category, write_date, writer, customer_code, part_code"
+                    strSQL += ", part_vendor, part_no, part_lot_no, history_qty, loss_reason"
+                    strSQL += ") values ("
+                    strSQL += "f_mms_material_history_no('" & Format(CDate(nowTime), "yyyy-MM-dd") & "')"
+                    strSQL += ", 'Loss출고'"
+                    strSQL += ", '" & nowTime & "'"
+                    strSQL += ", '" & loginID & "'"
+                    strSQL += ", '" & TB_CustomerCode.Text & "'"
+                    strSQL += ", '" & Grid_History(i, 1) & "'"
+                    strSQL += ", '" & Grid_History(i, 2) & "'"
+                    strSQL += ", '" & Grid_History(i, 3) & "'"
+                    strSQL += ", '" & Grid_History(i, 4) & "'"
+                    strSQL += ", " & CDbl(Grid_History(i, 5))
+                    strSQL += ", '" & Grid_History(i, 8) & "'"
+                    strSQL += ");"
+                End If
 
                 'If RadioButton1.Checked = True Then
                 '    If Grid_History(i, 7).ToString.ToUpper.Equals("PCB") Or
@@ -815,6 +838,11 @@ Public Class frm_Material_Transfer
     End Sub
 
     Private Sub BTN_ListAdd_Click(sender As Object, e As EventArgs) Handles BTN_ListAdd.Click
+
+        If RadioButton6.Checked = True And Trim(TextBox2.Text).Equals(String.Empty) Then
+            MSG_Information(Me, "Loss분 출고를 선택시 출고사유를 비고란에 입력하여 주십시오.")
+            Exit Sub
+        End If
 
         If CB_PartsSplit.Checked = True Then
             If MSG_Question(Me,

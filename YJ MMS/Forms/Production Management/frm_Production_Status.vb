@@ -36,7 +36,7 @@ Public Class frm_Production_Status
             For i = 0 To .Rows.Count - 1
                 .Rows(i).AllowMerging = True
             Next
-            .AutoClipboard = False
+            .AutoClipboard = True
             .Styles.Fixed.TextAlign = TextAlignEnum.CenterCenter
             .Styles.Normal.TextAlign = TextAlignEnum.CenterCenter
             .ExtendLastCol = False
