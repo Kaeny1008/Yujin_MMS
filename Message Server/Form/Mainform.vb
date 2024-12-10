@@ -685,7 +685,7 @@ Public Class MainForm
             MessageList.Items.Clear()
         End If
 
-        'RealCheck()
+        RealCheck()
 
     End Sub
 End Class

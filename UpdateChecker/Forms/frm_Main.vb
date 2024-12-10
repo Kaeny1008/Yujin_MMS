@@ -96,8 +96,7 @@ Public Class frm_Main
         If msg.Substring(0, 1) = Chr(17) Then
             '응답확인부분이라면
             lastAliveCheck = Now
-            Timer2.Interval = 1000
-            Timer2.Enabled = True
+            BeginInvoke(New EventHandler(AddressOf Timer2_Enable))
             Console.WriteLine("Update Checker : Live Check Received.")
             Console.WriteLine("Update Checker : Live Check Send.")
             Send("Connection Check OK.", clientSocket)
@@ -227,8 +226,15 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+    Private Sub Timer2_Enable(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
+        Timer2.Interval = 1000
+        Timer2.Enabled = True
+
+    End Sub
+
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+        'Console.WriteLine("Update Check 최종 확인 시간 : " & (DateAdd(DateInterval.Second, 65, lastAliveCheck)))
         If DateAdd(DateInterval.Second, 65, lastAliveCheck) < Now Then
             Console.WriteLine("Update Check : 마지막 연결 확인 시간보다 65초가 지났지만 신규 확인이 없으므로 재연결 합니다.")
             ServerConnect()
