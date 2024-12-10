@@ -44,7 +44,7 @@ Public Class DeviceData_Sub
 
     Private Sub Data_Load()
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
@@ -118,6 +118,9 @@ Public Class DeviceData_Sub
         Dim newCode As String = String.Empty
 
         If DBConnect() = False Then
+            Return newCode
+            Exit Function
+        End If
 
         Dim strSQL As String = String.Empty
         If Tb_CUSTOMER.Text = "J산업" Or
@@ -210,7 +213,7 @@ Public Class DeviceData_Sub
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -348,6 +351,9 @@ Public Class DeviceData_Sub
         Dim makerList As String = String.Empty
 
         If DBConnect() = False Then
+            Return makerList
+            Exit Function
+        End If
 
         Dim strSQL As String = "call USP_MAKER_LIST"
 

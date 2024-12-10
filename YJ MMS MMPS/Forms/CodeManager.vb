@@ -181,6 +181,9 @@ Public Class CodeManager
         Code_Maker = String.Empty
 
         If DBConnect() = False Then
+            Return Code_Maker
+            Exit Function
+        End If
 
         Dim strSQL As String = String.Empty
 
@@ -354,7 +357,7 @@ Public Class CodeManager
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -408,7 +411,7 @@ Public Class CodeManager
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -479,7 +482,7 @@ Public Class CodeManager
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -561,7 +564,7 @@ Public Class CodeManager
         GRID_Main_Code.Redraw = False
         GRID_Main_Code.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select WRITE_DATE, MAIN_CODE, MAIN_CODE_NAME, MAIN_CODE_NOTE from TB_MAIN_CODE"
 
@@ -618,7 +621,7 @@ Public Class CodeManager
         GRID_Sub_Code.Redraw = False
         GRID_Sub_Code.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select WRITE_DATE, SUB_CODE, SUB_CODE_NAME, SUB_CODE_NOTE from TB_SUB_CODE"
         strSQL += " where MAIN_CODE = '" & main_code & "' order by SUB_CODE_NAME"
@@ -660,7 +663,7 @@ Public Class CodeManager
         GRID_Last_Code.Redraw = False
         GRID_Last_Code.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select WRITE_DATE, LAST_CODE, LAST_CODE_NAME, LAST_CODE_NOTE from TB_LAST_CODE"
         strSQL += " where SUB_CODE = '" & sub_code & "' order by LAST_CODE_NAME"

@@ -48,7 +48,7 @@ Public Class PG_UPLOAD
 
         FILE_LIST.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSql As String = "select file_code, file_name, folder_name, upload_date, write_id, ifnull(upload_note, '') as upload_note from tb_execute_file_update_manager order by folder_name, file_code"
 
@@ -79,6 +79,9 @@ Public Class PG_UPLOAD
         FILE_LIST_BEFORE_LOAD = String.Empty
 
         If DBConnect() = False Then
+            Return FILE_LIST_BEFORE_LOAD
+            Exit Function
+        End If
 
         Dim strSql As String = "select ifnull(" & col_name & ", '') as " & col_name & " from tb_execute_file_update_manager"
         strSql += " where file_code = '" & file_code & "'"
@@ -253,7 +256,7 @@ Public Class PG_UPLOAD
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, "YJ MMS : Program Upload") = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

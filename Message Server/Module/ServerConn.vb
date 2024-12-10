@@ -1,9 +1,11 @@
-﻿Imports MySqlConnector
+﻿Imports System.Data
+Imports System.Net
+Imports MySqlConnector
 
 Module ServerConn
 
     Public registryEdit As New RegistryEdit.RegReadWrite '레지스트리 편집
-    Public dbConnection1 As MySqlConnection
+    Public DBConnect1 As MySqlConnection
 
     Public serverIP As String = registryEdit.ReadRegKey("Software\Yujin", "server.IP", "125.137.78.158")
     Public serverPORT As String = registryEdit.ReadRegKey("Software\Yujin", "server.PORT", 10522)
@@ -12,13 +14,17 @@ Module ServerConn
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
 
-    Public Function ServerConnDatabase() As Boolean
+    'Public ipHostInfo As IPHostEntry = Dns.Resolve(Dns.GetHostName())
+    'Public ipAddress As IPAddress = ipHostInfo.AddressList(0)
+    Public ipAddress As IPAddress = IPAddress.Parse(registryEdit.ReadRegKey("Software\Yujin\Message_Server", "my.IP", "192.168.0.173"))
+
+    Public Function DBConnect() As Boolean
 
         Dim returnValue As Boolean = True
 
-        dbConnection1 = New MySqlConnection
+        DBConnect1 = New MySqlConnection
 
-        dbConnection1.ConnectionString = "Database=" & dbName &
+        DBConnect1.ConnectionString = "Database=" & dbName &
                                          ";Data Source=" & serverIP &
                                          ";PORT=" & serverPORT &
                                          ";User Id=" & serverID &
@@ -28,13 +34,13 @@ Module ServerConn
                                          ";SslMode=none"
 
         Try
-            dbConnection1.Open()
+            DBConnect1.Open()
             'DBConnect1 연결되어있지 않다면
             'If Not DBConnect1.State = ConnectionState.Open Then
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
             Dim strSql As String = "SET Names euckr;"
-            Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
+            Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
         Catch ex As Exception
             returnValue = False
             MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -43,6 +49,13 @@ Module ServerConn
         Return returnValue
 
     End Function
+
+    'DB 종료 함수
+    Public Sub DBClose()
+        If DBConnect1.State = ConnectionState.Open Then
+            DBConnect1.Close()
+        End If
+    End Sub
 
     Public Function TocharReplace(ByVal ReplaceData As String) As String
 

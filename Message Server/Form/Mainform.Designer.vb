@@ -49,6 +49,7 @@ Partial Class MainForm
         Me.AlarmListPanel = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.ButtonPanel = New System.Windows.Forms.Panel()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.btnClose = New System.Windows.Forms.Button()
         Me.btnMessageClear = New System.Windows.Forms.Button()
         Me.btnAlarmClear = New System.Windows.Forms.Button()
@@ -57,6 +58,7 @@ Partial Class MainForm
         Me.NIMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.mnMinimum = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnExit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ClientListPanel.SuspendLayout()
         Me.MessageListPanel.SuspendLayout()
         Me.AlarmListPanel.SuspendLayout()
@@ -90,7 +92,7 @@ Partial Class MainForm
         '
         'Line
         '
-        Me.Line.Text = "Line"
+        Me.Line.Text = "Line(Login ID)"
         Me.Line.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.Line.Width = 100
         '
@@ -254,6 +256,7 @@ Partial Class MainForm
         '
         Me.ButtonPanel.BackColor = System.Drawing.Color.LightBlue
         Me.ButtonPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ButtonPanel.Controls.Add(Me.Button1)
         Me.ButtonPanel.Controls.Add(Me.btnClose)
         Me.ButtonPanel.Controls.Add(Me.btnMessageClear)
         Me.ButtonPanel.Controls.Add(Me.btnAlarmClear)
@@ -263,6 +266,17 @@ Partial Class MainForm
         Me.ButtonPanel.Name = "ButtonPanel"
         Me.ButtonPanel.Size = New System.Drawing.Size(1075, 32)
         Me.ButtonPanel.TabIndex = 18
+        '
+        'Button1
+        '
+        Me.Button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Button1.Location = New System.Drawing.Point(932, 0)
+        Me.Button1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(141, 30)
+        Me.Button1.TabIndex = 4
+        Me.Button1.Text = "Update Test"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'btnClose
         '
@@ -341,6 +355,9 @@ Partial Class MainForm
         Me.mnExit.Size = New System.Drawing.Size(110, 22)
         Me.mnExit.Text = "종료"
         '
+        'Timer1
+        '
+        '
         'MainForm
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
@@ -403,4 +420,6 @@ Partial Class MainForm
     Friend WithEvents NIMenu As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents mnMinimum As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnExit As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Timer1 As Timer
 End Class

@@ -140,7 +140,7 @@ Public Class HistoryForm
         Grid_AllPartsCheck.Redraw = False
         Grid_AllPartsCheck.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call USP_HISTORY(0"
         strSQL += ",'" & Format(DTP_startDate.Value, "yyyy-MM-dd 00:00:00") & "'"
@@ -197,7 +197,7 @@ Public Class HistoryForm
 
     Private Sub Cb_FactoryName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName.SelectedIndexChanged
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
         strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName.Text & "'"
@@ -218,7 +218,7 @@ Public Class HistoryForm
 
     Private Sub Cb_FactoryName2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName2.SelectedIndexChanged
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
         strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName2.Text & "'"
@@ -246,7 +246,7 @@ Public Class HistoryForm
 
         cb.Items.Clear()
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select SUB_CODE_NAME from TB_SUB_CODE"
         strSQL += " where MAIN_CODE = 'MC0002' order by SUB_CODE_NAME"
@@ -278,7 +278,7 @@ Public Class HistoryForm
 
         cb.Items.Clear()
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = String.Empty
 
@@ -324,7 +324,7 @@ Public Class HistoryForm
         Grid_PartsChange.Redraw = False
         Grid_PartsChange.Rows.Count = 2
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim firstSttingShow As String = "No"
 

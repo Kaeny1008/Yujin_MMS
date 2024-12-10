@@ -56,7 +56,7 @@ Public Class AlarmHistory
         Grid_historyList.Redraw = False
         Grid_historyList.Rows.Count = 1
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call USP_HISTORY(1"
         strSQL += ",null"

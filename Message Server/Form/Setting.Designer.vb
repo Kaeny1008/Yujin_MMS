@@ -24,6 +24,9 @@ Partial Class Setting
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Setting))
         Me.gbConnection = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lbRecheckTip = New System.Windows.Forms.Label()
         Me.Recheck = New System.Windows.Forms.TextBox()
         Me.lbReCheck = New System.Windows.Forms.Label()
@@ -42,15 +45,15 @@ Partial Class Setting
         Me.lbIP = New System.Windows.Forms.Label()
         Me.lbLine = New System.Windows.Forms.Label()
         Me.gbDBServer = New System.Windows.Forms.GroupBox()
-        Me.dbName = New System.Windows.Forms.TextBox()
+        Me.TB_dbName = New System.Windows.Forms.TextBox()
         Me.lbDBName = New System.Windows.Forms.Label()
-        Me.DBID = New System.Windows.Forms.TextBox()
-        Me.DBPass = New System.Windows.Forms.TextBox()
+        Me.TB_DBID = New System.Windows.Forms.TextBox()
+        Me.TB_DBPass = New System.Windows.Forms.TextBox()
         Me.lbDBPassword = New System.Windows.Forms.Label()
         Me.lbDBID = New System.Windows.Forms.Label()
-        Me.DBIP = New System.Windows.Forms.TextBox()
+        Me.TB_DBIP = New System.Windows.Forms.TextBox()
         Me.btnSave3 = New System.Windows.Forms.Button()
-        Me.DBPort = New System.Windows.Forms.TextBox()
+        Me.TB_DBPort = New System.Windows.Forms.TextBox()
         Me.lbDBPort = New System.Windows.Forms.Label()
         Me.lbDBIP = New System.Windows.Forms.Label()
         Me.gbConnection.SuspendLayout()
@@ -61,6 +64,9 @@ Partial Class Setting
         'gbConnection
         '
         Me.gbConnection.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.gbConnection.Controls.Add(Me.TextBox1)
+        Me.gbConnection.Controls.Add(Me.Label2)
+        Me.gbConnection.Controls.Add(Me.Label1)
         Me.gbConnection.Controls.Add(Me.lbRecheckTip)
         Me.gbConnection.Controls.Add(Me.Recheck)
         Me.gbConnection.Controls.Add(Me.lbReCheck)
@@ -77,17 +83,53 @@ Partial Class Setting
         Me.gbConnection.Location = New System.Drawing.Point(0, 12)
         Me.gbConnection.Margin = New System.Windows.Forms.Padding(0)
         Me.gbConnection.Name = "gbConnection"
-        Me.gbConnection.Size = New System.Drawing.Size(492, 151)
+        Me.gbConnection.Size = New System.Drawing.Size(492, 169)
         Me.gbConnection.TabIndex = 0
         Me.gbConnection.TabStop = False
         Me.gbConnection.Text = "Connection"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.Color.MediumBlue
+        Me.TextBox1.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TextBox1.ForeColor = System.Drawing.Color.White
+        Me.TextBox1.Location = New System.Drawing.Point(88, 66)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(0)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(181, 22)
+        Me.TextBox1.TabIndex = 18
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label2.Location = New System.Drawing.Point(273, 72)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(72, 12)
+        Me.Label2.TabIndex = 17
+        Me.Label2.Text = "※ Server IP"
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.DarkBlue
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label1.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(6, 67)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(82, 21)
+        Me.Label1.TabIndex = 15
+        Me.Label1.Text = "IP :"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lbRecheckTip
         '
         Me.lbRecheckTip.AutoSize = True
         Me.lbRecheckTip.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lbRecheckTip.ForeColor = System.Drawing.Color.White
-        Me.lbRecheckTip.Location = New System.Drawing.Point(191, 113)
+        Me.lbRecheckTip.Location = New System.Drawing.Point(191, 137)
         Me.lbRecheckTip.Margin = New System.Windows.Forms.Padding(0)
         Me.lbRecheckTip.Name = "lbRecheckTip"
         Me.lbRecheckTip.Size = New System.Drawing.Size(174, 12)
@@ -99,7 +141,7 @@ Partial Class Setting
         Me.Recheck.BackColor = System.Drawing.Color.MediumBlue
         Me.Recheck.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Recheck.ForeColor = System.Drawing.Color.White
-        Me.Recheck.Location = New System.Drawing.Point(88, 108)
+        Me.Recheck.Location = New System.Drawing.Point(88, 132)
         Me.Recheck.Margin = New System.Windows.Forms.Padding(0)
         Me.Recheck.Name = "Recheck"
         Me.Recheck.Size = New System.Drawing.Size(100, 22)
@@ -111,7 +153,7 @@ Partial Class Setting
         Me.lbReCheck.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lbReCheck.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lbReCheck.ForeColor = System.Drawing.Color.White
-        Me.lbReCheck.Location = New System.Drawing.Point(6, 109)
+        Me.lbReCheck.Location = New System.Drawing.Point(6, 133)
         Me.lbReCheck.Margin = New System.Windows.Forms.Padding(0)
         Me.lbReCheck.Name = "lbReCheck"
         Me.lbReCheck.Size = New System.Drawing.Size(82, 21)
@@ -124,7 +166,7 @@ Partial Class Setting
         Me.lbTimeTip2.AutoSize = True
         Me.lbTimeTip2.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lbTimeTip2.ForeColor = System.Drawing.Color.White
-        Me.lbTimeTip2.Location = New System.Drawing.Point(191, 93)
+        Me.lbTimeTip2.Location = New System.Drawing.Point(191, 117)
         Me.lbTimeTip2.Margin = New System.Windows.Forms.Padding(0)
         Me.lbTimeTip2.Name = "lbTimeTip2"
         Me.lbTimeTip2.Size = New System.Drawing.Size(62, 12)
@@ -140,7 +182,7 @@ Partial Class Setting
         Me.btnSave1.Location = New System.Drawing.Point(369, 11)
         Me.btnSave1.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSave1.Name = "btnSave1"
-        Me.btnSave1.Size = New System.Drawing.Size(120, 138)
+        Me.btnSave1.Size = New System.Drawing.Size(120, 155)
         Me.btnSave1.TabIndex = 10
         Me.btnSave1.Text = "저장"
         Me.btnSave1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -152,7 +194,7 @@ Partial Class Setting
         Me.lbTimeTip.AutoSize = True
         Me.lbTimeTip.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lbTimeTip.ForeColor = System.Drawing.Color.White
-        Me.lbTimeTip.Location = New System.Drawing.Point(191, 78)
+        Me.lbTimeTip.Location = New System.Drawing.Point(191, 102)
         Me.lbTimeTip.Margin = New System.Windows.Forms.Padding(0)
         Me.lbTimeTip.Name = "lbTimeTip"
         Me.lbTimeTip.Size = New System.Drawing.Size(165, 12)
@@ -166,16 +208,16 @@ Partial Class Setting
         Me.lbPortTip.Location = New System.Drawing.Point(191, 41)
         Me.lbPortTip.Margin = New System.Windows.Forms.Padding(0)
         Me.lbPortTip.Name = "lbPortTip"
-        Me.lbPortTip.Size = New System.Drawing.Size(134, 12)
+        Me.lbPortTip.Size = New System.Drawing.Size(83, 12)
         Me.lbPortTip.TabIndex = 4
-        Me.lbPortTip.Text = "※ Server Connect Port"
+        Me.lbPortTip.Text = "※ Server Port"
         '
         'Time
         '
         Me.Time.BackColor = System.Drawing.Color.MediumBlue
         Me.Time.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Time.ForeColor = System.Drawing.Color.White
-        Me.Time.Location = New System.Drawing.Point(88, 73)
+        Me.Time.Location = New System.Drawing.Point(88, 97)
         Me.Time.Margin = New System.Windows.Forms.Padding(0)
         Me.Time.Name = "Time"
         Me.Time.Size = New System.Drawing.Size(100, 22)
@@ -187,7 +229,7 @@ Partial Class Setting
         Me.lbTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.lbTime.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.lbTime.ForeColor = System.Drawing.Color.White
-        Me.lbTime.Location = New System.Drawing.Point(6, 74)
+        Me.lbTime.Location = New System.Drawing.Point(6, 98)
         Me.lbTime.Margin = New System.Windows.Forms.Padding(0)
         Me.lbTime.Name = "lbTime"
         Me.lbTime.Size = New System.Drawing.Size(82, 21)
@@ -230,7 +272,7 @@ Partial Class Setting
         Me.gbLineDIO.Controls.Add(Me.lbLine)
         Me.gbLineDIO.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.gbLineDIO.ForeColor = System.Drawing.Color.White
-        Me.gbLineDIO.Location = New System.Drawing.Point(0, 174)
+        Me.gbLineDIO.Location = New System.Drawing.Point(0, 190)
         Me.gbLineDIO.Margin = New System.Windows.Forms.Padding(0)
         Me.gbLineDIO.Name = "gbLineDIO"
         Me.gbLineDIO.Size = New System.Drawing.Size(492, 85)
@@ -286,7 +328,7 @@ Partial Class Setting
         Me.lbIP.Location = New System.Drawing.Point(6, 52)
         Me.lbIP.Margin = New System.Windows.Forms.Padding(0)
         Me.lbIP.Name = "lbIP"
-        Me.lbIP.Size = New System.Drawing.Size(263, 21)
+        Me.lbIP.Size = New System.Drawing.Size(82, 21)
         Me.lbIP.TabIndex = 2
         Me.lbIP.Text = "IP :"
         Me.lbIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -300,7 +342,7 @@ Partial Class Setting
         Me.lbLine.Location = New System.Drawing.Point(6, 25)
         Me.lbLine.Margin = New System.Windows.Forms.Padding(0)
         Me.lbLine.Name = "lbLine"
-        Me.lbLine.Size = New System.Drawing.Size(263, 21)
+        Me.lbLine.Size = New System.Drawing.Size(82, 21)
         Me.lbLine.TabIndex = 0
         Me.lbLine.Text = "Line :"
         Me.lbLine.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -308,20 +350,20 @@ Partial Class Setting
         'gbDBServer
         '
         Me.gbDBServer.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.gbDBServer.Controls.Add(Me.dbName)
+        Me.gbDBServer.Controls.Add(Me.TB_dbName)
         Me.gbDBServer.Controls.Add(Me.lbDBName)
-        Me.gbDBServer.Controls.Add(Me.DBID)
-        Me.gbDBServer.Controls.Add(Me.DBPass)
+        Me.gbDBServer.Controls.Add(Me.TB_DBID)
+        Me.gbDBServer.Controls.Add(Me.TB_DBPass)
         Me.gbDBServer.Controls.Add(Me.lbDBPassword)
         Me.gbDBServer.Controls.Add(Me.lbDBID)
-        Me.gbDBServer.Controls.Add(Me.DBIP)
+        Me.gbDBServer.Controls.Add(Me.TB_DBIP)
         Me.gbDBServer.Controls.Add(Me.btnSave3)
-        Me.gbDBServer.Controls.Add(Me.DBPort)
+        Me.gbDBServer.Controls.Add(Me.TB_DBPort)
         Me.gbDBServer.Controls.Add(Me.lbDBPort)
         Me.gbDBServer.Controls.Add(Me.lbDBIP)
         Me.gbDBServer.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.gbDBServer.ForeColor = System.Drawing.Color.White
-        Me.gbDBServer.Location = New System.Drawing.Point(0, 270)
+        Me.gbDBServer.Location = New System.Drawing.Point(0, 286)
         Me.gbDBServer.Margin = New System.Windows.Forms.Padding(0)
         Me.gbDBServer.Name = "gbDBServer"
         Me.gbDBServer.Size = New System.Drawing.Size(492, 168)
@@ -329,16 +371,16 @@ Partial Class Setting
         Me.gbDBServer.TabStop = False
         Me.gbDBServer.Text = "DB Server"
         '
-        'dbName
+        'TB_dbName
         '
-        Me.dbName.BackColor = System.Drawing.Color.MediumBlue
-        Me.dbName.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.dbName.ForeColor = System.Drawing.Color.White
-        Me.dbName.Location = New System.Drawing.Point(95, 135)
-        Me.dbName.Margin = New System.Windows.Forms.Padding(0)
-        Me.dbName.Name = "dbName"
-        Me.dbName.Size = New System.Drawing.Size(181, 22)
-        Me.dbName.TabIndex = 16
+        Me.TB_dbName.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_dbName.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_dbName.ForeColor = System.Drawing.Color.White
+        Me.TB_dbName.Location = New System.Drawing.Point(95, 135)
+        Me.TB_dbName.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_dbName.Name = "TB_dbName"
+        Me.TB_dbName.Size = New System.Drawing.Size(181, 22)
+        Me.TB_dbName.TabIndex = 16
         '
         'lbDBName
         '
@@ -354,28 +396,28 @@ Partial Class Setting
         Me.lbDBName.Text = "DB :"
         Me.lbDBName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'DBID
+        'TB_DBID
         '
-        Me.DBID.BackColor = System.Drawing.Color.MediumBlue
-        Me.DBID.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.DBID.ForeColor = System.Drawing.Color.White
-        Me.DBID.Location = New System.Drawing.Point(95, 80)
-        Me.DBID.Margin = New System.Windows.Forms.Padding(0)
-        Me.DBID.Name = "DBID"
-        Me.DBID.Size = New System.Drawing.Size(181, 22)
-        Me.DBID.TabIndex = 14
+        Me.TB_DBID.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_DBID.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_DBID.ForeColor = System.Drawing.Color.White
+        Me.TB_DBID.Location = New System.Drawing.Point(95, 80)
+        Me.TB_DBID.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_DBID.Name = "TB_DBID"
+        Me.TB_DBID.Size = New System.Drawing.Size(181, 22)
+        Me.TB_DBID.TabIndex = 14
         '
-        'DBPass
+        'TB_DBPass
         '
-        Me.DBPass.BackColor = System.Drawing.Color.MediumBlue
-        Me.DBPass.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.DBPass.ForeColor = System.Drawing.Color.White
-        Me.DBPass.Location = New System.Drawing.Point(95, 107)
-        Me.DBPass.Margin = New System.Windows.Forms.Padding(0)
-        Me.DBPass.Name = "DBPass"
-        Me.DBPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.DBPass.Size = New System.Drawing.Size(181, 22)
-        Me.DBPass.TabIndex = 13
+        Me.TB_DBPass.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_DBPass.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_DBPass.ForeColor = System.Drawing.Color.White
+        Me.TB_DBPass.Location = New System.Drawing.Point(95, 107)
+        Me.TB_DBPass.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_DBPass.Name = "TB_DBPass"
+        Me.TB_DBPass.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.TB_DBPass.Size = New System.Drawing.Size(181, 22)
+        Me.TB_DBPass.TabIndex = 13
         '
         'lbDBPassword
         '
@@ -405,16 +447,16 @@ Partial Class Setting
         Me.lbDBID.Text = "ID :"
         Me.lbDBID.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'DBIP
+        'TB_DBIP
         '
-        Me.DBIP.BackColor = System.Drawing.Color.MediumBlue
-        Me.DBIP.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.DBIP.ForeColor = System.Drawing.Color.White
-        Me.DBIP.Location = New System.Drawing.Point(95, 24)
-        Me.DBIP.Margin = New System.Windows.Forms.Padding(0)
-        Me.DBIP.Name = "DBIP"
-        Me.DBIP.Size = New System.Drawing.Size(181, 22)
-        Me.DBIP.TabIndex = 10
+        Me.TB_DBIP.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_DBIP.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_DBIP.ForeColor = System.Drawing.Color.White
+        Me.TB_DBIP.Location = New System.Drawing.Point(95, 24)
+        Me.TB_DBIP.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_DBIP.Name = "TB_DBIP"
+        Me.TB_DBIP.Size = New System.Drawing.Size(181, 22)
+        Me.TB_DBIP.TabIndex = 10
         '
         'btnSave3
         '
@@ -432,16 +474,16 @@ Partial Class Setting
         Me.btnSave3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnSave3.UseVisualStyleBackColor = False
         '
-        'DBPort
+        'TB_DBPort
         '
-        Me.DBPort.BackColor = System.Drawing.Color.MediumBlue
-        Me.DBPort.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.DBPort.ForeColor = System.Drawing.Color.White
-        Me.DBPort.Location = New System.Drawing.Point(95, 51)
-        Me.DBPort.Margin = New System.Windows.Forms.Padding(0)
-        Me.DBPort.Name = "DBPort"
-        Me.DBPort.Size = New System.Drawing.Size(181, 22)
-        Me.DBPort.TabIndex = 3
+        Me.TB_DBPort.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_DBPort.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_DBPort.ForeColor = System.Drawing.Color.White
+        Me.TB_DBPort.Location = New System.Drawing.Point(95, 51)
+        Me.TB_DBPort.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_DBPort.Name = "TB_DBPort"
+        Me.TB_DBPort.Size = New System.Drawing.Size(181, 22)
+        Me.TB_DBPort.TabIndex = 3
         '
         'lbDBPort
         '
@@ -475,7 +517,7 @@ Partial Class Setting
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(493, 442)
+        Me.ClientSize = New System.Drawing.Size(493, 458)
         Me.Controls.Add(Me.gbDBServer)
         Me.Controls.Add(Me.gbLineDIO)
         Me.Controls.Add(Me.gbConnection)
@@ -514,15 +556,18 @@ Partial Class Setting
     Friend WithEvents Recheck As System.Windows.Forms.TextBox
     Friend WithEvents lbReCheck As System.Windows.Forms.Label
     Friend WithEvents gbDBServer As System.Windows.Forms.GroupBox
-    Friend WithEvents DBIP As System.Windows.Forms.TextBox
+    Friend WithEvents TB_DBIP As System.Windows.Forms.TextBox
     Friend WithEvents btnSave3 As System.Windows.Forms.Button
-    Friend WithEvents DBPort As System.Windows.Forms.TextBox
+    Friend WithEvents TB_DBPort As System.Windows.Forms.TextBox
     Friend WithEvents lbDBPort As System.Windows.Forms.Label
     Friend WithEvents lbDBIP As System.Windows.Forms.Label
-    Friend WithEvents DBID As System.Windows.Forms.TextBox
-    Friend WithEvents DBPass As System.Windows.Forms.TextBox
+    Friend WithEvents TB_DBID As System.Windows.Forms.TextBox
+    Friend WithEvents TB_DBPass As System.Windows.Forms.TextBox
     Friend WithEvents lbDBPassword As System.Windows.Forms.Label
     Friend WithEvents lbDBID As System.Windows.Forms.Label
-    Friend WithEvents dbName As System.Windows.Forms.TextBox
+    Friend WithEvents TB_dbName As System.Windows.Forms.TextBox
     Friend WithEvents lbDBName As System.Windows.Forms.Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

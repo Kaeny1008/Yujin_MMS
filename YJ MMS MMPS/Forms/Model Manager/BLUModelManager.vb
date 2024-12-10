@@ -82,7 +82,7 @@ Public Class BluModelManager
 
         GRID_ModelList.Redraw = False
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         GRID_ModelList.Rows.Count = 1
 
@@ -187,7 +187,7 @@ Public Class BluModelManager
 
             '등록(서버저장)된 모델코드이면 창이 열리도록 코딩해야함.
 
-            If DBConnect() = False Then
+            If DBConnect() = False Then Exit Sub
 
             Dim strSql As String = String.Empty
 
@@ -291,7 +291,7 @@ Public Class BluModelManager
             floor_plan_new_upload = False
             marking_new_upload = False
             CB_ModelDivision.Enabled = False
-        End If
+        End if
 
     End Sub
 
@@ -324,14 +324,18 @@ Public Class BluModelManager
 
     Private Function NEW_MODEL_Code(ByVal model_division As String) As String
 
+        NEW_MODEL_Code = String.Empty
+
         If DBConnect() = False Then
+            Return NEW_MODEL_Code
+            Exit Function
+        End If
 
         Dim strSql As String = "select MODEL_CODE from TB_MODEL_BLU_LIST where DIVISION = '" & model_division & "' order by MODEL_CODE limit 1"
 
         Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
         Dim last_MODEL_Code As String = String.Empty
-        NEW_MODEL_Code = String.Empty
 
         Do While sqlDR.Read
             last_MODEL_Code = sqlDR("MODEL_CODE")
@@ -448,7 +452,7 @@ Public Class BluModelManager
 
     Private Sub COMBO_LIST_LOAD(ByVal division_code As String, ByVal col_no As Integer)
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSql As String = "select * from TB_SUB_CODE where MAIN_CODE = '" & division_code & "'"
 
@@ -475,7 +479,7 @@ Public Class BluModelManager
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -1254,7 +1258,7 @@ Public Class BluModelManager
 
         If MsgBox("저장 하시겠습니까?", MsgBoxStyle.Question + MsgBoxStyle.YesNo, form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -1497,7 +1501,7 @@ Public Class BluModelManager
 
     Private Sub Maker_DropDown_LIST(ByVal control_name As ComboBox, ByVal division_code As String)
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         'control_name.Items.Clear()
 

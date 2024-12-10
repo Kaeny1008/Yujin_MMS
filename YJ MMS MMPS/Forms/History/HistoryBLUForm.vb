@@ -98,7 +98,7 @@ Public Class HistoryBLUForm
         Grid_PartsChange.Redraw = False
         Grid_PartsChange.Rows.Count = 2
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call USP_HISTORY(6"
         strSQL += ",'" & Format(DTP_startDate2.Value, "yyyy-MM-dd 00:00:00") & "'" 'startDate

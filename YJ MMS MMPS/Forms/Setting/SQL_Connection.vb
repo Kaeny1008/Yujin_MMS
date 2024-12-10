@@ -20,7 +20,8 @@
         serverIP = TB_IP.Text
         serverPSWD = TB_PW.Text
 
-        If DBConnect() = False Then
+        If DBConnect() = False Then Exit Sub
+
         If DBConnect1.State = 1 Then
             DBClose()
             MsgBox("접속성공", MsgBoxStyle.Information, "자산관리")
