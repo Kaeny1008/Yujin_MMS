@@ -106,7 +106,7 @@ Public Class frm_Delivery_History
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -128,7 +128,7 @@ Public Class frm_Delivery_History
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -154,7 +154,7 @@ Public Class frm_Delivery_History
         Grid_ShipList.Redraw = False
         Grid_ShipList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_delivery(3"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -198,7 +198,7 @@ Public Class frm_Delivery_History
             Grid_POList.Redraw = False
             Grid_POList.Rows.Count = 1
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Dim strSQL As String = "call sp_mms_delivery(4"
             strSQL += ", null"

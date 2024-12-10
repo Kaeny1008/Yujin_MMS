@@ -23,7 +23,7 @@ Public Class frm_SMD_Magazine_Kitting
 
     Private Sub Load_Process()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(5"
         strSQL += ", null"
@@ -52,7 +52,7 @@ Public Class frm_SMD_Magazine_Kitting
 
     Private Sub Load_Note()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(10"
         strSQL += ", null"
@@ -77,7 +77,7 @@ Public Class frm_SMD_Magazine_Kitting
 
     Private Sub Load_TopBottom()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(6"
         strSQL += ", null"
@@ -112,7 +112,7 @@ Public Class frm_SMD_Magazine_Kitting
 
     Private Sub Load_Discard_Quantity()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(8"
         strSQL += ", null"
@@ -202,7 +202,7 @@ Public Class frm_SMD_Magazine_Kitting
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -289,7 +289,10 @@ Public Class frm_SMD_Magazine_Kitting
 
         Dim checkResult As Boolean = False
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return checkResult
+            Exit Function
+        End If
 
         Dim strSQL As String = "select smd_" & TB_TB.Text & "_material_use_cal"
         strSQL += " from tb_mms_order_register_list"
@@ -315,7 +318,10 @@ Public Class frm_SMD_Magazine_Kitting
 
         Dim errorPartNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return errorPartNo
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_material_use_information("
         strSQL += "'" & TB_PONo.Text & "'"
@@ -355,7 +361,10 @@ Public Class frm_SMD_Magazine_Kitting
 
         Dim not_inspect As Integer = 0
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_smd_production_end(7"
         strSQL += ", null"

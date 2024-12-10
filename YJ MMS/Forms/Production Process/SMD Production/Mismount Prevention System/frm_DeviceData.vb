@@ -62,7 +62,7 @@ Public Class frm_DeviceData
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name from tb_customer_list"
         strSQL += " order by customer_name"
@@ -85,7 +85,7 @@ Public Class frm_DeviceData
 
         Tb_customerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_name = '" & CB_CustomerName.Text & "'"
@@ -118,7 +118,7 @@ Public Class frm_DeviceData
 
         Cb_modelName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select item_code from tb_model_list"
         strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
@@ -142,7 +142,10 @@ Public Class frm_DeviceData
 
         Dim result As Boolean = True
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -190,7 +193,10 @@ Public Class frm_DeviceData
 
         Dim lastCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return lastCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "select customer_code from tb_customer_list order by customer_code desc limit 1"
 
@@ -220,9 +226,12 @@ Public Class frm_DeviceData
 
     Private Function ExsistModelCheck() As Boolean
 
-        DBConnect()
-
         ExsistModelCheck = False
+
+        If DBConnect() = False Then
+            Return ExsistModelCheck
+            Exit Function
+        End If
 
         Dim strSQL As String = "select * from tb_mmps_model_list where model_name = '" & Cb_modelName.Text & "' and customer_code = '" & Tb_customerCode.Text & "';"
 
@@ -244,7 +253,10 @@ Public Class frm_DeviceData
 
         Dim lastCode As Boolean = False
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return lastCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
@@ -267,7 +279,10 @@ Public Class frm_DeviceData
 
         Dim lastCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return lastCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "select model_code from tb_mmps_model_list"
         strSQL += " order by model_code desc limit 1"
@@ -297,7 +312,10 @@ Public Class frm_DeviceData
 
         Dim result As Boolean = True
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -355,7 +373,7 @@ Public Class frm_DeviceData
 
         Tb_modelCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select model_code"
         strSQL += " from tb_model_list"
@@ -413,7 +431,7 @@ Public Class frm_DeviceData
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmps_device_data(0"
         strSQL += ",'" & Tb_modelCode.Text & "'"
@@ -554,7 +572,10 @@ Public Class frm_DeviceData
 
         Dim newCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return newCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mmps_device_data(1"
         strSQL += ",null"
@@ -620,7 +641,10 @@ Public Class frm_DeviceData
 
         Dim makerList As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return makerList
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mmps_maker_list"
 
@@ -654,7 +678,7 @@ Public Class frm_DeviceData
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -777,7 +801,10 @@ Public Class frm_DeviceData
 
         Dim partSpec As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return partSpec
+            Exit Function
+        End If
 
         Try
             Dim strSQL As String = "call sp_mmps_device_data(2"
@@ -929,7 +956,7 @@ Public Class frm_DeviceData
         Dim strSQL As String = String.Empty
 
         'MySQL DB에서 정보를 불러오기전에 기존 내용 삭제
-        Mdbconnect()
+        MDBConnect()
 
         Dim sqlTran_MDB As OleDb.OleDbTransaction
         Dim sqlCmd_MDB As OleDb.OleDbCommand
@@ -962,7 +989,7 @@ Public Class frm_DeviceData
         sqlTran_MDB = mdbConnection1.BeginTransaction
 
         Try
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             strSQL = "call sp_mmps_device_data(3"
             strSQL += ",'" & Tb_modelCode.Text & "'"
@@ -1116,7 +1143,7 @@ Public Class frm_DeviceData
 
         writeReady = False
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & Cb_FactoryName.Text & "'"
@@ -1144,7 +1171,7 @@ Public Class frm_DeviceData
 
         Cb_FactoryName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000001' order by sub_code_name"
@@ -1174,7 +1201,7 @@ Public Class frm_DeviceData
 
         Cb_workLine.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select last_code_name from tb_code_last"
         strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
@@ -1292,7 +1319,10 @@ Public Class frm_DeviceData
 
         loadMakerSpec = "@"
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return loadMakerSpec
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mmps_device_data(5"
         strSQL += ",null"
@@ -1404,7 +1434,7 @@ Public Class frm_DeviceData
             Exit Sub
         End If
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         For i = 1 To Grid_DeviceData.Rows.Count - 1
             If Grid_DeviceData(i, 4).Equals("") Then
@@ -1495,6 +1525,8 @@ Public Class frm_DeviceData
             Exit Sub
         End If
 
+        If MSG_Question(Me, "저장된 내용을 삭제 후 피더리스트를 불러 옵니다." & vbCrLf & "계속 하시겠습니까?") = False Then Exit Sub
+
         Dim DialogFolderBrowser As New FolderBrowserDialog
 
         DialogFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop
@@ -1517,7 +1549,36 @@ Public Class frm_DeviceData
             Exit Sub
         End Try
 
+        If DBConnect() = False Then Exit Sub
+
         Thread_LoadingFormStart(Me)
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            For i = 1 To Grid_DeviceData.Rows.Count - 1
+                strSQL += "delete from tb_mmps_device_data"
+                strSQL += " where dd_code = '" & Grid_DeviceData(i, 1) & "';"
+            Next
+
+            If Not strSQL = String.Empty Then
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+
+                sqlTran.Commit()
+            End If
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            MsgBox(ex.Message, MsgBoxStyle.Critical, form_Msgbox_String)
+            Exit Sub
+        End Try
+
+        DBClose()
 
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1

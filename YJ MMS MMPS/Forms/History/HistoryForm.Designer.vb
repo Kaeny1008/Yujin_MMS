@@ -32,7 +32,7 @@ Partial Class HistoryForm
         Me.Cb_workSide = New System.Windows.Forms.ComboBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Cb_workLine = New System.Windows.Forms.ComboBox()
-        Me.Tb_customerName = New System.Windows.Forms.TextBox()
+        Me.Tb_CUSTOMERName = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Tb_modelName = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -53,7 +53,7 @@ Partial Class HistoryForm
         Me.Cb_workSide2 = New System.Windows.Forms.ComboBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Cb_workLine2 = New System.Windows.Forms.ComboBox()
-        Me.Tb_customerName2 = New System.Windows.Forms.TextBox()
+        Me.Tb_CUSTOMERName2 = New System.Windows.Forms.TextBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Tb_modelName2 = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -122,7 +122,7 @@ Partial Class HistoryForm
         Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_workSide)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label10)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_workLine)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_customerName)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_CUSTOMERName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_modelName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label2)
@@ -215,15 +215,15 @@ Partial Class HistoryForm
         Me.Cb_workLine.Size = New System.Drawing.Size(141, 21)
         Me.Cb_workLine.TabIndex = 12
         '
-        'Tb_customerName
+        'Tb_CUSTOMERName
         '
-        Me.Tb_customerName.BackColor = System.Drawing.SystemColors.Window
-        Me.Tb_customerName.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Tb_customerName.Location = New System.Drawing.Point(578, 10)
-        Me.Tb_customerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_customerName.Name = "Tb_customerName"
-        Me.Tb_customerName.Size = New System.Drawing.Size(168, 21)
-        Me.Tb_customerName.TabIndex = 6
+        Me.Tb_CUSTOMERName.BackColor = System.Drawing.SystemColors.Window
+        Me.Tb_CUSTOMERName.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Tb_CUSTOMERName.Location = New System.Drawing.Point(578, 10)
+        Me.Tb_CUSTOMERName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Tb_CUSTOMERName.Name = "Tb_CUSTOMERName"
+        Me.Tb_CUSTOMERName.Size = New System.Drawing.Size(168, 21)
+        Me.Tb_CUSTOMERName.TabIndex = 6
         '
         'Label7
         '
@@ -366,7 +366,7 @@ Partial Class HistoryForm
         Me.SplitContainer2.Panel1.Controls.Add(Me.Cb_workSide2)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label6)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Cb_workLine2)
-        Me.SplitContainer2.Panel1.Controls.Add(Me.Tb_customerName2)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Tb_CUSTOMERName2)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label11)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Tb_modelName2)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label12)
@@ -497,15 +497,15 @@ Partial Class HistoryForm
         Me.Cb_workLine2.Size = New System.Drawing.Size(141, 21)
         Me.Cb_workLine2.TabIndex = 26
         '
-        'Tb_customerName2
+        'Tb_CUSTOMERName2
         '
-        Me.Tb_customerName2.BackColor = System.Drawing.SystemColors.Window
-        Me.Tb_customerName2.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Tb_customerName2.Location = New System.Drawing.Point(578, 10)
-        Me.Tb_customerName2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_customerName2.Name = "Tb_customerName2"
-        Me.Tb_customerName2.Size = New System.Drawing.Size(168, 21)
-        Me.Tb_customerName2.TabIndex = 20
+        Me.Tb_CUSTOMERName2.BackColor = System.Drawing.SystemColors.Window
+        Me.Tb_CUSTOMERName2.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Tb_CUSTOMERName2.Location = New System.Drawing.Point(578, 10)
+        Me.Tb_CUSTOMERName2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Tb_CUSTOMERName2.Name = "Tb_CUSTOMERName2"
+        Me.Tb_CUSTOMERName2.Size = New System.Drawing.Size(168, 21)
+        Me.Tb_CUSTOMERName2.TabIndex = 20
         '
         'Label11
         '
@@ -661,7 +661,7 @@ Partial Class HistoryForm
     Friend WithEvents Grid_PartsChange As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Tb_modelName As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Tb_customerName As TextBox
+    Friend WithEvents Tb_CUSTOMERName As TextBox
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Cb_factoryName As ComboBox
@@ -677,7 +677,7 @@ Partial Class HistoryForm
     Friend WithEvents Cb_workSide2 As ComboBox
     Friend WithEvents Label6 As Label
     Friend WithEvents Cb_workLine2 As ComboBox
-    Friend WithEvents Tb_customerName2 As TextBox
+    Friend WithEvents Tb_CUSTOMERName2 As TextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents Tb_modelName2 As TextBox
     Friend WithEvents Label12 As Label

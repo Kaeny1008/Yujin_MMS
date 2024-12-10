@@ -313,9 +313,13 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
-
         Dim writeDate As String = String.Empty
+
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return writeDate
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(11"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -355,7 +359,11 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(0"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -414,7 +422,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim indexSelect As Integer = 1
 
@@ -453,7 +461,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(3"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -488,7 +496,11 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(4"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -529,7 +541,10 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return printQty
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(6"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -624,7 +639,11 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return "Sever Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -684,7 +703,11 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -858,7 +881,7 @@ Public Class frm_Assy_Label_Print
         swFile.WriteLine("^XZ~JA^XZ")
 
         Dim orgQty As Integer = printQty
-        Dim realQty As Integer = Math.Abs(orgQty / 4)
+        Dim realQty As Integer = Math.Truncate(orgQty / 4)
         Dim remainingValue As Double = orgQty Mod 4
 
         Dim replaceWorkingDate As String = Format(workingDate, "yyMMdd")
@@ -890,8 +913,8 @@ Public Class frm_Assy_Label_Print
         Next
 
         If remainingValue > 0 Then
-            swFile.WriteLine("^XA^LH" & printerLeftPosition & ",0^LT" & printerTopPosition) 'LH : 가로위치, LT : 세로위치
-            swFile.WriteLine("^MD" & printerMD) '진하기
+            swFile.WriteLine("^XA^LH" & printerLeftPosition2 & ",0^LT" & printerTopPosition2) 'LH : 가로위치, LT : 세로위치
+            swFile.WriteLine("^MD" & printerMD2) '진하기
             If remainingValue > 0 Then
                 swFile.WriteLine("^FO0000,0000^A0,16,20^FD" & label_ItemCode & "^FS")
                 swFile.WriteLine("^FO0000,0016^A0,16,20^FD" & replaceWorkingDate & Format(firstSeial, "0000") & "^FS")
@@ -941,7 +964,7 @@ Public Class frm_Assy_Label_Print
 
         cb.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -963,7 +986,7 @@ Public Class frm_Assy_Label_Print
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -986,7 +1009,7 @@ Public Class frm_Assy_Label_Print
 
         TB_Reprint_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -1012,7 +1035,7 @@ Public Class frm_Assy_Label_Print
 
         TB_Reprint_Search_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -1038,7 +1061,7 @@ Public Class frm_Assy_Label_Print
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(5"
         strSQL += ", '" & TB_SearchOrderIndex.Text & "'"
@@ -1109,7 +1132,7 @@ Public Class frm_Assy_Label_Print
 
     Private Sub Load_Reprint_Basic_Information(ByVal section As String)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
         Dim customerCode As String = TB_Reprint_CustomerCode.Text
         Dim itemCode As String = TB_Reprint_ItemCode.Text
 
@@ -1282,7 +1305,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(10"
         strSQL += ", null"
@@ -1322,7 +1345,10 @@ Public Class frm_Assy_Label_Print
         Dim maxSerial As Integer = 0
         Dim managementNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return String.Empty
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_assy_label_history(9"
         strSQL += ", null"
@@ -1373,7 +1399,11 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -1526,7 +1556,7 @@ Public Class frm_Assy_Label_Print
         Grid_ReprintList.Redraw = False
         Grid_ReprintList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(8"
         strSQL += ", null"
@@ -1578,7 +1608,7 @@ Public Class frm_Assy_Label_Print
 
         TB_NonePO_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -1668,7 +1698,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(12"
         strSQL += ", null"
@@ -1701,7 +1731,7 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_assy_label_history(13"
         strSQL += ", null"
@@ -1835,7 +1865,10 @@ Public Class frm_Assy_Label_Print
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

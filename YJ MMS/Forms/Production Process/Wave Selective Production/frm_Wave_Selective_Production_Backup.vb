@@ -200,7 +200,7 @@ Public Class frm_Wave_Selective_Production_Backup
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(6"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -267,7 +267,7 @@ Public Class frm_Wave_Selective_Production_Backup
 
     Private Sub Load_OrderInformation(ByVal orderIndex As String, ByVal historyIndex As Integer)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(0"
         strSQL += ", '" & orderIndex & "'"
@@ -298,7 +298,12 @@ Public Class frm_Wave_Selective_Production_Backup
 
     Private Function Load_Process() As Integer
 
-        DBConnect()
+        Dim processCheck As Integer = 0
+
+        If DBConnect() = False Then
+            Return processCheck
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(1"
         strSQL += ", null"
@@ -311,7 +316,6 @@ Public Class frm_Wave_Selective_Production_Backup
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
-        Dim processCheck As Integer = 0
 
         Do While sqlDR.Read
             processCheck = sqlDR("exist_process")
@@ -326,7 +330,12 @@ Public Class frm_Wave_Selective_Production_Backup
 
     Private Function FirstWokringCheck() As String
 
-        DBConnect()
+        Dim orderCheck As String = String.Empty
+
+        If DBConnect() = False Then
+            Return orderCheck
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(5"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -339,7 +348,6 @@ Public Class frm_Wave_Selective_Production_Backup
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
-        Dim orderCheck As String = String.Empty
 
         Do While sqlDR.Read
             orderCheck = sqlDR("history_index")

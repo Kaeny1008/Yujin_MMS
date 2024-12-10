@@ -74,7 +74,7 @@ Public Class frm_MetalMaskManagement
 
         LastMaskSN = "MMAAA0000"
 
-        DBConnect()
+        If DBConnect() = False Then Exit Function
 
         Dim strSQL As String = "select mask_sn from tb_mmms_metal_mask_list"
         strSQL += " where mask_sn like 'MM" & nowDateConverter & "%'"
@@ -103,7 +103,7 @@ Public Class frm_MetalMaskManagement
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name from tb_customer_list"
         strSQL += " order by customer_name"
@@ -126,7 +126,7 @@ Public Class frm_MetalMaskManagement
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_name = '" & CB_CustomerName.Text & "'"
@@ -155,7 +155,7 @@ Public Class frm_MetalMaskManagement
 
     '    CB_ModelName.Items.Clear()
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim strSQL As String = "select item_code from tb_model_list"
     '    strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
@@ -179,7 +179,7 @@ Public Class frm_MetalMaskManagement
 
     '    TB_ModelCode.Text = String.Empty
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim strSQL As String = "select model_code from tb_model_list"
     '    strSQL += " where item_code = '" & CB_ModelName.Text & "'"
@@ -203,7 +203,7 @@ Public Class frm_MetalMaskManagement
 
         Grid_List.Redraw = False
         Grid_List.Rows.Count = 1
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim workSide As String = String.Empty
         If Not CB_WorkSide.Text = "All" Then
@@ -328,7 +328,7 @@ Public Class frm_MetalMaskManagement
                   MsgBoxStyle.Information + MsgBoxStyle.YesNo,
                   msg_form) = MsgBoxResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -370,7 +370,7 @@ Public Class frm_MetalMaskManagement
 
         If MsgBox("폐기된 정보를 지우고 사용항목으로 변경 하시겠습니까?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, msg_form) = MsgBoxResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

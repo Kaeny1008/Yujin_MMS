@@ -14,7 +14,7 @@ Public Class frm_MetalMask_Register
 
     Private Sub Mask_Data_Load()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmms_metalmask_list(1"
         strSQL += ", null"
@@ -73,7 +73,7 @@ Public Class frm_MetalMask_Register
 
         Cb_customerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name from tb_customer_list"
         strSQL += " order by customer_name"
@@ -96,7 +96,7 @@ Public Class frm_MetalMask_Register
 
         Tb_customerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code from tb_customer_list"
         strSQL += " where customer_name = '" & Cb_customerName.Text & "'"
@@ -123,7 +123,7 @@ Public Class frm_MetalMask_Register
 
     '    Cb_modelName.Items.Clear()
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim strSQL As String = "select item_code from tb_model_list"
     '    strSQL += " where customer_code = '" & Tb_customerCode.Text & "'"
@@ -147,7 +147,7 @@ Public Class frm_MetalMask_Register
 
     '    Tb_modelCode.Text = String.Empty
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim strSQL As String = "select model_code from tb_model_list"
     '    strSQL += " where item_code = '" & Cb_modelName.Text & "'"
@@ -197,7 +197,10 @@ Public Class frm_MetalMask_Register
 
         Dim result As Boolean = True
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -261,7 +264,10 @@ Public Class frm_MetalMask_Register
 
         Dim result As Boolean = True
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

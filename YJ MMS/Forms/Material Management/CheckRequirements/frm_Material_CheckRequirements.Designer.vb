@@ -45,13 +45,15 @@ Partial Class frm_Material_CheckRequirements
         Me.TB_OrderNo = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
-        Me.CMS_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.CMS_Order_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_AllCheck = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_RowAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_ManagementNoSelect = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.BTN_Use_Information = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -60,7 +62,8 @@ Partial Class frm_Material_CheckRequirements
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.CMS_Menu.SuspendLayout()
+        Me.CMS_Order_Menu.SuspendLayout()
+        Me.CMS_GridMenu.SuspendLayout()
         Me.SuspendLayout()
         '
         'TS_MainBar
@@ -299,47 +302,59 @@ Partial Class frm_Material_CheckRequirements
         Me.Grid_MaterialList.StyleInfo = resources.GetString("Grid_MaterialList.StyleInfo")
         Me.Grid_MaterialList.TabIndex = 2
         '
-        'CMS_Menu
+        'CMS_Order_Menu
         '
-        Me.CMS_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck, Me.ToolStripSeparator3, Me.BTN_RowAdd, Me.BTN_RowDelete, Me.ToolStripSeparator4, Me.BTN_ManagementNoSelect})
-        Me.CMS_Menu.Name = "CMS_Menu"
-        Me.CMS_Menu.Size = New System.Drawing.Size(181, 126)
+        Me.CMS_Order_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck, Me.ToolStripSeparator3, Me.BTN_RowAdd, Me.BTN_RowDelete, Me.ToolStripSeparator4, Me.BTN_ManagementNoSelect})
+        Me.CMS_Order_Menu.Name = "CMS_Menu"
+        Me.CMS_Order_Menu.Size = New System.Drawing.Size(151, 104)
         '
         'BTN_AllCheck
         '
         Me.BTN_AllCheck.Name = "BTN_AllCheck"
-        Me.BTN_AllCheck.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_AllCheck.Size = New System.Drawing.Size(150, 22)
         Me.BTN_AllCheck.Text = "전체 선택"
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(147, 6)
         '
         'BTN_RowAdd
         '
         Me.BTN_RowAdd.Enabled = False
         Me.BTN_RowAdd.Name = "BTN_RowAdd"
-        Me.BTN_RowAdd.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowAdd.Size = New System.Drawing.Size(150, 22)
         Me.BTN_RowAdd.Text = "추가"
         '
         'BTN_RowDelete
         '
         Me.BTN_RowDelete.Enabled = False
         Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(150, 22)
         Me.BTN_RowDelete.Text = "삭제"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(147, 6)
         '
         'BTN_ManagementNoSelect
         '
         Me.BTN_ManagementNoSelect.Name = "BTN_ManagementNoSelect"
-        Me.BTN_ManagementNoSelect.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_ManagementNoSelect.Size = New System.Drawing.Size(150, 22)
         Me.BTN_ManagementNoSelect.Text = "관리번호 지정"
+        '
+        'CMS_GridMenu
+        '
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_Use_Information})
+        Me.CMS_GridMenu.Name = "ContextMenuStrip1"
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(206, 26)
+        '
+        'BTN_Use_Information
+        '
+        Me.BTN_Use_Information.Name = "BTN_Use_Information"
+        Me.BTN_Use_Information.Size = New System.Drawing.Size(205, 22)
+        Me.BTN_Use_Information.Text = "사용대기, 사용이력 확인"
         '
         'frm_Material_CheckRequirements
         '
@@ -360,7 +375,8 @@ Partial Class frm_Material_CheckRequirements
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         CType(Me.Grid_MaterialList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.CMS_Menu.ResumeLayout(False)
+        Me.CMS_Order_Menu.ResumeLayout(False)
+        Me.CMS_GridMenu.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -386,7 +402,7 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_Check As ToolStripButton
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents BTN_Confirm As ToolStripButton
-    Friend WithEvents CMS_Menu As ContextMenuStrip
+    Friend WithEvents CMS_Order_Menu As ContextMenuStrip
     Friend WithEvents BTN_AllCheck As ToolStripMenuItem
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
@@ -394,4 +410,6 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_RowDelete As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents BTN_ManagementNoSelect As ToolStripMenuItem
+    Friend WithEvents CMS_GridMenu As ContextMenuStrip
+    Friend WithEvents BTN_Use_Information As ToolStripMenuItem
 End Class

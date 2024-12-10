@@ -48,7 +48,7 @@ Public Class frm_Order_Status
         Grid_OrderList(0, 6) = "품번"
         Grid_OrderList(0, 7) = "품명"
         Grid_OrderList(0, 8) = "등록일자"
-        Grid_OrderList(0, 9) = "납품일자"
+        Grid_OrderList(0, 9) = "납품 요청일자"
         Grid_OrderList(0, 10) = "주문수량"
         Grid_OrderList(0, 11) = "주문상태"
         Grid_OrderList(0, 12) = "관리번호"
@@ -65,7 +65,7 @@ Public Class frm_Order_Status
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -92,7 +92,7 @@ Public Class frm_Order_Status
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_status(7"
         strSQL += ",'" & TB_CustomerCode.Text & "'"

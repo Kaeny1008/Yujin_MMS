@@ -100,7 +100,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
         Grid_PlanList.Redraw = False
         Grid_PlanList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_stock_survey(5"
         strSQL += ", null"
@@ -155,7 +155,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_stock_survey(10"
         strSQL += ", null"
@@ -274,7 +274,7 @@ Public Class frm_Material_Stock_Survey_Each_Item
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

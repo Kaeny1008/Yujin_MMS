@@ -57,7 +57,7 @@ Public Class frm_Material_Label_Reprint
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -79,7 +79,7 @@ Public Class frm_Material_Label_Reprint
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -105,7 +105,7 @@ Public Class frm_Material_Label_Reprint
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_label_reprint(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -220,7 +220,7 @@ Public Class frm_Material_Label_Reprint
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

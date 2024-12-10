@@ -79,9 +79,6 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=7.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.7.0.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\Add DLL\MySql.Data.dll</HintPath>
-    </Reference>
     <Reference Include="MySqlConnector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
       <HintPath>..\packages\MySqlConnector.2.3.7\lib\netstandard2.0\MySqlConnector.dll</HintPath>
     </Reference>
@@ -153,6 +150,12 @@
       <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Basic Information\Customer Management\PopUp\frm_Material_Data_Update.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Change_ItemParts.Designer.vb">
+      <DependentUpon>frm_Change_ItemParts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Basic Information\Model Management\frm_Change_ItemParts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Basic Information\Model Management\frm_Model_Document.Designer.vb">
@@ -245,6 +248,24 @@
     <Compile Include="Forms\frm_DiscardAlarm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements2.Designer.vb">
+      <DependentUpon>frm_Material_CheckRequirements2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements2.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Order_Excel_Modify.Designer.vb">
+      <DependentUpon>frm_Order_Excel_Modify.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\CheckRequirements\frm_Order_Excel_Modify.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Stock Information\frm_Material_Use_Information.Designer.vb">
+      <DependentUpon>frm_Material_Use_Information.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Stock Information\frm_Material_Use_Information.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Each_Item.Designer.vb">
       <DependentUpon>frm_Material_Stock_Survey_Each_Item.vb</DependentUpon>
     </Compile>
@@ -261,6 +282,12 @@
       <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_New.Designer.vb">
+      <DependentUpon>frm_Material_Warehousing_New.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_New.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Management\frm_Order_Status.Designer.vb">
@@ -791,6 +818,9 @@
       <DependentUpon>frm_Material_Data_Update.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Change_ItemParts.resx">
+      <DependentUpon>frm_Change_ItemParts.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Basic Information\Model Management\frm_Model_Document.resx">
       <DependentUpon>frm_Model_Document.vb</DependentUpon>
     </EmbeddedResource>
@@ -836,6 +866,15 @@
     <EmbeddedResource Include="Forms\frm_DiscardAlarm.resx">
       <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements2.resx">
+      <DependentUpon>frm_Material_CheckRequirements2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Order_Excel_Modify.resx">
+      <DependentUpon>frm_Order_Excel_Modify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Stock Information\frm_Material_Use_Information.resx">
+      <DependentUpon>frm_Material_Use_Information.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Stock Survey\frm_Material_Stock_Survey_Each_Item.resx">
       <DependentUpon>frm_Material_Stock_Survey_Each_Item.vb</DependentUpon>
     </EmbeddedResource>
@@ -844,6 +883,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Transfer\frm_WorkSite_Transfer_Material_List.resx">
       <DependentUpon>frm_WorkSite_Transfer_Material_List.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Warehousing\frm_Material_Warehousing_New.resx">
+      <DependentUpon>frm_Material_Warehousing_New.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\frm_Order_Status.resx">
       <DependentUpon>frm_Order_Status.vb</DependentUpon>

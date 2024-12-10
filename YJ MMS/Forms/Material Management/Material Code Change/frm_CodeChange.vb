@@ -14,7 +14,7 @@ Public Class frm_CodeChange
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -36,7 +36,7 @@ Public Class frm_CodeChange
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -102,7 +102,7 @@ Public Class frm_CodeChange
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select ifnull(max(clearance_date), '2024-01-01') as clearance_date"
         strSQL += " from tb_mms_material_basic_inventory"
@@ -129,7 +129,7 @@ Public Class frm_CodeChange
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_code_change(0"
         strSQL += ", '" & part_code & "'"
@@ -182,7 +182,7 @@ Public Class frm_CodeChange
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_code_change(1"
         strSQL += ", '" & part_code & "'"
@@ -259,7 +259,11 @@ Public Class frm_CodeChange
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

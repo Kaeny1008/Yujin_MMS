@@ -141,7 +141,7 @@ Public Class frm_Material_Warehousing
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim checkResult As String = String.Empty
         If RadioButton1.Checked Then
@@ -194,7 +194,7 @@ Public Class frm_Material_Warehousing
             Grid_MaterialList.Redraw = False
             Grid_MaterialList.Rows.Count = 1
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Load_CustomerList()
             Load_MaterialList(Grid_DocumentsList(gridRow, 1))
@@ -301,7 +301,7 @@ Public Class frm_Material_Warehousing
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_warehousing(2"
         strSQL += ",'" & documentNo & "'"
@@ -348,7 +348,7 @@ Public Class frm_Material_Warehousing
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -517,7 +517,7 @@ Public Class frm_Material_Warehousing
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -622,7 +622,12 @@ Public Class frm_Material_Warehousing
 
     Private Function Check_Lot_No() As String
 
-        DBConnect()
+        Dim returnString As String = "Not Exist"
+
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_warehousing(3"
         strSQL += ", null"
@@ -633,8 +638,6 @@ Public Class frm_Material_Warehousing
         strSQL += " , '" & TB_PartNo.Text.Replace("'", "\'") & "'"
         strSQL += " , '" & TB_LotNo.Text & "'"
         strSQL += ");"
-
-        Dim returnString As String = "Not Exist"
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -712,7 +715,7 @@ Public Class frm_Material_Warehousing
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

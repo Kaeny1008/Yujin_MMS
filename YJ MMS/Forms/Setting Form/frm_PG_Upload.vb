@@ -47,7 +47,7 @@ Public Class frm_PG_Upload
 
         grid_FileList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSql As String = "select FILE_CODE, FILE_NAME, FOLDER_NAME, UPLOAD_DATE, WRITE_ID, ifnull(UPLOAD_NOTE, '') as UPLOAD_NOTE" &
             " from tb_execute_file_update_manager order by FOLDER_NAME, FILE_CODE"
@@ -78,7 +78,10 @@ Public Class frm_PG_Upload
 
         FILE_LIST_BEFORE_LOAD = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return FILE_LIST_BEFORE_LOAD
+            Exit Function
+        End If
 
         Dim strSql As String = "select ifnull(" & col_name & ", '') as " & col_name & " from tb_execute_file_update_manager"
         strSql += " where file_code = '" & file_code & "'"
@@ -259,7 +262,7 @@ Public Class frm_PG_Upload
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

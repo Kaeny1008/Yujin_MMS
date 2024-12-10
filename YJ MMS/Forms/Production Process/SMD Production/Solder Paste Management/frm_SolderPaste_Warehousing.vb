@@ -92,7 +92,7 @@ Public Class frm_SolderPaste_Warehousing
 
         CB_Vendor.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000006' order by sub_code_name"
@@ -111,7 +111,7 @@ Public Class frm_SolderPaste_Warehousing
 
     Private Sub CB_Vendor_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Vendor.SelectionChangeCommitted
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
         CB_Product.Items.Clear()
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
@@ -205,7 +205,7 @@ Public Class frm_SolderPaste_Warehousing
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

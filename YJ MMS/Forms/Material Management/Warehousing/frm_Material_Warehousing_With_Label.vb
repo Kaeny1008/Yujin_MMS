@@ -144,7 +144,7 @@ Public Class frm_Material_Warehousing_With_Label
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim checkResult As String = String.Empty
         If RadioButton1.Checked Then
@@ -206,7 +206,7 @@ Public Class frm_Material_Warehousing_With_Label
             Grid_MaterialList.Redraw = False
             Grid_MaterialList.Rows.Count = 1
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             'Load_CustomerList()
             Load_MaterialList(Grid_DocumentsList(gridRow, 1))
@@ -331,7 +331,7 @@ Public Class frm_Material_Warehousing_With_Label
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_warehousing(2"
         strSQL += ",'" & documentNo & "'"
@@ -377,7 +377,7 @@ Public Class frm_Material_Warehousing_With_Label
 
     '    TB_CustomerCode.Text = String.Empty
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
     '    strSQL += " from tb_customer_list"
@@ -484,7 +484,10 @@ Public Class frm_Material_Warehousing_With_Label
 
     Private Function Check_Lot_No() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_warehousing(3"
         strSQL += ", null"
@@ -675,7 +678,7 @@ Public Class frm_Material_Warehousing_With_Label
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -888,7 +891,7 @@ Public Class frm_Material_Warehousing_With_Label
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -940,7 +943,7 @@ Public Class frm_Material_Warehousing_With_Label
 
             CB_Vendor.Items.Clear()
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Dim strSQL As String = "call sp_mms_material_warehousing_with_label(0"
             strSQL += ",'" & TB_ItemCode.Text & "'"
@@ -1087,7 +1090,7 @@ Public Class frm_Material_Warehousing_With_Label
 
         If MSG_Question(Me, "입고번호(MW No.) : " & mwNo & vbCrLf & "를 삭제 하시겠습니까?") = False Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

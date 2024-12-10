@@ -183,7 +183,7 @@ Public Class frm_OQC_Register
 
         TB_InspectedQty.Text = 0
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc(2"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -223,7 +223,7 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc(0"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -262,9 +262,12 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
-
         Dim checkOK As Boolean = False
+
+        If DBConnect() = False Then
+            Return checkOK
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_oqc(1"
         strSQL += ", null"
@@ -402,9 +405,12 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
-
         Dim checkOK As Boolean = False
+
+        If DBConnect() = False Then
+            Return checkOK
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_oqc(3"
         strSQL += ", null"
@@ -446,7 +452,7 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim checkOK As Boolean = False
 
@@ -624,7 +630,10 @@ Public Class frm_OQC_Register
 
         Dim not_inspect As Integer = 0
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_oqc(6"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -657,7 +666,10 @@ Public Class frm_OQC_Register
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Sever Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -802,7 +814,7 @@ Public Class frm_OQC_Register
         Grid_BoxList.Redraw = False
         Grid_BoxList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc(4"
         strSQL += ", null"

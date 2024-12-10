@@ -94,7 +94,7 @@ Public Class frm_Material_Transfer
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -118,7 +118,7 @@ Public Class frm_Material_Transfer
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -149,6 +149,7 @@ Public Class frm_Material_Transfer
         TB_Vendor.Text = String.Empty
         TB_1stQty.Text = String.Empty
         TB_2ndQty.Text = String.Empty
+        TextBox2.Text = String.Empty
 
     End Sub
 
@@ -192,9 +193,9 @@ Public Class frm_Material_Transfer
                 Exit Sub
             End If
 
-            If RadioButton1.Checked Then
+            If RadioButton1.Checked Or RadioButton6.Checked Then
                 If WorkSite_Move(mwNo) = False Then Exit Sub
-            Else
+            ElseIf RadioButton2.Checked Then
                 If Warehouse_Move(mwNo) = False Then Exit Sub
             End If
 
@@ -319,9 +320,12 @@ Public Class frm_Material_Transfer
 
     Private Function PartIndex_Check() As String
 
-        DBConnect()
-
         Dim checkResult As String = String.Empty
+
+        If DBConnect() = False Then
+            Return checkResult
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "0"
@@ -368,7 +372,10 @@ Public Class frm_Material_Transfer
 
         Dim mwNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return mwNo
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "1"
@@ -406,7 +413,10 @@ Public Class frm_Material_Transfer
 
         Dim part_status As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return part_status
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "2"
@@ -500,7 +510,7 @@ Public Class frm_Material_Transfer
             status = "In"
         End If
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select f_mms_material_transfer_no("
         strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
@@ -521,7 +531,10 @@ Public Class frm_Material_Transfer
 
     Private Function Save_Data() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -619,7 +632,7 @@ Public Class frm_Material_Transfer
     'Private Sub Delete_TempCode()
 
     '    If tempCode_Delete = True Then
-    '        DBConnect()
+    '        If DBConnect() = False Then Exit Sub
 
     '        Dim sqlTran As MySqlTransaction
     '        Dim sqlCmd As MySqlCommand
@@ -668,7 +681,7 @@ Public Class frm_Material_Transfer
         If RadioButton4.Checked Then section = "Out"
         If RadioButton3.Checked Then section = "In"
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "3"
@@ -725,7 +738,7 @@ Public Class frm_Material_Transfer
             Grid_History.Redraw = False
             Grid_History.Rows.Count = 1
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Dim strSQL As String = "call sp_mms_material_transfer("
             strSQL += "4"
@@ -927,7 +940,10 @@ Public Class frm_Material_Transfer
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -1009,7 +1025,10 @@ Public Class frm_Material_Transfer
 
         Dim newMwNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return newMwNo
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "1"

@@ -35,10 +35,10 @@ Partial Class DeviceData
         Me.Tb_modelCode = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Cb_modelName = New System.Windows.Forms.ComboBox()
-        Me.Btn_newCustomer = New System.Windows.Forms.Button()
-        Me.Tb_customerCode = New System.Windows.Forms.TextBox()
+        Me.Btn_newCUSTOMER = New System.Windows.Forms.Button()
+        Me.Tb_CUSTOMERCode = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.Cb_customerName = New System.Windows.Forms.ComboBox()
+        Me.Cb_CUSTOMERName = New System.Windows.Forms.ComboBox()
         Me.Grid_DeviceData = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.BTN_Search = New System.Windows.Forms.ToolStripButton()
@@ -87,10 +87,10 @@ Partial Class DeviceData
         Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_modelCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_modelName)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Btn_newCustomer)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_customerCode)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Btn_newCUSTOMER)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Tb_CUSTOMERCode)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label7)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_customerName)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_CUSTOMERName)
         '
         'SplitContainer1.Panel2
         '
@@ -224,29 +224,29 @@ Partial Class DeviceData
         Me.Cb_modelName.Size = New System.Drawing.Size(317, 21)
         Me.Cb_modelName.TabIndex = 25
         '
-        'Btn_newCustomer
+        'Btn_newCUSTOMER
         '
-        Me.Btn_newCustomer.Image = Global.YJ_MMS_MMPS.My.Resources.Resources.plus_blue
-        Me.Btn_newCustomer.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Btn_newCustomer.Location = New System.Drawing.Point(528, 9)
-        Me.Btn_newCustomer.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Btn_newCustomer.Name = "Btn_newCustomer"
-        Me.Btn_newCustomer.Size = New System.Drawing.Size(60, 23)
-        Me.Btn_newCustomer.TabIndex = 23
-        Me.Btn_newCustomer.Text = "신규"
-        Me.Btn_newCustomer.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.Btn_newCustomer.UseVisualStyleBackColor = True
+        Me.Btn_newCUSTOMER.Image = Global.YJ_MMS_MMPS.My.Resources.Resources.plus_blue
+        Me.Btn_newCUSTOMER.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.Btn_newCUSTOMER.Location = New System.Drawing.Point(528, 9)
+        Me.Btn_newCUSTOMER.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Btn_newCUSTOMER.Name = "Btn_newCUSTOMER"
+        Me.Btn_newCUSTOMER.Size = New System.Drawing.Size(60, 23)
+        Me.Btn_newCUSTOMER.TabIndex = 23
+        Me.Btn_newCUSTOMER.Text = "신규"
+        Me.Btn_newCUSTOMER.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.Btn_newCUSTOMER.UseVisualStyleBackColor = True
         '
-        'Tb_customerCode
+        'Tb_CUSTOMERCode
         '
-        Me.Tb_customerCode.BackColor = System.Drawing.SystemColors.Window
-        Me.Tb_customerCode.Enabled = False
-        Me.Tb_customerCode.Font = New System.Drawing.Font("굴림", 9.0!)
-        Me.Tb_customerCode.Location = New System.Drawing.Point(136, 10)
-        Me.Tb_customerCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_customerCode.Name = "Tb_customerCode"
-        Me.Tb_customerCode.Size = New System.Drawing.Size(75, 21)
-        Me.Tb_customerCode.TabIndex = 22
+        Me.Tb_CUSTOMERCode.BackColor = System.Drawing.SystemColors.Window
+        Me.Tb_CUSTOMERCode.Enabled = False
+        Me.Tb_CUSTOMERCode.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.Tb_CUSTOMERCode.Location = New System.Drawing.Point(136, 10)
+        Me.Tb_CUSTOMERCode.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Tb_CUSTOMERCode.Name = "Tb_CUSTOMERCode"
+        Me.Tb_CUSTOMERCode.Size = New System.Drawing.Size(75, 21)
+        Me.Tb_CUSTOMERCode.TabIndex = 22
         '
         'Label7
         '
@@ -262,16 +262,16 @@ Partial Class DeviceData
         Me.Label7.Text = "고객사"
         Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
-        'Cb_customerName
+        'Cb_CUSTOMERName
         '
-        Me.Cb_customerName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.Cb_customerName.Font = New System.Drawing.Font("굴림", 9.75!)
-        Me.Cb_customerName.FormattingEnabled = True
-        Me.Cb_customerName.Location = New System.Drawing.Point(211, 10)
-        Me.Cb_customerName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Cb_customerName.Name = "Cb_customerName"
-        Me.Cb_customerName.Size = New System.Drawing.Size(317, 21)
-        Me.Cb_customerName.TabIndex = 12
+        Me.Cb_CUSTOMERName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.Cb_CUSTOMERName.Font = New System.Drawing.Font("굴림", 9.75!)
+        Me.Cb_CUSTOMERName.FormattingEnabled = True
+        Me.Cb_CUSTOMERName.Location = New System.Drawing.Point(211, 10)
+        Me.Cb_CUSTOMERName.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Cb_CUSTOMERName.Name = "Cb_CUSTOMERName"
+        Me.Cb_CUSTOMERName.Size = New System.Drawing.Size(317, 21)
+        Me.Cb_CUSTOMERName.TabIndex = 12
         '
         'Grid_DeviceData
         '
@@ -430,11 +430,11 @@ Partial Class DeviceData
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents Grid_DeviceData As C1.Win.C1FlexGrid.C1FlexGrid
     Friend WithEvents Label7 As Label
-    Friend WithEvents Cb_customerName As ComboBox
-    Friend WithEvents Tb_customerCode As TextBox
+    Friend WithEvents Cb_CUSTOMERName As ComboBox
+    Friend WithEvents Tb_CUSTOMERCode As TextBox
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents BTN_Search As ToolStripButton
-    Friend WithEvents Btn_newCustomer As Button
+    Friend WithEvents Btn_newCUSTOMER As Button
     Friend WithEvents Btn_newModel As Button
     Friend WithEvents Tb_modelCode As TextBox
     Friend WithEvents Label1 As Label

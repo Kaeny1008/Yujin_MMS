@@ -129,7 +129,7 @@ Public Class frm_CustomerResistration
 
         newCustomerCode = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Function
 
         Dim strSQL As String = "select customer_code from tb_customer_list order by customer_code desc limit 1"
 
@@ -183,7 +183,7 @@ Public Class frm_CustomerResistration
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -256,7 +256,7 @@ Public Class frm_CustomerResistration
         grid_CustomerList.Redraw = False
         grid_CustomerList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, customer_name, spg, customer_note, use_part_code"
         strSQL += " from tb_customer_list"

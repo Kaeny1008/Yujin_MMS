@@ -25,7 +25,7 @@ Partial Class DeviceData_Sub
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(DeviceData_Sub))
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Tb_Customer = New System.Windows.Forms.TextBox()
+        Me.Tb_CUSTOMER = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Tb_mainParts = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -54,7 +54,7 @@ Partial Class DeviceData_Sub
         Me.Panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel1.Controls.Add(Me.TB_mainParts_Maker)
         Me.Panel1.Controls.Add(Me.Label7)
-        Me.Panel1.Controls.Add(Me.Tb_Customer)
+        Me.Panel1.Controls.Add(Me.Tb_CUSTOMER)
         Me.Panel1.Controls.Add(Me.Label6)
         Me.Panel1.Controls.Add(Me.Tb_mainParts)
         Me.Panel1.Controls.Add(Me.Label5)
@@ -70,14 +70,14 @@ Partial Class DeviceData_Sub
         Me.Panel1.Size = New System.Drawing.Size(776, 115)
         Me.Panel1.TabIndex = 1
         '
-        'Tb_Customer
+        'Tb_CUSTOMER
         '
-        Me.Tb_Customer.Enabled = False
-        Me.Tb_Customer.Location = New System.Drawing.Point(178, 33)
-        Me.Tb_Customer.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
-        Me.Tb_Customer.Name = "Tb_Customer"
-        Me.Tb_Customer.Size = New System.Drawing.Size(510, 21)
-        Me.Tb_Customer.TabIndex = 12
+        Me.Tb_CUSTOMER.Enabled = False
+        Me.Tb_CUSTOMER.Location = New System.Drawing.Point(178, 33)
+        Me.Tb_CUSTOMER.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Tb_CUSTOMER.Name = "Tb_CUSTOMER"
+        Me.Tb_CUSTOMER.Size = New System.Drawing.Size(510, 21)
+        Me.Tb_CUSTOMER.TabIndex = 12
         '
         'Label6
         '
@@ -295,7 +295,7 @@ Partial Class DeviceData_Sub
     Friend WithEvents BTN_deleteLine As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
     Friend WithEvents BTN_Save As ToolStripMenuItem
-    Friend WithEvents Tb_Customer As TextBox
+    Friend WithEvents Tb_CUSTOMER As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents TB_mainParts_Maker As TextBox
     Friend WithEvents Label7 As Label

@@ -8,7 +8,8 @@ Public Class frm_Main
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        VER_OPEN()
+        'VER_OPEN()
+        '이게 왜 있지? 241129 주석처리
 
         Timer1.Interval = 1000
         Timer1.Enabled = True
@@ -25,6 +26,7 @@ Public Class frm_Main
 
     Private Sub VER_OPEN()
 
+        '현재 프로그램의 버전을 기록하기 위함.
         pg_ver = String.Empty
 
         Dim ReadOk As Integer
@@ -73,6 +75,12 @@ Public Class frm_Main
 
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
 
+        RealCheck()
+
+    End Sub
+
+    Private Sub RealCheck()
+
         VER_OPEN()
         Console.WriteLine("PC에 저장된 버전 파일을 열었습니다.")
 
@@ -82,7 +90,7 @@ Public Class frm_Main
 
         'PG_STATUS.Text = "Program Ver. 비교가 시작 되었습니다."
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSql As String = "select file_name, folder_name, upload_date from tb_execute_file_update_manager order by folder_name, file_code"
 

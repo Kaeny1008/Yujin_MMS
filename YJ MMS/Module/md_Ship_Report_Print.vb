@@ -7,7 +7,7 @@ Module md_Ship_Report_Print
         Dim strSQL As String = String.Empty
 
         'MySQL DB에서 정보를 불러오기전에 기존 내용 삭제
-        Mdbconnect()
+        MDBConnect()
 
         Dim sqlTran_MDB As OleDb.OleDbTransaction
         Dim sqlCmd_MDB As OleDb.OleDbCommand
@@ -40,7 +40,7 @@ Module md_Ship_Report_Print
         sqlTran_MDB = mdbConnection1.BeginTransaction
 
         Try
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             strSQL = "call sp_mms_delivery(1"
             strSQL += ", null"
@@ -165,7 +165,7 @@ Module md_Ship_Report_Print
         Dim strSQL As String = String.Empty
 
         'MySQL DB에서 정보를 불러오기전에 기존 내용 삭제
-        Mdbconnect()
+        MDBConnect()
 
         Dim sqlTran_MDB As OleDb.OleDbTransaction
         Dim sqlCmd_MDB As OleDb.OleDbCommand
@@ -198,7 +198,7 @@ Module md_Ship_Report_Print
         sqlTran_MDB = mdbConnection1.BeginTransaction
 
         Try
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             strSQL = "call sp_mms_material_return(3"
             strSQL += ",  null"

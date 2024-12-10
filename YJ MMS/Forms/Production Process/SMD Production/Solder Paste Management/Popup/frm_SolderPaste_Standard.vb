@@ -9,7 +9,7 @@ Public Class frm_SolderPaste_Standard
 
     Private Sub Load_Standards()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select aging_min, limit_of_use_time, mixing_time"
         strSQL += " from tb_mms_solder_standards"
@@ -34,7 +34,7 @@ Public Class frm_SolderPaste_Standard
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -115,7 +115,7 @@ Public Class frm_Production_Information_SMD
         Grid_MagazineList.Redraw = False
         Grid_MagazineList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_status(1"
         strSQL += ", null"
@@ -161,7 +161,7 @@ Public Class frm_Production_Information_SMD
         C1FlexGrid1.Redraw = False
         C1FlexGrid1.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_status(2"
         strSQL += ", null"
@@ -203,7 +203,7 @@ Public Class frm_Production_Information_SMD
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_status(3"
         strSQL += ", null"

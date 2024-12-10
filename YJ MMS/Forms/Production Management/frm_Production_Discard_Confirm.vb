@@ -73,7 +73,7 @@ Public Class frm_Production_Discard_Confirm
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -95,7 +95,7 @@ Public Class frm_Production_Discard_Confirm
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -127,7 +127,7 @@ Public Class frm_Production_Discard_Confirm
         Grid_ConfirmList.Redraw = False
         Grid_ConfirmList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_discard_register(1"
         strSQL += ", '" & CB_ConfirmStatus.Text & "'"

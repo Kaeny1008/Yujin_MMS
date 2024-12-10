@@ -61,7 +61,7 @@ Public Class frm_WS_Fault_Register
         Grid_Fault.Redraw = False
         Grid_Fault.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(7"
         strSQL += ", '" & LB_OrderIndex.Text & "'"
@@ -210,7 +210,10 @@ Public Class frm_WS_Fault_Register
 
     Private Function WriteData() As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -352,7 +355,7 @@ Public Class frm_WS_Fault_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim comboList As String = "|"
 
@@ -389,7 +392,7 @@ Public Class frm_WS_Fault_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim comboList As String = "|"
 

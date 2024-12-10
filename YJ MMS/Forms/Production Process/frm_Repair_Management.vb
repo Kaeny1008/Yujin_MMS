@@ -87,7 +87,7 @@ Public Class frm_Repair_Management
         Grid_RepairList.Redraw = False
         Grid_RepairList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim searchString As String = "전체"
         If RadioButton2.Checked Then
@@ -209,7 +209,7 @@ Public Class frm_Repair_Management
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim comboList As String = "|"
 
@@ -264,7 +264,7 @@ Public Class frm_Repair_Management
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

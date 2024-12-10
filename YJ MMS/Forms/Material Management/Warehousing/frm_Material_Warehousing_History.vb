@@ -69,7 +69,7 @@ Public Class frm_Material_Warehousing_History
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -91,7 +91,7 @@ Public Class frm_Material_Warehousing_History
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -130,7 +130,7 @@ Public Class frm_Material_Warehousing_History
 
     Private Sub Load_ItemList()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_warehousing_history(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
@@ -160,7 +160,7 @@ Public Class frm_Material_Warehousing_History
 
     Private Sub Load_Warehousing()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_warehousing_history(1"
         strSQL += ", '" & TB_CustomerCode.Text & "'"

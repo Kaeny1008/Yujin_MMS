@@ -81,7 +81,7 @@ Public Class frm_Wave_Selective_Production_History
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -103,7 +103,7 @@ Public Class frm_Wave_Selective_Production_History
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -135,7 +135,7 @@ Public Class frm_Wave_Selective_Production_History
         Grid_HistoryList.Redraw = False
         Grid_HistoryList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_ws_production_history(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -338,9 +338,12 @@ Public Class frm_Wave_Selective_Production_History
 
     Private Function Load_Process(ByVal modelCode As String) As String
 
-        DBConnect()
-
         Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_smd_production_end(5"
         strSQL += ", null"

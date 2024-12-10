@@ -56,7 +56,7 @@ Public Class frm_AlarmHistory
         Grid_historyList.Redraw = False
         Grid_historyList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmps_history(1"
         strSQL += ",null"

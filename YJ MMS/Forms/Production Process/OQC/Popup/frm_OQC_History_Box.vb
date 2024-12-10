@@ -99,7 +99,7 @@ Public Class frm_OQC_History_Box
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc_history(1"
         strSQL += ", null"
@@ -135,7 +135,7 @@ Public Class frm_OQC_History_Box
         Grid_BoxList.Redraw = False
         Grid_BoxList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc_history(2"
         strSQL += ", null"
@@ -177,7 +177,7 @@ Public Class frm_OQC_History_Box
         C1FlexGrid1.Redraw = False
         C1FlexGrid1.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc_history(3"
         strSQL += ", null"

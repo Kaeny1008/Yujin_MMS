@@ -57,7 +57,7 @@ Public Class frm_Main
 
     Private Sub Load_AlarmList()
 
-        Mdbconnect()
+        MDBConnect()
 
         Dim strSQL As String = "select alarm_name, interval_time from tb_alarm_list where use_alarm = true"
 
@@ -231,9 +231,13 @@ Public Class frm_Main
 
     Private Sub BTN_Material_Warehousing_Click(sender As Object, e As EventArgs) Handles BTN_Material_Warehousing.Click
 
-        frm_Material_Warehousing.MdiParent = Me
-        If Not frm_Material_Warehousing.Visible Then frm_Material_Warehousing.Show()
-        frm_Material_Warehousing.Focus()
+        'frm_Material_Warehousing.MdiParent = Me
+        'If Not frm_Material_Warehousing.Visible Then frm_Material_Warehousing.Show()
+        'frm_Material_Warehousing.Focus()
+
+        frm_Material_Warehousing_New.MdiParent = Me
+        If Not frm_Material_Warehousing_New.Visible Then frm_Material_Warehousing_New.Show()
+        frm_Material_Warehousing_New.Focus()
 
     End Sub
 
@@ -511,7 +515,7 @@ Public Class frm_Main
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
         Try
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Dim strSQL As String = "call sp_mms_discard_register(0"
             strSQL += ", null"
@@ -598,6 +602,22 @@ Public Class frm_Main
         frm_Order_Status.MdiParent = Me
         If Not frm_Order_Status.Visible Then frm_Order_Status.Show()
         frm_Order_Status.Focus()
+
+    End Sub
+
+    Private Sub BTN_ChangeItemParts_Click(sender As Object, e As EventArgs) Handles BTN_ChangeItemParts.Click
+
+        frm_Change_ItemParts.MdiParent = Me
+        If Not frm_Change_ItemParts.Visible Then frm_Change_ItemParts.Show()
+        frm_Change_ItemParts.Focus()
+
+    End Sub
+
+    Private Sub BTN_Material_CheckRequirements2_Click(sender As Object, e As EventArgs) Handles BTN_Material_CheckRequirements2.Click
+
+        frm_Material_CheckRequirements2.MdiParent = Me
+        If Not frm_Material_CheckRequirements2.Visible Then frm_Material_CheckRequirements2.Show()
+        frm_Material_CheckRequirements2.Focus()
 
     End Sub
 End Class

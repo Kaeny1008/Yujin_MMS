@@ -101,7 +101,7 @@ Public Class frm_SMD_Production_Start
 
         CB_Department.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000001' order by sub_code_name"
@@ -120,7 +120,7 @@ Public Class frm_SMD_Production_Start
 
     Private Sub CB_Department_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Department.SelectionChangeCommitted
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & CB_Department.Text & "'"
@@ -143,7 +143,7 @@ Public Class frm_SMD_Production_Start
 
         CB_Line.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select last_code_name from tb_code_last"
         strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
@@ -188,7 +188,7 @@ Public Class frm_SMD_Production_Start
 
     Private Sub Load_OrderList()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_start(0"
         strSQL += ", '" & CB_Department.Text & "'"
@@ -230,7 +230,7 @@ Public Class frm_SMD_Production_Start
 
     Private Sub Load_TopBottom()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         For i = 3 To Grid_OrderList.Rows.Count - 1
             Dim strSQL As String = "call sp_mms_smd_production_start(1"
@@ -480,7 +480,10 @@ Public Class frm_SMD_Production_Start
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -549,7 +552,11 @@ Public Class frm_SMD_Production_Start
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

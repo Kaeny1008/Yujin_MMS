@@ -85,7 +85,7 @@ Public Class frm_Model_Document_List
         Grid_Document.Redraw = False
         Grid_Document.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_model_process_documents("
         strSQL += "1"
@@ -315,7 +315,10 @@ Public Class frm_Model_Document_List
 
     Private Function Process_DB_Write(ByVal selRow As Integer) As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -446,7 +449,10 @@ Public Class frm_Model_Document_List
 
     Private Function Process_DB_Delete(ByVal selRow As Integer) As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

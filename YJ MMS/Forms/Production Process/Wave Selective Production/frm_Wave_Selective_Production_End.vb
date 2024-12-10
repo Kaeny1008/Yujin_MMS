@@ -160,7 +160,7 @@ Public Class frm_Wave_Selective_Production_End
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(12"
         strSQL += ", null"
@@ -235,7 +235,7 @@ Public Class frm_Wave_Selective_Production_End
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(13"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -326,9 +326,12 @@ Public Class frm_Wave_Selective_Production_End
 
     Private Function Lastest_History() As String
 
-        DBConnect()
-
         Dim lastest_historyIndex As String = String.Empty
+
+        If DBConnect() = False Then
+            Return lastest_historyIndex
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(17"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -375,7 +378,7 @@ Public Class frm_Wave_Selective_Production_End
         End If
 
         frm_WS_Fault_Register.LB_OrderIndex.Text = TB_OrderIndex.Text
-        frm_WS_Fault_Register.LB_HistoryIndex.Text = historyIndex
+        frm_WS_Fault_Register.LB_HistoryIndex.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
         frm_WS_Fault_Register.LB_ItemCode.Text = TB_ItemCode.Text
         frm_WS_Fault_Register.LB_ItemName.Text = TB_ItemName.Text
         frm_WS_Fault_Register.LB_SMDLine.Text = CB_Line.Text
@@ -561,9 +564,12 @@ Public Class frm_Wave_Selective_Production_End
 
     Private Function Load_Process() As String
 
-        DBConnect()
-
         Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(8"
         strSQL += ", null"
@@ -622,7 +628,7 @@ Public Class frm_Wave_Selective_Production_End
             .TB_OrderQty.Text = TB_OrderQty.Text
             .TB_ModelCode.Text = TB_ModelCode.Text
             .TB_Process.Text = CB_Line.Text
-            .TB_HistoryNo.Text = historyIndex
+            .TB_HistoryNo.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
 
             If .ShowDialog() = DialogResult.OK Then
                 Load_InspectList()

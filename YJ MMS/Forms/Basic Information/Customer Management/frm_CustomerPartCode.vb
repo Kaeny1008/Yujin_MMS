@@ -86,7 +86,7 @@ Public Class frm_CustomerPartCode
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -108,7 +108,7 @@ Public Class frm_CustomerPartCode
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim usePartCode As String = String.Empty
 
@@ -307,7 +307,7 @@ Public Class frm_CustomerPartCode
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_customer_part_code(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -350,7 +350,7 @@ Public Class frm_CustomerPartCode
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

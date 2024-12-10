@@ -140,7 +140,9 @@ Public Class frm_Material_CheckRequirements
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then
+            Exit Sub
+        End If
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(0"
         strSQL += ", null"
@@ -165,7 +167,8 @@ Public Class frm_Material_CheckRequirements
                                           sqlDR("item_code") & vbTab &
                                           Format(sqlDR("modify_order_quantity"), "#,##0") & vbTab &
                                           sqlDR("management_no") & vbTab &
-                                          sqlDR("main_item_code")
+                                          sqlDR("main_item_code") & vbTab &
+                                          "미지정"
             Grid_OrderList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -188,6 +191,26 @@ Public Class frm_Material_CheckRequirements
 
         Grid_OrderList.Row = selRow
 
+        If e.Button = MouseButtons.Right Then
+            If Grid_OrderList(selRow, 0) = "T" Then
+                BTN_RowDelete.Enabled = True
+            Else
+                BTN_RowDelete.Enabled = False
+            End If
+            CMS_Order_Menu.Show(Grid_OrderList, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub Grid_OrderList_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Grid_OrderList.MouseDoubleClick
+
+        Dim selRow As Integer = Grid_OrderList.MouseRow
+        Dim selCol As Integer = Grid_OrderList.MouseCol
+
+        If selRow < 0 Then Exit Sub
+
+        Grid_OrderList.Row = selRow
+
         If e.Button = MouseButtons.Left Then
             If Grid_OrderList.GetCellCheck(selRow, 1) = CheckEnum.Checked Then
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Unchecked)
@@ -196,8 +219,6 @@ Public Class frm_Material_CheckRequirements
                 Grid_OrderList.SetCellCheck(selRow, 1, CheckEnum.Checked)
                 Grid_OrderList.Rows(selRow).StyleNew.BackColor = Color.LightSkyBlue
             End If
-        ElseIf e.Button = MouseButtons.Right Then
-            CMS_Menu.Show(Grid_OrderList, New Point(e.X, e.Y))
         End If
 
     End Sub
@@ -206,7 +227,7 @@ Public Class frm_Material_CheckRequirements
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -228,7 +249,7 @@ Public Class frm_Material_CheckRequirements
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -302,31 +323,33 @@ Public Class frm_Material_CheckRequirements
             End If
         Next
 
-        'Grid_MaterialList.Redraw = True
-        'Thread_LoadingFormEnd()
-        'Exit Sub
-
-        Dim nowCode() As String = checkModelCode.Split("|")
-        Dim nowManage() As String = checkManagementNo.Split("|")
-
         If checkCount = 0 Then
             Thread_LoadingFormEnd()
             MSG_Information(Me, "산출하려는 모델을 선택하여 주십시오.")
             Exit Sub
         End If
 
+        'Grid_MaterialList.Redraw = True
+        'Thread_LoadingFormEnd()
+        'Exit Sub
+
         For i = 1 To Grid_OrderList.Rows.Count - 1
-            If Trim(Grid_OrderList(i, 4)) = String.Empty Or
-                Trim(Grid_OrderList(i, 5)) = String.Empty Or
-                Trim(Grid_OrderList(i, 6)) = String.Empty Or
-                Trim(Grid_OrderList(i, 7)) = String.Empty Then
-                Thread_LoadingFormEnd()
-                MSG_Information(Me, "입력되지 않은 항목이 존재 합니다.")
-                Exit Sub
+            If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
+                If Trim(Grid_OrderList(i, 4)) = String.Empty Or
+                    Trim(Grid_OrderList(i, 5)) = String.Empty Or
+                    Trim(Grid_OrderList(i, 6)) = String.Empty Or
+                    Trim(Grid_OrderList(i, 7)) = String.Empty Then
+                    Thread_LoadingFormEnd()
+                    MSG_Information(Me, "입력되지 않은 항목이 존재 합니다.")
+                    Exit Sub
+                End If
             End If
         Next
 
-        DBConnect()
+        Dim nowCode() As String = checkModelCode.Split("|")
+        Dim nowManage() As String = checkManagementNo.Split("|")
+
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(1"
         strSQL += ", " & checkCount & ""
@@ -440,7 +463,7 @@ Public Class frm_Material_CheckRequirements
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -451,8 +474,11 @@ Public Class frm_Material_CheckRequirements
         Try
             For i = 1 To Grid_OrderList.Rows.Count - 1
                 If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
-                    strSQL += "update tb_mms_order_register_list set order_status = 'Confirmation completed'"
-                    strSQL += ", management_no = (select max(management_no) from tb_model_bom where model_code = '" & Grid_OrderList(i, 5) & "')"
+                    strSQL += "update tb_mms_order_register_list set "
+                    strSQL += " order_status = 'Confirmation completed'"
+                    If Grid_OrderList(i, 8).ToString.Equals("미지정") Then
+                        strSQL += ", management_no = (select max(management_no) from tb_model_bom where model_code = '" & Grid_OrderList(i, 5) & "')"
+                    End If
                     strSQL += " where order_index = '" & Grid_OrderList(i, 2) & "';"
                 End If
             Next
@@ -516,6 +542,12 @@ Public Class frm_Material_CheckRequirements
 
     End Sub
 
+    Private Sub BTN_RowDelete_Click(sender As Object, e As EventArgs) Handles BTN_RowDelete.Click
+
+        Grid_OrderList.RemoveItem(Grid_OrderList.Row)
+
+    End Sub
+
     Private Sub BTN_RowAdd_Click(sender As Object, e As EventArgs) Handles BTN_RowAdd.Click
 
         Grid_OrderList.AddItem("T")
@@ -563,7 +595,10 @@ Public Class frm_Material_CheckRequirements
 
         Dim returnString As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "SELECT model_code"
         strSQL += " FROM tb_model_list"
@@ -593,15 +628,51 @@ Public Class frm_Material_CheckRequirements
         Dim showString As String = "품번 : " & Grid_OrderList(selRow, 6)
         showString += vbCrLf & "주문수량 : " & Grid_OrderList(selRow, 7)
         showString += vbCrLf & "납기일자 : " & Grid_OrderList(selRow, 3)
+        showString += vbCrLf & "주문번호 : " & Grid_OrderList(selRow, 2)
         showString += vbCrLf & vbCrLf & "를 관리번호를 지정 하시겠습니까?"
 
         If MSG_Question(Me, showString) = False Then Exit Sub
 
+
+
         frm_Order_Split.orderIndex = Grid_OrderList(selRow, 2)
         frm_Order_Split.formName = "소요량 산출"
+        If Grid_OrderList(selRow, 2) = String.Empty Then
+            frm_Order_Split.tempOrder = True
+            frm_Order_Split.tempModelCode = Grid_OrderList(selRow, 5)
+            frm_Order_Split.tempRowNum = selRow
+        Else
+            frm_Order_Split.tempOrder = False
+            frm_Order_Split.tempModelCode = String.Empty
+        End If
         If Not frm_Order_Split.Visible Then frm_Order_Split.Show()
         frm_Order_Split.CheckBox1.Checked = True
         frm_Order_Split.Focus()
+
+    End Sub
+
+    Private Sub Grid_MaterialList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_MaterialList.MouseClick
+
+        Dim selRow As Integer = Grid_MaterialList.MouseRow
+
+        If selRow < 5 Then Exit Sub
+
+        If e.Button = MouseButtons.Right Then
+            Grid_MaterialList.Row = selRow
+            CMS_GridMenu.Show(Grid_MaterialList, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_Use_Information_Click(sender As Object, e As EventArgs) Handles BTN_Use_Information.Click
+
+        Dim selRow As Integer = Grid_MaterialList.Row
+        Dim selPartCode As String = Grid_MaterialList(selRow, 1)
+
+        frm_Material_Use_Information.TB_PartCode.Text = selPartCode
+
+        If Not frm_Material_Use_Information.Visible Then frm_Material_Use_Information.Show()
+        frm_Material_Use_Information.Focus()
 
     End Sub
 End Class

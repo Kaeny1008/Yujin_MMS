@@ -126,7 +126,7 @@ Public Class frm_Order_Excel_File_Open
 
     'Private Function RegistrationCheck(ByVal itemCode As String, ByVal rowNum As Integer) As String
 
-    '    DBConnect()
+    '    If DBConnect() = False Then Exit Sub
 
     '    Dim existCheck() As String = Load_ExistCheck(itemCode).Split("|")
     '    Dim itemRegister As String = existCheck(0)

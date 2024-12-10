@@ -44,25 +44,25 @@ Public Class DeviceData_Sub
 
     Private Sub Data_Load()
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
         Dim strSQL As String = String.Empty
-        If Tb_Customer.Text = "J산업" Or
-            Tb_Customer.Text = "전유산업" Or
-            Tb_Customer.Text = "L-Tech" Or
-            Tb_Customer.Text = "allRadio" Or
-            Tb_Customer.Text = "TopRun" Or
-            Tb_Customer.Text = "덕일전자" Or
-            Tb_Customer.Text.Contains("CI Digital") Or
-            Tb_Customer.Text = "Mangoslab" Then
-            strSQL = "select ds_code, part_maker, part_no, ds_note from tb_mmps_device_data_sub2"
-            strSQL += " where main_part_no = '" & Tb_mainParts.Text & "' and customer = '" & Tb_Customer.Text & "' order by part_no"
+        If Tb_CUSTOMER.Text = "J산업" Or
+            Tb_CUSTOMER.Text = "전유산업" Or
+            Tb_CUSTOMER.Text = "L-Tech" Or
+            Tb_CUSTOMER.Text = "allRadio" Or
+            Tb_CUSTOMER.Text = "TopRun" Or
+            Tb_CUSTOMER.Text = "덕일전자" Or
+            Tb_CUSTOMER.Text.Contains("CI Digital") Or
+            Tb_CUSTOMER.Text = "Mangoslab" Then
+            strSQL = "select DS_CODE, PART_MAKER, PART_NO, DS_NOTE from TB_DEVICE_DATA_SUB2"
+            strSQL += " where MAIN_PART_NO = '" & Tb_mainParts.Text & "' and CUSTOMER = '" & Tb_CUSTOMER.Text & "' order by PART_NO"
         Else
-            strSQL = "Select ds_code, part_maker, part_no, ds_note from tb_mmps_device_data_sub"
-            strSQL += " where dd_code = '" & Tb_DDCode.Text & "' order by part_no"
+            strSQL = "Select DS_CODE, PART_MAKER, PART_NO, DS_NOTE from TB_DEVICE_DATA_SUB"
+            strSQL += " where DD_CODE = '" & Tb_DDCode.Text & "' order by PART_NO"
         End If
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -70,10 +70,10 @@ Public Class DeviceData_Sub
 
         Do While sqlDR.Read
             Dim insert_string As String = Grid_DeviceData.Rows.Count & vbTab &
-                                              sqlDR("ds_code") & vbTab &
-                                              sqlDR("part_maker") & vbTab &
-                                              sqlDR("part_no") & vbTab &
-                                              sqlDR("ds_note")
+                                              sqlDR("DS_CODE") & vbTab &
+                                              sqlDR("PART_MAKER") & vbTab &
+                                              sqlDR("PART_NO") & vbTab &
+                                              sqlDR("DS_NOTE")
             Grid_DeviceData.AddItem(insert_string)
         Loop
         sqlDR.Close()
@@ -117,27 +117,27 @@ Public Class DeviceData_Sub
 
         Dim newCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = String.Empty
-        If Tb_Customer.Text = "J산업" Or
-            Tb_Customer.Text = "전유산업" Or
-            Tb_Customer.Text = "TopRun" Or
-            Tb_Customer.Text = "덕일전자" Or
-            Tb_Customer.Text = "CI Digital" Or
-            Tb_Customer.Text = "L-Tech" Or
-            Tb_Customer.Text.Contains("CI Digital") Or
-            Tb_Customer.Text = "Mangoslab" Then
-            strSQL = "select ds_code from tb_mmps_device_data_sub2 order by ds_code desc limit 1"
+        If Tb_CUSTOMER.Text = "J산업" Or
+            Tb_CUSTOMER.Text = "전유산업" Or
+            Tb_CUSTOMER.Text = "TopRun" Or
+            Tb_CUSTOMER.Text = "덕일전자" Or
+            Tb_CUSTOMER.Text = "CI Digital" Or
+            Tb_CUSTOMER.Text = "L-Tech" Or
+            Tb_CUSTOMER.Text.Contains("CI Digital") Or
+            Tb_CUSTOMER.Text = "Mangoslab" Then
+            strSQL = "select DS_CODE from TB_DEVICE_DATA_SUB2 order by DS_CODE desc limit 1"
         Else
-            strSQL = "select ds_code from tb_mmps_device_data_sub order by ds_code desc limit 1"
+            strSQL = "select DS_CODE from TB_DEVICE_DATA_SUB order by DS_CODE desc limit 1"
         End If
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            newCode = sqlDR("ds_code")
+            newCode = sqlDR("DS_CODE")
         Loop
         sqlDR.Close()
 
@@ -210,7 +210,7 @@ Public Class DeviceData_Sub
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -222,59 +222,59 @@ Public Class DeviceData_Sub
 
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-            If Tb_Customer.Text = "J산업" Or
-                Tb_Customer.Text = "전유산업" Or
-                Tb_Customer.Text = "allRadio" Or
-                Tb_Customer.Text = "L-Tech" Or
-                Tb_Customer.Text = "덕일전자" Or
-                Tb_Customer.Text.Contains("CI Digital") Or
-                Tb_Customer.Text = "TopRun" Or
-                Tb_Customer.Text = "Mangoslab" Then
+            If Tb_CUSTOMER.Text = "J산업" Or
+                Tb_CUSTOMER.Text = "전유산업" Or
+                Tb_CUSTOMER.Text = "allRadio" Or
+                Tb_CUSTOMER.Text = "L-Tech" Or
+                Tb_CUSTOMER.Text = "덕일전자" Or
+                Tb_CUSTOMER.Text.Contains("CI Digital") Or
+                Tb_CUSTOMER.Text = "TopRun" Or
+                Tb_CUSTOMER.Text = "Mangoslab" Then
                 For i = 1 To Grid_DeviceData.Rows.Count - 1
                     If Grid_DeviceData(i, 0).ToString = "N" Then
-                        strSQL += "Insert Into tb_mmps_device_data_sub2(ds_code, CUSTOMER, main_part_maker, main_part_no, part_maker, part_no, ds_note) values"
+                        strSQL += "Insert Into TB_DEVICE_DATA_SUB2(DS_CODE, CUSTOMER, MAIN_PART_MAKER, MAIN_PART_NO, PART_MAKER, PART_NO, DS_NOTE) values"
                         strSQL += "('" & Grid_DeviceData(i, 1) & "'"
-                        strSQL += ",'" & Tb_Customer.Text & "'"
+                        strSQL += ",'" & Tb_CUSTOMER.Text & "'"
                         strSQL += ",'" & TB_mainParts_Maker.Text & "'"
                         strSQL += ",'" & Tb_mainParts.Text & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 2) & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 3) & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 4) & "');"
                     ElseIf Grid_DeviceData(i, 0).ToString = "M" Then
-                        strSQL += "update tb_mmps_device_data_sub2 set"
-                        strSQL += " part_maker = '" & Grid_DeviceData(i, 2) & "'"
-                        strSQL += ", part_no = '" & Grid_DeviceData(i, 3) & "'"
-                        strSQL += ", ds_note = '" & Grid_DeviceData(i, 4) & "'"
-                        strSQL += " where ds_code = '" & Grid_DeviceData(i, 1) & "'"
-                        strSQL += " and customer = '" & Tb_Customer.Text & "';"
+                        strSQL += "update TB_DEVICE_DATA_SUB2 set"
+                        strSQL += " PART_MAKER = '" & Grid_DeviceData(i, 2) & "'"
+                        strSQL += ", PART_NO = '" & Grid_DeviceData(i, 3) & "'"
+                        strSQL += ", DS_NOTE = '" & Grid_DeviceData(i, 4) & "'"
+                        strSQL += " where DS_CODE = '" & Grid_DeviceData(i, 1) & "'"
+                        strSQL += " and CUSTOMER = '" & Tb_CUSTOMER.Text & "';"
                     ElseIf Grid_DeviceData(i, 0).ToString = "D" Then
-                        strSQL += "delete from tb_mmps_device_data_sub2"
-                        strSQL += " where ds_code = '" & Grid_DeviceData(i, 1) & "'"
-                        strSQL += " and customer = '" & Tb_Customer.Text & "';"
+                        strSQL += "delete from TB_DEVICE_DATA_SUB2"
+                        strSQL += " where DS_CODE = '" & Grid_DeviceData(i, 1) & "'"
+                        strSQL += " and CUSTOMER = '" & Tb_CUSTOMER.Text & "';"
                     End If
                 Next
             Else
                 For i = 1 To Grid_DeviceData.Rows.Count - 1
                     If Grid_DeviceData(i, 0).ToString = "N" Then
                         '동일한 DD_MAIN_CODE내의 같은 PARTS No를 가지고 있다면 동일하게 적용하여 업데이트
-                        strSQL += "Insert Into tb_mmps_device_data_sub(dd_code, ds_code, part_maker, part_no, ds_note)"
+                        strSQL += "Insert Into TB_DEVICE_DATA_SUB(DD_CODE, DS_CODE, PART_MAKER, PART_NO, DS_NOTE)"
                         strSQL += " select dd_code"
                         strSQL += ",'" & Grid_DeviceData(i, 1) & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 2) & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 3) & "'"
                         strSQL += ",'" & Grid_DeviceData(i, 4) & "'"
-                        strSQL += " from tb_mmps_device_data"
-                        strSQL += " where dd_main_no = '" & ddMainCode & "'"
-                        strSQL += " and part_no = '" & Tb_mainParts.Text & "';"
+                        strSQL += " from TB_DEVICE_DATA"
+                        strSQL += " where DD_MAIN_NO = '" & ddMainCode & "'"
+                        strSQL += " and PART_NO = '" & Tb_mainParts.Text & "';"
                     ElseIf Grid_DeviceData(i, 0).ToString = "M" Then
-                        strSQL += "update tb_mmps_device_data_sub set"
-                        strSQL += " part_maker = '" & Grid_DeviceData(i, 2) & "'"
-                        strSQL += ", part_no = '" & Grid_DeviceData(i, 3) & "'"
-                        strSQL += ", ds_note = '" & Grid_DeviceData(i, 4) & "'"
-                        strSQL += " where ds_code = '" & Grid_DeviceData(i, 1) & "';"
+                        strSQL += "update TB_DEVICE_DATA_SUB set"
+                        strSQL += " PART_MAKER = '" & Grid_DeviceData(i, 2) & "'"
+                        strSQL += ", PART_NO = '" & Grid_DeviceData(i, 3) & "'"
+                        strSQL += ", DS_NOTE = '" & Grid_DeviceData(i, 4) & "'"
+                        strSQL += " where DS_CODE = '" & Grid_DeviceData(i, 1) & "';"
                     ElseIf Grid_DeviceData(i, 0).ToString = "D" Then
-                        strSQL += "delete from tb_mmps_device_data_sub"
-                        strSQL += " where ds_code = '" & Grid_DeviceData(i, 1) & "';"
+                        strSQL += "delete from TB_DEVICE_DATA_SUB"
+                        strSQL += " where DS_CODE = '" & Grid_DeviceData(i, 1) & "';"
                     End If
                 Next
             End If
@@ -347,18 +347,18 @@ Public Class DeviceData_Sub
 
         Dim makerList As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
 
-        Dim strSQL As String = "call sp_mmps_maker_list"
+        Dim strSQL As String = "call USP_MAKER_LIST"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
             If makerList = String.Empty Then
-                makerList = sqlDR("sub_code_name")
+                makerList = sqlDR("SUB_CODE_NAME")
             Else
-                makerList += "|" & sqlDR("sub_code_name")
+                makerList += "|" & sqlDR("SUB_CODE_NAME")
             End If
         Loop
         sqlDR.Close()

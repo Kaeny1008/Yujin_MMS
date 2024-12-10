@@ -57,7 +57,7 @@ Public Class frm_OQC_Falult_Register
         Grid_Fault.Redraw = False
         Grid_Fault.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc(5"
         strSQL += ", '" & LB_OrderIndex.Text & "'"
@@ -139,7 +139,10 @@ Public Class frm_OQC_Falult_Register
 
     Private Function WriteData() As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -259,7 +262,7 @@ Public Class frm_OQC_Falult_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim comboList As String = "|"
 
@@ -296,7 +299,7 @@ Public Class frm_OQC_Falult_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim comboList As String = "|"
 

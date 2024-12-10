@@ -73,7 +73,7 @@ Public Class frm_Delivery_Register
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -95,7 +95,7 @@ Public Class frm_Delivery_Register
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -126,7 +126,7 @@ Public Class frm_Delivery_Register
         Grid_POList.Redraw = False
         Grid_POList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_delivery(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -262,8 +262,12 @@ Public Class frm_Delivery_Register
 
     Private Function Load_LoaderPCB_Order(ByVal order_index As String) As String
 
-        DBConnect()
         Dim insert_String As String = String.Empty
+
+        If DBConnect() = False Then
+            Return insert_String
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_delivery(5"
         strSQL += ", null"

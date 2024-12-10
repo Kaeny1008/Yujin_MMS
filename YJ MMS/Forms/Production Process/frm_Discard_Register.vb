@@ -12,7 +12,10 @@ Public Class frm_Discard_Register
 
         Dim processList As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return processList
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_discard_register(0"
         strSQL += ", '" & TB_OrderIndex.Text & "'"
@@ -56,7 +59,7 @@ Public Class frm_Discard_Register
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -22,7 +22,7 @@ Public Class frm_WS_Magazine_Kitting
 
     Private Sub Load_Note()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(18"
         strSQL += ", '" & orderIndex & "'"
@@ -49,7 +49,7 @@ Public Class frm_WS_Magazine_Kitting
 
     Private Sub Load_Process()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(8"
         strSQL += ", null"
@@ -80,7 +80,7 @@ Public Class frm_WS_Magazine_Kitting
 
     Private Sub Load_Discard_Quantity()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(14"
         strSQL += ", '" & orderIndex & "'"
@@ -169,7 +169,7 @@ Public Class frm_WS_Magazine_Kitting
                            MessageBoxButtons.YesNo,
                            MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -252,7 +252,10 @@ Public Class frm_WS_Magazine_Kitting
 
         Dim not_inspect As Integer = 0
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(9"
         strSQL += ", '" & TB_PONo.Text & "'"
@@ -285,7 +288,10 @@ Public Class frm_WS_Magazine_Kitting
 
     Private Function CheckInputQty(ByVal totalQty As Integer) As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(10"
         strSQL += ", '" & TB_PONo.Text & "'"

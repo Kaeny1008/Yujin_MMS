@@ -77,67 +77,67 @@
             ElseIf maker.ToUpper = "OSRAM" Then
                 If InStr(barcode_string, "@") > 0 Then
                     Dim split_text() As String = Split(barcode_string, "@")
-                    Dim part_no As String = String.Empty
+                    Dim PART_NO As String = String.Empty
                     Dim lot_no As String = String.Empty
                     Dim qty As String = String.Empty
                     For i = 0 To UBound(split_text)
                         If split_text(i).Substring(0, 2) = "1P" And split_text(i).Length > 2 Then
-                            part_no = Replace(split_text(i), "1P", String.Empty)
+                            PART_NO = Replace(split_text(i), "1P", String.Empty)
                         ElseIf split_text(i).Substring(0, 2) = "1T" Then
                             lot_no = Replace(split_text(i), "1T", String.Empty)
                         ElseIf split_text(i).Substring(0, 1) = "Q" Then
                             qty = Replace(split_text(i), "Q", String.Empty)
                         End If
                     Next
-                    barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                    barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
                 End If
             ElseIf maker.ToUpper = "VISHAY" Then
                 If Len(barcode_string) > 99 Then
-                    Dim part_no As String = Trim(barcode_string.Substring(0, 18))
+                    Dim PART_NO As String = Trim(barcode_string.Substring(0, 18))
                     Dim lot_no As String = Trim(barcode_string.Substring(89, 10))
                     Dim qty As Integer = CInt(Trim(barcode_string.Substring(99, 13)))
-                    barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                    barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
                 End If
             ElseIf maker.ToUpper = "SAMSUNG" Then
                 If InStr(barcode_string, "/") > 0 Then
-                    Dim part_no As String = barcode_string.Split("/")(1)
+                    Dim PART_NO As String = barcode_string.Split("/")(1)
                     Dim lot_no As String = barcode_string.Split("/")(0)
                     Dim qty As Integer = CInt(barcode_string.Split("/")(3))
-                    barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                    barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
                 End If
             ElseIf maker.ToUpper = "SUNLOAD" Then
                 'RLE1907290238/SZ1608G331TF/FC5X03971/5/37/4000/CG90171/K7V0VDC
                 If InStr(barcode_string, "/") > 0 Then
-                    Dim part_no As String = barcode_string.Split("/")(0)
+                    Dim PART_NO As String = barcode_string.Split("/")(0)
                     Dim lot_no As String = barcode_string.Split("/")(2)
                     Dim qty As Integer = CInt(barcode_string.Split("/")(7))
-                    barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                    barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
                 End If
             ElseIf maker.ToUpper = "UNIOHM" Then
                 '810261770109-0402J0331
                 'RC11708271962R
                 '0RJ1000C678!812!0402WGJ0101TCE!10610981
                 If InStr(barcode_string, "!") > 0 Then
-                    Dim part_no As String = barcode_string.Split("!")(2)
+                    Dim PART_NO As String = barcode_string.Split("!")(2)
                     Dim lot_no As String = barcode_string.Split("!")(3)
-                    barcode_string = part_no & "!@" & lot_no
+                    barcode_string = PART_NO & "!@" & lot_no
                 ElseIf InStr(barcode_string, "-") > 0 Then
-                    Dim part_no As String = barcode_string.Split("-")(1)
-                    barcode_string = part_no
+                    Dim PART_NO As String = barcode_string.Split("-")(1)
+                    barcode_string = PART_NO
                 End If
             ElseIf maker.ToUpper = "YEONHO" Then
                 '3711-007975DF141906180624002000
                 If Len(barcode_string) = 31 Then
-                    Dim part_no As String = barcode_string.Substring(0, 11)
+                    Dim PART_NO As String = barcode_string.Substring(0, 11)
                     Dim lot_no As String = barcode_string.Substring(11, 14)
                     Dim qty As Integer = CInt(barcode_string.Substring(25, 6))
-                    barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                    barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
                 End If
             ElseIf maker.ToUpper = "ALPS" Then
                 '[)>0611Z00112ZAT040TZATS040224161971000002989V1007088PSKRMAAE0101PSKRMAAE010Q100001TJ449710ZAB1K2559698821LJPK60040190244K1017Z10
 
                 'Dim split_text() As String = Split(barcode_string, Chr(29))
-                'Dim part_no As String = String.Empty
+                'Dim PART_NO As String = String.Empty
                 'Dim lot_no As String = String.Empty
                 'Dim qty As String = String.Empty
 
@@ -145,7 +145,7 @@
 
                 'For i = 0 To UBound(split_text)
                 '    If split_text(i).Substring(0, 2) = "1P" And split_text(i).Length > 2 Then
-                '        part_no = Replace(split_text(i), "1P", String.Empty)
+                '        PART_NO = Replace(split_text(i), "1P", String.Empty)
                 '    ElseIf split_text(i).Substring(0, 2) = "1T" Then
                 '        lot_no = Replace(split_text(i), "1T", String.Empty)
                 '    ElseIf split_text(i).Substring(0, 1) = "Q" Then
@@ -157,11 +157,11 @@
                 Dim loc_1T As Integer = InStr(barcode_string, "1T")
                 Dim loc_1K As Integer = InStr(barcode_string, "1K")
 
-                Dim part_no As String = barcode_string.Substring(loc_1P + 1, loc_Q - loc_1P - 2)
+                Dim PART_NO As String = barcode_string.Substring(loc_1P + 1, loc_Q - loc_1P - 2)
                 Dim lot_no As String = barcode_string.Substring(loc_1T + 1, loc_1K - loc_1T - 2)
                 Dim qty As Integer = barcode_string.Substring(loc_Q, loc_1T - loc_Q - 1)
 
-                barcode_string = part_no & "!@" & lot_no & "!@" & qty
+                barcode_string = PART_NO & "!@" & lot_no & "!@" & qty
             End If
         Catch ex As Exception
 

@@ -45,7 +45,7 @@ Public Class frm_DeviceData_PartsMapping
 
     Private Sub Data_Load()
 
-        'DBConnect()
+        'If DBConnect() = False Then Exit Sub
 
         'Grid_DeviceData.Redraw = False
         'Grid_DeviceData.Rows.Count = 1
@@ -81,7 +81,7 @@ Public Class frm_DeviceData_PartsMapping
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_customer_part_code(1"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -137,7 +137,10 @@ Public Class frm_DeviceData_PartsMapping
 
         Dim newCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return newCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "select ds_code from tb_mmps_device_data_sub2 order by ds_code desc limit 1"
 
@@ -218,7 +221,7 @@ Public Class frm_DeviceData_PartsMapping
         '          MsgBoxStyle.Question + MsgBoxStyle.YesNo,
         '          form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-        'DBConnect()
+        'If DBConnect() = False Then Exit Sub
 
         'Dim sqlTran As MySqlTransaction
         'Dim sqlCmd As MySqlCommand
@@ -280,7 +283,7 @@ Public Class frm_DeviceData_PartsMapping
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -447,7 +450,10 @@ Public Class frm_DeviceData_PartsMapping
 
         Dim makerList As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return makerList
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mmps_maker_list("
         strSQL += "'" & TB_CustomerCode.Text & "'"

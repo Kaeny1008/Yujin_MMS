@@ -12,7 +12,9 @@ Module MySQL
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
 
     'DB 연결 함수
-    Public Sub DBConnect()
+    Public Function DBConnect() As Boolean
+
+        Dim returnValue As Boolean = True
 
         DBConnect1 = New MySqlConnection
         DBConnect1.ConnectionString = "Database=" & dbName &
@@ -30,13 +32,16 @@ Module MySQL
             'If Not DBConnect1.State = ConnectionState.Open Then
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
-            Dim strSql As String = "SET Names euckr;"
-            Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
+            Dim strSQL As String = "SET Names euckr;"
+            Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Catch ex As Exception
-            MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            returnValue = False
+            'MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-    End Sub
+        Return returnValue
+
+    End Function
 
     'DB 종료 함수
     Public Sub DBClose()

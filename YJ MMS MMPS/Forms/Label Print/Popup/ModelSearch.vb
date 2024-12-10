@@ -46,7 +46,7 @@ Public Class ModelSearch
 
         GRID_ModelList.Redraw = False
 
-        DBConnect()
+        If DBConnect() = False Then
 
         GRID_ModelList.Rows.Count = 1
 

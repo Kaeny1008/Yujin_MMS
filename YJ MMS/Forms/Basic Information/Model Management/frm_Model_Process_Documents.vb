@@ -59,7 +59,7 @@ Public Class frm_Model_Process_Documents
         Grid_ModelList.Redraw = False
         Grid_ModelList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_model_process_documents("
         strSQL += "0"

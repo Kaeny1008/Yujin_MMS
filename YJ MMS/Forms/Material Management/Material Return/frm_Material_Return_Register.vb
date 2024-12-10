@@ -55,7 +55,7 @@ Public Class frm_Material_Return_Register
 
     Private Sub Make_ReturnNo()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select f_mms_material_return_no("
         strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
@@ -77,7 +77,7 @@ Public Class frm_Material_Return_Register
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -100,7 +100,7 @@ Public Class frm_Material_Return_Register
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -177,7 +177,7 @@ Public Class frm_Material_Return_Register
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_return(0"
         strSQL += ", '" & part_code & "'"
@@ -234,7 +234,7 @@ Public Class frm_Material_Return_Register
 
     Private Sub TempCode_Making()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select f_mms_material_transfer_no("
         strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
@@ -257,7 +257,11 @@ Public Class frm_Material_Return_Register
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -445,7 +449,10 @@ Public Class frm_Material_Return_Register
 
         Dim exitData As Integer = 0
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return exitData
+            Exit Function
+        End If
 
         '같이쓰자 (따로 작성하지말고)
         Dim strSQL As String = "call sp_mms_material_return(7"
@@ -477,7 +484,10 @@ Public Class frm_Material_Return_Register
 
         Dim newMwNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return newMwNo
+            Exit Function
+        End If
 
         '같이쓰자 (따로 작성하지말고)
         Dim strSQL As String = "call sp_mms_material_transfer("
@@ -512,7 +522,10 @@ Public Class frm_Material_Return_Register
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -126,7 +126,7 @@ Public Class frm_Material_CheckRequirements_back
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(0"
         strSQL += ", null"
@@ -184,7 +184,7 @@ Public Class frm_Material_CheckRequirements_back
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -206,7 +206,7 @@ Public Class frm_Material_CheckRequirements_back
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -263,7 +263,7 @@ Public Class frm_Material_CheckRequirements_back
             Exit Sub
         End If
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_check_requirements(1"
         strSQL += ", " & checkCount & ""
@@ -370,7 +370,7 @@ Public Class frm_Material_CheckRequirements_back
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

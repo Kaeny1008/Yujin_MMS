@@ -30,6 +30,8 @@ Partial Class frm_Order_Excel_File_Open
         Me.BTN_EndRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_DateRow = New System.Windows.Forms.ToolStripMenuItem()
         Me.Grid_ColMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ItemCode = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ItemName = New System.Windows.Forms.ToolStripMenuItem()
@@ -38,8 +40,6 @@ Partial Class frm_Order_Excel_File_Open
         Me.BTN_EndDate = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.BTN_POChange = New System.Windows.Forms.Button()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.BTN_DateRow = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.Grid_Excel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Grid_RowMenu.SuspendLayout()
         Me.Grid_ColMenu.SuspendLayout()
@@ -62,30 +62,41 @@ Partial Class frm_Order_Excel_File_Open
         '
         Me.Grid_RowMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_StartRow, Me.BTN_EndRow, Me.ToolStripSeparator1, Me.BTN_RowDelete, Me.ToolStripSeparator3, Me.BTN_DateRow})
         Me.Grid_RowMenu.Name = "Grid_RowMenu"
-        Me.Grid_RowMenu.Size = New System.Drawing.Size(181, 126)
+        Me.Grid_RowMenu.Size = New System.Drawing.Size(115, 104)
         '
         'BTN_StartRow
         '
         Me.BTN_StartRow.Name = "BTN_StartRow"
-        Me.BTN_StartRow.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_StartRow.Size = New System.Drawing.Size(114, 22)
         Me.BTN_StartRow.Text = "시작행"
         '
         'BTN_EndRow
         '
         Me.BTN_EndRow.Name = "BTN_EndRow"
-        Me.BTN_EndRow.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_EndRow.Size = New System.Drawing.Size(114, 22)
         Me.BTN_EndRow.Text = "종료행"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(111, 6)
         '
         'BTN_RowDelete
         '
         Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(180, 22)
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(114, 22)
         Me.BTN_RowDelete.Text = "행 제외"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(111, 6)
+        '
+        'BTN_DateRow
+        '
+        Me.BTN_DateRow.Name = "BTN_DateRow"
+        Me.BTN_DateRow.Size = New System.Drawing.Size(114, 22)
+        Me.BTN_DateRow.Text = "날짜 행"
         '
         'Grid_ColMenu
         '
@@ -141,17 +152,6 @@ Partial Class frm_Order_Excel_File_Open
         Me.BTN_POChange.TabIndex = 0
         Me.BTN_POChange.Text = "PO 변환하기"
         Me.BTN_POChange.UseVisualStyleBackColor = True
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(177, 6)
-        '
-        'BTN_DateRow
-        '
-        Me.BTN_DateRow.Name = "BTN_DateRow"
-        Me.BTN_DateRow.Size = New System.Drawing.Size(180, 22)
-        Me.BTN_DateRow.Text = "날짜 행"
         '
         'frm_Order_Excel_File_Open
         '

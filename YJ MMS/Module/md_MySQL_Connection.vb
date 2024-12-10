@@ -14,7 +14,9 @@ Module md_MySQL_Connection
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
 
     'DB 연결 함수
-    Public Sub DBConnect()
+    Public Function DBConnect() As Boolean
+
+        Dim returnValue As Boolean = True
 
         dbConnection1 = New MySqlConnection
         'dbConnection1.ConnectionString = "Database=" & dbName &
@@ -42,10 +44,14 @@ Module md_MySQL_Connection
             Dim strSql As String = "SET Names euckr;"
             Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
         Catch ex As Exception
-        MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            returnValue = False
+            Thread_LoadingFormEnd()
+            MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-    End Sub
+        Return returnValue
+
+    End Function
 
     'DB 종료 함수
     Public Sub DBClose()

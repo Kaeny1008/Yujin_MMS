@@ -58,11 +58,11 @@ Public Class DeviceData
 
     End Sub
 
-    Private Sub Cb_customerName_DropDown(sender As Object, e As EventArgs) Handles Cb_customerName.DropDown
+    Private Sub Cb_CUSTOMERName_DropDown(sender As Object, e As EventArgs) Handles Cb_CUSTOMERName.DropDown
 
-        Dim cb_old_string As String = Cb_customerName.Text
+        Dim cb_old_string As String = Cb_CUSTOMERName.Text
 
-        Cb_customerName.Items.Clear()
+        Cb_CUSTOMERName.Items.Clear()
 
         DBConnect()
 
@@ -73,38 +73,38 @@ Public Class DeviceData
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Cb_customerName.Items.Add(sqlDR("CUSTOMER_NAME"))
+            Cb_CUSTOMERName.Items.Add(sqlDR("CUSTOMER_NAME"))
         Loop
         sqlDR.Close()
 
         DBClose()
 
-        Cb_customerName.Text = cb_old_string
+        Cb_CUSTOMERName.Text = cb_old_string
 
     End Sub
 
-    Private Sub Cb_customerName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_customerName.SelectedIndexChanged
+    Private Sub Cb_CUSTOMERName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_CUSTOMERName.SelectedIndexChanged
 
-        Tb_customerCode.Text = String.Empty
+        Tb_CUSTOMERCode.Text = String.Empty
 
         DBConnect()
 
         Dim strSQL As String = "select CUSTOMER_CODE from TB_CUSTOMER_LIST"
-        strSQL += " where CUSTOMER_NAME = '" & Cb_customerName.Text & "'"
+        strSQL += " where CUSTOMER_NAME = '" & Cb_CUSTOMERName.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Tb_customerCode.Text = sqlDR("CUSTOMER_CODE")
+            Tb_CUSTOMERCode.Text = sqlDR("CUSTOMER_CODE")
         Loop
         sqlDR.Close()
 
         DBClose()
 
-        If Btn_newCustomer.Text = "저장" Then
-            Cb_customerName.DropDownStyle = ComboBoxStyle.DropDownList
-            Btn_newCustomer.Text = "신규"
+        If Btn_newCUSTOMER.Text = "저장" Then
+            Cb_CUSTOMERName.DropDownStyle = ComboBoxStyle.DropDownList
+            Btn_newCUSTOMER.Text = "신규"
         End If
 
         Tb_modelCode.Text = String.Empty
@@ -128,7 +128,7 @@ Public Class DeviceData
         DBConnect()
 
         Dim strSQL As String = "select MODEL_NAME from TB_MODEL_LIST"
-        strSQL += " where CUSTOMER_CODE = '" & Tb_customerCode.Text & "'"
+        strSQL += " where CUSTOMER_CODE = '" & Tb_CUSTOMERCode.Text & "'"
         strSQL += " order by MODEL_NAME"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
@@ -145,37 +145,37 @@ Public Class DeviceData
 
     End Sub
 
-    Private Sub Btn_newCustomer_Click(sender As Object, e As EventArgs) Handles Btn_newCustomer.Click
+    Private Sub Btn_newCUSTOMER_Click(sender As Object, e As EventArgs) Handles Btn_newCUSTOMER.Click
 
-        If Btn_newCustomer.Text = "신규" Then
-            Cb_customerName.DropDownStyle = ComboBoxStyle.DropDown
-            Cb_customerName.SelectedIndex = -1
-            Btn_newCustomer.Text = "저장"
+        If Btn_newCUSTOMER.Text = "신규" Then
+            Cb_CUSTOMERName.DropDownStyle = ComboBoxStyle.DropDown
+            Cb_CUSTOMERName.SelectedIndex = -1
+            Btn_newCUSTOMER.Text = "저장"
             Cb_modelName.DropDownStyle = ComboBoxStyle.DropDownList
             Cb_modelName.SelectedIndex = -1
             Tb_modelCode.Text = String.Empty
             Cb_workLine.SelectedIndex = -1
             Cb_workSide.SelectedIndex = -1
-            Tb_customerCode.Text = Customer_Code_Make()
-            Cb_customerName.Focus()
+            Tb_CUSTOMERCode.Text = CUSTOMER_Code_Make()
+            Cb_CUSTOMERName.Focus()
         Else
-            Dim customerName As String = Trim(Cb_customerName.Text)
-            If customerName = String.Empty Then Exit Sub
-            If MsgBox("고객사명 " & customerName & "(을)를 신규로 등록 하시겟습니까?",
+            Dim CUSTOMERName As String = Trim(Cb_CUSTOMERName.Text)
+            If CUSTOMERName = String.Empty Then Exit Sub
+            If MsgBox("고객사명 " & CUSTOMERName & "(을)를 신규로 등록 하시겟습니까?",
                   MsgBoxStyle.Question + MsgBoxStyle.YesNo,
                   form_Msgbox_String) = MsgBoxResult.No Then Exit Sub
 
-            If NewCustomerAdd() = False Then Exit Sub
-            Cb_customerName.DropDownStyle = ComboBoxStyle.DropDownList
-            Btn_newCustomer.Text = "신규"
-            Cb_customerName.Items.Add(customerName)
-            Cb_customerName.SelectedIndex = Cb_customerName.Items.Count - 1
+            If NewCUSTOMERAdd() = False Then Exit Sub
+            Cb_CUSTOMERName.DropDownStyle = ComboBoxStyle.DropDownList
+            Btn_newCUSTOMER.Text = "신규"
+            Cb_CUSTOMERName.Items.Add(CUSTOMERName)
+            Cb_CUSTOMERName.SelectedIndex = Cb_CUSTOMERName.Items.Count - 1
             MsgBox("신규 고객사 등록 완료.", MsgBoxStyle.Information, form_Msgbox_String)
         End If
 
     End Sub
 
-    Private Function NewCustomerAdd() As Boolean
+    Private Function NewCUSTOMERAdd() As Boolean
 
         Dim result As Boolean = True
 
@@ -192,15 +192,15 @@ Public Class DeviceData
             Dim write_date As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
             strSQL = "insert into TB_CUSTOMER_LIST(CUSTOMER_CODE, CUSTOMER_NAME, WRITE_DATE, WRITE_ID) values"
-            strSQL += "('" & Tb_customerCode.Text & "'"
-            strSQL += ",'" & Cb_customerName.Text & "'"
+            strSQL += "('" & Tb_CUSTOMERCode.Text & "'"
+            strSQL += ",'" & Cb_CUSTOMERName.Text & "'"
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
             strSQL += "insert into TB_SUB_CODE(WRITE_DATE, SUB_CODE, SUB_CODE_NAME, MAIN_CODE, SUB_CODE_NOTE) values"
             strSQL += "('" & write_date & "'"
-            strSQL += ",'" & Tb_customerCode.Text & "'"
-            strSQL += ",'" & Cb_customerName.Text & "'"
+            strSQL += ",'" & Tb_CUSTOMERCode.Text & "'"
+            strSQL += ",'" & Cb_CUSTOMERName.Text & "'"
             strSQL += ",'MC0001'"
             strSQL += ",'');"
 
@@ -223,7 +223,7 @@ Public Class DeviceData
 
     End Function
 
-    Private Function Customer_Code_Make() As String
+    Private Function CUSTOMER_Code_Make() As String
 
         Dim lastCode As String = String.Empty
 
@@ -257,7 +257,7 @@ Public Class DeviceData
 
     Private Sub Btn_newModel_Click(sender As Object, e As EventArgs) Handles Btn_newModel.Click
 
-        If Customer_Code_Check() = False Then
+        If CUSTOMER_Code_Check() = False Then
             MsgBox("등록되지 않은 고객사 입니다.", MsgBoxStyle.Information, form_Msgbox_String)
             Exit Sub
         End If
@@ -302,7 +302,7 @@ Public Class DeviceData
 
         ExsistModelCheck = False
 
-        Dim strSQL As String = "select * from TB_MODEL_LIST where MODEL_NAME = '" & Cb_modelName.Text & "' and CUSTOMER_CODE = '" & Tb_customerCode.Text & "';"
+        Dim strSQL As String = "select * from TB_MODEL_LIST where MODEL_NAME = '" & Cb_modelName.Text & "' and CUSTOMER_CODE = '" & Tb_CUSTOMERCode.Text & "';"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -318,14 +318,14 @@ Public Class DeviceData
 
     End Function
 
-    Private Function Customer_Code_Check() As Boolean
+    Private Function CUSTOMER_Code_Check() As Boolean
 
         Dim lastCode As Boolean = False
 
         DBConnect()
 
         Dim strSQL As String = "select CUSTOMER_CODE from TB_CUSTOMER_LIST"
-        strSQL += " where CUSTOMER_CODE = '" & Tb_customerCode.Text & "'"
+        strSQL += " where CUSTOMER_CODE = '" & Tb_CUSTOMERCode.Text & "'"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -390,7 +390,7 @@ Public Class DeviceData
             strSQL = "insert into TB_MODEL_LIST(MODEL_CODE, MODEL_NAME, CUSTOMER_CODE, WRITE_dATE, WRITE_ID) values"
             strSQL += "('" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_modelName.Text & "'"
-            strSQL += ",'" & Tb_customerCode.Text & "'"
+            strSQL += ",'" & Tb_CUSTOMERCode.Text & "'"
             strSQL += ",'" & write_date & "'"
             strSQL += ",'" & Mainform.login_user & "');"
 
@@ -398,7 +398,7 @@ Public Class DeviceData
             strSQL += "('" & write_date & "'"
             strSQL += ",'" & Tb_modelCode.Text & "'"
             strSQL += ",'" & Cb_modelName.Text & "'"
-            strSQL += ",'" & Tb_customerCode.Text & "'"
+            strSQL += ",'" & Tb_CUSTOMERCode.Text & "'"
             strSQL += ",'MC0001'"
             strSQL += ",'');"
 
@@ -456,7 +456,7 @@ Public Class DeviceData
 
     Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
-        If Tb_customerCode.Text = String.Empty Then
+        If Tb_CUSTOMERCode.Text = String.Empty Then
             MsgBox("고객사를 선택하여 주십시오.", MsgBoxStyle.Information, form_Msgbox_String)
             Exit Sub
         End If
@@ -487,7 +487,10 @@ Public Class DeviceData
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then
+            MessageBox.Show("DB 연결 실패", form_Msgbox_String, MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
 
         Dim strSQL As String = "call USP_DEVICE_DATA(0"
         strSQL += ",'" & Tb_modelCode.Text & "'"
@@ -495,7 +498,7 @@ Public Class DeviceData
         strSQL += ",'" & Cb_workSide.Text & "'"
         strSQL += ",'" & Cb_FactoryName.Text & "'"
         strSQL += ",null"
-        strSQL += ",'" & Cb_customerName.Text & "')"
+        strSQL += ",'" & Cb_CUSTOMERName.Text & "')"
 
         Dim sqlCmd As New MySqlCommand(strSQL, DBConnect1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -556,7 +559,7 @@ Public Class DeviceData
 
         If e.Button = MouseButtons.Right And row > -1 Then
             If writeReady = True And
-                    Not Tb_customerCode.Text = String.Empty And
+                    Not Tb_CUSTOMERCode.Text = String.Empty And
                     Not Tb_modelCode.Text = String.Empty And
                     Not Cb_workLine.Text = String.Empty And
                     Not Cb_workSide.Text = String.Empty And
@@ -1063,8 +1066,8 @@ Public Class DeviceData
                 strSQL += ", MODEL_CODE, MODEL_NAME, LINE_NAME, SIDE, MACHINE_NO, FEEDER_NO, PART_MAKER, PART_NO"
                 strSQL += ", SPECIFICATION, DD_NOTE, FEEDER_SN, MATCH_COUNT, DD_MAIN_NO) values"
                 strSQL += "('" & sqlDR("DD_CODE") & "'"
-                strSQL += ",'" & Tb_customerCode.Text & "'"
-                strSQL += ",'" & Cb_customerName.Text & "'"
+                strSQL += ",'" & Tb_CUSTOMERCode.Text & "'"
+                strSQL += ",'" & Cb_CUSTOMERName.Text & "'"
                 strSQL += ",'" & Tb_modelCode.Text & "'"
                 strSQL += ",'" & Cb_modelName.Text & "'"
                 strSQL += ",'" & Cb_workLine.Text & "'"
@@ -1178,15 +1181,15 @@ Public Class DeviceData
         Dim sel_feeder As Integer = Grid_DeviceData(e.Row, 3)
         Dim sel_code As String = Grid_DeviceData(e.Row, 1)
         Dim sel_part As String = Grid_DeviceData(e.Row, 5)
-        Dim sel_part_maker As String = Grid_DeviceData(e.Row, 4)
+        Dim sel_PART_MAKER As String = Grid_DeviceData(e.Row, 4)
 
         DeviceData_Sub.Tb_machineNo.Text = sel_machine
         DeviceData_Sub.Tb_feederNo.Text = sel_feeder
         DeviceData_Sub.Tb_DDCode.Text = sel_code
         DeviceData_Sub.Tb_mainParts.Text = sel_part
         DeviceData_Sub.ddMainCode = newDeviceData
-        DeviceData_Sub.Tb_Customer.Text = Cb_customerName.Text
-        DeviceData_Sub.TB_mainParts_Maker.Text = sel_part_maker
+        DeviceData_Sub.Tb_CUSTOMER.Text = Cb_CUSTOMERName.Text
+        DeviceData_Sub.TB_mainParts_Maker.Text = sel_PART_MAKER
 
         If Not DeviceData_Sub.Visible Then DeviceData_Sub.Show()
         DeviceData_Sub.Focus()

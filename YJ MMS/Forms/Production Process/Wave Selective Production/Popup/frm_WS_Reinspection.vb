@@ -80,7 +80,7 @@ Public Class frm_WS_Reinspection
         Grid_Information.Redraw = False
         Grid_Information.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_reinspection("
         strSQL += "'" & TB_BoardNo.Text & "'"
@@ -175,7 +175,7 @@ Public Class frm_WS_Reinspection
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

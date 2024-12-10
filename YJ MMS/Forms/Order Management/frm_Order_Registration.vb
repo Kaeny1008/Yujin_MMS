@@ -156,7 +156,7 @@ Public Class frm_Order_Registration
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -178,7 +178,7 @@ Public Class frm_Order_Registration
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -507,7 +507,12 @@ Public Class frm_Order_Registration
 
     Private Function Same_PONo_Check(ByVal order_number As String) As String
 
-        DBConnect()
+        Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_order_registration(6"
         strSQL += ", null"
@@ -519,8 +524,6 @@ Public Class frm_Order_Registration
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
-
-        Dim returnString As String = String.Empty
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
@@ -537,7 +540,7 @@ Public Class frm_Order_Registration
 
     Private Function RegistrationCheck(ByVal itemCode As String, ByVal rowNum As Integer) As String
 
-        DBConnect()
+
 
         Dim existCheck() As String = Load_ExistCheck(itemCode).Split("|")
         Dim itemRegister As String = existCheck(0)
@@ -564,7 +567,6 @@ Public Class frm_Order_Registration
         End If
         GridWriteText(itemBOM, rowNum, 13, Me, Grid_Excel, foreColor)
 
-        DBClose()
 
         If loaderPCB = String.Empty Then
             Return String.Empty
@@ -575,6 +577,11 @@ Public Class frm_Order_Registration
     End Function
 
     Private Function Load_ExistCheck(ByVal itemCode As String) As String
+
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim modelExist As String = "X"
         Dim bomExist As String = "X"
@@ -609,6 +616,9 @@ Public Class frm_Order_Registration
                 bomExist = "O"
             End If
         Loop
+        sqlDR.Close()
+
+        DBClose()
 
         Return modelExist & "|" & bomExist & "|" & model_Code & "|" & item_spec & "|" & item_name & "|" & loaderPCB
 
@@ -636,7 +646,7 @@ Public Class frm_Order_Registration
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -770,7 +780,7 @@ Public Class frm_Order_Registration
             Exit Sub
         End If
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -829,7 +839,7 @@ Public Class frm_Order_Registration
 
         Search_NewModelCode = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Function
 
         Dim strSQL As String = "select model_code from tb_model_list order by model_code desc limit 1"
 
@@ -891,7 +901,7 @@ Public Class frm_Order_Registration
         Grid_Excel.Redraw = False
         Grid_Excel.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_registration(2"
         strSQL += ", null"
@@ -1082,9 +1092,12 @@ Public Class frm_Order_Registration
 
     Private Function Load_PONo(ByVal nowDate As String) As String
 
-        DBConnect()
-
         Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "select f_mms_po_no('" & nowDate & "') as po_no"
 
@@ -1104,10 +1117,13 @@ Public Class frm_Order_Registration
 
     Private Function Load_PO_Check(ByVal modelCode As String, ByVal deliveryDate As Date, ByVal nowRow As Integer) As Integer
 
-        DBConnect()
-
         Dim orderIndex As String = String.Empty
         Dim orderQty As Integer = 0
+
+        If DBConnect() = False Then
+            Return orderQty
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_order_registration(3"
         strSQL += ", null"
@@ -1137,7 +1153,7 @@ Public Class frm_Order_Registration
 
     Public Sub Load_Basic_PO(ByVal startDate As Date, ByVal endDate As Date, ByVal itemSection As String)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         'Dim findIndex As Integer = 4
         'If itemSection = "제어" Then

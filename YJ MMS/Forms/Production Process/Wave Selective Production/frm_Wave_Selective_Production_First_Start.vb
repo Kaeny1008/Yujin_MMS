@@ -96,7 +96,7 @@ Public Class frm_Wave_Selective_Production_First_Start
 
     Private Sub Load_OrderList()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_wave_selective_production(11"
         strSQL += ", null"
@@ -243,7 +243,10 @@ Public Class frm_Wave_Selective_Production_First_Start
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -343,7 +346,10 @@ Public Class frm_Wave_Selective_Production_First_Start
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

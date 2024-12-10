@@ -163,7 +163,7 @@ Public Class frm_PartCodeMapping
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_customer_part_code(1"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -224,7 +224,7 @@ Public Class frm_PartCodeMapping
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -64,7 +64,7 @@ Public Class frm_SMD_Mismount_Barcode
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_start(2"
         strSQL += ", '" & factoryName & "'"

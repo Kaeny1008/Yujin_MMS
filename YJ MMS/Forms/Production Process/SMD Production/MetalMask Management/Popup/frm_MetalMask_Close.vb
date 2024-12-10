@@ -9,7 +9,7 @@ Public Class frm_MetalMask_Close
 
     Private Sub Mask_Data_Load()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmms_metalmask_list(1, null, null, null, '" & Tb_MaskSN.Text & "');"
 
@@ -47,7 +47,7 @@ Public Class frm_MetalMask_Close
 
         If MsgBox("현재 마스크를 폐기등록 하시겠습니까?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, msg_form) = MsgBoxResult.No Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

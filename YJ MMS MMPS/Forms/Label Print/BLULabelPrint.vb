@@ -179,7 +179,7 @@ Public Class BLULabelPrint
             Exit Sub
         End If
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -277,7 +277,7 @@ Public Class BLULabelPrint
         GRID_History.Redraw = False
         GRID_History.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "call USP_HISTORY(5"
         strSQL += ",'" & Format(DTP_StartDate.Value, "yyyy-MM-dd 00:00:00") & "'"

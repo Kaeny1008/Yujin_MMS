@@ -117,7 +117,7 @@ Public Class frm_Production_Status
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -139,7 +139,7 @@ Public Class frm_Production_Status
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -182,7 +182,7 @@ Public Class frm_Production_Status
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_status(0"
         strSQL += ",'" & TB_CustomerCode.Text & "'"

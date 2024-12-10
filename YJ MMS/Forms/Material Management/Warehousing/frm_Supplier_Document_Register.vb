@@ -121,7 +121,7 @@ Public Class frm_Supplier_Document_Register
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name"
         strSQL += " from tb_code_sub"
@@ -144,7 +144,7 @@ Public Class frm_Supplier_Document_Register
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -166,7 +166,7 @@ Public Class frm_Supplier_Document_Register
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code"
         strSQL += " from tb_customer_list"
@@ -617,7 +617,7 @@ Public Class frm_Supplier_Document_Register
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
         Dim documentNo As String = String.Empty
@@ -702,7 +702,7 @@ Public Class frm_Supplier_Document_Register
         Grid_DocumentsList.Redraw = False
         Grid_DocumentsList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select document_no, supplier, count(wd_no) as in_count"
         strSQL += " from tb_mms_material_warehousing_document"
@@ -745,7 +745,7 @@ Public Class frm_Supplier_Document_Register
             Grid_MaterialList.Redraw = False
             Grid_MaterialList.Rows.Count = 1
 
-            DBConnect()
+            If DBConnect() = False Then Exit Sub
 
             Dim strSQL As String = "select part_code, part_no, part_qty, vendor"
             strSQL += " from tb_mms_material_warehousing_document"
@@ -803,7 +803,7 @@ Public Class frm_Supplier_Document_Register
 
         If MSG_Question(Me, showString) = False Then Exit Sub
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -837,9 +837,12 @@ Public Class frm_Supplier_Document_Register
 
     Private Function Material_Exist_Check(ByVal documentNo As String) As Boolean
 
-        DBConnect()
-
         Dim returnValue As Boolean = False
+
+        If DBConnect() = False Then
+            Return returnValue
+            Exit Function
+        End If
 
         Dim strSQL As String = "select if(count(*)= 0, 'Not Exist', 'Exist') as material_exist"
         strSQL += " from tb_mms_material_warehousing"

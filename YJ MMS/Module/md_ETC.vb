@@ -261,16 +261,60 @@ Module md_ETC
 
     End Sub
 
-    Public Sub GridWriteText(ByVal text As String, ByVal formName As Form, ByVal grid As C1FlexGrid, ByVal rowColor As Color)
+    Public Sub GridWriteText(ByVal text As String,
+                             ByVal formName As Form,
+                             ByVal grid As C1FlexGrid,
+                             ByVal rowFontColor As Color)
 
         Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
         If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
             Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
             If ts.InvokeRequired Then
-                ts.Invoke(New Action(Of String, Form, C1FlexGrid, Color)(AddressOf GridWriteText), text, formName, grid, rowColor)
+                ts.Invoke(New Action(Of String, Form, C1FlexGrid, Color)(AddressOf GridWriteText), text, formName, grid, rowFontColor)
             Else
                 ts.AddItem(text)
-                ts.Rows(ts.Rows.Count - 1).StyleNew.ForeColor = rowColor
+                ts.Rows(ts.Rows.Count - 1).StyleNew.ForeColor = rowFontColor
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridWriteText(ByVal text As String,
+                             ByVal formName As Form,
+                             ByVal grid As C1FlexGrid,
+                             ByVal rowFontColor As Color,
+                             ByVal rowBackColor As Color)
+
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, C1FlexGrid, Color)(AddressOf GridWriteText), text, formName, grid, rowFontColor, rowBackColor)
+            Else
+                ts.AddItem(text)
+                ts.Rows(ts.Rows.Count - 1).StyleNew.ForeColor = rowFontColor
+                ts.Rows(ts.Rows.Count - 1).StyleNew.BackColor = rowBackColor
+            End If
+        End If
+
+    End Sub
+
+    Public Sub GridWriteText(ByVal text As String,
+                             ByVal formName As Form,
+                             ByVal grid As C1FlexGrid,
+                             ByVal insertRow As Integer,
+                             ByVal rowFontColor As Color,
+                             ByVal rowBackColor As Color)
+
+        Dim ctls() As Control = formName.Controls.Find(grid.Name, True)
+        If ctls.Length > 0 AndAlso TypeOf ctls(0) Is C1FlexGrid Then
+            Dim ts As C1FlexGrid = DirectCast(ctls(0), C1FlexGrid)
+            If ts.InvokeRequired Then
+                ts.Invoke(New Action(Of String, Form, C1FlexGrid, Color)(AddressOf GridWriteText), text, formName, grid, insertRow, rowFontColor, rowBackColor)
+            Else
+                ts.AddItem(text, insertRow)
+                ts.Rows(insertRow).StyleNew.ForeColor = rowFontColor
+                ts.Rows(insertRow).StyleNew.BackColor = rowBackColor
             End If
         End If
 

@@ -49,7 +49,7 @@ Public Class frm_Alarm_Setting
         Grid_AlarmList.Redraw = False
         Grid_AlarmList.Rows.Count = 1
 
-        Mdbconnect()
+        MDBConnect()
 
         Dim strSQL As String = "select alarm_name, interval_time, use_alarm from tb_alarm_list"
 
@@ -111,7 +111,7 @@ Public Class frm_Alarm_Setting
         Dim strSQL As String = String.Empty
 
         'MySQL DB에서 정보를 불러오기전에 기존 내용 삭제
-        Mdbconnect()
+        MDBConnect()
 
         Dim sqlTran_MDB As OleDb.OleDbTransaction
         Dim sqlCmd_MDB As OleDb.OleDbCommand

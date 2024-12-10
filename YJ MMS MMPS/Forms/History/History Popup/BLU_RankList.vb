@@ -16,12 +16,12 @@ Public Class BLU_RankList
         GRID_RankList.Redraw = False
         GRID_RankList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "call USP_HISTORY(7"
         strSQL += ",'2020-06-26 00:00:00'" 'startDate
         strSQL += ",'2020-06-26 00:00:00'" 'endDate
-        strSQL += ",'" & checkCode & "'" 'customerName
+        strSQL += ",'" & checkCode & "'" 'CUSTOMERName
         strSQL += ",null" 'modelName
         strSQL += ",null" 'factoryName
         strSQL += ",null" 'workLine

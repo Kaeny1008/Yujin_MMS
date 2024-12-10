@@ -123,7 +123,7 @@ Public Class frm_SMD_Production_End
 
         CB_Department.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000001' order by sub_code_name"
@@ -142,7 +142,7 @@ Public Class frm_SMD_Production_End
 
     Private Sub CB_Department_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Department.SelectionChangeCommitted
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & CB_Department.Text & "'"
@@ -165,7 +165,7 @@ Public Class frm_SMD_Production_End
 
         CB_Line.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select last_code_name from tb_code_last"
         strSQL += " where sub_code = '" & selFactoryCode & "' order by last_code_name"
@@ -237,7 +237,7 @@ Public Class frm_SMD_Production_End
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(0"
         strSQL += ", '" & CB_Department.Text & "'"
@@ -319,9 +319,12 @@ Public Class frm_SMD_Production_End
 
     Private Function Lastest_HistoryIndex() As String
 
-        DBConnect()
-
         Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_smd_production_end(9"
         strSQL += ", null"
@@ -351,7 +354,7 @@ Public Class frm_SMD_Production_End
         Grid_History.Redraw = False
         Grid_History.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_smd_production_end(3"
         strSQL += ", null"
@@ -618,7 +621,10 @@ Public Class frm_SMD_Production_End
 
         Dim returnString As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_smd_production_end(6"
         strSQL += ", null"
@@ -655,9 +661,12 @@ Public Class frm_SMD_Production_End
 
     Private Function Load_Process() As String
 
-        DBConnect()
-
         Dim returnString As String = String.Empty
+
+        If DBConnect() = False Then
+            Return returnString
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_smd_production_end(5"
         strSQL += ", null"

@@ -71,7 +71,7 @@ Public Class frm_WS_Fault_History
         Grid_HistoryList.Redraw = False
         Grid_HistoryList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_ws_production_history(1"
         strSQL += ", null"

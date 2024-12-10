@@ -613,7 +613,7 @@ Public Class frm_Model_Document
 
     Private Sub Reload_Document(ByVal r_row As Integer)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(2"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -663,7 +663,7 @@ Public Class frm_Model_Document
         Grid_ModelList.Redraw = False
         Grid_ModelList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select a.model_code, a.customer_code, a.spg, a.item_code, a.item_name, a.item_note, b.customer_name"
         strSQL += " from tb_model_list a"
@@ -737,7 +737,7 @@ Public Class frm_Model_Document
                              ByVal modelCode As String)
 
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(7"
         strSQL += ",'" & customerCode & "'"
@@ -764,7 +764,7 @@ Public Class frm_Model_Document
                                       ByVal modelCode As String)
 
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(0"
         strSQL += ",'" & customerCode & "'"
@@ -812,7 +812,7 @@ Public Class frm_Model_Document
     Private Sub Load_ManagementNo(ByVal customerCode As String,
                                   ByVal modelCode As String)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(8"
         strSQL += ", null"
@@ -1028,7 +1028,10 @@ FTP_Control:
 
     Private Function Process_DB_Write() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -1363,7 +1366,7 @@ FTP_Control:
         CheckBox1.Checked = False
         CheckBox2.Checked = False
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(10"
         strSQL += ", null"
@@ -1392,7 +1395,7 @@ FTP_Control:
 
     Private Sub Load_ManagementNo_Information()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(9"
         strSQL += ", null"
@@ -1433,7 +1436,7 @@ FTP_Control:
             Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
         Next
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(3"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -1467,7 +1470,7 @@ FTP_Control:
         Grid_BOM.Redraw = False
         Grid_BOM.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(4"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -1504,7 +1507,7 @@ FTP_Control:
         Grid_Coordinates.Redraw = False
         Grid_Coordinates.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(5"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -1542,7 +1545,7 @@ FTP_Control:
         Grid_BOM_Total.Redraw = False
         Grid_BOM_Total.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_model_document(6"
         strSQL += ",'" & TB_CustomerCode.Text & "'"
@@ -1674,7 +1677,7 @@ FTP_Control:
 
         processList = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name"
         strSQL += " from tb_code_sub"

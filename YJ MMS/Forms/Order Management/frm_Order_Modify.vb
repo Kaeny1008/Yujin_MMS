@@ -137,7 +137,7 @@ Public Class frm_Order_Modify
 
         'Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         For i = 1 To Grid_Excel.Rows.Count - 1
             Dim existCheck() As String = Load_ExistCheck(Grid_Excel(i, 3)).Split("|")
@@ -175,7 +175,7 @@ Public Class frm_Order_Modify
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -256,7 +256,7 @@ Public Class frm_Order_Modify
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_registration(1"
         strSQL += ", null"
@@ -338,7 +338,7 @@ Public Class frm_Order_Modify
         Grid_Excel.Redraw = False
         Grid_Excel.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_registration(2"
         strSQL += ", null"

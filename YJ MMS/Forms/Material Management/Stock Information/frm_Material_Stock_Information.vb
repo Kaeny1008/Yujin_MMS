@@ -85,7 +85,7 @@ Public Class frm_Material_Stock_Information
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -107,7 +107,7 @@ Public Class frm_Material_Stock_Information
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -138,9 +138,15 @@ Public Class frm_Material_Stock_Information
         Grid_MaterialList.Redraw = False
         Grid_MaterialList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Exit Sub
+        End If
 
-        Dim strSQL As String = "call sp_mms_material_stock_information(0"
+        Dim selectTable As String = "sp_mms_material_stock_information"
+        If CheckBox1.Checked = True Then selectTable = "sp_mms_material_stock_information_real"
+
+        Dim strSQL As String = "call " & selectTable & "(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ")"
 
@@ -210,6 +216,38 @@ Public Class frm_Material_Stock_Information
         Grid_MaterialList.Redraw = True
 
         Thread_LoadingFormEnd()
+
+    End Sub
+
+    Private Sub Grid_MaterialList_MouseClick(sender As Object, e As MouseEventArgs) Handles Grid_MaterialList.MouseClick
+
+        Dim selRow As Integer = Grid_MaterialList.MouseRow
+
+        If selRow < 2 Then Exit Sub
+
+        If e.Button = MouseButtons.Right Then
+            Grid_MaterialList.Row = selRow
+            CMS_GridMenu.Show(Grid_MaterialList, New Point(e.X, e.Y))
+        End If
+
+    End Sub
+
+    Private Sub BTN_Use_Information_Click(sender As Object, e As EventArgs) Handles BTN_Use_Information.Click
+
+        Dim selRow As Integer = Grid_MaterialList.Row
+        Dim selPartCode As String = Grid_MaterialList(selRow, 1)
+
+        frm_Material_Use_Information.TB_PartCode.Text = selPartCode
+
+        If Not frm_Material_Use_Information.Visible Then frm_Material_Use_Information.Show()
+        frm_Material_Use_Information.Focus()
+
+    End Sub
+
+    Private Sub BTN_Use_Information2_Click(sender As Object, e As EventArgs) Handles BTN_Use_Information2.Click
+
+        If Not frm_Material_Use_Information.Visible Then frm_Material_Use_Information.Show()
+        frm_Material_Use_Information.Focus()
 
     End Sub
 End Class

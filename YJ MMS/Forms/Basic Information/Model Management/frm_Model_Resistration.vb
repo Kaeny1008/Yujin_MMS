@@ -127,7 +127,12 @@ Public Class frm_Model_Resistration
 
     Private Function load_CustomerCode(ByVal customerName As String) As String
 
-        DBConnect()
+        Dim customerCode As String = String.Empty
+
+        If DBConnect() = False Then
+            Return customerCode
+            Exit Function
+        End If
 
         Dim strSQL As String = "select customer_code"
         strSQL += " From tb_customer_list"
@@ -136,8 +141,6 @@ Public Class frm_Model_Resistration
 
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
-
-        Dim customerCode As String = String.Empty
 
         Do While sqlDR.Read
             customerCode = sqlDR("customer_code")
@@ -243,7 +246,7 @@ Public Class frm_Model_Resistration
 
         newModelCode = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Function
 
         Dim strSQL As String = "select model_code from tb_model_list order by model_code desc limit 1"
 
@@ -285,7 +288,7 @@ Public Class frm_Model_Resistration
 
     Private Sub load_CustomerList(ByVal orgCustomer As String)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " From tb_customer_list"
@@ -313,7 +316,12 @@ Public Class frm_Model_Resistration
 
     Private Function load_ModelSeries(ByVal customer_code) As String
 
-        DBConnect()
+        Dim modelSeries As String = String.Empty
+
+        If DBConnect() = False Then
+            Return modelSeries
+            Exit Function
+        End If
 
         Dim strSQL As String = "select spg"
         strSQL += " From tb_customer_list"
@@ -322,18 +330,16 @@ Public Class frm_Model_Resistration
         Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-        load_ModelSeries = String.Empty
-
         Do While sqlDR.Read
-            load_ModelSeries = sqlDR("spg")
+            modelSeries = sqlDR("spg")
         Loop
         sqlDR.Close()
 
         DBClose()
 
-        Console.WriteLine(load_ModelSeries)
+        Console.WriteLine(modelSeries)
 
-        Return load_ModelSeries
+        Return modelSeries
 
     End Function
 
@@ -354,7 +360,7 @@ Public Class frm_Model_Resistration
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -431,7 +437,7 @@ Public Class frm_Model_Resistration
         grid_ModelList.Redraw = False
         grid_ModelList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select a.model_code, a.customer_code, a.spg, a.item_code, a.item_name, a.item_spec, a.item_note, b.customer_name"
         strSQL += " from tb_model_list a"

@@ -91,7 +91,7 @@ Public Class frm_Production_plan
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -113,7 +113,7 @@ Public Class frm_Production_plan
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -156,7 +156,7 @@ Public Class frm_Production_plan
         Grid_OrderList.Redraw = False
         Grid_OrderList.Rows.Count = 3
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim statusString As String = RadioButton1.Text
         If RadioButton2.Checked Then
@@ -224,7 +224,10 @@ Public Class frm_Production_plan
 
         Dim comboList As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return comboList
+            Exit Function
+        End If
 
         Dim strSQL As String = "select sub_code_name"
         strSQL += " from tb_code_sub"
@@ -253,7 +256,10 @@ Public Class frm_Production_plan
         Dim comboList As String = String.Empty
         Dim departmentCode As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return comboList
+            Exit Function
+        End If
 
         Dim strSQL As String = "select sub_code"
         strSQL += " from tb_code_sub"
@@ -445,7 +451,7 @@ Public Class frm_Production_plan
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -529,7 +535,7 @@ Public Class frm_Production_plan
             copyDate = Grid_OrderList(rowSel, 10)
             copyDepartment = Grid_OrderList(rowSel, 11)
             copyLine = Grid_OrderList(rowSel, 12)
-        ElseIf e.Modifiers = Keys.control AndAlso e.Keycode = Keys.V Then
+        ElseIf e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.V Then
             Dim cs As CellStyle = Grid_OrderList.Styles.Add("Yellow_Cell")
             cs.BackColor = Color.Yellow
             cs.ForeColor = Color.Red
@@ -578,7 +584,7 @@ Public Class frm_Production_plan
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

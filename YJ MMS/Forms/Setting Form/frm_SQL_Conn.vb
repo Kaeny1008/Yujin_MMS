@@ -16,7 +16,7 @@
         serverIP = tbIP.Text
         serverPSWD = tbPSWD.Text
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
         If dbConnection1.State = 1 Then
             DBClose()
         Else

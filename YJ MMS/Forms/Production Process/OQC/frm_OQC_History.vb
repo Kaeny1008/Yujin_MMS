@@ -69,7 +69,7 @@ Public Class frm_OQC_History
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -91,7 +91,7 @@ Public Class frm_OQC_History
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -123,7 +123,7 @@ Public Class frm_OQC_History
         Grid_HistoryList.Redraw = False
         Grid_HistoryList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_oqc_history(0"
         strSQL += ",'" & TextBox1.Text & "'"

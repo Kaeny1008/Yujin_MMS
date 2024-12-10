@@ -86,7 +86,7 @@ Public Class frm_MetalMaskHistory
 
     Private Sub MaskInfo_Load()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmms_metalmask_list(1, null, null, null, '" & Tb_MaskSN.Text & "');"
 
@@ -120,7 +120,7 @@ Public Class frm_MetalMaskHistory
 
     Private Sub MaskClose_Load()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmms_metalmask_list(2, null, null, null, '" & Tb_MaskSN.Text & "');"
 
@@ -159,7 +159,7 @@ Public Class frm_MetalMaskHistory
 
         Grid_MASK_LIST.Redraw = False
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmms_metalmask_history('" & Tb_MaskSN.Text & "'" &
             ", '" & startDate & "'" &

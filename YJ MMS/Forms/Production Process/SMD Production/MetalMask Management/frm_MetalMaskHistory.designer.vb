@@ -152,7 +152,7 @@ Partial Class frm_MetalMaskHistory
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.White
         Me.SplitContainer1.Panel2.Controls.Add(Me.Grid_MASK_LIST)
-        Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1564, 748)
         Me.SplitContainer1.SplitterDistance = 604
         Me.SplitContainer1.TabIndex = 4
         '
@@ -780,7 +780,7 @@ Partial Class frm_MetalMaskHistory
         Me.Grid_MASK_LIST.Name = "Grid_MASK_LIST"
         Me.Grid_MASK_LIST.Rows.Count = 2
         Me.Grid_MASK_LIST.Rows.DefaultSize = 20
-        Me.Grid_MASK_LIST.Size = New System.Drawing.Size(656, 748)
+        Me.Grid_MASK_LIST.Size = New System.Drawing.Size(956, 748)
         Me.Grid_MASK_LIST.StyleInfo = resources.GetString("Grid_MASK_LIST.StyleInfo")
         Me.Grid_MASK_LIST.TabIndex = 7
         '
@@ -790,7 +790,7 @@ Partial Class frm_MetalMaskHistory
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1, Me.BTN_Search, Me.Btn_Print})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(1264, 25)
+        Me.ToolStrip1.Size = New System.Drawing.Size(1564, 25)
         Me.ToolStrip1.TabIndex = 5
         Me.ToolStrip1.Text = "ToolStrip1"
         '
@@ -859,7 +859,7 @@ Partial Class frm_MetalMaskHistory
         'frm_MetalMaskHistory
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
-        Me.ClientSize = New System.Drawing.Size(1264, 773)
+        Me.ClientSize = New System.Drawing.Size(1564, 773)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Name = "frm_MetalMaskHistory"

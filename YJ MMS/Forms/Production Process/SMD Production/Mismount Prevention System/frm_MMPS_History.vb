@@ -142,7 +142,7 @@ Public Class frm_MMPS_History
         Grid_AllPartsCheck.Redraw = False
         Grid_AllPartsCheck.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmps_history(0"
         strSQL += ",'" & Format(DTP_startDate.Value, "yyyy-MM-dd 00:00:00") & "'"
@@ -199,7 +199,7 @@ Public Class frm_MMPS_History
 
     Private Sub Cb_FactoryName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName.SelectedIndexChanged
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & Cb_factoryName.Text & "'"
@@ -220,7 +220,7 @@ Public Class frm_MMPS_History
 
     Private Sub Cb_FactoryName2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName2.SelectedIndexChanged
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code from tb_code_sub"
         strSQL += " where sub_code_name = '" & Cb_factoryName2.Text & "'"
@@ -248,7 +248,7 @@ Public Class frm_MMPS_History
 
         cb.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000001' order by sub_code_name"
@@ -280,7 +280,7 @@ Public Class frm_MMPS_History
 
         cb.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = String.Empty
 
@@ -326,7 +326,7 @@ Public Class frm_MMPS_History
         Grid_PartsChange.Redraw = False
         Grid_PartsChange.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim firstSttingShow As String = "No"
 

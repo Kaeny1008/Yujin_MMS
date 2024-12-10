@@ -31,9 +31,11 @@ Partial Class frm_Main
         '
         'Timer1
         '
+        Me.Timer1.Tag = "한시간이 지났을 경우 Timer2를 활성화 한다."
         '
         'Timer2
         '
+        Me.Timer2.Tag = "실제 업데이트 체크 타이머"
         '
         'Label1
         '
@@ -46,8 +48,9 @@ Partial Class frm_Main
         '
         'Timer3
         '
+        Me.Timer3.Tag = "Timer2 Interval을 원래되로 돌려 놓는다."
         '
-        'Form1
+        'frm_Main
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.ActiveBorder
@@ -57,7 +60,7 @@ Partial Class frm_Main
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "Form1"
+        Me.Name = "frm_Main"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.Text = "Update Checker"

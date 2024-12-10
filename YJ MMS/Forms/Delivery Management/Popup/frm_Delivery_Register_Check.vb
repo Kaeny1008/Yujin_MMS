@@ -69,7 +69,7 @@ Public Class frm_Delivery_Register_Check
 
     Private Sub Load_DeliveryNo()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select f_mms_delivery_no('" & Format(Now, "yyyy-MM-dd") & "') as delivery_no"
 
@@ -193,7 +193,10 @@ Public Class frm_Delivery_Register_Check
 
     Private Function Save_Data() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

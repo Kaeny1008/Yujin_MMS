@@ -129,7 +129,7 @@ Public Class frm_Material_Stock_Survey_Result
         Grid_PlanList.Redraw = False
         Grid_PlanList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_stock_survey(5"
         strSQL += ", null"
@@ -180,7 +180,7 @@ Public Class frm_Material_Stock_Survey_Result
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_stock_survey(2"
         strSQL += ", null"
@@ -219,7 +219,7 @@ Public Class frm_Material_Stock_Survey_Result
         Grid_MaterialList.ClearFilter()
         Grid_MaterialList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim loadIndex As Integer = 6
 
@@ -327,7 +327,7 @@ Public Class frm_Material_Stock_Survey_Result
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -415,7 +415,7 @@ Public Class frm_Material_Stock_Survey_Result
         '    Exit Sub
         'End If
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -510,7 +510,10 @@ Public Class frm_Material_Stock_Survey_Result
 
     Private Function Return_PartsOutData() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -553,7 +556,10 @@ Public Class frm_Material_Stock_Survey_Result
 
     Private Function Replace_PartsQty() As String
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return "Server Connect Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -612,7 +618,7 @@ Public Class frm_Material_Stock_Survey_Result
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

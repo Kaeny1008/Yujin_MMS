@@ -140,12 +140,12 @@ Public Class HistoryForm
         Grid_AllPartsCheck.Redraw = False
         Grid_AllPartsCheck.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "call USP_HISTORY(0"
         strSQL += ",'" & Format(DTP_startDate.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ",'" & Format(DTP_endDate.Value, "yyyy-MM-dd 23:59:59") & "'"
-        strSQL += ",'" & Tb_customerName.Text & "'"
+        strSQL += ",'" & Tb_CUSTOMERName.Text & "'"
         strSQL += ",'" & Tb_modelName.Text & "'"
         strSQL += ",'" & Cb_factoryName.Text & "'"
         strSQL += ",'" & Cb_workLine.Text & "'"
@@ -197,7 +197,7 @@ Public Class HistoryForm
 
     Private Sub Cb_FactoryName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName.SelectedIndexChanged
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
         strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName.Text & "'"
@@ -218,7 +218,7 @@ Public Class HistoryForm
 
     Private Sub Cb_FactoryName2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Cb_factoryName2.SelectedIndexChanged
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "select SUB_CODE from TB_SUB_CODE"
         strSQL += " where SUB_CODE_NAME = '" & Cb_factoryName2.Text & "'"
@@ -246,7 +246,7 @@ Public Class HistoryForm
 
         cb.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = "select SUB_CODE_NAME from TB_SUB_CODE"
         strSQL += " where MAIN_CODE = 'MC0002' order by SUB_CODE_NAME"
@@ -278,7 +278,7 @@ Public Class HistoryForm
 
         cb.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim strSQL As String = String.Empty
 
@@ -324,7 +324,7 @@ Public Class HistoryForm
         Grid_PartsChange.Redraw = False
         Grid_PartsChange.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then
 
         Dim firstSttingShow As String = "No"
 
@@ -335,7 +335,7 @@ Public Class HistoryForm
         Dim strSQL As String = "call USP_HISTORY(3"
         strSQL += ",'" & Format(DTP_startDate2.Value, "yyyy-MM-dd 00:00:00") & "'"
         strSQL += ",'" & Format(DTP_endDate2.Value, "yyyy-MM-dd 23:59:59") & "'"
-        strSQL += ",'" & Tb_customerName2.Text & "'"
+        strSQL += ",'" & Tb_CUSTOMERName2.Text & "'"
         strSQL += ",'" & Tb_modelName2.Text & "'"
         strSQL += ",'" & Cb_factoryName2.Text & "'"
         strSQL += ",'" & Cb_workLine2.Text & "'"

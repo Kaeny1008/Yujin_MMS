@@ -85,7 +85,7 @@ Public Class frm_Material_Warehousing_List
         CB_CustomerName.Items.Clear()
         CB_CustomerName.Items.Add(String.Empty)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -107,7 +107,7 @@ Public Class frm_Material_Warehousing_List
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -138,7 +138,7 @@ Public Class frm_Material_Warehousing_List
 
         CB_Vendor.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select part_vendor"
         strSQL += " from tb_mms_customer_part_code"
@@ -265,7 +265,7 @@ Public Class frm_Material_Warehousing_List
 
         TB_CustomerPartCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select part_code"
         strSQL += " from tb_mms_part_mapping"
@@ -356,7 +356,7 @@ Public Class frm_Material_Warehousing_List
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -551,7 +551,7 @@ Public Class frm_Material_Warehousing_List
         Release_Control()
         Initiallize_Control()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select f_mms_new_in_no("
         strSQL += "'" & Format(Now, "yyyy-MM-dd") & "'"
@@ -587,7 +587,7 @@ Public Class frm_Material_Warehousing_List
         Grid_PartList.Redraw = False
         Grid_PartList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_warehousing_list(0"
         strSQL += ",'" & Format(Now, "yyyy-MM-dd") & "'"

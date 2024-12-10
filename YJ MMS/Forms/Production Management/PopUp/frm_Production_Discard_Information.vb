@@ -148,7 +148,7 @@ Public Class frm_Production_Discard_Information
 
         Thread_LoadingFormStart(Me)
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_discard_register(2"
         strSQL += ", null"
@@ -201,7 +201,7 @@ Public Class frm_Production_Discard_Information
         Grid_Dip.Rows.Count = 1
         Grid_Etc.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_discard_register(3"
         strSQL += ", null"
@@ -426,7 +426,7 @@ Public Class frm_Production_Discard_Information
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -519,7 +519,7 @@ Public Class frm_Production_Discard_Information
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -54,7 +54,7 @@ Public Class frm_Production_BOM
         Grid_BOM.Redraw = False
         Grid_BOM.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim fineName As String = String.Empty
 

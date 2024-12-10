@@ -211,7 +211,7 @@ Public Class frm_SolderPaste_Use
         Grid_StatusList.Redraw = False
         Grid_StatusList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_solder_paste_management(1"
         strSQL += ", null"
@@ -263,7 +263,7 @@ Public Class frm_SolderPaste_Use
 
     Private Sub Load_Standards()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select aging_min, limit_of_use_time, mixing_time"
         strSQL += " from tb_mms_solder_standards"
@@ -288,7 +288,7 @@ Public Class frm_SolderPaste_Use
         Grid_StockList.Redraw = False
         Grid_StockList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_solder_paste_management(0"
         strSQL += ", null"
@@ -323,7 +323,7 @@ Public Class frm_SolderPaste_Use
         Grid_AgingList.Redraw = False
         Grid_AgingList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_solder_paste_management(2"
         strSQL += ", null"
@@ -360,7 +360,7 @@ Public Class frm_SolderPaste_Use
         Grid_UseList.Redraw = False
         Grid_UseList.Rows.Count = 2
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_solder_paste_management(4"
         strSQL += ", null"
@@ -397,7 +397,10 @@ Public Class frm_SolderPaste_Use
 
         Dim first_LotNo As String = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return first_LotNo
+            Exit Function
+        End If
 
         Dim strSQL As String = "call sp_mms_solder_paste_management(3"
         strSQL += ", '" & lotNo & "'"
@@ -480,7 +483,10 @@ Public Class frm_SolderPaste_Use
 
     Private Function AgingStartWrite() As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -552,7 +558,7 @@ Public Class frm_SolderPaste_Use
 
         CB_Department.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select sub_code_name from tb_code_sub"
         strSQL += " where main_code = 'MC00000001' order by sub_code_name"
@@ -571,7 +577,7 @@ Public Class frm_SolderPaste_Use
 
     Private Sub CB_Department_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles CB_Department.SelectionChangeCommitted
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim selFactoryCode As String = String.Empty
 
@@ -713,7 +719,10 @@ Public Class frm_SolderPaste_Use
 
     Private Function UseStartWrite() As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -834,7 +843,10 @@ Public Class frm_SolderPaste_Use
 
     Private Function ScrapWrite() As Boolean
 
-        DBConnect()
+        If DBConnect() = False Then
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

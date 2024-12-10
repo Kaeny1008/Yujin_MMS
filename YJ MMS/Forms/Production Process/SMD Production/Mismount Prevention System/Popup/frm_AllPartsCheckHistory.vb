@@ -59,7 +59,7 @@ Public Class frm_AllPartsCheckHistory
         Grid_historyList.Redraw = False
         Grid_historyList.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mmps_history(2"
         strSQL += ",null"

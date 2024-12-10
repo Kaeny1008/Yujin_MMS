@@ -6,12 +6,19 @@ Public Class frm_Order_Split
     Public orderIndex As String
     Public formName As String
     Dim splitCount As Integer
+    Public tempOrder As Boolean
+    Public tempRowNum As Integer
+    Public tempModelCode As String
 
     Private Sub frm_Order_Split_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Grid_Setting()
 
-        Load_Order_Information()
+        If tempOrder = False Then
+            Load_Order_Information()
+        Else
+            Load_ManagementNo(tempModelCode)
+        End If
 
     End Sub
 
@@ -53,7 +60,7 @@ Public Class frm_Order_Split
 
     Private Sub Load_Order_Information()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_registration(7"
         strSQL += ", null"
@@ -85,16 +92,16 @@ Public Class frm_Order_Split
 
         DBClose()
 
-        Load_ManagementNo()
+        Load_ManagementNo(TB_ModelCode.Text)
 
     End Sub
 
-    Private Sub Load_ManagementNo()
+    Private Sub Load_ManagementNo(ByVal modelCode As String)
 
         Grid_ManagementNo.Redraw = False
         Grid_ManagementNo.Rows.Count = 1
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_order_registration(8"
         strSQL += ", null"
@@ -102,7 +109,7 @@ Public Class frm_Order_Split
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
-        strSQL += ", '" & TB_ModelCode.Text & "'"
+        strSQL += ", '" & modelCode & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ")"
@@ -182,20 +189,29 @@ Public Class frm_Order_Split
         End If
 
         If TB_Split_Quantity.Text = String.Empty Then
-            MSG_Information(Me, "분할할 수량을 입력하여 주십시오.")
-            TB_Split_Quantity.SelectAll()
-            TB_Split_Quantity.Focus()
-            Exit Sub
+            If tempOrder = False Then
+                MSG_Information(Me, "분할할 수량을 입력하여 주십시오.")
+                TB_Split_Quantity.SelectAll()
+                TB_Split_Quantity.Focus()
+                Exit Sub
+            End If
         End If
 
         If MSG_Question(Me, "변경 내용을 저장 하시겠습니까?") = False Then Exit Sub
 
-        If DB_Write(managementNo) = False Then Exit Sub
+        If tempOrder = False Then
+            If DB_Write(managementNo) = False Then Exit Sub
+        End If
 
         MSG_Information(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.")
 
         If formName = "소요량 산출" Then
-            frm_Material_CheckRequirements.BTN_Search_Click(Nothing, Nothing)
+            If tempOrder = False Then
+                frm_Material_CheckRequirements.BTN_Search_Click(Nothing, Nothing)
+            Else
+                frm_Material_CheckRequirements.Grid_OrderList(tempRowNum, 8) = managementNo
+                frm_Material_CheckRequirements.Grid_OrderList.AutoSizeCols()
+            End If
         End If
 
         Me.Dispose()
@@ -206,7 +222,11 @@ Public Class frm_Order_Split
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        DBConnect()
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Return False
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand

@@ -63,7 +63,7 @@ Public Class frm_WorkSite_Transfer_Material_List
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -85,7 +85,7 @@ Public Class frm_WorkSite_Transfer_Material_List
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -123,7 +123,7 @@ Public Class frm_WorkSite_Transfer_Material_List
 
     Private Sub Load_OutList()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "6"
@@ -158,7 +158,7 @@ Public Class frm_WorkSite_Transfer_Material_List
 
     Private Sub Load_InList()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_transfer("
         strSQL += "7"

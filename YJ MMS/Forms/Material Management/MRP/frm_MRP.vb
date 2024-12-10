@@ -89,7 +89,7 @@ Public Class frm_MRP
 
         CB_CustomerName.Items.Clear()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_name"
         strSQL += " from tb_customer_list"
@@ -111,7 +111,7 @@ Public Class frm_MRP
 
         TB_CustomerCode.Text = String.Empty
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select customer_code, ifnull(use_part_code, '') as use_part_code"
         strSQL += " from tb_customer_list"
@@ -134,7 +134,7 @@ Public Class frm_MRP
 
     Private Sub Load_Clearance_Date()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "select clearance_date"
         strSQL += " from tb_mms_material_basic_inventory"
@@ -201,7 +201,7 @@ Public Class frm_MRP
 
     Private Sub Load_1st()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         Dim strSQL As String = "call sp_mms_material_requirements_planning(0"
         strSQL += ", '" & TB_CustomerCode.Text & "'"
@@ -263,7 +263,7 @@ Public Class frm_MRP
 
     Private Sub Load_2st()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         For j = 16 To Grid_MaterialList.Cols.Count - 1
             Dim strSQL As String = "call sp_mms_material_requirements_planning(1"
@@ -295,7 +295,7 @@ Public Class frm_MRP
 
     Private Sub Load_3st()
 
-        DBConnect()
+        If DBConnect() = False Then Exit Sub
 
         For j = 16 To Grid_MaterialList.Cols.Count - 1
             Dim strSQL As String = "call sp_mms_material_requirements_planning(2"

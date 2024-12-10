@@ -3,7 +3,7 @@
     Public MDBConnect1 As OleDb.OleDbConnection
 
     'DB 연결 함수
-    Public Sub Mdbconnect()
+    Public Sub MDBConnect()
 
         mdbConnection1 = New OleDb.OleDbConnection
         mdbConnection1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Application.StartupPath + "\TempDB\TempDB.mdb" & ";Jet OLEDB:Database Password='dbwlspark'"

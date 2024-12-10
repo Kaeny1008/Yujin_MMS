@@ -295,7 +295,6 @@ Partial Class frm_Material_Warehousing_With_Label
         '
         'TB_BarcodeScan
         '
-        Me.TB_BarcodeScan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
         Me.TB_BarcodeScan.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold)
         Me.TB_BarcodeScan.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_BarcodeScan.Location = New System.Drawing.Point(181, 114)
