@@ -140,6 +140,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Forms\Basic Information\Customer Management\frm_CustomerPartCode.Designer.vb">
       <DependentUpon>frm_CustomerPartCode.vb</DependentUpon>
     </Compile>

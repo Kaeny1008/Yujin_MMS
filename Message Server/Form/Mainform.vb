@@ -189,7 +189,10 @@ Public Class MainForm
             End If
         End If
 
-        Me.Text = "Message Server : " & My.Application.Info.Version.ToString
+        'Me.Text = "Message Server : " & My.Application.Info.Version.ToString
+        Me.Text = "Message Server (Build : " & System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() & " )"
+
+        NumericUpDown1.Value = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Message AutoClean Count", 500)
 
         ServerStart()
 
@@ -197,7 +200,7 @@ Public Class MainForm
         ClientCheckingTimer.Interval = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Check Time", 10) * 1000
         ClientRemoveTimer.Enabled = False
         ClientRemoveTimer.Interval = 5000
-        Timer1.Interval = 10000
+        Timer1.Interval = 30000
         Timer1.Enabled = True
 
     End Sub
@@ -681,11 +684,17 @@ Public Class MainForm
             End If
         End If
 
-        If MessageList.Items.Count > 100 Then
+        If MessageList.Items.Count > NumericUpDown1.Value Then
             MessageList.Items.Clear()
         End If
 
         RealCheck()
+
+    End Sub
+
+    Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
+
+        registryEdit.WriteRegKey("Software\Yujin\Message_Server", "Message AutoClean Count", NumericUpDown1.Value)
 
     End Sub
 End Class

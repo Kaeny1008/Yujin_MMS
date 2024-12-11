@@ -40,6 +40,8 @@ Partial Class MainForm
         Me.ListSender = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ListMemo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.MessageListPanel = New System.Windows.Forms.Panel()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.AlarmList = New System.Windows.Forms.ListView()
         Me.AlarmNo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -61,6 +63,7 @@ Partial Class MainForm
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.ClientListPanel.SuspendLayout()
         Me.MessageListPanel.SuspendLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AlarmListPanel.SuspendLayout()
         Me.ButtonPanel.SuspendLayout()
         Me.NIMenu.SuspendLayout()
@@ -175,6 +178,8 @@ Partial Class MainForm
         '
         Me.MessageListPanel.BackColor = System.Drawing.Color.LightBlue
         Me.MessageListPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MessageListPanel.Controls.Add(Me.NumericUpDown1)
+        Me.MessageListPanel.Controls.Add(Me.Label4)
         Me.MessageListPanel.Controls.Add(Me.Label2)
         Me.MessageListPanel.ForeColor = System.Drawing.Color.White
         Me.MessageListPanel.Location = New System.Drawing.Point(0, 255)
@@ -182,6 +187,25 @@ Partial Class MainForm
         Me.MessageListPanel.Name = "MessageListPanel"
         Me.MessageListPanel.Size = New System.Drawing.Size(1075, 30)
         Me.MessageListPanel.TabIndex = 14
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(991, 4)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(83, 21)
+        Me.NumericUpDown1.TabIndex = 12
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(835, 8)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(150, 12)
+        Me.Label4.TabIndex = 11
+        Me.Label4.Text = "Message List 자동정리 수"
         '
         'Label2
         '
@@ -380,6 +404,7 @@ Partial Class MainForm
         Me.ClientListPanel.PerformLayout()
         Me.MessageListPanel.ResumeLayout(False)
         Me.MessageListPanel.PerformLayout()
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.AlarmListPanel.ResumeLayout(False)
         Me.AlarmListPanel.PerformLayout()
         Me.ButtonPanel.ResumeLayout(False)
@@ -422,4 +447,6 @@ Partial Class MainForm
     Friend WithEvents mnExit As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Button1 As Button
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents Label4 As Label
 End Class

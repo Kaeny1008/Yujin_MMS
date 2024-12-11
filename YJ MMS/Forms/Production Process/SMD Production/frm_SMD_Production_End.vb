@@ -423,7 +423,7 @@ Public Class frm_SMD_Production_End
         End If
 
         frm_SMD_Fault_Register.LB_OrderIndex.Text = TB_OrderIndex.Text
-        frm_SMD_Fault_Register.LB_HistoryIndex.Text = historyIndex
+        frm_SMD_Fault_Register.LB_HistoryIndex.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
         frm_SMD_Fault_Register.LB_ItemCode.Text = TB_ItemCode.Text
         frm_SMD_Fault_Register.LB_ItemName.Text = TB_ItemName.Text
         frm_SMD_Fault_Register.LB_SMDLine.Text = CB_Line.Text
@@ -466,7 +466,7 @@ Public Class frm_SMD_Production_End
         frm_SMD_Magazine_Kitting.TB_PONo.Text = TB_OrderIndex.Text
         frm_SMD_Magazine_Kitting.TB_SMDLine.Text = CB_Line.Text
         frm_SMD_Magazine_Kitting.TB_TB.Text = TB_Workside.Text
-        frm_SMD_Magazine_Kitting.LB_HistoryIndex.Text = historyIndex
+        frm_SMD_Magazine_Kitting.LB_HistoryIndex.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
         frm_SMD_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
         frm_SMD_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
         frm_SMD_Magazine_Kitting.orderIndex = TB_OrderIndex.Text
@@ -724,7 +724,7 @@ Public Class frm_SMD_Production_End
             .TB_OrderQty.Text = TB_OrderQty.Text
             .TB_ModelCode.Text = TB_ModelCode.Text
             .TB_Process.Text = "SMD"
-            .TB_HistoryNo.Text = historyIndex
+            .TB_HistoryNo.Text = Grid_History(Grid_History.Rows.Count - 1, 1)
 
             If .ShowDialog() = DialogResult.OK Then
                 Load_InspectList()

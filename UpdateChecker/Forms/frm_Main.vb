@@ -220,15 +220,16 @@ Public Class frm_Main
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
-        If ReConnect = True Then
-            ServerConnect()
-        End If
+        '어차피 Timer2가 재연결 시도를 한다.
+        'If ReConnect = True Then
+        '    ServerConnect()
+        'End If
 
     End Sub
 
     Private Sub Timer2_Enable(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
-        Timer2.Interval = 1000
+        Timer2.Interval = 10000
         Timer2.Enabled = True
 
     End Sub
