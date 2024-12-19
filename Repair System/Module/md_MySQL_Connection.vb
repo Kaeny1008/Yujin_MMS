@@ -1,4 +1,4 @@
-﻿Imports MySqlConnector
+﻿Imports MySql.Data.MySqlClient
 
 Module md_MySQL_Connection
 
@@ -29,7 +29,7 @@ Module md_MySQL_Connection
                                          ";Password=" & serverPSWD &
                                          ";Connection Timeout=" & connectionTimeOut &
                                          ";CharSet=utf8" &
-                                         ";SslMode=none"
+                                         ";sslmode=Required"
 
         Try
             dbConnection1.Open()
@@ -37,8 +37,8 @@ Module md_MySQL_Connection
             'If Not DBConnect1.State = ConnectionState.Open Then
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
-            Dim strSql As String = "SET Names euckr;"
-            Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
+            'Dim strSql As String = "SET Names euckr;"
+            'Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

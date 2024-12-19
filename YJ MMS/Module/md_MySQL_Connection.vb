@@ -1,4 +1,4 @@
-﻿Imports MySqlConnector
+﻿Imports MySql.Data.MySqlClient
 
 Module md_MySQL_Connection
 
@@ -25,7 +25,8 @@ Module md_MySQL_Connection
         '                                 ";User Id=" & serverID &
         '                                 ";Password=" & serverPSWD &
         '                                 ";Connection Timeout=" & connectionTimeOut &
-        '                                 ";allow user variables=true"
+        '                                 ";SSLMode=None"
+
         dbConnection1.ConnectionString = "Database=" & dbName &
                                          ";Data Source=" & serverIP &
                                          ";PORT=" & serverPORT &
@@ -33,16 +34,23 @@ Module md_MySQL_Connection
                                          ";Password=" & serverPSWD &
                                          ";Connection Timeout=" & connectionTimeOut &
                                          ";CharSet=utf8" &
-                                         ";SslMode=none"
-
+                                         ";sslmode=Required"
         Try
             dbConnection1.Open()
             'DBConnect1 연결되어있지 않다면
             'If Not DBConnect1.State = ConnectionState.Open Then
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
-            Dim strSql As String = "SET Names euckr;"
-            Dim sqlCmd As New MySqlCommand(strSql, dbConnection1)
+            'Dim strSql As String = "SET Names euckr;"
+            Dim strsQL As String = "show status like 'Ssl_version';"
+            Dim sqlCmd As New MySqlCommand(strsQL, dbConnection1)
+
+            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+            Do While sqlDR.Read
+                Console.WriteLine("SSL 접속여부(SSL Version) : " & sqlDR("value"))
+            Loop
+            sqlDR.Close()
         Catch ex As Exception
             returnValue = False
             Thread_LoadingFormEnd()

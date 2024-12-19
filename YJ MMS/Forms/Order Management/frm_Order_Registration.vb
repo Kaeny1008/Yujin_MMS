@@ -1,6 +1,7 @@
 ﻿Imports System.Threading
 Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Order_Registration
 
@@ -396,16 +397,16 @@ Public Class frm_Order_Registration
                     Next
 
                     Dim itemFind As Boolean = False
-                    For x = 1 To Grid_Excel.Rows.Count - 1
-                        If dateOfDelivery = Grid_Excel(x, 11) And itemCode = Grid_Excel(x, 3) Then
-                            Dim registerQty As Double = Grid_Excel(x, 9)
+                    For ii = 1 To Grid_Excel.Rows.Count - 1
+                        If dateOfDelivery = Grid_Excel(ii, 11) And itemCode = Grid_Excel(ii, 3) Then
+                            Dim registerQty As Double = Grid_Excel(ii, 9)
                             If Not registerQty = orderQuantity Then
-                                Grid_Excel(x, 0) = "M"
-                                Grid_Excel(x, 15) = "수량변경"
-                                Grid_Excel(x, 9) = orderQuantity
+                                Grid_Excel(ii, 0) = "M"
+                                Grid_Excel(ii, 15) = "수량변경"
+                                Grid_Excel(ii, 9) = orderQuantity
                             Else
-                                Grid_Excel(x, 0) = x
-                                Grid_Excel(x, 15) = String.Empty
+                                Grid_Excel(ii, 0) = ii
+                                Grid_Excel(ii, 15) = String.Empty
                             End If
                             itemFind = True
                             Exit For

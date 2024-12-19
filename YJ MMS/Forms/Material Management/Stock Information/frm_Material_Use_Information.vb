@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Material_Use_Information
     Private Sub frm_Material_Use_Information_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -1,4 +1,4 @@
-﻿'Imports MySqlConnector
+﻿'Imports MySql.Data.MySqlClient
 
 'Module MySQL
 

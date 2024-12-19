@@ -1,5 +1,5 @@
 ﻿Imports System.IO
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_SMD_Magazine_Kitting
 

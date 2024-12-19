@@ -190,8 +190,8 @@ Partial Class MainForm
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(991, 4)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {1000, 0, 0, 0})
+        Me.NumericUpDown1.Location = New System.Drawing.Point(986, 4)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.NumericUpDown1.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(83, 21)
@@ -201,7 +201,7 @@ Partial Class MainForm
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(835, 8)
+        Me.Label4.Location = New System.Drawing.Point(830, 8)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(150, 12)
         Me.Label4.TabIndex = 11

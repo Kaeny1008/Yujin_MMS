@@ -57,7 +57,7 @@ Partial Class frm_Change_ItemParts
         Me.GroupBox1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.GroupBox1.Location = New System.Drawing.Point(26, 53)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(453, 355)
+        Me.GroupBox1.Size = New System.Drawing.Size(606, 355)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "1. 품번 선택"
@@ -91,7 +91,7 @@ Partial Class frm_Change_ItemParts
         Me.Grid_ModelList.Name = "Grid_ModelList"
         Me.Grid_ModelList.Rows.Count = 2
         Me.Grid_ModelList.Rows.DefaultSize = 20
-        Me.Grid_ModelList.Size = New System.Drawing.Size(280, 232)
+        Me.Grid_ModelList.Size = New System.Drawing.Size(435, 232)
         Me.Grid_ModelList.StyleInfo = resources.GetString("Grid_ModelList.StyleInfo")
         Me.Grid_ModelList.TabIndex = 5
         '
@@ -102,7 +102,7 @@ Partial Class frm_Change_ItemParts
         Me.TB_ItemLike.Location = New System.Drawing.Point(133, 32)
         Me.TB_ItemLike.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.TB_ItemLike.Name = "TB_ItemLike"
-        Me.TB_ItemLike.Size = New System.Drawing.Size(300, 21)
+        Me.TB_ItemLike.Size = New System.Drawing.Size(455, 21)
         Me.TB_ItemLike.TabIndex = 4
         '
         'Label6
@@ -124,7 +124,7 @@ Partial Class frm_Change_ItemParts
         Me.GroupBox2.BackColor = System.Drawing.Color.LightSteelBlue
         Me.GroupBox2.Controls.Add(Me.Grid_ChangeList)
         Me.GroupBox2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.GroupBox2.Location = New System.Drawing.Point(485, 53)
+        Me.GroupBox2.Location = New System.Drawing.Point(638, 53)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(453, 355)
         Me.GroupBox2.TabIndex = 8
@@ -163,7 +163,7 @@ Partial Class frm_Change_ItemParts
         '
         'BTN_Save
         '
-        Me.BTN_Save.Location = New System.Drawing.Point(744, 426)
+        Me.BTN_Save.Location = New System.Drawing.Point(880, 426)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(194, 40)
         Me.BTN_Save.TabIndex = 9

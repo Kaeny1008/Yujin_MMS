@@ -13,7 +13,7 @@
 '############################################################################################################
 
 Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Bucket_RCD_PMIC
 

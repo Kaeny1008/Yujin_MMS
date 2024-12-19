@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Order_Status
     Private Sub frm_Order_Status_Load(sender As Object, e As EventArgs) Handles MyBase.Load

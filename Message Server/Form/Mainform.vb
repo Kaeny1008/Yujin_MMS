@@ -3,7 +3,7 @@ Imports System.Net
 Imports System.Net.Sockets
 Imports System.Threading
 Imports System.Text
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 Imports System.IO
 
 Public Class MainForm
@@ -202,6 +202,10 @@ Public Class MainForm
         ClientRemoveTimer.Interval = 5000
         Timer1.Interval = 30000
         Timer1.Enabled = True
+
+        'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
+        Dim mpv As New MyPolicy
+        mpv.CertificateValidationCallback()
 
     End Sub
 
@@ -595,11 +599,67 @@ Public Class MainForm
                 Send(ClientList.Items(i).Tag, "Update Alarm")
                 ServerMSGListAdd(ClientList.Items(i).SubItems(0).Text & " Update Alarm Send.")
             Next
-            CheckVerDownload(ftpUrl & "/Run_File/", "NEWCheckVer.ini", True)
+            'CheckVerDownload(ftpUrl & "/Run_File/", "NEWCheckVer.ini", True)
+            CheckVerDownload_HttpsAsync(httpUrl & "/Run_File/", "NEWCheckVer.ini")
             Console.WriteLine("신규 체크버전 파일을 다운로드 합니다.")
         End If
 
     End Sub
+
+    Private Async Sub CheckVerDownload_HttpsAsync(ByVal httpURL As String, ByVal FileName As String)
+
+        Dim Client As New WebClient
+        Dim StrDownUrl As String = httpURL & FileName
+        Dim StrDownFolder As String = Application.StartupPath & "\" & FileName
+
+        '파일다운로드
+        AddHandler Client.DownloadProgressChanged, AddressOf File_DownLoading_Handler
+        AddHandler Client.DownloadFileCompleted, AddressOf File_DownLoading_Completed_Handler
+        Await Client.DownloadFileTaskAsync(New Uri(StrDownUrl), StrDownFolder)
+
+        Client.Dispose()
+
+    End Sub
+
+    Private Sub File_DownLoading_Handler(sender As System.Object, e As DownloadProgressChangedEventArgs)
+
+        'Dim StrTxt As String = String.Format("{0} DownLoad  {1} 중 {2} byte {3}%",
+        '                                     CStr(e.UserState),
+        '                                     e.TotalBytesToReceive,
+        '                                     e.BytesReceived,
+        '                                     e.ProgressPercentage)
+        Dim StrTxt As String = String.Format("DownLoad  {0} 중 {1} Mb ( {2}% )",
+                                             (e.TotalBytesToReceive / 1024D / 1024D).ToString("0.00"),
+                                             (e.BytesReceived / 1024D / 1024D).ToString("0.00"),
+                                             Format(e.BytesReceived / e.TotalBytesToReceive * 100, "##0.00"))
+
+        Console.WriteLine(StrTxt)
+
+        'With ProgressBar1
+        '    .Maximum = e.TotalBytesToReceive  '프로그래스바에 최대범위를 파일용량으로 넣음
+        '    .Value = e.BytesReceived          '가져오는 바이트양을 넣음
+        'End With
+
+    End Sub
+
+    Private Sub File_DownLoading_Completed_Handler(sender As System.Object, e As System.ComponentModel.AsyncCompletedEventArgs)
+
+        Console.WriteLine("체크 파일 다운로드가 완료 되었습니다.")
+        Dim oldFile As String = Application.StartupPath & "\CheckVer.ini"
+        Dim newFile As String = Application.StartupPath & "\NEWCheckVer.ini"
+        Console.WriteLine("기존 체크 파일을 삭제 합니다.")
+        File.Delete(oldFile)
+        FileSystem.Rename(newFile, oldFile)
+        Console.WriteLine("신규 체크 파일을 삭제 합니다.")
+        File.Delete(newFile)
+
+    End Sub
+
+    'Private Sub LabelTxt(ByVal strTxt As String)
+
+    '    Console.WriteLine(strTxt)
+
+    'End Sub
 
     '************************* FTP 서버내 Ver. CheckFile 다운로드 ***************************
     Private Sub CheckVerDownload(ByVal ftpURL As String, ByVal FileName As String, ByVal RunContinue As Boolean)
@@ -631,6 +691,7 @@ Public Class MainForm
             requestFileDownload.UsePassive = True
             requestFileDownload.KeepAlive = False
             requestFileDownload.UseBinary = False
+            requestFileDownload.EnableSsl = False
             responseFileDownload = DirectCast(requestFileDownload.GetResponse(), FtpWebResponse)
 
             Dim responseStream As Stream = responseFileDownload.GetResponseStream()
@@ -644,6 +705,7 @@ Public Class MainForm
             requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & FileName), FtpWebRequest)
             requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
+            requestFileSize.EnableSsl = False
             requestFileSize = Nothing
 
             While bytesRead > 0

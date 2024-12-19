@@ -11,7 +11,7 @@
 '############################################################################################################
 
 Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 Imports System.ComponentModel
 Imports System.Threading
 

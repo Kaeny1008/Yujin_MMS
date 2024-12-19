@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Repair_Management
     Private Sub frm_SMD_Defect_ReInspection_Load(sender As Object, e As EventArgs) Handles MyBase.Load

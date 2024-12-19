@@ -7,7 +7,8 @@
 
         mdbConnection1 = New OleDb.OleDbConnection
         mdbConnection1.ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" & Application.StartupPath + "\TempDB\TempDB.mdb" & ";Jet OLEDB:Database Password='dbwlspark'"
-
+        'mdbConnection1.ConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & Application.StartupPath + "\TempDB\TempDB.mdb" & ";Jet OLEDB:Database Password='dbwlspark'"
+        'x64, x86따라 위내용을 수정해야 한다.
         Try
             mdbConnection1.Open()
             'MDBConnect1 연결되어있지 않다면

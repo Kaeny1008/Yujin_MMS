@@ -45,7 +45,7 @@ Public Class Device_Data_Sub
     
     Public Overrides Property FullResourceName() As String
         Get
-            Return "YJ_MMS_MMPS.Device_Data_Sub.rpt"
+            Return "YJ_MMS.Device_Data_Sub.rpt"
         End Get
         Set
             'Do nothing

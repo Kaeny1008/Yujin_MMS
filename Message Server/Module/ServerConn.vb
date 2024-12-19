@@ -1,6 +1,6 @@
 ﻿Imports System.Data
 Imports System.Net
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Module ServerConn
 
@@ -13,6 +13,8 @@ Module ServerConn
     Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "server.PSWD", "Dbwlswjswk1!")
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
+    Public httpUrl As String = "https://" & serverIP & ":" & registryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
+    Public httpPort As Integer = registryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
 
     'Public ipHostInfo As IPHostEntry = Dns.Resolve(Dns.GetHostName())
     'Public ipAddress As IPAddress = ipHostInfo.AddressList(0)
@@ -25,13 +27,13 @@ Module ServerConn
         DBConnect1 = New MySqlConnection
 
         DBConnect1.ConnectionString = "Database=" & dbName &
-                                         ";Data Source=" & serverIP &
-                                         ";PORT=" & serverPORT &
-                                         ";User Id=" & serverID &
-                                         ";Password=" & serverPSWD &
-                                         ";Connection Timeout=" & connectionTimeOut &
-                                         ";CharSet=utf8" &
-                                         ";SslMode=none"
+            ";Data Source=" & serverIP &
+            ";PORT=" & serverPORT &
+            ";User Id=" & serverID &
+            ";Password=" & serverPSWD &
+            ";Connection Timeout=" & connectionTimeOut &
+            ";CharSet=utf8" &
+            ";sslmode=Required"
 
         Try
             DBConnect1.Open()
@@ -39,8 +41,8 @@ Module ServerConn
             'If Not DBConnect1.State = ConnectionState.Open Then
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
-            Dim strSql As String = "SET Names euckr;"
-            Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
+            'Dim strSql As String = "SET Names euckr;"
+            'Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
         Catch ex As Exception
             returnValue = False
             MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)

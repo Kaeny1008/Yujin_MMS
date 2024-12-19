@@ -1,5 +1,5 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Delivery_Register
     Private Sub frm_Delivery_Register_Load(sender As Object, e As EventArgs) Handles MyBase.Load

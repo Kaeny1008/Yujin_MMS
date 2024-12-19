@@ -13,7 +13,8 @@
 Imports System.Text.RegularExpressions
 Imports System.Threading
 Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Model_Document
 
@@ -243,6 +244,7 @@ Public Class frm_Model_Document
 
     End Sub
 
+    '그리드 버튼은 여기서!!!
     Private Sub Button_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         If CB_ManagementNo.Text = String.Empty Then
@@ -290,6 +292,10 @@ Public Class frm_Model_Document
         Dim downloadResult As String = ftpFileDownload(ftpUrl & "/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text,
                                                        strFolder,
                                                        Grid_Documents(d_row, 2))
+        'md_WebClient.callForm = Me
+        'FileDownload_Https("/Model_Documents/" & TB_CustomerCode.Text & "/" & TB_ModelCode.Text & "/" & CB_ManagementNo.Text,
+        '                   Grid_Documents(d_row, 2),
+        '                   strFolder)
 
         If Not downloadResult.Equals("Completed") Then
             MSG_Exclamation(Me, "Download 실패" & vbCrLf & downloadResult)
@@ -483,12 +489,12 @@ Public Class frm_Model_Document
                 Next
             End With
         Catch ex As Exception
-        MSG_Error(Me, ex.Message)
+            MSG_Error(Me, ex.Message)
         Finally
-        excelApp.WorkBooks(1).Close()
-        excelApp.Quit()
-        excelApp = Nothing
-        Invoke(d_SetPGStatus, String.Empty)
+            excelApp.WorkBooks(1).Close()
+            excelApp.Quit()
+            excelApp = Nothing
+            Invoke(d_SetPGStatus, String.Empty)
         End Try
 
         'FormDispose(frm_ExcelModify)
@@ -1385,7 +1391,7 @@ FTP_Control:
             TB_Label_FPGA.Text = sqlDR("fpga_label")
             If sqlDR("assy_label_use") = 1 Then CheckBox1.Checked = True
             If sqlDR("sw_label_use") = 1 Then CheckBox2.Checked = True
-            If sqlDR("assy_label_use2") = 1 Then CheckBox3.checked = True
+            If sqlDR("assy_label_use2") = 1 Then CheckBox3.Checked = True
         Loop
         sqlDR.Close()
 

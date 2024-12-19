@@ -1,6 +1,7 @@
 ﻿Imports C1.Win.C1FlexGrid
 Imports CrystalDecisions.CrystalReports.Engine
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Delivery_Register_Check
     Private Sub frm_Delivery_Register_Check_Load(sender As Object, e As EventArgs) Handles MyBase.Load

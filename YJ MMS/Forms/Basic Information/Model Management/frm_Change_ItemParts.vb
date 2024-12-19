@@ -1,5 +1,6 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Change_ItemParts
     Private Sub frm_Change_ItemParts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -105,16 +106,14 @@ Public Class frm_Change_ItemParts
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-
-            Dim changeResult As String = "N"
-            If Not sqlDR("change_parts") = False Then
-                changeResult = "Y"
+            Dim changeDate As String = sqlDR("change_parts")
+            If Not changeDate = String.Empty Then
+                changeDate = Format(CDate(changeDate), "yyyy-MM-dd HH:mm:ss")
             End If
-
             Dim insert_String As String = Grid_ModelList.Rows.Count
             insert_String += vbTab & sqlDR("model_code")
             insert_String += vbTab & sqlDR("item_code")
-            insert_String += vbTab & changeResult
+            insert_String += vbTab & changeDate
             Grid_ModelList.AddItem(insert_String)
         Loop
         sqlDR.Close()
@@ -203,7 +202,7 @@ Public Class frm_Change_ItemParts
 
             For i = 1 To Grid_ModelList.Rows.Count - 1
                 strSQL += "update tb_model_list"
-                strSQL += " set change_parts = 1"
+                strSQL += " set change_parts = '" & writeDate & "'"
                 strSQL += " where model_code = '" & Grid_ModelList(i, 1) & "'"
                 strSQL += ";"
             Next

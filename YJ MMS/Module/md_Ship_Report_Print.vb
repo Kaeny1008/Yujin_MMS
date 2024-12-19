@@ -1,5 +1,5 @@
 ﻿Imports CrystalDecisions.CrystalReports.Engine
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Module md_Ship_Report_Print
     Public Sub Ship_Report_Print(ByVal deliveryNo As String)

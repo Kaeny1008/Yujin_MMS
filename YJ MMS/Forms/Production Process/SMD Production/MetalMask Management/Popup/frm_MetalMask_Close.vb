@@ -1,4 +1,4 @@
-﻿Imports MySqlConnector
+﻿Imports MySql.Data.MySqlClient
 
 Public Class frm_MetalMask_Close
     Private Sub MM_Popup_Load(sender As Object, e As EventArgs) Handles MyBase.Load

@@ -1,5 +1,4 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
 
 Public Class frm_Order_Excel_File_Open
 
@@ -63,19 +62,19 @@ Public Class frm_Order_Excel_File_Open
                         If Not Grid_Excel(i, 0).ToString.Equals("행 제외") Then
                             Dim nowItemCode As String = Grid_Excel(i, itemCode)
                             Dim itemFind As Boolean = False
-                            For x = 1 To frm_Order_Registration.Grid_Excel.Rows.Count - 1
-                                If frm_Order_Registration.Grid_Excel(x, 3) = nowItemCode And
-                                    frm_Order_Registration.Grid_Excel(x, 11) = nowDate Then
-                                    Dim registerQty As Double = frm_Order_Registration.Grid_Excel(x, 9)
+                            For ii = 1 To frm_Order_Registration.Grid_Excel.Rows.Count - 1
+                                If frm_Order_Registration.Grid_Excel(ii, 3) = nowItemCode And
+                                    frm_Order_Registration.Grid_Excel(ii, 11) = nowDate Then
+                                    Dim registerQty As Double = frm_Order_Registration.Grid_Excel(ii, 9)
                                     If Not registerQty = CDbl(Grid_Excel(i, j)) Then
-                                        frm_Order_Registration.Grid_Excel(x, 0) = "M"
+                                        frm_Order_Registration.Grid_Excel(ii, 0) = "M"
                                         'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Red
-                                        frm_Order_Registration.Grid_Excel(x, 15) = "수량변경"
-                                        frm_Order_Registration.Grid_Excel(x, 9) = Grid_Excel(i, j)
+                                        frm_Order_Registration.Grid_Excel(ii, 15) = "수량변경"
+                                        frm_Order_Registration.Grid_Excel(ii, 9) = Grid_Excel(i, j)
                                     Else
-                                        frm_Order_Registration.Grid_Excel(x, 0) = x
+                                        frm_Order_Registration.Grid_Excel(ii, 0) = ii
                                         'frm_Order_Registration.Grid_Excel.Rows(x).StyleNew.ForeColor = Color.Black
-                                        frm_Order_Registration.Grid_Excel(x, 15) = String.Empty
+                                        frm_Order_Registration.Grid_Excel(ii, 15) = String.Empty
                                     End If
                                     itemFind = True
                                     Exit For

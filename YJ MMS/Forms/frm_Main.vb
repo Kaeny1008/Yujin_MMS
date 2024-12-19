@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
 Imports System.Threading
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
 
 Public Class frm_Main
 
@@ -28,7 +28,9 @@ Public Class frm_Main
 
         Load_AlarmList()
 
-        'Thread_LoadingFormStart(Me)
+        'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
+        Dim mpv As New MyPolicy
+        mpv.CertificateValidationCallback()
 
     End Sub
 

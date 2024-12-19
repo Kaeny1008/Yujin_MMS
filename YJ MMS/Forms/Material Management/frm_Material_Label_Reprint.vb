@@ -1,5 +1,6 @@
 ﻿Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Material_Label_Reprint
     Private Sub frm_Material_Label_Reprint_Load(sender As Object, e As EventArgs) Handles MyBase.Load

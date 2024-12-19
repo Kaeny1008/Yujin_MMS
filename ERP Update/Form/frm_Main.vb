@@ -4,18 +4,26 @@ Imports System.Net
 Public Class frm_Main
     '
     Dim RegistryEdit As New RegistryEdit.RegReadWrite
-    Dim ftpUrl As String = "ftp://" & RegistryEdit.ReadRegKey("Software\Yujin", "Server.IP", "125.137.78.158") & ":" & RegistryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPort", 1052)
+    Public serverIP As String = RegistryEdit.ReadRegKey("Software\Yujin", "Server.IP", "125.137.78.158")
+    Dim ftpUrl As String = "ftp://" & serverIP & ":" & RegistryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPort", 1052)
     Dim ftpPort As Integer = RegistryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPort", 1052)
+    Dim httpUrl As String = "https://" & serverIP & ":" & RegistryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
+    Dim httpPort As Integer = RegistryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
     Dim ftpID As String = RegistryEdit.ReadRegKey("Software\Yujin\FTP", "ftpID", "yujin_ftp")
     Dim ftpPassword As String = RegistryEdit.ReadRegKey("Software\Yujin\FTP", "ftpPassword", "Yujin_ftp!")
     Dim i As Integer
     Dim CheckFileName As String
     Dim FTPDownloading As Boolean = False
+    Dim sslUse As Boolean = True
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Timer1.Interval = 1000
         Timer1.Enabled = True
+
+        'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
+        Dim mpv As New MyPolicy
+        mpv.CertificateValidationCallback()
 
         If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) = 0 Then
             'UpdateChecker가 켜져 있다면 종료
@@ -27,86 +35,68 @@ Public Class frm_Main
 
     End Sub
 
-    '************************* FTP 서버내 Ver. CheckFile 다운로드 ***************************
-    Private Sub CheckVerDownload(ByVal ftpURL As String, ByVal FileName As String, ByVal RunContinue As Boolean)
+    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
+
+        If FTPDownloading = False Then
+            FTPDownloading = True
+            'If Timer1.Enabled = True Then CheckVerDownload(ftpUrl & "/Run_File/", "NEWCheckVer.ini", True)
+            If Timer1.Enabled = True Then CheckVerDownload_HttpsAsync(httpUrl & "/Run_File/", "NEWCheckVer.ini")
+        End If
+
+    End Sub
+
+    Private Async Sub CheckVerDownload_HttpsAsync(ByVal httpURL As String, ByVal FileName As String)
 
         Label1.Text = "Version Check File 다운로드....."
         '############################  파일다운로드 관련부분 #########################################################
 
-        Dim localPath_download As String = Application.StartupPath & "\" '다운로드 받을 경로
+        Dim Client As New WebClient
+        Dim StrDownUrl As String = httpURL & FileName
+        Dim StrDownFolder As String = Application.StartupPath & "\" & FileName
 
-        'While fileName IsNot Nothing '무조건 다운로드할때 이걸써라.(항목수 상관없이)
-        Dim requestFileDelete As FtpWebRequest = Nothing
-        Dim responseFileDelete As FtpWebResponse = Nothing
+        '파일다운로드
+        Await Client.DownloadFileTaskAsync(New Uri(StrDownUrl), StrDownFolder)
 
-        Dim requestFileDownload As FtpWebRequest = Nothing
-        Dim responseFileDownload As FtpWebResponse = Nothing
-
-        '파일존재여부 확인
-        'If My.Computer.FileSystem.FileExists(localPath_download & "\" & fileName) Then
-        '    Try
-        '        Kill(localPath_download & "\" & fileName)
-        '    Catch ex As Exception
-        '        MsgBox(ex.Message, MsgBoxStyle.Critical, Loginsite_Hangul)
-        '    End Try
-        'End If
-
-        Try
-            'Console.WriteLine(fileName)
-
-            requestFileDownload = DirectCast(WebRequest.Create(ftpURL & FileName), FtpWebRequest)
-            requestFileDownload.Credentials = New NetworkCredential(ftpID, ftpPassword)
-            requestFileDownload.Method = WebRequestMethods.Ftp.DownloadFile
-            requestFileDownload.UsePassive = True
-            requestFileDownload.KeepAlive = False
-            requestFileDownload.UseBinary = False
-            responseFileDownload = DirectCast(requestFileDownload.GetResponse(), FtpWebResponse)
-
-            Dim responseStream As Stream = responseFileDownload.GetResponseStream()
-            Dim writeStream As New FileStream(localPath_download & FileName, FileMode.Create)
-            Dim Length As Integer = 2048
-            Dim buffer As [Byte]() = New [Byte](Length - 1) {}
-            Dim bytesRead As Integer = responseStream.Read(buffer, 0, Length)
-
-            '#####파일의 크기를 알아보기 위해...#####
-            Dim requestFileSize As FtpWebRequest = Nothing
-            requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & FileName), FtpWebRequest)
-            requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
-            requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
-            '프로그래스바의 최대를 알아본다.
-            Dim run_count As Integer = 0
-            Dim total_count As Integer = requestFileSize.GetResponse.ContentLength
-            ProgressBar1.Maximum = 100
-            ProgressBar1.Value = 1
-            requestFileSize = Nothing
-
-            While bytesRead > 0
-                writeStream.Write(buffer, 0, bytesRead)
-                bytesRead = responseStream.Read(buffer, 0, Length)
-                run_count += bytesRead
-                ProgressBar1.Value = run_count / total_count * 100
-                Application.DoEvents()
-            End While
-            writeStream.Close()
-
-        Catch exceptionObj As Exception
-            MsgBox(exceptionObj.Message.ToString())
-        Finally
-            responseFileDelete = Nothing
-            requestFileDelete = Nothing
-
-            requestFileDownload = Nothing
-            responseFileDownload = Nothing
-        End Try
-
-        'End While
+        AddHandler Client.DownloadProgressChanged, AddressOf File_DownLoading_Handler
+        AddHandler Client.DownloadFileCompleted, AddressOf File_DownLoading_Completed_Handler
 
         '############################  파일다운로드 관련부분 #########################################################
         Label1.Text = "Version Check File 다운로드 완료."
 
-        If RunContinue = True Then
-            CheckVerTextOpen()
-        End If
+        CheckVerTextOpen()
+
+    End Sub
+
+    Private Sub File_DownLoading_Handler(sender As System.Object, e As DownloadProgressChangedEventArgs)
+
+        'Dim StrTxt As String = String.Format("{0} DownLoad  {1} 중 {2} byte {3}%",
+        '                                     CStr(e.UserState),
+        '                                     e.TotalBytesToReceive,
+        '                                     e.BytesReceived,
+        '                                     e.ProgressPercentage)
+        Dim StrTxt As String = String.Format("DownLoad  {0} 중 {1} Mb ( {2}% )",
+                                             (e.TotalBytesToReceive / 1024D / 1024D).ToString("0.00"),
+                                             (e.BytesReceived / 1024D / 1024D).ToString("0.00"),
+                                             Format(e.BytesReceived / e.TotalBytesToReceive * 100, "##0.00"))
+
+        LabelTxt(StrTxt)
+
+        With ProgressBar1
+            .Maximum = e.TotalBytesToReceive  '프로그래스바에 최대범위를 파일용량으로 넣음
+            .Value = e.BytesReceived          '가져오는 바이트양을 넣음
+        End With
+
+    End Sub
+
+    Private Sub File_DownLoading_Completed_Handler(sender As System.Object, e As System.ComponentModel.AsyncCompletedEventArgs)
+
+        LabelTxt("다운로드 완료....")
+
+    End Sub
+
+    Private Sub LabelTxt(ByVal strTxt As String)
+
+        Console.WriteLine(strTxt)
 
     End Sub
 
@@ -189,9 +179,170 @@ Public Class frm_Main
             Me.Close()
             System.IO.File.Delete(Application.StartupPath & "\NEWCheckVer.ini")
         Else
-            FileDownLoad(ftpUrl & "/Run_File/")
-            System.IO.File.Copy(Application.StartupPath & "\NEWCheckVer.ini", Application.StartupPath & "\CheckVer.ini", True)
-            System.IO.File.Delete(Application.StartupPath & "\NEWCheckVer.ini")
+            'FileDownLoad(ftpUrl & "/Run_File/") 'FTP
+            FileDownLoad_HttpAsync() 'HTTPS
+        End If
+
+    End Sub
+
+    Private Async Sub FileDownLoad_HttpAsync()
+
+        Dim j As Integer
+        Dim File() As String
+        File = Split(CheckFileName, "/")
+
+        Label1.Text = "0 / " & File.Length & " EA Download중"
+
+        Dim org_ftpUrl As String = httpUrl & "/Run_File/"
+
+        Dim Client As New WebClient
+
+        For j = 0 To File.Length - 1
+
+            Label2.Visible = True
+            Label2.Text = File(j)
+            Label1.Text = j + 1 & " / " & File.Length & " EA Download중"
+            '############################  파일다운로드 관련부분 #########################################################
+            ''''' 여기부분에 다운로드 경로를 설정할 수 있도록...................
+            Dim localPath_download As String = String.Empty '다운로드 받을 경로
+
+            Dim fileName As String = Split(File(j), "=")(0)
+            Dim newFileName As String = fileName
+            Dim folder_name As String = Split(File(j), "=")(1)
+
+            If folder_name = "ROOT" Then
+                folder_name = String.Empty
+                localPath_download = Application.StartupPath & "\"
+                ftpUrl = org_ftpUrl
+            Else
+                localPath_download = Application.StartupPath & "\" & folder_name & "\"
+                '폴더가 없으면 생성
+                If System.IO.Directory.Exists(localPath_download) = False Then
+                    System.IO.Directory.CreateDirectory(localPath_download)
+                End If
+                ftpUrl = org_ftpUrl & folder_name & "/"
+            End If
+
+            Console.WriteLine(localPath_download & fileName)
+            Console.WriteLine(ftpUrl & fileName)
+
+            If fileName = "ERP Update.exe" Then '업데이트 파일이 Update.exe 파일이라면 파일면 변경
+                newFileName = fileName & "_1"
+            End If
+
+            'Try
+            Dim StrDownUrl As String = ftpUrl & fileName
+                Dim StrDownFolder As String = localPath_download & "\" & newFileName
+
+                '파일다운로드
+                Await Client.DownloadFileTaskAsync(New Uri(StrDownUrl), StrDownFolder)
+
+                AddHandler Client.DownloadProgressChanged, AddressOf File_DownLoading_Handler
+                AddHandler Client.DownloadFileCompleted, AddressOf File_DownLoading_Completed_Handler
+            'Catch ex As Exception
+            '    MessageBox.Show(Me, ex.Message, "ERP Update", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            'End Try
+        Next j
+
+        Label1.Text = "Update File Downloaded."
+        Label5.Text = "Update 완료"
+        'Shell(Application.StartupPath & "\YJ MMS.exe", AppWinStyle.NormalFocus)
+        'CreateObject("WScript.Shell").Run(Chr(34) & Application.StartupPath & "\YJ Login.exe" & Chr(34), True)
+        'MsgBox(UBound(Diagnostics.Process.GetProcessesByName("UpdateChecker")))
+        If UBound(Diagnostics.Process.GetProcessesByName("Update Checker")) < 0 Then
+            Shell(Application.StartupPath & "\Update Checker.exe", AppWinStyle.Hide)
+        End If
+
+        Shell(Application.StartupPath & "\YJ Login.exe", AppWinStyle.NormalFocus)
+
+        System.IO.File.Copy(Application.StartupPath & "\NEWCheckVer.ini", Application.StartupPath & "\CheckVer.ini", True)
+        System.IO.File.Delete(Application.StartupPath & "\NEWCheckVer.ini")
+
+        Me.Close()
+
+    End Sub
+
+    '************************* FTP 서버내 Ver. CheckFile 다운로드 ***************************
+    Private Sub CheckVerDownload(ByVal ftpURL As String, ByVal FileName As String, ByVal RunContinue As Boolean)
+
+        Label1.Text = "Version Check File 다운로드....."
+        '############################  파일다운로드 관련부분 #########################################################
+
+        Dim localPath_download As String = Application.StartupPath & "\" '다운로드 받을 경로
+
+        'While fileName IsNot Nothing '무조건 다운로드할때 이걸써라.(항목수 상관없이)
+        Dim requestFileDelete As FtpWebRequest = Nothing
+        Dim responseFileDelete As FtpWebResponse = Nothing
+
+        Dim requestFileDownload As FtpWebRequest = Nothing
+        Dim responseFileDownload As FtpWebResponse = Nothing
+
+        '파일존재여부 확인
+        'If My.Computer.FileSystem.FileExists(localPath_download & "\" & fileName) Then
+        '    Try
+        '        Kill(localPath_download & "\" & fileName)
+        '    Catch ex As Exception
+        '        MsgBox(ex.Message, MsgBoxStyle.Critical, Loginsite_Hangul)
+        '    End Try
+        'End If
+
+        Try
+            'Console.WriteLine(fileName)
+
+            requestFileDownload = DirectCast(WebRequest.Create(ftpURL & FileName), FtpWebRequest)
+            requestFileDownload.Credentials = New NetworkCredential(ftpID, ftpPassword)
+            requestFileDownload.Method = WebRequestMethods.Ftp.DownloadFile
+            requestFileDownload.UsePassive = True
+            requestFileDownload.EnableSsl = sslUse
+            requestFileDownload.KeepAlive = False
+            requestFileDownload.UseBinary = False
+            responseFileDownload = DirectCast(requestFileDownload.GetResponse(), FtpWebResponse)
+
+            Dim responseStream As Stream = responseFileDownload.GetResponseStream()
+            Dim writeStream As New FileStream(localPath_download & FileName, FileMode.Create)
+            Dim Length As Integer = 2048
+            Dim buffer As [Byte]() = New [Byte](Length - 1) {}
+            Dim bytesRead As Integer = responseStream.Read(buffer, 0, Length)
+
+            '#####파일의 크기를 알아보기 위해...#####
+            Dim requestFileSize As FtpWebRequest = Nothing
+            requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & FileName), FtpWebRequest)
+            requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
+            requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
+            requestFileSize.EnableSsl = sslUse
+            '프로그래스바의 최대를 알아본다.
+            Dim run_count As Integer = 0
+            Dim total_count As Integer = requestFileSize.GetResponse.ContentLength
+            ProgressBar1.Maximum = 100
+            ProgressBar1.Value = 1
+            requestFileSize = Nothing
+
+            While bytesRead > 0
+                writeStream.Write(buffer, 0, bytesRead)
+                bytesRead = responseStream.Read(buffer, 0, Length)
+                run_count += bytesRead
+                ProgressBar1.Value = run_count / total_count * 100
+                Application.DoEvents()
+            End While
+            writeStream.Close()
+
+        Catch exceptionObj As Exception
+            MsgBox(exceptionObj.Message.ToString())
+        Finally
+            responseFileDelete = Nothing
+            requestFileDelete = Nothing
+
+            requestFileDownload = Nothing
+            responseFileDownload = Nothing
+        End Try
+
+        'End While
+
+        '############################  파일다운로드 관련부분 #########################################################
+        Label1.Text = "Version Check File 다운로드 완료."
+
+        If RunContinue = True Then
+            CheckVerTextOpen()
         End If
 
     End Sub
@@ -244,6 +395,7 @@ Public Class frm_Main
                 requestFileDownload.UsePassive = True
                 requestFileDownload.KeepAlive = False
                 requestFileDownload.UseBinary = False
+                requestFileDownload.EnableSsl = sslUse
                 responseFileDownload = DirectCast(requestFileDownload.GetResponse(), FtpWebResponse)
 
                 Dim responseStream As Stream = responseFileDownload.GetResponseStream()
@@ -304,15 +456,6 @@ Public Class frm_Main
         Shell(Application.StartupPath & "\YJ Login.exe", AppWinStyle.NormalFocus)
 
         Me.Close()
-
-    End Sub
-
-    Private Sub Timer1_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Timer1.Tick
-
-        If FTPDownloading = False Then
-            FTPDownloading = True
-            If Timer1.Enabled = True Then CheckVerDownload(ftpUrl & "/Run_File/", "NEWCheckVer.ini", True)
-        End If
 
     End Sub
 

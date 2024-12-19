@@ -1,4 +1,5 @@
-﻿Imports MySqlConnector
+﻿Imports MySql.Data.MySqlClient
+
 
 Public Class frm_CodeChange
     Private Sub frm_CodeChange_Load(sender As Object, e As EventArgs) Handles MyBase.Load

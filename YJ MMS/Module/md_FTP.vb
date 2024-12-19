@@ -20,6 +20,7 @@ Module md_FTP
     Public ftpUrl As String = "ftp://" & serverIP & ":" & ftpPort
     Public ftpID As String = registryEdit.ReadRegKey("Software\Yujin", "FtpID", "yujin_ftp")
     Public ftpPassword As String = registryEdit.ReadRegKey("Software\Yujin", "FtpPSWD", "Yujin_ftp!")
+    ReadOnly sslEnable As Boolean = True
 
     Public Sub ftpFolderMake(ByVal ftpURL As String)
 
@@ -30,6 +31,7 @@ Module md_FTP
             WriteDirectory.UsePassive = True
             WriteDirectory.KeepAlive = False
             WriteDirectory.UseBinary = False
+            WriteDirectory.EnableSsl = sslEnable
             Dim listResponse As FtpWebResponse = WriteDirectory.GetResponse()
         Catch ex As UriFormatException
             MsgBox(ex.Message, MsgBoxStyle.Information, msg_form & "_ftpFolderMake")
@@ -52,6 +54,7 @@ Module md_FTP
             listRequest.UsePassive = True
             listRequest.KeepAlive = False
             listRequest.UseBinary = False
+            listRequest.EnableSsl = sslEnable
             Dim listResponse As FtpWebResponse = listRequest.GetResponse()
             reader = New StreamReader(listResponse.GetResponseStream())
             DirectoryInfo = reader.ReadToEnd
@@ -108,6 +111,7 @@ Module md_FTP
             listRequest.UsePassive = True
             listRequest.KeepAlive = False
             listRequest.UseBinary = False
+            listRequest.EnableSsl = sslEnable
             Dim listResponse As FtpWebResponse = listRequest.GetResponse()
             reader = New StreamReader(listResponse.GetResponseStream())
             list_File = reader.ReadToEnd
@@ -139,6 +143,7 @@ Module md_FTP
         upFTP.UsePassive = True
         upFTP.KeepAlive = False
         upFTP.UseBinary = False
+        upFTP.EnableSsl = sslEnable
         upFTP.ContentLength = fileInf.Length
 
         Dim bBuffer(1023) As Byte '버퍼설정
@@ -184,12 +189,15 @@ Module md_FTP
 
         Try
             'Console.WriteLine(fileName)
+
             requestFileDownload = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
             requestFileDownload.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileDownload.UsePassive = True
             requestFileDownload.KeepAlive = False
             requestFileDownload.UseBinary = False
+            requestFileDownload.EnableSsl = sslEnable
             requestFileDownload.Method = WebRequestMethods.Ftp.DownloadFile
+
             responseFileDownload = DirectCast(requestFileDownload.GetResponse(), FtpWebResponse)
 
             Dim responseStream As Stream = responseFileDownload.GetResponseStream()
@@ -204,6 +212,9 @@ Module md_FTP
             requestFileSize = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
             requestFileSize.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileSize.Method = WebRequestMethods.Ftp.GetFileSize
+            requestFileSize.EnableSsl = sslEnable
+            requestFileSize.UsePassive = True
+
             '프로그래스바의 최대를 알아본다.
             Dim run_count As Integer = 0
             Dim total_count As Integer = requestFileSize.GetResponse.ContentLength
@@ -250,6 +261,8 @@ Module md_FTP
             requestFileDelete = DirectCast(WebRequest.Create(ftpURL & "/" & fileName), FtpWebRequest)
             requestFileDelete.Credentials = New NetworkCredential(ftpID, ftpPassword)
             requestFileDelete.Method = WebRequestMethods.Ftp.DeleteFile
+            requestFileDelete.EnableSsl = sslEnable
+            requestFileDelete.UsePassive = True
             responseFileDelete = DirectCast(requestFileDelete.GetResponse(), FtpWebResponse)
             'Console.WriteLine("Delete status: {0}", responseFileDelete.StatusDescription)
         Catch exceptionObj As Exception
@@ -284,6 +297,7 @@ Module md_FTP
             requestFolderDelete.UsePassive = True
             requestFolderDelete.KeepAlive = False
             requestFolderDelete.UseBinary = False
+            requestFolderDelete.EnableSsl = sslEnable
             responseFileDelete = DirectCast(requestFolderDelete.GetResponse(), FtpWebResponse)
             'Console.WriteLine("Delete status: {0}", responseFileDelete.StatusDescription)
         Catch exceptionObj As Exception

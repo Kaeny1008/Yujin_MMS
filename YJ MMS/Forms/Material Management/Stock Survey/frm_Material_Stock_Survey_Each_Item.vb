@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports C1.Win.C1FlexGrid
-Imports MySqlConnector
+Imports MySql.Data.MySqlClient
+
 
 Public Class frm_Material_Stock_Survey_Each_Item
 
