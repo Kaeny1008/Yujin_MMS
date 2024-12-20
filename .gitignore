@@ -396,4 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-Add DLL/mysql_ca-cert.pem
+*.pem
