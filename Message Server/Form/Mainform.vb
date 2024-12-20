@@ -552,7 +552,8 @@ Public Class MainForm
     Private Sub RealCheck()
 
         VER_OPEN()
-        Console.WriteLine("PC에 저장된 버전 파일을 열었습니다.")
+        'Console.WriteLine("PC에 저장된 버전 파일을 열었습니다.")
+        ServerMSGListAdd("Opened the saved check file.")
 
         If DBConnect() = False Then Exit Sub
 
@@ -562,7 +563,8 @@ Public Class MainForm
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
         Dim module_name As String = String.Empty
 
-        Console.WriteLine("버전 비교가 시작되었습니다.")
+        'Console.WriteLine("버전 비교가 시작되었습니다.")
+        ServerMSGListAdd("Verification of version has started.")
         Do While sqlDR.Read
             Dim pg_ver2() As String = Split(pg_ver, "//")
             Dim name_find As Boolean = False
@@ -591,17 +593,19 @@ Public Class MainForm
             End If
         Loop
         DBClose()
-        Console.WriteLine("버전 비교가 종료 되었습니다.")
+        'Console.WriteLine("버전 비교가 종료 되었습니다.")
+        ServerMSGListAdd("Version verification has ended.")
 
         If Not module_name = String.Empty Then
-            Console.WriteLine("업데이트된 내용 : " & module_name)
+            'Console.WriteLine("업데이트된 내용 : " & module_name)
+            ServerMSGListAdd("Send update alarms to all clients")
             For i = 0 To ClientList.Items.Count - 1
                 Send(ClientList.Items(i).Tag, "Update Alarm")
-                ServerMSGListAdd(ClientList.Items(i).SubItems(0).Text & " Update Alarm Send.")
             Next
             'CheckVerDownload(ftpUrl & "/Run_File/", "NEWCheckVer.ini", True)
             CheckVerDownload_HttpsAsync(httpUrl & "/Run_File/", "NEWCheckVer.ini")
-            Console.WriteLine("신규 체크버전 파일을 다운로드 합니다.")
+            'Console.WriteLine("신규 체크버전 파일을 다운로드 합니다.")
+            ServerMSGListAdd("Download the new check version file.")
         End If
 
     End Sub
@@ -634,6 +638,7 @@ Public Class MainForm
                                              Format(e.BytesReceived / e.TotalBytesToReceive * 100, "##0.00"))
 
         Console.WriteLine(StrTxt)
+        ServerMSGListAdd(StrTxt)
 
         'With ProgressBar1
         '    .Maximum = e.TotalBytesToReceive  '프로그래스바에 최대범위를 파일용량으로 넣음
@@ -644,13 +649,13 @@ Public Class MainForm
 
     Private Sub File_DownLoading_Completed_Handler(sender As System.Object, e As System.ComponentModel.AsyncCompletedEventArgs)
 
-        Console.WriteLine("체크 파일 다운로드가 완료 되었습니다.")
+        ServerMSGListAdd("Downloaded a new check file.")
         Dim oldFile As String = Application.StartupPath & "\CheckVer.ini"
         Dim newFile As String = Application.StartupPath & "\NEWCheckVer.ini"
-        Console.WriteLine("기존 체크 파일을 삭제 합니다.")
+        ServerMSGListAdd("Delete the old check file.")
         File.Delete(oldFile)
         FileSystem.Rename(newFile, oldFile)
-        Console.WriteLine("신규 체크 파일을 삭제 합니다.")
+        ServerMSGListAdd("File change completed. Delete the old check file.")
         File.Delete(newFile)
 
     End Sub

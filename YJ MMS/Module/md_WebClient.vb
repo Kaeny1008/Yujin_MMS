@@ -45,6 +45,7 @@ Module md_WebClient
     Public Sub FileUpload_Https(ByVal UpFolder As String, ByVal FileName As String)
 
         '이거 작동이 안된다.....
+        '두번째 문제 폴더 권한이없어서 더더욱 안된다.
         Dim wbClient As New WebClient
         Dim strUpUrl As String = httpUrl & UpFolder
         Dim strUpFolder As String = FileName

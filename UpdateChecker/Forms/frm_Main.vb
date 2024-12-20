@@ -155,6 +155,8 @@ Public Class frm_Main
     End Sub
 #End Region
 
+    Dim alarmOpen As Boolean = False
+
     Private Sub ReadData(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
         Dim msgSplit() As String = Split(sender.ToString, "||")
@@ -170,7 +172,12 @@ Public Class frm_Main
             'lbStatus.Text = "Connection closed"
             Console.WriteLine("Update Checker : Server Stop Received. Connection closed.")
         ElseIf msgSplit(0).ToUpper = "Update Alarm".ToUpper Then
-            Console.WriteLine("Update Checker : Update Alarm Received.")
+            If alarmOpen = True Then
+                Console.WriteLine("Update Checker : Update Alarm Received and Not Show")
+                Exit Sub
+            Else
+                Console.WriteLine("Update Checker : Update Alarm Received and Show")
+            End If
             MessageBox.Show(New Form() With {.TopMost = True},
                             "프로그램 업데이트가 있습니다." & vbCrLf &
                             "업데이트 하지 않고 사용시 심각한 오류가 발생할 수 있습니다." & vbCrLf &
@@ -178,6 +185,7 @@ Public Class frm_Main
                             "Update Checker",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Warning)
+            alarmOpen = True
             Try
                 Dim myProgram As String = "ERP Update, YJ Login, Repair System, YJ MMS, YJ MMS MMPS, Message Server"
                 Dim myProgram2() As String = Split(myProgram, ", ")

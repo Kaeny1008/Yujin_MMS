@@ -34,7 +34,8 @@ Module md_MySQL_Connection
                                          ";Password=" & serverPSWD &
                                          ";Connection Timeout=" & connectionTimeOut &
                                          ";CharSet=utf8" &
-                                         ";sslmode=Required"
+                                         ";sslmode=Required" &
+                                         ";certificatefile=" & Application.StartupPath & "\mysql_ca-cert.pem"
         Try
             dbConnection1.Open()
             'DBConnect1 연결되어있지 않다면
@@ -42,15 +43,15 @@ Module md_MySQL_Connection
             '        MessageBox.Show("DB 연결 실패", "DB 테스트", MessageBoxButtons.OK, MessageBoxIcon.Error)
             'End If
             'Dim strSql As String = "SET Names euckr;"
-            Dim strsQL As String = "show status like 'Ssl_version';"
-            Dim sqlCmd As New MySqlCommand(strsQL, dbConnection1)
+            'Dim strsQL As String = "show status like 'Ssl_version';"
+            'Dim sqlCmd As New MySqlCommand(strsQL, dbConnection1)
 
-            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+            'Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
-            Do While sqlDR.Read
-                Console.WriteLine("SSL 접속여부(SSL Version) : " & sqlDR("value"))
-            Loop
-            sqlDR.Close()
+            'Do While sqlDR.Read
+            '    Console.WriteLine("SSL 접속여부(SSL Version) : " & sqlDR("value"))
+            'Loop
+            'sqlDR.Close()
         Catch ex As Exception
             returnValue = False
             Thread_LoadingFormEnd()

@@ -75,6 +75,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_0CC510C1B6824971AB45D319CE18F3FB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_19E635B8E3CB4A02A6272A84822E9E8F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -1254,6 +1260,26 @@
             "TargetName" = "8:rpt_Reject_Material_Ship.rpt"
             "Tag" = "8:"
             "Folder" = "8:_3AA550D743314B20BEA6DF4F89877F97"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0CC510C1B6824971AB45D319CE18F3FB"
+            {
+            "SourcePath" = "8:..\\Add DLL\\mysql_ca-cert.pem"
+            "TargetName" = "8:mysql_ca-cert.pem"
+            "Tag" = "8:"
+            "Folder" = "8:_635A1F605A8741BD988AEF1D04286849"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -2550,7 +2576,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:YJ MMS V2"
         "ProductCode" = "8:{7FD48C7A-C99B-474E-8225-49FA406E3C2B}"
-        "PackageCode" = "8:{555A1A8C-5CF8-4B8B-ABA8-31296E309D3E}"
+        "PackageCode" = "8:{13DF2C4C-DC94-4950-B7B1-40B0AAE41282}"
         "UpgradeCode" = "8:{5A83A1C2-2B46-4F0F-A92E-C5F493BC7FAC}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"

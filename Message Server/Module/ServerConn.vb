@@ -33,7 +33,8 @@ Module ServerConn
             ";Password=" & serverPSWD &
             ";Connection Timeout=" & connectionTimeOut &
             ";CharSet=utf8" &
-            ";sslmode=Required"
+            ";sslmode=Required" &
+            ";certificatefile=" & Application.StartupPath & "\mysql_ca-cert.pem"
 
         Try
             DBConnect1.Open()
