@@ -196,7 +196,7 @@ Partial Class MainForm
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(83, 21)
         Me.NumericUpDown1.TabIndex = 12
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {500, 0, 0, 0})
         '
         'Label4
         '

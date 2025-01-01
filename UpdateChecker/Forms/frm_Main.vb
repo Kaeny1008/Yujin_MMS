@@ -11,8 +11,8 @@ Public Class frm_Main
     'the socket we will be using
     Dim clientSocket As Socket
     Dim byteData(1023) As Byte
-    Dim ServerIP As String = registryEdit.ReadRegKey("Software\Yujin", "server.IP", "125.137.78.158")
-    Dim ServerPort As Integer = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.Port", "10521")
+    Dim ServerIP As String = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.IP", "125.137.78.158")
+    Dim ServerPort As Integer = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.Port", 10521)
     Dim loginID As String = registryEdit.ReadRegKey("Software\Yujin\Login", "User ID", "user")
 
     Private Sub ServerConnect()

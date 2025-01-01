@@ -11,6 +11,12 @@ Public Class frm_Main
 
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'registryEdit.WriteRegKey("Software\Yujin", "Server.IP", "192.168.0.174")
+        'registryEdit.WriteRegKey("Software\Yujin", "MessageServer.IP", "192.168.0.173")
+        'serverIP = registryEdit.ReadRegKey("Software\Yujin", "server.IP", "192.168.0.174")
+        'messageIP = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.IP", "192.168.0.173")
+        '########### 나중에 삭제해야함. 강제로 IP변경하기 위해....
+
         Me.Text = "Yujin Manufacturing Management System (Build " &
             System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() &
             ")"

@@ -33,13 +33,17 @@ Partial Class frm_SQL_Conn
         Me.LB_IP = New System.Windows.Forms.Label()
         Me.tbTimeOut = New System.Windows.Forms.TextBox()
         Me.lb_TimeOut = New System.Windows.Forms.Label()
+        Me.TB_MessagePort = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TB_MessageIP = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'btnSave
         '
         Me.btnSave.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave.Image = Global.YJ_MMS.My.Resources.Resources.save
-        Me.btnSave.Location = New System.Drawing.Point(367, 73)
+        Me.btnSave.Location = New System.Drawing.Point(367, 140)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(121, 90)
         Me.btnSave.TabIndex = 19
@@ -61,7 +65,7 @@ Partial Class frm_SQL_Conn
         '
         'LB_PW
         '
-        Me.LB_PW.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LB_PW.BackColor = System.Drawing.Color.SteelBlue
         Me.LB_PW.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LB_PW.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.LB_PW.ForeColor = System.Drawing.Color.White
@@ -85,7 +89,7 @@ Partial Class frm_SQL_Conn
         '
         'LB_ID
         '
-        Me.LB_ID.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LB_ID.BackColor = System.Drawing.Color.SteelBlue
         Me.LB_ID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LB_ID.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.LB_ID.ForeColor = System.Drawing.Color.White
@@ -109,7 +113,7 @@ Partial Class frm_SQL_Conn
         '
         'LB_PORT
         '
-        Me.LB_PORT.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LB_PORT.BackColor = System.Drawing.Color.SteelBlue
         Me.LB_PORT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LB_PORT.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.LB_PORT.ForeColor = System.Drawing.Color.White
@@ -133,7 +137,7 @@ Partial Class frm_SQL_Conn
         '
         'LB_IP
         '
-        Me.LB_IP.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.LB_IP.BackColor = System.Drawing.Color.SteelBlue
         Me.LB_IP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.LB_IP.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.LB_IP.ForeColor = System.Drawing.Color.White
@@ -157,7 +161,7 @@ Partial Class frm_SQL_Conn
         '
         'lb_TimeOut
         '
-        Me.lb_TimeOut.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.lb_TimeOut.BackColor = System.Drawing.Color.SteelBlue
         Me.lb_TimeOut.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lb_TimeOut.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
         Me.lb_TimeOut.ForeColor = System.Drawing.Color.White
@@ -166,15 +170,67 @@ Partial Class frm_SQL_Conn
         Me.lb_TimeOut.Name = "lb_TimeOut"
         Me.lb_TimeOut.Size = New System.Drawing.Size(160, 26)
         Me.lb_TimeOut.TabIndex = 20
-        Me.lb_TimeOut.Text = "TimeOut :"
+        Me.lb_TimeOut.Text = "SQL TimeOut :"
         Me.lb_TimeOut.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TB_MessagePort
+        '
+        Me.TB_MessagePort.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TB_MessagePort.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TB_MessagePort.Location = New System.Drawing.Point(169, 206)
+        Me.TB_MessagePort.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_MessagePort.Name = "TB_MessagePort"
+        Me.TB_MessagePort.Size = New System.Drawing.Size(171, 26)
+        Me.TB_MessagePort.TabIndex = 25
+        '
+        'Label1
+        '
+        Me.Label1.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(9, 206)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(160, 26)
+        Me.Label1.TabIndex = 24
+        Me.Label1.Text = "Message Port :"
+        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'TB_MessageIP
+        '
+        Me.TB_MessageIP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TB_MessageIP.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.TB_MessageIP.Location = New System.Drawing.Point(169, 174)
+        Me.TB_MessageIP.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TB_MessageIP.Name = "TB_MessageIP"
+        Me.TB_MessageIP.Size = New System.Drawing.Size(171, 26)
+        Me.TB_MessageIP.TabIndex = 23
+        '
+        'Label2
+        '
+        Me.Label2.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold)
+        Me.Label2.ForeColor = System.Drawing.Color.White
+        Me.Label2.Location = New System.Drawing.Point(9, 174)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(160, 26)
+        Me.Label2.TabIndex = 22
+        Me.Label2.Text = "Message IP :"
+        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'frm_SQL_Conn
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(500, 177)
+        Me.ClientSize = New System.Drawing.Size(500, 242)
+        Me.Controls.Add(Me.TB_MessagePort)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.TB_MessageIP)
+        Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.tbTimeOut)
         Me.Controls.Add(Me.lb_TimeOut)
         Me.Controls.Add(Me.btnSave)
@@ -207,4 +263,8 @@ Partial Class frm_SQL_Conn
     Friend WithEvents LB_IP As Label
     Friend WithEvents tbTimeOut As TextBox
     Friend WithEvents lb_TimeOut As Label
+    Friend WithEvents TB_MessagePort As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents TB_MessageIP As TextBox
+    Friend WithEvents Label2 As Label
 End Class

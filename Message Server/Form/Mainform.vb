@@ -200,7 +200,7 @@ Public Class MainForm
         ClientCheckingTimer.Interval = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Check Time", 10) * 1000
         ClientRemoveTimer.Enabled = False
         ClientRemoveTimer.Interval = 5000
-        Timer1.Interval = 30000
+        Timer1.Interval = 60000
         Timer1.Enabled = True
 
         'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
@@ -498,6 +498,15 @@ Public Class MainForm
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        If MessageBox.Show(Me,
+                           "Update 정보를 Client에게 전송 하시겠습니까?",
+                           "Update Alarm",
+                           MessageBoxButtons.YesNo,
+                           MessageBoxIcon.Question,
+                           MessageBoxDefaultButton.Button1) = DialogResult.No Then
+            Exit Sub
+        End If
 
         For i = 0 To ClientList.Items.Count - 1
             Send(ClientList.Items(i).Tag, "Update Alarm")

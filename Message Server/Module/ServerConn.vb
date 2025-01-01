@@ -57,6 +57,7 @@ Module ServerConn
     Public Sub DBClose()
         If DBConnect1.State = ConnectionState.Open Then
             DBConnect1.Close()
+            DBConnect1.Dispose()
         End If
     End Sub
 

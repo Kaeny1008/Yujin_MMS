@@ -1434,13 +1434,14 @@ FTP_Control:
 
         For i = 1 To 7
             Grid_Documents(i, 1) = "등록필요"
-            Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
-        Next
-
-        For i = 1 To 7
             Grid_Documents(i, 2) = String.Empty
             Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
         Next
+
+        'For i = 1 To 7
+        '    Grid_Documents(i, 2) = String.Empty
+        '    Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black
+        'Next
 
         If DBConnect() = False Then Exit Sub
 
@@ -1501,6 +1502,8 @@ FTP_Control:
         sqlDR.Close()
 
         DBClose()
+
+        LabelTextUpdate("총 Point  : " & Format(Grid_BOM.Rows.Count - 1, "#,##0 EA"), Me, Label11)
 
         Grid_BOM.AutoSizeCols()
 

@@ -13,6 +13,9 @@ Module md_MySQL_Connection
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
 
+    Public messageIP As String = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.IP", "125.137.78.158")
+    Public messagePort As Integer = registryEdit.ReadRegKey("Software\Yujin", "MessageServer.Port", 10521)
+
     'DB 연결 함수
     Public Function DBConnect() As Boolean
 
@@ -67,6 +70,7 @@ Module md_MySQL_Connection
 
         If dbConnection1.State = ConnectionState.Open Then
             dbConnection1.Close()
+            dbConnection1.Dispose()
         End If
 
     End Sub

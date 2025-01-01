@@ -307,13 +307,16 @@ Public Class frm_Material_Return_Register
                 strSQL += ");"
 
                 strSQL += "insert into tb_mms_material_transfer_out_content("
-                strSQL += "mw_no, tn_no, part_status, tn_note, part_qty"
+                strSQL += "mw_no, tn_no, part_status, tn_note, part_qty, write_date, write_id, part_code"
                 strSQL += ") values("
                 strSQL += "'" & Grid_History(i, 7) & "'"
                 strSQL += ",'" & tnNo & "'"
                 strSQL += ", 'Run'"
                 strSQL += ",'반출등록에서 등록됨'"
                 strSQL += "," & CDbl(Grid_History(i, 5))
+                strSQL += ",'" & writeDate & "'"
+                strSQL += ",'" & loginID & "'"
+                strSQL += ",'" & Grid_History(i, 1) & "'"
                 strSQL += ");"
 
                 'Grid_History(0, 1) = "자재코드"

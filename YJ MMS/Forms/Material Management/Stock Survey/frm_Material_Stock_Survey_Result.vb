@@ -246,7 +246,7 @@ Public Class frm_Material_Stock_Survey_Result
         Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            Dim diff_Qty As Integer = Format(sqlDR("check_qty") - sqlDR("stock_qty"), "#,##0")
+            Dim diff_Qty As Integer = Format(sqlDR("check_qty") - Math.Abs(sqlDR("stock_qty")), "#,##0")
             Dim insertString As String = Grid_MaterialList.Rows.Count - 1 &
                 vbTab & sqlDR("part_code") &
                 vbTab & sqlDR("part_type") &
@@ -444,24 +444,37 @@ Public Class frm_Material_Stock_Survey_Result
                 If CDbl(Grid_MaterialList(i, 19)) > 0 Then
                     '결과값이 + 인경우 재고수량보다 많으니까
                     '전산수량을 기초재고로 잡고 나머지수량을 기록한다.
+                    Dim basicQty As Double = CDbl(Grid_MaterialList(i, 17))
                     strSQL += "insert into tb_mms_material_basic_inventory("
                     strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
                     strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
-                    strSQL += "," & CDbl(Grid_MaterialList(i, 17)) & ""
+                    strSQL += "," & basicQty & ""
                     strSQL += "," & CDbl(Grid_MaterialList(i, 19)) & ""
                     strSQL += ");"
-                Else
+                ElseIf CDbl(Grid_MaterialList(i, 19)) < 0 Then
+                    Dim basicQty As Double = CDbl(Grid_MaterialList(i, 19))
                     strSQL += "insert into tb_mms_material_basic_inventory("
                     strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
                     strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
-                    strSQL += "," & CDbl(Grid_MaterialList(i, 18)) & ""
-                    strSQL += ", 0"
+                    strSQL += "," & basicQty & ""
+                    strSQL += "," & 0 & ""
+                    strSQL += ");"
+                Else
+                    Dim basicQty As Double = CDbl(Grid_MaterialList(i, 18))
+                    strSQL += "insert into tb_mms_material_basic_inventory("
+                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
+                    strSQL += ") values("
+                    strSQL += "'" & dateTime & "'"
+                    strSQL += ",'" & TB_CustomerCode.Text & "'"
+                    strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
+                    strSQL += "," & basicQty & ""
+                    strSQL += "," & 0 & ""
                     strSQL += ");"
                 End If
 
@@ -532,6 +545,8 @@ Public Class frm_Material_Stock_Survey_Result
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                '이건 오래 걸릴 수 있다.
+                sqlCmd.CommandTimeout = 30
                 sqlCmd.Transaction = sqlTran
                 sqlCmd.ExecuteNonQuery()
 
