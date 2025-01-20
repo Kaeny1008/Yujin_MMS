@@ -198,10 +198,12 @@ Public Class MainForm
 
         ClientCheckingTimer.Enabled = True
         ClientCheckingTimer.Interval = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Check Time", 10) * 1000
+        Console.WriteLine("Client Checking Time : " & ClientCheckingTimer.Interval / 1000 & " Sec")
         ClientRemoveTimer.Enabled = False
         ClientRemoveTimer.Interval = 5000
-        Timer1.Interval = 60000
+        Timer1.Interval = updateCheckTime * 1000
         Timer1.Enabled = True
+        Console.WriteLine("Update Checking Time : " & Timer1.Interval / 1000 & " Sec")
 
         'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
         Dim mpv As New MyPolicy
@@ -332,7 +334,7 @@ Public Class MainForm
 
     End Sub
 
-    Private Sub ServerMSGListAdd(ByVal MSGString As String)
+    Public Sub ServerMSGListAdd(ByVal MSGString As String)
 
         MessageList.Items.Add(MessageList.Items.Count + 1)
         MessageList.Items(MessageList.Items.Count - 1).SubItems.Add(Format(Now, "yyyy-MM-dd HH:mm:ss"))
@@ -380,7 +382,7 @@ Public Class MainForm
             CheckingCount = 0
         End If
         'Console.WriteLine("Client Delete : Start, " & ClientList.Items.Count)
-        'On Error Resume Next '어차피 삭제 목록이니까 오류나도 괜찮
+
         For i = ClientList.Items.Count - 1 To 0 Step -1
             Dim abc As ListViewItem = ClientList.FindItemWithText("Disconnected")
             If Not abc Is Nothing Then
@@ -494,7 +496,9 @@ Public Class MainForm
     End Sub
 
     Private Sub mnExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mnExit.Click
+
         Me.Close()
+
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

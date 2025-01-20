@@ -712,6 +712,20 @@ Public Class frm_Material_Warehousing_With_Label
             strSQL += ", '" & CInt(TB_Qty.Text) & "'"
             strSQL += ";"
 
+            strSQL += "INSERT INTO tb_mms_material_basic_inventory("
+            strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut, in_q"
+            strSQL += ") VALUES ("
+            strSQL += "f_mms_clearance_date()"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_CustomerPartCode.Text & "'"
+            strSQL += ", 0"
+            strSQL += ", 0"
+            strSQL += ", " & CInt(TB_Qty.Text)
+            strSQL += ")"
+            strSQL += " ON DUPLICATE KEY"
+            strSQL += " UPDATE in_q = ifnull(in_q, 0) + " & CInt(TB_Qty.Text)
+            strSQL += ";"
+
             '맵핑을 자동으로 등록하도록 한다.
             '중복된 값이 있으면 저장X
             strSQL += "insert into tb_mms_part_mapping("
@@ -1123,7 +1137,7 @@ Public Class frm_Material_Warehousing_With_Label
         Dim find_PartCode As Integer = Grid_MaterialList.FindRow(nowPartCode, 1, 1, True)
 
         If find_PartCode > 0 Then
-            Grid_MaterialList(find_PartCode, 4) = Format(CDbl(Grid_MaterialList(find_PartCode, 4)) + CDbl(nowQty), "#,##0")
+            Grid_MaterialList(find_PartCode, 4) = Format(CDbl(Grid_MaterialList(find_PartCode, 4)) - CDbl(nowQty), "#,##0")
             Grid_MaterialList(find_PartCode, 5) = Format(CDbl(Grid_MaterialList(find_PartCode, 4)) - CDbl(Grid_MaterialList(find_PartCode, 3)), "#,##0")
             If Grid_MaterialList(find_PartCode, 5) > 0 Then
                 Grid_MaterialList.Rows(find_PartCode).StyleNew.ForeColor = Color.Red
@@ -1152,6 +1166,12 @@ Public Class frm_Material_Warehousing_With_Label
         '        TextBox1.Focus()
         '        Exit Sub
         '    End If
+        'End If
+
+        'If e.KeyCode = 13 Then
+        '    For i = 0 To TextBox1.Text.Length - 1
+        '        Console.WriteLine(TextBox1.Text.Substring(i, 1) & " : " & Asc(TextBox1.Text.Substring(i, 1)))
+        '    Next
         'End If
 
     End Sub

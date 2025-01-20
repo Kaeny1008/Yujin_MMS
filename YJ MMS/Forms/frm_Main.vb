@@ -73,13 +73,16 @@ Public Class frm_Main
         Dim sqlDR As OleDb.OleDbDataReader = sqlCmd.ExecuteReader
 
         Do While sqlDR.Read
-            If sqlDR("alarm_name") = "폐기등록 알림" Then
+            If sqlDR("alarm_name").Equals("폐기등록 알림") Then
                 discard_Alarm = True
-                Timer1.Interval = sqlDR("interval_time") * 1000
-                Timer1.Start()
-            ElseIf sqlDR("alarm_name") = "프린터 텍스트 삭제" Then
-                Timer2.Interval = sqlDR("interval_time") * 1000
-                Timer2.Start()
+                Timer_Discard_Alarm.Interval = sqlDR("interval_time") * 1000
+                Timer_Discard_Alarm.Start()
+            ElseIf sqlDR("alarm_name").Equals("프린터 텍스트 삭제") Then
+                Timer_FileDelete.Interval = sqlDR("interval_time") * 1000
+                Timer_FileDelete.Start()
+            ElseIf sqlDR("alarm_name").Equals("SMD 자재요청") Then
+                Timer_SMD_Material.Interval = sqlDR("interval_time") * 1000
+                Timer_SMD_Material.Start()
             End If
         Loop
         sqlDR.Close()
@@ -130,23 +133,28 @@ Public Class frm_Main
             Exit Sub
         End If
 
-        If IO.Directory.Exists(Application.StartupPath & "\Temp") Then
-            IO.Directory.Delete(Application.StartupPath & "\Temp", True)
-        End If
-
-        Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Update Checker")
-
-        '아래 목록은 YJ 프로그램이 실행된 상태인지 확인 후 하나라도 켜져 있다면 업데이트체커 프로그램을 끄지 않도록 한다.
-        '현재 내자신(프로그램)을 제외하고 실행되었는지 확인 후 없다면 업데이트체커 프로그램을 종료시킨다.
-        Dim process_RepairSystem() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Repair System")
-        Dim process_YJ_MMS_MMPS() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS MMPS")
-
-        If ucProcess.Length > 0 Then
-            If process_RepairSystem.Length = 0 And
-                process_YJ_MMS_MMPS.Length = 0 Then
-                ucProcess(0).Kill()
+        Try
+            If IO.Directory.Exists(Application.StartupPath & "\Temp") Then
+                IO.Directory.Delete(Application.StartupPath & "\Temp", True)
             End If
-        End If
+
+            Dim ucProcess() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Update Checker")
+
+            '아래 목록은 YJ 프로그램이 실행된 상태인지 확인 후 하나라도 켜져 있다면 업데이트체커 프로그램을 끄지 않도록 한다.
+            '현재 내자신(프로그램)을 제외하고 실행되었는지 확인 후 없다면 업데이트체커 프로그램을 종료시킨다.
+            Dim process_RepairSystem() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("Repair System")
+            Dim process_YJ_MMS_MMPS() As System.Diagnostics.Process = System.Diagnostics.Process.GetProcessesByName("YJ MMS MMPS")
+
+            If ucProcess.Length > 0 Then
+                If process_RepairSystem.Length = 0 And
+                    process_YJ_MMS_MMPS.Length = 0 Then
+                    ucProcess(0).Kill()
+                End If
+            End If
+        Catch ex As Exception
+            MSG_Information(Me, ex.Message)
+            'e.Cancel = True
+        End Try
 
         Me.Dispose()
 
@@ -520,7 +528,7 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer_Discard_Alarm.Tick
 
         Try
             If DBConnect() = False Then Exit Sub
@@ -541,7 +549,35 @@ Public Class frm_Main
 
             Do While sqlDR.Read
                 If Not sqlDR("not_confirm_count") = 0 Then
-                    If Not frm_DiscardAlarm.Visible Then frm_DiscardAlarm.Show()
+                    If Not frm_Alarm_Discard.Visible Then frm_Alarm_Discard.Show()
+                End If
+            Loop
+            sqlDR.Close()
+
+            DBClose()
+
+        Catch ex As Exception
+            MSG_Error(Me, ex.Message)
+        End Try
+
+    End Sub
+
+    Private Sub Timer_SMD_Material_Tick(sender As Object, e As EventArgs) Handles Timer_SMD_Material.Tick
+
+        Try
+            If DBConnect() = False Then Exit Sub
+
+            Dim strSQL As String = "select count(*) as request_count"
+            strSQL += " from tb_mms_smd_production_material_require_list"
+            strSQL += " where require_status = 'Run'"
+            strSQL += ";"
+
+            Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+            Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+            Do While sqlDR.Read
+                If Not sqlDR("request_count") = 0 Then
+                    If Not frm_Alarm_MaterialRequest.Visible Then frm_Alarm_MaterialRequest.Show()
                 End If
             Loop
             sqlDR.Close()
@@ -594,7 +630,7 @@ Public Class frm_Main
 
     End Sub
 
-    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer_FileDelete.Tick
 
         '너무 지져분해지니까 Print Text File들을 삭제 하자.
         thread_FileDelete = New Thread(AddressOf Print_RawFile_Delete)
@@ -626,6 +662,14 @@ Public Class frm_Main
         frm_Material_CheckRequirements2.MdiParent = Me
         If Not frm_Material_CheckRequirements2.Visible Then frm_Material_CheckRequirements2.Show()
         frm_Material_CheckRequirements2.Focus()
+
+    End Sub
+
+    Private Sub BTN_SMD_Material_Request_Click(sender As Object, e As EventArgs) Handles BTN_SMD_Material_Request.Click
+
+        frm_SMD_Material_Request.MdiParent = Me
+        If Not frm_SMD_Material_Request.Visible Then frm_SMD_Material_Request.Show()
+        frm_SMD_Material_Request.Focus()
 
     End Sub
 End Class

@@ -252,10 +252,16 @@
     <Compile Include="Forms\frm_Main.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frm_DiscardAlarm.Designer.vb">
-      <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
+    <Compile Include="Forms\frm_Alarm_Discard.Designer.vb">
+      <DependentUpon>frm_Alarm_Discard.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frm_DiscardAlarm.vb">
+    <Compile Include="Forms\frm_Alarm_Discard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Alarm_MaterialRequest.Designer.vb">
+      <DependentUpon>frm_Alarm_MaterialRequest.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Alarm_MaterialRequest.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements2.Designer.vb">
@@ -268,6 +274,12 @@
       <DependentUpon>frm_Order_Excel_Modify.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Material Management\CheckRequirements\frm_Order_Excel_Modify.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Material Management\Material Request\frm_SMD_Material_Request.Designer.vb">
+      <DependentUpon>frm_SMD_Material_Request.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Material Management\Material Request\frm_SMD_Material_Request.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Material Management\Stock Information\frm_Material_Use_Information.Designer.vb">
@@ -490,6 +502,12 @@
       <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Material_Request.Designer.vb">
+      <DependentUpon>frm_Production_Material_Request.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Production Management\PopUp\frm_Production_Material_Request.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Production Process\frm_Assy_Label_Print.Designer.vb">
@@ -875,14 +893,20 @@
     <EmbeddedResource Include="Forms\frm_Main.resx">
       <DependentUpon>frm_Main.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frm_DiscardAlarm.resx">
-      <DependentUpon>frm_DiscardAlarm.vb</DependentUpon>
+    <EmbeddedResource Include="Forms\frm_Alarm_Discard.resx">
+      <DependentUpon>frm_Alarm_Discard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Alarm_MaterialRequest.resx">
+      <DependentUpon>frm_Alarm_MaterialRequest.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Material_CheckRequirements2.resx">
       <DependentUpon>frm_Material_CheckRequirements2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\CheckRequirements\frm_Order_Excel_Modify.resx">
       <DependentUpon>frm_Order_Excel_Modify.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Material Management\Material Request\frm_SMD_Material_Request.resx">
+      <DependentUpon>frm_SMD_Material_Request.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Material Management\Stock Information\frm_Material_Use_Information.resx">
       <DependentUpon>frm_Material_Use_Information.vb</DependentUpon>
@@ -995,6 +1019,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Information_SMD.resx">
       <DependentUpon>frm_Production_Information_SMD.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Production Management\PopUp\frm_Production_Material_Request.resx">
+      <DependentUpon>frm_Production_Material_Request.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Production Process\frm_Assy_Label_Print.resx">
       <DependentUpon>frm_Assy_Label_Print.vb</DependentUpon>
@@ -1498,6 +1525,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
+    <None Include="Resources\excel21.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

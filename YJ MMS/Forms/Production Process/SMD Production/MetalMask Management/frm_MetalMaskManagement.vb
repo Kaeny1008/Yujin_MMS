@@ -415,6 +415,7 @@ Public Class frm_MetalMaskManagement
     Private Sub Cms_History_Click(sender As Object, e As EventArgs) Handles Cms_History.Click
 
         If Not frm_MetalMaskHistory.Visible Then frm_MetalMaskHistory.Show()
+        frm_MetalMaskHistory.MdiParent = Nothing
         frm_MetalMaskHistory.Focus()
 
         frm_MetalMaskHistory.Tb_MaskSN.Text = Grid_List(Grid_List.Row, 3)

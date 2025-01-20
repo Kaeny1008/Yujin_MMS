@@ -134,17 +134,24 @@ Public Class frm_Alarm_Setting
 
                 If Grid_AlarmList(i, 1).Equals("폐기등록 알림") Then
                     If Grid_AlarmList(i, 3) = True Then
-                        frm_Main.Timer1.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
-                        frm_Main.Timer1.Start()
+                        frm_Main.Timer_Discard_Alarm.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
+                        frm_Main.Timer_Discard_Alarm.Start()
                     Else
-                        frm_Main.Timer1.Stop()
+                        frm_Main.Timer_Discard_Alarm.Stop()
                     End If
                 ElseIf Grid_AlarmList(i, 1).Equals("프린터 텍스트 삭제") Then
                     If Grid_AlarmList(i, 3) = True Then
-                        frm_Main.Timer2.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
-                        frm_Main.Timer2.Start()
+                        frm_Main.Timer_FileDelete.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
+                        frm_Main.Timer_FileDelete.Start()
                     Else
-                        frm_Main.Timer2.Stop()
+                        frm_Main.Timer_FileDelete.Stop()
+                    End If
+                ElseIf Grid_AlarmList(i, 1).Equals("SMD 자재요청") Then
+                    If Grid_AlarmList(i, 3) = True Then
+                        frm_Main.Timer_SMD_Material.Interval = CDbl(Grid_AlarmList(i, 2)) * 1000
+                        frm_Main.Timer_SMD_Material.Start()
+                    Else
+                        frm_Main.Timer_SMD_Material.Stop()
                     End If
                 End If
             Next

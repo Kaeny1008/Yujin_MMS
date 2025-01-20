@@ -354,6 +354,20 @@ Public Class frm_CodeChange
                 strSQL += ");"
             End If
 
+            strSQL += "INSERT INTO tb_mms_material_basic_inventory("
+            strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut, code_change_q"
+            strSQL += ") VALUES ("
+            strSQL += "f_mms_clearance_date()"
+            strSQL += ", '" & TB_CustomerCode.Text & "'"
+            strSQL += ", '" & TB_ItemCode.Text & "'"
+            strSQL += ", 0"
+            strSQL += ", 0"
+            strSQL += ", " & CDbl(TB_AfterQty.Text)
+            strSQL += ")"
+            strSQL += " ON DUPLICATE KEY"
+            strSQL += " UPDATE code_change_q = ifnull(code_change_q, 0) + " & CDbl(TB_AfterQty.Text)
+            strSQL += ";"
+
             If Not strSQL = String.Empty Then
                 Debug.Print(strSQL)
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

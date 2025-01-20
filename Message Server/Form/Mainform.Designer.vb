@@ -299,7 +299,7 @@ Partial Class MainForm
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(141, 30)
         Me.Button1.TabIndex = 4
-        Me.Button1.Text = "Update Test"
+        Me.Button1.Text = "Update 재전송"
         Me.Button1.UseVisualStyleBackColor = True
         '
         'btnClose

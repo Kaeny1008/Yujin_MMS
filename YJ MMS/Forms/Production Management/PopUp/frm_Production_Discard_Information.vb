@@ -205,7 +205,7 @@ Public Class frm_Production_Discard_Information
 
         Dim strSQL As String = "call sp_mms_discard_register(3"
         strSQL += ", null"
-        strSQL += ", null"
+        strSQL += ", '" & TB_CustomerCode.Text & "'"
         strSQL += ", null"
         strSQL += ", null"
         strSQL += ", null"
@@ -396,6 +396,9 @@ Public Class frm_Production_Discard_Information
                 insertString += vbTab & selGrid(i, 4)
                 insertString += vbTab & selGrid(i, 5)
                 grid.AddItem(insertString)
+                If grid.GetCellCheck(grid.Rows.Count - 2, 1) = CheckEnum.Checked Then
+                    grid.SetCellCheck(grid.Rows.Count - 1, 1, CheckEnum.Checked)
+                End If
                 selGrid.RemoveItem(i)
             End If
         Next
@@ -486,30 +489,52 @@ Public Class frm_Production_Discard_Information
     Private Function write_strSQL(ByVal c1 As C1FlexGrid, ByVal writeDate As String) As String
 
         Dim strSQL As String = String.Empty
+        strSQL = "insert into tb_mms_material_discard("
+        strSQL += "m_discard_index, discard_index, customer_code"
+        strSQL += ", part_code, discard_quantity, write_date, write_id"
+        strSQL += ") values"
+
+        Dim strSQL2 As String = String.Empty
+        strSQL2 = "INSERT INTO tb_mms_material_basic_inventory("
+        strSQL2 += "clearance_date, customer_code, part_code, available_qty, over_cut, discard_q"
+        strSQL2 += ") VALUES"
 
         For i = 1 To c1.Rows.Count - 1
-            If c1.GetCellCheck(i, 1) = CheckEnum.Checked Then
-                strSQL += "insert into tb_mms_material_discard("
-                strSQL += "m_discard_index, discard_index, customer_code"
-                strSQL += ", part_code, discard_quantity, write_date, write_id"
-                strSQL += ")"
-                strSQL += " select f_mms_material_discard_no('" & Format(Now, "yyyy-MM-dd") & "')"
-                strSQL += ",'" & discardIndex & "'"
-                strSQL += ",'" & TB_CustomerCode.Text & "'"
-                strSQL += ",'" & c1(i, 2) & "'"
-                strSQL += "," & c1(i, 3)
-                strSQL += ",'" & writeDate & "'"
-                strSQL += ",'" & loginID & "'"
-                strSQL += ";"
-            End If
+            'If c1.GetCellCheck(i, 1) = CheckEnum.Checked Then
+            If Not i = 1 Then strSQL += ","
+            If Not i = 1 Then strSQL2 += ","
+            strSQL += "("
+            strSQL += "f_mms_material_discard_no('" & Format(Now, "yyyy-MM-dd") & "')"
+            strSQL += ",'" & discardIndex & "'"
+            strSQL += ",'" & TB_CustomerCode.Text & "'"
+            strSQL += ",'" & c1(i, 2) & "'"
+            strSQL += "," & c1(i, 3)
+            strSQL += ",'" & writeDate & "'"
+            strSQL += ",'" & loginID & "'"
+            strSQL += ")"
+
+            strSQL2 += "("
+            strSQL2 += "f_mms_clearance_date()"
+            strSQL2 += ", '" & TB_CustomerCode.Text & "'"
+            strSQL2 += ", '" & c1(i, 2) & "'"
+            strSQL2 += ", 0"
+            strSQL2 += ", 0"
+            strSQL2 += ", " & CDbl(c1(i, 3))
+            strSQL2 += ")"
+            'End If
 
             'Lot No.구분을 하지 못해 여기서 업데이트는 불가할듯 
             'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & c1(i, 3)
             'strSQL += " where customer_code = '" & TB_CustomerCode.Text & "'"
             'strSQL += " and part_code = '" & 
         Next
+        strSQL += ";"
 
-        Return strSQL
+        strSQL2 += " ON DUPLICATE KEY"
+        strSQL2 += " UPDATE discard_q = ifnull(discard_q, 0) + VALUES(discard_q)"
+        strSQL2 += ";"
+
+        Return strSQL & strSQL2
 
     End Function
 

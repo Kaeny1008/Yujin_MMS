@@ -118,10 +118,8 @@ Public Class frm_Discard_Register
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
 
             Exit Sub
         End Try

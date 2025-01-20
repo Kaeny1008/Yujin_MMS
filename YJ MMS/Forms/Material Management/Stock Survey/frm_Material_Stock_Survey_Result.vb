@@ -426,58 +426,56 @@ Public Class frm_Material_Stock_Survey_Result
 
         Dim dateTime As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
-        strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
-        strSQL += " where not order_status = 'Order Confirm'"
-        strSQL += " and clearance_date is null"
-        strSQL += ";"
-
-        strSQL += "update tb_mms_material_stock_survey_plan set plan_status = 'Completed'"
-        strSQL += ", completed_date = '" & dateTime & "'"
-        strSQL += ", completed_id = '" & loginID & "'"
-        strSQL += " where plan_no = '" & LB_InspectionNo.Text & "'"
-        strSQL += ";"
-
         Try
+            strSQL += "update tb_mms_order_register_list set clearance_date = '" & dateTime & "'"
+            strSQL += " where not order_status = 'Order Confirm'"
+            strSQL += " and clearance_date is null"
+            strSQL += ";"
+
+            strSQL += "update tb_mms_material_stock_survey_plan set plan_status = 'Completed'"
+            strSQL += ", completed_date = '" & dateTime & "'"
+            strSQL += ", completed_id = '" & loginID & "'"
+            strSQL += " where plan_no = '" & LB_InspectionNo.Text & "'"
+            strSQL += ";"
+
+            strSQL += "insert into tb_mms_material_basic_inventory("
+            strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
+            strSQL += ") values"
+
             For i = 2 To Grid_MaterialList.Rows.Count - 1
                 Grid_MaterialList(i, 0) = i - 1
                 '기초재고를 입력한다.
+                If Not i = 2 Then strSQL += ","
+                strSQL += "("
                 If CDbl(Grid_MaterialList(i, 19)) > 0 Then
                     '결과값이 + 인경우 재고수량보다 많으니까
                     '전산수량을 기초재고로 잡고 나머지수량을 기록한다.
                     Dim basicQty As Double = CDbl(Grid_MaterialList(i, 17))
-                    strSQL += "insert into tb_mms_material_basic_inventory("
-                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
-                    strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
                     strSQL += "," & basicQty & ""
                     strSQL += "," & CDbl(Grid_MaterialList(i, 19)) & ""
-                    strSQL += ");"
                 ElseIf CDbl(Grid_MaterialList(i, 19)) < 0 Then
                     Dim basicQty As Double = CDbl(Grid_MaterialList(i, 19))
-                    strSQL += "insert into tb_mms_material_basic_inventory("
-                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
-                    strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
                     strSQL += "," & basicQty & ""
                     strSQL += "," & 0 & ""
-                    strSQL += ");"
                 Else
                     Dim basicQty As Double = CDbl(Grid_MaterialList(i, 18))
-                    strSQL += "insert into tb_mms_material_basic_inventory("
-                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut"
-                    strSQL += ") values("
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
                     strSQL += "," & basicQty & ""
                     strSQL += "," & 0 & ""
-                    strSQL += ");"
                 End If
+                strSQL += ")"
+            Next
+            strSQL += ";"
 
+            For i = 2 To Grid_MaterialList.Rows.Count - 1
                 '재고조사 각항목을 업데이트 한다.
                 strSQL += "update tb_mms_material_stock_survey_plan_content set"
                 strSQL += " check_reason = '" & Grid_MaterialList(i, 21) & "'"

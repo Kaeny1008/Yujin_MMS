@@ -62,6 +62,7 @@ Partial Class frm_Production_Discard_Information
         Me.BTN_Move_Dip = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_Move_ETC = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         CType(Me.Grid_SMD_Bottom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_SMD_Top, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_Dip, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -492,11 +493,22 @@ Partial Class frm_Production_Discard_Information
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.Yellow
+        Me.Label7.ForeColor = System.Drawing.Color.Red
         Me.Label7.Location = New System.Drawing.Point(1068, 343)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(217, 12)
         Me.Label7.TabIndex = 59
         Me.Label7.Text = "자동으로 찾지 못한 항목을 옮기십시오."
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(1068, 322)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(335, 12)
+        Me.Label11.TabIndex = 60
+        Me.Label11.Text = "※ (자재) 항목을 체크하면 표의 체크와 상관없이 등록됩니다."
         '
         'frm_Production_Discard_Information
         '
@@ -504,6 +516,7 @@ Partial Class frm_Production_Discard_Information
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1420, 709)
+        Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.BTN_Cancel)
         Me.Controls.Add(Me.Grid_Etc)
@@ -590,4 +603,5 @@ Partial Class frm_Production_Discard_Information
     Friend WithEvents BTN_Move_Dip As ToolStripMenuItem
     Friend WithEvents BTN_Move_ETC As ToolStripMenuItem
     Friend WithEvents Label7 As Label
+    Friend WithEvents Label11 As Label
 End Class

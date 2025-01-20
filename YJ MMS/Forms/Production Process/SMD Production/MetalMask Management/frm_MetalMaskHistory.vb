@@ -233,4 +233,14 @@ Public Class frm_MetalMaskHistory
         Tb_MaskSN.SelectAll()
 
     End Sub
+
+    Private Sub frm_MetalMaskHistory_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+
+        Me.Dispose()
+
+    End Sub
+
+    Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
+        Me.Dispose()
+    End Sub
 End Class

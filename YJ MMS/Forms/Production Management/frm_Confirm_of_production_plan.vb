@@ -1,4 +1,5 @@
-﻿Imports C1.Win.C1FlexGrid
+﻿Imports System.Runtime.InteropServices
+Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 
@@ -507,26 +508,37 @@ Public Class frm_Production_plan
             DBClose()
 
             Thread_LoadingFormEnd()
-            MessageBox.Show(Me,
-                            ex.Message,
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error)
+
+            MSG_Error(Me, ex.Message)
             Exit Sub
         End Try
 
         DBClose()
 
         Thread_LoadingFormEnd()
-        MessageBox.Show(Me,
-                        "저장완료.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+
+        MSG_Information(Me, "저장완료.")
+
+        'If MSG_Question(Me, "저장완료." & vbCrLf & "생산에 필요한 자재를 요청 하시겠습니까?") = True Then
+        '    If frm_Production_Material_Request.ShowDialog = Then
+
+        '    End If
+        'End If
 
         BTN_Search_Click(Nothing, Nothing)
+        'WindowClose("") '나중에 활용.
 
     End Sub
+
+    Public Shared Function searchForm(ByVal formname As String) As Form
+
+        For Each frm As Form In Application.OpenForms
+            If frm.Name = formname Then Return frm
+        Next
+
+        Return Nothing
+
+    End Function
 
     Private Sub frm_Production_plan_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
 
@@ -594,6 +606,7 @@ Public Class frm_Production_plan
         sqlTran = dbConnection1.BeginTransaction
 
         Try
+            strSQL += "call sp_mms_ready_material_downdate('" & orderIndex & "');"
 
             strSQL = "update tb_mms_order_register_list"
             strSQL += " set management_no = null"
@@ -638,6 +651,28 @@ Public Class frm_Production_plan
         BTN_Search_Click(Nothing, Nothing)
 
     End Sub
+
+    Private Sub BTN_Material_Request_Click(sender As Object, e As EventArgs) Handles BTN_Material_Request.Click
+
+        Dim rowSel As Integer = Grid_OrderList.Row
+        Dim orderIndex As String = Grid_OrderList(rowSel, 1)
+        Dim itemCode As String = Grid_OrderList(rowSel, 6)
+
+        frm_Production_Material_Request.LB_ItemCode.Text = itemCode
+        frm_Production_Material_Request.LB_OrderIndex.Text = orderIndex
+
+        Dim dialogResult As DialogResult = frm_Production_Material_Request.ShowDialog
+
+        If dialogResult = DialogResult.OK Then
+            MSG_Information(Me, "요청을 완료 하였습니다.")
+        ElseIf dialogResult = DialogResult.Abort Then
+            MSG_Information(Me, "요청이 취소 되었습니다.")
+        ElseIf dialogResult = DialogResult.No Then
+            '닫기를 눌러 창을 닫았을때
+        End If
+
+    End Sub
+
 
     'Dim _ptDown As Point
     'Dim _cellDrag As C1.Win.C1FlexGrid.CellRange

@@ -13,6 +13,7 @@ Module ServerConn
     Public serverPSWD As String = registryEdit.ReadRegKey("Software\Yujin", "server.PSWD", "Dbwlswjswk1!")
     Public connectionTimeOut As String = registryEdit.ReadRegKey("Software\Yujin", "ConnectionTimeOut", 5)
     Public dbName As String = registryEdit.ReadRegKey("Software\Yujin", "dbName", "yj_mms")
+    Public updateCheckTime As Integer = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Update Check Time", 60)
     Public httpUrl As String = "https://" & serverIP & ":" & registryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
     Public httpPort As Integer = registryEdit.ReadRegKey("Software\Yujin", "http.Port", 10523)
 
@@ -46,7 +47,13 @@ Module ServerConn
             'Dim sqlCmd As New MySqlCommand(strSql, DBConnect1)
         Catch ex As Exception
             returnValue = False
-            MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            'MessageBox.Show(ex.Message, "Server Connection", MessageBoxButtons.OK, MessageBoxIcon.Error)
+
+            'Dim file As System.IO.StreamWriter
+            'file = My.Computer.FileSystem.OpenTextFileWriter("c:\test.txt", True)
+            'file.WriteLine("Here is the first string.")
+            'file.Close()
+            MainForm.ServerMSGListAdd("Error : DB Server Connection Fail.")
         End Try
 
         Return returnValue

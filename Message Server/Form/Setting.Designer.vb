@@ -56,6 +56,9 @@ Partial Class Setting
         Me.TB_DBPort = New System.Windows.Forms.TextBox()
         Me.lbDBPort = New System.Windows.Forms.Label()
         Me.lbDBIP = New System.Windows.Forms.Label()
+        Me.TB_UpdateCheckTime = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.gbConnection.SuspendLayout()
         Me.gbLineDIO.SuspendLayout()
         Me.gbDBServer.SuspendLayout()
@@ -64,6 +67,9 @@ Partial Class Setting
         'gbConnection
         '
         Me.gbConnection.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.gbConnection.Controls.Add(Me.Label4)
+        Me.gbConnection.Controls.Add(Me.TB_UpdateCheckTime)
+        Me.gbConnection.Controls.Add(Me.Label3)
         Me.gbConnection.Controls.Add(Me.TextBox1)
         Me.gbConnection.Controls.Add(Me.Label2)
         Me.gbConnection.Controls.Add(Me.Label1)
@@ -83,7 +89,7 @@ Partial Class Setting
         Me.gbConnection.Location = New System.Drawing.Point(0, 12)
         Me.gbConnection.Margin = New System.Windows.Forms.Padding(0)
         Me.gbConnection.Name = "gbConnection"
-        Me.gbConnection.Size = New System.Drawing.Size(492, 169)
+        Me.gbConnection.Size = New System.Drawing.Size(492, 195)
         Me.gbConnection.TabIndex = 0
         Me.gbConnection.TabStop = False
         Me.gbConnection.Text = "Connection"
@@ -106,9 +112,9 @@ Partial Class Setting
         Me.Label2.Location = New System.Drawing.Point(273, 72)
         Me.Label2.Margin = New System.Windows.Forms.Padding(0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(72, 12)
+        Me.Label2.Size = New System.Drawing.Size(54, 12)
         Me.Label2.TabIndex = 17
-        Me.Label2.Text = "※ Server IP"
+        Me.Label2.Text = "※ My IP"
         '
         'Label1
         '
@@ -179,10 +185,10 @@ Partial Class Setting
         Me.btnSave1.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnSave1.Image = CType(resources.GetObject("btnSave1.Image"), System.Drawing.Image)
-        Me.btnSave1.Location = New System.Drawing.Point(369, 11)
+        Me.btnSave1.Location = New System.Drawing.Point(373, 11)
         Me.btnSave1.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSave1.Name = "btnSave1"
-        Me.btnSave1.Size = New System.Drawing.Size(120, 155)
+        Me.btnSave1.Size = New System.Drawing.Size(116, 181)
         Me.btnSave1.TabIndex = 10
         Me.btnSave1.Text = "저장"
         Me.btnSave1.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -208,9 +214,9 @@ Partial Class Setting
         Me.lbPortTip.Location = New System.Drawing.Point(191, 41)
         Me.lbPortTip.Margin = New System.Windows.Forms.Padding(0)
         Me.lbPortTip.Name = "lbPortTip"
-        Me.lbPortTip.Size = New System.Drawing.Size(83, 12)
+        Me.lbPortTip.Size = New System.Drawing.Size(100, 12)
         Me.lbPortTip.TabIndex = 4
-        Me.lbPortTip.Text = "※ Server Port"
+        Me.lbPortTip.Text = "※ Message Port"
         '
         'Time
         '
@@ -272,7 +278,7 @@ Partial Class Setting
         Me.gbLineDIO.Controls.Add(Me.lbLine)
         Me.gbLineDIO.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.gbLineDIO.ForeColor = System.Drawing.Color.White
-        Me.gbLineDIO.Location = New System.Drawing.Point(0, 190)
+        Me.gbLineDIO.Location = New System.Drawing.Point(0, 217)
         Me.gbLineDIO.Margin = New System.Windows.Forms.Padding(0)
         Me.gbLineDIO.Name = "gbLineDIO"
         Me.gbLineDIO.Size = New System.Drawing.Size(492, 85)
@@ -286,10 +292,10 @@ Partial Class Setting
         Me.btnSave2.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnSave2.Image = CType(resources.GetObject("btnSave2.Image"), System.Drawing.Image)
-        Me.btnSave2.Location = New System.Drawing.Point(369, 11)
+        Me.btnSave2.Location = New System.Drawing.Point(373, 11)
         Me.btnSave2.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSave2.Name = "btnSave2"
-        Me.btnSave2.Size = New System.Drawing.Size(120, 72)
+        Me.btnSave2.Size = New System.Drawing.Size(116, 72)
         Me.btnSave2.TabIndex = 9
         Me.btnSave2.Text = "저장"
         Me.btnSave2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -363,10 +369,10 @@ Partial Class Setting
         Me.gbDBServer.Controls.Add(Me.lbDBIP)
         Me.gbDBServer.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.gbDBServer.ForeColor = System.Drawing.Color.White
-        Me.gbDBServer.Location = New System.Drawing.Point(0, 286)
+        Me.gbDBServer.Location = New System.Drawing.Point(0, 313)
         Me.gbDBServer.Margin = New System.Windows.Forms.Padding(0)
         Me.gbDBServer.Name = "gbDBServer"
-        Me.gbDBServer.Size = New System.Drawing.Size(492, 168)
+        Me.gbDBServer.Size = New System.Drawing.Size(492, 167)
         Me.gbDBServer.TabIndex = 10
         Me.gbDBServer.TabStop = False
         Me.gbDBServer.Text = "DB Server"
@@ -464,10 +470,10 @@ Partial Class Setting
         Me.btnSave3.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.btnSave3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.btnSave3.Image = CType(resources.GetObject("btnSave3.Image"), System.Drawing.Image)
-        Me.btnSave3.Location = New System.Drawing.Point(369, 11)
+        Me.btnSave3.Location = New System.Drawing.Point(373, 11)
         Me.btnSave3.Margin = New System.Windows.Forms.Padding(0)
         Me.btnSave3.Name = "btnSave3"
-        Me.btnSave3.Size = New System.Drawing.Size(120, 155)
+        Me.btnSave3.Size = New System.Drawing.Size(116, 155)
         Me.btnSave3.TabIndex = 9
         Me.btnSave3.Text = "저장"
         Me.btnSave3.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -513,11 +519,48 @@ Partial Class Setting
         Me.lbDBIP.Text = "IP :"
         Me.lbDBIP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'TB_UpdateCheckTime
+        '
+        Me.TB_UpdateCheckTime.BackColor = System.Drawing.Color.MediumBlue
+        Me.TB_UpdateCheckTime.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.TB_UpdateCheckTime.ForeColor = System.Drawing.Color.White
+        Me.TB_UpdateCheckTime.Location = New System.Drawing.Point(88, 164)
+        Me.TB_UpdateCheckTime.Margin = New System.Windows.Forms.Padding(0)
+        Me.TB_UpdateCheckTime.Name = "TB_UpdateCheckTime"
+        Me.TB_UpdateCheckTime.Size = New System.Drawing.Size(181, 22)
+        Me.TB_UpdateCheckTime.TabIndex = 20
+        '
+        'Label3
+        '
+        Me.Label3.BackColor = System.Drawing.Color.DarkBlue
+        Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Label3.Font = New System.Drawing.Font("굴림", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label3.ForeColor = System.Drawing.Color.White
+        Me.Label3.Location = New System.Drawing.Point(6, 165)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(263, 21)
+        Me.Label3.TabIndex = 19
+        Me.Label3.Text = "Time :"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label4.ForeColor = System.Drawing.Color.White
+        Me.Label4.Location = New System.Drawing.Point(273, 170)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(0)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(100, 12)
+        Me.Label4.TabIndex = 21
+        Me.Label4.Text = "※ Update Check"
+        '
         'Setting
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.ClientSize = New System.Drawing.Size(493, 458)
+        Me.ClientSize = New System.Drawing.Size(493, 483)
         Me.Controls.Add(Me.gbDBServer)
         Me.Controls.Add(Me.gbLineDIO)
         Me.Controls.Add(Me.gbConnection)
@@ -570,4 +613,7 @@ Partial Class Setting
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents TB_UpdateCheckTime As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents Label4 As Label
 End Class

@@ -89,6 +89,7 @@ Partial Class frm_MetalMaskHistory
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_DataPrint = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -787,7 +788,7 @@ Partial Class frm_MetalMaskHistory
         'ToolStrip1
         '
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1, Me.BTN_Search, Me.Btn_Print})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1, Me.BTN_Search, Me.Btn_Print, Me.Form_CLose})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1564, 25)
@@ -855,6 +856,16 @@ Partial Class frm_MetalMaskHistory
         Me.BTN_DataPrint.Name = "BTN_DataPrint"
         Me.BTN_DataPrint.Size = New System.Drawing.Size(163, 22)
         Me.BTN_DataPrint.Text = "DeviceData 출력"
+        '
+        'Form_CLose
+        '
+        Me.Form_CLose.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.Form_CLose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.Form_CLose.Image = Global.YJ_MMS.My.Resources.Resources.close
+        Me.Form_CLose.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.Form_CLose.Name = "Form_CLose"
+        Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
+        Me.Form_CLose.Text = "폼 닫기"
         '
         'frm_MetalMaskHistory
         '
@@ -951,4 +962,5 @@ Partial Class frm_MetalMaskHistory
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents Label24 As Label
+    Friend WithEvents Form_CLose As ToolStripButton
 End Class

@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frm_Production_plan
     Inherits System.Windows.Forms.Form
 
     'Form은 Dispose를 재정의하여 구성 요소 목록을 정리합니다.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frm_Production_plan
     '참고: 다음 프로시저는 Windows Form 디자이너에 필요합니다.
     '수정하려면 Windows Form 디자이너를 사용하십시오.  
     '코드 편집기에서는 수정하지 마세요.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frm_Production_plan))
@@ -48,6 +48,8 @@ Partial Class frm_Production_plan
         Me.BTN_Save2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_POCancel = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.BTN_Material_Request = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -230,31 +232,35 @@ Partial Class frm_Production_plan
         '
         'CMS_GridMenu
         '
-        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste, Me.ToolStripSeparator3, Me.BTN_Save2, Me.ToolStripSeparator4, Me.BTN_POCancel})
+        Me.CMS_GridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_CellCopy, Me.ToolStripSeparator2, Me.BTN_CellPaste, Me.ToolStripSeparator3, Me.BTN_Save2, Me.ToolStripSeparator4, Me.BTN_POCancel, Me.ToolStripSeparator5, Me.BTN_Material_Request})
         Me.CMS_GridMenu.Name = "CMS_GridMenu"
-        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 132)
+        Me.CMS_GridMenu.Size = New System.Drawing.Size(249, 138)
         '
         'BTN_CellCopy
         '
         Me.BTN_CellCopy.Name = "BTN_CellCopy"
         Me.BTN_CellCopy.Size = New System.Drawing.Size(248, 22)
         Me.BTN_CellCopy.Text = "선택 내용 복사(일자, 동, 라인)"
+        Me.BTN_CellCopy.Visible = False
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator2.Visible = False
         '
         'BTN_CellPaste
         '
         Me.BTN_CellPaste.Name = "BTN_CellPaste"
         Me.BTN_CellPaste.Size = New System.Drawing.Size(248, 22)
         Me.BTN_CellPaste.Text = "선택 행 붙혀넣기(일자, 동, 라인)"
+        Me.BTN_CellPaste.Visible = False
         '
         'ToolStripSeparator3
         '
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(245, 6)
+        Me.ToolStripSeparator3.Visible = False
         '
         'BTN_Save2
         '
@@ -273,6 +279,17 @@ Partial Class frm_Production_plan
         Me.BTN_POCancel.Name = "BTN_POCancel"
         Me.BTN_POCancel.Size = New System.Drawing.Size(248, 22)
         Me.BTN_POCancel.Text = "취소(주문접수로 되돌리기)"
+        '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(245, 6)
+        '
+        'BTN_Material_Request
+        '
+        Me.BTN_Material_Request.Name = "BTN_Material_Request"
+        Me.BTN_Material_Request.Size = New System.Drawing.Size(248, 22)
+        Me.BTN_Material_Request.Text = "SMD 자재 요청서 작성"
         '
         'frm_Production_plan
         '
@@ -322,4 +339,6 @@ Partial Class frm_Production_plan
     Friend WithEvents BTN_Save2 As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents BTN_POCancel As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
+    Friend WithEvents BTN_Material_Request As ToolStripMenuItem
 End Class

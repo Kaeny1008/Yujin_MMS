@@ -587,6 +587,20 @@ Public Class frm_Material_Transfer
                     strSQL += ", " & CDbl(Grid_History(i, 5))
                     strSQL += ", '" & Grid_History(i, 8) & "'"
                     strSQL += ");"
+
+                    strSQL += "INSERT INTO tb_mms_material_basic_inventory("
+                    strSQL += "clearance_date, customer_code, part_code, available_qty, over_cut, loss_q"
+                    strSQL += ") VALUES ("
+                    strSQL += "f_mms_clearance_date()"
+                    strSQL += ", '" & TB_CustomerCode.Text & "'"
+                    strSQL += ", '" & Grid_History(i, 1) & "'"
+                    strSQL += ", 0"
+                    strSQL += ", 0"
+                    strSQL += ", " & CDbl(Grid_History(i, 5))
+                    strSQL += ")"
+                    strSQL += " ON DUPLICATE KEY"
+                    strSQL += " UPDATE loss_q = ifnull(loss_q, 0) + " & CDbl(Grid_History(i, 5))
+                    strSQL += ";"
                 End If
 
                 'If RadioButton1.Checked = True Then

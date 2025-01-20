@@ -142,6 +142,7 @@ Public Class frm_Material_CheckRequirements
         Grid_OrderList.Rows.Count = 1
 
         If DBConnect() = False Then
+            Thread_LoadingFormEnd()
             Exit Sub
         End If
 
@@ -475,12 +476,15 @@ Public Class frm_Material_CheckRequirements
         Try
             For i = 1 To Grid_OrderList.Rows.Count - 1
                 If Grid_OrderList.GetCellCheck(i, 1) = CheckEnum.Checked Then
+                    '주문상태 변경
                     strSQL += "update tb_mms_order_register_list set "
                     strSQL += " order_status = 'Confirmation completed'"
                     If Grid_OrderList(i, 8).ToString.Equals("미지정") Then
                         strSQL += ", management_no = (select max(management_no) from tb_model_bom where model_code = '" & Grid_OrderList(i, 5) & "')"
                     End If
                     strSQL += " where order_index = '" & Grid_OrderList(i, 2) & "';"
+                    '주문에 사용될 자재를 준비상태로 수량등록
+                    strSQL += "call sp_mms_ready_material_update('" & Grid_OrderList(i, 2) & "','" & Grid_OrderList(i, 8) & "');"
                 End If
             Next
 

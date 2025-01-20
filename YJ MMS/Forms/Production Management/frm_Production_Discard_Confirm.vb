@@ -4,8 +4,8 @@ Imports MySql.Data.MySqlClient
 Public Class frm_Production_Discard_Confirm
     Private Sub frm_Production_Discard_Confirm_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        frm_Main.Timer1.Stop()
-        If frm_DiscardAlarm.Visible Then frm_DiscardAlarm.Close()
+        frm_Main.Timer_Discard_Alarm.Stop()
+        If frm_Alarm_Discard.Visible Then frm_Alarm_Discard.Close()
 
         DateTimePicker1.Value = Format(Now, "yyyy-MM-01")
         DateTimePicker2.Value = Format(Now, "yyyy-MM-dd")
@@ -122,6 +122,11 @@ Public Class frm_Production_Discard_Confirm
 
     Public Sub BTN_Search_Click(sender As Object, e As EventArgs) Handles BTN_Search.Click
 
+        If TB_CustomerCode.Text.Equals(String.Empty) Then
+            MSG_Information(Me, "고객사를 먼저 선택하여 주십시오.")
+            Exit Sub
+        End If
+
         Thread_LoadingFormStart(Me)
 
         Grid_ConfirmList.Redraw = False
@@ -180,6 +185,12 @@ Public Class frm_Production_Discard_Confirm
 
         If e.Button = MouseButtons.Right And selRow > 0 Then
             Grid_ConfirmList.Row = selRow
+            If Grid_ConfirmList(selRow, 12) = String.Empty And
+                Grid_ConfirmList(selRow, 14) = String.Empty Then
+                BTN_Confirm.Enabled = True
+            Else
+                BTN_Confirm.Enabled = False
+            End If
             Grid_Menu.Show(Grid_ConfirmList, New Point(e.X, e.Y))
         End If
 
@@ -202,7 +213,7 @@ Public Class frm_Production_Discard_Confirm
     Private Sub frm_Production_Discard_Confirm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
 
         If frm_Main.discard_Alarm = True Then
-            frm_Main.Timer1.Start()
+            frm_Main.Timer_Discard_Alarm.Start()
         End If
 
     End Sub
@@ -210,7 +221,7 @@ Public Class frm_Production_Discard_Confirm
     Private Sub frm_Production_Discard_Confirm_Disposed(sender As Object, e As EventArgs) Handles Me.Disposed
 
         If frm_Main.discard_Alarm = True Then
-            frm_Main.Timer1.Start()
+            frm_Main.Timer_Discard_Alarm.Start()
         End If
 
     End Sub
@@ -218,7 +229,7 @@ Public Class frm_Production_Discard_Confirm
     Private Sub frm_Production_Discard_Confirm_Deactivate(sender As Object, e As EventArgs) Handles Me.Deactivate
 
         If frm_Main.discard_Alarm = True Then
-            frm_Main.Timer1.Start()
+            frm_Main.Timer_Discard_Alarm.Start()
         End If
 
     End Sub

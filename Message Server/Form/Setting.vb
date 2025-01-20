@@ -8,6 +8,7 @@
         Port.Text = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Socket Port", 10521)
         Time.Text = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "Check Time", 10)
         Recheck.Text = registryEdit.ReadRegKey("Software\Yujin\Message_Server", "ReCheck", 1)
+        TB_UpdateCheckTime.Text = updateCheckTime
         TB_DBIP.Text = serverIP
         TB_DBPort.Text = serverPORT
         TB_DBID.Text = serverID
@@ -19,6 +20,7 @@
 
     Private Sub btnSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSave1.Click
 
+        registryEdit.WriteRegKey("Software\Yujin\Message_Server", "Update Check Time", CInt(TB_UpdateCheckTime.Text))
         registryEdit.WriteRegKey("Software\Yujin\Message_Server", "Socket Port", Port.Text)
         registryEdit.WriteRegKey("Software\Yujin\Message_Server", "Check Time", Time.Text)
         registryEdit.WriteRegKey("Software\Yujin\Message_Server", "ReCheck", Recheck.Text)
