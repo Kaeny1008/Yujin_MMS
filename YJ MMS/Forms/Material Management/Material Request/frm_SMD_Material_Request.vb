@@ -140,6 +140,7 @@ Public Class frm_SMD_Material_Request
             TextBox1.Text = requestNo
             TB_OrderIndex.Text = orderIndex
             TB_ItemCode.Text = itemCode
+            OrderQuantity_Load(orderIndex)
             DetailLoad(requestNo)
 
             BTN_ExcelConvert.Enabled = True
@@ -149,6 +150,37 @@ Public Class frm_SMD_Material_Request
                 BTN_RequestCompleted.Enabled = False
             End If
         End If
+
+    End Sub
+
+    Private Sub OrderQuantity_Load(ByVal orderIndex As String)
+
+        Thread_LoadingFormStart(Me)
+
+        If DBConnect() = False Then
+            Thread_LoadingFormEnd()
+            Exit Sub
+        End If
+
+        Dim strSQL As String = "call sp_mms_smd_material_request(2"
+        strSQL += ", '" & orderIndex & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            TextBox2.Text = Format(sqlDR("modify_order_quantity"), "#,##0")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Thread_LoadingFormEnd()
 
     End Sub
 
@@ -238,7 +270,7 @@ Public Class frm_SMD_Material_Request
             '기본정보 입력
             .Cells(3, 3) = "*" & TextBox1.Text & "*"
             .Cells(4, 3) = TB_OrderIndex.Text
-            .Cells(5, 3) = TB_ItemCode.Text
+            .Cells(5, 3) = TB_ItemCode.Text & " ( 주문수량 : " & Format(CDbl(TextBox2.Text), "#,##0") & " )"
 
             Dim firstRow As Integer = 8
 

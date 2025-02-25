@@ -50,6 +50,7 @@ Partial Class frm_Production_plan
         Me.BTN_POCancel = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_Material_Request = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.Grid_OrderList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel5.SuspendLayout()
@@ -115,6 +116,7 @@ Partial Class frm_Production_plan
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.Button1)
         Me.Panel5.Controls.Add(Me.GroupBox1)
         Me.Panel5.Controls.Add(Me.CB_CustomerName)
         Me.Panel5.Controls.Add(Me.TB_CustomerCode)
@@ -291,6 +293,15 @@ Partial Class frm_Production_plan
         Me.BTN_Material_Request.Size = New System.Drawing.Size(248, 22)
         Me.BTN_Material_Request.Text = "SMD 자재 요청서 작성"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(830, 7)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(130, 43)
+        Me.Button1.TabIndex = 6
+        Me.Button1.Text = "Device Data 등록" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "바로가기"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'frm_Production_plan
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -341,4 +352,5 @@ Partial Class frm_Production_plan
     Friend WithEvents BTN_POCancel As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
     Friend WithEvents BTN_Material_Request As ToolStripMenuItem
+    Friend WithEvents Button1 As Button
 End Class

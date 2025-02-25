@@ -673,6 +673,14 @@ Public Class frm_Production_plan
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        frm_DeviceData.MdiParent = frm_Main
+        If Not frm_DeviceData.Visible Then frm_DeviceData.Show()
+        frm_DeviceData.Focus()
+
+    End Sub
+
 
     'Dim _ptDown As Point
     'Dim _cellDrag As C1.Win.C1FlexGrid.CellRange

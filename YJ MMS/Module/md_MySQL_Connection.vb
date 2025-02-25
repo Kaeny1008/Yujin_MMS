@@ -37,8 +37,11 @@ Module md_MySQL_Connection
                                          ";Password=" & serverPSWD &
                                          ";Connection Timeout=" & connectionTimeOut &
                                          ";CharSet=utf8" &
-                                         ";sslmode=Required" &
-                                         ";certificatefile=" & Application.StartupPath & "\mysql_ca-cert.pem"
+                                         ";SslMode=Required"
+        'SslMode=Required
+        '";SslCa=" & Application.StartupPath & "\mysql_ca-cert.pem"
+        '";SslCert=" & Application.StartupPath & "\mysql_client-cert.pem"
+        '";SslKey=" & Application.StartupPath & "\mysql_client-key.pem"
         Try
             dbConnection1.Open()
             'DBConnect1 연결되어있지 않다면

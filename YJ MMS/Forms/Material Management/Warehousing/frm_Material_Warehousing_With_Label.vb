@@ -957,6 +957,7 @@ Public Class frm_Material_Warehousing_With_Label
             Thread_LoadingFormStart(Me)
 
             CB_Vendor.Items.Clear()
+            TextBox1.Text = String.Empty
 
             If DBConnect() = False Then Exit Sub
 

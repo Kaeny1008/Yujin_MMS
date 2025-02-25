@@ -63,6 +63,7 @@ Partial Class frm_Production_Discard_Information
         Me.BTN_Move_ETC = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
         CType(Me.Grid_SMD_Bottom, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_SMD_Top, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Grid_Dip, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -510,12 +511,22 @@ Partial Class frm_Production_Discard_Information
         Me.Label11.TabIndex = 60
         Me.Label11.Text = "※ (자재) 항목을 체크하면 표의 체크와 상관없이 등록됩니다."
         '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(1068, 307)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(229, 12)
+        Me.Label12.TabIndex = 61
+        Me.Label12.Text = "※ 불포함 자재는 기타표로 이동하십시오."
+        '
         'frm_Production_Discard_Information
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(1420, 709)
+        Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.BTN_Cancel)
@@ -604,4 +615,5 @@ Partial Class frm_Production_Discard_Information
     Friend WithEvents BTN_Move_ETC As ToolStripMenuItem
     Friend WithEvents Label7 As Label
     Friend WithEvents Label11 As Label
+    Friend WithEvents Label12 As Label
 End Class

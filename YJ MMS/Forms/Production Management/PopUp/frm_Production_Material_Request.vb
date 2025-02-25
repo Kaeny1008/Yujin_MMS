@@ -339,10 +339,17 @@ Public Class frm_Production_Material_Request
 
         If e.Modifiers = Keys.Control AndAlso e.KeyCode = Keys.V Then
             Dim clipText() As String = My.Computer.Clipboard.GetText().Replace(vbLf, String.Empty).Split(vbCrLf)
-            For i = 0 To UBound(clipText) - 1
+            For i = 0 To UBound(clipText)
                 If Not clipText(i).ToString.Equals(String.Empty) And
                     Not clipText(i).ToString.Equals("###############") And
                     Not clipText(i).ToString.Equals("---------------") Then
+
+                    Do While Not IsNothing(c1(selRow, 1))
+                        Console.WriteLine(c1(selRow, 1))
+                        selRow += 1
+                    Loop
+
+
                     c1(selRow, 1) = clipText(i)
                     'Console.WriteLine(c1(selRow, 1) & " : " & clipText(i))
                     selRow += 1

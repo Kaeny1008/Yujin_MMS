@@ -48,6 +48,8 @@ Partial Class frm_SMD_Material_Request
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TB_OrderIndex = New System.Windows.Forms.TextBox()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -254,6 +256,8 @@ Partial Class frm_SMD_Material_Request
         'Panel5
         '
         Me.Panel5.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel5.Controls.Add(Me.TextBox2)
+        Me.Panel5.Controls.Add(Me.Label7)
         Me.Panel5.Controls.Add(Me.BTN_RequestCompleted)
         Me.Panel5.Controls.Add(Me.BTN_ExcelConvert)
         Me.Panel5.Controls.Add(Me.TextBox1)
@@ -369,6 +373,31 @@ Partial Class frm_SMD_Material_Request
         Me.Label17.Text = "주문번호"
         Me.Label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox2.Enabled = False
+        Me.TextBox2.Font = New System.Drawing.Font("굴림", 9.0!)
+        Me.TextBox2.Location = New System.Drawing.Point(85, 79)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(442, 21)
+        Me.TextBox2.TabIndex = 9
+        '
+        'Label7
+        '
+        Me.Label7.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Label7.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label7.ForeColor = System.Drawing.Color.White
+        Me.Label7.Location = New System.Drawing.Point(9, 79)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(76, 21)
+        Me.Label7.TabIndex = 8
+        Me.Label7.Text = "주문수량"
+        Me.Label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
         'frm_SMD_Material_Request
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -420,4 +449,6 @@ Partial Class frm_SMD_Material_Request
     Friend WithEvents BTN_RequestCompleted As Button
     Friend WithEvents TB_S_RequestNo As TextBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label7 As Label
 End Class
