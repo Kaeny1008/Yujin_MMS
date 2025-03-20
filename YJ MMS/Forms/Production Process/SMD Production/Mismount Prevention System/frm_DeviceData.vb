@@ -1648,21 +1648,42 @@ Public Class frm_DeviceData
 
             If exist_StickFeeder.Count > 0 Then
                 Dim selectFeeder As XmlNodeList = base_no.SelectNodes("STICKFEEDER")
-                For Each feeder_info As XmlNode In selectFeeder
-                    Dim partInfo As String = loadMakerSpec(feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value)
-                    Dim insert_string As String = "N" & vbTab &
-                          DeviceDataCode() & vbTab &
-                          machine_no & vbTab &
-                          feeder_info.SelectSingleNode("INSTALL").Attributes("SLOT").Value & vbTab &
-                          partInfo.Split("@")(0) & vbTab &
-                          feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value & vbTab &
-                          partInfo.Split("@")(1) & vbTab &
-                          String.Empty & vbTab &
-                          String.Empty & vbTab &
-                          String.Empty
-                    Grid_DeviceData.AddItem(insert_string)
-                    Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                For Each eachFeeder As XmlNode In selectFeeder
+                    '첫번째 피더위치
+                    Dim nowFeederNo As Integer = CInt(eachFeeder.SelectSingleNode("INSTALL").Attributes("SLOT").Value)
+                    Dim nowFeeder As XmlNodeList = eachFeeder.SelectNodes("STICK")
+                    For Each eachFeeder2 As XmlNode In nowFeeder
+                        Dim partInfo As String = loadMakerSpec(eachFeeder2.Attributes("PARTNAME").Value)
+                        Dim insert_string As String = "N" & vbTab &
+                              DeviceDataCode() & vbTab &
+                              machine_no & vbTab &
+                              nowFeederNo & vbTab &
+                              partInfo.Split("@")(0) & vbTab &
+                              eachFeeder2.Attributes("PARTNAME").Value & vbTab &
+                              partInfo.Split("@")(1) & vbTab &
+                              String.Empty & vbTab &
+                              String.Empty & vbTab &
+                              String.Empty
+                        Grid_DeviceData.AddItem(insert_string)
+                        Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                        nowFeederNo += 1
+                    Next
                 Next
+                'For Each feeder_info As XmlNode In selectFeeder
+                '    Dim partInfo As String = loadMakerSpec(feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value)
+                '    Dim insert_string As String = "N" & vbTab &
+                '          DeviceDataCode() & vbTab &
+                '          machine_no & vbTab &
+                '          feeder_info.SelectSingleNode("INSTALL").Attributes("SLOT").Value & vbTab &
+                '          partInfo.Split("@")(0) & vbTab &
+                '          feeder_info.SelectSingleNode("STICK").Attributes("PARTNAME").Value & vbTab &
+                '          partInfo.Split("@")(1) & vbTab &
+                '          String.Empty & vbTab &
+                '          String.Empty & vbTab &
+                '          String.Empty
+                '    Grid_DeviceData.AddItem(insert_string)
+                '    Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+                'Next
             End If
 
             If exist_TapeFeeder.Count > 0 Then

@@ -594,6 +594,8 @@ Public Class frm_Material_CheckRequirements
                 Grid_OrderList(e.Row, 8) = "미지정"
         End Select
 
+        Grid_OrderList.AutoSizeCols()
+
     End Sub
 
     Private Function Load_ItemCode(ByVal itemCode As String) As String

@@ -47,7 +47,7 @@ Public Class frm_Change_ItemParts
             .AllowFreezing = AllowFreezingEnum.None
             .Rows(0).Height = 40
             .Rows.DefaultSize = 20
-            .Cols.Count = 3
+            .Cols.Count = 4
             .Cols.Fixed = 1
             .Rows.Fixed = 1
             .Rows.Count = 2
@@ -66,6 +66,7 @@ Public Class frm_Change_ItemParts
         Grid_ChangeList(1, 0) = "1"
         Grid_ChangeList(0, 1) = "변경 전"
         Grid_ChangeList(0, 2) = "변경 후"
+        Grid_ChangeList(0, 3) = "결과"
 
         Grid_ChangeList.AutoSizeCols()
 
@@ -173,7 +174,37 @@ Public Class frm_Change_ItemParts
 
         Thread_LoadingFormStart(Me, "Saving...")
 
-        If DBConnect() = False Then Exit Sub
+        Grid_ChangeList.Redraw = False
+
+        For i = 1 To Grid_ChangeList.Rows.Count - 1
+            Grid_ChangeList(i, 3) = String.Empty
+        Next
+
+        Dim writeResult As String = DB_Write2()
+        Thread_LoadingFormEnd()
+
+        If Not writeResult.Equals("Success") And
+                Not writeResult.Equals("Fail") Then
+            MSG_Error(Me, writeResult)
+            Exit Sub
+        End If
+
+        Grid_ChangeList.AutoSizeCols()
+        Grid_ChangeList.Redraw = True
+
+        MSG_Information(Me, "저장완료.")
+
+        'Control_Initiallize()
+        'TB_ItemLike.Text = String.Empty
+
+    End Sub
+
+    Private Function DB_Write2() As String
+
+        If DBConnect() = False Then
+            Return "Fail"
+            Exit Function
+        End If
 
         Dim sqlTran As MySqlTransaction
         Dim sqlCmd As MySqlCommand
@@ -182,10 +213,71 @@ Public Class frm_Change_ItemParts
         sqlTran = dbConnection1.BeginTransaction
 
         Try
-
             Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
 
+            For i = 1 To Grid_ChangeList.Rows.Count - 1
+                If Not Grid_ChangeList(i, 1).Equals(String.Empty) And
+                    Not Grid_ChangeList(i, 2).Equals(String.Empty) Then
+                    For ii = 1 To Grid_ModelList.Rows.Count - 1
+                        strSQL = "UPDATE tb_model_bom"
+                        strSQL += " SET part_no = '" & Grid_ChangeList(i, 2) & "'"
+                        strSQL += " WHERE model_code = '" & Grid_ModelList(ii, 1) & "'"
+                        strSQL += " AND part_no = '" & Grid_ChangeList(i, 1) & "'"
+                        strSQL += ";"
 
+                        sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                        sqlCmd.Transaction = sqlTran
+                        Dim modifyRow As Integer = sqlCmd.ExecuteNonQuery()
+                        If Grid_ChangeList(i, 3).Equals(String.Empty) Then
+                            Grid_ChangeList(i, 3) = Format(modifyRow, "#,##0")
+                        Else
+                            Grid_ChangeList(i, 3) += ", " & Format(modifyRow, "#,##0")
+                        End If
+                    Next
+                End If
+            Next
+
+            For i = 1 To Grid_ModelList.Rows.Count - 1
+                strSQL = "update tb_model_list"
+                strSQL += " set change_parts = '" & writeDate & "'"
+                strSQL += " where model_code = '" & Grid_ModelList(i, 1) & "'"
+                strSQL += ";"
+
+                sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+                sqlCmd.Transaction = sqlTran
+                sqlCmd.ExecuteNonQuery()
+            Next
+
+            sqlTran.Commit()
+        Catch ex As MySqlException
+            sqlTran.Rollback()
+            DBClose()
+
+            Return ex.Message
+            Exit Function
+        End Try
+
+        DBClose()
+
+        Return "Success"
+
+    End Function
+
+    Private Function DB_Write() As String
+
+        If DBConnect() = False Then
+            Return "Fail"
+            Exit Function
+        End If
+
+        Dim sqlTran As MySqlTransaction
+        Dim sqlCmd As MySqlCommand
+        Dim strSQL As String = String.Empty
+
+        sqlTran = dbConnection1.BeginTransaction
+
+        Try
+            Dim writeDate As String = Format(Now, "yyyy-MM-dd HH:mm:ss")
             For j = 1 To Grid_ChangeList.Rows.Count - 1
                 strSQL += "UPDATE tb_model_bom"
                 strSQL += " SET part_no = '" & Grid_ChangeList(j, 2) & "'"
@@ -207,7 +299,6 @@ Public Class frm_Change_ItemParts
                 strSQL += ";"
             Next
 
-
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
                 sqlCmd.Transaction = sqlTran
@@ -217,25 +308,17 @@ Public Class frm_Change_ItemParts
             End If
         Catch ex As MySqlException
             sqlTran.Rollback()
-
             DBClose()
 
-            Thread_LoadingFormEnd()
-
-            MSG_Error(Me, ex.Message)
-            Exit Sub
+            Return ex.Message
+            Exit Function
         End Try
 
         DBClose()
 
-        Thread_LoadingFormEnd()
+        Return "Success"
 
-        MSG_Information(Me, "저장완료.")
-
-        Control_Initiallize()
-        TB_ItemLike.Text = String.Empty
-
-    End Sub
+    End Function
 
     Private Sub Form_CLose_Click(sender As Object, e As EventArgs) Handles Form_CLose.Click
 

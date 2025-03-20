@@ -8,6 +8,7 @@ Public Class frm_Main
     Public form_name As Form
     Public discard_Alarm As Boolean = False
     Dim thread_FileDelete As Thread
+    Public material_FIFO As Boolean = False
 
     Private Sub frm_Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -34,6 +35,7 @@ Public Class frm_Main
 
         UpdatePG_Run()
 
+        Load_AlarmList_Check()
         Load_AlarmList()
 
         'FTP TLS/SSL 관련 인증서 무시 하기 위해 추가
@@ -65,6 +67,52 @@ Public Class frm_Main
 
     End Sub
 
+    Private Sub Load_AlarmList_Check()
+
+        MDBConnect()
+
+        Dim checkResult As Boolean = False
+        Dim strSQL As String = "select alarm_name from tb_alarm_list"
+
+        Dim sqlCmd As New OleDb.OleDbCommand(strSQL, mdbConnection1)
+        Dim sqlDR As OleDb.OleDbDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            If sqlDR("alarm_name").Equals("선입선출 사용") Then
+                checkResult = True
+            End If
+        Loop
+        sqlDR.Close()
+
+        If checkResult = False Then
+            Dim sqlTran_MDB As OleDb.OleDbTransaction
+            Dim sqlCmd_MDB As OleDb.OleDbCommand
+
+            sqlTran_MDB = mdbConnection1.BeginTransaction
+
+            Try
+                strSQL = "insert into tb_alarm_list(alarm_name, interval_time, use_alarm)"
+                strSQL += " values("
+                strSQL += "'선입선출 사용'"
+                strSQL += ", 0"
+                strSQL += ", false"
+                strSQL += ")"
+
+                sqlCmd_MDB = New OleDb.OleDbCommand(strSQL, mdbConnection1)
+                sqlCmd_MDB.Transaction = sqlTran_MDB
+                sqlCmd_MDB.ExecuteNonQuery()
+
+                sqlTran_MDB.Commit()
+            Catch ex As OleDb.OleDbException
+                sqlTran_MDB.Rollback()
+                MSG_Error(Me, ex.Message)
+            End Try
+        End If
+
+        MDBClose()
+
+    End Sub
+
     Private Sub Load_AlarmList()
 
         MDBConnect()
@@ -85,6 +133,8 @@ Public Class frm_Main
             ElseIf sqlDR("alarm_name").Equals("SMD 자재요청") Then
                 Timer_SMD_Material.Interval = sqlDR("interval_time") * 1000
                 Timer_SMD_Material.Start()
+            ElseIf sqlDR("alarm_name").Equals("선입선출 사용") Then
+                material_FIFO = True
             End If
         Loop
         sqlDR.Close()

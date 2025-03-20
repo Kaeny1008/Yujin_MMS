@@ -45,12 +45,14 @@ Partial Class frm_Material_Transfer
         Me.TB_TN_No = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label21 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.CB_AutoCal = New System.Windows.Forms.CheckBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.BTN_ListAdd = New System.Windows.Forms.Button()
         Me.Label17 = New System.Windows.Forms.Label()
@@ -60,6 +62,7 @@ Partial Class frm_Material_Transfer
         Me.CB_PartsSplit = New System.Windows.Forms.CheckBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.RadioButton6 = New System.Windows.Forms.RadioButton()
         Me.CB_AutoAdd = New System.Windows.Forms.CheckBox()
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
@@ -86,7 +89,8 @@ Partial Class frm_Material_Transfer
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
-        Me.RadioButton6 = New System.Windows.Forms.RadioButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -337,6 +341,7 @@ Partial Class frm_Material_Transfer
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel1.Controls.Add(Me.Label21)
         Me.Panel1.Controls.Add(Me.Label19)
         Me.Panel1.Controls.Add(Me.NumericUpDown1)
         Me.Panel1.Controls.Add(Me.TextBox2)
@@ -359,6 +364,19 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(1139, 413)
         Me.Panel1.TabIndex = 0
+        '
+        'Label21
+        '
+        Me.Label21.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label21.AutoSize = True
+        Me.Label21.BackColor = System.Drawing.Color.Yellow
+        Me.Label21.ForeColor = System.Drawing.Color.Red
+        Me.Label21.Location = New System.Drawing.Point(890, 321)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(245, 12)
+        Me.Label21.TabIndex = 46
+        Me.Label21.Text = "'저장' 버튼은 자재를 현장 출고 한다는 말임."
+        Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label19
         '
@@ -402,7 +420,8 @@ Partial Class frm_Material_Transfer
         'Panel6
         '
         Me.Panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel6.Controls.Add(Me.CheckBox1)
+        Me.Panel6.Controls.Add(Me.Label20)
+        Me.Panel6.Controls.Add(Me.CB_AutoCal)
         Me.Panel6.Controls.Add(Me.TextBox1)
         Me.Panel6.Controls.Add(Me.BTN_ListAdd)
         Me.Panel6.Controls.Add(Me.Label17)
@@ -415,19 +434,31 @@ Partial Class frm_Material_Transfer
         Me.Panel6.Size = New System.Drawing.Size(620, 78)
         Me.Panel6.TabIndex = 38
         '
-        'CheckBox1
+        'Label20
         '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.CheckBox1.Checked = True
-        Me.CheckBox1.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox1.Enabled = False
-        Me.CheckBox1.Location = New System.Drawing.Point(118, 17)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(72, 16)
-        Me.CheckBox1.TabIndex = 44
-        Me.CheckBox1.Text = "자동계산"
-        Me.CheckBox1.UseVisualStyleBackColor = False
+        Me.Label20.AutoSize = True
+        Me.Label20.BackColor = System.Drawing.Color.Yellow
+        Me.Label20.ForeColor = System.Drawing.Color.Red
+        Me.Label20.Location = New System.Drawing.Point(196, 10)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(289, 24)
+        Me.Label20.TabIndex = 45
+        Me.Label20.Text = "주의 : 라벨발행은 분할내용이 저장 되었다는 의미임." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "되돌릴 수 없음."
+        Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'CB_AutoCal
+        '
+        Me.CB_AutoCal.AutoSize = True
+        Me.CB_AutoCal.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CB_AutoCal.Checked = True
+        Me.CB_AutoCal.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CB_AutoCal.Enabled = False
+        Me.CB_AutoCal.Location = New System.Drawing.Point(118, 17)
+        Me.CB_AutoCal.Name = "CB_AutoCal"
+        Me.CB_AutoCal.Size = New System.Drawing.Size(72, 16)
+        Me.CB_AutoCal.TabIndex = 44
+        Me.CB_AutoCal.Text = "자동계산"
+        Me.CB_AutoCal.UseVisualStyleBackColor = False
         '
         'TextBox1
         '
@@ -514,6 +545,16 @@ Partial Class frm_Material_Transfer
         Me.Panel5.Name = "Panel5"
         Me.Panel5.Size = New System.Drawing.Size(620, 25)
         Me.Panel5.TabIndex = 35
+        '
+        'RadioButton6
+        '
+        Me.RadioButton6.AutoSize = True
+        Me.RadioButton6.Location = New System.Drawing.Point(119, 4)
+        Me.RadioButton6.Name = "RadioButton6"
+        Me.RadioButton6.Size = New System.Drawing.Size(91, 16)
+        Me.RadioButton6.TabIndex = 39
+        Me.RadioButton6.Text = "Loss분 출고"
+        Me.RadioButton6.UseVisualStyleBackColor = True
         '
         'CB_AutoAdd
         '
@@ -772,25 +813,27 @@ Partial Class frm_Material_Transfer
         '
         'Grid_Menu
         '
-        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowDelete})
+        Me.Grid_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_RowDelete, Me.ToolStripSeparator2, Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem})
         Me.Grid_Menu.Name = "Grid_Menu"
-        Me.Grid_Menu.Size = New System.Drawing.Size(183, 26)
+        Me.Grid_Menu.Size = New System.Drawing.Size(360, 54)
         '
         'BTN_RowDelete
         '
         Me.BTN_RowDelete.Name = "BTN_RowDelete"
-        Me.BTN_RowDelete.Size = New System.Drawing.Size(182, 22)
+        Me.BTN_RowDelete.Size = New System.Drawing.Size(359, 22)
         Me.BTN_RowDelete.Text = "선택 삭제(목록삭제)"
         '
-        'RadioButton6
+        'ToolStripSeparator2
         '
-        Me.RadioButton6.AutoSize = True
-        Me.RadioButton6.Location = New System.Drawing.Point(119, 4)
-        Me.RadioButton6.Name = "RadioButton6"
-        Me.RadioButton6.Size = New System.Drawing.Size(91, 16)
-        Me.RadioButton6.TabIndex = 39
-        Me.RadioButton6.Text = "Loss분 출고"
-        Me.RadioButton6.UseVisualStyleBackColor = True
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(356, 6)
+        '
+        '목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem
+        '
+        Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem.ForeColor = System.Drawing.Color.Red
+        Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem.Name = "목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem"
+        Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem.Size = New System.Drawing.Size(359, 22)
+        Me.목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem.Text = "위의 '선택 삭제'는 현장출고를 하지 않겠다는 의미임."
         '
         'frm_Material_Transfer
         '
@@ -885,10 +928,14 @@ Partial Class frm_Material_Transfer
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents Grid_Menu As ContextMenuStrip
     Friend WithEvents BTN_RowDelete As ToolStripMenuItem
-    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents CB_AutoCal As CheckBox
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents Label18 As Label
     Friend WithEvents Label19 As Label
     Friend WithEvents NumericUpDown1 As NumericUpDown
     Friend WithEvents RadioButton6 As RadioButton
+    Friend WithEvents Label21 As Label
+    Friend WithEvents Label20 As Label
+    Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
+    Friend WithEvents 목록삭제는현장출고를하지않겠다는의미임ToolStripMenuItem As ToolStripMenuItem
 End Class

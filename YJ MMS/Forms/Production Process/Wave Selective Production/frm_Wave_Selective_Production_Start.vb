@@ -3,9 +3,6 @@ Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
 Public Class frm_Wave_Selective_Production_Start
-
-    Dim firstWorking As Boolean = False
-
     Private Sub frm_Wave_Selective_Production_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         GridSetting()
@@ -228,12 +225,6 @@ Public Class frm_Wave_Selective_Production_Start
                 Exit Sub
             End If
 
-            If FirstWokringCheck() = 0 Then
-                firstWorking = True
-            Else
-                firstWorking = False
-            End If
-
             If Not SMDHistoryCheck() = 0 Then
                 Thread_LoadingFormEnd()
                 TB_Barcode.SelectAll()
@@ -254,13 +245,119 @@ Public Class frm_Wave_Selective_Production_Start
                                msg_form,
                                MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question) = DialogResult.No Then Exit Sub
-            Production_Start_Register()
+            '최종 투입인지 확인
+            '현재까지 투입수량 + 폐기수량 + 현재투입수량 = 주문수량
+            Dim updateOK As Boolean = False
+            If LastInputCheck() + Load_Discard_Quantity() + CDbl(TB_WorkingQty.Text) >= CDbl(TB_TotalQty.Text) Then
+                If Material_Update_Exist_Check() = 0 Then updateOK = True
+            End If
+            Production_Start_Register(FirstWokringCheck(), updateOK)
 
             TB_Barcode.Text = String.Empty
             TB_Barcode.Focus()
         End If
 
     End Sub
+
+    Private Function Material_Update_Exist_Check() As Integer
+
+        Dim orderCheck As Integer = 0
+
+        If DBConnect() = False Then
+            Return orderCheck
+            Exit Function
+        End If
+
+        Dim nowColumn As String = "selective_end"
+        If CB_Line.Text = "Wave Soldering" Then
+            nowColumn = "wave_end"
+        End If
+
+        Dim strSQL As String = "select " & nowColumn & " from tb_mms_material_use_update_check"
+        strSQL += " where order_index = '" & TB_OrderIndex.Text & "'"
+        strSQL += ";"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            orderCheck = sqlDR(nowColumn)
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return orderCheck
+
+    End Function
+
+    Private Function LastInputCheck() As Integer
+
+        Dim orderCheck As Integer = 0
+
+        If DBConnect() = False Then
+            Return orderCheck
+            Exit Function
+        End If
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(19"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            orderCheck = sqlDR("completed_qty")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return orderCheck
+
+    End Function
+
+    Private Function Load_Discard_Quantity() As Integer
+
+        Dim orderCheck As Integer = 0
+
+        If DBConnect() = False Then
+            Return orderCheck
+            Exit Function
+        End If
+
+        Dim strSQL As String = "call sp_mms_wave_selective_production(14"
+        strSQL += ", '" & TB_OrderIndex.Text & "'"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ", null"
+        strSQL += ")"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            orderCheck = sqlDR("discard_quantity")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return orderCheck
+
+    End Function
 
     Private Function SMDHistoryCheck() As Integer
 
@@ -330,7 +427,7 @@ Public Class frm_Wave_Selective_Production_Start
 
     End Function
 
-    Private Sub Production_Start_Register()
+    Private Sub Production_Start_Register(ByVal firstWorking As Integer, ByVal materialUse_Update As Boolean)
 
         Thread_LoadingFormStart(Me, "Saving...")
 
@@ -357,7 +454,7 @@ Public Class frm_Wave_Selective_Production_Start
             strSQL += ",'" & TB_WorkingQty.Text & "'"
             strSQL += ",'" & TB_Worker.Text & "'"
             strSQL += ");"
-            If firstWorking = True Then
+            If firstWorking = 0 Then
                 '주문현황에 상태 Update
                 strSQL += "update tb_mms_order_register_list"
                 strSQL += " set order_status = 'Production in " & CB_Process.Text & "'"
@@ -378,6 +475,36 @@ Public Class frm_Wave_Selective_Production_Start
                 strSQL += ",'" & writeDate & "'"
                 strSQL += ",'Running'"
                 strSQL += ");"
+                '자재사용내용 등록
+                strSQL += "call sp_mms_material_start_update("
+                strSQL += "'" & TB_OrderIndex.Text & "'"
+                strSQL += ", '" & CB_Line.Text & "'"
+                strSQL += ", null"
+                strSQL += ", 0"
+                strSQL += ");"
+            End If
+
+            If materialUse_Update = True Then
+                '자재사용내용 등록
+                strSQL += "call sp_mms_material_complete_update("
+                strSQL += "'" & TB_OrderIndex.Text & "'"
+                strSQL += ", '" & CB_Line.Text & "'"
+                strSQL += ", null"
+                strSQL += ", 0"
+                strSQL += ");"
+
+                '중복 등록 방지하기위해 디비기록
+                Dim processTable As String = "selective_end"
+                If CB_Line.Text = "Wave Soldering" Then
+                    processTable = "wave_end"
+                End If
+                strSQL += "insert into tb_mms_material_use_update_check(order_index, " & processTable & ")"
+                strSQL += " values("
+                strSQL += "'" & TB_OrderIndex.Text & "'"
+                strSQL += ", 1"
+                strSQL += ") on DUPLICATE key"
+                strSQL += " update " & processTable & " = ifnull(" & processTable & ", 0) + values(" & processTable & ")"
+                strSQL += ";"
             End If
 
             If Not strSQL = String.Empty Then
@@ -534,7 +661,7 @@ Public Class frm_Wave_Selective_Production_Start
 
         frm_Production_BOM.orderIndex = TB_OrderIndex.Text
 
-        If not frm_Production_BOM.Visible Then frm_Production_BOM.Show()
+        If Not frm_Production_BOM.Visible Then frm_Production_BOM.Show()
         frm_Production_BOM.Focus()
 
     End Sub

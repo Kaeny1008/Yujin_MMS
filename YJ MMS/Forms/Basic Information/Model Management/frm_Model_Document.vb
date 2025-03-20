@@ -837,6 +837,8 @@ Public Class frm_Model_Document
 
         DBClose()
 
+        Label34.Text = "현 모델 관리번호 총수 : " & CB_ManagementNo.Items.Count
+
         BTN_NewManagementNo.Visible = True
         CB_ManagementNo.SelectedIndex = CB_ManagementNo.Items.Count - 1
 
@@ -1087,6 +1089,12 @@ FTP_Control:
                 For i = 1 To Grid_BOM_Total.Rows.Count - 1
                     If Grid_BOM_Total(i, 6) = String.Empty Then
                         Return "작업면 구분이 없는 항목이 있습니다."
+                    Else
+                        If Grid_BOM_Total(i, 6).ToString.ToUpper = "TOP" Then
+                            Grid_BOM_Total(i, 6) = "Top"
+                        ElseIf Grid_BOM_Total(i, 6).ToString.ToUpper = "BOTTOM" Then
+                            Grid_BOM_Total(i, 6) = "Bottom"
+                        End If
                     End If
                     strSQL += "insert into tb_model_bom("
                     strSQL += "customer_code, model_code, management_no, ref, part_no, material_type, is_loader_pcb, tb) values("

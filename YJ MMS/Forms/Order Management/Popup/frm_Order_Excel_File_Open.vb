@@ -20,6 +20,7 @@ Public Class frm_Order_Excel_File_Open
         endDate = 0
 
         Grid_Excel.Redraw = False
+        Grid_Excel.AllowSorting = AllowSortingEnum.None
         Grid_Excel.LoadExcel(fileName, sheetName, FileFlags.None)
         For i = 0 To Grid_Excel.Cols.Count - 1
             Grid_Excel(0, i) = i

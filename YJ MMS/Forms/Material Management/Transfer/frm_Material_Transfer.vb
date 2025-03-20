@@ -230,24 +230,26 @@ Public Class frm_Material_Transfer
     Private Function WorkSite_Move(ByVal mwNo As String) As Boolean
 
         '선입선출 확인 한다.
-        Dim showString As String = PartIndex_Check()
-        If Not showString = String.Empty Then
-            frm_Material_Transfer_Warning.Label1.Text = "※※※출고등록 실패※※※" &
+        If frm_Main.material_FIFO = True Then
+            Dim showString As String = PartIndex_Check()
+            If Not showString = String.Empty Then
+                frm_Material_Transfer_Warning.Label1.Text = "※※※출고등록 실패※※※" &
                 vbCrLf &
                 vbCrLf &
                 showString &
                 vbCrLf &
                 vbCrLf &
                 "우선 입고된 자재가 존재합니다."
-            frm_Material_Transfer_Warning.ShowDialog()
-            'MessageBox.Show(Me,
-            '                showString & vbCrLf & vbCrLf & "우선 입고된 자재가 존재합니다.",
-            '                msg_form & "(선입선출)",
-            '                MessageBoxButtons.OK,
-            '                MessageBoxIcon.Exclamation)
-            Control_Init()
-            TB_BarcodeScan.Focus()
-            Return False
+                frm_Material_Transfer_Warning.ShowDialog()
+                'MessageBox.Show(Me,
+                '                showString & vbCrLf & vbCrLf & "우선 입고된 자재가 존재합니다.",
+                '                msg_form & "(선입선출)",
+                '                MessageBoxButtons.OK,
+                '                MessageBoxIcon.Exclamation)
+                Control_Init()
+                TB_BarcodeScan.Focus()
+                Return False
+            End If
         End If
 
         '현장에 출고된 자재인지 확인한다.
@@ -810,13 +812,13 @@ Public Class frm_Material_Transfer
             TB_2ndQty.Enabled = True
             TB_1stQty.SelectAll()
             TB_1stQty.Focus()
-            CheckBox1.Enabled = True
-            CheckBox1.Checked = True
+            CB_AutoCal.Enabled = True
+            CB_AutoCal.Checked = True
         Else
             TB_1stQty.Enabled = False
             TB_2ndQty.Enabled = False
-            CheckBox1.Enabled = False
-            CheckBox1.Checked = False
+            CB_AutoCal.Enabled = False
+            CB_AutoCal.Checked = False
         End If
 
     End Sub
@@ -845,7 +847,7 @@ Public Class frm_Material_Transfer
     Private Sub TB_1stQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_1stQty.KeyDown
 
         If Not TB_1stQty.Text = String.Empty And e.KeyCode = 13 Then
-            If CheckBox1.Checked = True And Not TB_Qty.Text = String.Empty Then
+            If CB_AutoCal.Checked = True And Not TB_Qty.Text = String.Empty Then
                 TB_2ndQty.Text = CDbl(TB_Qty.Text) - CDbl(TB_1stQty.Text)
                 BTN_ListAdd_Click(Nothing, Nothing)
             Else
@@ -858,12 +860,12 @@ Public Class frm_Material_Transfer
 
     Private Sub TB_2ndQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_2ndQty.KeyDown
 
-        If Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
-
+        If Not TB_2ndQty.Text = String.Empty And Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
             If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
                 MSG_Error(Me, "출고+보관 수량이 입고 수량보다 큽니다.")
                 Exit Sub
             End If
+            BTN_ListAdd_Click(Nothing, Nothing)
         End If
 
     End Sub
@@ -876,6 +878,10 @@ Public Class frm_Material_Transfer
         End If
 
         If CB_PartsSplit.Checked = True Then
+            If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
+                MSG_Error(Me, "출고+보관 수량이 입고 수량보다 큽니다.")
+                Exit Sub
+            End If
             If MSG_Question(Me,
                             "출고, 보관수량을 확인하여 주십시오." & vbCrLf &
                             "분할작업은 즉시 데이터(분할내용)가 저장됩니다." & vbCrLf &

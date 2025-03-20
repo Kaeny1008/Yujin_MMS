@@ -121,6 +121,7 @@ Partial Class frm_Model_Document
         Me.CMS_GridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_ProcessAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_ProcessDelete = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label34 = New System.Windows.Forms.Label()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -872,6 +873,7 @@ Partial Class frm_Model_Document
         'Panel3
         '
         Me.Panel3.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.Panel3.Controls.Add(Me.Label34)
         Me.Panel3.Controls.Add(Me.Panel7)
         Me.Panel3.Controls.Add(Me.BTN_NewManagementNo)
         Me.Panel3.Controls.Add(Me.CB_ManagementNo)
@@ -1285,6 +1287,15 @@ Partial Class frm_Model_Document
         Me.BTN_ProcessDelete.Size = New System.Drawing.Size(170, 22)
         Me.BTN_ProcessDelete.Text = "공정 삭제"
         '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(407, 200)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(137, 12)
+        Me.Label34.TabIndex = 6
+        Me.Label34.Text = "현 모델 관리번호 갯수 : "
+        '
         'frm_Model_Document
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1330,6 +1341,7 @@ Partial Class frm_Model_Document
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.Panel3.ResumeLayout(False)
+        Me.Panel3.PerformLayout()
         Me.Panel7.ResumeLayout(False)
         Me.Panel7.PerformLayout()
         Me.Panel2.ResumeLayout(False)
@@ -1437,4 +1449,5 @@ Partial Class frm_Model_Document
     Friend WithEvents Label33 As Label
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents Label34 As Label
 End Class

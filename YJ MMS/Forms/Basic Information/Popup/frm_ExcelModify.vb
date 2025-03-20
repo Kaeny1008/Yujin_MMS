@@ -79,10 +79,20 @@ Public Class frm_ExcelModify
             excelApp = Nothing
         End If
 
-        excelApp = CreateObject("Excel.Application")
-        excelApp.DisplayAlerts = False
-        excelApp.WorkBooks.Open(Application.StartupPath & "\Temp\" & TB_File_Path.Text)
-        excelApp.Visible = False
+        Try
+            'Grid_ExcelUpper.LoadExcelSheetNames(Application.StartupPath & "\Temp\" & TB_File_Path.Text)
+
+            excelApp = CreateObject("Excel.Application")
+            excelApp.DisplayAlerts = False
+            excelApp.WorkBooks.Open(Application.StartupPath & "\Temp\" & TB_File_Path.Text)
+            excelApp.Visible = False
+        Catch ex As Exception
+            excelApp.Quit()
+            ReleaseObject(excelApp)
+            excelApp = Nothing
+            MSG_Error(Me, ex.Message)
+            Exit Sub
+        End Try
 
         thread_ExcelOpen = New Thread(AddressOf File_Open)
         thread_ExcelOpen.IsBackground = True

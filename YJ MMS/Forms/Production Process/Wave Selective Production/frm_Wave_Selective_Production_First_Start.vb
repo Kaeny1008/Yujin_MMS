@@ -279,6 +279,14 @@ Public Class frm_Wave_Selective_Production_First_Start
             strSQL += "update tb_mms_production_plan set " & processColumn & " = '" & writeDate & "'"
             strSQL += " where order_index = '" & oder_index & "';"
 
+            '자재사용내용 등록
+            strSQL += "call sp_mms_material_start_update("
+            strSQL += "'" & oder_index & "'"
+            strSQL += ", '" & CB_Line.Text & "'"
+            strSQL += ", null"
+            strSQL += ", 1"
+            strSQL += ");"
+
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
                 sqlCmd.Transaction = sqlTran
@@ -340,7 +348,7 @@ Public Class frm_Wave_Selective_Production_First_Start
 
     End Sub
 
-    Private Function EndWrite(ByVal oder_index As String) As Boolean
+    Private Function EndWrite(ByVal order_index As String) As Boolean
 
         Dim writeSuccess As Boolean = True
 
@@ -367,9 +375,17 @@ Public Class frm_Wave_Selective_Production_First_Start
                 processColumn = "selective_end"
             End If
             strSQL += "update tb_mms_production_plan set " & processColumn & " = '" & writeDate & "'"
-            strSQL += " where order_index = '" & oder_index & "';"
-            strSQL += "update tb_mms_order_register_list set order_status = '" & frm_Wave_Selective_Production_End.CB_Line.Text & " Process Completed'"
-            strSQL += " where order_index = '" & oder_index & "';"
+            strSQL += " where order_index = '" & order_index & "';"
+            'strSQL += "update tb_mms_order_register_list set order_status = '" & CB_Line.Text & " Process Completed'"
+            'strSQL += " where order_index = '" & order_index & "';"
+
+            '자재사용내용 등록
+            strSQL += "call sp_mms_material_complete_update("
+            strSQL += "'" & order_index & "'"
+            strSQL += ", '" & CB_Line.Text & "'"
+            strSQL += ", null"
+            strSQL += ", 1"
+            strSQL += ");"
 
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)

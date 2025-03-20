@@ -148,7 +148,7 @@ Public Class frm_CodeChange
 
         Do While sqlDR.Read
             TB_Vendor.Text = sqlDR("part_vendor")
-            TextBox1.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
+            TB_WarehousingDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
         Loop
         sqlDR.Close()
 
@@ -245,7 +245,7 @@ Public Class frm_CodeChange
                                     TB_Vendor.Text,
                                     1,
                                     CB_CustomerName.Text,
-                                    Format(CDate(TextBox1.Text), "yyyy.MM.dd"),
+                                    Format(CDate(TB_WarehousingDate.Text), "yyyy.MM.dd"),
                                     False,
                                     String.Empty,
                                     0)
@@ -291,7 +291,7 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ", '" & TB_AfterItemCode.Text & "'"
             strSQL += ", '" & TB_Reason.Text & "'"
-            strSQL += ", '" & TextBox1.Text & "'"
+            strSQL += ", '" & TB_WarehousingDate.Text & "'"
             strSQL += ");"
 
             strSQL += "insert into tb_mms_material_warehousing("
@@ -307,7 +307,7 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_PartNo.Text & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
             strSQL += ", '" & TB_AfterQty.Text & "'"
-            strSQL += ", '" & TextBox1.Text & "'"
+            strSQL += ", '" & TB_WarehousingDate.Text & "'"
             strSQL += ", '" & loginID & "'"
             strSQL += ", '" & TB_AfterQty.Text & "'"
             strSQL += ");"
@@ -320,7 +320,7 @@ Public Class frm_CodeChange
             'strSQL += ";"
 
             '입고일자가 최근 재고조사 일자보다 빠를 경우
-            If CDate(TextBox1.Text) < CDate(TB_LastStockSuvey.Text) Then
+            If CDate(TB_WarehousingDate.Text) < CDate(TB_LastStockSuvey.Text) Then
                 'strSQL += " select if(("
                 'strSQL += "select 1=1 from tb_mms_material_basic_inventory"
                 'strSQL += " where clearance_date = '" & TB_LastStockSuvey.Text & "'"

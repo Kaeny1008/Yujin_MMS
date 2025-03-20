@@ -153,6 +153,12 @@ Public Class frm_Alarm_Setting
                     Else
                         frm_Main.Timer_SMD_Material.Stop()
                     End If
+                ElseIf Grid_AlarmList(i, 1).Equals("선입선출 사용") Then
+                    If Grid_AlarmList(i, 3) = True Then
+                        frm_Main.material_FIFO = True
+                    Else
+                        frm_Main.material_FIFO = False
+                    End If
                 End If
             Next
 
