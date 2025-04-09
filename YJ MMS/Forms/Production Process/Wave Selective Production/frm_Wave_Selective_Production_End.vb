@@ -136,10 +136,7 @@ Public Class frm_Wave_Selective_Production_End
 
         If Grid_OrderList.Rows.Count = 1 Then
             Thread_LoadingFormEnd()
-            MessageBox.Show("생산진행 중인 내역이 없습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information)
+            MSG_Information(Me, "생산진행 중인 내역이 없습니다.")
             Exit Sub
         End If
 
@@ -148,10 +145,7 @@ Public Class frm_Wave_Selective_Production_End
         'MSG_Information(Me, "해당 주문을 더블클릭으로 선택하여 주십시오.")
 
         '왠지 Application.DoEvents() 이거때문에 멈추는거 같다.
-        MessageBox.Show("해당 주문을 더블클릭으로 선택하여 주십시오.",
-                        msg_form,
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information)
+        MSG_Information(Me, "해당 주문을 더블클릭으로 선택하여 주십시오.")
 
     End Sub
 
@@ -424,6 +418,11 @@ Public Class frm_Wave_Selective_Production_End
         frm_WS_Magazine_Kitting.LB_ModelCode.Text = TB_ModelCode.Text
         frm_WS_Magazine_Kitting.LB_CustomerCode.Text = TB_CustomerCode.Text
         frm_WS_Magazine_Kitting.orderIndex = TB_OrderIndex.Text
+        If sender.ToString.Equals("forceCompleted") Then
+            frm_WS_Magazine_Kitting.forceCompleted = True
+        Else
+            frm_WS_Magazine_Kitting.forceCompleted = False
+        End If
         If Not frm_WS_Magazine_Kitting.Visible Then frm_WS_Magazine_Kitting.Show()
         frm_WS_Magazine_Kitting.Focus()
 
@@ -632,8 +631,31 @@ Public Class frm_Wave_Selective_Production_End
 
             If .ShowDialog() = DialogResult.OK Then
                 Load_InspectList()
+
+                Dim completedQty As Double = 0
+                Dim discardQty As Double = 0
+                For i = 2 To Grid_History.Rows.Count - 1
+                    completedQty += Grid_History(i, 7)
+                    discardQty += Grid_History(i, 8)
+                Next
+
+                '생산이 완료 되었다면...
+                If (completedQty + discardQty) = CDbl(TB_OrderQty.Text) Then
+                    MSG_Information(Me,
+                                    "폐기수량 추가로 주문 생산이 완료 되었습니다.(주문수량 = 생산수량)" & vbCrLf &
+                                    "생산내역 등록창이 자동으로 열립니다.")
+                    BTN_PauseRegister_Click("forceCompleted", Nothing)
+                End If
             End If
         End With
+
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        BTN_PauseRegister_Click("forceCompleted", Nothing)
+    End Sub
+
+    Private Sub CB_Line_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CB_Line.SelectedIndexChanged
 
     End Sub
 End Class

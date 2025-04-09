@@ -937,6 +937,10 @@ Public Class frm_Model_Document
         TB_ModelName.Text = String.Empty
         TB_ItemName.Text = String.Empty
 
+        CheckBox1.Checked = False
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+
         BTN_NewManagementNo.Visible = False
         BTN_Save.Enabled = False
         CB_ManagementNo.Items.Clear()
@@ -993,6 +997,11 @@ Public Class frm_Model_Document
     Private Sub BTN_Save_Click(sender As Object, e As EventArgs) Handles BTN_Save.Click
 
         If TB_ModelCode.Text.Equals(String.Empty) Then Exit Sub
+
+        If CB_ManagementNo.Text.Equals(String.Empty) Then
+            MSG_Information(Me, "관리번호가 지정되지 않았습니다.")
+            Exit Sub
+        End If
 
         If Grid_Process.Cols.Count = 1 Then
             MSG_Information(Me, "공정 흐름을 등록하여 주십시오.")
@@ -1376,9 +1385,6 @@ FTP_Control:
     End Sub
 
     Private Sub Load_Label_Information()
-
-        CheckBox1.Checked = False
-        CheckBox2.Checked = False
 
         If DBConnect() = False Then Exit Sub
 

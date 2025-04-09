@@ -724,4 +724,12 @@ Public Class frm_Main
         frm_SMD_Material_Request.Focus()
 
     End Sub
+
+    Private Sub BTN_MaterialSplit_Click(sender As Object, e As EventArgs) Handles BTN_MaterialSplit.Click
+
+        frm_Material_Split.MdiParent = Me
+        If Not frm_Material_Split.Visible Then frm_Material_Split.Show()
+        frm_Material_Split.Focus()
+
+    End Sub
 End Class

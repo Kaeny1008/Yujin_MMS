@@ -9,6 +9,7 @@ Public Class frm_WS_Magazine_Kitting
     Dim modelTB As String
     Public orderIndex As String
     Dim nowDiscardQty As Integer
+    Public forceCompleted As Boolean
 
     Private Sub frm_SMD_Magazine_Kitting_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -107,23 +108,17 @@ Public Class frm_WS_Magazine_Kitting
 
     Private Sub BTN_Exit_Click(sender As Object, e As EventArgs) Handles BTN_Exit.Click
 
-        If CDbl(TB_MagazineQty.Text) = 0 Then
-            MessageBox.Show(Me,
-                            "0이 아닌 숫자를 입력하여 주십시오.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Asterisk)
-            TB_MagazineQty.SelectAll()
-            TB_MagazineQty.Focus()
-            Exit Sub
+        If forceCompleted = False Then
+            If CDbl(TB_MagazineQty.Text) = 0 Then
+                MSG_Information(Me, "0이 아닌 숫자를 입력하여 주십시오.")
+                TB_MagazineQty.SelectAll()
+                TB_MagazineQty.Focus()
+                Exit Sub
+            End If
         End If
 
         If TB_MagazineQty.Text = String.Empty Then
-            MessageBox.Show(Me,
-                            "Magazine 수량이 입력되지 않았습니다.",
-                            msg_form,
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Asterisk)
+            MSG_Information(Me, "Magazine 수량이 입력되지 않았습니다.")
             TB_MagazineQty.SelectAll()
             TB_MagazineQty.Focus()
             Exit Sub
@@ -234,6 +229,8 @@ Public Class frm_WS_Magazine_Kitting
         If RadioButton1.Checked = True Then
             PrintLabel(writeDate, modelTB)
         End If
+
+        Me.Hide()
 
         If workingEnd = True Then
             frm_Wave_Selective_Production_End.historyIndex = String.Empty

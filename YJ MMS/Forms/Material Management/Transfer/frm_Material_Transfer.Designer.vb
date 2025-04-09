@@ -291,12 +291,12 @@ Partial Class frm_Material_Transfer
         '
         Me.Grid_History.ColumnInfo = "2,1,0,0,0,100,Columns:"
         Me.Grid_History.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Grid_History.Location = New System.Drawing.Point(0, 469)
+        Me.Grid_History.Location = New System.Drawing.Point(0, 395)
         Me.Grid_History.Margin = New System.Windows.Forms.Padding(0)
         Me.Grid_History.Name = "Grid_History"
         Me.Grid_History.Rows.Count = 2
         Me.Grid_History.Rows.DefaultSize = 20
-        Me.Grid_History.Size = New System.Drawing.Size(1139, 279)
+        Me.Grid_History.Size = New System.Drawing.Size(1139, 353)
         Me.Grid_History.StyleInfo = resources.GetString("Grid_History.StyleInfo")
         Me.Grid_History.TabIndex = 10
         '
@@ -307,7 +307,7 @@ Partial Class frm_Material_Transfer
         Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel2.Enabled = False
-        Me.Panel2.Location = New System.Drawing.Point(0, 413)
+        Me.Panel2.Location = New System.Drawing.Point(0, 339)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(1139, 56)
         Me.Panel2.TabIndex = 11
@@ -344,6 +344,7 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Controls.Add(Me.Label21)
         Me.Panel1.Controls.Add(Me.Label19)
         Me.Panel1.Controls.Add(Me.NumericUpDown1)
+        Me.Panel1.Controls.Add(Me.BTN_ListAdd)
         Me.Panel1.Controls.Add(Me.TextBox2)
         Me.Panel1.Controls.Add(Me.Label18)
         Me.Panel1.Controls.Add(Me.Panel6)
@@ -362,7 +363,7 @@ Partial Class frm_Material_Transfer
         Me.Panel1.Enabled = False
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(1139, 413)
+        Me.Panel1.Size = New System.Drawing.Size(1139, 339)
         Me.Panel1.TabIndex = 0
         '
         'Label21
@@ -371,17 +372,17 @@ Partial Class frm_Material_Transfer
         Me.Label21.AutoSize = True
         Me.Label21.BackColor = System.Drawing.Color.Yellow
         Me.Label21.ForeColor = System.Drawing.Color.Red
-        Me.Label21.Location = New System.Drawing.Point(890, 321)
+        Me.Label21.Location = New System.Drawing.Point(875, 245)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(245, 12)
+        Me.Label21.Size = New System.Drawing.Size(261, 12)
         Me.Label21.TabIndex = 46
-        Me.Label21.Text = "'저장' 버튼은 자재를 현장 출고 한다는 말임."
+        Me.Label21.Text = "'저장' 버튼은 자재를 현장 입,출고 한다는 말임."
         Me.Label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(608, 370)
+        Me.Label19.Location = New System.Drawing.Point(608, 290)
         Me.Label19.Name = "Label19"
         Me.Label19.Size = New System.Drawing.Size(183, 12)
         Me.Label19.TabIndex = 42
@@ -389,7 +390,7 @@ Partial Class frm_Material_Transfer
         '
         'NumericUpDown1
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(671, 386)
+        Me.NumericUpDown1.Location = New System.Drawing.Point(671, 306)
         Me.NumericUpDown1.Maximum = New Decimal(New Integer() {30, 0, 0, 0})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(120, 21)
@@ -398,7 +399,7 @@ Partial Class frm_Material_Transfer
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(175, 358)
+        Me.TextBox2.Location = New System.Drawing.Point(175, 278)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(363, 49)
@@ -410,12 +411,12 @@ Partial Class frm_Material_Transfer
         Me.Label18.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label18.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label18.ForeColor = System.Drawing.Color.White
-        Me.Label18.Location = New System.Drawing.Point(10, 358)
+        Me.Label18.Location = New System.Drawing.Point(10, 278)
         Me.Label18.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label18.Name = "Label18"
         Me.Label18.Size = New System.Drawing.Size(165, 49)
         Me.Label18.TabIndex = 39
-        Me.Label18.Text = "6. 비고"
+        Me.Label18.Text = "5. 비고"
         '
         'Panel6
         '
@@ -423,16 +424,16 @@ Partial Class frm_Material_Transfer
         Me.Panel6.Controls.Add(Me.Label20)
         Me.Panel6.Controls.Add(Me.CB_AutoCal)
         Me.Panel6.Controls.Add(Me.TextBox1)
-        Me.Panel6.Controls.Add(Me.BTN_ListAdd)
         Me.Panel6.Controls.Add(Me.Label17)
         Me.Panel6.Controls.Add(Me.TB_2ndQty)
         Me.Panel6.Controls.Add(Me.Label16)
         Me.Panel6.Controls.Add(Me.TB_1stQty)
         Me.Panel6.Controls.Add(Me.CB_PartsSplit)
-        Me.Panel6.Location = New System.Drawing.Point(175, 278)
+        Me.Panel6.Location = New System.Drawing.Point(971, 70)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(620, 78)
         Me.Panel6.TabIndex = 38
+        Me.Panel6.Visible = False
         '
         'Label20
         '
@@ -441,9 +442,9 @@ Partial Class frm_Material_Transfer
         Me.Label20.ForeColor = System.Drawing.Color.Red
         Me.Label20.Location = New System.Drawing.Point(196, 10)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(289, 24)
+        Me.Label20.Size = New System.Drawing.Size(165, 24)
         Me.Label20.TabIndex = 45
-        Me.Label20.Text = "주의 : 라벨발행은 분할내용이 저장 되었다는 의미임." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "되돌릴 수 없음."
+        Me.Label20.Text = "자재분할 여기서 하지마세요. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "자재분할 창을 이용하세요."
         Me.Label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'CB_AutoCal
@@ -470,9 +471,9 @@ Partial Class frm_Material_Transfer
         '
         'BTN_ListAdd
         '
-        Me.BTN_ListAdd.Location = New System.Drawing.Point(559, 3)
+        Me.BTN_ListAdd.Location = New System.Drawing.Point(546, 278)
         Me.BTN_ListAdd.Name = "BTN_ListAdd"
-        Me.BTN_ListAdd.Size = New System.Drawing.Size(56, 70)
+        Me.BTN_ListAdd.Size = New System.Drawing.Size(56, 49)
         Me.BTN_ListAdd.TabIndex = 42
         Me.BTN_ListAdd.Text = "목록" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "추가"
         Me.BTN_ListAdd.UseVisualStyleBackColor = True
@@ -515,6 +516,7 @@ Partial Class frm_Material_Transfer
         '
         Me.CB_PartsSplit.AutoSize = True
         Me.CB_PartsSplit.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CB_PartsSplit.Enabled = False
         Me.CB_PartsSplit.Location = New System.Drawing.Point(12, 17)
         Me.CB_PartsSplit.Name = "CB_PartsSplit"
         Me.CB_PartsSplit.Size = New System.Drawing.Size(100, 16)
@@ -528,12 +530,13 @@ Partial Class frm_Material_Transfer
         Me.Label15.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label15.Font = New System.Drawing.Font("굴림", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(10, 278)
+        Me.Label15.Location = New System.Drawing.Point(806, 70)
         Me.Label15.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(165, 78)
         Me.Label15.TabIndex = 36
         Me.Label15.Text = "5. 자재분할 선택"
+        Me.Label15.Visible = False
         '
         'Panel5
         '
@@ -607,7 +610,7 @@ Partial Class frm_Material_Transfer
         Me.BTN_Save.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.BTN_Save.Image = Global.YJ_MMS.My.Resources.Resources.save_5
         Me.BTN_Save.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Save.Location = New System.Drawing.Point(1035, 341)
+        Me.BTN_Save.Location = New System.Drawing.Point(1038, 261)
         Me.BTN_Save.Name = "BTN_Save"
         Me.BTN_Save.Size = New System.Drawing.Size(98, 66)
         Me.BTN_Save.TabIndex = 33

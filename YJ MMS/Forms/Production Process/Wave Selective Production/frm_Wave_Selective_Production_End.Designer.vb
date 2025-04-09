@@ -27,6 +27,9 @@ Partial Class frm_Wave_Selective_Production_End
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Button2 = New System.Windows.Forms.Button()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.BTN_Discard_Register = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.BTN_Reload = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
@@ -59,8 +62,6 @@ Partial Class frm_Wave_Selective_Production_End
         Me.Grid_History = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.Grid_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_Reprint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.BTN_Discard_Register = New System.Windows.Forms.Button()
         Me.TS_MainBar.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
@@ -102,6 +103,7 @@ Partial Class frm_Wave_Selective_Production_End
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Button2)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label15)
         Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_Discard_Register)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Button1)
@@ -141,6 +143,40 @@ Partial Class frm_Wave_Selective_Production_End
         Me.SplitContainer1.Size = New System.Drawing.Size(1264, 748)
         Me.SplitContainer1.SplitterDistance = 229
         Me.SplitContainer1.TabIndex = 4
+        '
+        'Button2
+        '
+        Me.Button2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Button2.Location = New System.Drawing.Point(1112, 169)
+        Me.Button2.Name = "Button2"
+        Me.Button2.Size = New System.Drawing.Size(69, 52)
+        Me.Button2.TabIndex = 44
+        Me.Button2.Text = "강제" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "생산종료"
+        Me.Button2.UseVisualStyleBackColor = True
+        '
+        'Label15
+        '
+        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(960, 155)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(103, 12)
+        Me.Label15.TabIndex = 43
+        Me.Label15.Text = "(폐기가 있을경우)"
+        '
+        'BTN_Discard_Register
+        '
+        Me.BTN_Discard_Register.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.BTN_Discard_Register.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.BTN_Discard_Register.Image = Global.YJ_MMS.My.Resources.Resources.delete2
+        Me.BTN_Discard_Register.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.BTN_Discard_Register.Location = New System.Drawing.Point(955, 169)
+        Me.BTN_Discard_Register.Name = "BTN_Discard_Register"
+        Me.BTN_Discard_Register.Size = New System.Drawing.Size(112, 53)
+        Me.BTN_Discard_Register.TabIndex = 42
+        Me.BTN_Discard_Register.Text = "폐기품" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
+        Me.BTN_Discard_Register.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.BTN_Discard_Register.UseVisualStyleBackColor = True
         '
         'Button1
         '
@@ -528,30 +564,6 @@ Partial Class frm_Wave_Selective_Production_End
         Me.BTN_Reprint.Size = New System.Drawing.Size(150, 22)
         Me.BTN_Reprint.Text = "현품표 재발행"
         '
-        'Label15
-        '
-        Me.Label15.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(960, 155)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(103, 12)
-        Me.Label15.TabIndex = 43
-        Me.Label15.Text = "(폐기가 있을경우)"
-        '
-        'BTN_Discard_Register
-        '
-        Me.BTN_Discard_Register.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.BTN_Discard_Register.Font = New System.Drawing.Font("굴림", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
-        Me.BTN_Discard_Register.Image = Global.YJ_MMS.My.Resources.Resources.delete2
-        Me.BTN_Discard_Register.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.BTN_Discard_Register.Location = New System.Drawing.Point(955, 169)
-        Me.BTN_Discard_Register.Name = "BTN_Discard_Register"
-        Me.BTN_Discard_Register.Size = New System.Drawing.Size(112, 53)
-        Me.BTN_Discard_Register.TabIndex = 42
-        Me.BTN_Discard_Register.Text = "폐기품" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "등록"
-        Me.BTN_Discard_Register.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.BTN_Discard_Register.UseVisualStyleBackColor = True
-        '
         'frm_Wave_Selective_Production_End
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -613,4 +625,5 @@ Partial Class frm_Wave_Selective_Production_End
     Friend WithEvents BTN_Reprint As ToolStripMenuItem
     Friend WithEvents Label15 As Label
     Friend WithEvents BTN_Discard_Register As Button
+    Friend WithEvents Button2 As Button
 End Class

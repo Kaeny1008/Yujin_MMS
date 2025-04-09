@@ -399,7 +399,9 @@ Public Class frm_Material_Stock_Survey_Result
 
         'strSQL += "update tb_mms_material_transfer_out_content set part_status = 'Closed'"
         'strSQL += " where mw_no in (select mw_no from tb_mms_material_warehousing where customer_code = '" & TB_CustomerCode.Text & "');"
+
         '스캔완료된 항목의 출고기록을 되돌린다.
+        '현재 이거 엄청나게 느리다. PDA 프로그램 확인해야함.
         Dim writeResult As String = Return_PartsOutData()
 
         If Not writeResult = "Success" Then
@@ -457,7 +459,7 @@ Public Class frm_Material_Stock_Survey_Result
                     strSQL += "," & basicQty & ""
                     strSQL += "," & CDbl(Grid_MaterialList(i, 19)) & ""
                 ElseIf CDbl(Grid_MaterialList(i, 19)) < 0 Then
-                    Dim basicQty As Double = CDbl(Grid_MaterialList(i, 19))
+                    Dim basicQty As Double = CDbl(Grid_MaterialList(i, 18))
                     strSQL += "'" & dateTime & "'"
                     strSQL += ",'" & TB_CustomerCode.Text & "'"
                     strSQL += ",'" & Grid_MaterialList(i, 1) & "'"
@@ -544,7 +546,7 @@ Public Class frm_Material_Stock_Survey_Result
             If Not strSQL = String.Empty Then
                 sqlCmd = New MySqlCommand(strSQL, dbConnection1)
                 '이건 오래 걸릴 수 있다.
-                sqlCmd.CommandTimeout = 30
+                sqlCmd.CommandTimeout = 1200
                 sqlCmd.Transaction = sqlTran
                 sqlCmd.ExecuteNonQuery()
 

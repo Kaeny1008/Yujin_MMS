@@ -130,6 +130,7 @@ Public Class frm_Discard_Register
 
         MessageBox.Show(Me, "저장 완료." & vbCrLf & "창이 닫힙니다.", msg_form, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
+        Me.DialogResult = DialogResult.OK
         Me.Dispose()
 
     End Sub

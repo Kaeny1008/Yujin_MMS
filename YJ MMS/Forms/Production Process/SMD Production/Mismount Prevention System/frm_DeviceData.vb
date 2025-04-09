@@ -1604,6 +1604,8 @@ Public Class frm_DeviceData
         Grid_DeviceData.AutoSizeRows(1, 0, Grid_DeviceData.Rows.Count - 1, Grid_DeviceData.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_DeviceData.Redraw = True
 
+        Thread_LoadingFormEnd()
+
         If MSG_Question(Me, "불러오기를 완료 하였습니다." &
                         vbCrLf &
                         "해당 폴더를 삭제 하시겠습니까?" &
@@ -1616,8 +1618,6 @@ Public Class frm_DeviceData
                 MSG_Error(Me, ex.Message)
             End Try
         End If
-
-        Thread_LoadingFormEnd()
 
     End Sub
 

@@ -85,6 +85,7 @@ Partial Class frm_WS_Magazine_Kitting
         Me.TB_MagazineQty.Name = "TB_MagazineQty"
         Me.TB_MagazineQty.Size = New System.Drawing.Size(309, 26)
         Me.TB_MagazineQty.TabIndex = 16
+        Me.TB_MagazineQty.Text = "0"
         '
         'Label1
         '

@@ -233,12 +233,31 @@ Public Class frm_CodeChange
             Not TB_AfterSpec.Text = String.Empty And
             Not Trim(TB_Reason.Text) = String.Empty Then
 
+            Dim existPartCheck As Integer = Exist_PartCheck(TB_LotNo.Text)
+
+            If existPartCheck = 9999 Then
+                '서버에 접속 못했다고 알람이 떴으니 무시
+            ElseIf Not existPartCheck = 0 Then
+                Dim newLotNo As Boolean = False
+                Do While (newLotNo = False)
+                    Dim reelIndex As String = InputBox("중복되는 자재가 존재합니다." & vbCrLf &
+                                                       "자재의 임의의 Lot No.를 입력하여 주십시오.",
+                                                       msg_form, String.Empty)
+                    Dim existPartCheck2 As Integer = Exist_PartCheck(reelIndex)
+                    If existPartCheck2 = 9999 Then
+                        '서버에 접속 못했다고 알람이 떴으니 무시
+                    ElseIf existPartCheck2 = 0 Then
+                        newLotNo = True
+                    End If
+                Loop
+            End If
+
             If MSG_Question(Me, "품번 전환을 하시겠습니까?") = False Then Exit Sub
 
-            Dim dbResult As Boolean = DB_Write()
+                Dim dbResult As Boolean = DB_Write()
 
-            If dbResult = True Then
-                Material_PrintLabel(TB_AfterItemCode.Text,
+                If dbResult = True Then
+                    Material_PrintLabel(TB_AfterItemCode.Text,
                                     TB_PartNo.Text,
                                     TB_LotNo.Text,
                                     TB_AfterQty.Text,
@@ -249,12 +268,45 @@ Public Class frm_CodeChange
                                     False,
                                     String.Empty,
                                     0)
-                MSG_Information(Me, "저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.")
-                Me.Dispose()
+                    MSG_Information(Me, "저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.")
+                    Me.Dispose()
+                End If
             End If
-        End If
 
     End Sub
+
+    Private Function Exist_PartCheck(ByVal lotNo As String) As Integer
+
+        Dim partsCount As Integer = 0
+        If lotNo.Equals(String.Empty) Then
+            lotNo = TB_LotNo.Text
+        End If
+
+        If DBConnect() = False Then
+            Return 9999
+            Exit Function
+        End If
+
+        Dim strSQL As String = "SELECT COUNT(*) AS exist_part"
+        strSQL += " FROM tb_mms_material_warehousing"
+        strSQL += " WHERE customer_code = '" & TB_CustomerCode.Text & "'"
+        strSQL += " AND part_code = '" & TB_AfterItemCode.Text & "'"
+        strSQL += " AND part_no = '" & TB_PartNo.Text & "'"
+        strSQL += " AND part_lot_no = '" & lotNo & "'"
+
+        Dim sqlCmd As New MySqlCommand(strSQL, dbConnection1)
+        Dim sqlDR As MySqlDataReader = sqlCmd.ExecuteReader
+
+        Do While sqlDR.Read
+            partsCount = sqlDR("exist_part")
+        Loop
+        sqlDR.Close()
+
+        DBClose()
+
+        Return partsCount
+
+    End Function
 
     Private Function DB_Write() As Boolean
 

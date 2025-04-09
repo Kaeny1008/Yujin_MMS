@@ -1,7 +1,6 @@
 ﻿Imports C1.Win.C1FlexGrid
 Imports MySql.Data.MySqlClient
 
-
 Public Class frm_Material_Transfer
 
     Dim mwNo As String
@@ -554,7 +553,6 @@ Public Class frm_Material_Transfer
             strSQL += " where tn_no = '" & TB_TN_No.Text & "';"
 
             For i = 1 To Grid_History.Rows.Count - 1
-
                 strSQL += "insert into tb_mms_material_transfer_out_content("
                 strSQL += "mw_no, tn_no, part_status, tn_note, part_qty, write_date, write_id, part_code"
                 strSQL += ") values("
@@ -878,7 +876,7 @@ Public Class frm_Material_Transfer
         End If
 
         If CB_PartsSplit.Checked = True Then
-            If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
+            If (Math.Abs(CDbl(TB_1stQty.Text)) + Math.Abs(CDbl(TB_2ndQty.Text))) > CDbl(TB_Qty.Text) Then
                 MSG_Error(Me, "출고+보관 수량이 입고 수량보다 큽니다.")
                 Exit Sub
             End If
@@ -1124,6 +1122,14 @@ Public Class frm_Material_Transfer
     Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
 
         registryEdit.WriteRegKey("Software\Yujin\MMS\Material FIFO", "Date", NumericUpDown1.Value)
+
+    End Sub
+
+    Private Sub RadioButton6_CheckedChanged(sender As Object, e As EventArgs) Handles RadioButton6.CheckedChanged
+
+        If RadioButton6.Checked = True Then
+            MSG_Information(Me, "출고사유를 비고란에 입력하여 주십시오.")
+        End If
 
     End Sub
 End Class

@@ -864,13 +864,13 @@ Module md_ETC
 
             Application.DoEvents()
 
-                If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                    Return True
-                Else
-                    Return False
-                End If
-                If lodingForm = True Then Thread_LoadingFormStart(frm)
+            If MessageBox.Show(frm, questionString, msg_form, MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
+                Return True
+            Else
+                Return False
             End If
+            If lodingForm = True Then Thread_LoadingFormStart(frm)
+        End If
 
     End Function
 End Module

@@ -183,18 +183,18 @@ Public Class frm_SMD_Magazine_Kitting
             workingEnd = True
         End If
 
-        If workingEnd = True Then
-            If Material_Use_Cal_Check() = False Then
-                Dim errorPartNo As String = Material_Use_Update()
-                If Not errorPartNo = String.Empty Then
-                    MSG_Exclamation(Me,
-                                    "Part No. : " & errorPartNo & "의" & vbCrLf &
-                                    "자재 투입이력이 부족합니다." & vbCrLf &
-                                    "SMD Operator에게 보고하십시오.")
-                    Exit Sub
-                End If
-            End If
-        End If
+        'If workingEnd = True Then
+        '    If Material_Use_Cal_Check() = False Then
+        '        Dim errorPartNo As String = Material_Use_Update()
+        '        If Not errorPartNo = String.Empty Then
+        '            MSG_Exclamation(Me,
+        '                            "Part No. : " & errorPartNo & "의" & vbCrLf &
+        '                            "자재 투입이력이 부족합니다." & vbCrLf &
+        '                            "SMD Operator에게 보고하십시오.")
+        '            Exit Sub
+        '        End If
+        '    End If
+        'End If
 
         If MessageBox.Show(Me,
                            "생산내역을 등록 하시겠습니까?",
