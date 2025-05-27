@@ -797,6 +797,7 @@
     <Compile Include="Module\md_FTP.vb" />
     <Compile Include="Module\md_LabelPrinter.vb" />
     <Compile Include="Module\md_MDB_Connection.vb" />
+    <Compile Include="Module\md_MSSQL_Connection.vb" />
     <Compile Include="Module\md_NumberConvert.vb" />
     <Compile Include="Module\md_PHP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />

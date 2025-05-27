@@ -977,6 +977,12 @@ Public Class frm_Material_Warehousing_With_Label
                 'If Not vendorList.Count = 0 Then
                 '    CB_Vendor.SelectedIndex = 0
                 'End If
+                'SMD자재일 경우 복사 금지
+                'If sqlDR("part_type").ToString.ToUpper.Equals("SMD") Then
+                '    TextBox1.Enabled = False
+                'Else
+                '    TextBox1.Enabled = True
+                'End If
             Loop
             sqlDR.Close()
 

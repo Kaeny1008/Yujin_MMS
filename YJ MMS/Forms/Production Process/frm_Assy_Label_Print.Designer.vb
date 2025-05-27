@@ -163,6 +163,13 @@ Partial Class frm_Assy_Label_Print
         Me.Grid_NonePO_LabelList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.TS_MainBar = New System.Windows.Forms.ToolStrip()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.CheckBox6 = New System.Windows.Forms.CheckBox()
+        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label58 = New System.Windows.Forms.Label()
         CType(Me.C1DockingTab1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.C1DockingTab1.SuspendLayout()
         Me.C1DockingTabPage1.SuspendLayout()
@@ -188,6 +195,7 @@ Partial Class frm_Assy_Label_Print
         Me.Panel5.SuspendLayout()
         CType(Me.Grid_NonePO_LabelList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TS_MainBar.SuspendLayout()
+        Me.Panel7.SuspendLayout()
         Me.SuspendLayout()
         '
         'C1DockingTab1
@@ -975,6 +983,7 @@ Partial Class frm_Assy_Label_Print
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Label58)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TextBox6)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label40)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TB_Reprint_ModelCode)
@@ -1449,6 +1458,7 @@ Partial Class frm_Assy_Label_Print
         '
         'SplitContainer2.Panel1
         '
+        Me.SplitContainer2.Panel1.Controls.Add(Me.Panel7)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Panel5)
         Me.SplitContainer2.Panel1.Controls.Add(Me.Label46)
         Me.SplitContainer2.Panel1.Controls.Add(Me.TextBox5)
@@ -1481,6 +1491,7 @@ Partial Class frm_Assy_Label_Print
         'Panel5
         '
         Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel5.Controls.Add(Me.Label57)
         Me.Panel5.Controls.Add(Me.CheckBox3)
         Me.Panel5.Controls.Add(Me.CheckBox4)
         Me.Panel5.Controls.Add(Me.TB_NonePO_Label_FPGA)
@@ -1874,6 +1885,78 @@ Partial Class frm_Assy_Label_Print
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
+        'Panel7
+        '
+        Me.Panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
+        Me.Panel7.Controls.Add(Me.Label55)
+        Me.Panel7.Controls.Add(Me.CheckBox6)
+        Me.Panel7.Controls.Add(Me.TextBox9)
+        Me.Panel7.Controls.Add(Me.Label56)
+        Me.Panel7.Location = New System.Drawing.Point(11, 521)
+        Me.Panel7.Name = "Panel7"
+        Me.Panel7.Size = New System.Drawing.Size(420, 87)
+        Me.Panel7.TabIndex = 27
+        '
+        'Label55
+        '
+        Me.Label55.AutoSize = True
+        Me.Label55.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label55.Location = New System.Drawing.Point(16, 10)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(131, 12)
+        Me.Label55.TabIndex = 11
+        Me.Label55.Text = "( 12 x 8 mm Label)"
+        '
+        'CheckBox6
+        '
+        Me.CheckBox6.AutoSize = True
+        Me.CheckBox6.Enabled = False
+        Me.CheckBox6.Location = New System.Drawing.Point(18, 33)
+        Me.CheckBox6.Name = "CheckBox6"
+        Me.CheckBox6.Size = New System.Drawing.Size(149, 20)
+        Me.CheckBox6.TabIndex = 3
+        Me.CheckBox6.Text = "Ass'y Label 발행"
+        Me.CheckBox6.UseVisualStyleBackColor = True
+        '
+        'TextBox9
+        '
+        Me.TextBox9.Enabled = False
+        Me.TextBox9.Location = New System.Drawing.Point(158, 52)
+        Me.TextBox9.Name = "TextBox9"
+        Me.TextBox9.Size = New System.Drawing.Size(246, 26)
+        Me.TextBox9.TabIndex = 5
+        '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.Location = New System.Drawing.Point(36, 56)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(69, 16)
+        Me.Label56.TabIndex = 4
+        Me.Label56.Text = "- 품목명"
+        '
+        'Label57
+        '
+        Me.Label57.AutoSize = True
+        Me.Label57.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label57.Location = New System.Drawing.Point(16, 7)
+        Me.Label57.Name = "Label57"
+        Me.Label57.Size = New System.Drawing.Size(131, 12)
+        Me.Label57.TabIndex = 11
+        Me.Label57.Text = "( 20 x 8 mm Label)"
+        '
+        'Label58
+        '
+        Me.Label58.BackColor = System.Drawing.Color.Yellow
+        Me.Label58.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
+        Me.Label58.ForeColor = System.Drawing.Color.Red
+        Me.Label58.Location = New System.Drawing.Point(11, 305)
+        Me.Label58.Name = "Label58"
+        Me.Label58.Size = New System.Drawing.Size(240, 34)
+        Me.Label58.TabIndex = 24
+        Me.Label58.Text = "발주외 라벨발행은 재발행 불가"
+        Me.Label58.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frm_Assy_Label_Print
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
@@ -1918,6 +2001,8 @@ Partial Class frm_Assy_Label_Print
         CType(Me.Grid_NonePO_LabelList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TS_MainBar.ResumeLayout(False)
         Me.TS_MainBar.PerformLayout()
+        Me.Panel7.ResumeLayout(False)
+        Me.Panel7.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2063,4 +2148,11 @@ Partial Class frm_Assy_Label_Print
     Friend WithEvents TextBox8 As TextBox
     Friend WithEvents Label53 As Label
     Friend WithEvents Label52 As Label
+    Friend WithEvents Panel7 As Panel
+    Friend WithEvents Label55 As Label
+    Friend WithEvents CheckBox6 As CheckBox
+    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents Label56 As Label
+    Friend WithEvents Label57 As Label
+    Friend WithEvents Label58 As Label
 End Class

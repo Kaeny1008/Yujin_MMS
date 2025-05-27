@@ -48,6 +48,7 @@ Partial Class frm_DeviceData
         Me.BTN_SM_Feeder2 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
         Me.Form_CLose = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_New_Hanwha = New System.Windows.Forms.ToolStripButton()
         Me.CMS_gridMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.BTN_newLine = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_deleteLine = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,7 +58,7 @@ Partial Class frm_DeviceData
         Me.BTN_Save = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_DataPrint = New System.Windows.Forms.ToolStripMenuItem()
-        Me.BTN_New_Hanwha = New System.Windows.Forms.ToolStripButton()
+        Me.BTN_T_OLP_DN = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -79,6 +80,7 @@ Partial Class frm_DeviceData
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.Color.LightSteelBlue
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label5)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.BTN_T_OLP_DN)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label4)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Cb_FactoryName)
         Me.SplitContainer1.Panel1.Controls.Add(Me.Label3)
@@ -343,6 +345,14 @@ Partial Class frm_DeviceData
         Me.Form_CLose.Size = New System.Drawing.Size(23, 22)
         Me.Form_CLose.Text = "폼 닫기"
         '
+        'BTN_New_Hanwha
+        '
+        Me.BTN_New_Hanwha.Image = CType(resources.GetObject("BTN_New_Hanwha.Image"), System.Drawing.Image)
+        Me.BTN_New_Hanwha.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.BTN_New_Hanwha.Name = "BTN_New_Hanwha"
+        Me.BTN_New_Hanwha.Size = New System.Drawing.Size(223, 22)
+        Me.BTN_New_Hanwha.Text = "SAMSUNG(HANWHA) 일괄불러오기"
+        '
         'CMS_gridMenu
         '
         Me.CMS_gridMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_newLine, Me.BTN_deleteLine, Me.BTN_deleteMachine, Me.BTN_AllDelete, Me.ToolStripSeparator1, Me.BTN_Save, Me.ToolStripSeparator2, Me.BTN_DataPrint})
@@ -398,13 +408,15 @@ Partial Class frm_DeviceData
         Me.BTN_DataPrint.Size = New System.Drawing.Size(196, 22)
         Me.BTN_DataPrint.Text = "DeviceData 출력"
         '
-        'BTN_New_Hanwha
+        'BTN_T_OLP_DN
         '
-        Me.BTN_New_Hanwha.Image = CType(resources.GetObject("BTN_New_Hanwha.Image"), System.Drawing.Image)
-        Me.BTN_New_Hanwha.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.BTN_New_Hanwha.Name = "BTN_New_Hanwha"
-        Me.BTN_New_Hanwha.Size = New System.Drawing.Size(223, 22)
-        Me.BTN_New_Hanwha.Text = "SAMSUNG(HANWHA) 일괄불러오기"
+        Me.BTN_T_OLP_DN.Enabled = False
+        Me.BTN_T_OLP_DN.Location = New System.Drawing.Point(923, 33)
+        Me.BTN_T_OLP_DN.Name = "BTN_T_OLP_DN"
+        Me.BTN_T_OLP_DN.Size = New System.Drawing.Size(141, 23)
+        Me.BTN_T_OLP_DN.TabIndex = 35
+        Me.BTN_T_OLP_DN.Text = "T-OLP 불러오기"
+        Me.BTN_T_OLP_DN.UseVisualStyleBackColor = True
         '
         'frm_DeviceData
         '
@@ -463,4 +475,5 @@ Partial Class frm_DeviceData
     Friend WithEvents BTN_deleteMachine As ToolStripMenuItem
     Friend WithEvents BTN_AllDelete As ToolStripMenuItem
     Friend WithEvents BTN_New_Hanwha As ToolStripButton
+    Friend WithEvents BTN_T_OLP_DN As Button
 End Class

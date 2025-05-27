@@ -55,6 +55,7 @@ Partial Class frm_Material_Return_Register
         Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.TB_InDate = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.Grid_History, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -306,6 +307,7 @@ Partial Class frm_Material_Return_Register
         'TB_ReturnQty
         '
         Me.TB_ReturnQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_ReturnQty.Enabled = False
         Me.TB_ReturnQty.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.TB_ReturnQty.Location = New System.Drawing.Point(483, 118)
         Me.TB_ReturnQty.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
@@ -315,7 +317,7 @@ Partial Class frm_Material_Return_Register
         '
         'Label11
         '
-        Me.Label11.BackColor = System.Drawing.Color.CadetBlue
+        Me.Label11.BackColor = System.Drawing.Color.SteelBlue
         Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.White
@@ -386,7 +388,7 @@ Partial Class frm_Material_Return_Register
         '
         Me.BTN_Grid_Add.Image = Global.YJ_MMS.My.Resources.Resources.arrow_down
         Me.BTN_Grid_Add.ImageAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.BTN_Grid_Add.Location = New System.Drawing.Point(407, 176)
+        Me.BTN_Grid_Add.Location = New System.Drawing.Point(409, 196)
         Me.BTN_Grid_Add.Name = "BTN_Grid_Add"
         Me.BTN_Grid_Add.Size = New System.Drawing.Size(96, 53)
         Me.BTN_Grid_Add.TabIndex = 31
@@ -439,12 +441,22 @@ Partial Class frm_Material_Return_Register
         Me.Label15.Text = "입고일자"
         Me.Label15.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(405, 173)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(347, 12)
+        Me.Label19.TabIndex = 36
+        Me.Label19.Text = "- 전체수량 반출이 아닐 경우 자재분할 부터 먼저 진행하십시오."
+        '
         'frm_Material_Return_Register
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(786, 599)
+        Me.Controls.Add(Me.Label19)
         Me.Controls.Add(Me.TB_InDate)
         Me.Controls.Add(Me.Label15)
         Me.Controls.Add(Me.TextBox1)
@@ -515,4 +527,5 @@ Partial Class frm_Material_Return_Register
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents TB_InDate As TextBox
     Friend WithEvents Label15 As Label
+    Friend WithEvents Label19 As Label
 End Class

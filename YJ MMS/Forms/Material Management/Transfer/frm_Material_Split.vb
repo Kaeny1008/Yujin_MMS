@@ -296,7 +296,7 @@ Public Class frm_Material_Split
 
     Private Sub TB_2ndQty_KeyDown(sender As Object, e As KeyEventArgs) Handles TB_2ndQty.KeyDown
 
-        If Not TB_2ndQty.Text = String.Empty And Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
+        If Not TB_1stQty.Text = String.Empty And Not TB_2ndQty.Text = String.Empty And e.KeyCode = 13 Then
             If (CDbl(TB_1stQty.Text) + CDbl(TB_2ndQty.Text)) > CDbl(TB_Qty.Text) Then
                 MSG_Error(Me, "출고+보관 수량이 입고 수량보다 큽니다.")
                 Exit Sub

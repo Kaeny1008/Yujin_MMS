@@ -44,6 +44,7 @@ Partial Class frm_CodeChange
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TB_Vendor = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.TB_Reason = New System.Windows.Forms.TextBox()
         Me.TB_AfterSpec = New System.Windows.Forms.TextBox()
@@ -155,6 +156,7 @@ Partial Class frm_CodeChange
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.Color.AntiqueWhite
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Label19)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Label16)
         Me.SplitContainer1.Panel2.Controls.Add(Me.TB_Reason)
         Me.SplitContainer1.Panel2.Controls.Add(Me.TB_AfterSpec)
@@ -366,6 +368,15 @@ Partial Class frm_CodeChange
         Me.Label2.Text = "Vendor"
         Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(13, 227)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(371, 12)
+        Me.Label19.TabIndex = 14
+        Me.Label19.Text = "- 전체수량 품번전환이 아닐 경우 자재분할 부터 먼저 진행하십시오."
+        '
         'Label16
         '
         Me.Label16.BackColor = System.Drawing.Color.LightSlateGray
@@ -461,6 +472,7 @@ Partial Class frm_CodeChange
         'TB_AfterQty
         '
         Me.TB_AfterQty.BackColor = System.Drawing.SystemColors.Window
+        Me.TB_AfterQty.Enabled = False
         Me.TB_AfterQty.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.TB_AfterQty.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.TB_AfterQty.Location = New System.Drawing.Point(103, 171)
@@ -471,7 +483,7 @@ Partial Class frm_CodeChange
         '
         'Label13
         '
-        Me.Label13.BackColor = System.Drawing.Color.LightSlateGray
+        Me.Label13.BackColor = System.Drawing.Color.SteelBlue
         Me.Label13.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label13.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label13.ForeColor = System.Drawing.Color.White
@@ -606,4 +618,5 @@ Partial Class frm_CodeChange
     Friend WithEvents Label12 As Label
     Friend WithEvents TB_LastStockSuvey As TextBox
     Friend WithEvents Label18 As Label
+    Friend WithEvents Label19 As Label
 End Class

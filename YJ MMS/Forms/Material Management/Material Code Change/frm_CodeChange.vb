@@ -89,7 +89,7 @@ Public Class frm_CodeChange
                 TB_ItemCode.Text = splitBarcode(0)
                 TB_PartNo.Text = splitBarcode(1)
                 TB_LotNo.Text = splitBarcode(2)
-                TB_Qty.Text = splitBarcode(3)
+                'TB_Qty.Text = splitBarcode(3)
             End If
 
             TB_Barcode.Text = String.Empty
@@ -149,6 +149,8 @@ Public Class frm_CodeChange
         Do While sqlDR.Read
             TB_Vendor.Text = sqlDR("part_vendor")
             TB_WarehousingDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
+            TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
+            TB_AfterQty.Text = TB_Qty.Text
         Loop
         sqlDR.Close()
 
@@ -257,7 +259,7 @@ Public Class frm_CodeChange
                 Dim dbResult As Boolean = DB_Write()
 
                 If dbResult = True Then
-                    Material_PrintLabel(TB_AfterItemCode.Text,
+                Material_PrintLabel(TB_AfterItemCode.Text,
                                     TB_PartNo.Text,
                                     TB_LotNo.Text,
                                     TB_AfterQty.Text,
@@ -268,7 +270,7 @@ Public Class frm_CodeChange
                                     False,
                                     String.Empty,
                                     0)
-                    MSG_Information(Me, "저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.")
+                MSG_Information(Me, "저장완료.(라벨을 확인하여 주십시오.)" & vbCrLf & "창이 닫힙니다.")
                     Me.Dispose()
                 End If
             End If

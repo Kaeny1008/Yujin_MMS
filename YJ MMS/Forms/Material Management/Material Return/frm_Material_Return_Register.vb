@@ -161,7 +161,7 @@ Public Class frm_Material_Return_Register
                 TB_ItemCode.Text = splitBarcode(0)
                 TB_PartNo.Text = splitBarcode(1)
                 TB_LotNo.Text = splitBarcode(2)
-                TB_Qty.Text = splitBarcode(3)
+                'TB_Qty.Text = splitBarcode(3)
             End If
 
             TB_Barcode.Text = String.Empty
@@ -199,6 +199,8 @@ Public Class frm_Material_Return_Register
             TextBox1.Text = sqlDR("split_count")
             TB_InDate.Text = Format(sqlDR("write_date"), "yyyy-MM-dd HH:mm:ss")
             mwNo = sqlDR("mw_no")
+            TB_Qty.Text = Format(sqlDR("part_qty"), "#,##0")
+            TB_ReturnQty.Text = TB_Qty.Text
         Loop
         sqlDR.Close()
 
@@ -215,7 +217,7 @@ Public Class frm_Material_Return_Register
             Exit Sub
         End If
 
-        If MSG_Question(Me, "반출 등록을 하시겠습니까?") = False Then Exit Sub
+        If MSG_Question(Me, "반출 등록을 하시겠습니까?" & vbCrLf & "반출 수량을 확인 하십시오.") = False Then Exit Sub
 
         TempCode_Making()
         Dim dbResult As Boolean = DB_Write()

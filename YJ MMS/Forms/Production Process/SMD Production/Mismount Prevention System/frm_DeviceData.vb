@@ -1,4 +1,5 @@
-﻿Imports System.Xml
+﻿Imports System.Data.SqlClient
+Imports System.Xml
 Imports C1.Win.C1FlexGrid
 Imports CrystalDecisions.CrystalReports.Engine
 Imports MySql.Data.MySqlClient
@@ -1580,6 +1581,8 @@ Public Class frm_DeviceData
 
         DBClose()
 
+        Dim oldRowNum As Integer = Grid_DeviceData.Rows.Count - 1
+
         Grid_DeviceData.Redraw = False
         Grid_DeviceData.Rows.Count = 1
 
@@ -1604,10 +1607,20 @@ Public Class frm_DeviceData
         Grid_DeviceData.AutoSizeRows(1, 0, Grid_DeviceData.Rows.Count - 1, Grid_DeviceData.Cols.Count - 1, 0, AutoSizeFlags.None)
         Grid_DeviceData.Redraw = True
 
+        Dim newRowNum As Integer = Grid_DeviceData.Rows.Count - 1
+
+        If Not oldRowNum = newRowNum Then
+            Thread_LoadingFormEnd()
+            MSG_Exclamation(Me,
+                            "주의" & vbCrLf & vbCrLf &
+                            "기존 Parts와 신규 Parts의 수량이 다릅니다." & vbCrLf &
+                            "기존 Parts 수 : " & Format(oldRowNum, "#,##0") & vbCrLf &
+                            "신규 Parts 수 : " & Format(newRowNum, "#,##0"))
+        End If
+
         Thread_LoadingFormEnd()
 
-        If MSG_Question(Me, "불러오기를 완료 하였습니다." &
-                        vbCrLf &
+        If MSG_Question(Me, "불러오기를 완료 하였습니다." & vbCrLf &
                         "해당 폴더를 삭제 하시겠습니까?" &
                         vbCrLf &
                         vbCrLf &
@@ -1728,5 +1741,137 @@ Public Class frm_DeviceData
         Return machine_no
 
     End Function
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles BTN_T_OLP_DN.Click
+
+        If writeReady = False Then
+            MsgBox("조회된 내용이 없습니다." & vbCrLf & "목록 선택 후 조회를 먼저 실행 하십시오.", MsgBoxStyle.Information, form_Msgbox_String)
+            Exit Sub
+        End If
+
+        If MSG_Question(Me, "저장된 내용을 삭제 후 피더리스트를 불러 옵니다." & vbCrLf & "계속 하시겠습니까?") = False Then Exit Sub
+
+        'If DBConnect() = False Then Exit Sub
+
+        'Thread_LoadingFormStart(Me)
+
+        'Dim sqlTran As MySqlTransaction
+        'Dim sqlCmd As MySqlCommand
+        'Dim strSQL As String = String.Empty
+
+        'sqlTran = dbConnection1.BeginTransaction
+
+        'Try
+        '    For i = 1 To Grid_DeviceData.Rows.Count - 1
+        '        strSQL += "delete from tb_mmps_device_data"
+        '        strSQL += " where dd_code = '" & Grid_DeviceData(i, 1) & "';"
+        '    Next
+
+        '    If Not strSQL = String.Empty Then
+        '        sqlCmd = New MySqlCommand(strSQL, dbConnection1)
+        '        sqlCmd.Transaction = sqlTran
+        '        sqlCmd.ExecuteNonQuery()
+
+        '        sqlTran.Commit()
+        '    End If
+        'Catch ex As MySqlException
+        '    sqlTran.Rollback()
+        '    MsgBox(ex.Message, MsgBoxStyle.Critical, form_Msgbox_String)
+        '    Exit Sub
+        'End Try
+
+        'DBClose()
+
+        Dim oldRowNum As Integer = Grid_DeviceData.Rows.Count - 1
+
+        Grid_DeviceData.Redraw = False
+        Grid_DeviceData.Rows.Count = 1
+
+        DBConnect_MSSQL()
+
+        Dim strSQL2 As String = "EXEC load_FeederList"
+        strSQL2 += " '" & Cb_modelName.Text & "'"
+        strSQL2 += ", '" & Cb_workSide.Text.Substring(0, 3).ToUpper & "'"
+        strSQL2 += " ,'" & Cb_workLine.Text & "'"
+
+        Dim sqlCmd2 As New SqlCommand(strSQL2, dbConnection_MSSQL)
+        Dim sqlDR As SqlDataReader = sqlCmd2.ExecuteReader
+
+        Dim addMachineNo As Integer = 0
+
+        Do While sqlDR.Read
+            Dim nowReelType As String = sqlDR("ReelType")
+            Dim nowPartName As String = sqlDR("PartName")
+            Dim nowPartDesc As String = sqlDR("PartDesc")
+            Dim nowPlaceCount As Integer = sqlDR("PlaceCount")
+            Dim eqpNm() As String = sqlDR("EqpNm").ToString.Split("_")
+            Dim eqpNo As Integer = CInt(eqpNm(0).Replace("M", String.Empty))
+            Dim machineName As String = eqpNm(1)
+            Dim eqpFeeder() As String = sqlDR("Slot").ToString.Split("-")
+            Dim eqpSide As String = eqpFeeder(0)
+            Dim eqpSlot As Integer = CInt(eqpFeeder(1))
+
+            '############ 여기서 부터 막힌다.
+            If Not (machineName.Equals("HM520W")) Then
+                If (eqpSide = "1F") Then
+                    eqpNo = (eqpNo * 2) - 1
+                ElseIf (eqpSide = "1R") Then
+                    eqpNo = (eqpNo * 2)
+                End If
+            Else
+                If (eqpSide = "1F") Then
+                    eqpNo = (eqpNo * 2) - 1
+                ElseIf (eqpSide = "1R") Then
+                    eqpNo = (eqpNo * 2)
+                ElseIf (eqpSide = "2F") Then
+                    eqpNo = (eqpNo * 2) + 1
+                ElseIf (eqpSide = "2R") Then
+                    eqpNo = (eqpNo * 2) + 2
+                End If
+            End If
+            '############ 여기까지
+
+            If (nowReelType.Equals("Tray") Or nowReelType.Equals("Stick")) Then
+                eqpSlot += 100
+            End If
+
+            Dim partInfo As String = loadMakerSpec(nowPartName)
+
+            Dim insert_string As String = "N" & vbTab &
+                DeviceDataCode() & vbTab &
+                eqpNo & vbTab &
+                eqpSlot & vbTab &
+                partInfo.Split("@")(0) & vbTab &
+                nowPartName & vbTab &
+                partInfo.Split("@")(1) & vbTab &
+                String.Empty & vbTab &
+                String.Empty & vbTab &
+                String.Empty
+            Grid_DeviceData.AddItem(insert_string)
+            Grid_DeviceData.Rows(Grid_DeviceData.Rows.Count - 1).StyleNew.ForeColor = Color.Blue
+        Loop
+        sqlDR.Close()
+
+        DBClose_MSSQL()
+
+        Grid_DeviceData.AutoSizeCols()
+        Grid_DeviceData.AutoSizeRows(1, 0, Grid_DeviceData.Rows.Count - 1, Grid_DeviceData.Cols.Count - 1, 0, AutoSizeFlags.None)
+        Grid_DeviceData.Redraw = True
+
+        Dim newRowNum As Integer = Grid_DeviceData.Rows.Count - 1
+
+        If Not oldRowNum = newRowNum Then
+            MSG_Exclamation(Me,
+                            "주의" & vbCrLf & vbCrLf &
+                            "기존 Parts와 신규 Parts의 수량이 다릅니다." & vbCrLf &
+                            "기존 Parts 수 : " & Format(oldRowNum, "#,##0") & vbCrLf &
+                            "신규 Parts 수 : " & Format(newRowNum, "#,##0"))
+        End If
+
+        Thread_LoadingFormEnd()
+
+        MSG_Information(Me, "불러오기를 완료 하였습니다.")
+
+    End Sub
 End Class
 

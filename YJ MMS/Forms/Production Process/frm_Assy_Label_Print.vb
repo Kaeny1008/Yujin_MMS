@@ -1651,6 +1651,7 @@ Public Class frm_Assy_Label_Print
         TB_NonePO_Label_ItemName.Text = String.Empty
         CheckBox3.Checked = False
         CheckBox4.Checked = False
+        CheckBox6.Checked = False
 
         Grid_NonePO_LabelList.Rows.Count = 1
 
@@ -1678,7 +1679,9 @@ Public Class frm_Assy_Label_Print
         End If
 
         Load_NonePO_Label_Information()
-        If CheckBox3.Checked = False And CheckBox4.Checked = False Then
+        If CheckBox3.Checked = False And
+            CheckBox4.Checked = False And
+            CheckBox6.Checked = False Then
             MSG_Information(Me, "라벨 발행 정보가 없습니다.")
             NonePO_Control_Initialize()
             TB_NonePO_ItemCode.SelectAll()
@@ -1761,6 +1764,10 @@ Public Class frm_Assy_Label_Print
                 TB_NonePO_Label_Boot.Text = sqlDR("boot_label")
                 TB_NonePO_Label_FPGA.Text = sqlDR("fpga_label")
             End If
+            If sqlDR("assy_label_use2") = 1 Then
+                CheckBox6.Checked = True
+                TextBox9.Text = TB_NonePO_ItemCode.Text
+            End If
         Loop
         sqlDR.Close()
 
@@ -1821,7 +1828,9 @@ Public Class frm_Assy_Label_Print
             Exit Sub
         End If
 
-        If CheckBox4.Checked = False And CheckBox3.Checked = False Then
+        If CheckBox4.Checked = False And
+            CheckBox3.Checked = False And
+            CheckBox6.Checked = False Then
             MSG_Information(Me, "라벨 내용을 선택하여 주십시오." & vbCrLf & "A'ssy / Software")
             Exit Sub
         End If
@@ -1834,7 +1843,7 @@ Public Class frm_Assy_Label_Print
 
         If MSG_Question(Me, "라벨을 발행 하시겠습니까?") = False Then Exit Sub
 
-        If CheckBox4.Checked = True Then
+        If CheckBox4.Checked = True Or CheckBox6.Checked = True Then
             Dim wirteResult As String = NonePO_DB_Write()
 
             If Not wirteResult = String.Empty Then
@@ -1843,16 +1852,24 @@ Public Class frm_Assy_Label_Print
             End If
         End If
 
-        PrintLabel(TB_NonePO_Label_ItemName.Text,
-                   TB_NonePO_ItemCode.Text,
-                   CInt(TextBox5.Text),
-                   CInt(TB_NonePO_PrintQty.Text),
-                   CheckBox4.Checked,
-                   CheckBox3.Checked,
-                   TB_NonePO_Label_FW.Text,
-                   TB_NonePO_Label_Boot.Text,
-                   TB_NonePO_Label_FPGA.Text,
-                   Now)
+        If CheckBox4.Checked = True Or CheckBox3.Checked = True Then
+            PrintLabel(TB_NonePO_Label_ItemName.Text,
+                       TB_NonePO_ItemCode.Text,
+                       CInt(TextBox5.Text),
+                       CInt(TB_NonePO_PrintQty.Text),
+                       CheckBox4.Checked,
+                       CheckBox3.Checked,
+                       TB_NonePO_Label_FW.Text,
+                       TB_NonePO_Label_Boot.Text,
+                       TB_NonePO_Label_FPGA.Text,
+                       Now)
+        ElseIf CheckBox6.Checked = True Then
+            PrintLabel_Mini(TB_NonePO_ItemCode.Text,
+                            CInt(TextBox5.Text),
+                            CInt(TB_NonePO_PrintQty.Text),
+                            Now)
+        End If
+
 
         MSG_Information(Me, "발행 및 저장완료.")
         CB_Reprint.Checked = False
