@@ -19,6 +19,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "YJ MMS V2 Setup", "YJ MMS V
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Message Server", "Message Server\Message Server.vbproj", "{CEA662B0-15A6-4E54-A544-2C2F73D1B000}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARIAEngine", "ARIAEngine\ARIAEngine.csproj", "{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,14 @@ Global
 		{CEA662B0-15A6-4E54-A544-2C2F73D1B000}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEA662B0-15A6-4E54-A544-2C2F73D1B000}.Release|x86.ActiveCfg = Release|Any CPU
 		{CEA662B0-15A6-4E54-A544-2C2F73D1B000}.Release|x86.Build.0 = Release|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Debug|x86.Build.0 = Debug|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Release|x86.ActiveCfg = Release|Any CPU
+		{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

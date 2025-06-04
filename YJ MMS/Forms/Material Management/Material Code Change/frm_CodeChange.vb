@@ -342,7 +342,7 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_Vendor.Text & "'"
             strSQL += ", '" & TB_PartNo.Text & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
-            strSQL += ", '" & TB_AfterQty.Text & "'"
+            strSQL += ", '" & CInt(TB_AfterQty.Text) & "'"
             strSQL += ", '" & TB_AfterItemCode.Text & "'"
             strSQL += ", '" & TB_Reason.Text & "'"
             strSQL += ", '" & TB_WarehousingDate.Text & "'"
@@ -360,10 +360,10 @@ Public Class frm_CodeChange
             strSQL += ", '" & TB_Vendor.Text & "'"
             strSQL += ", '" & TB_PartNo.Text & "'"
             strSQL += ", '" & TB_LotNo.Text & "'"
-            strSQL += ", '" & TB_AfterQty.Text & "'"
+            strSQL += ", '" & CInt(TB_AfterQty.Text) & "'"
             strSQL += ", '" & TB_WarehousingDate.Text & "'"
             strSQL += ", '" & loginID & "'"
-            strSQL += ", '" & TB_AfterQty.Text & "'"
+            strSQL += ", '" & CInt(TB_AfterQty.Text) & "'"
             strSQL += ");"
 
             'strSQL += "update tb_mms_material_warehousing set available_qty = available_qty - " & CDbl(TB_AfterQty.Text)

@@ -732,4 +732,11 @@ Public Class frm_Main
         frm_Material_Split.Focus()
 
     End Sub
+
+    Private Sub BTN_Encrypt_Decrypt_Click(sender As Object, e As EventArgs) Handles BTN_Encrypt_Decrypt.Click
+
+        If Not frm_Encrypt_Decrypt.Visible Then frm_Encrypt_Decrypt.Show()
+        frm_Encrypt_Decrypt.Focus()
+
+    End Sub
 End Class

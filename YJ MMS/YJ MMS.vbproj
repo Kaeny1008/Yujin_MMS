@@ -68,6 +68,10 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ARIAEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ARIAEngine\bin\Debug\ARIAEngine.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Win.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.C1BarCode.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="C1.Win.C1Command.2, Version=2.0.20173.282, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
@@ -110,6 +114,7 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -238,6 +243,12 @@
       <DependentUpon>frm_Delivery_Register_Check.vb</DependentUpon>
     </Compile>
     <Compile Include="Forms\Delivery Management\Popup\frm_Delivery_Register_Check.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frm_Encrypt_Decrypt.Designer.vb">
+      <DependentUpon>frm_Encrypt_Decrypt.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frm_Encrypt_Decrypt.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frm_LoadingImage.Designer.vb">
@@ -799,12 +810,15 @@
     <Compile Include="Module\md_MDB_Connection.vb" />
     <Compile Include="Module\md_MSSQL_Connection.vb" />
     <Compile Include="Module\md_NumberConvert.vb" />
+    <Compile Include="Module\md_SH256.vb" />
     <Compile Include="Module\md_PHP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
     <Compile Include="Module\md_RawPrinterHelper.vb" />
     <Compile Include="Module\md_Ship_Report_Print.vb" />
     <Compile Include="Module\md_WebClient.vb" />
     <Compile Include="Module\MyPolicy.vb" />
+    <Compile Include="Module\TCrypto.vb" />
+    <Compile Include="Module\THwInfo.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -893,6 +907,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Delivery Management\Popup\frm_Delivery_Register_Check.resx">
       <DependentUpon>frm_Delivery_Register_Check.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frm_Encrypt_Decrypt.resx">
+      <DependentUpon>frm_Encrypt_Decrypt.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_LoadingImage.resx">
       <DependentUpon>frm_LoadingImage.vb</DependentUpon>
@@ -1537,5 +1554,6 @@
     <Content Include="ILLink\ILLink.Descriptors.LibraryBuild.xml" />
     <None Include="Resources\excel21.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

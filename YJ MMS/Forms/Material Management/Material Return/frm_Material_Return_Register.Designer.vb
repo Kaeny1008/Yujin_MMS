@@ -307,7 +307,6 @@ Partial Class frm_Material_Return_Register
         'TB_ReturnQty
         '
         Me.TB_ReturnQty.BackColor = System.Drawing.SystemColors.Window
-        Me.TB_ReturnQty.Enabled = False
         Me.TB_ReturnQty.Font = New System.Drawing.Font("굴림", 9.0!)
         Me.TB_ReturnQty.Location = New System.Drawing.Point(483, 118)
         Me.TB_ReturnQty.Margin = New System.Windows.Forms.Padding(0, 1, 0, 1)
@@ -317,7 +316,7 @@ Partial Class frm_Material_Return_Register
         '
         'Label11
         '
-        Me.Label11.BackColor = System.Drawing.Color.SteelBlue
+        Me.Label11.BackColor = System.Drawing.Color.CadetBlue
         Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Label11.Font = New System.Drawing.Font("굴림", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(129, Byte))
         Me.Label11.ForeColor = System.Drawing.Color.White
