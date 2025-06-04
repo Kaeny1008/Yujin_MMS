@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FBFF1A87-D791-4A6A-BC10-251FE84B6AF7}</ProjectGuid>
+    <ProjectGuid>{4465CFD0-13BE-4BE2-B8DB-A685B9C8B022}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ARIAEngine</RootNamespace>
-    <AssemblyName>ARIAEngine</AssemblyName>
+    <RootNamespace>T_Engine</RootNamespace>
+    <AssemblyName>T-Engine</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,8 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="ARIAEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TCrypto.cs" />
+    <Compile Include="THwInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

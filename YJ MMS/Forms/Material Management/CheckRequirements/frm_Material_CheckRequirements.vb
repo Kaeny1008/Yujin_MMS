@@ -521,10 +521,18 @@ Public Class frm_Material_CheckRequirements
 
     End Sub
 
-    Private Sub BTN_AllCheck_Click(sender As Object, e As EventArgs) Handles BTN_AllCheck.Click
+    Private Sub BTN_AllCheck_Enable_Click(sender As Object, e As EventArgs) Handles BTN_AllCheck_Enable.Click
 
         For i = 1 To Grid_OrderList.Rows.Count - 1
             Grid_OrderList.SetCellCheck(i, 1, CheckEnum.Checked)
+        Next
+
+    End Sub
+
+    Private Sub BTN_AllCheck_Disable_Click(sender As Object, e As EventArgs) Handles BTN_AllCheck_Disable.Click
+
+        For i = 1 To Grid_OrderList.Rows.Count - 1
+            Grid_OrderList.SetCellCheck(i, 1, CheckEnum.Unchecked)
         Next
 
     End Sub

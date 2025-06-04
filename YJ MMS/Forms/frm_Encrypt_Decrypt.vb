@@ -1,9 +1,7 @@
-﻿Imports System.Globalization
-Imports System.IO
-Imports System.Numerics
+﻿Imports System.IO
 Imports System.Security.Cryptography
 Imports System.Text
-'Imports ARIAEngine
+Imports T_Engine
 
 Public Class frm_Encrypt_Decrypt
     Private Sub frm_Encrypt_Decrypt_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -112,13 +110,29 @@ Public Class frm_Encrypt_Decrypt
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
 
+        TextBox5.Text = String.Empty
         GenaraterKey()
 
     End Sub
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
 
-        TextBox5.Text = CheckSWLicense(TextBox5.Text)
+        'TextBox5.Text = CheckSWLicense(TextBox5.Text)
+        Dim serialNo() As String = TextBox5.Text.Split(vbCrLf)
+        Dim newText As String = "Serial Number Checking..." & vbCrLf
+        TextBox5.Text = newText
+        Application.DoEvents()
+        For i = 0 To UBound(serialNo)
+            If serialNo(i).Contains("Serial No.           : ") Then
+                Dim nowSerialNo() As String = serialNo(i).Split(":")
+                If CheckSWLicense(Trim(nowSerialNo(1))) Then
+                    newText += vbCrLf & Trim(nowSerialNo(1)) & "      ... OK"
+                End If
+            End If
+            Application.DoEvents()
+        Next
+
+        TextBox5.Text = newText & vbCrLf & vbCrLf & "Serial number verification completed."
 
     End Sub
 
@@ -137,7 +151,17 @@ Public Class frm_Encrypt_Decrypt
 
         Dim hwinfoMacAddressList As List(Of String) = THwInfo.GetHWInfoMacAddressList()
         Dim hwinfoCpuId As String = THwInfo.GetHWInfoCpuId()
-        TextBox5.Text = TCrypto.GenerateKey(hwinfoMacAddressList(0), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, 1010)
+        For i = 0 To hwinfoMacAddressList.Count - 1
+            If Not TextBox5.Text.Equals(String.Empty) Then
+                TextBox5.Text += vbCrLf
+                TextBox5.Text += vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
+                TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, 1010)
+            Else
+                TextBox5.Text = "1. CPU ID               : " & hwinfoCpuId
+                TextBox5.Text += vbCrLf & vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
+                TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, 1010)
+            End If
+        Next
 
     End Sub
 

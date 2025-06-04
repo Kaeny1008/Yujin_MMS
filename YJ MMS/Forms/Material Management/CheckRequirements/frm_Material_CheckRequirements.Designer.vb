@@ -46,7 +46,8 @@ Partial Class frm_Material_CheckRequirements
         Me.Label17 = New System.Windows.Forms.Label()
         Me.Grid_MaterialList = New C1.Win.C1FlexGrid.C1FlexGrid()
         Me.CMS_Order_Menu = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.BTN_AllCheck = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_AllCheck_Enable = New System.Windows.Forms.ToolStripMenuItem()
+        Me.BTN_AllCheck_Disable = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.BTN_RowAdd = New System.Windows.Forms.ToolStripMenuItem()
         Me.BTN_RowDelete = New System.Windows.Forms.ToolStripMenuItem()
@@ -304,15 +305,21 @@ Partial Class frm_Material_CheckRequirements
         '
         'CMS_Order_Menu
         '
-        Me.CMS_Order_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck, Me.ToolStripSeparator3, Me.BTN_RowAdd, Me.BTN_RowDelete, Me.ToolStripSeparator4, Me.BTN_ManagementNoSelect})
+        Me.CMS_Order_Menu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.BTN_AllCheck_Enable, Me.BTN_AllCheck_Disable, Me.ToolStripSeparator3, Me.BTN_RowAdd, Me.BTN_RowDelete, Me.ToolStripSeparator4, Me.BTN_ManagementNoSelect})
         Me.CMS_Order_Menu.Name = "CMS_Menu"
-        Me.CMS_Order_Menu.Size = New System.Drawing.Size(151, 104)
+        Me.CMS_Order_Menu.Size = New System.Drawing.Size(151, 126)
         '
-        'BTN_AllCheck
+        'BTN_AllCheck_Enable
         '
-        Me.BTN_AllCheck.Name = "BTN_AllCheck"
-        Me.BTN_AllCheck.Size = New System.Drawing.Size(150, 22)
-        Me.BTN_AllCheck.Text = "전체 선택"
+        Me.BTN_AllCheck_Enable.Name = "BTN_AllCheck_Enable"
+        Me.BTN_AllCheck_Enable.Size = New System.Drawing.Size(150, 22)
+        Me.BTN_AllCheck_Enable.Text = "전체 선택"
+        '
+        'BTN_AllCheck_Disable
+        '
+        Me.BTN_AllCheck_Disable.Name = "BTN_AllCheck_Disable"
+        Me.BTN_AllCheck_Disable.Size = New System.Drawing.Size(150, 22)
+        Me.BTN_AllCheck_Disable.Text = "전체 선택해제"
         '
         'ToolStripSeparator3
         '
@@ -403,7 +410,7 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents ToolStripSeparator2 As ToolStripSeparator
     Friend WithEvents BTN_Confirm As ToolStripButton
     Friend WithEvents CMS_Order_Menu As ContextMenuStrip
-    Friend WithEvents BTN_AllCheck As ToolStripMenuItem
+    Friend WithEvents BTN_AllCheck_Enable As ToolStripMenuItem
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents ToolStripSeparator3 As ToolStripSeparator
     Friend WithEvents BTN_RowAdd As ToolStripMenuItem
@@ -412,4 +419,5 @@ Partial Class frm_Material_CheckRequirements
     Friend WithEvents BTN_ManagementNoSelect As ToolStripMenuItem
     Friend WithEvents CMS_GridMenu As ContextMenuStrip
     Friend WithEvents BTN_Use_Information As ToolStripMenuItem
+    Friend WithEvents BTN_AllCheck_Disable As ToolStripMenuItem
 End Class
