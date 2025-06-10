@@ -806,7 +806,6 @@
     <Compile Include="Module\md_MDB_Connection.vb" />
     <Compile Include="Module\md_MSSQL_Connection.vb" />
     <Compile Include="Module\md_NumberConvert.vb" />
-    <Compile Include="Module\md_SH256.vb" />
     <Compile Include="Module\md_PHP.vb" />
     <Compile Include="Module\md_MySQL_Connection.vb" />
     <Compile Include="Module\md_RawPrinterHelper.vb" />

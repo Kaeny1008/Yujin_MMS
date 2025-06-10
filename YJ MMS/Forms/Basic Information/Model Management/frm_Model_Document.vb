@@ -982,6 +982,10 @@ Public Class frm_Model_Document
 
         BTN_NewManagementNo.Visible = False
 
+        CheckBox1.Checked = False
+        CheckBox2.Checked = False
+        CheckBox3.Checked = False
+
         For i = 1 To 7
             Grid_Documents(i, 1) = "등록필요"
             Grid_Documents.Rows(i).StyleNew.ForeColor = Color.Black

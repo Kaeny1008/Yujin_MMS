@@ -63,19 +63,24 @@ Public Class frm_Encrypt_Decrypt
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-        TextBox5.Text = EncryptData(TextBox2.Text, TextBox1.Text)
+        Dim new_Crypt As Cryptography = New Cryptography()
+        TextBox5.Text = new_Crypt.GetEncoding(TextBox2.Text, TextBox1.Text)
 
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
-        TextBox5.Text = DecryptData(TextBox3.Text, TextBox4.Text)
+        Dim new_Crypt As Cryptography = New Cryptography()
+        TextBox5.Text = new_Crypt.GetDecoding(TextBox3.Text, TextBox4.Text)
 
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
 
-        TextBox5.Text = md_SH256.HashedPassword(TextBox1.Text)
+        Dim passwordPolicy As PasswordPolicy = New PasswordPolicy()
+        PasswordPolicy.IsPasswordHashed = True
+        TextBox5.Text = passwordPolicy.HashPassword(TextBox1.Text)
+
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
@@ -110,8 +115,24 @@ Public Class frm_Encrypt_Decrypt
 
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
 
-        TextBox5.Text = String.Empty
         GenaraterKey()
+
+    End Sub
+
+    Private Sub GenaraterKey()
+
+        Dim hwinfoMacAddressList As List(Of String) = THwInfo.GetHWInfoMacAddressList()
+        Dim hwinfoCpuId As String = THwInfo.GetHWInfoCpuId()
+        Dim ui As Integer = 1010
+
+        TextBox5.Text = "PartStation GenaraterKey..."
+        TextBox5.Text += vbCrLf & vbCrLf & "1. CPU ID               : " & hwinfoCpuId
+
+        For i = 0 To hwinfoMacAddressList.Count - 1
+            TextBox5.Text += vbCrLf
+            TextBox5.Text += vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
+            TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, ui)
+        Next
 
     End Sub
 
@@ -146,24 +167,6 @@ Public Class frm_Encrypt_Decrypt
         Return result
 
     End Function
-
-    Private Sub GenaraterKey()
-
-        Dim hwinfoMacAddressList As List(Of String) = THwInfo.GetHWInfoMacAddressList()
-        Dim hwinfoCpuId As String = THwInfo.GetHWInfoCpuId()
-        For i = 0 To hwinfoMacAddressList.Count - 1
-            If Not TextBox5.Text.Equals(String.Empty) Then
-                TextBox5.Text += vbCrLf
-                TextBox5.Text += vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
-                TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, 1010)
-            Else
-                TextBox5.Text = "1. CPU ID               : " & hwinfoCpuId
-                TextBox5.Text += vbCrLf & vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
-                TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, 1010)
-            End If
-        Next
-
-    End Sub
 
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
 
@@ -206,6 +209,68 @@ Public Class frm_Encrypt_Decrypt
         Dim cipher As ARIAEngine = New ARIAEngine(bit)
         cipher.SetKey(Encoding.UTF8.GetBytes(key.Substring(0, 32)))
         Return cipher.SetDec(textToEncrypt)
+
+    End Function
+
+    Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
+
+        GenaraterKey_TMS()
+
+    End Sub
+
+    Private Sub GenaraterKey_TMS()
+
+        Dim hwinfoMacAddressList As List(Of String) = THwInfo_TMS.GeTHwInfo_TMSMacAddressList()
+        Dim hwinfoCpuId As String = THwInfo_TMS.GeTHwInfo_TMSCpuId()
+        Dim ui As Integer = 10111
+
+        TextBox5.Text = "TMS GenaraterKey..."
+        TextBox5.Text += vbCrLf & vbCrLf & "1. CPU ID               : " & hwinfoCpuId
+
+        For i = 0 To hwinfoMacAddressList.Count - 1
+            TextBox5.Text += vbCrLf
+            TextBox5.Text += vbCrLf & "2. MacAddress List : " & String.Format("{0}", hwinfoMacAddressList(i))
+            TextBox5.Text += vbCrLf & "3. Serial No.           : " & TCrypto_TMS.GenerateKey(hwinfoMacAddressList(i), hwinfoCpuId, Format(Now, "yyMMdd"), 240, 1, ui)
+        Next
+
+    End Sub
+
+    Private Sub Button10_Click(sender As Object, e As EventArgs) Handles Button10.Click
+
+        Dim serialNo() As String = TextBox5.Text.Split(vbCrLf)
+        Dim newText As String = "Serial Number Checking..." & vbCrLf
+        TextBox5.Text = newText
+        Application.DoEvents()
+        For i = 0 To UBound(serialNo)
+            If serialNo(i).Contains("Serial No.           : ") Then
+                Dim nowSerialNo() As String = serialNo(i).Split(":")
+                If CheckSWLicense_TMS(Trim(nowSerialNo(1))) Then
+                    newText += vbCrLf & Trim(nowSerialNo(1)) & "      ... OK"
+                Else
+                    newText += vbCrLf & Trim(nowSerialNo(1)) & "      ... NG"
+                End If
+            End If
+            Application.DoEvents()
+        Next
+
+        TextBox5.Text = newText & vbCrLf & vbCrLf & "Serial number verification completed."
+
+    End Sub
+
+    Private Function CheckSWLicense_TMS(ByVal key As String) As Boolean
+
+        Dim result As Boolean = False
+        Dim tpartLicenseInfo As TCrypto_TMS.TMSLicenseInfo = TCrypto_TMS.CheckTMSLicense(key)
+        If tpartLicenseInfo.eCode = TCrypto_TMS.TMSLicenseInfo.Code.OK AndAlso tpartLicenseInfo.bUseTMS Then
+            Console.WriteLine("SmartApp : " + tpartLicenseInfo.bUseSmartApp.ToString)
+            Console.WriteLine("SmartRack : " + tpartLicenseInfo.bUseSmartRack.ToString)
+            Console.WriteLine("SmartStorage : " + tpartLicenseInfo.bUseSmartStorage.ToString)
+            Console.WriteLine("SmartLink : " + tpartLicenseInfo.bUseSmartLink.ToString)
+            Console.WriteLine("SmartGate : " + tpartLicenseInfo.bUseSmartGate.ToString)
+            Console.WriteLine("SmartBarcode : " + tpartLicenseInfo.bUseSmartBarcode.ToString)
+            result = True
+        End If
+        Return result
 
     End Function
 

@@ -364,6 +364,13 @@ Public Class frm_CustomerPartCode
 
             For i = 1 To Grid_PartList.Rows.Count - 1
                 If Grid_PartList(i, 0).ToString = "N" Then
+                    For j = 2 To 7
+                        If Trim(Grid_PartList(i, j).ToString).Equals(String.Empty) Then
+                            Thread_LoadingFormEnd()
+                            MSG_Information(Me, "입력되지 않은 항목이 있습니다.")
+                            Exit Sub
+                        End If
+                    Next
                     strSQL += "insert into tb_mms_customer_part_code("
                     strSQL += "part_maincode, part_code, customer_code, part_type, part_specification"
                     strSQL += ", part_vendor, part_category, unit_price, supplier, part_code_note, write_date, write_id"
@@ -381,6 +388,13 @@ Public Class frm_CustomerPartCode
                     strSQL += ", '" & writeDate & "'"
                     strSQL += ", '" & loginID & "');"
                 ElseIf Grid_PartList(i, 0).ToString = "M" Then
+                    For j = 2 To 7
+                        If Trim(Grid_PartList(i, j).ToString).Equals(String.Empty) Then
+                            Thread_LoadingFormEnd()
+                            MSG_Information(Me, "입력되지 않은 항목이 있습니다.")
+                            Exit Sub
+                        End If
+                    Next
                     strSQL += "update tb_mms_customer_part_code set"
                     strSQL += " part_code = '" & Replace(Grid_PartList(i, 3), "'", "\'") & "'"
                     strSQL += ", part_type = '" & Replace(Grid_PartList(i, 2), "'", "\'") & "'"
